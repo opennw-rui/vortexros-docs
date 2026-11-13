@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MQC 报文标记 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/mqc/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="DHCP 地址池" href="../dhcp/" />
+    <link rel="prev" title="出口限速" href="../qos/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-route/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-group/">路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp-policy/">BGP 入站策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD 故障检测</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">入站 ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/">源 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">出口限速</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MQC 报文标记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcpv6/">DHCPv6 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">发现直连邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-ra/">IPv6 自动配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls-l3vpn/">MPLS L3VPN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+      <li class="breadcrumb-item active">MQC 报文标记</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mqc">
+<span id="mqc-报文标记"></span><h1>MQC 报文标记<a class="headerlink" href="#mqc" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 host-p1a12 192.0.2.81/30 ─── 192.0.2.82/30 host-p2a12 P2
+            出方向标记                         接收侧抓包
+</pre></div>
+</div>
+<p>两端运行 VPP，并使用专用三层测试口。这个例子只按目的 IPv4 地址匹配，将 DSCP 改为 AF11（十进制 10）；不配置限速或丢弃。先确认 P1 的测试口没有其他出方向流量策略。</p>
+</section>
+<section id="p2">
+<span id="配置-p2"></span><h2>配置 P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p2a12
+ ip address 192.0.2.82 255.255.255.252
+ quit
+commit
+</pre></div>
+</div>
+</section>
+<section id="p1">
+<span id="配置-p1"></span><h2>配置 P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<p>先配置地址并确认能 Ping 通 P2，再配置并绑定策略。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p1a12
+ ip address 192.0.2.81 255.255.255.252
+ quit
+commit
+ping -n -c 3 -t 1000 192.0.2.82
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>traffic classifier LAB-DST operator or
+ if-match destination-ip 192.0.2.82/32
+ quit
+traffic behavior LAB-MARK
+ remark dscp 10
+ quit
+traffic policy LAB-POLICY
+ classifier LAB-DST behavior LAB-MARK precedence 10
+ quit
+interface host-p1a12
+ traffic-policy LAB-POLICY outbound
+ quit
+commit
+</pre></div>
+</div>
+<p>匹配条件覆盖从该口发往 192.0.2.82 的 IPv4 报文；ICMP 只是本例的探测流量。其他流量走默认分类，不会被这条规则标记。</p>
+</section>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>在 P1 执行 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">traffic</span> <span class="pre">policy</span> <span class="pre">user-defined</span> <span class="pre">LAB-POLICY</span></code>。实际输出节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  User Defined Traffic Policy Information:
+    Policy: LAB-POLICY
+      Classifier: LAB-DST Precedence: 10
+        Behavior: LAB-MARK
+        Remark:
+          dscp af11(10)
+</pre></div>
+</div>
+<p>在 P2 的 Linux 环境执行下列抓包命令；实验中底层 veth 名为 <code class="docutils literal notranslate"><span class="pre">p2a12</span></code>，生产设备应在实际接收链路上观察。随后从 P1 执行 <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-n</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">-t</span> <span class="pre">1000</span> <span class="pre">192.0.2.82</span></code>。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>tcpdump<span class="w"> </span>-n<span class="w"> </span>-vv<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-i<span class="w"> </span>any<span class="w"> </span><span class="s1">'icmp and dst host 192.0.2.82'</span>
+</pre></div>
+</div>
+<p>实际抓包节选。P1 同时收到 3 个回包：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>p2a12 P   IP (tos 0x28, ttl 64, id 60590, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.0.2.81 &gt; 192.0.2.82: ICMP echo request, id 36772, seq 1, length 64
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">0x28</span> <span class="pre">&gt;&gt;</span> <span class="pre">2</span> <span class="pre">=</span> <span class="pre">10</span></code>。这是接收侧的报文证据；只查看策略显示无法证明实际改写。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在 P1 先解除绑定，再删除仅供此实验使用的对象：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p1a12
+ undo traffic-policy outbound
+ quit
+undo traffic policy LAB-POLICY
+undo traffic behavior LAB-MARK
+undo traffic classifier LAB-DST
+commit
+</pre></div>
+</div>
+<p>重复抓包和探测。实测仍是 3 发 3 收，接收侧同类新报文恢复为 <code class="docutils literal notranslate"><span class="pre">tos</span> <span class="pre">0x0</span></code>。如果地址也为本次实验新建，再分别在两端撤销对应 <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">address</span></code>。</p>
+<p><a class="reference internal" href="../../operator/mqc/"><span class="std std-doc">MQC 配置指南</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../qos/" class="btn btn-neutral float-left" title="出口限速" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../dhcp/" class="btn btn-neutral float-right" title="DHCP 地址池" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

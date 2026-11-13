@@ -2,7 +2,7 @@
 
 配置 IPv4 与 IPv6 地址分配、客户端和中继。系统自身 DNS 解析由 Linux 管理。
 
-[命令参考](reference/dhcp.md) · [配置案例](../examples/dhcp.md)
+[命令参考](reference/dhcp.md) · [配置案例](../examples/dhcpv6.md) · [配置案例](../examples/dhcp.md)
 
 ## IPv4 服务端
 
@@ -146,6 +146,8 @@ display ip pool interface vlanif 20
 默认视图和`used`都只显示仍有效的已分配地址；`all`显示Kea仍保留的全部租约状态，包括已过期或被拒绝的记录。`used`可以放在接口选择器之前或之后，例如`display ip pool used interface vlanif 20 verbose`。不存在`display ip pool use`命令。表格包含地址池或接口、客户端IP、MAC、Client-ID、剩余租期、状态、主机名和VPN实例。租约来自Kea控制Socket的权威运行态，不读取可能正在写入的CSV文件；读取失败会明确报错，不会把观察失败显示为零租约。
 
 `verbose`把租约表切换成逐项详情，因此不必同时指定`used`。每条IPv4租约显示IP、MAC、网关、DNS、地址范围、域名、Client-ID、主机名、VPN实例、Kea服务实例、Subnet ID、状态、最近一次客户端事务时间、到期时间、有效租期和剩余租期。`used verbose`语义相同；`all verbose`还会展开已过期、declined及Kea保留的其他状态。没有由客户端提供的字段明确显示为`-`，不会根据MAC猜测厂商、操作系统或设备型号。
+
+Debug 5 搭配 Kea 3.0.3 时，以下租约查询可能因租约类型字段解码失败而报错。可用 `display dhcpv6 client` 和实际连通性单独验证地址分配，详见[实测案例](../examples/dhcpv6.md#验证)。
 
 DHCPv6服务器使用相同的运行态语义：
 

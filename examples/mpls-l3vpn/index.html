@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MPLS L3VPN &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/mpls-l3vpn/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="命令参考" href="../../operator/reference/commands/" />
+    <link rel="prev" title="VXLAN EVPN" href="../evpn/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-route/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-group/">路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp-policy/">BGP 入站策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD 故障检测</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">入站 ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/">源 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">出口限速</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC 报文标记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcpv6/">DHCPv6 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">发现直连邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-ra/">IPv6 自动配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MPLS L3VPN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+      <li class="breadcrumb-item active">MPLS L3VPN</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mpls-l3vpn">
+<h1>MPLS L3VPN<a class="headerlink" href="#mpls-l3vpn" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 ─── P1 (PE) ─── P2 ─── P3 ─── P4 (PE) ─── CE4
+        1.1.1.1     2.2.2.2  3.3.3.3  4.4.4.4    ← LoopBack0
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>链路</p></th>
+<th class="head"><p>左端</p></th>
+<th class="head"><p>右端</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CE1—P1</p></td>
+<td><p>ce1p1：192.0.2.2/24</p></td>
+<td><p>host-p1ce1：192.0.2.1/24</p></td>
+</tr>
+<tr class="row-odd"><td><p>P1—P2</p></td>
+<td><p>host-p1p2：10.0.12.1/30</p></td>
+<td><p>host-p2p1：10.0.12.2/30</p></td>
+</tr>
+<tr class="row-even"><td><p>P2—P3</p></td>
+<td><p>host-p2p3：10.0.23.1/30</p></td>
+<td><p>host-p3p2：10.0.23.2/30</p></td>
+</tr>
+<tr class="row-odd"><td><p>P3—P4</p></td>
+<td><p>host-p3p4：10.0.34.1/30</p></td>
+<td><p>host-p4p3：10.0.34.2/30</p></td>
+</tr>
+<tr class="row-even"><td><p>P4—CE4</p></td>
+<td><p>host-p4ce4：198.51.100.1/24</p></td>
+<td><p>ce4p4：198.51.100.2/24</p></td>
+</tr>
+</tbody>
+</table>
+<p>四台 VortexROS 都启用 VPP，接口名为隔离实验使用的 AF_PACKET 名称。P2/P3 只运行底层 OSPF 与 LDP。P1/P4 将客户接口放入 CUST-A，并通过 MP-BGP 发布 VPNv4 路由。两端 RD 不同，RT 均为 65000:100。下列 IPv4 配置已在独立拓扑逐行提交并验证。</p>
+</section>
+<section id="id2">
+<span id="配置核心"></span><h2>配置核心<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>按下列命令配置每台设备。先提交 OSPF/LDP，再给 P1/P4 加客户业务。全局 <code class="docutils literal notranslate"><span class="pre">mpls</span></code> 后返回系统视图启用 LDP；接口下分别执行 <code class="docutils literal notranslate"><span class="pre">mpls</span></code> 和 <code class="docutils literal notranslate"><span class="pre">mpls</span> <span class="pre">ldp</span></code>。</p>
+<section id="p1">
+<h3>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+mpls lsr-id 1.1.1.1
+mpls
+quit
+mpls ldp
+interface LoopBack0
+ ip address 1.1.1.1 255.255.255.255
+ quit
+interface host-p1p2
+ ip address 10.0.12.1 255.255.255.252
+ mpls
+ mpls ldp
+ quit
+ospf 1 router-id 1.1.1.1
+ area 0.0.0.0
+  network 1.1.1.1 0.0.0.0 description LSR-ID
+  network 10.0.12.1 0.0.0.0 description Core
+  quit
+ quit
+interface host-p1p2
+ ospf network-type p2p
+ quit
+commit
+</pre></div>
+</div>
+</section>
+<section id="p2">
+<h3>P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+mpls lsr-id 2.2.2.2
+mpls
+quit
+mpls ldp
+interface LoopBack0
+ ip address 2.2.2.2 255.255.255.255
+ quit
+interface host-p2p1
+ ip address 10.0.12.2 255.255.255.252
+ mpls
+ mpls ldp
+ quit
+interface host-p2p3
+ ip address 10.0.23.1 255.255.255.252
+ mpls
+ mpls ldp
+ quit
+ospf 1 router-id 2.2.2.2
+ area 0.0.0.0
+  network 2.2.2.2 0.0.0.0 description LSR-ID
+  network 10.0.12.2 0.0.0.0 description Core
+  network 10.0.23.1 0.0.0.0 description Core
+  quit
+ quit
+interface host-p2p1
+ ospf network-type p2p
+ quit
+interface host-p2p3
+ ospf network-type p2p
+ quit
+commit
+</pre></div>
+</div>
+</section>
+<section id="p3">
+<h3>P3<a class="headerlink" href="#p3" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+mpls lsr-id 3.3.3.3
+mpls
+quit
+mpls ldp
+interface LoopBack0
+ ip address 3.3.3.3 255.255.255.255
+ quit
+interface host-p3p2
+ ip address 10.0.23.2 255.255.255.252
+ mpls
+ mpls ldp
+ quit
+interface host-p3p4
+ ip address 10.0.34.1 255.255.255.252
+ mpls
+ mpls ldp
+ quit
+ospf 1 router-id 3.3.3.3
+ area 0.0.0.0
+  network 3.3.3.3 0.0.0.0 description LSR-ID
+  network 10.0.23.2 0.0.0.0 description Core
+  network 10.0.34.1 0.0.0.0 description Core
+  quit
+ quit
+interface host-p3p2
+ ospf network-type p2p
+ quit
+interface host-p3p4
+ ospf network-type p2p
+ quit
+commit
+</pre></div>
+</div>
+</section>
+<section id="p4">
+<h3>P4<a class="headerlink" href="#p4" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+mpls lsr-id 4.4.4.4
+mpls
+quit
+mpls ldp
+interface LoopBack0
+ ip address 4.4.4.4 255.255.255.255
+ quit
+interface host-p4p3
+ ip address 10.0.34.2 255.255.255.252
+ mpls
+ mpls ldp
+ quit
+ospf 1 router-id 4.4.4.4
+ area 0.0.0.0
+  network 4.4.4.4 0.0.0.0 description LSR-ID
+  network 10.0.34.2 0.0.0.0 description Core
+  quit
+ quit
+interface host-p4p3
+ ospf network-type p2p
+ quit
+commit
+</pre></div>
+</div>
+<p>在 P1 查询到 4.4.4.4/32 的 OSPF 路由并 Ping 对端 LoopBack；在 P4 做反向检查。P2 应有两个 <code class="docutils literal notranslate"><span class="pre">OPERATIONAL</span></code> 的 LDP 邻居。底层不通时先修复核心，添加 VPN 路由不会替代传输标签。</p>
+</section>
+</section>
+<section id="id3">
+<span id="配置客户业务"></span><h2>配置客户业务<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<section id="id4">
+<span id="p1-1"></span><h3>P1<a class="headerlink" href="#id4" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+ip vpn-instance CUST-A
+ ipv4-family
+  route-distinguisher 65000:101
+  vpn-target 65000:100 both
+  quit
+ quit
+interface host-p1ce1
+ ip binding vpn-instance CUST-A
+ ip address 192.0.2.1 255.255.255.0
+ quit
+bgp 65000
+ router-id 1.1.1.1
+ peer 4.4.4.4 as-number 65000
+ peer 4.4.4.4 connect-interface LoopBack0
+ peer 4.4.4.4 timer connect-retry 3
+ ipv4-family unicast
+  undo peer 4.4.4.4 enable
+  quit
+ ipv4-family vpnv4
+  peer 4.4.4.4 enable
+  quit
+ ipv4-family vpn-instance CUST-A
+  import-route direct
+  quit
+ quit
+commit
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<span id="p4-1"></span><h3>P4<a class="headerlink" href="#id5" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+ip vpn-instance CUST-A
+ ipv4-family
+  route-distinguisher 65000:104
+  vpn-target 65000:100 both
+  quit
+ quit
+interface host-p4ce4
+ ip binding vpn-instance CUST-A
+ ip address 198.51.100.1 255.255.255.0
+ quit
+bgp 65000
+ router-id 4.4.4.4
+ peer 1.1.1.1 as-number 65000
+ peer 1.1.1.1 connect-interface LoopBack0
+ peer 1.1.1.1 timer connect-retry 3
+ ipv4-family unicast
+  undo peer 1.1.1.1 enable
+  quit
+ ipv4-family vpnv4
+  peer 1.1.1.1 enable
+  quit
+ ipv4-family vpn-instance CUST-A
+  import-route direct
+  quit
+ quit
+commit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">import-route</span> <span class="pre">direct</span></code> 将 CUST-A 的直连前缀导出给其他 PE。真实部署若只允许指定子网，应加<a class="reference internal" href="../../operator/route-policy/"><span class="std std-doc">路由策略</span></a>。改接口的 VPN 归属会改变其路由表，不能直接用于现有管理口。</p>
+</section>
+<section id="ce1-ce4">
+<span id="ce1-和-ce4"></span><h3>CE1 和 CE4<a class="headerlink" href="#ce1-ce4" title="链接到此标题。"></a></h3>
+<p>在独立的 Linux 实验主机上执行。CE4 把接口改为 <code class="docutils literal notranslate"><span class="pre">ce4p4</span></code>，本地地址为 <code class="docutils literal notranslate"><span class="pre">198.51.100.2/24</span></code>，网关为 <code class="docutils literal notranslate"><span class="pre">198.51.100.1</span></code>。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>ce1p1<span class="w"> </span>up
+sudo<span class="w"> </span>ip<span class="w"> </span>addr<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.0.2.2/24<span class="w"> </span>dev<span class="w"> </span>ce1p1
+sudo<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span>default<span class="w"> </span>via<span class="w"> </span><span class="m">192</span>.0.2.1
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
+<p><strong>P1：</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display mpls ldp peer
+display bgp vpnv4 all routing-table
+display ip routing-table vpn-instance CUST-A
+display ip fib vpn-instance CUST-A
+</pre></div>
+</div>
+<p>实际输出节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Peer ID          Address-Family  Transport Address                State         Uptime
+2.2.2.2          ipv4            2.2.2.2                          OPERATIONAL   00:00:27
+
+Routing Table : CUST-A
+Destination/Mask   Proto   Pre  Cost    Flags   NextHop         Interface       VPN-Instance
+ 198.51.100.0/24   BGP     254  0         DT   4.4.4.4          host-p1p2       default
+
+Destination/Mask      Type      Pre    Weight    Flags    NextHop      Interface     Lookup-Table
+198.51.100.0/24       normal    20     1         -        10.0.12.2    host-p1p2     -
+</pre></div>
+</div>
+<p><strong>P2：</strong> <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">forwarding-table</span></code>，核对已安装的标签动作和出接口。实验中有指向 <code class="docutils literal notranslate"><span class="pre">10.0.23.2</span> <span class="pre">host-p2p3</span></code> 的 MPLS 路径。标签值由协议分配，不要求与样例相同。</p>
+<p><strong>CE1：</strong> <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">198.51.100.2</span></code>；<strong>CE4：</strong> <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">192.0.2.2</span></code>。实测双向各 3 发 3 收；CE1 对核心地址 10.0.23.1 的对照探测不可达。</p>
+</section>
+<section id="id7">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id7" title="链接到此标题。"></a></h2>
+<p>在 P4 先只撤销 IPv4 客户路由发布，保留底层作为对照：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+bgp 65000
+ ipv4-family vpn-instance CUST-A
+  undo import-route direct
+  quit
+ quit
+commit
+</pre></div>
+</div>
+<p>P1 的 CUST-A 路由表实测不再包含 198.51.100.0/24。CE1 到 CE4 变为 3 发 0 收，P1 的 LDP 邻居仍为 <code class="docutils literal notranslate"><span class="pre">OPERATIONAL</span></code>。</p>
+<p>拆除整个实验时，两端都撤销客户路由发布，解除客户接口的地址与 VPN 绑定，删除专用 BGP VPN 地址族引用和 CUST-A。若底层也不再使用，先移除接口 LDP/MPLS，再关闭各台全局 LDP/MPLS。只清理本实验创建的对象。</p>
+<p><a class="reference internal" href="../../operator/l3vpn/"><span class="std std-doc">MPLS L3VPN 指南</span></a> · <a class="reference internal" href="../../operator/ldp/"><span class="std std-doc">MPLS 与 LDP 指南</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../evpn/" class="btn btn-neutral float-left" title="VXLAN EVPN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../operator/reference/commands/" class="btn btn-neutral float-right" title="命令参考" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

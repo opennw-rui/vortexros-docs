@@ -2,6 +2,8 @@
 
 通过 BGP VPN 地址族在 MPLS 核心上传输客户路由。需要先建立 [MPLS 与 LDP](ldp.md) 的底层标签路径。
 
+[配置案例](../examples/mpls-l3vpn.md)
+
 ## 配置
 
 PE 上的 VPN-instance 需要 RD 和导入/导出 VPN-Target，BGP VPN 地址族需要与远端

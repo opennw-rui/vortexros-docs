@@ -2,7 +2,7 @@
 
 使用 RIPng 在 IPv6 网络交换路由。路由使用后端默认优先级 120。
 
-[命令参考](reference/ripng.md)
+[命令参考](reference/ripng.md) · [配置案例](../examples/ripng.md)
 
 ## 配置
 

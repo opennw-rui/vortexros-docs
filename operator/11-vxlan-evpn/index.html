@@ -115,7 +115,7 @@
 MAC/IP、Type-3 Inclusive Multicast、Type-4 Ethernet Segment 与 Type-5 IP Prefix
 路由；LCP 把标准 Linux FDB、邻居和 VRF 路由转换为 VPP VXLAN、L2 FIB、ARP/ND
 终结表、租户 FIB 和多归属转发状态，VPP 完成业务报文转发。</p>
-<p><a class="reference internal" href="../reference/evpn/"><span class="std std-doc">命令参考</span></a></p>
+<p><a class="reference internal" href="../reference/evpn/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/evpn/"><span class="std std-doc">配置案例</span></a></p>
 <section id="id1">
 <span id="组件职责"></span><h2>组件职责<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <table class="docutils align-default">
@@ -163,176 +163,9 @@ VPP 已有的 VXLAN、bridge-domain 和 L2 FIB 也不会复制一套数据面。
 <p>同一 VNI 不能同时配置静态 head-end peer 和 <code class="docutils literal notranslate"><span class="pre">protocol</span> <span class="pre">bgp</span></code>。所有 BGP EVPN VNI 使用
 同一个 NVE 源地址及 underlay VPN-instance；每个 VNI 只能由一个 NVE 接口拥有。</p>
 </section>
-<section id="p1p2p3">
-<span id="p1p2p3-实验"></span><h2>P1–P2–P3 实验<a class="headerlink" href="#p1p2p3" title="链接到此标题。"></a></h2>
-<p>拓扑如下。P2 只提供 underlay 转发，H1 和 H3 位于同一个二层业务网段：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>H1 192.0.2.1/24 -- P1 -- 10.201.12.0/24 -- P2 -- 10.201.23.0/24 -- P3 -- H3 192.0.2.3/24
-                     VTEP 10.255.0.1                         VTEP 10.255.0.3
-                     BD/VLAN 101, VNI 5010, RT 65000:5010
-</pre></div>
-</div>
-<section id="p1">
-<h3>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-sysname P1
-enable switch
-evpn-overlay enable
-vlan 101
-bridge-domain 101
- l2 binding vlan 101
- vxlan vni 5010
- evpn
-  route-distinguisher 65000:101
-  vpn-target 65000:5010 export-extcommunity
-  vpn-target 65000:5010 import-extcommunity
- quit
-quit
-interface Ethernet 1
- ip address 10.201.12.1 255.255.255.0
-quit
-interface Ethernet 2
- portswitch
- port link-type access
- port default vlan 101
-quit
-interface LoopBack 0
- ip address 10.255.0.1 255.255.255.255
-quit
-interface Nve 1
- source 10.255.0.1
- vni 5010 head-end peer-list protocol bgp
-quit
-ip route-static 10.255.0.3 255.255.255.255 10.201.12.2
-bgp 65000
- router-id 10.255.0.1
- peer 10.255.0.3 as-number 65000
- peer 10.255.0.3 connect-interface LoopBack 0
- l2vpn-family evpn
-  peer 10.255.0.3 enable
- quit
-quit
-commit
-</pre></div>
-</div>
-<p>测试脚本中的接口名是 namespace 内的 <code class="docutils literal notranslate"><span class="pre">host-p1e12</span></code> 和 <code class="docutils literal notranslate"><span class="pre">host-p1h1</span></code>；设备部署时替换成
-实际物理接口，其他命令不变。</p>
-</section>
-<section id="p2">
-<h3>P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-sysname P2
-interface Ethernet 1
- ip address 10.201.12.2 255.255.255.0
-quit
-interface Ethernet 2
- ip address 10.201.23.2 255.255.255.0
-quit
-ip route-static 10.255.0.1 255.255.255.255 10.201.12.1
-ip route-static 10.255.0.3 255.255.255.255 10.201.23.3
-commit
-</pre></div>
-</div>
-</section>
-<section id="p3">
-<h3>P3<a class="headerlink" href="#p3" title="链接到此标题。"></a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-sysname P3
-enable switch
-evpn-overlay enable
-vlan 101
-bridge-domain 101
- l2 binding vlan 101
- vxlan vni 5010
- evpn
-  route-distinguisher 65000:301
-  vpn-target 65000:5010 export-extcommunity
-  vpn-target 65000:5010 import-extcommunity
- quit
-quit
-interface Ethernet 1
- ip address 10.201.23.3 255.255.255.0
-quit
-interface Ethernet 2
- portswitch
- port link-type access
- port default vlan 101
-quit
-interface LoopBack 0
- ip address 10.255.0.3 255.255.255.255
-quit
-interface Nve 1
- source 10.255.0.3
- vni 5010 head-end peer-list protocol bgp
-quit
-ip route-static 10.255.0.1 255.255.255.255 10.201.23.2
-bgp 65000
- router-id 10.255.0.3
- peer 10.255.0.1 as-number 65000
- peer 10.255.0.1 connect-interface LoopBack 0
- l2vpn-family evpn
-  peer 10.255.0.1 enable
- quit
-quit
-commit
-</pre></div>
-</div>
-</section>
-</section>
 <section id="id3">
-<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>先确认设备健康、BGP EVPN 路由、bridge-domain 和 MAC 表：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display health
-display bgp evpn all routing-table
-display bgp evpn all routing-table mac-route
-display bgp evpn all routing-table inclusive-route
-display bridge-domain 101
-display mac-address
-</pre></div>
-</div>
-<p>P1 在测试中观察到本地和远端各一条 Type-2 路由：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Route Distinguisher: 65000:101
- *&gt;    0:48:5e09-9049-564f:0:0.0.0.0   10.255.0.1
-
-Route Distinguisher: 65000:301
- *&gt;i   0:48:42bb-a874-99bf:0:0.0.0.0   10.255.0.3
-
-Total Number of MAC Routes: 2
-</pre></div>
-</div>
-<p>Type-3 检查应同时看到两个 VTEP：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Route Distinguisher: 65000:101
- *&gt;    0:32:10.255.0.1   10.255.0.1
-
-Route Distinguisher: 65000:301
- *&gt;i   0:32:10.255.0.3   10.255.0.3
-
-Total Number of Inclusive Routes: 2
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bridge-domain</span> <span class="pre">101</span></code> 应包含本地 access 端口和动态创建的 VXLAN 端口，
-<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mac-address</span></code> 应把本地 MAC 显示为 <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>、远端 MAC 显示为来自远端 VTEP。
-最后从 H1 连续 ping H3；本实验结果为 5 发 5 收、0% 丢包。</p>
-</section>
-<section id="id4">
-<span id="撤销与恢复"></span><h2>撤销与恢复<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
-<p>只撤销一个动态 VNI：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Nve 1
- undo vni 5010 head-end peer-list protocol bgp
-commit
-</pre></div>
-</div>
-<p>提交后，本端撤销 Type-2/Type-3 发布，switchd 删除对应 Linux SVI/VLAN-VNI 映射，
-VortexROS和LCP撤销VPP VNI映射、VXLAN tunnel及远端静态L2 FIB；其他VNI不受影响。
-恢复使用原命令：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Nve 1
- vni 5010 head-end peer-list protocol bgp
-commit
-</pre></div>
-</div>
-<p>恢复后重新执行上述 <code class="docutils literal notranslate"><span class="pre">display</span></code> 和业务 ping。完整自动化验收入口为：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VORTEXROS_P123_STARTUP_PROFILE=evpn tests/run-p1-p2-p3-evpn.sh
-</pre></div>
-</div>
+<span id="二层业务实验"></span><h2>二层业务实验<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>从 <a class="reference internal" href="../../examples/evpn/"><span class="std std-doc">VXLAN EVPN 案例</span></a>配置 P1、P2、P3，核对真实 Type-2/Type-3 路由及两个 VNI 的转发和撤销。</p>
 </section>
 <section id="l3vni-type-5">
 <span id="l3vni-与-type-5"></span><h2>L3VNI 与 Type-5<a class="headerlink" href="#l3vni-type-5" title="链接到此标题。"></a></h2>
@@ -443,8 +276,8 @@ display health
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<span id="当前范围"></span><h2>当前范围<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<section id="id4">
+<span id="当前范围"></span><h2>当前范围<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>当前支持单归属和 All-Active 多归属 L2VNI、L3VNI、Type-1/Type-2/Type-3/
 Type-4/Type-5、IPv4/IPv6 MAC/IP 和租户前缀、ARP/ND 抑制、共享 SVD 多 VNI、
 远端 MAC 迁移、MAC ECMP、DF 选举、非 DF BUM 过滤、local-bias、split-horizon，
