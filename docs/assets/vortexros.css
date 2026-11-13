@@ -66,3 +66,13 @@
   .vros-topology { display: none; }
 }
 @media (max-width: 360px) { .vros-grid { grid-template-columns: 1fr; } }
+
+.md-tabs .md-tabs__link {
+  color: #d8e8f4;
+  opacity: 1;
+}
+.md-tabs .md-tabs__link:hover,
+.md-tabs .md-tabs__link:focus-visible,
+.md-tabs .md-tabs__item--active .md-tabs__link {
+  color: #9ff5e2;
+}
