@@ -1,0 +1,56 @@
+[project]
+site_name = "VortexROS 文档"
+site_description = "VortexROS 安装、配置、运维与 CLI 命令参考"
+site_url = "https://opennw-rui.github.io/vortexros-docs/"
+extra_css = ["assets/vortexros.css"]
+nav = [
+  {"首页" = "index.md"},
+  {"快速入门" = "quickstart.md"},
+  {"安装与升级" = [
+    {"安装手册" = "installation/README.md"},
+    {"部署规划" = "installation/00-planning.md"},
+    {"管理连接" = "installation/01-management-safety.md"},
+    {"后端与依赖" = "installation/02-backends.md"},
+    {"安装 VortexROS" = "installation/03-install-vortexros.md"},
+    {"系统服务" = "installation/04-system-services.md"},
+    {"VPP 启动配置" = "installation/05-vpp-startup.md"},
+    {"首次启动" = "installation/06-first-start.md"},
+    {"升级与回退" = "installation/07-upgrade-uninstall.md"},
+    {"硬件验收" = "installation/08-hardware-acceptance.md"}
+  ]},
+  {"配置指南" = [
+    {"操作手册" = "operator/README.md"},
+    {"CLI 与配置事务" = "operator/01-cli.md"},
+    {"系统与服务" = "operator/02-system-services.md"},
+    {"接口、VLAN 与邻居" = "operator/03-interfaces-l2.md"},
+    {"IP、VPN 与静态路由" = "operator/04-ip-routing.md"},
+    {"动态路由与路由策略" = "operator/05-dynamic-routing.md"},
+    {"隧道" = "operator/06-tunnels.md"},
+    {"ACL、NAT 与 QoS" = "operator/07-policy.md"},
+    {"DHCP、LLDP 与 SNMP" = "operator/08-network-services.md"},
+    {"MPLS 与 L3VPN" = "operator/10-mpls-l3vpn.md"},
+    {"VXLAN EVPN" = "operator/11-vxlan-evpn.md"}
+  ]},
+  {"运维与排障" = "operator/09-operations.md"},
+  {"命令参考" = "operator/reference/commands.md"}
+]
+
+[project.theme]
+language = "zh"
+variant = "classic"
+custom_dir = "overrides"
+font = false
+features = ["navigation.tabs", "navigation.sections", "navigation.footer", "navigation.top", "toc.follow", "content.code.copy"]
+
+[project.theme.palette]
+scheme = "default"
+primary = "custom"
+accent = "custom"
+
+[project.theme.icon]
+logo = "material/router-network"
+
+[project.markdown_extensions]
+toc.slugify.object = "pymdownx.slugs.slugify"
+toc.slugify.kwds.case = "lower"
+toc.toc_depth = "2-3"

@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+{% block content %}
+<section class="vros-hero">
+  <div class="vros-hero-copy">
+    <p class="vros-version">VortexROS 0.28 · 开发版</p>
+    <h1>VortexROS<br><span>操作手册</span></h1>
+    <p>从 Ubuntu 首次安装到路由、数据面与日常运维。查找配置步骤、CLI 命令和升级回退流程。</p>
+    <div class="vros-actions">
+      <a class="vros-button primary" href="quickstart/">从零到 Ping <span aria-hidden="true">→</span></a>
+      <a class="vros-button" href="operator/reference/commands/">查阅命令</a>
+    </div>
+  </div>
+  <div class="vros-topology" role="img" aria-label="拓扑示意：管理终端通过 CLI 配置 VortexROS，设备经由上游网关转发。">
+    <div class="vros-node"><span>管理终端</span><small>CLI</small></div>
+    <div class="vros-line"></div>
+    <div class="vros-node router"><span>VortexROS</span><small>Linux / VPP</small></div>
+    <div class="vros-line"></div>
+    <div class="vros-node"><span>上游网关</span><small>IPv4 / IPv6</small></div>
+  </div>
+</section>
+<section class="vros-library" aria-labelledby="manual-categories">
+  <h2 id="manual-categories">浏览手册</h2>
+  <div class="vros-grid">
+    <a href="installation/"><strong>安装与升级 <span aria-hidden="true">↗</span></strong><small>硬件要求、通用安装器、首次启动与回退。</small></a>
+    <a href="operator/"><strong>配置指南 <span aria-hidden="true">↗</span></strong><small>接口、VLAN、VPN 实例、动态路由与网络服务。</small></a>
+    <a href="operator/09-operations/"><strong>运维与排障 <span aria-hidden="true">↗</span></strong><small>查看运行状态、分析告警、恢复服务。</small></a>
+    <a href="operator/reference/commands/"><strong>命令参考 <span aria-hidden="true">↗</span></strong><small>按功能查阅 806 条 CLI 命令路径。</small></a>
+  </div>
+  <p class="vros-source">文档基线 <code>v0.28-dev-debug5</code></p>
+</section>
+{% endblock %}
