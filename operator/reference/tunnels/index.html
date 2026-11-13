@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=6adf1c08" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/tunnels/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="ACL、QoS、MQC、MSS 与 NAT" href="../policy/" />
+    <link rel="prev" title="MPLS LDP 与 L3VPN" href="../mpls/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="manual-version">
+  <a href="../../../versions/">版本 v0.28-dev-debug5 · 当前</a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">首次安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">从零到 Ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">CLI 使用指南</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../">VortexROS 0.28 操作手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断、清理、健康与服务恢复</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">VortexROS 全命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI、Candidate 与配置管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统、健康与服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口、二层与邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">IP、VPN 与静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">动态路由、策略路由、BFD 与 VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS LDP 与 L3VPN</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#allowd-ip"><code class="docutils literal notranslate"><span class="pre">allowd-ip</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#disable-cookies-enable"><code class="docutils literal notranslate"><span class="pre">disable-cookies</span> <span class="pre">enable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-amneziawg"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">amneziawg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-vxlan-statistics"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vxlan</span> <span class="pre">statistics</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-vxlan-tunnel"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vxlan</span> <span class="pre">tunnel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-wireguard"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">wireguard</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#evpn-overlay"><code class="docutils literal notranslate"><span class="pre">evpn-overlay</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#header-cookie"><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">cookie</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#header-init"><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">init</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#header-response"><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">response</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#header-transport"><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">transport</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#header-protection"><code class="docutils literal notranslate"><span class="pre">header-protection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#junk-count"><code class="docutils literal notranslate"><span class="pre">junk</span> <span class="pre">count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#junk-size"><code class="docutils literal notranslate"><span class="pre">junk</span> <span class="pre">size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#junk-packet"><code class="docutils literal notranslate"><span class="pre">junk-packet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keepalive"><code class="docutils literal notranslate"><span class="pre">keepalive</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#padding-content"><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">content</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#padding-cookie"><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">cookie</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#padding-init"><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">init</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#padding-response"><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">response</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#padding-transport"><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">transport</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#peer"><code class="docutils literal notranslate"><span class="pre">peer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#presharedkey"><code class="docutils literal notranslate"><span class="pre">presharedkey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publickey"><code class="docutils literal notranslate"><span class="pre">publickey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#random-trailers-enable"><code class="docutils literal notranslate"><span class="pre">random-trailers</span> <span class="pre">enable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timing-keepalive"><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">keepalive</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timing-max-handshakes"><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">max-handshakes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timing-reject-after"><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">reject-after</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timing-rekey-after"><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">rekey-after</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timing-rekey-timeout"><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">rekey-timeout</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-allowd-ip"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">allowd-ip</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-amneziawg-profile"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">amneziawg</span> <span class="pre">profile</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-disable-cookies-enable"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">disable-cookies</span> <span class="pre">enable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-evpn-overlay"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">evpn-overlay</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-header-cookie"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">cookie</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-header-init"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">init</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-header-response"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">response</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-header-transport"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">transport</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-header-protection"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header-protection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-junk-count"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">junk</span> <span class="pre">count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-junk-size"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">junk</span> <span class="pre">size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-junk-packet"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">junk-packet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-keepalive"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">keepalive</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-padding-content"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">content</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-padding-cookie"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">cookie</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-padding-init"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">init</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-padding-response"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">response</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-padding-transport"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">transport</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-peer"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-presharedkey"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">presharedkey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-publickey"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">publickey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-random-trailers-enable"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">random-trailers</span> <span class="pre">enable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-timing-keepalive"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">keepalive</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-timing-max-handshakes"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">max-handshakes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-timing-reject-after"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">reject-after</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-timing-rekey-after"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">rekey-after</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-timing-rekey-timeout"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">rekey-timeout</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-wireguard-profile"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">wireguard</span> <span class="pre">profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">ACL、QoS、MQC、MSS 与 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">DHCP、LLDP 与 SNMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断、清理与恢复</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/">文档版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">VortexROS 全命令参考</a></li>
+      <li class="breadcrumb-item active">GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/operator/reference/tunnels.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="greip-in-ipvxlanwireguard-amneziawg">
+<span id="greip-in-ipvxlanwireguard-与-amneziawg"></span><h1>GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG<a class="headerlink" href="#greip-in-ipvxlanwireguard-amneziawg" title="链接到此标题。"></a></h1>
+<section id="allowd-ip">
+<h2><code class="docutils literal notranslate"><span class="pre">allowd-ip</span></code><a class="headerlink" href="#allowd-ip" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Peer视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-peer</span></code></p></li>
+<li><p>用途（设备帮助）：add an allowed IP selector (longest prefix selects the peer)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>allowd-ip IP LENGTH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="disable-cookies-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">disable-cookies</span> <span class="pre">enable</span></code><a class="headerlink" href="#disable-cookies-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：enable cookie replies disabled</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>disable-cookies enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-amneziawg">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">amneziawg</span></code><a class="headerlink" href="#display-amneziawg" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display AmneziaWG configuration and runtime</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display amneziawg { profile [NAME] | peer [PROFILE [PEER]] | interface [TUNNEL] }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-vxlan-statistics">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vxlan</span> <span class="pre">statistics</span></code><a class="headerlink" href="#display-vxlan-statistics" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display VXLAN tunnel traffic statistics</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vxlan statistics source IP peer IP [vni VNI]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-vxlan-tunnel">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vxlan</span> <span class="pre">tunnel</span></code><a class="headerlink" href="#display-vxlan-tunnel" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display static VXLAN tunnels (from NVE peer-list)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vxlan tunnel [ID]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-wireguard">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">wireguard</span></code><a class="headerlink" href="#display-wireguard" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display WireGuard configuration and runtime</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display wireguard { profile [NAME] | peer [PROFILE [PEER]] | interface [TUNNEL] }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="evpn-overlay">
+<h2><code class="docutils literal notranslate"><span class="pre">evpn-overlay</span></code><a class="headerlink" href="#evpn-overlay" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable EVPN as the VXLAN overlay control plane</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>evpn-overlay enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="header-cookie">
+<h2><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">cookie</span></code><a class="headerlink" href="#header-cookie" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set cookie message header range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>header cookie LOW HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="header-init">
+<h2><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">init</span></code><a class="headerlink" href="#header-init" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set init message header range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>header init LOW HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="header-response">
+<h2><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">response</span></code><a class="headerlink" href="#header-response" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set response message header range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>header response LOW HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="header-transport">
+<h2><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">transport</span></code><a class="headerlink" href="#header-transport" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set transport message header range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>header transport LOW HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="header-protection">
+<h2><code class="docutils literal notranslate"><span class="pre">header-protection</span></code><a class="headerlink" href="#header-protection" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：enable ChaCha20 message header protection</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>header-protection { KEY | cipher CIPHERTEXT }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="junk-count">
+<h2><code class="docutils literal notranslate"><span class="pre">junk</span> <span class="pre">count</span></code><a class="headerlink" href="#junk-count" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set random junk packet count</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>junk count INTEGER&lt;0-128&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="junk-size">
+<h2><code class="docutils literal notranslate"><span class="pre">junk</span> <span class="pre">size</span></code><a class="headerlink" href="#junk-size" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set random junk packet size range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>junk size MIN MAX
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="junk-packet">
+<h2><code class="docutils literal notranslate"><span class="pre">junk-packet</span></code><a class="headerlink" href="#junk-packet" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set a raw or dynamic handshake signature packet</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>junk-packet SLOT { BASE64 | expression EXPRESSION }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="keepalive">
+<h2><code class="docutils literal notranslate"><span class="pre">keepalive</span></code><a class="headerlink" href="#keepalive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Peer视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-peer</span></code></p></li>
+<li><p>用途（设备帮助）：set persistent keepalive</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>keepalive SECONDS
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="padding-content">
+<h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">content</span></code><a class="headerlink" href="#padding-content" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set decrypted content padding range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>padding content MIN MAX
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="padding-cookie">
+<h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">cookie</span></code><a class="headerlink" href="#padding-cookie" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set cookie reply fixed padding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>padding cookie INTEGER&lt;0-1024&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="padding-init">
+<h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">init</span></code><a class="headerlink" href="#padding-init" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set handshake initiation fixed padding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>padding init INTEGER&lt;0-1024&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="padding-response">
+<h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">response</span></code><a class="headerlink" href="#padding-response" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set handshake response fixed padding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>padding response INTEGER&lt;0-1024&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="padding-transport">
+<h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">transport</span></code><a class="headerlink" href="#padding-transport" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set transport packet fixed padding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>padding transport INTEGER&lt;0-1024&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="peer">
+<h2><code class="docutils literal notranslate"><span class="pre">peer</span></code><a class="headerlink" href="#peer" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code>、<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Profile视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：configure a BGP neighbor；enter a WireGuard peer；enter an AmneziaWG peer</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>peer NAME
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>peer X.X.X.X [option ...]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="presharedkey">
+<h2><code class="docutils literal notranslate"><span class="pre">presharedkey</span></code><a class="headerlink" href="#presharedkey" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Peer视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-peer</span></code></p></li>
+<li><p>用途（设备帮助）：set AmneziaWG peer presharedkey；set WireGuard peer presharedkey</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>presharedkey { KEY | cipher CIPHERTEXT }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="publickey">
+<h2><code class="docutils literal notranslate"><span class="pre">publickey</span></code><a class="headerlink" href="#publickey" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Peer视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-peer</span></code>、<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set AmneziaWG peer publickey；set WireGuard peer publickey；validate the derived AmneziaWG public key during configuration replay；validate the derived WireGuard public key during configuration replay</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>publickey KEY
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="random-trailers-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">random-trailers</span> <span class="pre">enable</span></code><a class="headerlink" href="#random-trailers-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：enable random packet trailers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>random-trailers enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="timing-keepalive">
+<h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#timing-keepalive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set keepalive random range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>timing keepalive LOW HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="timing-max-handshakes">
+<h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">max-handshakes</span></code><a class="headerlink" href="#timing-max-handshakes" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set max-handshakes random range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>timing max-handshakes LOW HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="timing-reject-after">
+<h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">reject-after</span></code><a class="headerlink" href="#timing-reject-after" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set reject-after random range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>timing reject-after LOW HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="timing-rekey-after">
+<h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">rekey-after</span></code><a class="headerlink" href="#timing-rekey-after" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set rekey-after random range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>timing rekey-after LOW HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="timing-rekey-timeout">
+<h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">rekey-timeout</span></code><a class="headerlink" href="#timing-rekey-timeout" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：set rekey-timeout random range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>timing rekey-timeout LOW HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-allowd-ip">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">allowd-ip</span></code><a class="headerlink" href="#undo-allowd-ip" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Peer视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-peer</span></code></p></li>
+<li><p>用途（设备帮助）：remove an allowed IP selector</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo allowd-ip IP LENGTH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-amneziawg-profile">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">amneziawg</span> <span class="pre">profile</span></code><a class="headerlink" href="#undo-amneziawg-profile" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete an AmneziaWG profile</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo amneziawg profile NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-disable-cookies-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">disable-cookies</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-disable-cookies-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：disable cookie replies disabled</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo disable-cookies enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-evpn-overlay">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">evpn-overlay</span></code><a class="headerlink" href="#undo-evpn-overlay" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable EVPN as the VXLAN overlay control plane</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo evpn-overlay enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-header-cookie">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">cookie</span></code><a class="headerlink" href="#undo-header-cookie" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default cookie message header</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo header cookie
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-header-init">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">init</span></code><a class="headerlink" href="#undo-header-init" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default init message header</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo header init
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-header-response">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">response</span></code><a class="headerlink" href="#undo-header-response" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default response message header</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo header response
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-header-transport">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">transport</span></code><a class="headerlink" href="#undo-header-transport" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default transport message header</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo header transport
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-header-protection">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header-protection</span></code><a class="headerlink" href="#undo-header-protection" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：disable message header protection</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo header-protection
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-junk-count">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">junk</span> <span class="pre">count</span></code><a class="headerlink" href="#undo-junk-count" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default junk packet count</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo junk count
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-junk-size">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">junk</span> <span class="pre">size</span></code><a class="headerlink" href="#undo-junk-size" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default junk packet size</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo junk size
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-junk-packet">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">junk-packet</span></code><a class="headerlink" href="#undo-junk-packet" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：delete a raw junk UDP payload slot</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo junk-packet SLOT
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-keepalive">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#undo-keepalive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Peer视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-peer</span></code></p></li>
+<li><p>用途（设备帮助）：clear persistent keepalive</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo keepalive
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-padding-content">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">content</span></code><a class="headerlink" href="#undo-padding-content" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default content padding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo padding content
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-padding-cookie">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">cookie</span></code><a class="headerlink" href="#undo-padding-cookie" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default cookie reply padding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo padding cookie
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-padding-init">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">init</span></code><a class="headerlink" href="#undo-padding-init" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default handshake initiation padding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo padding init
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-padding-response">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">response</span></code><a class="headerlink" href="#undo-padding-response" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default handshake response padding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo padding response
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-padding-transport">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">transport</span></code><a class="headerlink" href="#undo-padding-transport" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default transport packet padding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo padding transport
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-peer">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span></code><a class="headerlink" href="#undo-peer" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code>、<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Profile视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：delete a WireGuard peer；delete an AmneziaWG peer；remove or reset a BGP neighbor or peer-group</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo peer NAME
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo peer PEER [option]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-presharedkey">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">presharedkey</span></code><a class="headerlink" href="#undo-presharedkey" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Peer视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-peer</span></code></p></li>
+<li><p>用途（设备帮助）：clear AmneziaWG peer presharedkey；clear WireGuard peer presharedkey</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo presharedkey
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-publickey">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">publickey</span></code><a class="headerlink" href="#undo-publickey" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">WireGuard</span> <span class="pre">Peer视图</span></code>、<code class="docutils literal notranslate"><span class="pre">amneziawg-peer</span></code></p></li>
+<li><p>用途（设备帮助）：clear AmneziaWG peer publickey；clear WireGuard peer publickey</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo publickey
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-random-trailers-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">random-trailers</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-random-trailers-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：disable random packet trailers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo random-trailers enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-timing-keepalive">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#undo-timing-keepalive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default keepalive timing</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo timing keepalive
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-timing-max-handshakes">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">max-handshakes</span></code><a class="headerlink" href="#undo-timing-max-handshakes" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default max-handshakes timing</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo timing max-handshakes
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-timing-reject-after">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">reject-after</span></code><a class="headerlink" href="#undo-timing-reject-after" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default reject-after timing</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo timing reject-after
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-timing-rekey-after">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">rekey-after</span></code><a class="headerlink" href="#undo-timing-rekey-after" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default rekey-after timing</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo timing rekey-after
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-timing-rekey-timeout">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">rekey-timeout</span></code><a class="headerlink" href="#undo-timing-rekey-timeout" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default rekey-timeout timing</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo timing rekey-timeout
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-wireguard-profile">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">wireguard</span> <span class="pre">profile</span></code><a class="headerlink" href="#undo-wireguard-profile" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a WireGuard profile</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo wireguard profile NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../mpls/" class="btn btn-neutral float-left" title="MPLS LDP 与 L3VPN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../policy/" class="btn btn-neutral float-right" title="ACL、QoS、MQC、MSS 与 NAT" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

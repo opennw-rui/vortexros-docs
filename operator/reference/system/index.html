@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>系统、健康与服务 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=6adf1c08" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/system/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="接口、二层与邻居" href="../interfaces/" />
+    <link rel="prev" title="CLI、Candidate 与配置管理" href="../cli/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="manual-version">
+  <a href="../../../versions/">版本 v0.28-dev-debug5 · 当前</a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">首次安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">从零到 Ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">CLI 使用指南</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../">VortexROS 0.28 操作手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断、清理、健康与服务恢复</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">VortexROS 全命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI、Candidate 与配置管理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">系统、健康与服务</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#display-alarm-active"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">alarm</span> <span class="pre">active</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-alarm-history"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">alarm</span> <span class="pre">history</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-configuration-candidate"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">configuration</span> <span class="pre">candidate</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-configuration-storage"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">configuration</span> <span class="pre">storage</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-cpu-usage"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">cpu-usage</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-current-configuration"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-health"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-history"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">history</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-memory-usage"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">memory-usage</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-service"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">service</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-vpp-api-compatibility"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vpp</span> <span class="pre">api</span> <span class="pre">compatibility</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-vpp-interface-ownership"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vpp</span> <span class="pre">interface-ownership</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-vpp-takeover-transaction"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vpp</span> <span class="pre">takeover</span> <span class="pre">transaction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enable-lldp"><code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">lldp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enable-switch"><code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">switch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#health-check"><code class="docutils literal notranslate"><span class="pre">health</span> <span class="pre">check</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sysname"><code class="docutils literal notranslate"><span class="pre">sysname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-enable-lldp"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">enable</span> <span class="pre">lldp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-enable-switch"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">enable</span> <span class="pre">switch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-sysname"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">sysname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-vpp-startup-config"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vpp</span> <span class="pre">startup-config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vpp-startup-config"><code class="docutils literal notranslate"><span class="pre">vpp</span> <span class="pre">startup-config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口、二层与邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">IP、VPN 与静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">动态路由、策略路由、BFD 与 VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS LDP 与 L3VPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">ACL、QoS、MQC、MSS 与 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">DHCP、LLDP 与 SNMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断、清理与恢复</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/">文档版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">VortexROS 全命令参考</a></li>
+      <li class="breadcrumb-item active">系统、健康与服务</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/operator/reference/system.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="系统健康与服务"></span><h1>系统、健康与服务<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="display-alarm-active">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">alarm</span> <span class="pre">active</span></code><a class="headerlink" href="#display-alarm-active" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display active alarms</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display alarm active
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-alarm-history">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">alarm</span> <span class="pre">history</span></code><a class="headerlink" href="#display-alarm-history" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display cleared alarm history</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display alarm history [last N]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-configuration-candidate">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">configuration</span> <span class="pre">candidate</span></code><a class="headerlink" href="#display-configuration-candidate" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display uncommitted candidate configuration</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display configuration candidate [merge | sessions]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-configuration-storage">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">configuration</span> <span class="pre">storage</span></code><a class="headerlink" href="#display-configuration-storage" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display running and saved configuration storage status</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display configuration storage
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-cpu-usage">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">cpu-usage</span></code><a class="headerlink" href="#display-cpu-usage" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display CPU usage</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display cpu-usage [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-current-configuration">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span></code><a class="headerlink" href="#display-current-configuration" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display the current configuration</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display current-configuration [configuration TYPE [name NAME] | interface [TYPE [N]] | all]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-health">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health</span></code><a class="headerlink" href="#display-health" title="链接到此标题。"></a></h2>
+<p>检查 Running、Actual、Saved 的代号及告警。verbose 用于查看未就绪原因。</p>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display control-plane health</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display health [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-history">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">history</span></code><a class="headerlink" href="#display-history" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display command history for this connection</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display history
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-memory-usage">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">memory-usage</span></code><a class="headerlink" href="#display-memory-usage" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display memory usage</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display memory-usage
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-service">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">service</span></code><a class="headerlink" href="#display-service" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display network service status</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display service [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-vpp-api-compatibility">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vpp</span> <span class="pre">api</span> <span class="pre">compatibility</span></code><a class="headerlink" href="#display-vpp-api-compatibility" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display VPP binary API compatibility</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vpp api compatibility [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-vpp-interface-ownership">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vpp</span> <span class="pre">interface-ownership</span></code><a class="headerlink" href="#display-vpp-interface-ownership" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display physical-interface dataplane ownership and recovery state</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vpp interface-ownership [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-vpp-takeover-transaction">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vpp</span> <span class="pre">takeover</span> <span class="pre">transaction</span></code><a class="headerlink" href="#display-vpp-takeover-transaction" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display the current or most recent VPP takeover transaction</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vpp takeover transaction
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="enable-lldp">
+<h2><code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">lldp</span></code><a class="headerlink" href="#enable-lldp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable LLDP globally and on all physical interfaces</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable lldp
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="enable-switch">
+<h2><code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">switch</span></code><a class="headerlink" href="#enable-switch" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable the L2 switch instance</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="health-check">
+<h2><code class="docutils literal notranslate"><span class="pre">health</span> <span class="pre">check</span></code><a class="headerlink" href="#health-check" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：strict machine-readable control-plane readiness gate</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>health check [--wait] [--timeout DURATION] [--json] [--allow-weak-vpp] [--require-saved]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="sysname">
+<h2><code class="docutils literal notranslate"><span class="pre">sysname</span></code><a class="headerlink" href="#sysname" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the device name</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sysname HOSTNAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-enable-lldp">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">enable</span> <span class="pre">lldp</span></code><a class="headerlink" href="#undo-enable-lldp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable LLDP globally</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo enable lldp
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-enable-switch">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">enable</span> <span class="pre">switch</span></code><a class="headerlink" href="#undo-enable-switch" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable the L2 switch instance</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo enable switch
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-sysname">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">sysname</span></code><a class="headerlink" href="#undo-sysname" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default device name</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo sysname
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-vpp-startup-config">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vpp</span> <span class="pre">startup-config</span></code><a class="headerlink" href="#undo-vpp-startup-config" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore default VPP startup configuration path</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo vpp startup-config
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="vpp-startup-config">
+<h2><code class="docutils literal notranslate"><span class="pre">vpp</span> <span class="pre">startup-config</span></code><a class="headerlink" href="#vpp-startup-config" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：VPP process startup configuration file (-c)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vpp startup-config PATH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../cli/" class="btn btn-neutral float-left" title="CLI、Candidate 与配置管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../interfaces/" class="btn btn-neutral float-right" title="接口、二层与邻居" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

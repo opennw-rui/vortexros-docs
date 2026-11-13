@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用 VLAN 和 Vlanif 提供网关 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=6adf1c08" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/vlan-gateway/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="建立单区域 OSPF 邻接" href="../ospf/" />
+    <link rel="prev" title="通过静态路由访问远端网段" href="../static-route/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="manual-version">
+  <a href="../../versions/">版本 v0.28-dev-debug5 · 当前</a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">首次安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">从零到 Ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">CLI 使用指南</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../static-route/">通过静态路由访问远端网段</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">用 VLAN 和 Vlanif 提供网关</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">建立单区域 OSPF 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">连接直连 eBGP 邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">为 VLAN 客户端分配 IPv4 地址</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">在三层接口过滤入站流量</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/">VortexROS 0.28 操作手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断、清理、健康与服务恢复</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">VortexROS 全命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/">文档版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+      <li class="breadcrumb-item active">用 VLAN 和 Vlanif 提供网关</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/examples/vlan-gateway.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vlan-vlanif">
+<span id="用-vlan-和-vlanif-提供网关"></span><h1>用 VLAN 和 Vlanif 提供网关<a class="headerlink" href="#vlan-vlanif" title="链接到此标题。"></a></h1>
+<p><strong>用途</strong>。将带 VLAN 100 标签的流量送入独立二层广播域，并用 Vlanif 100 提供三层网关。</p>
+<p><strong>前提</strong>。VPP 正常运行，Ethernet 1 是专用测试口，对端允许 VLAN 100。端口转换为二层前，先处理原有三层地址及依赖。</p>
+<section id="id1">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+enable switch
+vlan batch 100
+interface Ethernet 1
+ portswitch
+ port link-type trunk
+ port trunk allow-pass vlan 100
+ quit
+interface Vlanif 100
+ ip address 192.0.2.1 255.255.255.0
+ quit
+commit
+</pre></div>
+</div>
+<p>Trunk 放行 VLAN 100。Vlanif 为该 VLAN 提供网关和直连路由。VLAN 没有可用成员时，Vlanif 会 Down，相关直连路由撤销。</p>
+</section>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>使用 display vlan 100 和 display ip interface brief 查看成员及 Vlanif 状态。从对端 VLAN 100 的主机 Ping 192.0.2.1。配置符合预期后再保存。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>先解除 Vlanif 100 上的 DHCP、ACL 或协议绑定，再用 undo interface Vlanif 100 删除网关。在 trunk 接口执行 undo port trunk allow-pass vlan 100，然后提交。只在确定没有其他端口或业务引用时删除 VLAN。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../static-route/" class="btn btn-neutral float-left" title="通过静态路由访问远端网段" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ospf/" class="btn btn-neutral float-right" title="建立单区域 OSPF 邻接" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

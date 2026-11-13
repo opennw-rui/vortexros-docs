@@ -1,1341 +1,130 @@
 
-<!doctype html>
-<html lang="zh" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="VortexROS 安装、配置、运维与 CLI 命令参考">
-      
-      
-      
-        <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/08-network-services/">
-      
-      
-      
-        <link rel="prev" href="../07-policy/">
-      
-      
-        <link rel="next" href="../10-mpls-l3vpn/">
-      
-      
-        
-      
-      
-      <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="zensical-0.1.1">
-    
-    
-      
-        <title>DHCP、LLDP 与 SNMP - VortexROS 文档</title>
-      
-    
-    
-      
-        
-      
-      <link rel="stylesheet" href="../../assets/stylesheets/classic/main.0006804e.min.css">
-      
-        
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DHCP 与 LLDP &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=6adf1c08" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/08-network-services/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="MPLS LDP 与 L3VPN" href="../10-mpls-l3vpn/" />
+    <link rel="prev" title="ACL、QoS、MQC、MSS 与 nat-policy" href="../07-policy/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
           
-        
-        <link rel="stylesheet" href="../../assets/stylesheets/classic/palette.813d4b3f.min.css">
-      
-      
-
-
-    
-    
-      
-    
-    
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/vortexros.css">
-    
-    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
-    
-      
-
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
-    <div data-md-component="skip">
-      <a href="#__skip" class="md-skip">
-        跳转至
-      </a>
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-<header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../.." title="VortexROS 文档" class="md-header__button md-logo" aria-label="VortexROS 文档" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9c-1.1 0-2 .9-2 2v4a2 2 0 0 0 2 2h6v2h-1c-.55 0-1 .45-1 1H2v2h7c0 .55.45 1 1 1h4c.55 0 1-.45 1-1h7v-2h-7c0-.55-.45-1-1-1h-1v-2h6c1.11 0 2-.89 2-2v-4a2 2 0 0 0-2-2zm1 3h2v2H6zm3.5 0h2v2h-2zm3.5 0h2v2h-2z"/></svg>
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-      <span class="md-visually-hidden">导航栏</span>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
+          
+          <a href="../../" class="icon icon-home">
             VortexROS 文档
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              DHCP、LLDP 与 SNMP
-            
-          </span>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="manual-version">
+  <a href="../../versions/">版本 v0.28-dev-debug5 · 当前</a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">首次安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">从零到 Ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">CLI 使用指南</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">VortexROS 0.28 操作手册</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../#id1">配置指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../#id2">通用阅读约定</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../#id3">推荐的操作顺序</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../02-system-services/">系统访问、健康与服务</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03-interfaces-l2/">物理接口、聚合、VLAN、BD 与邻居</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-ip-routing/">IPv4/IPv6、VPN、静态路由与路由组</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05-dynamic-routing/">路由策略、OSPF、BGP、IS-IS、RIP、BFD 与 VRRP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06-tunnels/">GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07-policy/">ACL、QoS、MQC、MSS 与 nat-policy</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">DHCP 与 LLDP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS LDP 与 L3VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11-vxlan-evpn/">VXLAN EVPN</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断、清理、健康与服务恢复</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">VortexROS 全命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/">文档版本</a></li>
+</ul>
+
         </div>
       </div>
-    </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
-    
-  
-</form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-          <span class="md-visually-hidden">查找</span>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
-  <button type="button" class="md-search__button">
-    查找
-  </button>
-</div>
-      
-    
-    <div class="md-header__source">
-      
-    </div>
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-            
-<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
-        
-  
-  首页
+    </nav>
 
-      </a>
-    </li>
-  
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
 
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../quickstart/" class="md-tabs__link">
-        
-  
-  快速入门
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-      
-    
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../installation/" class="md-tabs__link">
-          
-  
-  安装与升级
-
-        </a>
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">VortexROS 0.28 操作手册</a></li>
+      <li class="breadcrumb-item active">DHCP 与 LLDP</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/operator/08-network-services.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-      
-    
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
-          
-  
-  配置指南
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../09-operations/" class="md-tabs__link">
-        
-  
-  运维与排障
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../reference/commands/" class="md-tabs__link">
-        
-  
-  命令参考
-
-      </a>
-    </li>
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-  
-
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="VortexROS 文档" class="md-nav__button md-logo" aria-label="VortexROS 文档" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9c-1.1 0-2 .9-2 2v4a2 2 0 0 0 2 2h6v2h-1c-.55 0-1 .45-1 1H2v2h7c0 .55.45 1 1 1h4c.55 0 1-.45 1-1h7v-2h-7c0-.55-.45-1-1-1h-1v-2h6c1.11 0 2-.89 2-2v-4a2 2 0 0 0-2-2zm1 3h2v2H6zm3.5 0h2v2h-2zm3.5 0h2v2h-2z"/></svg>
-
-    </a>
-    VortexROS 文档
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  首页
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../quickstart/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  快速入门
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  安装与升级
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_3">
-              <span class="md-nav__icon md-icon"></span>
-              
-  
-  安装与升级
-
-            </label>
-            <ul class="md-nav__list" data-md-scrollfix>
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  安装手册
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/00-planning/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  部署规划
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/01-management-safety/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  管理连接
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/02-backends/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  后端与依赖
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/03-install-vortexros/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  安装 VortexROS
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/04-system-services/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  系统服务
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/05-vpp-startup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  VPP 启动配置
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/06-first-start/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  首次启动
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/07-upgrade-uninstall/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  升级与回退
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/08-hardware-acceptance/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  硬件验收
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-            </ul>
-          </nav>
-        
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  配置指南
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-            <label class="md-nav__title" for="__nav_4">
-              <span class="md-nav__icon md-icon"></span>
-              
-  
-  配置指南
-
-            </label>
-            <ul class="md-nav__list" data-md-scrollfix>
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  操作手册
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../01-cli/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  CLI 与配置事务
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../02-system-services/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  系统与服务
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../03-interfaces-l2/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  接口、VLAN 与邻居
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../04-ip-routing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  IP、VPN 与静态路由
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../05-dynamic-routing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  动态路由与路由策略
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../06-tunnels/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  隧道
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../07-policy/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  ACL、NAT 与 QoS
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      
-        <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  DHCP、LLDP 与 SNMP
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="././" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  DHCP、LLDP 与 SNMP
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#dhcpv4服务器" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        DHCPv4服务器
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dhcpv4客户端" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        DHCPv4客户端
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dhcp服务器租约查看" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        DHCP服务器租约查看
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dhcpv6" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        DHCPv6
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lldp" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        LLDP
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#snmp" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        SNMP
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../10-mpls-l3vpn/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  MPLS 与 L3VPN
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../11-vxlan-evpn/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  VXLAN EVPN
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-            </ul>
-          </nav>
-        
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../09-operations/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  运维与排障
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reference/commands/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  命令参考
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  
-                  <div class="md-sidebar__inner">
-                    
-
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#dhcpv4服务器" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        DHCPv4服务器
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dhcpv4客户端" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        DHCPv4客户端
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dhcp服务器租约查看" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        DHCP服务器租约查看
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dhcpv6" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        DHCPv6
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lldp" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        LLDP
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#snmp" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        SNMP
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                <a id="__skip" tabindex="-1"></a>
-                
-                  
-
-
-<h1 id="dhcp-与-lldp">DHCP 与 LLDP</h1>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dhcp-lldp">
+<span id="dhcp-与-lldp"></span><h1>DHCP 与 LLDP<a class="headerlink" href="#dhcp-lldp" title="链接到此标题。"></a></h1>
 <p>本章说明VortexROS提供的DHCPv4/DHCPv6客户端、服务器、中继以及LLDP功能。系统自身的DNS解析由Linux负责；DHCP客户端不会把租约中的DNS服务器写入系统解析器。</p>
-<h2 id="dhcpv4服务器">DHCPv4服务器</h2>
+<section id="dhcpv4">
+<span id="dhcpv4服务器"></span><h2>DHCPv4服务器<a class="headerlink" href="#dhcpv4" title="链接到此标题。"></a></h2>
 <p>先在系统视图启用DHCP服务：</p>
-<div class="highlight"><pre><span></span><code>enable dhcp server
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable dhcp server
 commit
-</code></pre></div>
+</pre></div>
+</div>
 <p>全局开关只控制 IPv4 和 IPv6 服务端。Client、Relay 和 DHCPv6-PD 按接口配置运行。
 旧配置里已有 Client 或 Relay 但全局 DHCP 关闭时，加载后会在该接口保留
-<code>dhcp client-relay shutdown</code>。用 <code>undo dhcp client-relay shutdown</code> 恢复该接口的已有配置。</p>
+<code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">client-relay</span> <span class="pre">shutdown</span></code>。用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">client-relay</span> <span class="pre">shutdown</span></code> 恢复该接口的已有配置。</p>
 <p>使用全局地址池时，创建地址池并在三层接口启用：</p>
-<div class="highlight"><pre><span></span><code>ip pool LAN4
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip pool LAN4
  network 192.0.2.0 mask 255.255.255.0
  gateway-list 192.0.2.1
  section 0 192.0.2.100 192.0.2.200
@@ -1345,9 +134,10 @@ commit
 interface Vlanif 100
  ip address 192.0.2.1 255.255.255.0
  dhcp select global
-</code></pre></div>
+</pre></div>
+</div>
 <p>接口属于VPN实例时，DHCP服务器按地址族和VPN实例运行独立Kea进程，租约及监听不会落入默认路由域。全局地址池必须绑定同一VPN实例；接口地址池直接继承接口的VPN归属：</p>
-<div class="highlight"><pre><span></span><code>ip pool BLUE-LAN
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip pool BLUE-LAN
  vpn-instance BLUE
  network 192.168.100.0 mask 255.255.255.0
  section 0 192.168.100.100 192.168.100.200
@@ -1356,18 +146,19 @@ interface Vlanif 100
  ip binding vpn-instance BLUE
  ip address 192.168.100.1 255.255.255.0
  dhcp select global
-</code></pre></div>
-<p>提交后用<code>display dhcp service verbose</code>确认服务器行的<code>VPN-Instance</code>为<code>BLUE</code>且<code>Ready</code>为<code>true</code>，再用<code>display ip pool name BLUE-LAN verbose</code>核对实际租约。接口的LCP host、VRF master或本地地址尚未就绪时，服务器不会被误报为Ready。</p>
-<p>池中的<code>dns-list</code>只作为DHCP Option通告给外部客户端，不改变VortexROS主机的<code>/etc/resolv.conf</code>。
-全局地址池使用<code>section &lt;编号&gt; &lt;起始地址&gt; [结束地址]</code>限制可动态分配的地址段；可配置多个互不重叠的
+</pre></div>
+</div>
+<p>提交后用<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcp</span> <span class="pre">service</span> <span class="pre">verbose</span></code>确认服务器行的<code class="docutils literal notranslate"><span class="pre">VPN-Instance</span></code>为<code class="docutils literal notranslate"><span class="pre">BLUE</span></code>且<code class="docutils literal notranslate"><span class="pre">Ready</span></code>为<code class="docutils literal notranslate"><span class="pre">true</span></code>，再用<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">pool</span> <span class="pre">name</span> <span class="pre">BLUE-LAN</span> <span class="pre">verbose</span></code>核对实际租约。接口的LCP host、VRF master或本地地址尚未就绪时，服务器不会被误报为Ready。</p>
+<p>池中的<code class="docutils literal notranslate"><span class="pre">dns-list</span></code>只作为DHCP Option通告给外部客户端，不改变VortexROS主机的<code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code>。
+全局地址池使用<code class="docutils literal notranslate"><span class="pre">section</span> <span class="pre">&lt;编号&gt;</span> <span class="pre">&lt;起始地址&gt;</span> <span class="pre">[结束地址]</span></code>限制可动态分配的地址段；可配置多个互不重叠的
 section，编号范围为0至255。未配置section时使用network中的全部可用主机地址。网关、排除地址、
-接口本机地址和静态绑定仍会从section中扣除。<code>gateway-list</code>与<code>dns-list</code>保持录入顺序，第一项是
+接口本机地址和静态绑定仍会从section中扣除。<code class="docutils literal notranslate"><span class="pre">gateway-list</span></code>与<code class="docutils literal notranslate"><span class="pre">dns-list</span></code>保持录入顺序，第一项是
 客户端收到的首选地址，保存和重载不会按数值重新排序。
 全局池应用到接口时，该接口在此子网内的全部本地IPv4地址都会自动从动态分配范围排除。
 同一VPN实例内，一个IPv4或IPv6地址池只能绑定一个接口；当前版本不提供跨接口共享子网模型，
 重复绑定会在进入Candidate时给出明确错误。</p>
-<p>也可以直接使用接口主地址所在网段生成接口地址池。未配置<code>gateway-list</code>时，接口主IPv4地址自动作为客户端网关：</p>
-<div class="highlight"><pre><span></span><code>interface Vlanif 20
+<p>也可以直接使用接口主地址所在网段生成接口地址池。未配置<code class="docutils literal notranslate"><span class="pre">gateway-list</span></code>时，接口主IPv4地址自动作为客户端网关：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 20
  ip address 198.51.100.254 255.255.255.0
  dhcp select interface
  dhcp server ip-range 198.51.100.100 198.51.100.200
@@ -1375,82 +166,99 @@ section，编号范围为0至255。未配置section时使用network中的全部�
  dhcp server lease day 1
 #
 commit
-</code></pre></div>
-<p>如需通告同网段内的其他网关，可用<code>dhcp server gateway-list X.X.X.X [X.X.X.X]</code>显式替换默认值。<code>undo dhcp server gateway-list</code>恢复“接口主地址作为网关”的默认行为。确实不希望发送Router Option时，使用<code>dhcp server gateway-list disable</code>。接口本机使用的所有IPv4地址始终从动态地址池排除，与通告哪个网关无关。</p>
-<p>接口地址池使用<code>dhcp server ip-range &lt;起始地址&gt; &lt;结束地址&gt;</code>限制可分配范围；起止地址必须属于接口
-主IPv4网段且均为可用主机地址。该范围存在时优先使用它，<code>undo dhcp server ip-range</code>恢复从接口
+</pre></div>
+</div>
+<p>如需通告同网段内的其他网关，可用<code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">gateway-list</span> <span class="pre">X.X.X.X</span> <span class="pre">[X.X.X.X]</span></code>显式替换默认值。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">gateway-list</span></code>恢复“接口主地址作为网关”的默认行为。确实不希望发送Router Option时，使用<code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">gateway-list</span> <span class="pre">disable</span></code>。接口本机使用的所有IPv4地址始终从动态地址池排除，与通告哪个网关无关。</p>
+<p>接口地址池使用<code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">ip-range</span> <span class="pre">&lt;起始地址&gt;</span> <span class="pre">&lt;结束地址&gt;</span></code>限制可分配范围；起止地址必须属于接口
+主IPv4网段且均为可用主机地址。该范围存在时优先使用它，<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">ip-range</span></code>恢复从接口
 主网段的全部可用主机地址分配。接口地址池只保存一个显式范围；需要多个不连续地址段时使用全局
-地址池的多个<code>section</code>。</p>
+地址池的多个<code class="docutils literal notranslate"><span class="pre">section</span></code>。</p>
 <p>验证：</p>
-<div class="highlight"><pre><span></span><code>display dhcp service verbose
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp service verbose
 display ip pool
 display current-configuration
-</code></pre></div>
-<p><code>Ready</code>只有在Kea控制接口正常、主进程拥有正确的UDP监听、每个已配置LCP接口保持admin UP且目标地址仍可用时才显示为<code>true</code>；监听数量相同但绑定到无关地址，或服务启动后接口关闭、地址消失，都会判定为未就绪。一个服务器接口配置多个本地地址时，Kea会监听该接口的全部可用地址，因此中继可以把请求发往其中任一明确配置的服务地址。IPv6允许Kea使用能够覆盖已配置接口的UDP/547通配监听，但接口与地址可服务条件仍须满足。后台审计会持续执行这组检查，并在接口恢复后重新收敛。可用Linux的<code>ss -lunp</code>作辅助诊断，但产品状态以<code>display dhcp service verbose</code>的权威回读为准。</p>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Ready</span></code>只有在Kea控制接口正常、主进程拥有正确的UDP监听、每个已配置LCP接口保持admin UP且目标地址仍可用时才显示为<code class="docutils literal notranslate"><span class="pre">true</span></code>；监听数量相同但绑定到无关地址，或服务启动后接口关闭、地址消失，都会判定为未就绪。一个服务器接口配置多个本地地址时，Kea会监听该接口的全部可用地址，因此中继可以把请求发往其中任一明确配置的服务地址。IPv6允许Kea使用能够覆盖已配置接口的UDP/547通配监听，但接口与地址可服务条件仍须满足。后台审计会持续执行这组检查，并在接口恢复后重新收敛。可用Linux的<code class="docutils literal notranslate"><span class="pre">ss</span> <span class="pre">-lunp</span></code>作辅助诊断，但产品状态以<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcp</span> <span class="pre">service</span> <span class="pre">verbose</span></code>的权威回读为准。</p>
 <p>关闭接口上的服务器角色：</p>
-<div class="highlight"><pre><span></span><code>interface Vlanif 100
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
  undo dhcp select
 commit
-</code></pre></div>
+</pre></div>
+</div>
 <p>确认没有接口继续使用DHCP服务器、客户端或中继后，可在系统视图关闭整个DHCP功能：</p>
-<div class="highlight"><pre><span></span><code>undo enable dhcp server
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo enable dhcp server
 commit
-</code></pre></div>
-<h2 id="dhcpv4客户端">DHCPv4客户端</h2>
-<div class="highlight"><pre><span></span><code>interface Ethernet 1
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<span id="dhcpv4客户端"></span><h2>DHCPv4客户端<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
  ip address dhcp-alloc
 commit
 display dhcp client
-</code></pre></div>
+</pre></div>
+</div>
 <p>客户端只接收和维护IPv4地址、默认路由、classless route及租约生命周期。撤销：</p>
-<div class="highlight"><pre><span></span><code>interface Ethernet 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
  undo ip address dhcp-alloc
 commit
-</code></pre></div>
+</pre></div>
+</div>
 <p>VPP启用时，DHCP客户端运行在VPP为业务接口建立的LCP host接口上。报文仍通过对应VPP物理接口收发，客户端不会重新绑定、独占或接管物理网卡。这样IPv4与IPv6租约采用同一套生命周期、VRF、撤销和重启恢复逻辑，并且可以完整处理默认路由和classless route。租约中的DNS选项不写入Linux系统解析配置。</p>
-<p>接口<code>shutdown</code>只暂停对应的DHCP client、relay和PD运行单元，配置意图仍保留。子接口还继承父接口的有效管理状态：父接口关闭时子接口单元同时暂停；父接口恢复后，只有自身未配置<code>shutdown</code>的子接口才按原配置恢复。该行为不删除租约配置，也不会把显式关闭的子接口强制拉起。</p>
+<p>接口<code class="docutils literal notranslate"><span class="pre">shutdown</span></code>只暂停对应的DHCP client、relay和PD运行单元，配置意图仍保留。子接口还继承父接口的有效管理状态：父接口关闭时子接口单元同时暂停；父接口恢复后，只有自身未配置<code class="docutils literal notranslate"><span class="pre">shutdown</span></code>的子接口才按原配置恢复。该行为不删除租约配置，也不会把显式关闭的子接口强制拉起。</p>
 <p>默认会安装DHCP学习到的默认路由，默认优先级为60。可以调整优先级，或显式禁止默认路由：</p>
-<div class="highlight"><pre><span></span><code>interface Ethernet 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
  dhcp client default-route preference 80
  # 如不需要上游默认路由：
  undo dhcp client default-route enable
-</code></pre></div>
-<h2 id="dhcp服务器租约查看">DHCP服务器租约查看</h2>
-<p><code>display ip pool</code>同时列出全局IPv4地址池、接口地址池和仍在使用的Kea租约。接口定位既支持完整名称，也支持VRP风格的类型与编号分词；以下三条都能直接显示摘要和活动租约：</p>
-<div class="highlight"><pre><span></span><code>display ip pool
+</pre></div>
+</div>
+</section>
+<section id="dhcp">
+<span id="dhcp服务器租约查看"></span><h2>DHCP服务器租约查看<a class="headerlink" href="#dhcp" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">pool</span></code>同时列出全局IPv4地址池、接口地址池和仍在使用的Kea租约。接口定位既支持完整名称，也支持VRP风格的类型与编号分词；以下三条都能直接显示摘要和活动租约：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip pool
 display ip pool name OFFICE
 display ip pool interface vlanif 20
-</code></pre></div>
-<p>默认视图和<code>used</code>都只显示仍有效的已分配地址；<code>all</code>显示Kea仍保留的全部租约状态，包括已过期或被拒绝的记录。<code>used</code>可以放在接口选择器之前或之后，例如<code>display ip pool used interface vlanif 20 verbose</code>。不存在<code>display ip pool use</code>命令。表格包含地址池或接口、客户端IP、MAC、Client-ID、剩余租期、状态、主机名和VPN实例。租约来自Kea控制Socket的权威运行态，不读取可能正在写入的CSV文件；读取失败会明确报错，不会把观察失败显示为零租约。</p>
-<p><code>verbose</code>把租约表切换成逐项详情，因此不必同时指定<code>used</code>。每条IPv4租约显示IP、MAC、网关、DNS、地址范围、域名、Client-ID、主机名、VPN实例、Kea服务实例、Subnet ID、状态、最近一次客户端事务时间、到期时间、有效租期和剩余租期。<code>used verbose</code>语义相同；<code>all verbose</code>还会展开已过期、declined及Kea保留的其他状态。没有由客户端提供的字段明确显示为<code>-</code>，不会根据MAC猜测厂商、操作系统或设备型号。</p>
+</pre></div>
+</div>
+<p>默认视图和<code class="docutils literal notranslate"><span class="pre">used</span></code>都只显示仍有效的已分配地址；<code class="docutils literal notranslate"><span class="pre">all</span></code>显示Kea仍保留的全部租约状态，包括已过期或被拒绝的记录。<code class="docutils literal notranslate"><span class="pre">used</span></code>可以放在接口选择器之前或之后，例如<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">pool</span> <span class="pre">used</span> <span class="pre">interface</span> <span class="pre">vlanif</span> <span class="pre">20</span> <span class="pre">verbose</span></code>。不存在<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">pool</span> <span class="pre">use</span></code>命令。表格包含地址池或接口、客户端IP、MAC、Client-ID、剩余租期、状态、主机名和VPN实例。租约来自Kea控制Socket的权威运行态，不读取可能正在写入的CSV文件；读取失败会明确报错，不会把观察失败显示为零租约。</p>
+<p><code class="docutils literal notranslate"><span class="pre">verbose</span></code>把租约表切换成逐项详情，因此不必同时指定<code class="docutils literal notranslate"><span class="pre">used</span></code>。每条IPv4租约显示IP、MAC、网关、DNS、地址范围、域名、Client-ID、主机名、VPN实例、Kea服务实例、Subnet ID、状态、最近一次客户端事务时间、到期时间、有效租期和剩余租期。<code class="docutils literal notranslate"><span class="pre">used</span> <span class="pre">verbose</span></code>语义相同；<code class="docutils literal notranslate"><span class="pre">all</span> <span class="pre">verbose</span></code>还会展开已过期、declined及Kea保留的其他状态。没有由客户端提供的字段明确显示为<code class="docutils literal notranslate"><span class="pre">-</span></code>，不会根据MAC猜测厂商、操作系统或设备型号。</p>
 <p>DHCPv6服务器使用相同的运行态语义：</p>
-<div class="highlight"><pre><span></span><code>display dhcpv6 pool name V6-POOL used
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 pool name V6-POOL used
 display ipv6 pool name V6-POOL all
 display ipv6 pool name V6-POOL verbose
-</code></pre></div>
+</pre></div>
+</div>
 <p>IPv6输出区分IA_NA、IA_TA和IA_PD，并显示DUID、IAID、地址或委派前缀、Subnet ID、客户端事务时间、到期时间、剩余租期和状态。租约属于运行数据，不进入Candidate、CFG或SQLite配置投影。</p>
-<p>Classless Static Route Option存在并启用解析时，按标准优先使用该选项，不再同时采用Router Option。无论默认路由来自哪个DHCP选项，<code>undo dhcp client default-route enable</code>都会阻止其中的<code>/0</code>，普通明细路由仍可安装。</p>
-<h2 id="dhcpv6">DHCPv6</h2>
-<div class="highlight"><pre><span></span><code>dhcpv6 pool LAN6
+<p>Classless Static Route Option存在并启用解析时，按标准优先使用该选项，不再同时采用Router Option。无论默认路由来自哪个DHCP选项，<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">client</span> <span class="pre">default-route</span> <span class="pre">enable</span></code>都会阻止其中的<code class="docutils literal notranslate"><span class="pre">/0</span></code>，普通明细路由仍可安装。</p>
+</section>
+<section id="dhcpv6">
+<h2>DHCPv6<a class="headerlink" href="#dhcpv6" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 pool LAN6
  address prefix 2001:db8:100::/64
  dns-server 2001:4860:4860::8888
 #
 interface Vlanif 100
  dhcpv6 server LAN6
-</code></pre></div>
+</pre></div>
+</div>
 <p>验证和撤销：</p>
-<div class="highlight"><pre><span></span><code>display dhcp service verbose
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp service verbose
 display ipv6 pool
 interface Vlanif 100
  undo dhcpv6 server
 commit
-</code></pre></div>
-<p>DHCPv6客户端和中继在对应接口视图配置；可使用<code>?</code>查看地址请求、前缀委派和中继目标的完整参数。DHCPv6客户端同样绑定LCP host接口，因此不会与VPP争用物理接口。</p>
+</pre></div>
+</div>
+<p>DHCPv6客户端和中继在对应接口视图配置；可使用<code class="docutils literal notranslate"><span class="pre">?</span></code>查看地址请求、前缀委派和中继目标的完整参数。DHCPv6客户端同样绑定LCP host接口，因此不会与VPP争用物理接口。</p>
 <p>同一DHCPv6地址池内的地址前缀和委派前缀必须使用同一组有效/首选生命周期；显式生命周期最小为
 60秒，首选生命周期不得大于有效生命周期。重叠的委派前缀在进入Candidate时即被拒绝，不会留到
 Kea启动阶段才失败。</p>
 <p>有状态地址、前缀委派以及立即续租的示例：</p>
-<div class="highlight"><pre><span></span><code>interface Ethernet 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
  ipv6 address auto dhcp
  dhcpv6 client pd CPE-PREFIX
 commit
@@ -1459,38 +267,47 @@ display dhcpv6 client prefix name CPE-PREFIX
 # 在接口视图立即请求续租：
 interface Ethernet 1
  dhcpv6 client renew
-</code></pre></div>
-<p><code>display dhcpv6 client</code>分别显示IA_NA地址和IA_PD委派前缀，不会用其中一个字段遮盖另一个字段。<code>dhcpv6 client renew</code>是立即执行的运行命令，不进入Candidate或保存配置。</p>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcpv6</span> <span class="pre">client</span></code>分别显示IA_NA地址和IA_PD委派前缀，不会用其中一个字段遮盖另一个字段。<code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">renew</span></code>是立即执行的运行命令，不进入Candidate或保存配置。</p>
 <p>DHCPv6地址和IPv6路由器发现是两项独立功能。DHCPv6不会提供IPv6默认网关；默认路由来自Router Advertisement。需要同时从RA生成全局地址并接受RA默认路由时，可使用组合命令：</p>
-<div class="highlight"><pre><span></span><code>interface Ethernet 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
  ipv6 address auto global default
 commit
 display ipv6 interface brief
 display ipv6 neighbors
 display ipv6 routing-table
-</code></pre></div>
-<p>若只需要其中一项，也可分别使用<code>ipv6 address auto slaac</code>或<code>ipv6 nd ra default-route enable</code>。使用有状态DHCPv6获取地址、同时从RA获取默认路由时，可以组合<code>ipv6 address auto dhcp</code>与<code>ipv6 nd ra default-route enable</code>，无需同时启用SLAAC地址生成。</p>
+</pre></div>
+</div>
+<p>若只需要其中一项，也可分别使用<code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">auto</span> <span class="pre">slaac</span></code>或<code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">ra</span> <span class="pre">default-route</span> <span class="pre">enable</span></code>。使用有状态DHCPv6获取地址、同时从RA获取默认路由时，可以组合<code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">auto</span> <span class="pre">dhcp</span></code>与<code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">ra</span> <span class="pre">default-route</span> <span class="pre">enable</span></code>，无需同时启用SLAAC地址生成。</p>
 <p>VortexROS只在已配置的接口上开启RA接收。VPP模式下由该接口的LCP host接收RA，Linux内核执行DAD并维护前缀、首选时间、有效时间和Router Lifetime，linux-cp再把有效地址和路由同步到VPP。即使系统开启IPv6转发，该接口仍会使用明确的RA接收策略；其他接口不会被全局放开。接口属于VPN实例时，LCP接口先加入对应Linux VRF，学习结果留在该VPN的路由域内。</p>
 <p>组合意图可一次撤销：</p>
-<div class="highlight"><pre><span></span><code>interface Ethernet 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
  undo ipv6 address auto global default
 commit
-</code></pre></div>
-<p>分别配置的地址自动生成与默认路由也可以用各自的精确<code>undo</code>撤销。</p>
+</pre></div>
+</div>
+<p>分别配置的地址自动生成与默认路由也可以用各自的精确<code class="docutils literal notranslate"><span class="pre">undo</span></code>撤销。</p>
 <p>撤销全部RA功能后，控制面关闭该接口的RA、自动前缀和默认路由接收，并清理内核中由RA协议安装的路由及可识别的SLAAC地址。DHCPv6地址不属于这套清理范围。</p>
-<h2 id="lldp">LLDP</h2>
-<div class="highlight"><pre><span></span><code>enable lldp
+</section>
+<section id="lldp">
+<h2>LLDP<a class="headerlink" href="#lldp" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable lldp
 commit
 display lldp neighbor brief
 display lldp neighbor
-</code></pre></div>
+</pre></div>
+</div>
 <p>关闭LLDP：</p>
-<div class="highlight"><pre><span></span><code>undo lldp enable
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo lldp enable
 commit
-</code></pre></div>
-<p>LLDP未收敛或后端不可用时会在<code>display health</code>和告警中显示，但不会触发VPP物理接口所有权回滚。</p>
-<h2 id="snmp">SNMP</h2>
-<p>第一版提供标准 SNMPv2c 只读查询和 SNMPv3 <code>authPriv</code>。默认以一个VRF-aware
+</pre></div>
+</div>
+<p>LLDP未收敛或后端不可用时会在<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health</span></code>和告警中显示，但不会触发VPP物理接口所有权回滚。</p>
+</section>
+<section id="snmp">
+<h2>SNMP<a class="headerlink" href="#snmp" title="链接到此标题。"></a></h2>
+<p>第一版提供标准 SNMPv2c 只读查询和 SNMPv3 <code class="docutils literal notranslate"><span class="pre">authPriv</span></code>。默认以一个VRF-aware
 UDP/161 socket覆盖public及所有已配置VPN实例；可固定到public接口的主IPv4地址，
 也可固定到VPN内的接口。trap
 发送到NMS UDP 162，设备本地不会监听UDP 162。SNMPv3固定使用SHA2-256认证和
@@ -1499,7 +316,7 @@ AES128隐私保护，认证与隐私密码均至少8个字符。</p>
 初始化Net-SNMP持久USM状态；普通配置提交、daemon恢复和master重启会从受管持久
 文件恢复用户及engineBoots，不需要重复配置用户。</p>
 <p>SNMPv2c 示例：</p>
-<div class="highlight"><pre><span></span><code>snmp-agent
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent
 snmp-agent sys-info version v2c
 snmp-agent sys-info contact Network Operations
 snmp-agent sys-info location IDC-A
@@ -1510,189 +327,122 @@ snmp-agent target-host trap address udp-domain 192.0.2.50 udp-port 162 params se
 snmp-agent trap enable standard
 commit
 save
-</code></pre></div>
+</pre></div>
+</div>
 <p>不固定监听接口时无需配置source-interface；下面两种显式写法语义相同，都会用
 一个listener接收public和全部VPN实例的请求，而不是为每个IP地址启动一个进程：</p>
-<div class="highlight"><pre><span></span><code>snmp-agent protocol source-interface all-interface
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent protocol source-interface all-interface
 snmp-agent protocol source-status all-interface
-</code></pre></div>
+</pre></div>
+</div>
 <p>若只允许从某一VPN实例中的接口接收查询，VPN和source-interface在同一条命令中
 指定；该接口和trap source必须属于同一VPN。master和listener使用该接口主IPv4
 建立VRF内的内部通道，不要求VPN中另行配置loopback路由：</p>
-<div class="highlight"><pre><span></span><code>snmp-agent protocol source-interface vpn-instance INT Tunnel1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent protocol source-interface vpn-instance INT Tunnel1
 commit
 # 恢复public及全部VPN实例的全接口监听
 undo snmp-agent protocol source-interface
 commit
-</code></pre></div>
+</pre></div>
+</div>
 <p>SNMPv3 示例：</p>
-<div class="highlight"><pre><span></span><code>snmp-agent sys-info version v3
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent sys-info version v3
 snmp-agent usm-user v3 secure-monitor authentication-mode sha2-256 AuthPass123 privacy-mode aes128 PrivPass123
 snmp-agent target-host trap address udp-domain 192.0.2.51 udp-port 162 params securityname secure-monitor v3
 commit
-</code></pre></div>
+</pre></div>
+</div>
 <p>配置和服务检查：</p>
-<div class="highlight"><pre><span></span><code>display snmp-agent sys-info
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display snmp-agent sys-info
 display snmp-agent community
 display snmp-agent usm-user
 display snmp-agent target-host
 display health verbose
-</code></pre></div>
-<p>这些<code>display snmp-agent</code>命令显示已提交配置；<code>commit</code>后的backend读回会核对三个
+</pre></div>
+</div>
+<p>这些<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">snmp-agent</span></code>命令显示已提交配置；<code class="docutils literal notranslate"><span class="pre">commit</span></code>后的backend读回会核对三个
 服务和UDP 161监听。最终运行验收仍应从NMS执行下列标准SNMP查询，不能只以配置
 存在代替协议可达。</p>
 <p>从 NMS 验证标准 OID：</p>
-<div class="highlight"><pre><span></span><code>snmpget<span class="w"> </span>-v2c<span class="w"> </span>-c<span class="w"> </span>monitor<span class="w"> </span><span class="m">192</span>.0.2.1<span class="w"> </span>sysName.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>snmpget<span class="w"> </span>-v2c<span class="w"> </span>-c<span class="w"> </span>monitor<span class="w"> </span><span class="m">192</span>.0.2.1<span class="w"> </span>sysName.0
 snmpget<span class="w"> </span>-v2c<span class="w"> </span>-c<span class="w"> </span>monitor<span class="w"> </span><span class="m">192</span>.0.2.1<span class="w"> </span>HOST-RESOURCES-MIB::hrSystemUptime.0
 snmpget<span class="w"> </span>-v2c<span class="w"> </span>-c<span class="w"> </span>monitor<span class="w"> </span><span class="m">192</span>.0.2.1<span class="w"> </span>UCD-SNMP-MIB::memTotalReal.0
 snmpwalk<span class="w"> </span>-v2c<span class="w"> </span>-c<span class="w"> </span>monitor<span class="w"> </span><span class="m">192</span>.0.2.1<span class="w"> </span>IF-MIB::ifXTable
 snmpget<span class="w"> </span>-v3<span class="w"> </span>-l<span class="w"> </span>authPriv<span class="w"> </span>-u<span class="w"> </span>secure-monitor<span class="w"> </span>-a<span class="w"> </span>SHA-256<span class="w"> </span>-A<span class="w"> </span>AuthPass123<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-x<span class="w"> </span>AES<span class="w"> </span>-X<span class="w"> </span>PrivPass123<span class="w"> </span><span class="m">192</span>.0.2.1<span class="w"> </span>sysName.0
-</code></pre></div>
+</pre></div>
+</div>
 <p>标准Linux系统、CPU、内存、存储和负载信息继续由Net-SNMP提供。IF-MIB则完全由
-VortexROS/VPP提供：只显示VortexROS接口，不显示Linux <code>lo</code>、VRF master或其他
-控制面netdevice；<code>ifAlias</code>显示接口description。累计字节、错误数和计数不连续时间
-来自VPP数据面。每个LCP host端以<code>lcp-&lt;接口名&gt;</code>作为单独的诊断接口显示，其累计值
+VortexROS/VPP提供：只显示VortexROS接口，不显示Linux <code class="docutils literal notranslate"><span class="pre">lo</span></code>、VRF master或其他
+控制面netdevice；<code class="docutils literal notranslate"><span class="pre">ifAlias</span></code>显示接口description。累计字节、错误数和计数不连续时间
+来自VPP数据面。每个LCP host端以<code class="docutils literal notranslate"><span class="pre">lcp-&lt;接口名&gt;</span></code>作为单独的诊断接口显示，其累计值
 来自对应VPP host software interface，不与原接口相加。产品接口和LCP诊断接口使用
 不同的稳定身份域确定性生成ifIndex，不依赖Linux ifIndex、VPP sw_if_index或额外持久化文件；
 接口身份不变时，LCP/VPP重建不会改变监控索引。当前不会把总包数冒充单播、组播或广播包数。VPP重启、
-接口重建或计数清零后，监控系统应依据 <code>ifCounterDiscontinuityTime</code> 重建速率基线。
+接口重建或计数清零后，监控系统应依据 <code class="docutils literal notranslate"><span class="pre">ifCounterDiscontinuityTime</span></code> 重建速率基线。
 同一次不连续事件的该值保持不变；只有新的计数回退、接口身份变化或VPP代次变化
 才会产生新值。接口表使用固定AgentX表注册，支持标准GET、GETNEXT和GETBULK，
 删除的接口行会同步撤销而不会留作历史实例。</p>
-<p>监控平台应直接对<code>ifHCInOctets</code>/<code>ifHCOutOctets</code>做相邻采样差，不应改用32位计数，
+<p>监控平台应直接对<code class="docutils literal notranslate"><span class="pre">ifHCInOctets</span></code>/<code class="docutils literal notranslate"><span class="pre">ifHCOutOctets</span></code>做相邻采样差，不应改用32位计数，
 也不应设置“低于某值视为无流量”的设备侧阈值。隧道口统计内层流量，物理口统计
 线侧流量及封装开销，二者不要求相等。Vlanif和LoopBack使用VPP逻辑接口统计；当前
 配套VPP的simulated Ethernet输出会重复累计一次TX，SNMP适配层只去除这项重复，
 不修改数据面，也不把LCP或物理成员计数并入逻辑接口。验证新接入时至少检查system、HOST-RESOURCES、
 UCD-SNMP、完整接口清单、接口description、管理/链路状态、64位计数和低速连续流量。</p>
 <p>完整撤销会停止 UDP 161 监听并删除全部 SNMP 配置：</p>
-<div class="highlight"><pre><span></span><code>undo snmp-agent
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent
 commit
 save
-</code></pre></div>
+</pre></div>
+</div>
 <p>SNMP community 和 SNMPv3 密码随 root-only CFG 以明文保存。第一版不支持 SNMP
 SET、SNMPv1、企业 MIB、IPv6 监听或 trap 目标、多 network namespace context，
-也不会把 VPP 统计写回 Linux <code>/proc</code>、sysfs 或 <code>ip -s link</code>。固定源接口模式下，
-固定source-interface时只接受对应public或VPN路由域中的目标接口；<code>all-interface</code>
+也不会把 VPP 统计写回 Linux <code class="docutils literal notranslate"><span class="pre">/proc</span></code>、sysfs 或 <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">-s</span> <span class="pre">link</span></code>。固定源接口模式下，
+固定source-interface时只接受对应public或VPN路由域中的目标接口；<code class="docutils literal notranslate"><span class="pre">all-interface</span></code>
 通过单socket同时覆盖public和全部具有已配置IPv4接口的VPN。接口与所选VPN不一致时在Candidate
 校验阶段拒绝，不会等到服务启动后才失败。</p>
 <p>删除被SNMP source-interface引用的VPN实例会同时撤销整套SNMP配置并关闭UDP 161，
 不会把原凭据自动改成全接口监听。若仍需SNMP，应在VPN删除后显式重新配置所需
 监听范围和凭据。</p>
-<p>配置<code>snmp-agent trap source</code>后，通知报文使用该接口主IPv4作为UDP源地址；
-<code>snmp-agent trap enable standard</code>启用标准<code>linkUp</code>/<code>linkDown</code>通知。设备为Net-SNMP
+<p>配置<code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">trap</span> <span class="pre">source</span></code>后，通知报文使用该接口主IPv4作为UDP源地址；
+<code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">trap</span> <span class="pre">enable</span> <span class="pre">standard</span></code>启用标准<code class="docutils literal notranslate"><span class="pre">linkUp</span></code>/<code class="docutils literal notranslate"><span class="pre">linkDown</span></code>通知。设备为Net-SNMP
 内部状态查询维护独立的受管身份，不会把它显示为用户USM配置，也不改变外部SNMPv3
-只支持<code>authPriv</code>的产品约束。</p>
+只支持<code class="docutils literal notranslate"><span class="pre">authPriv</span></code>的产品约束。</p>
 <p>若VPP统计仍可读但接口清单或LCP身份暂时无法确认，设备不会发布一份带当前时间的
-虚假<code>down</code>/MTU 0接口快照；最后一次已验证快照在3.5秒后自然变为不可用，身份恢复
+虚假<code class="docutils literal notranslate"><span class="pre">down</span></code>/MTU 0接口快照；最后一次已验证快照在3.5秒后自然变为不可用，身份恢复
 后才重新出现。</p>
+</section>
+</section>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
-<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到页面顶部
-</button>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="页脚" >
-        
-          
-          <a href="../07-policy/" class="md-footer__link md-footer__link--prev" aria-label="上一页: ACL、NAT 与 QoS">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                上一页
-              </span>
-              <div class="md-ellipsis">
-                ACL、NAT 与 QoS
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../10-mpls-l3vpn/" class="md-footer__link md-footer__link--next" aria-label="下一页: MPLS 与 L3VPN">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                下一页
-              </span>
-              <div class="md-ellipsis">
-                MPLS 与 L3VPN
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://zensical.org/" target="_blank" rel="noopener">
-      Zensical
-    </a>
-  
-</div>
-      
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../07-policy/" class="btn btn-neutral float-left" title="ACL、QoS、MQC、MSS 与 nat-policy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../10-mpls-l3vpn/" class="btn btn-neutral float-right" title="MPLS LDP 与 L3VPN" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
   </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
 </footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      
-      
-      
-        
-        
-      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs","navigation.sections","navigation.footer","navigation.top","toc.follow","content.code.copy"],"redirect":null,"search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","clipboard.error":"Could not copy to clipboard","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
-    
-    
-      <script src="../../assets/javascripts/bundle.3cb411a8.min.js"></script>
-      
-    
-  </body>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>

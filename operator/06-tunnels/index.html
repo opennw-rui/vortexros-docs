@@ -1,1545 +1,125 @@
 
-<!doctype html>
-<html lang="zh" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="VortexROS 安装、配置、运维与 CLI 命令参考">
-      
-      
-      
-        <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/06-tunnels/">
-      
-      
-      
-        <link rel="prev" href="../05-dynamic-routing/">
-      
-      
-        <link rel="next" href="../07-policy/">
-      
-      
-        
-      
-      
-      <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="zensical-0.1.1">
-    
-    
-      
-        <title>隧道 - VortexROS 文档</title>
-      
-    
-    
-      
-        
-      
-      <link rel="stylesheet" href="../../assets/stylesheets/classic/main.0006804e.min.css">
-      
-        
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=6adf1c08" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/06-tunnels/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="ACL、QoS、MQC、MSS 与 nat-policy" href="../07-policy/" />
+    <link rel="prev" title="路由策略、OSPF、BGP、IS-IS、RIP、BFD 与 VRRP" href="../05-dynamic-routing/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
           
-        
-        <link rel="stylesheet" href="../../assets/stylesheets/classic/palette.813d4b3f.min.css">
-      
-      
-
-
-    
-    
-      
-    
-    
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/vortexros.css">
-    
-    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
-    
-      
-
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
-    <div data-md-component="skip">
-      <a href="#__skip" class="md-skip">
-        跳转至
-      </a>
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-<header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../.." title="VortexROS 文档" class="md-header__button md-logo" aria-label="VortexROS 文档" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9c-1.1 0-2 .9-2 2v4a2 2 0 0 0 2 2h6v2h-1c-.55 0-1 .45-1 1H2v2h7c0 .55.45 1 1 1h4c.55 0 1-.45 1-1h7v-2h-7c0-.55-.45-1-1-1h-1v-2h6c1.11 0 2-.89 2-2v-4a2 2 0 0 0-2-2zm1 3h2v2H6zm3.5 0h2v2h-2zm3.5 0h2v2h-2z"/></svg>
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-      <span class="md-visually-hidden">导航栏</span>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
+          
+          <a href="../../" class="icon icon-home">
             VortexROS 文档
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              隧道
-            
-          </span>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="manual-version">
+  <a href="../../versions/">版本 v0.28-dev-debug5 · 当前</a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">首次安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">从零到 Ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">CLI 使用指南</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">VortexROS 0.28 操作手册</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../#id1">配置指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../#id2">通用阅读约定</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../#id3">推荐的操作顺序</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../02-system-services/">系统访问、健康与服务</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03-interfaces-l2/">物理接口、聚合、VLAN、BD 与邻居</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04-ip-routing/">IPv4/IPv6、VPN、静态路由与路由组</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05-dynamic-routing/">路由策略、OSPF、BGP、IS-IS、RIP、BFD 与 VRRP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07-policy/">ACL、QoS、MQC、MSS 与 nat-policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08-network-services/">DHCP 与 LLDP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS LDP 与 L3VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11-vxlan-evpn/">VXLAN EVPN</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断、清理、健康与服务恢复</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">VortexROS 全命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/">文档版本</a></li>
+</ul>
+
         </div>
       </div>
-    </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
-    
-  
-</form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-          <span class="md-visually-hidden">查找</span>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
-  <button type="button" class="md-search__button">
-    查找
-  </button>
-</div>
-      
-    
-    <div class="md-header__source">
-      
-    </div>
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-            
-<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
-        
-  
-  首页
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../quickstart/" class="md-tabs__link">
-        
-  
-  快速入门
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-      
-    
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../installation/" class="md-tabs__link">
-          
-  
-  安装与升级
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-      
-    
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
-          
-  
-  配置指南
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../09-operations/" class="md-tabs__link">
-        
-  
-  运维与排障
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../reference/commands/" class="md-tabs__link">
-        
-  
-  命令参考
-
-      </a>
-    </li>
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-  
-
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="VortexROS 文档" class="md-nav__button md-logo" aria-label="VortexROS 文档" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9c-1.1 0-2 .9-2 2v4a2 2 0 0 0 2 2h6v2h-1c-.55 0-1 .45-1 1H2v2h7c0 .55.45 1 1 1h4c.55 0 1-.45 1-1h7v-2h-7c0-.55-.45-1-1-1h-1v-2h6c1.11 0 2-.89 2-2v-4a2 2 0 0 0-2-2zm1 3h2v2H6zm3.5 0h2v2h-2zm3.5 0h2v2h-2z"/></svg>
-
-    </a>
-    VortexROS 文档
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  首页
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../quickstart/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  快速入门
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  安装与升级
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_3">
-              <span class="md-nav__icon md-icon"></span>
-              
-  
-  安装与升级
-
-            </label>
-            <ul class="md-nav__list" data-md-scrollfix>
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  安装手册
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/00-planning/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  部署规划
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/01-management-safety/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  管理连接
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/02-backends/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  后端与依赖
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/03-install-vortexros/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  安装 VortexROS
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/04-system-services/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  系统服务
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/05-vpp-startup/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  VPP 启动配置
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/06-first-start/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  首次启动
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/07-upgrade-uninstall/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  升级与回退
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/08-hardware-acceptance/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  硬件验收
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-            </ul>
-          </nav>
-        
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  配置指南
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-            <label class="md-nav__title" for="__nav_4">
-              <span class="md-nav__icon md-icon"></span>
-              
-  
-  配置指南
-
-            </label>
-            <ul class="md-nav__list" data-md-scrollfix>
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  操作手册
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../01-cli/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  CLI 与配置事务
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../02-system-services/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  系统与服务
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../03-interfaces-l2/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  接口、VLAN 与邻居
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../04-ip-routing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  IP、VPN 与静态路由
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../05-dynamic-routing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  动态路由与路由策略
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      
-        <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  隧道
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="././" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  隧道
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#通用隧道状态" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        通用隧道状态
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gre" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        GRE
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#手工ip-in-ip隧道" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        手工IP-in-IP隧道
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tunnel命令参考" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Tunnel命令参考
-      </span>
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Tunnel命令参考">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tunnel-protocol" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>tunnel-protocol</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#source" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>source</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#destination" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>destination</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gre-key" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>gre key</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#undo-interface-tunnel" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>undo interface Tunnel</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#vxlan与nve" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        VXLAN与NVE
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wireguard" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        WireGuard
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#修改和删除" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        修改和删除
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#验证" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        验证
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#amneziawg" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        AmneziaWG
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#功能范围" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        功能范围
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
 
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../07-policy/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  ACL、NAT 与 QoS
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
 
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../08-network-services/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  DHCP、LLDP 与 SNMP
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../10-mpls-l3vpn/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  MPLS 与 L3VPN
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../11-vxlan-evpn/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  VXLAN EVPN
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-            </ul>
-          </nav>
-        
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../09-operations/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  运维与排障
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reference/commands/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  命令参考
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">VortexROS 0.28 操作手册</a></li>
+      <li class="breadcrumb-item active">GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/operator/06-tunnels.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
   </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  
-                  <div class="md-sidebar__inner">
-                    
-
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#通用隧道状态" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        通用隧道状态
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gre" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        GRE
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#手工ip-in-ip隧道" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        手工IP-in-IP隧道
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tunnel命令参考" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Tunnel命令参考
-      </span>
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Tunnel命令参考">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tunnel-protocol" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>tunnel-protocol</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#source" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>source</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#destination" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>destination</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gre-key" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>gre key</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#undo-interface-tunnel" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>undo interface Tunnel</code>
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#vxlan与nve" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        VXLAN与NVE
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wireguard" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        WireGuard
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#修改和删除" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        修改和删除
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#验证" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        验证
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#amneziawg" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        AmneziaWG
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#功能范围" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        功能范围
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                <a id="__skip" tabindex="-1"></a>
-                
-                  
-
-
-<h1 id="greip-in-ipvxlannvewireguard-与-amneziawg">GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG</h1>
-<h2 id="通用隧道状态">通用隧道状态</h2>
-<p>Tunnel配置可以在Candidate中分步编辑；协议、源和目的等必需参数不完整时，<code>commit</code>会拒绝该配置。参数完整并提交后，设备创建隧道；underlay或对端不可用时接口显示down。</p>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="greip-in-ipvxlan-nvewireguard-amneziawg">
+<span id="greip-in-ipvxlannvewireguard-与-amneziawg"></span><h1>GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG<a class="headerlink" href="#greip-in-ipvxlan-nvewireguard-amneziawg" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="通用隧道状态"></span><h2>通用隧道状态<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>Tunnel配置可以在Candidate中分步编辑；协议、源和目的等必需参数不完整时，<code class="docutils literal notranslate"><span class="pre">commit</span></code>会拒绝该配置。参数完整并提交后，设备创建隧道；underlay或对端不可用时接口显示down。</p>
 <p>underlay源接口变更IP或VPN时，隧道可以暂时down；恢复依赖后应自动收敛，不应阻止underlay配置进入Candidate。</p>
-<h2 id="gre">GRE</h2>
-<div class="highlight"><pre><span></span><code>interface Tunnel 1
+</section>
+<section id="gre">
+<h2>GRE<a class="headerlink" href="#gre" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 1
  description P1-P2-GRE
  tunnel-protocol gre
  source 192.0.2.1
@@ -1547,51 +127,51 @@
  gre key 100
  mtu 1476
  ip address 10.0.12.1 255.255.255.252
-</code></pre></div>
+</pre></div>
+</div>
 <p>source和destination必须按同一underlay VPN解析；GRE key可以与VPN绑定并存。修改/undo key后应重建所需参数且保持正确外层源地址，不能出现0.0.0.0。</p>
-<div class="highlight"><pre><span></span><code>display interface Tunnel 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Tunnel 1
 display gre tunnel
-</code></pre></div>
+</pre></div>
+</div>
 <p>提交后，Tunnel源地址必须能在指定underlay VPN中找到，目的地址也必须通过该VPN可达。隧道up后，Tunnel上的直连路由才应进入路由表。删除GRE隧道：</p>
-<div class="highlight"><pre><span></span><code>undo interface Tunnel 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Tunnel 1
 commit
-</code></pre></div>
-<h2 id="手工ip-in-ip隧道">手工IP-in-IP隧道</h2>
+</pre></div>
+</div>
+</section>
+<section id="ip-in-ip">
+<span id="手工ip-in-ip隧道"></span><h2>手工IP-in-IP隧道<a class="headerlink" href="#ip-in-ip" title="链接到此标题。"></a></h2>
 <p>手工IP隧道使用点到点三层接口，支持四种内层与外层地址族组合：</p>
-<table>
+<table class="docutils align-default">
 <thead>
-<tr>
-<th><code>tunnel-protocol</code></th>
-<th>内层报文</th>
-<th>外层传输</th>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">tunnel-protocol</span></code></p></th>
+<th class="head"><p>内层报文</p></th>
+<th class="head"><p>外层传输</p></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>ipv4-ipv4</code></td>
-<td>IPv4</td>
-<td>IPv4</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ipv4-ipv4</span></code></p></td>
+<td><p>IPv4</p></td>
+<td><p>IPv4</p></td>
 </tr>
-<tr>
-<td><code>ipv6-ipv4</code></td>
-<td>IPv6</td>
-<td>IPv4</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ipv6-ipv4</span></code></p></td>
+<td><p>IPv6</p></td>
+<td><p>IPv4</p></td>
 </tr>
-<tr>
-<td><code>ipv4-ipv6</code></td>
-<td>IPv4</td>
-<td>IPv6</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ipv4-ipv6</span></code></p></td>
+<td><p>IPv4</p></td>
+<td><p>IPv6</p></td>
 </tr>
-<tr>
-<td><code>ipv6-ipv6</code></td>
-<td>IPv6</td>
-<td>IPv6</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ipv6-ipv6</span></code></p></td>
+<td><p>IPv6</p></td>
+<td><p>IPv6</p></td>
 </tr>
 </tbody>
 </table>
-<p>外层<code>source</code>与<code>destination</code>必须属于协议指定的同一外层地址族。Tunnel接口地址必须属于协议指定的内层地址族。<code>destination ... vpn-instance</code>选择外层目的地址查路使用的underlay VPN；未指定时使用<code>default</code>。本功能是手工点到点隧道，不提供自动隧道、6to4、ISATAP或隧道发现。</p>
+<p>外层<code class="docutils literal notranslate"><span class="pre">source</span></code>与<code class="docutils literal notranslate"><span class="pre">destination</span></code>必须属于协议指定的同一外层地址族。Tunnel接口地址必须属于协议指定的内层地址族。<code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">...</span> <span class="pre">vpn-instance</span></code>选择外层目的地址查路使用的underlay VPN；未指定时使用<code class="docutils literal notranslate"><span class="pre">default</span></code>。本功能是手工点到点隧道，不提供自动隧道、6to4、ISATAP或隧道发现。</p>
 <p>IPv4 over IPv4示例：</p>
-<div class="highlight"><pre><span></span><code>system-view
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 interface Tunnel 10
  description SITE-A-SITE-B-IPIP
  tunnel-protocol ipv4-ipv4
@@ -1602,9 +182,10 @@ quit
 commit
 display interface Tunnel 10
 ping 10.10.10.2
-</code></pre></div>
+</pre></div>
+</div>
 <p>IPv6 over IPv4示例：</p>
-<div class="highlight"><pre><span></span><code>interface Tunnel 11
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 11
  tunnel-protocol ipv6-ipv4
  source 192.0.2.1
  destination 198.51.100.2
@@ -1613,71 +194,91 @@ quit
 commit
 display interface Tunnel 11
 ping 2001:db8:10::2
-</code></pre></div>
-<p>当未显式配置MTU时，系统根据外层IP头自动使用1476字节（GRE over IPv4）、1456字节（GRE over IPv6）、1480字节（IP-in-IP over IPv4）或1460字节（IP-in-IP over IPv6）的有效三层MTU；显式<code>mtu</code>始终优先。修改<code>tunnel-protocol</code>会清除旧协议的源、目的、underlay及协议专用参数，避免把旧封装参数误用于新协议。</p>
-<h2 id="tunnel命令参考">Tunnel命令参考</h2>
-<h3 id="tunnel-protocol"><code>tunnel-protocol</code></h3>
+</pre></div>
+</div>
+<p>当未显式配置MTU时，系统根据外层IP头自动使用1476字节（GRE over IPv4）、1456字节（GRE over IPv6）、1480字节（IP-in-IP over IPv4）或1460字节（IP-in-IP over IPv6）的有效三层MTU；显式<code class="docutils literal notranslate"><span class="pre">mtu</span></code>始终优先。修改<code class="docutils literal notranslate"><span class="pre">tunnel-protocol</span></code>会清除旧协议的源、目的、underlay及协议专用参数，避免把旧封装参数误用于新协议。</p>
+</section>
+<section id="tunnel">
+<span id="tunnel命令参考"></span><h2>Tunnel命令参考<a class="headerlink" href="#tunnel" title="链接到此标题。"></a></h2>
+<section id="tunnel-protocol">
+<h3><code class="docutils literal notranslate"><span class="pre">tunnel-protocol</span></code><a class="headerlink" href="#tunnel-protocol" title="链接到此标题。"></a></h3>
 <p><strong>功能</strong>：配置Tunnel接口使用的封装协议。
-<strong>命令格式</strong>：<code>tunnel-protocol { gre | ipv4-ipv4 | ipv6-ipv4 | ipv4-ipv6 | ipv6-ipv6 | wireguard | amneziawg }</code>
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">tunnel-protocol</span> <span class="pre">{</span> <span class="pre">gre</span> <span class="pre">|</span> <span class="pre">ipv4-ipv4</span> <span class="pre">|</span> <span class="pre">ipv6-ipv4</span> <span class="pre">|</span> <span class="pre">ipv4-ipv6</span> <span class="pre">|</span> <span class="pre">ipv6-ipv6</span> <span class="pre">|</span> <span class="pre">wireguard</span> <span class="pre">|</span> <span class="pre">amneziawg</span> <span class="pre">}</span></code>
 <strong>视图</strong>：Tunnel接口视图。
 <strong>缺省情况</strong>：未配置封装协议，接口不能创建。
-<strong>参数</strong>：<code>ipvX-ipvY</code>中第一个地址族表示内层报文，第二个地址族表示外层传输。
-<strong>注意事项</strong>：切换协议会删除旧协议身份参数；配置仍须<code>commit</code>才生效。
-<strong>撤销命令</strong>：<code>undo tunnel-protocol</code>，同时清除该Tunnel的协议身份参数。</p>
-<h3 id="source"><code>source</code></h3>
+<strong>参数</strong>：<code class="docutils literal notranslate"><span class="pre">ipvX-ipvY</span></code>中第一个地址族表示内层报文，第二个地址族表示外层传输。
+<strong>注意事项</strong>：切换协议会删除旧协议身份参数；配置仍须<code class="docutils literal notranslate"><span class="pre">commit</span></code>才生效。
+<strong>撤销命令</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">tunnel-protocol</span></code>，同时清除该Tunnel的协议身份参数。</p>
+</section>
+<section id="source">
+<h3><code class="docutils literal notranslate"><span class="pre">source</span></code><a class="headerlink" href="#source" title="链接到此标题。"></a></h3>
 <p><strong>功能</strong>：配置GRE或手工IP隧道的外层源IP地址。
-<strong>命令格式</strong>：<code>source IP</code>
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">IP</span></code>
 <strong>视图</strong>：已配置GRE或手工IP协议的Tunnel接口视图。
 <strong>缺省情况</strong>：未配置。
-<strong>参数</strong>：<code>IP</code>必须是规范IPv4或IPv6地址，并与协议的外层地址族一致。
-<strong>注意事项</strong>：该地址必须在相应underlay中由本机实际拥有；VPN选择由<code>destination</code>命令完成。
-<strong>撤销命令</strong>：<code>undo source</code>。</p>
-<h3 id="destination"><code>destination</code></h3>
+<strong>参数</strong>：<code class="docutils literal notranslate"><span class="pre">IP</span></code>必须是规范IPv4或IPv6地址，并与协议的外层地址族一致。
+<strong>注意事项</strong>：该地址必须在相应underlay中由本机实际拥有；VPN选择由<code class="docutils literal notranslate"><span class="pre">destination</span></code>命令完成。
+<strong>撤销命令</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span></code>。</p>
+</section>
+<section id="destination">
+<h3><code class="docutils literal notranslate"><span class="pre">destination</span></code><a class="headerlink" href="#destination" title="链接到此标题。"></a></h3>
 <p><strong>功能</strong>：配置GRE或手工IP隧道的外层目的地址及查路VPN。
-<strong>命令格式</strong>：<code>destination IP [vpn-instance NAME]</code>
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">IP</span> <span class="pre">[vpn-instance</span> <span class="pre">NAME]</span></code>
 <strong>视图</strong>：已配置GRE或手工IP协议的Tunnel接口视图。
-<strong>缺省情况</strong>：未配置；未指定<code>vpn-instance</code>时使用<code>default</code>。
-<strong>参数</strong>：<code>IP</code>为远端外层地址；<code>NAME</code>为已存在的VPN实例。
+<strong>缺省情况</strong>：未配置；未指定<code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code>时使用<code class="docutils literal notranslate"><span class="pre">default</span></code>。
+<strong>参数</strong>：<code class="docutils literal notranslate"><span class="pre">IP</span></code>为远端外层地址；<code class="docutils literal notranslate"><span class="pre">NAME</span></code>为已存在的VPN实例。
 <strong>注意事项</strong>：源与目的必须属于同一外层地址族；提交后应在所选VPN中验证到目的地址的路由。
-<strong>撤销命令</strong>：<code>undo destination</code>，同时撤销该目的地址关联的underlay VPN。</p>
-<h3 id="gre-key"><code>gre key</code></h3>
+<strong>撤销命令</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span></code>，同时撤销该目的地址关联的underlay VPN。</p>
+</section>
+<section id="gre-key">
+<h3><code class="docutils literal notranslate"><span class="pre">gre</span> <span class="pre">key</span></code><a class="headerlink" href="#gre-key" title="链接到此标题。"></a></h3>
 <p><strong>功能</strong>：为GRE封装配置可选的32位Key。
-<strong>命令格式</strong>：<code>gre key KEY</code>
-<strong>视图</strong>：<code>tunnel-protocol gre</code>的Tunnel接口视图。
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">gre</span> <span class="pre">key</span> <span class="pre">KEY</span></code>
+<strong>视图</strong>：<code class="docutils literal notranslate"><span class="pre">tunnel-protocol</span> <span class="pre">gre</span></code>的Tunnel接口视图。
 <strong>缺省情况</strong>：不携带GRE Key。
 <strong>注意事项</strong>：两端Key必须一致；该命令不适用于IP-in-IP、WireGuard或AmneziaWG。
-<strong>撤销命令</strong>：<code>undo gre key</code>。</p>
-<h3 id="undo-interface-tunnel"><code>undo interface Tunnel</code></h3>
+<strong>撤销命令</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">gre</span> <span class="pre">key</span></code>。</p>
+</section>
+<section id="undo-interface-tunnel">
+<h3><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">Tunnel</span></code><a class="headerlink" href="#undo-interface-tunnel" title="链接到此标题。"></a></h3>
 <p><strong>功能</strong>：删除Tunnel逻辑接口及其隧道、地址、LCP和相关接口配置。
-<strong>命令格式</strong>：<code>undo interface Tunnel INSTANCE</code>
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">Tunnel</span> <span class="pre">INSTANCE</span></code>
 <strong>视图</strong>：系统视图。
-<strong>注意事项</strong>：命令进入Candidate，执行<code>commit</code>后才从控制面与数据面删除；删除前应确认路由和协议不再引用该接口。</p>
-<h2 id="vxlan与nve">VXLAN与NVE</h2>
+<strong>注意事项</strong>：命令进入Candidate，执行<code class="docutils literal notranslate"><span class="pre">commit</span></code>后才从控制面与数据面删除；删除前应确认路由和协议不再引用该接口。</p>
+</section>
+</section>
+<section id="vxlannve">
+<span id="vxlan与nve"></span><h2>VXLAN与NVE<a class="headerlink" href="#vxlannve" title="链接到此标题。"></a></h2>
 <p>NVE用于集中保存VXLAN源地址和远端VTEP信息，不承载普通三层转发。因此NVE可以进入配置视图、display和undo，但不会出现在路由、BFD、VRRP或ACL等需要真实转发接口的命令补全中。</p>
-<div class="highlight"><pre><span></span><code>interface Nve 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Nve 1
  source 192.0.2.1
  vni 1011 head-end peer-list 192.0.2.2
-</code></pre></div>
+</pre></div>
+</div>
 <p>BD/VNI和Vbdif见接口章节。验证：</p>
-<div class="highlight"><pre><span></span><code>display vxlan tunnel
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vxlan tunnel
 display vxlan statistics
 display bridge-domain 11
 display mac-address
-</code></pre></div>
+</pre></div>
+</div>
 <p>underlay变化导致VXLAN暂时不可用时，应撤销相关数据面接口/路由并在恢复后自动重建。</p>
 <p>使用BGP自动发现远端VTEP和MAC时，将静态peer命令替换为
-<code>vni VNI head-end peer-list protocol bgp</code>，并配置bridge-domain EVPN RD/RT和BGP
-EVPN地址族。完整步骤、限制及Type-2/Type-3验证见<a href="../11-vxlan-evpn/">VXLAN EVPN</a>。</p>
-<p>NVE是控制层逻辑对象，没有独立的VPP收发计数器和MTU，因此<code>display interface brief</code>中的利用率显示<code>0.0%</code>、MTU显示<code>--</code>。实际VXLAN成员的原始计数使用<code>display vxlan statistics</code>查看，避免把父接口、子接口和多个VXLAN成员重复相加。创建、管理状态、MTU、桥域绑定及删除属于同一VPP会话事务；VPP在中途重启时本次操作失败关闭，由下一轮权威收敛重建，不会继续使用旧接口索引。</p>
+<code class="docutils literal notranslate"><span class="pre">vni</span> <span class="pre">VNI</span> <span class="pre">head-end</span> <span class="pre">peer-list</span> <span class="pre">protocol</span> <span class="pre">bgp</span></code>，并配置bridge-domain EVPN RD/RT和BGP
+EVPN地址族。完整步骤、限制及Type-2/Type-3验证见<a class="reference internal" href="../11-vxlan-evpn/"><span class="std std-doc">VXLAN EVPN</span></a>。</p>
+<p>NVE是控制层逻辑对象，没有独立的VPP收发计数器和MTU，因此<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span> <span class="pre">brief</span></code>中的利用率显示<code class="docutils literal notranslate"><span class="pre">0.0%</span></code>、MTU显示<code class="docutils literal notranslate"><span class="pre">--</span></code>。实际VXLAN成员的原始计数使用<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vxlan</span> <span class="pre">statistics</span></code>查看，避免把父接口、子接口和多个VXLAN成员重复相加。创建、管理状态、MTU、桥域绑定及删除属于同一VPP会话事务；VPP在中途重启时本次操作失败关闭，由下一轮权威收敛重建，不会继续使用旧接口索引。</p>
 <p>删除远端或整个NVE配置：</p>
-<div class="highlight"><pre><span></span><code>interface Nve 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Nve 1
  undo vni 1011 head-end peer-list 192.0.2.2
 undo interface Nve 1
 commit
-</code></pre></div>
-<h2 id="wireguard">WireGuard</h2>
+</pre></div>
+</div>
+</section>
+<section id="wireguard">
+<h2>WireGuard<a class="headerlink" href="#wireguard" title="链接到此标题。"></a></h2>
 <p>Profile保存peer及其各自的外层source、destination和underlay VPN；Tunnel保存private key、兼容用的默认underlay、监听端口和profile引用。peer未指定underlay时继承Tunnel默认值。</p>
-<div class="highlight"><pre><span></span><code>wireguard profile WG-PROFILE
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wireguard profile WG-PROFILE
  peer SITE-B
   publickey BASE64-PUBLIC-KEY
   allowd-ip 10.20.0.0 16
@@ -1692,15 +293,16 @@ interface Tunnel 10
  wireguard-profile WG-PROFILE
  mtu 1500
  ip address 10.255.0.1 255.255.255.252
-</code></pre></div>
-<p>WG/AWG profile和peer名称是区分大小写的单个CLI token，长度为1至64个字符，不允许空白、引号或命令分隔符。为兼容旧版已经保存且能够无歧义重放的配置，字母、数字、<code>_</code>、<code>-</code>、<code>.</code>和<code>:</code>均可使用；命令关键字本身仍不区分大小写。</p>
-<p>peer下的<code>destination vpn-instance NAME [IP port PORT]</code>选择该peer的underlay VPN；<code>source IP</code>可选地固定该peer的外层源地址。未配置peer source时，VPP先使用该peer经过认证报文学习到的本地外层地址，再按endpoint和underlay路由自动选源；兼容配置中的Tunnel source只作为旧配置默认值。客户端省略<code>source-port</code>，每次创建接口时使用随机临时源端口。只有作为监听端的服务端才配置固定<code>source-port</code>。CFG中始终先输出peer <code>source</code>，再输出<code>destination</code>。</p>
-<p><code>privatekey auto</code>生成后，配置规范化为实际privatekey，并追加public key。WG/AWG的privatekey、presharedkey和header-protection key在Running、Candidate和CFG中均以明文保存，display也显示原值。因此必须保持<code>/VortexROS/config</code>、备份、审计采集和root终端的最小权限。旧版<code>cipher</code>行仅在启动回放时受理，daemon会将它一次性迁移为明文CFG；新配置不再生成密文。</p>
+</pre></div>
+</div>
+<p>WG/AWG profile和peer名称是区分大小写的单个CLI token，长度为1至64个字符，不允许空白、引号或命令分隔符。为兼容旧版已经保存且能够无歧义重放的配置，字母、数字、<code class="docutils literal notranslate"><span class="pre">_</span></code>、<code class="docutils literal notranslate"><span class="pre">-</span></code>、<code class="docutils literal notranslate"><span class="pre">.</span></code>和<code class="docutils literal notranslate"><span class="pre">:</span></code>均可使用；命令关键字本身仍不区分大小写。</p>
+<p>peer下的<code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">vpn-instance</span> <span class="pre">NAME</span> <span class="pre">[IP</span> <span class="pre">port</span> <span class="pre">PORT]</span></code>选择该peer的underlay VPN；<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">IP</span></code>可选地固定该peer的外层源地址。未配置peer source时，VPP先使用该peer经过认证报文学习到的本地外层地址，再按endpoint和underlay路由自动选源；兼容配置中的Tunnel source只作为旧配置默认值。客户端省略<code class="docutils literal notranslate"><span class="pre">source-port</span></code>，每次创建接口时使用随机临时源端口。只有作为监听端的服务端才配置固定<code class="docutils literal notranslate"><span class="pre">source-port</span></code>。CFG中始终先输出peer <code class="docutils literal notranslate"><span class="pre">source</span></code>，再输出<code class="docutils literal notranslate"><span class="pre">destination</span></code>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">privatekey</span> <span class="pre">auto</span></code>生成后，配置规范化为实际privatekey，并追加public key。WG/AWG的privatekey、presharedkey和header-protection key在Running、Candidate和CFG中均以明文保存，display也显示原值。因此必须保持<code class="docutils literal notranslate"><span class="pre">/VortexROS/config</span></code>、备份、审计采集和root终端的最小权限。旧版<code class="docutils literal notranslate"><span class="pre">cipher</span></code>行仅在启动回放时受理，daemon会将它一次性迁移为明文CFG；新配置不再生成密文。</p>
 <p>Allowed IP限制该peer允许收发的地址范围，并参与Tunnel接口内的最长前缀peer选择。Tunnel使用点到点三层接口语义，路由可以只指定WG/AWG出接口而不写下一跳；数据面按报文最终内层目的地址选择peer，不依赖创建该邻接时偶然选中的peer，也不需要ARP。Allowed IP不会为任意业务网段自动创建系统路由；业务前缀仍需静态或动态路由。</p>
-<p>每个peer的显式source与destination必须属于同一外层地址族；不同peer可以使用不同underlay VPN及不同外层地址族。IPv6 overlay可以与IPv4或IPv6 underlay组合，需为peer配置相应IPv6 <code>allowd-ip</code>。未配置任何<code>allowd-ip</code>表示该peer不匹配任何业务地址，不再隐式扩展成<code>0.0.0.0/0</code>。不同peer可以配置嵌套前缀，数据面按最长前缀选择；完全相同的前缀不能由两个peer同时拥有。</p>
+<p>每个peer的显式source与destination必须属于同一外层地址族；不同peer可以使用不同underlay VPN及不同外层地址族。IPv6 overlay可以与IPv4或IPv6 underlay组合，需为peer配置相应IPv6 <code class="docutils literal notranslate"><span class="pre">allowd-ip</span></code>。未配置任何<code class="docutils literal notranslate"><span class="pre">allowd-ip</span></code>表示该peer不匹配任何业务地址，不再隐式扩展成<code class="docutils literal notranslate"><span class="pre">0.0.0.0/0</span></code>。不同peer可以配置嵌套前缀，数据面按最长前缀选择；完全相同的前缀不能由两个peer同时拥有。</p>
 <p>VortexROS默认启用WG和AWG异步加密。加密、解密和post节点可由VPP加密调度器分配到其他worker，发送和接收方向也可在不同核心执行；控制层每次收敛相关隧道时都会显式恢复该默认值，若切换失败则停止继续修改，避免配置成功但实际仍落在非预期执行模式。</p>
-<p>服务端peer可以不配置<code>destination</code>，首个通过认证的报文会学习并更新该peer的漫游endpoint；这种模式必须在Tunnel上配置固定监听端口：</p>
-<div class="highlight"><pre><span></span><code>wireguard profile WG-SERVER
+<p>服务端peer可以不配置<code class="docutils literal notranslate"><span class="pre">destination</span></code>，首个通过认证的报文会学习并更新该peer的漫游endpoint；这种模式必须在Tunnel上配置固定监听端口：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wireguard profile WG-SERVER
  peer ROAMING-CLIENT
   publickey BASE64-PUBLIC-KEY
   allowd-ip 10.40.0.0 24
@@ -1713,31 +315,40 @@ interface Tunnel 11
  source-port 51820
  wireguard-profile WG-SERVER
  ip address 10.40.0.1 255.255.255.0
-</code></pre></div>
-<h2 id="修改和删除">修改和删除</h2>
-<ul>
-<li>新增或删除peer只影响该peer；</li>
-<li>修改密钥、目的地址或监听参数时，相关Tunnel可能短暂重新建立；</li>
-<li>profile仍被Tunnel引用时不能删除；</li>
-<li>修改peer underlay、source或destination后，应重新检查对应VPN中到公网地址的路由。</li>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<span id="修改和删除"></span><h2>修改和删除<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<ul class="simple">
+<li><p>新增或删除peer只影响该peer；</p></li>
+<li><p>修改密钥、目的地址或监听参数时，相关Tunnel可能短暂重新建立；</p></li>
+<li><p>profile仍被Tunnel引用时不能删除；</p></li>
+<li><p>修改peer underlay、source或destination后，应重新检查对应VPN中到公网地址的路由。</p></li>
 </ul>
-<div class="highlight"><pre><span></span><code>interface Tunnel 10
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 10
  undo wireguard-profile WG-PROFILE
  undo source
 undo wireguard profile WG-PROFILE
 commit
-</code></pre></div>
-<h2 id="验证">验证</h2>
-<div class="highlight"><pre><span></span><code>display wireguard
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display wireguard
 display interface Tunnel 10
 display ip routing-table
 ping -vpn-instance BLUE 10.255.0.2
-</code></pre></div>
+</pre></div>
+</div>
 <p>除接口状态外，还应从对端确认握手、收发计数和业务路由。只有Tunnel地址可达而业务前缀没有路由时，WireGuard不会自动补充路由。</p>
-<h2 id="amneziawg">AmneziaWG</h2>
+</section>
+<section id="amneziawg">
+<h2>AmneziaWG<a class="headerlink" href="#amneziawg" title="链接到此标题。"></a></h2>
 <p>AmneziaWG使用独立的数据面插件、接口和peer对象，不替换WireGuard；两类隧道可以同时配置。Profile除peer外，还保存握手前垃圾包、报文前置填充、消息头范围、内容填充、随机尾部和定时参数。两端必须使用一致的协议参数。</p>
 <p>下面示例启用3个随机垃圾包、不同消息头范围和固定前置填充。启用header protection时，四类报文的前置填充都必须不少于12字节。</p>
-<div class="highlight"><pre><span></span><code>amneziawg profile AWG-PROFILE
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>amneziawg profile AWG-PROFILE
  junk size 16 48
  junk count 3
  padding init 24
@@ -1769,135 +380,66 @@ interface Tunnel 20
  mtu 1500
  ip address 10.255.20.1 255.255.255.252
 commit
-</code></pre></div>
-<p><code>junk-packet SLOT BASE64</code>用于配置1至5号静态原始报文槽位；<code>junk-packet SLOT expression "EXPRESSION"</code>用于动态生成握手前报文。表达式支持：<code>&lt;b 0x...&gt;</code>固定字节、<code>&lt;c&gt;</code>每次握手随机起始且逐槽递增的32位网络序计数、<code>&lt;t&gt;</code>当前Unix秒、<code>&lt;r N&gt;</code>随机字节、<code>&lt;rc N&gt;</code>随机英文字母和<code>&lt;rd N&gt;</code>随机数字。表达式最多4096字节，展开后的单个报文最多4096字节，动态标签最多128个；错误表达式在进入Candidate前拒绝。表达式在配置时编译，握手热路径只复制模板并填充动态字段。Jc/Jmin/Jmax产生的随机垃圾包与这些槽位相互独立。</p>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">junk-packet</span> <span class="pre">SLOT</span> <span class="pre">BASE64</span></code>用于配置1至5号静态原始报文槽位；<code class="docutils literal notranslate"><span class="pre">junk-packet</span> <span class="pre">SLOT</span> <span class="pre">expression</span> <span class="pre">&quot;EXPRESSION&quot;</span></code>用于动态生成握手前报文。表达式支持：<code class="docutils literal notranslate"><span class="pre">&lt;b</span> <span class="pre">0x...&gt;</span></code>固定字节、<code class="docutils literal notranslate"><span class="pre">&lt;c&gt;</span></code>每次握手随机起始且逐槽递增的32位网络序计数、<code class="docutils literal notranslate"><span class="pre">&lt;t&gt;</span></code>当前Unix秒、<code class="docutils literal notranslate"><span class="pre">&lt;r</span> <span class="pre">N&gt;</span></code>随机字节、<code class="docutils literal notranslate"><span class="pre">&lt;rc</span> <span class="pre">N&gt;</span></code>随机英文字母和<code class="docutils literal notranslate"><span class="pre">&lt;rd</span> <span class="pre">N&gt;</span></code>随机数字。表达式最多4096字节，展开后的单个报文最多4096字节，动态标签最多128个；错误表达式在进入Candidate前拒绝。表达式在配置时编译，握手热路径只复制模板并填充动态字段。Jc/Jmin/Jmax产生的随机垃圾包与这些槽位相互独立。</p>
 <p>Allowed IP、underlay VPN、动态客户端源端口、固定服务端监听端口和漫游endpoint的语义与WireGuard相同。Tunnel直连前缀会按Allowed IP最长前缀映射到peer，非直连业务网段仍由路由配置决定。修改协议参数时，已存在的peer会被最小化重建；修改单个peer只影响该peer。</p>
 <p>验证命令：</p>
-<div class="highlight"><pre><span></span><code>display amneziawg profile AWG-PROFILE
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display amneziawg profile AWG-PROFILE
 display amneziawg peer AWG-PROFILE SITE-B
 display amneziawg interface Tunnel 20
 display interface Tunnel 20
 ping 10.255.20.2
-</code></pre></div>
+</pre></div>
+</div>
 <p>删除时先解除Tunnel引用，再删除profile：</p>
-<div class="highlight"><pre><span></span><code>interface Tunnel 20
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 20
  undo amneziawg-profile
 undo amneziawg profile AWG-PROFILE
 commit
-</code></pre></div>
+</pre></div>
+</div>
 <p>当前版本已经验证IPv4与IPv6 overlay、IPv4 underlay、header protection、内容填充、随机尾部、cookie关闭、静态/动态垃圾包以及peer反复增删。动态表达式采用上述明确语法，非法或超过边界的输入不会部分生效。</p>
-<h2 id="功能范围">功能范围</h2>
+</section>
+<section id="id4">
+<span id="功能范围"></span><h2>功能范围<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>VortexROS 将 Linux/FRR 作为动态路由控制面、VPP 作为转发面。控制层维持
 Linux 全局 IPv6 forwarding 为开启状态，使 FRR 能够把 LCP 接口上的 IPv6
 直连网络作为隧道 underlay 的有效路由证据；这不会把隧道业务流量切换到
 Linux 数据面。</p>
 <p>当前版本不提供IPsec和MACsec配置命令。</p>
+</section>
+</section>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
-<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到页面顶部
-</button>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="页脚" >
-        
-          
-          <a href="../05-dynamic-routing/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 动态路由与路由策略">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                上一页
-              </span>
-              <div class="md-ellipsis">
-                动态路由与路由策略
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../07-policy/" class="md-footer__link md-footer__link--next" aria-label="下一页: ACL、NAT 与 QoS">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                下一页
-              </span>
-              <div class="md-ellipsis">
-                ACL、NAT 与 QoS
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://zensical.org/" target="_blank" rel="noopener">
-      Zensical
-    </a>
-  
-</div>
-      
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../05-dynamic-routing/" class="btn btn-neutral float-left" title="路由策略、OSPF、BGP、IS-IS、RIP、BFD 与 VRRP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../07-policy/" class="btn btn-neutral float-right" title="ACL、QoS、MQC、MSS 与 nat-policy" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
   </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
 </footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      
-      
-      
-        
-        
-      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs","navigation.sections","navigation.footer","navigation.top","toc.follow","content.code.copy"],"redirect":null,"search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","clipboard.error":"Could not copy to clipboard","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
-    
-    
-      <script src="../../assets/javascripts/bundle.3cb411a8.min.js"></script>
-      
-    
-  </body>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>

@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>为 VLAN 客户端分配 IPv4 地址 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=6adf1c08" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/dhcp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="在三层接口过滤入站流量" href="../acl/" />
+    <link rel="prev" title="连接直连 eBGP 邻居" href="../bgp/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="manual-version">
+  <a href="../../versions/">版本 v0.28-dev-debug5 · 当前</a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">首次安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">从零到 Ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">CLI 使用指南</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../static-route/">通过静态路由访问远端网段</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">用 VLAN 和 Vlanif 提供网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">建立单区域 OSPF 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">连接直连 eBGP 邻居</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">为 VLAN 客户端分配 IPv4 地址</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">在三层接口过滤入站流量</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/">VortexROS 0.28 操作手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断、清理、健康与服务恢复</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">VortexROS 全命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/">文档版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+      <li class="breadcrumb-item active">为 VLAN 客户端分配 IPv4 地址</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/examples/dhcp.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vlan-ipv4">
+<span id="为-vlan-客户端分配-ipv4-地址"></span><h1>为 VLAN 客户端分配 IPv4 地址<a class="headerlink" href="#vlan-ipv4" title="链接到此标题。"></a></h1>
+<p><strong>用途</strong>。在已有 Vlanif 100 上为客户端提供动态地址和默认网关。</p>
+<p><strong>前提</strong>。Vlanif 100 已配置 192.0.2.1/24，VLAN 二层连通，同一广播域没有其他提供冲突地址的 DHCP 服务器。</p>
+<section id="id1">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+enable dhcp server
+interface Vlanif 100
+ dhcp select interface
+ dhcp server ip-range 192.0.2.100 192.0.2.200
+ dhcp server lease day 1
+ quit
+commit
+</pre></div>
+</div>
+<p>全局开关允许 DHCP 服务端运行，接口命令才决定此接口提供租约。接口地址池默认把接口主地址作为网关，动态分配范围不含网关地址。</p>
+</section>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>使用 display dhcp service verbose 检查服务 Ready。令测试客户端重新获取地址，核对分配地址、默认网关和实际连通性。用 display ip pool interface Vlanif 100 verbose 查看池与租约。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在 Vlanif 100 执行 undo dhcp select 并提交。该接口停止服务，已有客户端可能继续使用现有租约，直到续租或过期。其他接口仍有 DHCP 需求时，保留全局服务开关。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../bgp/" class="btn btn-neutral float-left" title="连接直连 eBGP 邻居" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../acl/" class="btn btn-neutral float-right" title="在三层接口过滤入站流量" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

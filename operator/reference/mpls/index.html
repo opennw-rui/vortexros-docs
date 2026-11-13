@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MPLS LDP 与 L3VPN &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=6adf1c08" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/mpls/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG" href="../tunnels/" />
+    <link rel="prev" title="动态路由、策略路由、BFD 与 VRRP" href="../dynamic-routing/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="manual-version">
+  <a href="../../../versions/">版本 v0.28-dev-debug5 · 当前</a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">首次安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">从零到 Ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">CLI 使用指南</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../">VortexROS 0.28 操作手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断、清理、健康与服务恢复</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">VortexROS 全命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI、Candidate 与配置管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统、健康与服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口、二层与邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">IP、VPN 与静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">动态路由、策略路由、BFD 与 VRRP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MPLS LDP 与 L3VPN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#display-mpls-forwarding-table"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">forwarding-table</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-mpls-interface"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">interface</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-mpls-ldp-binding"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">binding</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-mpls-ldp-interface"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">interface</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-mpls-ldp-peer"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">peer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-mpls-lsp"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">lsp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mpls"><code class="docutils literal notranslate"><span class="pre">mpls</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mpls-ldp"><code class="docutils literal notranslate"><span class="pre">mpls</span> <span class="pre">ldp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mpls-lsr-id"><code class="docutils literal notranslate"><span class="pre">mpls</span> <span class="pre">lsr-id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ttl-propagate"><code class="docutils literal notranslate"><span class="pre">ttl</span> <span class="pre">propagate</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-mpls"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mpls</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-mpls-ldp"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mpls</span> <span class="pre">ldp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-mpls-lsr-id"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mpls</span> <span class="pre">lsr-id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ttl-propagate"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ttl</span> <span class="pre">propagate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">ACL、QoS、MQC、MSS 与 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">DHCP、LLDP 与 SNMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断、清理与恢复</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/">文档版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">VortexROS 全命令参考</a></li>
+      <li class="breadcrumb-item active">MPLS LDP 与 L3VPN</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/operator/reference/mpls.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mpls-ldp-l3vpn">
+<span id="mpls-ldp-与-l3vpn"></span><h1>MPLS LDP 与 L3VPN<a class="headerlink" href="#mpls-ldp-l3vpn" title="链接到此标题。"></a></h1>
+<section id="display-mpls-forwarding-table">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">forwarding-table</span></code><a class="headerlink" href="#display-mpls-forwarding-table" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display the VPP MPLS forwarding table</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display mpls forwarding-table
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-mpls-interface">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">interface</span></code><a class="headerlink" href="#display-mpls-interface" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display MPLS-enabled interfaces</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display mpls interface
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-mpls-ldp-binding">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">binding</span></code><a class="headerlink" href="#display-mpls-ldp-binding" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display LDP label bindings</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display mpls ldp binding
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-mpls-ldp-interface">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">interface</span></code><a class="headerlink" href="#display-mpls-ldp-interface" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display LDP interface state</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display mpls ldp interface
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-mpls-ldp-peer">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">peer</span></code><a class="headerlink" href="#display-mpls-ldp-peer" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display LDP peers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display mpls ldp peer
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-mpls-lsp">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">lsp</span></code><a class="headerlink" href="#display-mpls-lsp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display the Zebra MPLS forwarding table</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display mpls lsp
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="mpls">
+<h2><code class="docutils literal notranslate"><span class="pre">mpls</span></code><a class="headerlink" href="#mpls" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable MPLS and enter the MPLS view；enable MPLS forwarding on the interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mpls
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="mpls-ldp">
+<h2><code class="docutils literal notranslate"><span class="pre">mpls</span> <span class="pre">ldp</span></code><a class="headerlink" href="#mpls-ldp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable LDP discovery on the interface；enable MPLS LDP globally</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mpls ldp
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="mpls-lsr-id">
+<h2><code class="docutils literal notranslate"><span class="pre">mpls</span> <span class="pre">lsr-id</span></code><a class="headerlink" href="#mpls-lsr-id" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure the MPLS label switching router ID</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mpls lsr-id A.B.C.D
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ttl-propagate">
+<h2><code class="docutils literal notranslate"><span class="pre">ttl</span> <span class="pre">propagate</span></code><a class="headerlink" href="#ttl-propagate" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">mpls</span></code></p></li>
+<li><p>用途（设备帮助）：use uniform MPLS TTL propagation</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ttl propagate
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-mpls">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mpls</span></code><a class="headerlink" href="#undo-mpls" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable MPLS forwarding on the interface；disable MPLS globally</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo mpls
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-mpls-ldp">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mpls</span> <span class="pre">ldp</span></code><a class="headerlink" href="#undo-mpls-ldp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable LDP discovery on the interface；disable MPLS LDP globally</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo mpls ldp
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-mpls-lsr-id">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mpls</span> <span class="pre">lsr-id</span></code><a class="headerlink" href="#undo-mpls-lsr-id" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the MPLS label switching router ID</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo mpls lsr-id
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ttl-propagate">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ttl</span> <span class="pre">propagate</span></code><a class="headerlink" href="#undo-ttl-propagate" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">mpls</span></code></p></li>
+<li><p>用途（设备帮助）：use pipe mode and hide MPLS transit hops</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ttl propagate
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../dynamic-routing/" class="btn btn-neutral float-left" title="动态路由、策略路由、BFD 与 VRRP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../tunnels/" class="btn btn-neutral float-right" title="GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

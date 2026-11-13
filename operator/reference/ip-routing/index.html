@@ -1,0 +1,983 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IP、VPN 与静态路由 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=6adf1c08" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/ip-routing/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="动态路由、策略路由、BFD 与 VRRP" href="../dynamic-routing/" />
+    <link rel="prev" title="接口、二层与邻居" href="../interfaces/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="manual-version">
+  <a href="../../../versions/">版本 v0.28-dev-debug5 · 当前</a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">首次安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">从零到 Ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">CLI 使用指南</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../">VortexROS 0.28 操作手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断、清理、健康与服务恢复</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">VortexROS 全命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI、Candidate 与配置管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统、健康与服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口、二层与邻居</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IP、VPN 与静态路由</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#auto-refresh-enable"><code class="docutils literal notranslate"><span class="pre">auto-refresh</span> <span class="pre">enable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto-refresh-interval"><code class="docutils literal notranslate"><span class="pre">auto-refresh</span> <span class="pre">interval</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-fib"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">fib</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-interface-brief"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">interface</span> <span class="pre">brief</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-ip-prefix"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">ip-prefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-ipv6-prefix"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">ipv6-prefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-pool"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">pool</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-routing-table"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">routing-table</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-routing-table-group"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">routing-table-group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-vpn-instance"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-vpn-instance-interface"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span> <span class="pre">interface</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ip-vpn-instance-verbose"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span> <span class="pre">verbose</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-fib"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">fib</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-interface-brief"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">interface</span> <span class="pre">brief</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-nd"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">nd</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-neighbors"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">neighbors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-pathmtu"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">pathmtu</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-pool"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">pool</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-prefix"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">prefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-route-static-group"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">route-static</span> <span class="pre">group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-routing-table"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">routing-table</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-routing-table-group"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">routing-table-group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-ipv6-urpf"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">urpf</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-route-static-group"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-static</span> <span class="pre">group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ip-route-static"><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">route-static</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ip-route-static-group"><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">route-static-group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv4-family"><code class="docutils literal notranslate"><span class="pre">ipv4-family</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv6-nd-max-number"><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">max-number</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv6-nd-recycle"><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">recycle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv6-nd-stale-timeout"><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">stale-timeout</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv6-neighbor"><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">neighbor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv6-route-static"><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">route-static</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv6-route-static-group"><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">route-static-group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv6-family"><code class="docutils literal notranslate"><span class="pre">ipv6-family</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#route"><code class="docutils literal notranslate"><span class="pre">route</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#route-distinguisher"><code class="docutils literal notranslate"><span class="pre">route-distinguisher</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-file"><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-url"><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-auto-refresh-enable"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">auto-refresh</span> <span class="pre">enable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-auto-refresh-interval"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">auto-refresh</span> <span class="pre">interval</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ip-ip-prefix"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">ip-prefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ip-ipv6-prefix"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">ipv6-prefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ip-route-static"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">route-static</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ip-route-static-group"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">route-static-group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ip-vpn-instance"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ipv4-family"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-nd-max-number"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">max-number</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-nd-recycle"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">recycle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-nd-stale-timeout"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">stale-timeout</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-neighbor"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">neighbor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-route-static"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">route-static</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-route-static-group"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">route-static-group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-family"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-route"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-route-distinguisher"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route-distinguisher</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-source-file"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-source-url"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undo-vpn-target"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vpn-target</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vpn-target"><code class="docutils literal notranslate"><span class="pre">vpn-target</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">动态路由、策略路由、BFD 与 VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS LDP 与 L3VPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">ACL、QoS、MQC、MSS 与 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">DHCP、LLDP 与 SNMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断、清理与恢复</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/">文档版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">VortexROS 全命令参考</a></li>
+      <li class="breadcrumb-item active">IP、VPN 与静态路由</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/operator/reference/ip-routing.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ipvpn">
+<span id="ipvpn-与静态路由"></span><h1>IP、VPN 与静态路由<a class="headerlink" href="#ipvpn" title="链接到此标题。"></a></h1>
+<section id="auto-refresh-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">auto-refresh</span> <span class="pre">enable</span></code><a class="headerlink" href="#auto-refresh-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable automatic remote-list refresh</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>auto-refresh enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="auto-refresh-interval">
+<h2><code class="docutils literal notranslate"><span class="pre">auto-refresh</span> <span class="pre">interval</span></code><a class="headerlink" href="#auto-refresh-interval" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the remote-list refresh interval</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>auto-refresh interval INTEGER&lt;5-10080&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-fib">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">fib</span></code><a class="headerlink" href="#display-ip-fib" title="链接到此标题。"></a></h2>
+<p>读取 VPP 中实际安装的 IPv4 转发项。Lookup-Table 的短横线表示普通转发路径。示例 display ip fib vpn-instance BLUE。</p>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display the effective VPP IPv4 forwarding table</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip fib [vpn-instance VRF]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-interface-brief">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">interface</span> <span class="pre">brief</span></code><a class="headerlink" href="#display-ip-interface-brief" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv4 interface brief</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip interface brief
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-ip-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#display-ip-ip-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IP prefix lists</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip ip-prefix [NAME [verbose|first-match PREFIX]]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-ipv6-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">ipv6-prefix</span></code><a class="headerlink" href="#display-ip-ipv6-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 prefix lists</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip ipv6-prefix [NAME [verbose|first-match PREFIX]]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-pool">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">pool</span></code><a class="headerlink" href="#display-ip-pool" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv4 address pools and server leases</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip pool [name NAME | interface TYPE N] [all | used] [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-routing-table">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">routing-table</span></code><a class="headerlink" href="#display-ip-routing-table" title="链接到此标题。"></a></h2>
+<p>核对控制面选路。protocol static 只查询静态路由，指定目的地址可进一步缩小范围。</p>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display the IPv4 routing table</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip routing-table [X.X.X.X [INTEGER&lt;0-32&gt; | X.X.X.X] [longer-match] | vpn-instance NAME | all-vpn-instance | protocol PROTO [inactive | verbose] | statistics | route-number | verbose | all-routes | limit N]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-routing-table-group">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">routing-table-group</span></code><a class="headerlink" href="#display-ip-routing-table-group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv4 static route group applications</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip routing-table-group [name GROUP] [route PREFIX] [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#display-ip-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display VPN-instance information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip vpn-instance [NAME | interface | verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-vpn-instance-interface">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span> <span class="pre">interface</span></code><a class="headerlink" href="#display-ip-vpn-instance-interface" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display interfaces bound to VPN instances</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip vpn-instance interface
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-vpn-instance-verbose">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span> <span class="pre">verbose</span></code><a class="headerlink" href="#display-ip-vpn-instance-verbose" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display verbose VPN-instance information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip vpn-instance verbose
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-fib">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">fib</span></code><a class="headerlink" href="#display-ipv6-fib" title="链接到此标题。"></a></h2>
+<p>读取 VPP 中实际安装的 IPv6 转发项。每条 ECMP 路径显示一个信息块，可按 VPN 限定查询。</p>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 FIB information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 fib [vpn-instance VRF]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-interface-brief">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">interface</span> <span class="pre">brief</span></code><a class="headerlink" href="#display-ipv6-interface-brief" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 interface brief</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 interface brief
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-nd">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">nd</span></code><a class="headerlink" href="#display-ipv6-nd" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 neighbor discovery information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 nd
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-neighbors">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">neighbors</span></code><a class="headerlink" href="#display-ipv6-neighbors" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 neighbor information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 neighbors [interface IF | vpn-instance VRF | static | dynamic]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-pathmtu">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">pathmtu</span></code><a class="headerlink" href="#display-ipv6-pathmtu" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 path MTU information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 pathmtu [vpn-instance VRF]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-pool">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">pool</span></code><a class="headerlink" href="#display-ipv6-pool" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 pool information and server leases</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 pool [name NAME] [all | used] [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">prefix</span></code><a class="headerlink" href="#display-ipv6-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 prefix-list information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 prefix [NAME [verbose|first-match PREFIX]]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-route-static-group">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">route-static</span> <span class="pre">group</span></code><a class="headerlink" href="#display-ipv6-route-static-group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 static route groups</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 route-static group [name GROUP] [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-routing-table">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">routing-table</span></code><a class="headerlink" href="#display-ipv6-routing-table" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display the IPv6 routing table</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 routing-table [X:X::X:X [INTEGER&lt;0-128&gt; | X:X::X:X] [longer-match] | vpn-instance NAME | all-vpn-instance | protocol PROTO [inactive | verbose] | statistics | route-number | verbose | all-routes | limit N]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-routing-table-group">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">routing-table-group</span></code><a class="headerlink" href="#display-ipv6-routing-table-group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 static route group applications</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 routing-table-group [name GROUP] [route PREFIX] [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-urpf">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">urpf</span></code><a class="headerlink" href="#display-ipv6-urpf" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 URPF information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 urpf
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-route-static-group">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-static</span> <span class="pre">group</span></code><a class="headerlink" href="#display-route-static-group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv4 static route groups</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display route-static group [name GROUP] [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ip-route-static">
+<h2><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">route-static</span></code><a class="headerlink" href="#ip-route-static" title="链接到此标题。"></a></h2>
+<p>指定目标前缀的下一跳、接口或黑洞。普通路径需要可解析的下一跳。见<a class="reference internal" href="../../../examples/static-route/"><span class="std std-doc">静态路由案例</span></a>。</p>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure a static IPv4 route</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip route-static [vpn-instance DEST-VPN] DEST MASK { NULL 0 | NH | TYPE N [NH] | vpn-instance NH-VRF [NH] } [preference PREF | tag TAG] * [description TEXT]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ip-route-static-group">
+<h2><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">route-static-group</span></code><a class="headerlink" href="#ip-route-static-group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：apply a static route group</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip route-static-group [vpn-instance DEST-VPN] GROUP PATH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv4-family">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span></code><a class="headerlink" href="#ipv4-family" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">VPN地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">VPN实例视图</span></code></p></li>
+<li><p>用途（设备帮助）：enter the IPv4 address-family view</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv4-family
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-nd-max-number">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">max-number</span></code><a class="headerlink" href="#ipv6-nd-max-number" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the IPv6 neighbor database capacity</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 nd max-number INTEGER&lt;1-4294967295&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-nd-recycle">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">recycle</span></code><a class="headerlink" href="#ipv6-nd-recycle" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure IPv6 neighbor recycling at capacity</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 nd recycle { enable | disable }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-nd-stale-timeout">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">stale-timeout</span></code><a class="headerlink" href="#ipv6-nd-stale-timeout" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the dynamic IPv6 neighbor stale aging time</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 nd stale-timeout INTEGER&lt;60-172800&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-neighbor">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">neighbor</span></code><a class="headerlink" href="#ipv6-neighbor" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure a static IPv6 neighbor</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 neighbor IPV6 MAC interface IF
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-route-static">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">route-static</span></code><a class="headerlink" href="#ipv6-route-static" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure a static IPv6 route</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 route-static [vpn-instance DEST-VPN] DEST PREFIXLEN { NULL 0 | NH | TYPE N [NH] | vpn-instance NH-VRF [NH] } [preference PREF | tag TAG] * [description TEXT]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-route-static-group">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">route-static-group</span></code><a class="headerlink" href="#ipv6-route-static-group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：apply a static route group</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 route-static-group [vpn-instance DEST-VPN] GROUP PATH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-family">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span></code><a class="headerlink" href="#ipv6-family" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">VPN地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">VPN实例视图</span></code></p></li>
+<li><p>用途（设备帮助）：enter the IPv6 address-family view</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6-family
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="route">
+<h2><code class="docutils literal notranslate"><span class="pre">route</span></code><a class="headerlink" href="#route" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：add a route prefix</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route PREFIX [MASK|PREFIXLEN]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="route-distinguisher">
+<h2><code class="docutils literal notranslate"><span class="pre">route-distinguisher</span></code><a class="headerlink" href="#route-distinguisher" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">VPN地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">VPN实例视图</span></code>、<code class="docutils literal notranslate"><span class="pre">bridge-domain-evpn</span></code></p></li>
+<li><p>用途（设备帮助）：configure the route distinguisher；set the EVPN route distinguisher</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-distinguisher RD
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="source-file">
+<h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">file</span></code><a class="headerlink" href="#source-file" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：use a CIDR-list file from /VortexROS/route-static-groupd</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>source file FILE
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="source-url">
+<h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">url</span></code><a class="headerlink" href="#source-url" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the remote CIDR-list source</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>source url URL [insecure] [vpn-instance NAME] [resolve-address IP]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-auto-refresh-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">auto-refresh</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-auto-refresh-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable automatic remote-list refresh</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo auto-refresh enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-auto-refresh-interval">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">auto-refresh</span> <span class="pre">interval</span></code><a class="headerlink" href="#undo-auto-refresh-interval" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the 4320-minute refresh interval</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo auto-refresh interval
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ip-ip-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#undo-ip-ip-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete an IP prefix list entry or list</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ip ip-prefix NAME [index SEQ]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ip-ipv6-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">ipv6-prefix</span></code><a class="headerlink" href="#undo-ip-ipv6-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete an IPv6 prefix list entry or list</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ip ipv6-prefix NAME [index SEQ]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ip-route-static">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">route-static</span></code><a class="headerlink" href="#undo-ip-route-static" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a static IPv4 route</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ip route-static [vpn-instance DEST-VPN] DEST MASK [NULL 0 | NH | TYPE N [NH] [vpn-instance NH-VRF] | vpn-instance NH-VRF [NH]]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ip-route-static-group">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">route-static-group</span></code><a class="headerlink" href="#undo-ip-route-static-group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：apply a static route group</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ip route-static-group [vpn-instance DEST-VPN] GROUP PATH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ip-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-ip-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a VPN instance</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ip vpn-instance NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv4-family">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span></code><a class="headerlink" href="#undo-ipv4-family" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">VPN实例视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete the IPv4 address-family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv4-family
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-nd-max-number">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">max-number</span></code><a class="headerlink" href="#undo-ipv6-nd-max-number" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the VPP default IPv6 neighbor capacity</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 nd max-number
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-nd-recycle">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">recycle</span></code><a class="headerlink" href="#undo-ipv6-nd-recycle" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the VPP default IPv6 neighbor recycle policy</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 nd recycle
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-nd-stale-timeout">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">stale-timeout</span></code><a class="headerlink" href="#undo-ipv6-nd-stale-timeout" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default IPv6 neighbor stale aging time</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 nd stale-timeout
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-neighbor">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">neighbor</span></code><a class="headerlink" href="#undo-ipv6-neighbor" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a static IPv6 neighbor</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 neighbor IPV6 MAC interface IF
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-route-static">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">route-static</span></code><a class="headerlink" href="#undo-ipv6-route-static" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a static IPv6 route</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 route-static [vpn-instance DEST-VPN] DEST PREFIXLEN [NULL 0 | NH | TYPE N [NH] [vpn-instance NH-VRF] | vpn-instance NH-VRF [NH]]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-route-static-group">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">route-static-group</span></code><a class="headerlink" href="#undo-ipv6-route-static-group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：apply a static route group</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 route-static-group [vpn-instance DEST-VPN] GROUP PATH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-family">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span></code><a class="headerlink" href="#undo-ipv6-family" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">VPN实例视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete the IPv6 address-family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6-family
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-route">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route</span></code><a class="headerlink" href="#undo-route" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a route prefix</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo route PREFIX [MASK|PREFIXLEN]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-route-distinguisher">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route-distinguisher</span></code><a class="headerlink" href="#undo-route-distinguisher" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">VPN地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">VPN实例视图</span></code>、<code class="docutils literal notranslate"><span class="pre">bridge-domain-evpn</span></code></p></li>
+<li><p>用途（设备帮助）：clear the EVPN route distinguisher；delete the route distinguisher</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo route-distinguisher
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-source-file">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">file</span></code><a class="headerlink" href="#undo-source-file" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the local CIDR-list source</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo source file
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-source-url">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">url</span></code><a class="headerlink" href="#undo-source-url" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">静态路由组视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the remote CIDR-list source</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo source url
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-vpn-target">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vpn-target</span></code><a class="headerlink" href="#undo-vpn-target" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">VPN地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">VPN实例视图</span></code>、<code class="docutils literal notranslate"><span class="pre">bridge-domain-evpn</span></code></p></li>
+<li><p>用途（设备帮助）：configure an EVPN route target；delete a VPN target</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo vpn-target RT [ export-extcommunity | import-extcommunity | both ]
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo vpn-target RT { export-extcommunity | import-extcommunity }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="vpn-target">
+<h2><code class="docutils literal notranslate"><span class="pre">vpn-target</span></code><a class="headerlink" href="#vpn-target" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">VPN地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">VPN实例视图</span></code>、<code class="docutils literal notranslate"><span class="pre">bridge-domain-evpn</span></code></p></li>
+<li><p>用途（设备帮助）：configure a VPN target；configure an EVPN route target</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vpn-target RT { export-extcommunity | import-extcommunity | both }
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vpn-target RT { export-extcommunity | import-extcommunity }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../interfaces/" class="btn btn-neutral float-left" title="接口、二层与邻居" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../dynamic-routing/" class="btn btn-neutral float-right" title="动态路由、策略路由、BFD 与 VRRP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
