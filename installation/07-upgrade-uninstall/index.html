@@ -1,0 +1,1677 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="VortexROS 安装、配置、运维与 CLI 命令参考">
+      
+      
+      
+        <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/07-upgrade-uninstall/">
+      
+      
+      
+        <link rel="prev" href="../06-first-start/">
+      
+      
+        <link rel="next" href="../08-hardware-acceptance/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.1.1">
+    
+    
+      
+        <title>升级与回退 - VortexROS 文档</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/classic/main.0006804e.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/classic/palette.813d4b3f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/vortexros.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        跳转至
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="VortexROS 文档" class="md-header__button md-logo" aria-label="VortexROS 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9c-1.1 0-2 .9-2 2v4a2 2 0 0 0 2 2h6v2h-1c-.55 0-1 .45-1 1H2v2h7c0 .55.45 1 1 1h4c.55 0 1-.45 1-1h7v-2h-7c0-.55-.45-1-1-1h-1v-2h6c1.11 0 2-.89 2-2v-4a2 2 0 0 0-2-2zm1 3h2v2H6zm3.5 0h2v2h-2zm3.5 0h2v2h-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+      <span class="md-visually-hidden">导航栏</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            VortexROS 文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              升级与回退
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+          <span class="md-visually-hidden">查找</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../quickstart/" class="md-tabs__link">
+        
+  
+  快速入门
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  安装与升级
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../operator/" class="md-tabs__link">
+          
+  
+  配置指南
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../operator/09-operations/" class="md-tabs__link">
+        
+  
+  运维与排障
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../operator/reference/commands/" class="md-tabs__link">
+        
+  
+  命令参考
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="VortexROS 文档" class="md-nav__button md-logo" aria-label="VortexROS 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9c-1.1 0-2 .9-2 2v4a2 2 0 0 0 2 2h6v2h-1c-.55 0-1 .45-1 1H2v2h7c0 .55.45 1 1 1h4c.55 0 1-.45 1-1h7v-2h-7c0-.55-.45-1-1-1h-1v-2h6c1.11 0 2-.89 2-2v-4a2 2 0 0 0-2-2zm1 3h2v2H6zm3.5 0h2v2h-2zm3.5 0h2v2h-2z"/></svg>
+
+    </a>
+    VortexROS 文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  首页
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  快速入门
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  安装与升级
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  安装与升级
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  安装手册
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  部署规划
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-management-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  管理连接
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  后端与依赖
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-install-vortexros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  安装 VortexROS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-system-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  系统服务
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vpp-startup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  VPP 启动配置
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-first-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  首次启动
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+        <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  升级与回退
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  升级与回退
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#升级" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        升级
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="升级">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli操作流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CLI操作流程
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#软件命令参考" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        软件命令参考
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#首次从旧版本升级" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        首次从旧版本升级
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#事务恢复状态" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        事务恢复状态
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#旧-bootstrap-状态" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        旧 bootstrap 状态
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#卸载" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        卸载
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#故障回滚" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        故障回滚
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-hardware-acceptance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  硬件验收
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  配置指南
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  配置指南
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  操作手册
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/01-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CLI 与配置事务
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/02-system-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  系统与服务
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/03-interfaces-l2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  接口、VLAN 与邻居
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/04-ip-routing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  IP、VPN 与静态路由
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/05-dynamic-routing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  动态路由与路由策略
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/06-tunnels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  隧道
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/07-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ACL、NAT 与 QoS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/08-network-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  DHCP、LLDP 与 SNMP
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/10-mpls-l3vpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MPLS 与 L3VPN
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/11-vxlan-evpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  VXLAN EVPN
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/09-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  运维与排障
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operator/reference/commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  命令参考
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#升级" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        升级
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="升级">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli操作流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CLI操作流程
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#软件命令参考" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        软件命令参考
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#首次从旧版本升级" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        首次从旧版本升级
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#事务恢复状态" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        事务恢复状态
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#旧-bootstrap-状态" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        旧 bootstrap 状态
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#卸载" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        卸载
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#故障回滚" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        故障回滚
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+
+<h1 id="升级卸载与恢复">升级、卸载与恢复</h1>
+<h2 id="升级">升级</h2>
+<p>VortexROS提供两种有明确中断边界的软件事务：</p>
+<ul>
+<li><code>control-plane</code>只安装VortexROS Debian包，重启<code>vortexros-switchd</code>和<code>vortexrosd</code>；仅当route-zapi二进制变化时重启<code>vortexros-route-zapi</code>，并要求VPP与FRR进程身份保持不变。</li>
+<li>安装器在包管理阶段暂停发行版的自动服务重启钩子，再按事务计划重启所需的VortexROS控制进程；系统级服务管理工具不得在控制层事务中自行重启VPP或FRR。</li>
+<li>Debian维护脚本只在首次安装时关闭与VortexROS端口所有权冲突的发行版服务；升级和降级由安装器按事务计划管理服务，不重复执行整机服务接管。</li>
+<li><code>package</code>安装一份完整系统包，其中包含VortexROS、VPP运行库及其三个插件包，并可包含FRR；该事务停止并重新启动<code>vortexros.target</code>，因此会产生受控转发中断。</li>
+</ul>
+<p>两种事务都强制要求同格式的当前版本回退材料，并由独立systemd看门狗执行一次自动回退。用户CFG不属于软件包，不会因升级或降级被替换。
+目标包和回退包必须直接存放在<code>/VortexROS/install</code>。安装器只复制事务执行所需的私有副本，事务结束后不会删除包库中的原文件；管理员确认不再需要某个版本后可自行删除。<code>display startup</code>显示当前包库、最近成功事务对应的安装包和回退包路径。
+完整系统事务在首次停止前记录原VPP进程身份；如果目标包安装或新VPP启动失败，回退允许从VPP已停止
+的状态重新安装原软件集合。只有原包精确版本、非零的新VPP PID、运行中VPP的内嵌版本、核心服务和健康门禁全部恢复后，
+事务才标记为<code>rolled-back</code>。
+控制层事务要求 VPP 进程在升级期间保持不变。若发生意外替换，事务记录原 PID 并进入回退，
+用回退期间稳定运行的 VPP 进程检查转发服务和健康状态。</p>
+<p>升级采用“预检→安装→就绪等待→连续稳定观察→提交”的单向状态机。预检、模拟和真实事务调用同一组校验，避免只读检查与实际安装使用不同规则。目标软件没有通过预检时，不创建升级事务、不执行apt、不重启服务，也不改变配置或数据面。</p>
+<h3 id="cli操作流程">CLI操作流程</h3>
+<p>仅更新控制面时，将目标包和当前已安装版本的Debian包复制到设备本地：</p>
+<div class="highlight"><pre><span></span><code>&lt;VortexROS&gt; display version
+&lt;VortexROS&gt; display system-software
+&lt;VortexROS&gt; check system-software control-plane /VortexROS/install/vortexros_0.27.dev.debug14_amd64.deb rollback-package /VortexROS/install/vortexros_0.27.dev.debug13_amd64.deb
+&lt;VortexROS&gt; simulate system-software control-plane /VortexROS/install/vortexros_0.27.dev.debug14_amd64.deb rollback-package /VortexROS/install/vortexros_0.27.dev.debug13_amd64.deb
+&lt;VortexROS&gt; upgrade system-software control-plane /VortexROS/install/vortexros_0.27.dev.debug14_amd64.deb rollback-package /VortexROS/install/vortexros_0.27.dev.debug13_amd64.deb
+Warning: The VortexROS control plane will restart; VPP forwarding will remain running. Continue? [Y/N]: y
+</code></pre></div>
+<p>从 VPP 26.06 升级到 26.10 时，必须一起更新到对应的 VortexROS 0.28 控制层。上游变化、FD.io CSIT 性能对比和 I225 真机 A/B 见 <a href="https://github.com/opennw-rui/VortexROS-VPP/blob/v26.10.0%2Bvortexros-vpp/RELEASE_NOTES_v26.10.0.md">VPP 26.10 迁移说明</a>。FRR 可沿用当前支持的版本，此时升级包和回退包均不包含 FRR，并使用下文的新版通用安装器入口。常规 VPP 软件更新使用由<code>tools/build-system-package.sh</code>生成的完整系统tar归档。目标包和回退包必须包含相同的软件包集合：</p>
+<div class="highlight"><pre><span></span><code>&lt;VortexROS&gt; check system-software package /VortexROS/install/vortexros-system_0.28-dev_amd64.tar rollback-package /VortexROS/install/vortexros-system_0.27-dev-debug14-run1_amd64.tar
+&lt;VortexROS&gt; simulate system-software package /VortexROS/install/vortexros-system_0.28-dev_amd64.tar rollback-package /VortexROS/install/vortexros-system_0.27-dev-debug14-run1_amd64.tar
+&lt;VortexROS&gt; upgrade system-software package /VortexROS/install/vortexros-system_0.28-dev_amd64.tar rollback-package /VortexROS/install/vortexros-system_0.27-dev-debug14-run1_amd64.tar
+Warning: VPP and the control plane will restart, causing a forwarding interruption. Continue? [Y/N]: y
+</code></pre></div>
+<p>从 0.27 首次迁移到 0.28 时，请从目标控制层包中解出新版通用安装器，再由它执行系统包事务。安装器在 APT 操作前持久屏蔽发行版的 vpp.service 和 frr.service，系统包升级和回退后仍保持屏蔽。运行服务由 VortexROS 管理。若回退到 0.27 后需要恢复首次安装前的状态，使用新版安装器执行 --restore-install。</p>
+<div class="highlight"><pre><span></span><code>dpkg-deb<span class="w"> </span>-x<span class="w"> </span>./vortexros_0.28~dev_amd64.deb<span class="w"> </span>./vortexros-installer
+sudo<span class="w"> </span>./vortexros-installer/usr/bin/vortexros-safe-upgrade<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--system-package<span class="w"> </span>/VortexROS/install/vortexros-system_0.28-dev_amd64.tar<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--rollback-system-package<span class="w"> </span>/VortexROS/install/vortexros-system_0.27-dev-debug14-run1_amd64.tar
+</code></pre></div>
+<p>系统包内固定需要<code>vortexros</code>、<code>vpp</code>、<code>libvppinfra</code>、<code>vpp-plugin-core</code>、<code>vpp-plugin-dpdk</code>和<code>vpp-crypto-engines</code>，<code>frr</code>为可选项。<code>libvppinfra</code>是<code>vpp</code>的精确版本依赖，缺少它时不能完成跨VPP构建修订的离线升级。清单记录每个Debian包的精确名称、版本和SHA256；事务开始前同时验证目标、回退包以及回退包与当前安装版本的一致性。</p>
+<p>发布工程在可信构建机上按以下方式生成系统包，不能手工修改归档内清单：</p>
+<div class="highlight"><pre><span></span><code>tools/build-system-package.sh<span class="w"> </span>/srv/release/vortexros-system_0.28-dev_amd64.tar<span class="w"> </span><span class="m">0</span>.28-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vortexros_0.28~dev_amd64.deb<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vpp_26.10.0+vortexros-vpp*_amd64.deb<span class="w"> </span>libvppinfra_26.10.0+vortexros-vpp*_amd64.deb<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vpp-plugin-core_26.10.0+vortexros-vpp*_amd64.deb<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vpp-plugin-dpdk_26.10.0+vortexros-vpp*_amd64.deb<span class="w"> </span>vpp-crypto-engines_26.10.0+vortexros-vpp*_amd64.deb
+</code></pre></div>
+<p>生成器会从同一组Debian包中解出VPP及其运行库，直接执行包内<code>vpp -v</code>，并要求其内嵌版本与
+<code>vpp</code>包元数据完全一致。复用旧构建目录导致的旧<code>version.h</code>不会进入系统归档。</p>
+<p>Release 使用以下交付物。仅更新控制层的版本发布 Debian 包和控制层 tar：</p>
+<ul>
+<li><code>vortexros_*.deb</code>：可直接安装的控制层Debian包；</li>
+<li><code>vortexros-control-plane_*.tar</code>：包含控制层Debian包、manifest和包内SHA256，解包后用于<code>control-plane</code>升级；</li>
+<li><code>vortexros-system_*.tar</code>：包含控制层和完整VPP运行包，可直接用于<code>system-software package</code>升级。</li>
+<li><code>vortexros-install_*.run</code>：内嵌完整系统包的首次安装入口，适用于空白 Ubuntu。已有设备的升级及回退使用相应 Debian 包或系统 tar。</li>
+</ul>
+<p>纯控制层tar由同一固定源码包生成：</p>
+<div class="highlight"><pre><span></span><code>tools/build-control-package.sh<span class="w"> </span>/srv/release/vortexros-control-plane_0.27-dev-debug14_amd64.tar<span class="w"> </span><span class="m">0</span>.27-dev-debug14<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vortexros_0.27.dev.debug14_amd64.deb
+</code></pre></div>
+<p>发布页的总 SHA256 清单覆盖该版本的所有安装包。纯控制层tar不改变升级事务格式；先校验并解包，再将其中的Debian包传给<code>upgrade system-software control-plane</code>。
+系统包内部SHA256用于发现传输或存储损坏，不能单独证明发布者身份。当前版本尚未内置独立的软件签名信任根；管理员必须通过受信任的Release渠道取得清单，并在把包交给升级器前核对Release公布的SHA256。不要把来源不明但内部校验自洽的归档视为可信软件。</p>
+<p>计划安装或降级的控制层包还必须提供本版本定义的离线配置校验入口。早期包如果没有该入口，预检会在停止服务前拒绝它；自动事务回退仍使用升级前保存的精确包，不依赖目标包的该入口。这样可以避免为了兼容旧工具而跳过目标版本对当前启动配置的解析验证。</p>
+<p>命令启动独立systemd事务后立即返回。使用以下命令查看最终状态：</p>
+<div class="highlight"><pre><span></span><code>&lt;VortexROS&gt; display system-software
+</code></pre></div>
+<p><code>display system-software verbose</code> 按事务显示版本、时间、安装包路径和失败原因。使用 <code>clear system-software info</code> 可清理已完成的历史记录，保留最新成功事务、进行中的事务和回退失败记录。命令不删除包库中的文件。</p>
+<p><code>committed</code>表示目标版本通过连续健康观察；<code>rolled-back</code>表示目标版本失败且旧版本已经恢复；<code>rollback-failed</code>表示自动恢复也失败，必须通过带外终端处理。<code>installing</code>、<code>waiting-ready</code>、<code>validating</code>和<code>rolling-back</code>是执行中的中间状态。</p>
+<p>升级前检查包括：</p>
+<ul>
+<li>目标与回退包的产品身份、架构、版本、完整系统清单及SHA256；</li>
+<li>回退包的版本、dpkg文件校验记录和维护脚本精确匹配当前安装的软件，目标和回退材料不是同一文件；</li>
+<li>dpkg没有未完成事务，apt依赖关系处于可解析状态；</li>
+<li>目标包包含升级器、CLI和daemon，Debian维护脚本通过语法检查；</li>
+<li>由目标版本CLI解析设备选定的启动CFG，确认下一次启动能够读取；</li>
+<li>当前核心服务和VPP进程有效，Running、Actual与Saved generation均已收敛；未执行<code>save</code>的Running会被拒绝；</li>
+<li>事务分区拥有目标、回退、解包、dpkg日志及固定安全余量所需空间。</li>
+</ul>
+<p>回退一致性校验覆盖可执行文件、库、服务、配置和Debian维护脚本。设备清理过的<code>/usr/share/doc</code>与<code>/usr/share/man</code>不属于运行内容，不阻止使用同版本回退包。</p>
+<p><code>simulate</code>在上述检查后额外执行apt的只读依赖解析，并显示服务操作和回退计划。它不保证目标软件启动后的运行行为，因此不能替代自动回退与连续健康观察。</p>
+<p>手动回滚使用同一安全事务。将旧版本作为目标，将当前已安装版本作为 <code>rollback-package</code>。完成后在 <code>display system-software verbose</code> 中确认本次事务为 <code>committed</code>，再用 <code>display version</code> 和 <code>health check --wait --timeout 2m --require-saved</code> 验证目标版本及已保存配置。若本次事务显示 <code>rolled-back</code>，则手动回滚的目标失败，安装器已恢复操作前版本。</p>
+<div class="highlight"><pre><span></span><code>&lt;VortexROS&gt; rollback system-software package /VortexROS/install/vortexros-system_0.27-dev-debug14-run1_amd64.tar rollback-package /VortexROS/install/vortexros-system_0.28-dev_amd64.tar
+</code></pre></div>
+<h3 id="软件命令参考">软件命令参考</h3>
+<h4 id="check-system-software-control-plane"><code>check system-software control-plane</code></h4>
+<p><strong>功能</strong>：使用真实升级事务的同一套规则检查目标、回退材料、当前设备状态和目标版本启动CFG兼容性。
+<strong>命令格式</strong>：<code>check system-software control-plane TARGET.deb rollback-package CURRENT.deb</code>。
+<strong>行为</strong>：只读；不创建事务、不调用apt、不重启服务。检查失败直接返回具体原因。</p>
+<h4 id="check-system-software-package"><code>check system-software package</code></h4>
+<p><strong>功能</strong>：检查完整VortexROS/VPP系统包及精确回退软件集合，不改变设备状态。
+<strong>命令格式</strong>：<code>check system-software package TARGET.tar rollback-package CURRENT.tar</code>。
+<strong>行为</strong>：除控制层检查外，还验证系统包清单、各组件SHA256、VPP组件版本一致性及包集合与当前系统的匹配关系。</p>
+<h4 id="simulate-system-software-control-plane"><code>simulate system-software control-plane</code></h4>
+<p><strong>功能</strong>：在完整预检后，通过apt模拟依赖解析并显示预计执行边界。
+<strong>命令格式</strong>：<code>simulate system-software control-plane TARGET.deb rollback-package CURRENT.deb</code>。
+<strong>行为</strong>：不安装软件、不停止或启动服务、不修改CFG和数据面。模拟通过只证明材料、依赖和当前前置条件可接受。</p>
+<h4 id="simulate-system-software-package"><code>simulate system-software package</code></h4>
+<p><strong>功能</strong>：模拟完整系统包的软件集合解析以及VPP/控制层重启事务。
+<strong>命令格式</strong>：<code>simulate system-software package TARGET.tar rollback-package CURRENT.tar</code>。
+<strong>行为</strong>：不安装软件、不停止或启动服务、不修改CFG和数据面；输出将明确提示真实事务存在转发中断。</p>
+<h4 id="upgrade-system-software-control-plane"><code>upgrade system-software control-plane</code></h4>
+<p><strong>功能</strong>：在线安装较新的VortexROS控制面软件，并在验证失败时自动回退。
+<strong>命令格式</strong>：<code>upgrade system-software control-plane TARGET.deb rollback-package CURRENT.deb</code>
+<strong>视图</strong>：用户视图。
+<strong>参数</strong>：<code>TARGET.deb</code>为目标VortexROS包；<code>CURRENT.deb</code>必须与设备当前已安装版本一致。
+<strong>缺省情况</strong>：无。
+<strong>注意事项</strong>：两个文件必须是设备本地可读的VortexROS Debian包；执行前会再次执行完整预检，以覆盖检查后到确认前的状态变化；命令需要Y/N确认。事务重启switchd和vortexrosd，仅在二进制变化时重启route-zapi，不重启VPP或FRR。
+<strong>验证方法</strong>：使用<code>display system-software</code>检查最终状态，并使用<code>health check --wait --timeout 2m --json</code>检查严格健康。</p>
+<h4 id="upgrade-system-software-package"><code>upgrade system-software package</code></h4>
+<p><strong>功能</strong>：在维护窗口内升级VortexROS、VPP插件/核心和可选FRR，并在验证失败时恢复整个原软件包集合。
+<strong>命令格式</strong>：<code>upgrade system-software package TARGET.tar rollback-package CURRENT.tar</code>
+<strong>视图</strong>：用户视图。
+<strong>参数</strong>：两个系统包必须具有相同的软件包集合；<code>CURRENT.tar</code>内每个版本必须与设备当前安装版本一致。
+<strong>注意事项</strong>：命令会停止<code>vortexros.target</code>并重启VPP，单机部署必然有转发中断。VPP启动后由现有Running权威恢复接口、路由和协议状态；新VPP PID、所有精确包版本、运行中VPP的内嵌版本、核心服务与健康门禁全部通过后才进入稳定观察。</p>
+<h4 id="rollback-system-software-control-planepackage"><code>rollback system-software control-plane|package</code></h4>
+<p><strong>功能</strong>：把VortexROS控制面降级到指定旧版本，并在降级验证失败时恢复操作前版本。
+<strong>命令格式</strong>：<code>rollback system-software control-plane TARGET.deb rollback-package CURRENT.deb</code>或<code>rollback system-software package TARGET.tar rollback-package CURRENT.tar</code>
+<strong>视图</strong>：用户视图。
+<strong>参数与限制</strong>：与对应的<code>upgrade</code>模式相同；目标版本可以低于当前版本。
+<strong>注意事项</strong>：软件降级不回退用户CFG。配置必须与目标软件兼容；否则健康验证失败并恢复操作前软件集合。</p>
+<h4 id="display-system-software"><code>display system-software</code></h4>
+<p><strong>功能</strong>：显示当前安装的软件包版本和历次软件事务状态。
+<strong>命令格式</strong>：<code>display system-software [verbose]</code>
+<strong>视图</strong>：所有视图。
+<strong>输出</strong>：分别显示VortexROS、VPP组件和FRR的dpkg版本；事务表显示<code>control-plane</code>或<code>system-package</code>模式、目标版本、回退版本和状态。事务证据来自<code>/var/lib/vortexros/upgrades</code>。
+<strong>注意事项</strong>：该命令只读，不启动、重试或清理事务。<code>verbose</code>额外显示失败阶段、原因、最近一次健康JSON以及自动回退失败原因，便于区分目标失败和恢复失败。</p>
+<h3 id="首次从旧版本升级">首次从旧版本升级</h3>
+<ol>
+<li>导出并在设备外保存启动配置、startup 和接口/PCI 清单。</li>
+<li>阅读新版本兼容性清单和迁移检查结果，准备当前已安装版本的Debian包作为回退包。</li>
+<li>运行新版本只读检查，并确认带外终端可用。</li>
+<li>当前版本已经提供<code>/usr/bin/vortexros-safe-upgrade</code>时，使用独立的systemd事务执行在线控制层升级；
+   不要停止或重启<code>vortexros.target</code>。从不含该工具的旧版本首次升级时，先从新包只读提取升级器：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nv">stage</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="k">)</span>
+dpkg-deb<span class="w"> </span>-x<span class="w"> </span>/VortexROS/install/vortexros_0.25.dev.9_amd64.deb<span class="w"> </span><span class="s2">"</span><span class="nv">$stage</span><span class="s2">"</span>
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span><span class="s2">"</span><span class="nv">$stage</span><span class="s2">/usr/bin/vortexros-safe-upgrade"</span><span class="w"> </span>/run/vortexros-safe-upgrade
+sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="s2">"</span><span class="nv">$stage</span><span class="s2">"</span>
+</code></pre></div>
+<p>随后执行：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemd-run<span class="w"> </span>--unit<span class="o">=</span>vortexros-safe-upgrade<span class="w"> </span>--collect<span class="w"> </span>--wait<span class="w"> </span>--pipe<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/run/vortexros-safe-upgrade<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--package<span class="w"> </span>/VortexROS/install/vortexros_0.25.dev.9_amd64.deb<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--rollback-package<span class="w"> </span>/VortexROS/install/vortexros_0.25.dev.7_amd64.deb<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ready-timeout<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--stability-seconds<span class="w"> </span><span class="m">240</span>
+</code></pre></div>
+<p>上述直接调用示例使用控制面模式，始终重启<code>vortexrosd</code>；只有目标包中的route-zapi二进制与当前包不同时才重启<code>vortexros-route-zapi</code>。二进制未变化时保持路由发布会话和已发布路由，避免普通CLI、文档或daemon更新造成静态路由瞬态撤销。VPP与FRR进程必须保持原PID。控制面重启后先给予
+默认180秒的有界收敛时间；这段时间只允许严格健康状态尚未就绪，VPP PID或核心服务任一
+丢失都会立即失败。首次达到严格健康后，才开始连续稳定观察。整个稳定观察期内，
+严格健康门禁、四个核心服务和VPP PID必须连续成功。任何检查失败只执行一次包回退；
+SSH会话中断或安装进程异常退出时，独立的systemd看门狗仍会执行回退。控制面模式的回退也只重启控制面，不通过
+反复重启target来碰运气；系统包模式每次安装或回退各执行一次有意的target停止/启动。事务证据位于<code>/var/lib/vortexros/upgrades/</code>，最终状态只能是<code>committed</code>、
+<code>rolled-back</code>或<code>rollback-failed</code>。升级器自身与两个包在启动时复制到事务私有目录，看门狗不依赖
+新包是否已经完成解包；事务完成后删除大文件，只保留版本、SHA256和最终状态证据。</p>
+<p>完整系统包可在维护窗口内升级配套VPP。它不会做双VPP实例或无损切换；需要零中断时必须由设备冗余和外部流量切换方案提供。</p>
+<h2 id="事务恢复状态">事务恢复状态</h2>
+<p>首次变更安装会在<code>/var/lib/vortexros/bootstrap/baseline</code>记录文件校验和、目录元数据、服务active/enabled状态、请求安装的软件包和所选NIC原驱动。每次安装还会创建<code>transaction</code>：普通失败自动回滚；如果进程被强制终止，下次安装会拒绝覆盖证据，先执行：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vortexros-bootstrap<span class="w"> </span>restore<span class="w"> </span>--transaction<span class="w"> </span>--yes
+</code></pre></div>
+<p>需要回到首次变更前状态时执行：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vortexros-bootstrap<span class="w"> </span>restore<span class="w"> </span>--yes
+</code></pre></div>
+<p>恢复清单和备份不一致、服务恢复失败或NIC无法重新绑定时命令返回非零，不会伪报成功。</p>
+<h2 id="旧-bootstrap-状态">旧 bootstrap 状态</h2>
+<p>旧版本可能留下：</p>
+<div class="highlight"><pre><span></span><code>/var/lib/vortexros/bootstrap/system-services.state
+/var/lib/vortexros/bootstrap/backup/
+</code></pre></div>
+<p>新检查器只报告这些文件，不自动 unmask、复制或删除。管理员应查看记录，逐项核对当前 service 和 <code>/etc/resolv.conf</code>，再按原状态人工恢复。避免把过时快照覆盖到已经发生合法变更的系统。</p>
+<h2 id="卸载">卸载</h2>
+<p>卸载控制层前先把 VPP 数据面安全切回 Linux，并确认所有接口、管理地址和路由恢复。随后：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>--now<span class="w"> </span>vortexros.target
+sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>vortexros
+</code></pre></div>
+<p>包维护脚本先停止本项目unit，再从baseline恢复startup、GRUB、发行版服务和NIC驱动；恢复失败会中止卸载，避免丢失恢复工具。由于dpkg维护脚本不能递归调用apt，卸载会保留VPP、FRR、Kea、BusyBox、relay和nftables软件包；需要删除时应在VortexROS卸载事务完成后由管理员单独执行。设置<code>VORTEXROS_SKIP_HOST_RESTORE=1</code>只能用于已经人工完成并验证恢复的救援场景。</p>
+<h2 id="故障回滚">故障回滚</h2>
+<ul>
+<li>VPP 接管失败：优先让自动恢复事务完成，查看 critical 告警，不要并发手工抢占 PCI。</li>
+<li>FRR配置结果无法确认：控制面会将FRR标记为未收敛，并按已提交配置重新下发。</li>
+<li>DHCP generation激活失败：保留上一代可用generation，按服务显示定位错误。</li>
+<li>远程失联：通过带外控制台恢复管理明细路由或 Linux 驱动，然后再处理 Candidate。</li>
+</ul>
+<p>恢复或升级后用严格门禁收口；单次成功不足以替代上述连续稳定观察：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vortexros<span class="w"> </span>health<span class="w"> </span>check<span class="w"> </span>--wait<span class="w"> </span>--timeout<span class="w"> </span>2m<span class="w"> </span>--json
+</code></pre></div>
+<p>只有<code>healthy:true</code>且进程退出码为0才算验收通过。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../06-first-start/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 首次启动">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                首次启动
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../08-hardware-acceptance/" class="md-footer__link md-footer__link--next" aria-label="下一页: 硬件验收">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                硬件验收
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs","navigation.sections","navigation.footer","navigation.top","toc.follow","content.code.copy"],"redirect":null,"search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","clipboard.error":"Could not copy to clipboard","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3cb411a8.min.js"></script>
+      
+    
+  </body>
+</html>

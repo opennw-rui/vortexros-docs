@@ -1,0 +1,1619 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="VortexROS 安装、配置、运维与 CLI 命令参考">
+      
+      
+      
+        <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/10-mpls-l3vpn/">
+      
+      
+      
+        <link rel="prev" href="../08-network-services/">
+      
+      
+        <link rel="next" href="../11-vxlan-evpn/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.1.1">
+    
+    
+      
+        <title>MPLS 与 L3VPN - VortexROS 文档</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/classic/main.0006804e.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/classic/palette.813d4b3f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/vortexros.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        跳转至
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="VortexROS 文档" class="md-header__button md-logo" aria-label="VortexROS 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9c-1.1 0-2 .9-2 2v4a2 2 0 0 0 2 2h6v2h-1c-.55 0-1 .45-1 1H2v2h7c0 .55.45 1 1 1h4c.55 0 1-.45 1-1h7v-2h-7c0-.55-.45-1-1-1h-1v-2h6c1.11 0 2-.89 2-2v-4a2 2 0 0 0-2-2zm1 3h2v2H6zm3.5 0h2v2h-2zm3.5 0h2v2h-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+      <span class="md-visually-hidden">导航栏</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            VortexROS 文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MPLS 与 L3VPN
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+          <span class="md-visually-hidden">查找</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="查找">
+  <button type="button" class="md-search__button">
+    查找
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../quickstart/" class="md-tabs__link">
+        
+  
+  快速入门
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/" class="md-tabs__link">
+          
+  
+  安装与升级
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  配置指南
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../09-operations/" class="md-tabs__link">
+        
+  
+  运维与排障
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../reference/commands/" class="md-tabs__link">
+        
+  
+  命令参考
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="VortexROS 文档" class="md-nav__button md-logo" aria-label="VortexROS 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9c-1.1 0-2 .9-2 2v4a2 2 0 0 0 2 2h6v2h-1c-.55 0-1 .45-1 1H2v2h7c0 .55.45 1 1 1h4c.55 0 1-.45 1-1h7v-2h-7c0-.55-.45-1-1-1h-1v-2h6c1.11 0 2-.89 2-2v-4a2 2 0 0 0-2-2zm1 3h2v2H6zm3.5 0h2v2h-2zm3.5 0h2v2h-2z"/></svg>
+
+    </a>
+    VortexROS 文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  首页
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  快速入门
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  安装与升级
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  安装与升级
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  安装手册
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/00-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  部署规划
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/01-management-safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  管理连接
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/02-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  后端与依赖
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/03-install-vortexros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  安装 VortexROS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/04-system-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  系统服务
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/05-vpp-startup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  VPP 启动配置
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/06-first-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  首次启动
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/07-upgrade-uninstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  升级与回退
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/08-hardware-acceptance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  硬件验收
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  配置指南
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  配置指南
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  操作手册
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CLI 与配置事务
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-system-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  系统与服务
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-interfaces-l2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  接口、VLAN 与邻居
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-ip-routing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  IP、VPN 与静态路由
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-dynamic-routing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  动态路由与路由策略
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-tunnels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  隧道
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ACL、NAT 与 QoS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-network-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  DHCP、LLDP 与 SNMP
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+        <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MPLS 与 L3VPN
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MPLS 与 L3VPN
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#使用前提" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        使用前提
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#基本-ldp-配置" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        基本 LDP 配置
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ttl-模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TTL 模式
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l3vpn-要点" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        L3VPN 要点
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6pe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6PE
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#查询与验证" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        查询与验证
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#删除与恢复" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        删除与恢复
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#排障" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        排障
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-vxlan-evpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  VXLAN EVPN
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  运维与排障
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  命令参考
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#使用前提" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        使用前提
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#基本-ldp-配置" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        基本 LDP 配置
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ttl-模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TTL 模式
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l3vpn-要点" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        L3VPN 要点
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6pe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6PE
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#查询与验证" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        查询与验证
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#删除与恢复" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        删除与恢复
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#排障" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        排障
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+
+<h1 id="mpls-ldp-与-l3vpn">MPLS LDP 与 L3VPN</h1>
+<p>VortexROS 使用 FRRouting 计算 LDP、BGP VPN 路由和标签，Zebra 将标准 Linux
+netlink 状态交给 LCP，再由 LCP 转换成 VPP MPLS 转发表。协议计算、标签分配和
+路由优选不在 VortexROS 控制层或 VPP 中重复实现。</p>
+<div class="highlight"><pre><span></span><code>VortexROS CLI / CFG
+        |
+        v
+FRR ldpd / bgpd / zebra
+        |
+        v
+Linux netlink MPLS state
+        |
+        v
+LCP -&gt; VPP MPLS forwarding
+</code></pre></div>
+<p>当前数据面范围是 IPv4 LDP 传输标签、BGP VPNv4/VPNv6 L3VPN、6VPE 和 6PE。
+VPLS、RSVP-TE 和 SR-MPLS-TE 不在本版本范围内。</p>
+<h2 id="使用前提">使用前提</h2>
+<ol>
+<li>先为设备配置稳定的 IPv4 LSR ID，通常使用 LoopBack 地址。</li>
+<li>全局启用 MPLS 后，再启用 LDP。</li>
+<li>在参与 MPLS 转发的三层接口上分别启用 MPLS 和 LDP。</li>
+<li>底层 IPv4 IGP 必须先使各节点的 LSR ID 和 LDP transport address 可达。</li>
+</ol>
+<p>MPLS 只能用于三层接口。配置了 <code>portswitch</code> 的二层接口不能启用 MPLS。</p>
+<h2 id="基本-ldp-配置">基本 LDP 配置</h2>
+<div class="highlight"><pre><span></span><code>system-view
+mpls lsr-id 10.0.0.1
+mpls
+mpls ldp
+
+interface LoopBack 0
+ ip address 10.0.0.1 255.255.255.255
+ quit
+
+interface Ethernet 1
+ ip address 192.0.2.1 255.255.255.252
+ mpls
+ mpls ldp
+ quit
+commit
+save
+</code></pre></div>
+<p><code>mpls</code> 打开接口 MPLS 转发能力；<code>mpls ldp</code> 使该接口参与 LDP 邻居发现。
+两者是独立配置，系统不会根据 LDP 配置猜测接口转发身份。</p>
+<h2 id="ttl-模式">TTL 模式</h2>
+<p>缺省使用 uniform 模式，IP TTL 会传播到 MPLS 标签栈：</p>
+<div class="highlight"><pre><span></span><code>ttl propagate
+</code></pre></div>
+<p>如需隐藏 MPLS 核心跳数，可使用 pipe 模式：</p>
+<div class="highlight"><pre><span></span><code>undo ttl propagate
+</code></pre></div>
+<p>Linux sysctl 是该模式的权威状态；LCP 将变化同步为 VPP 标签路径的 pipe 或
+uniform 属性，不改变 FRR 的协议计算。</p>
+<h2 id="l3vpn-要点">L3VPN 要点</h2>
+<p>PE 上的 VPN-instance 需要 RD 和导入/导出 VPN-Target，BGP VPN 地址族需要与远端
+PE 或 RR 建立 MP-BGP 会话。进入 VPN-instance 地址族时，VortexROS 按产品缺省
+语义自动向 FRR 下发 <code>label vpn export auto</code>，无需也不允许用户重复配置该后端命令：</p>
+<div class="highlight"><pre><span></span><code>bgp 65000
+ peer 10.0.0.4 as-number 65000
+ peer 10.0.0.4 connect-interface LoopBack 0
+ ipv4-family vpnv4
+  peer 10.0.0.4 enable
+  quit
+ ipv4-family vpn-instance CUST-A
+  import-route direct
+  import-route static
+  quit
+quit
+commit
+</code></pre></div>
+<p>FRR 为 VPN 路由分配导出标签；VortexROS 不创建第二套标签分配器。VPN-instance
+下配置的全部 RT 会作为完整列表直接覆盖后端当前值；目标方向变为空时才精确撤销
+该方向的旧列表。</p>
+<p>VPNv4/VPNv6 传输地址族缺省启用 VPN-Target 过滤，缺省项不写入配置。RR 或
+Inter-AS Option B 场景需要保留全部 VPN 路由时可关闭过滤：</p>
+<div class="highlight"><pre><span></span><code>bgp 65000
+ ipv4-family vpnv4
+  undo policy vpn-target
+ ipv6-family vpnv6
+  undo policy vpn-target
+</code></pre></div>
+<p>再次输入 <code>policy vpn-target</code> 恢复缺省过滤行为，恢复后的缺省项不显示。</p>
+<h2 id="6pe">6PE</h2>
+<p>6PE 使用 IPv4 LDP 核心承载全局 IPv6 路由。邻居仍使用 IPv4 LoopBack 建立会话，
+在 IPv6 unicast 地址族中启用邻居及标签路由能力：</p>
+<div class="highlight"><pre><span></span><code>bgp 65000
+ peer 10.0.0.4 as-number 65000
+ peer 10.0.0.4 connect-interface LoopBack0
+ ipv6-family unicast
+  peer 10.0.0.4 enable
+  peer 10.0.0.4 label-route-capability
+  network 2001:db8:101::1 128
+</code></pre></div>
+<p>后端使用 FRR 原生 <code>ipv6 labeled-unicast</code> 地址族。Zebra 将 6PE 路由写入 Linux
+netlink，LCP 再同步到 VPP；VortexROS 不直接向 VPP 或内核下发 6PE 路由。</p>
+<h2 id="查询与验证">查询与验证</h2>
+<div class="highlight"><pre><span></span><code>display mpls interface
+display mpls ldp peer
+display mpls ldp interface
+display mpls ldp binding
+display mpls lsp
+display mpls forwarding-table
+display bgp vpnv4 all routing-table
+display ip routing-table vpn-instance CUST-A
+</code></pre></div>
+<ul>
+<li><code>display mpls ldp ...</code> 显示 FRR LDP 控制面状态；</li>
+<li><code>display mpls lsp</code> 显示 Zebra 的 MPLS 表；</li>
+<li><code>display mpls forwarding-table</code> 显示 VPP 实际 MPLS FIB。</li>
+</ul>
+<p>LDP接口、邻居、标签绑定和Zebra LSP均通过对应daemon的VTY流一次解析并直接输出，
+不会把大表完整反序列化后再排版。转发标签仍单独读取VPP LFIB，避免用控制面状态代替
+数据面验收。</p>
+<p>功能验收必须同时确认 LDP 邻居、标签绑定、Zebra/Linux netlink 状态、VPP MPLS
+FIB 和 CE 间实际流量。只看到配置存在不能证明数据面已生效。</p>
+<p>开发服务器上的线性、环网、链路故障和删除恢复实验记录见
+<a href="../reference/commands/#mpls-ldp-与-l3vpn"><code>MPLS LDP 与 L3VPN 命令参考</code></a>。</p>
+<h2 id="删除与恢复">删除与恢复</h2>
+<p>撤销顺序建议先关闭接口 LDP，再关闭接口 MPLS，最后关闭全局 LDP/MPLS：</p>
+<div class="highlight"><pre><span></span><code>interface Ethernet 1
+ undo mpls ldp
+ undo mpls
+ quit
+undo mpls ldp
+undo mpls
+commit
+</code></pre></div>
+<p>VPP 或 LCP 重启后，LCP 从当前 Linux netlink 状态恢复 MPLS 对象；FRR 保持协议和
+标签的唯一权威来源。系统不会从旧 VPP 索引或控制层缓存重建另一份标签状态。</p>
+<h2 id="排障">排障</h2>
+<ol>
+<li><code>display mpls ldp peer</code> 无邻居：核对接口 LDP、链路地址、IGP 和 transport
+   address 可达性。</li>
+<li>有 LDP 邻居但 VPP 无标签：依次核对 <code>display mpls lsp</code> 与
+   <code>display mpls forwarding-table</code>，定位 Zebra 到 LCP 的转换边界。</li>
+<li>VPN 路由无导出标签：核对 RD、VPN-Target、FRR/Zebra 标签池及 VPN 地址族状态。</li>
+<li>控制面正常但业务不通：核对内外层标签、VRF 路由、CE 路由及 MTU，并用实际
+   CE 到 CE 流量验证。</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../08-network-services/" class="md-footer__link md-footer__link--prev" aria-label="上一页: DHCP、LLDP 与 SNMP">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                DHCP、LLDP 与 SNMP
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../11-vxlan-evpn/" class="md-footer__link md-footer__link--next" aria-label="下一页: VXLAN EVPN">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                VXLAN EVPN
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs","navigation.sections","navigation.footer","navigation.top","toc.follow","content.code.copy"],"redirect":null,"search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"已复制","clipboard.copy":"复制","clipboard.error":"Could not copy to clipboard","search.result.more.one":"在该页上还有 1 个符合条件的结果","search.result.more.other":"在该页上还有 # 个符合条件的结果","search.result.none":"没有找到符合条件的结果","search.result.one":"找到 1 个符合条件的结果","search.result.other":"# 个符合条件的结果","search.result.placeholder":"键入以开始搜索","search.result.term.missing":"缺少","select.version":"选择当前版本"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3cb411a8.min.js"></script>
+      
+    
+  </body>
+</html>

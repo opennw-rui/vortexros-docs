@@ -1,0 +1,68 @@
+:root {
+  --md-primary-fg-color: #102b46;
+  --md-accent-fg-color: #087969;
+  --md-typeset-a-color: #076c62;
+  --md-text-font-family: "Inter", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  --md-code-font-family: "IBM Plex Mono", Consolas, monospace;
+}
+.md-tabs { background: #173650; }
+.md-grid { max-width: 68rem; }
+.vros-hero {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 2rem;
+  align-items: center;
+  color: #e9f2fb;
+  background: radial-gradient(ellipse at 90% 30%, #174960, transparent 62%), #102b46;
+  padding: clamp(1.35rem, 5vw, 3.4rem);
+  border-radius: .8rem;
+}
+.md-typeset .vros-hero h1 {
+  color: #fff;
+  margin: .5rem 0 .75rem;
+  font-size: clamp(2rem, 6vw, 3.8rem);
+  font-weight: 750;
+  line-height: 1.05;
+  letter-spacing: -.035em;
+}
+.vros-hero h1 span { color: #80e9d3; }
+.vros-hero-copy > p { max-width: 23rem; color: #d4e3f0; }
+.vros-version { font-weight: 650; letter-spacing: .08em; }
+.vros-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.3rem; }
+.md-typeset .vros-button {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 1px solid #7894a7; border-radius: .35rem;
+  padding: .5rem .8rem; color: #fff; font-weight: 700;
+}
+.md-typeset .vros-button.primary { background: #8cf2d9; border-color: #8cf2d9; color: #102b46; }
+.md-typeset .vros-button:hover { border-color: #fff; text-decoration: underline; }
+.vros-topology {
+  display: grid; justify-items: center; padding: 1rem;
+  background-image: radial-gradient(#60879c 1px, transparent 1px);
+  background-size: 16px 16px;
+  border-radius: .55rem;
+}
+.vros-node {
+  min-width: 9rem; display: grid; text-align: center; gap: .08rem;
+  background: #132d44; border: 1px solid #63899e;
+  border-radius: .45rem; padding: .48rem .6rem; color: #f0f7ff;
+}
+.vros-node small { color: #b1ccd9; }
+.vros-node.router { border: 2px solid #80e9d3; font-weight: 750; }
+.vros-line { height: 1rem; width: 2px; background: #80e9d3; }
+.vros-library { padding: 0 .1rem 1rem; }
+.vros-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; }
+.md-typeset .vros-grid a {
+  display: grid; align-content: start; gap: .35rem; padding: .8rem;
+  border: 1px solid #c7d7e0; border-radius: .45rem; background: #f6fafb;
+}
+.vros-grid strong { display: flex; justify-content: space-between; }
+.vros-grid small, .vros-source { color: #43596a; }
+.md-typeset .vros-grid a:hover { border-color: #087969; background: #eaf7f4; }
+.vros-source { margin-top: 1rem; }
+@media (max-width: 850px) { .vros-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .vros-hero { grid-template-columns: 1fr; gap: 1.25rem; }
+  .vros-topology { display: none; }
+}
+@media (max-width: 360px) { .vros-grid { grid-template-columns: 1fr; } }
