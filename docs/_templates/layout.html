@@ -1,0 +1,7 @@
+{% extends "!layout.html" %}
+{% block sidebartitle %}
+{{ super() }}
+<div class="manual-version">
+  <a href="{{ pathto('versions') }}">版本 {{ release }} · 当前</a>
+</div>
+{% endblock %}

@@ -151,7 +151,7 @@ LDP接口、邻居、标签绑定和Zebra LSP均通过对应daemon的VTY流一�
 FIB 和 CE 间实际流量。只看到配置存在不能证明数据面已生效。
 
 开发服务器上的线性、环网、链路故障和删除恢复实验记录见
-[`MPLS LDP 与 L3VPN 命令参考`](reference/commands.md#mpls-ldp-与-l3vpn)。
+[`MPLS LDP 与 L3VPN 命令参考`](reference/mpls.md)。
 
 ## 删除与恢复
 

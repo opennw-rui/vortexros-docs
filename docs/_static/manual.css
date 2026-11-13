@@ -1,0 +1,19 @@
+.wy-side-nav-search, .wy-nav-top { background: #165677; }
+.manual-version { padding: .3rem 0 0; font-size: .84rem; }
+.wy-nav-content { max-width: 980px; }
+.rst-content pre { padding-right: 4.4rem; }
+.rst-content div.highlight { position: relative; }
+.manual-copy {
+  position: absolute;
+  right: .45rem;
+  top: .45rem;
+  background: #fff;
+  border: 1px solid #adc0cc;
+  border-radius: .25rem;
+  padding: .25rem .5rem;
+  color: #154963;
+  cursor: pointer;
+}
+.manual-copy:focus-visible { outline: 2px solid #165677; }
+.rst-content table.docutils { width: 100%; }
+.rst-content table.docutils td, .rst-content table.docutils th { white-space: normal; }

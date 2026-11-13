@@ -10,16 +10,15 @@
 
 这些地址是文档示例。实际操作请换成实验网的地址、接口及目标。
 
-## 安装并进入 CLI
+## 进入 CLI
 
-从 [Debug 5 发布页](https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug5) 下载单文件安装器并核对 SHA-256。发布页沿用软件仓库的访问权限。从 Ubuntu 终端运行：
+按[首次安装](installation/index.md)运行单文件安装器。安装结束后在 Ubuntu 终端执行：
 
 ~~~bash
-sudo sh ./vortexros-install_0.28-dev-debug5_amd64.run
 sudo vortexros
 ~~~
 
-安装过程见[安装手册](installation/README.md)。初始数据面由 Linux 管理。配置前用 `display interface brief` 确认业务口名称。
+使用 display interface brief 确认业务口名称。初始数据面由 Linux 管理。
 
 ## 配置地址与路由
 
