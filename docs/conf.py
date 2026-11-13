@@ -16,3 +16,36 @@ html_js_files = ["copy.js"]
 exclude_patterns = ["_static", "_templates"]
 pygments_style = "sphinx"
 highlight_language = "none"
+
+# Keep the browser query tokenizer and the build-time index in agreement.
+import re
+from sphinx.search.en import SearchEnglish
+
+
+class SearchVortexROS(SearchEnglish):
+    lang = "vortexros"
+    language_name = "VortexROS Chinese and CLI"
+    js_splitter_code = """
+var splitQuery = (query) => (query.match(/\\p{Script=Han}+|[a-zA-Z0-9_]+/gu) || [])
+  .flatMap((word) => {
+    if (!/^\\p{Script=Han}{2,}$/u.test(word)) return [word];
+    const chars = [...word];
+    return chars.slice(1).map((char, i) => chars[i] + char);
+  });
+"""
+
+    def split(self, text):
+        words = []
+        for word in re.findall(r"[\u3400-\u9fff]+|[a-zA-Z0-9_]+", text):
+            if len(word) > 1 and "\u3400" <= word[0] <= "\u9fff":
+                words.extend(word[i:i+2] for i in range(len(word)-1))
+            else:
+                words.append(word)
+        return words
+
+
+html_search_language = "vortexros"
+
+
+def setup(app):
+    app.add_search_language(SearchVortexROS)

@@ -17,3 +17,5 @@
 .manual-copy:focus-visible { outline: 2px solid #165677; }
 .rst-content table.docutils { width: 100%; }
 .rst-content table.docutils td, .rst-content table.docutils th { white-space: normal; }
+.manual-version summary { cursor: pointer; color: #fff; }
+.manual-version a { display: block; padding-top: .3rem; }
