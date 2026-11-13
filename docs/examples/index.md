@@ -16,6 +16,7 @@ lacp
 
 static-route
 route-group
+urpf
 ospf
 ospfv3
 bgp
@@ -44,6 +45,7 @@ mqc
 dhcp
 dhcpv6
 lldp
+snmp
 ipv6-ra
 ~~~
 
@@ -52,7 +54,10 @@ ipv6-ra
 :caption: 隧道与 VPN
 
 gre
+ip-in-ip
 wireguard
+amneziawg
+vxlan
 evpn
 mpls-l3vpn
 ~~~

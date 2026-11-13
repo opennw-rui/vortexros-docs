@@ -2,7 +2,7 @@
 
 用手工点到点 IP 隧道跨接两个三层网络。
 
-[命令参考](reference/tunnels.md)
+[命令参考](reference/tunnels.md) · [配置案例](../examples/ip-in-ip.md)
 
 ## 配置与验证
 
@@ -15,7 +15,7 @@
 | `ipv4-ipv6` | IPv4 | IPv6 |
 | `ipv6-ipv6` | IPv6 | IPv6 |
 
-外层`source`与`destination`必须属于协议指定的同一外层地址族。Tunnel接口地址必须属于协议指定的内层地址族。`destination ... vpn-instance`选择外层目的地址查路使用的underlay VPN；未指定时使用`default`。本功能是手工点到点隧道，不提供自动隧道、6to4、ISATAP或隧道发现。
+外层`source`与`destination`必须属于协议指定的同一外层地址族。Tunnel接口地址必须属于协议指定的内层地址族。`destination ... vpn-instance` 选择外层目的地址查路使用的命名 VPN；使用默认路由域时省略该参数。本功能是手工点到点隧道，不提供自动隧道、6to4、ISATAP或隧道发现。
 
 IPv4 over IPv4示例：
 
@@ -25,7 +25,7 @@ interface Tunnel 10
  description SITE-A-SITE-B-IPIP
  tunnel-protocol ipv4-ipv4
  source 192.0.2.1
- destination 198.51.100.2 vpn-instance default
+ destination 198.51.100.2
  ip address 10.10.10.1 255.255.255.252
 quit
 commit

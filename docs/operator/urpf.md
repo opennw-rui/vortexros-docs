@@ -2,7 +2,7 @@
 
 在入口检查报文源地址是否有可用回程路由。
 
-[命令参考](reference/urpf.md)
+[命令参考](reference/urpf.md) · [配置案例](../examples/urpf.md)
 
 ## 配置与验证
 

@@ -2,7 +2,7 @@
 
 通过 SNMP 查询设备状态和接口计数。
 
-[命令参考](reference/snmp.md)
+[命令参考](reference/snmp.md) · [配置案例](../examples/snmp.md)
 
 ## 配置与验证
 
