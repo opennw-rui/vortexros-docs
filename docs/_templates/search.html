@@ -1,0 +1,13 @@
+{%- extends "!search.html" %}
+{%- block scripts %}
+    {{ super.super() }}
+    <script src="{{ pathto('_static/searchtools.js', 1) }}?v={{ release }}"></script>
+    <script src="{{ pathto('_static/language_data.js', 1) }}?v={{ release }}"></script>
+{%- endblock %}
+{% block footer %}
+  <script>
+    jQuery(function() { Search.loadIndex("{{ pathto('searchindex.js', 1) }}?v={{ release }}"); });
+  </script>
+  <script id="searchindexloader"></script>
+  {{ super.super() }}
+{% endblock %}

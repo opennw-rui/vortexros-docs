@@ -1,4 +1,5 @@
 project = "VortexROS 文档"
+copyright = "VortexROS 项目"
 version = "0.28"
 release = "v0.28-dev-debug5"
 language = "zh_CN"
