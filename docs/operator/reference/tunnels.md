@@ -1,6 +1,8 @@
-# GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG
+# Tunnel 通用命令
 
+[配置指南](../tunnel-settings.md)
 
+(cmd-allowd-ip)=
 ## `allowd-ip`
 
 - 类别：配置命令
@@ -12,160 +14,21 @@
   allowd-ip IP LENGTH
   ```
 
-## `disable-cookies enable`
+## `destination`
 
 - 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：enable cookie replies disabled
+- 视图：`WireGuard Peer视图`、`amneziawg-peer`、`接口视图`
+- 用途（设备帮助）：set the peer endpoint and outer VPN；set the tunnel destination and optional underlay VPN
 - 合法语法：
 
   ```text
-  disable-cookies enable
+  destination IP [vpn-instance NAME]
   ```
-
-## `display amneziawg`
-
-- 类别：只读显示命令
-- 视图：`任意允许视图`
-- 用途（设备帮助）：display AmneziaWG configuration and runtime
-- 合法语法：
-
   ```text
-  display amneziawg { profile [NAME] | peer [PROFILE [PEER]] | interface [TUNNEL] }
+  destination [vpn-instance VPN] [IP port PORT]
   ```
 
-## `display vxlan statistics`
-
-- 类别：只读显示命令
-- 视图：`任意允许视图`
-- 用途（设备帮助）：display VXLAN tunnel traffic statistics
-- 合法语法：
-
-  ```text
-  display vxlan statistics source IP peer IP [vni VNI]
-  ```
-
-## `display vxlan tunnel`
-
-- 类别：只读显示命令
-- 视图：`任意允许视图`
-- 用途（设备帮助）：display static VXLAN tunnels (from NVE peer-list)
-- 合法语法：
-
-  ```text
-  display vxlan tunnel [ID]
-  ```
-
-## `display wireguard`
-
-- 类别：只读显示命令
-- 视图：`任意允许视图`
-- 用途（设备帮助）：display WireGuard configuration and runtime
-- 合法语法：
-
-  ```text
-  display wireguard { profile [NAME] | peer [PROFILE [PEER]] | interface [TUNNEL] }
-  ```
-
-## `evpn-overlay`
-
-- 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：enable EVPN as the VXLAN overlay control plane
-- 合法语法：
-
-  ```text
-  evpn-overlay enable
-  ```
-
-## `header cookie`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set cookie message header range
-- 合法语法：
-
-  ```text
-  header cookie LOW HIGH
-  ```
-
-## `header init`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set init message header range
-- 合法语法：
-
-  ```text
-  header init LOW HIGH
-  ```
-
-## `header response`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set response message header range
-- 合法语法：
-
-  ```text
-  header response LOW HIGH
-  ```
-
-## `header transport`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set transport message header range
-- 合法语法：
-
-  ```text
-  header transport LOW HIGH
-  ```
-
-## `header-protection`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：enable ChaCha20 message header protection
-- 合法语法：
-
-  ```text
-  header-protection { KEY | cipher CIPHERTEXT }
-  ```
-
-## `junk count`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set random junk packet count
-- 合法语法：
-
-  ```text
-  junk count INTEGER<0-128>
-  ```
-
-## `junk size`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set random junk packet size range
-- 合法语法：
-
-  ```text
-  junk size MIN MAX
-  ```
-
-## `junk-packet`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set a raw or dynamic handshake signature packet
-- 合法语法：
-
-  ```text
-  junk-packet SLOT { BASE64 | expression EXPRESSION }
-  ```
-
+(cmd-keepalive)=
 ## `keepalive`
 
 - 类别：配置命令
@@ -177,61 +40,7 @@
   keepalive SECONDS
   ```
 
-## `padding content`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set decrypted content padding range
-- 合法语法：
-
-  ```text
-  padding content MIN MAX
-  ```
-
-## `padding cookie`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set cookie reply fixed padding
-- 合法语法：
-
-  ```text
-  padding cookie INTEGER<0-1024>
-  ```
-
-## `padding init`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set handshake initiation fixed padding
-- 合法语法：
-
-  ```text
-  padding init INTEGER<0-1024>
-  ```
-
-## `padding response`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set handshake response fixed padding
-- 合法语法：
-
-  ```text
-  padding response INTEGER<0-1024>
-  ```
-
-## `padding transport`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set transport packet fixed padding
-- 合法语法：
-
-  ```text
-  padding transport INTEGER<0-1024>
-  ```
-
+(cmd-peer)=
 ## `peer`
 
 - 类别：配置命令
@@ -246,6 +55,7 @@
   peer X.X.X.X [option ...]
   ```
 
+(cmd-presharedkey)=
 ## `presharedkey`
 
 - 类别：配置命令
@@ -257,6 +67,19 @@
   presharedkey { KEY | cipher CIPHERTEXT }
   ```
 
+(cmd-privatekey)=
+## `privatekey`
+
+- 类别：配置命令
+- 视图：`接口视图`
+- 用途（设备帮助）：set or generate the AmneziaWG private key；set or generate the WireGuard private key
+- 合法语法：
+
+  ```text
+  privatekey { STRING<44> | auto | cipher CIPHERTEXT }
+  ```
+
+(cmd-publickey)=
 ## `publickey`
 
 - 类别：配置命令
@@ -268,70 +91,44 @@
   publickey KEY
   ```
 
-## `random-trailers enable`
+## `source`
 
 - 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：enable random packet trailers
+- 视图：`WireGuard Peer视图`、`amneziawg-peer`、`接口视图`
+- 用途（设备帮助）：pin the peer outer source address；set AmneziaWG source and underlay VPN；set NVE source VTEP address and optional underlay VPN；set WireGuard source and underlay VPN；set the tunnel source IP address
 - 合法语法：
 
   ```text
-  random-trailers enable
+  source IP
+  ```
+  ```text
+  source IP [vpn-instance NAME]
+  ```
+  ```text
+  source vpn-instance NAME [IP]
   ```
 
-## `timing keepalive`
+(cmd-source-port)=
+## `source-port`
 
 - 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set keepalive random range
+- 视图：`接口视图`
+- 用途（设备帮助）：set fixed AmneziaWG server listen port；set fixed WireGuard server listen port
 - 合法语法：
 
   ```text
-  timing keepalive LOW HIGH
+  source-port PORT
   ```
 
-## `timing max-handshakes`
+## `tunnel-protocol`
 
 - 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set max-handshakes random range
+- 视图：`接口视图`
+- 用途（设备帮助）：set the tunnel encapsulation protocol
 - 合法语法：
 
   ```text
-  timing max-handshakes LOW HIGH
-  ```
-
-## `timing reject-after`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set reject-after random range
-- 合法语法：
-
-  ```text
-  timing reject-after LOW HIGH
-  ```
-
-## `timing rekey-after`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set rekey-after random range
-- 合法语法：
-
-  ```text
-  timing rekey-after LOW HIGH
-  ```
-
-## `timing rekey-timeout`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：set rekey-timeout random range
-- 合法语法：
-
-  ```text
-  timing rekey-timeout LOW HIGH
+  tunnel-protocol { gre | ipv4-ipv4 | ipv6-ipv4 | ipv4-ipv6 | ipv6-ipv6 | wireguard | amneziawg }
   ```
 
 ## `undo allowd-ip`
@@ -345,125 +142,15 @@
   undo allowd-ip IP LENGTH
   ```
 
-## `undo amneziawg profile`
+## `undo destination`
 
 - 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：delete an AmneziaWG profile
+- 视图：`WireGuard Peer视图`、`amneziawg-peer`、`接口视图`
+- 用途（设备帮助）：clear the peer endpoint；clear the tunnel destination IP address
 - 合法语法：
 
   ```text
-  undo amneziawg profile NAME
-  ```
-
-## `undo disable-cookies enable`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：disable cookie replies disabled
-- 合法语法：
-
-  ```text
-  undo disable-cookies enable
-  ```
-
-## `undo evpn-overlay`
-
-- 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：disable EVPN as the VXLAN overlay control plane
-- 合法语法：
-
-  ```text
-  undo evpn-overlay enable
-  ```
-
-## `undo header cookie`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default cookie message header
-- 合法语法：
-
-  ```text
-  undo header cookie
-  ```
-
-## `undo header init`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default init message header
-- 合法语法：
-
-  ```text
-  undo header init
-  ```
-
-## `undo header response`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default response message header
-- 合法语法：
-
-  ```text
-  undo header response
-  ```
-
-## `undo header transport`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default transport message header
-- 合法语法：
-
-  ```text
-  undo header transport
-  ```
-
-## `undo header-protection`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：disable message header protection
-- 合法语法：
-
-  ```text
-  undo header-protection
-  ```
-
-## `undo junk count`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default junk packet count
-- 合法语法：
-
-  ```text
-  undo junk count
-  ```
-
-## `undo junk size`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default junk packet size
-- 合法语法：
-
-  ```text
-  undo junk size
-  ```
-
-## `undo junk-packet`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：delete a raw junk UDP payload slot
-- 合法语法：
-
-  ```text
-  undo junk-packet SLOT
+  undo destination
   ```
 
 ## `undo keepalive`
@@ -475,61 +162,6 @@
 
   ```text
   undo keepalive
-  ```
-
-## `undo padding content`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default content padding
-- 合法语法：
-
-  ```text
-  undo padding content
-  ```
-
-## `undo padding cookie`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default cookie reply padding
-- 合法语法：
-
-  ```text
-  undo padding cookie
-  ```
-
-## `undo padding init`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default handshake initiation padding
-- 合法语法：
-
-  ```text
-  undo padding init
-  ```
-
-## `undo padding response`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default handshake response padding
-- 合法语法：
-
-  ```text
-  undo padding response
-  ```
-
-## `undo padding transport`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default transport packet padding
-- 合法语法：
-
-  ```text
-  undo padding transport
   ```
 
 ## `undo peer`
@@ -557,6 +189,17 @@
   undo presharedkey
   ```
 
+## `undo privatekey`
+
+- 类别：配置命令
+- 视图：`接口视图`
+- 用途（设备帮助）：clear AmneziaWG key；clear WireGuard key
+- 合法语法：
+
+  ```text
+  undo privatekey
+  ```
+
 ## `undo publickey`
 
 - 类别：配置命令
@@ -568,79 +211,35 @@
   undo publickey
   ```
 
-## `undo random-trailers enable`
+## `undo source`
 
 - 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：disable random packet trailers
+- 视图：`WireGuard Peer视图`、`amneziawg-peer`、`接口视图`
+- 用途（设备帮助）：clear AmneziaWG source；clear NVE source address；clear WireGuard source；clear the tunnel source IP address；use automatic peer source selection
 - 合法语法：
 
   ```text
-  undo random-trailers enable
+  undo source
   ```
 
-## `undo timing keepalive`
+## `undo source-port`
 
 - 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default keepalive timing
+- 视图：`接口视图`
+- 用途（设备帮助）：use a dynamic AmneziaWG client source port；use a dynamic WireGuard client source port
 - 合法语法：
 
   ```text
-  undo timing keepalive
+  undo source-port
   ```
 
-## `undo timing max-handshakes`
+## `undo tunnel-protocol`
 
 - 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default max-handshakes timing
+- 视图：`接口视图`
+- 用途（设备帮助）：clear the tunnel encapsulation protocol
 - 合法语法：
 
   ```text
-  undo timing max-handshakes
-  ```
-
-## `undo timing reject-after`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default reject-after timing
-- 合法语法：
-
-  ```text
-  undo timing reject-after
-  ```
-
-## `undo timing rekey-after`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default rekey-after timing
-- 合法语法：
-
-  ```text
-  undo timing rekey-after
-  ```
-
-## `undo timing rekey-timeout`
-
-- 类别：配置命令
-- 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default rekey-timeout timing
-- 合法语法：
-
-  ```text
-  undo timing rekey-timeout
-  ```
-
-## `undo wireguard profile`
-
-- 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：delete a WireGuard profile
-- 合法语法：
-
-  ```text
-  undo wireguard profile NAME
+  undo tunnel-protocol
   ```

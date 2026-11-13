@@ -1,9 +1,11 @@
 {% extends "!layout.html" %}
-{% block sidebartitle %}
+{% block navigation %}
 {{ super() }}
 <details class="manual-version">
-  <summary>{{ release }} · 当前版本</summary>
-  <a href="{{ pathto('index') }}">0.28 开发版</a>
-  <a href="{{ pathto('versions') }}">文档版本说明</a>
+  <summary>版本：最新（{{ release }}）</summary>
+  <div class="manual-version-menu">
+    <a href="{{ pathto('index') }}">当前手册（{{ release }}）</a>
+    <a href="{{ pathto('versions') }}">文档版本说明</a>
+  </div>
 </details>
 {% endblock %}

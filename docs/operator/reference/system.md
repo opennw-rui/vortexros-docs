@@ -1,5 +1,6 @@
-# 系统、健康与服务
+# 系统
 
+[配置指南](../02-system-services.md)
 
 ## `display alarm active`
 
@@ -113,17 +114,6 @@
   display service [verbose]
   ```
 
-## `display vpp api compatibility`
-
-- 类别：只读显示命令
-- 视图：`任意允许视图`
-- 用途（设备帮助）：display VPP binary API compatibility
-- 合法语法：
-
-  ```text
-  display vpp api compatibility [verbose]
-  ```
-
 ## `display vpp interface-ownership`
 
 - 类别：只读显示命令
@@ -133,39 +123,6 @@
 
   ```text
   display vpp interface-ownership [verbose]
-  ```
-
-## `display vpp takeover transaction`
-
-- 类别：只读显示命令
-- 视图：`任意允许视图`
-- 用途（设备帮助）：display the current or most recent VPP takeover transaction
-- 合法语法：
-
-  ```text
-  display vpp takeover transaction
-  ```
-
-## `enable lldp`
-
-- 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：enable LLDP globally and on all physical interfaces
-- 合法语法：
-
-  ```text
-  enable lldp
-  ```
-
-## `enable switch`
-
-- 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：enable the L2 switch instance
-- 合法语法：
-
-  ```text
-  enable switch
   ```
 
 ## `health check`
@@ -191,28 +148,6 @@
   sysname HOSTNAME
   ```
 
-## `undo enable lldp`
-
-- 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：disable LLDP globally
-- 合法语法：
-
-  ```text
-  undo enable lldp
-  ```
-
-## `undo enable switch`
-
-- 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：disable the L2 switch instance
-- 合法语法：
-
-  ```text
-  undo enable switch
-  ```
-
 ## `undo sysname`
 
 - 类别：配置命令
@@ -222,26 +157,4 @@
 
   ```text
   undo sysname
-  ```
-
-## `undo vpp startup-config`
-
-- 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：restore default VPP startup configuration path
-- 合法语法：
-
-  ```text
-  undo vpp startup-config
-  ```
-
-## `vpp startup-config`
-
-- 类别：配置命令
-- 视图：`系统视图`
-- 用途（设备帮助）：VPP process startup configuration file (-c)
-- 合法语法：
-
-  ```text
-  vpp startup-config PATH
   ```

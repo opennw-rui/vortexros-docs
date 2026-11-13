@@ -1,4 +1,4 @@
-# CLI 使用指南
+# 命令行
 
 在 Linux 终端执行 sudo vortexros。登录后可直接查询运行状态，配置从 system-view 开始。
 

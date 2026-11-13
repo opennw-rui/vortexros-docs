@@ -1,38 +1,30 @@
-# VortexROS 操作手册
+# 介绍
 
-本手册对应当前发布的 **0.28 开发版（Debug 5）**。从空白 Ubuntu 安装后，可以先在 Linux 数据面验证接口与路由，再按部署需求配置 DPDK。
+VortexROS 是运行在 Ubuntu 上的网络操作系统。通过统一 CLI 配置接口、路由和网络服务。首次安装使用 Linux 数据面；需要 DPDK 时，再选择由 VPP 接管的网卡。
 
-| 我要做什么 | 从哪里开始 |
-| --- | --- |
-| 在空白 Ubuntu 上安装 | [首次安装](installation/index.md) |
-| 第一次登录并验证连通性 | [从零到 Ping](quickstart.md) |
-| 理解视图、提交和保存 | [CLI 使用指南](operator/01-cli.md) |
-| 按场景配置接口、路由或服务 | [配置案例](examples/index.md) |
-| 查询命令语法和视图 | [命令参考](operator/reference/commands.md) |
-| 更新现有设备 | [升级与回退](installation/07-upgrade-uninstall.md) |
+手册对应 **VortexROS 0.28 开发版（Debug 5）**。配套软件、更新及测试范围见[发布记录](release/index.md)。
+
+首次使用请从[安装](installation/index.md)和[入门](quickstart.md)开始。已有设备可直接从左侧选择功能，也可按[配置案例](examples/index.md)完成一个任务，或在[命令参考](operator/reference/commands.md)查询语法。
 
 ~~~{toctree}
-:maxdepth: 2
-:caption: 安装与入门
+:hidden:
+:maxdepth: 3
 
-installation/index
-quickstart
-operator/01-cli
-~~~
-
-~~~{toctree}
-:maxdepth: 2
-:caption: 配置与运维
-
-examples/index
-operator/index
-operator/09-operations
-~~~
-
-~~~{toctree}
-:maxdepth: 2
-:caption: 参考
-
-operator/reference/commands
-versions
+安装 <installation/index>
+入门 <quickstart>
+命令行 <operator/01-cli>
+系统管理 <operator/02-system-services>
+接口 <operator/03-interfaces-l2>
+IP 路由 <operator/04-ip-routing>
+路由协议 <operator/05-dynamic-routing>
+ACL <operator/acl>
+NAT <operator/nat>
+流量策略 <operator/07-policy>
+隧道 <operator/06-tunnels>
+MPLS <operator/10-mpls-l3vpn>
+网络服务 <operator/08-network-services>
+诊断与恢复 <operator/09-operations>
+配置案例 <examples/index>
+命令参考 <operator/reference/commands>
+发布记录 <release/index>
 ~~~

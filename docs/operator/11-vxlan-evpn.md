@@ -1,10 +1,12 @@
-# VXLAN EVPN
+# EVPN
 
 本章说明如何使用 BGP EVPN 建立 VXLAN 覆盖网络。当前支持单归属和 All-Active
 多归属 L2VNI，以及 L3VNI：BGP 发布和接收 EVPN Type-1 Ethernet A-D、Type-2
 MAC/IP、Type-3 Inclusive Multicast、Type-4 Ethernet Segment 与 Type-5 IP Prefix
 路由；LCP 把标准 Linux FDB、邻居和 VRF 路由转换为 VPP VXLAN、L2 FIB、ARP/ND
 终结表、租户 FIB 和多归属转发状态，VPP 完成业务报文转发。
+
+[命令参考](reference/evpn.md)
 
 ## 组件职责
 
