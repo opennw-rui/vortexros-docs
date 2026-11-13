@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>邻居正常但 FIB 缺路由 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/troubleshooting/route-missing/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="隧道 Up 但业务不通" href="../tunnel-no-traffic/" />
+    <link rel="prev" title="常见故障" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">常见故障</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">邻居正常但 FIB 缺路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnel-no-traffic/">隧道 Up 但业务不通</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcpv6-leases/">DHCPv6 有地址但查不到租约</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk-management/">切换 DPDK 后管理连接中断</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backend-not-ready/">提交后后端未收敛</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">常见故障</a></li>
+      <li class="breadcrumb-item active">邻居正常但 FIB 缺路由</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fib">
+<span id="邻居正常但-fib-缺路由"></span><h1>邻居正常但 FIB 缺路由<a class="headerlink" href="#fib" title="链接到此标题。"></a></h1>
+<p>BGP 已 Established，目标前缀仍未转发。先检查目标前缀是否进入本设备 RIB，再检查下一跳和活动数据面。以下为默认路由域的 IPv4 示例；业务在 VPN 实例中时，应在同一 VPN 下核对。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp peer
+display bgp routing-table
+display ip routing-table 203.0.113.0 24
+display dataplane
+display health verbose
+display alarm active
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>BGP 表没有目标前缀时，核对对端是否通告该地址族和精确前缀，并检查本端导入、对端导出策略。</p></li>
+<li><p>BGP 有前缀而 RIB 没有优选项时，核对下一跳能否递归解析，以及是否有更优路径。修正解析路由或策略后重新查询。</p></li>
+<li><p>RIB 已优选时，VPP 数据面用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">fib</span></code> 查目标前缀、下一跳和出接口；Linux 数据面可在 Ubuntu 用 <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">route</span> <span class="pre">get</span> <span class="pre">203.0.113.1</span></code> 查实际选择。命名 VPN 分别使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">fib</span> <span class="pre">vpn-instance</span> <span class="pre">BLUE</span></code> 或 <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">route</span> <span class="pre">get</span> <span class="pre">203.0.113.1</span> <span class="pre">vrf</span> <span class="pre">BLUE</span></code>，用实际名称替换 BLUE。</p></li>
+<li><p>若 RIB 已选中、下一跳已解析，但活动 FIB 仍缺项，记录受影响前缀及 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health</span> <span class="pre">verbose</span></code>、告警和 <code class="docutils literal notranslate"><span class="pre">journalctl</span> <span class="pre">-u</span> <span class="pre">vortexros-route-zapi</span></code> 的同一时段输出。修正后从源业务端测目标和回程，再保存配置。</p></li>
+</ol>
+<p>普通 VPP 路径的 <code class="docutils literal notranslate"><span class="pre">Lookup-Table</span></code> 显示 <code class="docutils literal notranslate"><span class="pre">-</span></code>，显式查表显示目标 VPP 表号，目标为默认表时显示 <code class="docutils literal notranslate"><span class="pre">0</span></code>。见<a class="reference internal" href="../../operator/routing-tables/"><span class="std std-doc">路由表与 FIB</span></a>。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="常见故障" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../tunnel-no-traffic/" class="btn btn-neutral float-right" title="隧道 Up 但业务不通" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

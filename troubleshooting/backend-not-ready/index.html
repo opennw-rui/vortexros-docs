@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>提交后后端未收敛 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/troubleshooting/backend-not-ready/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="配置案例" href="../../examples/" />
+    <link rel="prev" title="切换 DPDK 后管理连接中断" href="../dpdk-management/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">常见故障</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../route-missing/">邻居正常但 FIB 缺路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnel-no-traffic/">隧道 Up 但业务不通</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcpv6-leases/">DHCPv6 有地址但查不到租约</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk-management/">切换 DPDK 后管理连接中断</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">提交后后端未收敛</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">常见故障</a></li>
+      <li class="breadcrumb-item active">提交后后端未收敛</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="提交后后端未收敛"></span><h1>提交后后端未收敛<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>先检查 CLI 是拒绝了提交，还是已经接受了 Running。拒绝时根据错误修正 Candidate。Running 已接受时，定位当前未就绪的服务。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display configuration candidate
+display current-configuration
+display health verbose
+display service verbose
+display alarm active
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">running</span></code> 只确认进程状态。检查 <code class="docutils literal notranslate"><span class="pre">ready</span></code>、<code class="docutils literal notranslate"><span class="pre">converged</span></code> 和当前告警，确认服务已可查询且配置已应用。</p></li>
+<li><p>VPP 未就绪时，核对数据面模式、PCI 和大页配置。FRR 或 route-zapi 未就绪时，收集同一时段的日志，先等正在进行的回放结束。</p></li>
+<li><p>需要维护性重启且问题已定位到 FRR 时，按<a class="reference internal" href="../../operator/09-operations/"><span class="std std-doc">诊断与恢复</span></a>使用 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">frr</span></code>。该操作会引起邻居重新收敛。恢复后核对协议邻居、路由表、活动 FIB 和业务流量，再保存配置。</p></li>
+</ul>
+<p>在 Ubuntu 终端采集受影响的服务日志：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>journalctl<span class="w"> </span>-b<span class="w"> </span>-u<span class="w"> </span>vortexrosd<span class="w"> </span>-u<span class="w"> </span>vortexros-vpp<span class="w"> </span>-u<span class="w"> </span>vortexros-frr<span class="w"> </span>-u<span class="w"> </span>vortexros-route-zapi<span class="w"> </span>--since<span class="w"> </span><span class="s1">'-15 min'</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../dpdk-management/" class="btn btn-neutral float-left" title="切换 DPDK 后管理连接中断" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../examples/" class="btn btn-neutral float-right" title="配置案例" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

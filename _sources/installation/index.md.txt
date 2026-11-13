@@ -2,6 +2,8 @@
 
 在空白 **Ubuntu 26.04 amd64** 上，执行一次单文件安装器即可完成正常首装。
 
+选型见[支持的硬件](hardware.md)和[支持矩阵](support.md)，首装后的状态见[默认行为](defaults.md)。
+
 ## 下载并运行
 
 从 [当前版本发布页](https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug5) 下载对应的 .run 文件，在 Ubuntu 终端执行：

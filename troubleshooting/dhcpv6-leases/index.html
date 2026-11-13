@@ -1,0 +1,162 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DHCPv6 有地址但查不到租约 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/troubleshooting/dhcpv6-leases/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="切换 DPDK 后管理连接中断" href="../dpdk-management/" />
+    <link rel="prev" title="隧道 Up 但业务不通" href="../tunnel-no-traffic/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">常见故障</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../route-missing/">邻居正常但 FIB 缺路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnel-no-traffic/">隧道 Up 但业务不通</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DHCPv6 有地址但查不到租约</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk-management/">切换 DPDK 后管理连接中断</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backend-not-ready/">提交后后端未收敛</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">常见故障</a></li>
+      <li class="breadcrumb-item active">DHCPv6 有地址但查不到租约</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dhcpv6">
+<span id="dhcpv6-有地址但查不到租约"></span><h1>DHCPv6 有地址但查不到租约<a class="headerlink" href="#dhcpv6" title="链接到此标题。"></a></h1>
+<p>Debug 5 配套 Kea 3.0.3 的服务端租约查询可能报错。先区分客户端拿不到地址和服务端显示失败。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 client interface host-p2b12
+display ipv6 pool name LAB-V6 used
+</pre></div>
+</div>
+<p>在客户端执行第一条，用现场接口名替换 <code class="docutils literal notranslate"><span class="pre">host-p2b12</span></code>。若显示已分配的 IPv6 地址，用该客户端 Ping 网关。第二条在服务端执行，用现场地址池名替换 <code class="docutils literal notranslate"><span class="pre">LAB-V6</span></code>。</p>
+<ul class="simple">
+<li><p>客户端没有地址时，检查对应三层接口的链路、DHCPv6 服务绑定、地址池及服务状态。</p></li>
+<li><p>客户端有地址、网关可达，而查询出现以下错误时，Debug 5 读取了 Kea 的租约回复，但无法解码字符串形式的 <code class="docutils literal notranslate"><span class="pre">IA_NA</span></code>。</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>json: cannot unmarshal string into Go struct field keaLeaseArguments.leases.0.type of type uint8
+</pre></div>
+</div>
+<p>此时保留服务和地址池配置，以客户端状态及连通性确认业务。升级至明确修复此问题的发布版后，重新执行服务端租约查询并和客户端地址对照。案例中的实际输出见<a class="reference internal" href="../../examples/dhcpv6/"><span class="std std-doc">DHCPv6 地址分配</span></a>。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../tunnel-no-traffic/" class="btn btn-neutral float-left" title="隧道 Up 但业务不通" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../dpdk-management/" class="btn btn-neutral float-right" title="切换 DPDK 后管理连接中断" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

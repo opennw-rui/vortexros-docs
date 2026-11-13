@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>支持矩阵 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/support/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="首次安装" href="../" />
+    <link rel="prev" title="支持的硬件" href="../hardware/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../hardware/">支持的硬件</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">支持矩阵</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="支持矩阵"></span><h1>支持矩阵<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>VortexROS 0.28 开发版 Debug 5 的单文件安装器适用于 <strong>Ubuntu 26.04 amd64</strong>。默认从 Linux 数据面启动。配套 VPP、FRR 版本见<a class="reference internal" href="../02-backends/"><span class="std std-doc">软件组成</span></a>，CPU、网卡和虚拟机路径见<a class="reference internal" href="../hardware/"><span class="std std-doc">支持的硬件</span></a>。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>使用目标</p></th>
+<th class="head"><p>Linux 数据面</p></th>
+<th class="head"><p>VPP 数据面</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>管理 SSH、sudo、系统时间、主机 DNS</p></td>
+<td><p>由 Ubuntu 管理</p></td>
+<td><p>同样由 Ubuntu 管理，管理口归属需单独规划</p></td>
+</tr>
+<tr class="row-odd"><td><p>三层接口、IPv4／IPv6 静态路由、VPN 实例</p></td>
+<td><p>使用 Linux 接口及路由表</p></td>
+<td><p>VPP 转发，按功能与 Linux 同步</p></td>
+</tr>
+<tr class="row-even"><td><p>BGP、OSPF、OSPFv3、IS‑IS、RIP／RIPng</p></td>
+<td><p>FRR 提供控制面，实际路由从 Linux 核对</p></td>
+<td><p>FRR 提供控制面，还需核对 VPP FIB</p></td>
+</tr>
+<tr class="row-odd"><td><p>DHCPv4／v6、SNMP</p></td>
+<td><p>Linux 主机服务，按接口和功能配置</p></td>
+<td><p>仍由 Linux 服务提供，业务口需有相应的 Linux/LCP 路径。SNMP 系统对象和 VPP 接口计数来源不同</p></td>
+</tr>
+<tr class="row-even"><td><p>接口 ACL、MQC、NAT Policy</p></td>
+<td><p>此处列出的 VortexROS 转发策略使用 VPP</p></td>
+<td><p>使用配套 VPP 插件，按功能页确认接口类型和方向</p></td>
+</tr>
+<tr class="row-odd"><td><p>WireGuard、AmneziaWG、静态 VXLAN、VXLAN EVPN、MPLS L3VPN</p></td>
+<td><p>本手册的实现和案例使用 VPP</p></td>
+<td><p>使用配套 VPP，EVPN／MPLS L3VPN 另需 FRR 控制面</p></td>
+</tr>
+</tbody>
+</table>
+<p>VPP 数据面是否可用与某张物理网卡是否能由 DPDK 接管分别核对。案例中的 AF_PACKET/veth、memif 证明对应实验路径；实际 PCI 网卡还需核对驱动、端口链路、MTU 和硬件卸载。具体功能的拓扑和实测结果见<a class="reference internal" href="../../examples/"><span class="std std-doc">配置案例</span></a>。</p>
+<p>Debian、Arm64 和其他虚拟化平台的 VortexROS 安装包验收目前没有收录。现场新增硬件可沿用<a class="reference internal" href="../08-hardware-acceptance/"><span class="std std-doc">硬件验收</span></a>的检查顺序。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../hardware/" class="btn btn-neutral float-left" title="支持的硬件" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../" class="btn btn-neutral float-right" title="首次安装" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
