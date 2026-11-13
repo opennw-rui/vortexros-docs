@@ -10,7 +10,10 @@ VortexROS 是运行在 Ubuntu 上的网络操作系统。通过统一 CLI 配置
 :hidden:
 :maxdepth: 3
 
+支持的硬件 <installation/hardware>
+支持矩阵 <installation/support>
 安装 <installation/index>
+默认行为 <installation/defaults>
 入门 <quickstart>
 命令行 <operator/01-cli>
 系统管理 <operator/02-system-services>
@@ -24,6 +27,7 @@ NAT <operator/nat>
 MPLS <operator/10-mpls-l3vpn>
 网络服务 <operator/08-network-services>
 诊断与恢复 <operator/09-operations>
+常见故障 <troubleshooting/index>
 配置案例 <examples/index>
 命令参考 <operator/reference/commands>
 发布记录 <release/index>

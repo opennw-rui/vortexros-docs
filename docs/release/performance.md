@@ -19,6 +19,8 @@ Debug 4 的 IPv4/IPv6 FIB 分别用 50,000 条路由对照组合过滤，输出�
 
 ## FD.io CSIT
 
+各 CPU、网卡及驱动组合的公开测试入口见[支持的硬件](../installation/hardware.md#公开性能数据)。
+
 FD.io 的 VPP 26.06 与 26.10 成对测量使用 E810 和单 worker。下表是部分 PDR 结果，单位 Mpps；IPv6 用例为 78 字节帧，其余为 64 字节帧。
 
 | 路径 | 驱动 | 26.06 | 26.10 |

@@ -1,5 +1,7 @@
 # 诊断与恢复
 
+按现象定位问题见[常见故障](../troubleshooting/index.md)。
+
 ## Ping、tracert与mtr
 
 ```text
