@@ -2,7 +2,7 @@
 
 使用静态 VTEP 列表在三层网络上延伸二层桥域。
 
-[命令参考](reference/vxlan.md)
+[命令参考](reference/vxlan.md) · [配置案例](../examples/vxlan.md)
 
 ## 配置与验证
 

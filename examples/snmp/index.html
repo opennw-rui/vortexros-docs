@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNMP 轮询 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/snmp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="IPv6 自动配置" href="../ipv6-ra/" />
+    <link rel="prev" title="发现直连邻居" href="../lldp/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-route/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-group/">路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF 源地址检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp-policy/">BGP 入站策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD 故障检测</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">入站 ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/">源 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">出口限速</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC 报文标记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcpv6/">DHCPv6 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">发现直连邻居</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SNMP 轮询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-ra/">IPv6 自动配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-in-ip/">IP-in-IP 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">静态 VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls-l3vpn/">MPLS L3VPN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+      <li class="breadcrumb-item active">SNMP 轮询</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="snmp">
+<span id="snmp-轮询"></span><h1>SNMP 轮询<a class="headerlink" href="#snmp" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VortexROS host-labnms 192.0.2.65/30 ─── 192.0.2.66/30 NMS
+                  UDP 161
+</pre></div>
+</div>
+<p>使用专用实验管理链路。设备接口已识别，NMS 安装 Net-SNMP 客户端。实验设备的系统名为 <code class="docutils literal notranslate"><span class="pre">SNMP-LAB</span></code>。本例仅在隔离链路上演示 SNMPv2c 只读查询；community 不加密，生产环境优先使用 <a class="reference internal" href="../../operator/snmp/"><span class="std std-doc">SNMPv3 authPriv</span></a>。</p>
+</section>
+<section id="vortexros">
+<span id="配置-vortexros"></span><h2>配置 VortexROS<a class="headerlink" href="#vortexros" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-labnms
+ ip address 192.0.2.65 255.255.255.252
+ quit
+commit
+snmp-agent
+snmp-agent sys-info version v2c
+snmp-agent sys-info contact Lab Operations
+snmp-agent sys-info location Isolated-Lab
+snmp-agent protocol source-interface host-labnms
+snmp-agent community read lab-read
+commit
+display snmp-agent sys-info
+</pre></div>
+</div>
+<p>这里只允许目标为指定接口主 IPv4 地址的轮询。没有启用 trap，也没有写权限。若设备已经有 SNMP 配置，应调整现有对象，并保留其他监控使用的设置。</p>
+</section>
+<section id="nms">
+<span id="配置-nms"></span><h2>配置 NMS<a class="headerlink" href="#nms" title="链接到此标题。"></a></h2>
+<p>在 Linux 的专用接口上配置地址；示例接口名为 <code class="docutils literal notranslate"><span class="pre">mgmt0</span></code>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>mgmt0<span class="w"> </span>up
+sudo<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.0.2.66/30<span class="w"> </span>dev<span class="w"> </span>mgmt0
+</pre></div>
+</div>
+<p>本例的 NMS 使用 Linux veth 接入 VPP AF_PACKET。若复用同样的隔离拓扑且 AF_PACKET 关闭了校验和卸载，先在 NMS 测试端口执行 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">ethtool</span> <span class="pre">-K</span> <span class="pre">mgmt0</span> <span class="pre">tx</span> <span class="pre">off</span></code>，让 Linux 在发送前填好 UDP 校验和。普通 NMS 不需要这一步。</p>
+</section>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>先核对配置。开发服务器隔离环境的 CLI 实际输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SNMP agent configuration: enabled
+Versions: v2c=true v3=false
+Contact: Lab Operations
+Location: Isolated-Lab
+Source interface: host-labnms
+VPN instance: public-net
+</pre></div>
+</div>
+<p>查询系统名和位置。数字 OID 不依赖本地安装 MIB 文本。在 NMS 执行：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>snmpget<span class="w"> </span>-v2c<span class="w"> </span>-c<span class="w"> </span>lab-read<span class="w"> </span>-m<span class="w"> </span><span class="s1">''</span><span class="w"> </span>-On<span class="w"> </span>-t<span class="w"> </span><span class="m">1</span><span class="w"> </span>-r<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">192</span>.0.2.65<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>.1.3.6.1.2.1.1.5.0<span class="w"> </span>.1.3.6.1.2.1.1.6.0
+</pre></div>
+</div>
+<p>独立 NMS 经 <code class="docutils literal notranslate"><span class="pre">192.0.2.65:161</span></code> 收到的实际回复：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.1.3.6.1.2.1.1.5.0 = STRING: "SNMP-LAB"
+.1.3.6.1.2.1.1.6.0 = STRING: "Isolated-Lab"
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>专用测试设备上可撤销整套 SNMP：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+undo snmp-agent
+commit
+</pre></div>
+</div>
+<p>共享设备应只撤销本实验新增的 community 等设置，不应删除其他监控的 SNMP 配置。撤销后运行 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">snmp-agent</span> <span class="pre">sys-info</span></code>，待监听服务停止后从同一 NMS 重复原查询。实际输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SNMP agent configuration: disabled
+Versions: v2c=false v3=false
+
+Timeout: No Response from 192.0.2.65.
+</pre></div>
+</div>
+<p>撤销后，实验 NMS 仍能 ping 通管理地址。管理接口地址可按原用途保留。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../lldp/" class="btn btn-neutral float-left" title="发现直连邻居" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ipv6-ra/" class="btn btn-neutral float-right" title="IPv6 自动配置" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

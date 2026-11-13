@@ -111,7 +111,7 @@
   <section id="ip-in-ip">
 <h1>IP-in-IP<a class="headerlink" href="#ip-in-ip" title="链接到此标题。"></a></h1>
 <p>用手工点到点 IP 隧道跨接两个三层网络。</p>
-<p><a class="reference internal" href="../reference/tunnels/"><span class="std std-doc">命令参考</span></a></p>
+<p><a class="reference internal" href="../reference/tunnels/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/ip-in-ip/"><span class="std std-doc">配置案例</span></a></p>
 <section id="id1">
 <span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <p>手工IP隧道使用点到点三层接口，支持四种内层与外层地址族组合：</p>
@@ -141,14 +141,14 @@
 </tr>
 </tbody>
 </table>
-<p>外层<code class="docutils literal notranslate"><span class="pre">source</span></code>与<code class="docutils literal notranslate"><span class="pre">destination</span></code>必须属于协议指定的同一外层地址族。Tunnel接口地址必须属于协议指定的内层地址族。<code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">...</span> <span class="pre">vpn-instance</span></code>选择外层目的地址查路使用的underlay VPN；未指定时使用<code class="docutils literal notranslate"><span class="pre">default</span></code>。本功能是手工点到点隧道，不提供自动隧道、6to4、ISATAP或隧道发现。</p>
+<p>外层<code class="docutils literal notranslate"><span class="pre">source</span></code>与<code class="docutils literal notranslate"><span class="pre">destination</span></code>必须属于协议指定的同一外层地址族。Tunnel接口地址必须属于协议指定的内层地址族。<code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">...</span> <span class="pre">vpn-instance</span></code> 选择外层目的地址查路使用的命名 VPN；使用默认路由域时省略该参数。本功能是手工点到点隧道，不提供自动隧道、6to4、ISATAP或隧道发现。</p>
 <p>IPv4 over IPv4示例：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 interface Tunnel 10
  description SITE-A-SITE-B-IPIP
  tunnel-protocol ipv4-ipv4
  source 192.0.2.1
- destination 198.51.100.2 vpn-instance default
+ destination 198.51.100.2
  ip address 10.10.10.1 255.255.255.252
 quit
 commit

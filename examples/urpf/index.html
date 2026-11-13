@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>uRPF 源地址检查 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/urpf/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="OSPF 单区域" href="../ospf/" />
+    <link rel="prev" title="路由组" href="../route-group/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-route/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-group/">路由组</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">uRPF 源地址检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp-policy/">BGP 入站策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD 故障检测</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">入站 ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/">源 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">出口限速</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC 报文标记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcpv6/">DHCPv6 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">发现直连邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP 轮询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-ra/">IPv6 自动配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-in-ip/">IP-in-IP 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">静态 VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls-l3vpn/">MPLS L3VPN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+      <li class="breadcrumb-item active">uRPF 源地址检查</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="urpf">
+<span id="urpf-源地址检查"></span><h1>uRPF 源地址检查<a class="headerlink" href="#urpf" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>                    检查入口
+P2 p2a12 ───────── host-p1a12 P1
+  192.0.2.82/30     192.0.2.81/30
+
+P2 host-p2e12 ──── host-p1e12 P1
+  10.201.12.2/24    10.201.12.1/24
+                    到 203.0.113.82/32 的回程经此口
+</pre></div>
+</div>
+<p>P1 使用 VPP，两个口属于同一默认路由域。P2 的 <code class="docutils literal notranslate"><span class="pre">p2a12</span></code> 是专用 Linux 测试端口；两个测试源都从它发出。第二个源地址 <code class="docutils literal notranslate"><span class="pre">203.0.113.82</span></code> 放在 P2 的 loopback，P1 到它的回程故意走另一条链路。不要在有合法非对称转发的业务入口直接开启严格模式。</p>
+</section>
+<section id="p1">
+<span id="准备-p1"></span><h2>准备 P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<p>底层 10.201.12.0/24 已在两端配置并互通。再配置入口和用于对照的静态路由：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p1a12
+ ip address 192.0.2.81 255.255.255.252
+ quit
+ip route-static 203.0.113.82 255.255.255.255 10.201.12.2
+commit
+display ip fib
+</pre></div>
+</div>
+<p>实际 FIB 输出节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>192.0.2.80/30         normal    0      1         -        -              host-p1a12        -
+203.0.113.82/32       normal    20     1         -        10.201.12.2    host-p1e12        -
+</pre></div>
+</div>
+</section>
+<section id="p2">
+<span id="准备-p2"></span><h2>准备 P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<p>以下是在隔离环境的 Linux 端执行的命令：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.0.2.82/30<span class="w"> </span>dev<span class="w"> </span>p2a12
+sudo<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">203</span>.0.113.82/32<span class="w"> </span>dev<span class="w"> </span>lo
+sudo<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>replace<span class="w"> </span><span class="m">192</span>.0.2.81/32<span class="w"> </span>dev<span class="w"> </span>p2a12
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>配置前先观察基线。P2 开一个终端抓取从 P1 返回的第二个源地址的应答：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>timeout<span class="w"> </span>-s<span class="w"> </span>INT<span class="w"> </span><span class="m">8</span><span class="w"> </span>tcpdump<span class="w"> </span>-l<span class="w"> </span>-n<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-i<span class="w"> </span>any<span class="w"> </span><span class="s1">'icmp[icmptype] = icmp-echoreply and src host 192.0.2.81 and dst host 203.0.113.82'</span>
+</pre></div>
+</div>
+<p>在 P2 另一个终端从两个源分别探测。由于第二条是非对称路径，以返回链路抓包判断 P1 是否实际转发应答，不能只看测试主机上的 Ping 汇总。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>-n<span class="w"> </span>-I<span class="w"> </span><span class="m">192</span>.0.2.82<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>-W<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">192</span>.0.2.81
+ping<span class="w"> </span>-n<span class="w"> </span>-I<span class="w"> </span><span class="m">203</span>.0.113.82<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>-W<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">192</span>.0.2.81
+</pre></div>
+</div>
+<p>在 P1 启用严格模式：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p1a12
+ ip urpf strict
+ quit
+commit
+display urpf
+</pre></div>
+</div>
+<p>实际 CLI 输出节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Interface   AF   Dir    Mode    Table
+host-p1a12  ip4  input  strict  0
+</pre></div>
+</div>
+<p>重复探测。同入口直连源仍 3 发 3 收；另一源的应答抓包在启用前、启用后分别为：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>p2e12 In  IP 192.0.2.81 &gt; 203.0.113.82: ICMP echo reply, id 1299, seq 1, length 64
+
+0 packets captured
+</pre></div>
+</div>
+<p>严格检查要求收到报文的接口与到源地址的回程路径一致。此例的 FIB 未更改，变化来自入口检查。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p1a12
+ undo ip urpf
+ quit
+commit
+display urpf
+</pre></div>
+</div>
+<p>实测严格模式表项消失，并再次从 P2 的另一条链路捕获应答：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>p2e12 In  IP 192.0.2.81 &gt; 203.0.113.82: ICMP echo reply, id 1684, seq 1, length 64
+</pre></div>
+</div>
+<p>实验结束后，按原路径撤销测试静态路由，再删除测试地址。保留原有的底层互连。</p>
+<p><a class="reference internal" href="../../operator/urpf/"><span class="std std-doc">uRPF 配置指南</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../route-group/" class="btn btn-neutral float-left" title="路由组" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ospf/" class="btn btn-neutral float-right" title="OSPF 单区域" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>静态 VXLAN &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/vxlan/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="VXLAN EVPN" href="../evpn/" />
+    <link rel="prev" title="AmneziaWG 互连" href="../amneziawg/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-route/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-group/">路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF 源地址检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp-policy/">BGP 入站策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD 故障检测</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">入站 ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/">源 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">出口限速</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC 报文标记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcpv6/">DHCPv6 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">发现直连邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP 轮询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-ra/">IPv6 自动配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-in-ip/">IP-in-IP 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG 互连</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">静态 VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls-l3vpn/">MPLS L3VPN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+      <li class="breadcrumb-item active">静态 VXLAN</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vxlan">
+<span id="静态-vxlan"></span><h1>静态 VXLAN<a class="headerlink" href="#vxlan" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Vbdif404 192.0.2.9/30                         192.0.2.10/30 Vbdif404
+P1（VTEP 10.201.12.1）────── P2 ──────（VTEP 10.201.23.3）P3
+                     VLAN 404 / VNI 4404
+</pre></div>
+</div>
+<p>三台路由器运行 VPP。P2 只转发底层 IP。P1—P2 使用 10.201.12.0/24，P2—P3 使用 10.201.23.0/24；P2 的两侧地址末尾均为 .2。P1 到 10.201.23.0/24 的下一跳是 10.201.12.2，P3 到 10.201.12.0/24 的下一跳是 10.201.23.2。先确认 VTEP 地址双向可达，路径允许 VXLAN UDP。</p>
+<p>本例复用已经配置底层源地址的 Nve1。若是新建 Nve1，在各自的 NVE 视图先执行 <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">10.201.12.1</span></code> 或 <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">10.201.23.3</span></code>。启用交换功能后再开始；实验用 Vbdif 自身探测，不需要额外主机。</p>
+</section>
+<section id="p1">
+<span id="p1-配置"></span><h2>P1 配置<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+vlan batch 404
+bridge-domain 404
+ l2 binding vlan 404
+ vxlan vni 4404
+quit
+interface Nve1
+ vni 4404 head-end peer-list 10.201.23.3
+quit
+interface Vbdif 404
+ ip address 192.0.2.9 255.255.255.252
+quit
+commit
+</pre></div>
+</div>
+</section>
+<section id="p3">
+<span id="p3-配置"></span><h2>P3 配置<a class="headerlink" href="#p3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+vlan batch 404
+bridge-domain 404
+ l2 binding vlan 404
+ vxlan vni 4404
+quit
+interface Nve1
+ vni 4404 head-end peer-list 10.201.12.1
+quit
+interface Vbdif 404
+ ip address 192.0.2.10 255.255.255.252
+quit
+commit
+</pre></div>
+</div>
+<p>两端将同一 VNI 加入本地桥域，手工指定远端 VTEP；没有 BGP EVPN 自动发现。P2 不配置桥域或 NVE。</p>
+</section>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p><strong>P1：</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vxlan tunnel
+display bridge-domain 404
+ping -n -c 3 -t 1500 192.0.2.10
+</pre></div>
+</div>
+<p>P3 反向执行 <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-n</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">-t</span> <span class="pre">1500</span> <span class="pre">192.0.2.9</span></code>。实验输出节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 404
+  description: --
+  flood: on  uu-flood: off  forward: on  learn: on  arp-term: off  arp-ufwd: off  mac-age: 0
+  bvi: Vbdif404
+  ports:
+    Vbdif404         shg 0
+    vxlan_tunnel1    shg 1
+
+ --- 192.0.2.10 ping statistics ---
+ 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+
+ --- 192.0.2.9 ping statistics ---
+ 3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在 P1 执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Nve1
+ undo vni 4404 head-end peer-list 10.201.23.3
+quit
+commit
+ping -n -c 3 -t 1000 192.0.2.10
+</pre></div>
+</div>
+<p>实测返回 <code class="docutils literal notranslate"><span class="pre">ping:</span> <span class="pre">connect:</span> <span class="pre">Network</span> <span class="pre">is</span> <span class="pre">unreachable</span></code>。P3 同样撤销远端条目，将地址改为 10.201.12.1。最后在两端删除实验 Vbdif、桥域和 VLAN：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Vbdif 404
+undo bridge-domain 404
+undo vlan 404
+commit
+display bridge-domain 404
+</pre></div>
+</div>
+<p>两端实测均显示 <code class="docutils literal notranslate"><span class="pre">(no</span> <span class="pre">bridge-domain)</span></code>。共用的 Nve1 和底层路由仍保留。</p>
+<p><a class="reference internal" href="../../operator/vxlan/"><span class="std std-doc">静态 VXLAN 配置指南</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../amneziawg/" class="btn btn-neutral float-left" title="AmneziaWG 互连" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../evpn/" class="btn btn-neutral float-right" title="VXLAN EVPN" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
