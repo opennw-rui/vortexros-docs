@@ -2,7 +2,7 @@
 
 使用 RIPv2 在 IPv4 网络交换路由。配套 FRR 的缺省优先级为 120，可在进程视图调整。
 
-[命令参考](reference/rip.md)
+[命令参考](reference/rip.md) · [配置案例](../examples/rip.md)
 
 ## 配置
 

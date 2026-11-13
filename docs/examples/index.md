@@ -1,6 +1,6 @@
 # 配置案例
 
-每个案例说明前提、配置影响、验收和撤销。示例默认使用独立实验接口与示例地址；请先核对现有配置和管理路径。
+从任务选择案例。命令与实际输出分开显示；带有“实际输出”的片段来自指定测试，显示值可能随接口、路由或运行状态变化。先准备独立实验端口，并确认管理路径不会被改动。
 
 ~~~{toctree}
 :maxdepth: 1
@@ -17,28 +17,42 @@ lacp
 static-route
 route-group
 ospf
+ospfv3
 bgp
 bgp-policy
 isis
+rip
+ripng
 bfd
 vrrp
 ~~~
 
 ~~~{toctree}
 :maxdepth: 1
-:caption: 策略与服务
+:caption: 流量策略
 
 acl
 nat-pat
 qos
-dhcp
-lldp
+mqc
 ~~~
 
 ~~~{toctree}
 :maxdepth: 1
-:caption: 隧道与 IPv6
+:caption: 网络服务
+
+dhcp
+dhcpv6
+lldp
+ipv6-ra
+~~~
+
+~~~{toctree}
+:maxdepth: 1
+:caption: 隧道与 VPN
 
 gre
-ipv6-ra
+wireguard
+evpn
+mpls-l3vpn
 ~~~

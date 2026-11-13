@@ -2,7 +2,7 @@
 
 用 classifier 匹配流量，用 behavior 限速、标记或重定向。
 
-[命令参考](reference/mqc.md)
+[命令参考](reference/mqc.md) · [配置案例](../examples/mqc.md)
 
 ## 配置与验证
 
