@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>性能测试 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/performance/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="prev" title="FRR 更新" href="../frr/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">发布记录</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../vortexros/">VortexROS 更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vpp/">VPP 更新</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frr/">FRR 更新</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">性能测试</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">发布记录</a></li>
+      <li class="breadcrumb-item active">性能测试</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="性能测试"></span><h1>性能测试<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>下列数据来自不同的测试环境。控制层 CLI 耗时、隔离 memif 实收速率和上游 PDR 分别报告。</p>
+<section id="id2">
+<span id="控制层"></span><h2>控制层<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>真实 CLI，3,200 条 ACL 规则</p></th>
+<th class="head text-right"><p>Debug 4</p></th>
+<th class="head text-right"><p>Debug 5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MTU 编辑，三次中位数</p></td>
+<td class="text-right"><p>54.20 ms</p></td>
+<td class="text-right"><p>34.67 ms</p></td>
+</tr>
+<tr class="row-odd"><td><p>显式 Candidate 刷新，单次对照</p></td>
+<td class="text-right"><p>118.36 ms</p></td>
+<td class="text-right"><p>39.49 ms</p></td>
+</tr>
+</tbody>
+</table>
+<p>成对测试由夹具发布新的 Running。由第二个真实 CLI 会话提交后，第一会话另一次显式刷新为 43.09 ms。<a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug5">Debug 5 发布记录</a></p>
+<p>Debug 4 的 IPv4/IPv6 FIB 分别用 50,000 条路由对照组合过滤，输出保持逐字节一致。IPv4 CLI 峰值内存从 58–76 MiB 降为 49–50 MiB，IPv6 从 127–142 MiB 降为 52–54 MiB。范围对应不同过滤组合。<a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug4">Debug 4 测试记录</a></p>
+</section>
+<section id="vpp">
+<span id="vpp-隔离测试"></span><h2>VPP 隔离测试<a class="headerlink" href="#vpp" title="链接到此标题。"></a></h2>
+<p>双 VPP memif 升载和恢复测试的最高实收约为 <strong>6.67 Mpps</strong>。持续学习期间触发 MAC 扫描，L2FIB 计数与逐条读回均为 3,707。该样本未命中 handoff 拥塞与 worker refork 的精确交错，也未在 MAC 扫描内部插桩。结果适用于该隔离拓扑。</p>
+</section>
+<section id="fd-io-csit">
+<span id="fdio-csit"></span><h2>FD.io CSIT<a class="headerlink" href="#fd-io-csit" title="链接到此标题。"></a></h2>
+<p>FD.io 的 VPP 26.06 与 26.10 成对测量使用 E810 和单 worker。下表是部分 PDR 结果，单位 Mpps；IPv6 用例为 78 字节帧，其余为 64 字节帧。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>路径</p></th>
+<th class="head"><p>驱动</p></th>
+<th class="head text-right"><p>26.06</p></th>
+<th class="head text-right"><p>26.10</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IPv4 基础转发</p></td>
+<td><p>DPDK</p></td>
+<td class="text-right"><p>23.72</p></td>
+<td class="text-right"><p>24.84</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPv6 基础转发</p></td>
+<td><p>AVF</p></td>
+<td class="text-right"><p>20.74</p></td>
+<td class="text-right"><p>23.01</p></td>
+</tr>
+<tr class="row-even"><td><p>二层桥接及 MAC 学习</p></td>
+<td><p>AVF</p></td>
+<td class="text-right"><p>33.37</p></td>
+<td class="text-right"><p>32.69</p></td>
+</tr>
+<tr class="row-odd"><td><p>出方向 50 条 ACL、1 万流</p></td>
+<td><p>AVF</p></td>
+<td class="text-right"><p>17.27</p></td>
+<td class="text-right"><p>16.41</p></td>
+</tr>
+<tr class="row-even"><td><p>VXLAN 桥接及 MAC 学习</p></td>
+<td><p>DPDK</p></td>
+<td class="text-right"><p>13.84</p></td>
+<td class="text-right"><p>13.85</p></td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="https://csit.fd.io/cdocs/release_notes/current/#csit-2610-selected-performance-comparisons">FD.io CSIT 26.10 报告</a>。这些是上游 VPP 用例；配套 MQC、NAT Policy、AmneziaWG 没有同条件的跨版本吞吐对照。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../frr/" class="btn btn-neutral float-left" title="FRR 更新" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

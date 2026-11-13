@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IS-IS &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/isis/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="RIP" href="../rip/" />
+    <link rel="prev" title="BGP" href="../bgp/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">IS-IS</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="is-is">
+<h1>IS-IS<a class="headerlink" href="#is-is" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../isis/"><span class="std std-doc">配置指南</span></a></p>
+<p>共用命令：<a class="reference internal" href="../dynamic-routing/#cmd-import-route"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">import-route</span></code></span></a>。</p>
+<section id="cost-style">
+<h2><code class="docutils literal notranslate"><span class="pre">cost-style</span></code><a class="headerlink" href="#cost-style" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：set IS-IS metric style</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cost-style {narrow|wide|transition}
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-isis">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">isis</span></code><a class="headerlink" href="#display-isis" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IS-IS information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display isis [process-id] [brief|peer|lsdb|route|interface|spf-delay|traffic-eng]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="hostname-dynamic">
+<h2><code class="docutils literal notranslate"><span class="pre">hostname</span> <span class="pre">dynamic</span></code><a class="headerlink" href="#hostname-dynamic" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable the IS-IS dynamic hostname</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>hostname dynamic
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-import-route">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">import-route</span></code><a class="headerlink" href="#ipv6-import-route" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：redistribute IPv6 routes into IS-IS</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 import-route {direct|static|ospfv3|bgp}
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="is-level">
+<h2><code class="docutils literal notranslate"><span class="pre">is-level</span></code><a class="headerlink" href="#is-level" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：set IS-IS level</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>is-level {level-1|level-2|level-1-2}
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span></code><a class="headerlink" href="#isis" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create an IS-IS process and enter process view</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis INTEGER&lt;1-65535&gt; [vpn-instance NAME]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis-bfd">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">bfd</span></code><a class="headerlink" href="#isis-bfd" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure ISIS BFD timers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis bfd {min-tx-interval INTEGER&lt;100-1000&gt; | min-rx-interval INTEGER&lt;100-1000&gt; | detect-multiplier INTEGER&lt;3-50&gt;} ...
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis-bfd-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">bfd</span> <span class="pre">enable</span></code><a class="headerlink" href="#isis-bfd-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable ISIS BFD on this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis bfd enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis-circuit-level">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">circuit-level</span></code><a class="headerlink" href="#isis-circuit-level" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the IS-IS circuit level</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis circuit-level {level-1|level-1-2|level-2}
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis-circuit-type-p2p">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">circuit-type</span> <span class="pre">p2p</span></code><a class="headerlink" href="#isis-circuit-type-p2p" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the IS-IS link to point-to-point</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis circuit-type p2p
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis-cost">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">cost</span></code><a class="headerlink" href="#isis-cost" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set IS-IS interface metric</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis cost INTEGER&lt;1-16777215&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">enable</span></code><a class="headerlink" href="#isis-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable IS-IS on an interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis enable INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis-ipv6-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">ipv6-enable</span></code><a class="headerlink" href="#isis-ipv6-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable IPv6 IS-IS on an interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis ipv6-enable INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis-passive">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">passive</span></code><a class="headerlink" href="#isis-passive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：make IS-IS interface passive</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis passive
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="isis-priority">
+<h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">priority</span></code><a class="headerlink" href="#isis-priority" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set IS-IS interface priority</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isis priority INTEGER&lt;0-127&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="network-entity">
+<h2><code class="docutils literal notranslate"><span class="pre">network-entity</span></code><a class="headerlink" href="#network-entity" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：set an IS-IS network entity title</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>network-entity NET
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="reset-service-isis">
+<h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">isis</span></code><a class="headerlink" href="#reset-service-isis" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restart the managed isis routing service</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset service isis
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="set-overload-bit">
+<h2><code class="docutils literal notranslate"><span class="pre">set-overload-bit</span></code><a class="headerlink" href="#set-overload-bit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the IS-IS overload bit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>set-overload-bit
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="spf-delay-ietf">
+<h2><code class="docutils literal notranslate"><span class="pre">spf-delay-ietf</span></code><a class="headerlink" href="#spf-delay-ietf" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure IETF SPF backoff timers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>spf-delay-ietf init-delay MS short-delay MS long-delay MS holddown MS time-to-learn MS
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-hostname">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">hostname</span></code><a class="headerlink" href="#undo-hostname" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default IS-IS hostname</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo hostname
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-import-route">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">import-route</span></code><a class="headerlink" href="#undo-ipv6-import-route" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：stop redistributing IPv6 routes into IS-IS</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 import-route PROTOCOL
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-is-level">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">is-level</span></code><a class="headerlink" href="#undo-is-level" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore IS-IS level</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo is-level
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span></code><a class="headerlink" href="#undo-isis" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete an IS-IS process</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis-bfd">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">bfd</span></code><a class="headerlink" href="#undo-isis-bfd" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore ISIS BFD timers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis bfd {min-tx-interval | min-rx-interval | detect-multiplier} ...
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis-bfd-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">bfd</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-isis-bfd-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable ISIS BFD on this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis bfd enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis-circuit-level">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">circuit-level</span></code><a class="headerlink" href="#undo-isis-circuit-level" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the IS-IS circuit level</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis circuit-level
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis-circuit-type">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">circuit-type</span></code><a class="headerlink" href="#undo-isis-circuit-type" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the IS-IS link type</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis circuit-type
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis-cost">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">cost</span></code><a class="headerlink" href="#undo-isis-cost" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore IS-IS interface metric</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis cost
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-isis-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable IS-IS on an interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis-ipv6-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">ipv6-enable</span></code><a class="headerlink" href="#undo-isis-ipv6-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable IPv6 IS-IS on an interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis ipv6-enable INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis-passive">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">passive</span></code><a class="headerlink" href="#undo-isis-passive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore IS-IS interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis passive
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-isis-priority">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">priority</span></code><a class="headerlink" href="#undo-isis-priority" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore IS-IS interface priority</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis priority
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-network-entity">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">network-entity</span></code><a class="headerlink" href="#undo-network-entity" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an IS-IS network entity title</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo network-entity NET
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-set-overload-bit">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">set-overload-bit</span></code><a class="headerlink" href="#undo-set-overload-bit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear the IS-IS overload bit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo set-overload-bit
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-spf-delay-ietf">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">spf-delay-ietf</span></code><a class="headerlink" href="#undo-spf-delay-ietf" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable IETF SPF backoff timers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo spf-delay-ietf
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../bgp/" class="btn btn-neutral float-left" title="BGP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../rip/" class="btn btn-neutral float-right" title="RIP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

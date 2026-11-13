@@ -6,10 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>在三层接口过滤入站流量 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>入站 ACL &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=8bc41338" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
 
   
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/acl/" />
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="VortexROS 0.28 操作手册" href="../../operator/" />
-    <link rel="prev" title="为 VLAN 客户端分配 IPv4 地址" href="../dhcp/" /> 
+    <link rel="next" title="源 NAT" href="../nat-pat/" />
+    <link rel="prev" title="VRRP 网关" href="../vrrp/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,7 +32,6 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
 
           
           
@@ -46,45 +45,56 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-<details class="manual-version">
-  <summary>v0.28-dev-debug5 · 当前版本</summary>
-  <a href="../../">0.28 开发版</a>
-  <a href="../../versions/">文档版本说明</a>
-</details>
-
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation/">首次安装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">从零到 Ping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">CLI 使用指南</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
-<ul class="current">
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../static-route/">通过静态路由访问远端网段</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">用 VLAN 和 Vlanif 提供网关</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ospf/">建立单区域 OSPF 邻接</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bgp/">连接直连 eBGP 邻居</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../dhcp/">为 VLAN 客户端分配 IPv4 地址</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">在三层接口过滤入站流量</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">配置</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">验证</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-route/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-group/">路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp-policy/">BGP 入站策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS 邻接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD 故障检测</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">入站 ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/">源 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">出口限速</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP 地址池</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">发现直连邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE 互连</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-ra/">IPv6 自动配置</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../operator/">VortexROS 0.28 操作手册</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断、清理、健康与服务恢复</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">参考</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">VortexROS 全命令参考</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../versions/">文档版本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
 </ul>
 
         </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
       </div>
     </nav>
 
@@ -99,9 +109,8 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../">配置案例</a></li>
-      <li class="breadcrumb-item active">在三层接口过滤入站流量</li>
+      <li class="breadcrumb-item active">入站 ACL</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/examples/acl.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -109,12 +118,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<span id="在三层接口过滤入站流量"></span><h1>在三层接口过滤入站流量<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+  <section id="acl">
+<span id="入站-acl"></span><h1>入站 ACL<a class="headerlink" href="#acl" title="链接到此标题。"></a></h1>
 <p><strong>用途</strong>。在实验 VLAN 的三层入口拒绝目的 TCP 端口 23，其余 IPv4 流量放行。</p>
 <p><strong>前提</strong>。使用具备 ACL 能力的 VPP 数据面。确认 Vlanif 100 承载测试流量，且没有需要保留的入方向 ACL 绑定。</p>
-<section id="id2">
-<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="id1">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 acl name BLOCK-TELNET advance
  rule 10 deny tcp destination-port eq 23
@@ -128,12 +137,12 @@ commit
 </div>
 <p>ACL 创建后只有绑定到接口才会影响流量。规则按编号从小到大匹配，首条命中决定结果。末尾 permit ip 保留其余 IPv4 流量；该规则不覆盖 IPv6。该绑定只处理进入这个三层接口的流量。</p>
 </section>
-<section id="id3">
-<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>使用 display acl name BLOCK-TELNET 核对规则。由测试客户端分别发起 TCP/23 和预期放行的连接，验证拒绝和放行两条路径。仅查看 ACL 对象不能证明策略已经作用于目标流量。</p>
 </section>
-<section id="id4">
-<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>在 Vlanif 100 执行 undo traffic-filter inbound，然后提交并复测。确定 ACL 没有其他引用时，再删除 ACL 对象。</p>
 </section>
 </section>
@@ -142,8 +151,8 @@ commit
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../dhcp/" class="btn btn-neutral float-left" title="为 VLAN 客户端分配 IPv4 地址" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../../operator/" class="btn btn-neutral float-right" title="VortexROS 0.28 操作手册" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../vrrp/" class="btn btn-neutral float-left" title="VRRP 网关" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../nat-pat/" class="btn btn-neutral float-right" title="源 NAT" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

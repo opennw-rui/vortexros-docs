@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MPLS 与 LDP &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ldp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="MPLS L3VPN" href="../l3vpn/" />
+    <link rel="prev" title="MPLS" href="../10-mpls-l3vpn/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../l3vpn/">MPLS L3VPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../6pe/">6PE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../10-mpls-l3vpn/">MPLS</a></li>
+      <li class="breadcrumb-item active">MPLS 与 LDP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mpls-ldp">
+<span id="mpls-与-ldp"></span><h1>MPLS 与 LDP<a class="headerlink" href="#mpls-ldp" title="链接到此标题。"></a></h1>
+<p>使用 LDP 在 IPv4 核心网分发 MPLS 传输标签。</p>
+<p><a class="reference internal" href="../reference/mpls/"><span class="std std-doc">命令参考</span></a></p>
+<section id="id1">
+<span id="使用前提"></span><h2>使用前提<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<ol class="arabic simple">
+<li><p>先为设备配置稳定的 IPv4 LSR ID，通常使用 LoopBack 地址。</p></li>
+<li><p>全局启用 MPLS 后，再启用 LDP。</p></li>
+<li><p>在参与 MPLS 转发的三层接口上分别启用 MPLS 和 LDP。</p></li>
+<li><p>底层 IPv4 IGP 必须先使各节点的 LSR ID 和 LDP transport address 可达。</p></li>
+</ol>
+<p>MPLS 只能用于三层接口。配置了 <code class="docutils literal notranslate"><span class="pre">portswitch</span></code> 的二层接口不能启用 MPLS。</p>
+</section>
+<section id="ldp">
+<span id="基本-ldp-配置"></span><h2>基本 LDP 配置<a class="headerlink" href="#ldp" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+mpls lsr-id 10.0.0.1
+mpls
+mpls ldp
+
+interface LoopBack 0
+ ip address 10.0.0.1 255.255.255.255
+ quit
+
+interface Ethernet 1
+ ip address 192.0.2.1 255.255.255.252
+ mpls
+ mpls ldp
+ quit
+commit
+save
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">mpls</span></code> 打开接口 MPLS 转发能力；<code class="docutils literal notranslate"><span class="pre">mpls</span> <span class="pre">ldp</span></code> 使该接口参与 LDP 邻居发现。
+两者是独立配置，系统不会根据 LDP 配置猜测接口转发身份。</p>
+</section>
+<section id="ttl">
+<span id="ttl-模式"></span><h2>TTL 模式<a class="headerlink" href="#ttl" title="链接到此标题。"></a></h2>
+<p>缺省使用 uniform 模式，IP TTL 会传播到 MPLS 标签栈：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ttl propagate
+</pre></div>
+</div>
+<p>如需隐藏 MPLS 核心跳数，可使用 pipe 模式：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ttl propagate
+</pre></div>
+</div>
+<p>Linux sysctl 是该模式的权威状态；LCP 将变化同步为 VPP 标签路径的 pipe 或
+uniform 属性，不改变 FRR 的协议计算。</p>
+</section>
+<section id="id2">
+<span id="查询与验证"></span><h2>查询与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display mpls interface
+display mpls ldp peer
+display mpls ldp interface
+display mpls ldp binding
+display mpls lsp
+display mpls forwarding-table
+display bgp vpnv4 all routing-table
+display ip routing-table vpn-instance CUST-A
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">...</span></code> 显示 FRR LDP 控制面状态；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">lsp</span></code> 显示 Zebra 的 MPLS 表；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">forwarding-table</span></code> 显示 VPP 实际 MPLS FIB。</p></li>
+</ul>
+<p>LDP接口、邻居、标签绑定和Zebra LSP均通过对应daemon的VTY流一次解析并直接输出，
+不会把大表完整反序列化后再排版。转发标签仍单独读取VPP LFIB，避免用控制面状态代替
+数据面验收。</p>
+<p>功能验收必须同时确认 LDP 邻居、标签绑定、Zebra/Linux netlink 状态、VPP MPLS
+FIB 和 CE 间实际流量。只看到配置存在不能证明数据面已生效。</p>
+</section>
+<section id="id3">
+<span id="删除与恢复"></span><h2>删除与恢复<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>撤销顺序建议先关闭接口 LDP，再关闭接口 MPLS，最后关闭全局 LDP/MPLS：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
+ undo mpls ldp
+ undo mpls
+ quit
+undo mpls ldp
+undo mpls
+commit
+</pre></div>
+</div>
+<p>VPP 或 LCP 重启后，LCP 从当前 Linux netlink 状态恢复 MPLS 对象；FRR 保持协议和
+标签的唯一权威来源。系统不会从旧 VPP 索引或控制层缓存重建另一份标签状态。</p>
+</section>
+<section id="id4">
+<span id="排障"></span><h2>排障<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">peer</span></code> 无邻居：核对接口 LDP、链路地址、IGP 和 transport
+address 可达性。</p></li>
+<li><p>有 LDP 邻居但 VPP 无标签：依次核对 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">lsp</span></code> 与
+<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">forwarding-table</span></code>，定位 Zebra 到 LCP 的转换边界。</p></li>
+<li><p>VPN 路由无导出标签：核对 RD、VPN-Target、FRR/Zebra 标签池及 VPN 地址族状态。</p></li>
+<li><p>控制面正常但业务不通：核对内外层标签、VRF 路由、CE 路由及 MTU，并用实际
+CE 到 CE 流量验证。</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../10-mpls-l3vpn/" class="btn btn-neutral float-left" title="MPLS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../l3vpn/" class="btn btn-neutral float-right" title="MPLS L3VPN" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

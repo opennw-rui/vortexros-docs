@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VLAN &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/vlan/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="桥域" href="../bridge-domains/" />
+    <link rel="prev" title="链路聚合" href="../link-aggregation/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">VLAN</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vlan">
+<h1>VLAN<a class="headerlink" href="#vlan" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../vlan/"><span class="std std-doc">配置指南</span></a></p>
+<section id="display-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vlan</span></code><a class="headerlink" href="#display-vlan" title="链接到此标题。"></a></h2>
+<p>查询成员、链路和标签处理。U/D 表示端口状态，TG/UT 表示带标签或不带标签。</p>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display VLAN information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vlan [VLAN-ID | summary]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-vlan-summary">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vlan</span> <span class="pre">summary</span></code><a class="headerlink" href="#display-vlan-summary" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display VLAN summary</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vlan summary
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="enable-switch">
+<h2><code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">switch</span></code><a class="headerlink" href="#enable-switch" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable the L2 switch instance</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="port-default-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">port</span> <span class="pre">default</span> <span class="pre">vlan</span></code><a class="headerlink" href="#port-default-vlan" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the access port default VLAN</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>port default vlan VLAN-ID
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="port-link-type">
+<h2><code class="docutils literal notranslate"><span class="pre">port</span> <span class="pre">link-type</span></code><a class="headerlink" href="#port-link-type" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the L2 port link type</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>port link-type { access | dot1q-tunnel | trunk }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="port-trunk-allow-pass-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">port</span> <span class="pre">trunk</span> <span class="pre">allow-pass</span> <span class="pre">vlan</span></code><a class="headerlink" href="#port-trunk-allow-pass-vlan" title="链接到此标题。"></a></h2>
+<p>为当前 trunk 放行指定 VLAN。对端也须允许该 VLAN。撤销会中断相应 VLAN 经此口的转发。</p>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：allow VLANs on a trunk port</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>port trunk allow-pass vlan { VLAN-LIST | all }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="port-trunk-pvid-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">port</span> <span class="pre">trunk</span> <span class="pre">pvid</span> <span class="pre">vlan</span></code><a class="headerlink" href="#port-trunk-pvid-vlan" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the trunk native VLAN</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>port trunk pvid vlan VLAN-ID
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="portswitch">
+<h2><code class="docutils literal notranslate"><span class="pre">portswitch</span></code><a class="headerlink" href="#portswitch" title="链接到此标题。"></a></h2>
+<p>把接口设为二层交换口。先处理已有三层地址及依赖。见<a class="reference internal" href="../../../examples/vlan-gateway/"><span class="std std-doc">VLAN 网关案例</span></a>。</p>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：switch the aggregate to Layer 2 mode；switch the interface to L2 mode</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>portswitch
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="switchport">
+<h2><code class="docutils literal notranslate"><span class="pre">switchport</span></code><a class="headerlink" href="#switchport" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：switch the interface to L2 mode</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>switchport
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-enable-switch">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">enable</span> <span class="pre">switch</span></code><a class="headerlink" href="#undo-enable-switch" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable the L2 switch instance</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo enable switch
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-port-default-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">port</span> <span class="pre">default</span> <span class="pre">vlan</span></code><a class="headerlink" href="#undo-port-default-vlan" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the access port default VLAN to 1</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo port default vlan
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-port-link-type">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">port</span> <span class="pre">link-type</span></code><a class="headerlink" href="#undo-port-link-type" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore portswitch-only L2 mode (access VLAN 1)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo port link-type
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-port-trunk-allow-pass-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">port</span> <span class="pre">trunk</span> <span class="pre">allow-pass</span> <span class="pre">vlan</span></code><a class="headerlink" href="#undo-port-trunk-allow-pass-vlan" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove allowed VLANs from a trunk port</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo port trunk allow-pass vlan { VLAN-LIST | all }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-port-trunk-pvid-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">port</span> <span class="pre">trunk</span> <span class="pre">pvid</span> <span class="pre">vlan</span></code><a class="headerlink" href="#undo-port-trunk-pvid-vlan" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the trunk native VLAN to 1</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo port trunk pvid vlan [VLAN-ID]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-portswitch">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">portswitch</span></code><a class="headerlink" href="#undo-portswitch" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：return the aggregate to Layer 3 mode；return the interface to L3 mode</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo portswitch
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-switchport">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">switchport</span></code><a class="headerlink" href="#undo-switchport" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：return the interface to L3 mode</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo switchport
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vlan</span></code><a class="headerlink" href="#undo-vlan" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a VLAN</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo vlan VLAN-ID [to VLAN-ID]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-vlan-batch">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vlan</span> <span class="pre">batch</span></code><a class="headerlink" href="#undo-vlan-batch" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete VLANs in a batch</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo vlan batch { VLAN-ID [to VLAN-ID] } *
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-vlan-type">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vlan-type</span></code><a class="headerlink" href="#undo-vlan-type" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the sub-interface VLAN binding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo vlan-type
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="id1">
+<span id="vlan-1"></span><h2><code class="docutils literal notranslate"><span class="pre">vlan</span></code><a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create a VLAN and enter VLAN view</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vlan VLAN-ID [to VLAN-ID]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="vlan-batch">
+<h2><code class="docutils literal notranslate"><span class="pre">vlan</span> <span class="pre">batch</span></code><a class="headerlink" href="#vlan-batch" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：create VLANs in a batch</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vlan batch { VLAN-ID [to VLAN-ID] } *
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="vlan-type-dot1q">
+<h2><code class="docutils literal notranslate"><span class="pre">vlan-type</span> <span class="pre">dot1q</span></code><a class="headerlink" href="#vlan-type-dot1q" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：bind the sub-interface to a VLAN (dot1q)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vlan-type dot1q VLAN-ID [inner VLAN-ID]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../link-aggregation/" class="btn btn-neutral float-left" title="链路聚合" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../bridge-domains/" class="btn btn-neutral float-right" title="桥域" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

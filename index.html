@@ -6,10 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VortexROS 操作手册 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>介绍 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="_static/manual.css?v=8bc41338" />
+      <link rel="stylesheet" type="text/css" href="_static/manual.css?v=a6687dcc" />
 
   
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/" />
@@ -32,7 +32,6 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
           
           
           <a href="#" class="icon icon-home">
@@ -45,32 +44,37 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-<details class="manual-version">
-  <summary>v0.28-dev-debug5 · 当前版本</summary>
-  <a href="#">0.28 开发版</a>
-  <a href="versions/">文档版本说明</a>
-</details>
-
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation/">首次安装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart/">从零到 Ping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator/01-cli/">CLI 使用指南</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
-<ul>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/09-operations/">诊断与恢复</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/">配置案例</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator/">VortexROS 0.28 操作手册</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator/09-operations/">诊断、清理、健康与服务恢复</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">参考</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="operator/reference/commands/">VortexROS 全命令参考</a></li>
-<li class="toctree-l1"><a class="reference internal" href="versions/">文档版本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release/">发布记录</a></li>
 </ul>
 
         </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="#">当前手册（v0.28-dev-debug5）</a>
+    <a href="versions/">文档版本说明</a>
+  </div>
+</details>
+
       </div>
     </nav>
 
@@ -84,9 +88,8 @@
           <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">VortexROS 操作手册</li>
+      <li class="breadcrumb-item active">介绍</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -94,107 +97,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="vortexros">
-<span id="vortexros-操作手册"></span><h1>VortexROS 操作手册<a class="headerlink" href="#vortexros" title="链接到此标题。"></a></h1>
-<p>本手册对应当前发布的 <strong>0.28 开发版（Debug 5）</strong>。从空白 Ubuntu 安装后，可以先在 Linux 数据面验证接口与路由，再按部署需求配置 DPDK。</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>我要做什么</p></th>
-<th class="head"><p>从哪里开始</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>在空白 Ubuntu 上安装</p></td>
-<td><p><a class="reference internal" href="installation/"><span class="std std-doc">首次安装</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>第一次登录并验证连通性</p></td>
-<td><p><a class="reference internal" href="quickstart/"><span class="std std-doc">从零到 Ping</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>理解视图、提交和保存</p></td>
-<td><p><a class="reference internal" href="operator/01-cli/"><span class="std std-doc">CLI 使用指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>按场景配置接口、路由或服务</p></td>
-<td><p><a class="reference internal" href="examples/"><span class="std std-doc">配置案例</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>查询命令语法和视图</p></td>
-<td><p><a class="reference internal" href="operator/reference/commands/"><span class="std std-doc">命令参考</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>更新现有设备</p></td>
-<td><p><a class="reference internal" href="installation/07-upgrade-uninstall/"><span class="std std-doc">升级与回退</span></a></p></td>
-</tr>
-</tbody>
-</table>
+  <section id="id1">
+<span id="介绍"></span><h1>介绍<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>VortexROS 是运行在 Ubuntu 上的网络操作系统。通过统一 CLI 配置接口、路由和网络服务。首次安装使用 Linux 数据面；需要 DPDK 时，再选择由 VPP 接管的网卡。</p>
+<p>手册对应 <strong>VortexROS 0.28 开发版（Debug 5）</strong>。配套软件、更新及测试范围见<a class="reference internal" href="release/"><span class="std std-doc">发布记录</span></a>。</p>
+<p>首次使用请从<a class="reference internal" href="installation/"><span class="std std-doc">安装</span></a>和<a class="reference internal" href="quickstart/"><span class="std std-doc">入门</span></a>开始。已有设备可直接从左侧选择功能，也可按<a class="reference internal" href="examples/"><span class="std std-doc">配置案例</span></a>完成一个任务，或在<a class="reference internal" href="operator/reference/commands/"><span class="std std-doc">命令参考</span></a>查询语法。</p>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation/">首次安装</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation/#id2">下载并运行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation/#id3">安装完成后</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart/">从零到 Ping</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/#cli">进入 CLI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/#id1">配置地址与路由</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/#id2">验证并保存</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="operator/01-cli/">CLI 使用指南</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="operator/01-cli/#id1">从编辑到生效</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/01-cli/#id2">帮助、过滤与分页</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/01-cli/#id3">试用一次编辑</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="examples/">配置案例</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="examples/static-route/">通过静态路由访问远端网段</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/vlan-gateway/">用 VLAN 和 Vlanif 提供网关</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/ospf/">建立单区域 OSPF 邻接</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/bgp/">连接直连 eBGP 邻居</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/dhcp/">为 VLAN 客户端分配 IPv4 地址</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/acl/">在三层接口过滤入站流量</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="operator/">VortexROS 0.28 操作手册</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="operator/#id1">配置指南</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/#id2">通用阅读约定</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/#id3">推荐的操作顺序</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="operator/09-operations/">诊断、清理、健康与服务恢复</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="operator/09-operations/#pingtracertmtr">Ping、tracert与mtr</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/09-operations/#display">Display</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/09-operations/#clearreset">Clear与Reset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/09-operations/#vpp">VPP恢复</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/09-operations/#id2">动态路由服务恢复</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/09-operations/#id3">告警与日志</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/09-operations/#id4">故障处理顺序</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">参考</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="operator/reference/commands/">VortexROS 全命令参考</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/reading/">阅读说明</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/cli/">CLI、Candidate 与配置管理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/system/">系统、健康与服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/interfaces/">接口、二层与邻居</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/ip-routing/">IP、VPN 与静态路由</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/dynamic-routing/">动态路由、策略路由、BFD 与 VRRP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/mpls/">MPLS LDP 与 L3VPN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/tunnels/">GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/policy/">ACL、QoS、MQC、MSS 与 NAT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/services/">DHCP、LLDP 与 SNMP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operator/reference/operations/">诊断、清理与恢复</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="versions/">文档版本</a></li>
-</ul>
 </div>
 </section>
 

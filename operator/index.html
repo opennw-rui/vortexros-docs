@@ -6,10 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VortexROS 0.28 操作手册 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>配置指南 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../_static/manual.css?v=8bc41338" />
+      <link rel="stylesheet" type="text/css" href="../_static/manual.css?v=a6687dcc" />
 
   
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/" />
@@ -22,9 +22,7 @@
       <script src="../_static/copy.js?v=c39f0863"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex/" />
-    <link rel="search" title="搜索" href="../search/" />
-    <link rel="next" title="系统访问、健康与服务" href="02-system-services/" />
-    <link rel="prev" title="在三层接口过滤入站流量" href="../examples/acl/" /> 
+    <link rel="search" title="搜索" href="../search/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,7 +30,6 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
 
           
           
@@ -46,48 +43,37 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-<details class="manual-version">
-  <summary>v0.28-dev-debug5 · 当前版本</summary>
-  <a href="../">0.28 开发版</a>
-  <a href="../versions/">文档版本说明</a>
-</details>
-
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation/">首次安装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/">从零到 Ping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01-cli/">CLI 使用指南</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
-<ul class="current">
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-operations/">诊断与恢复</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/">配置案例</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">VortexROS 0.28 操作手册</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">配置指南</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">通用阅读约定</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">推荐的操作顺序</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="02-system-services/">系统访问、健康与服务</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03-interfaces-l2/">物理接口、聚合、VLAN、BD 与邻居</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04-ip-routing/">IPv4/IPv6、VPN、静态路由与路由组</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05-dynamic-routing/">路由策略、OSPF、BGP、IS-IS、RIP、BFD 与 VRRP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06-tunnels/">GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07-policy/">ACL、QoS、MQC、MSS 与 nat-policy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08-network-services/">DHCP 与 LLDP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="10-mpls-l3vpn/">MPLS LDP 与 L3VPN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11-vxlan-evpn/">VXLAN EVPN</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="09-operations/">诊断、清理、健康与服务恢复</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">参考</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="reference/commands/">VortexROS 全命令参考</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../versions/">文档版本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/">发布记录</a></li>
 </ul>
 
         </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../versions/">文档版本说明</a>
+  </div>
+</details>
+
       </div>
     </nav>
 
@@ -101,9 +87,8 @@
           <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
       <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">VortexROS 0.28 操作手册</li>
+      <li class="breadcrumb-item active">配置指南</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/operator/index.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -111,70 +96,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="vortexros-0-28">
-<span id="vortexros-028-操作手册"></span><h1>VortexROS 0.28 操作手册<a class="headerlink" href="#vortexros-0-28" title="链接到此标题。"></a></h1>
-<p>本手册面向设备管理员，说明VortexROS 0.28的功能、配置命令、生效结果、检查方法和撤销步骤。功能限制会在相应章节中明确说明。</p>
-<section id="id1">
-<span id="配置指南"></span><h2>配置指南<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<ol class="arabic simple">
-<li><p><a class="reference internal" href="01-cli/"><span class="std std-doc">CLI、Candidate、commit 与 save</span></a></p></li>
-<li><p><a class="reference internal" href="02-system-services/"><span class="std std-doc">系统访问、健康与服务</span></a></p></li>
-<li><p><a class="reference internal" href="03-interfaces-l2/"><span class="std std-doc">物理接口、聚合、VLAN、BD 与邻居</span></a></p></li>
-<li><p><a class="reference internal" href="04-ip-routing/"><span class="std std-doc">IPv4/IPv6、VPN、静态路由与路由组</span></a></p></li>
-<li><p><a class="reference internal" href="05-dynamic-routing/"><span class="std std-doc">路由策略、OSPF、BGP、IS-IS、RIP、BFD 与 VRRP</span></a></p></li>
-<li><p><a class="reference internal" href="06-tunnels/"><span class="std std-doc">GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG</span></a></p></li>
-<li><p><a class="reference internal" href="07-policy/"><span class="std std-doc">ACL、QoS、MQC、MSS 与 nat-policy</span></a></p></li>
-<li><p><a class="reference internal" href="08-network-services/"><span class="std std-doc">DHCP、LLDP 与 SNMP</span></a></p></li>
-<li><p><a class="reference internal" href="09-operations/"><span class="std std-doc">诊断、清理、健康与服务恢复</span></a></p></li>
-<li><p><a class="reference internal" href="10-mpls-l3vpn/"><span class="std std-doc">MPLS LDP 与 L3VPN</span></a></p></li>
-<li><p><a class="reference internal" href="11-vxlan-evpn/"><span class="std std-doc">VXLAN EVPN</span></a></p></li>
-<li><p><a class="reference internal" href="reference/commands/"><span class="std std-doc">全命令参考</span></a></p></li>
-</ol>
-<p>首次在新硬件上部署时，还必须完成<a class="reference internal" href="../installation/08-hardware-acceptance/"><span class="std std-doc">真机首次验收</span></a>。
-该检查用于确认驱动接管、LCP、重启恢复和管理连接，不以实验室结果代替设备实测。</p>
-</section>
-<section id="id2">
-<span id="通用阅读约定"></span><h2>通用阅读约定<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[*VortexROS]</span></code>表示当前会话 Candidate 已修改；<code class="docutils literal notranslate"><span class="pre">[~VortexROS]</span></code>表示无未提交修改。</p></li>
-<li><p>配置命令先保存在当前登录会话中，输入 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 后才正式生效。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">save</span></code>只保存全局 Running；不保存任何会话私有 Candidate。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">undo</span></code>应按对象精确撤销。被引用对象通常必须先解除引用。</p></li>
-<li><p>示例名称、地址和输出均已脱敏；计时、计数器、接口索引等运行值以设备实测为准。</p></li>
-</ul>
-</section>
-<section id="id3">
-<span id="推荐的操作顺序"></span><h2>推荐的操作顺序<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>配置业务时建议按以下顺序操作：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>配置 -&gt; display configuration candidate -&gt; commit -&gt; display this
-     -&gt; display 运行状态 -&gt; 转发/邻居验证 -&gt; 精确 undo -&gt; commit
-     -&gt; save -&gt; 设备重启 -&gt; 再次验证
-</pre></div>
-</div>
-<p>完整命令语法和可用视图请查看<a class="reference internal" href="reference/commands/"><span class="std std-doc">全命令参考</span></a>。</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="02-system-services/">系统访问、健康与服务</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-interfaces-l2/">物理接口、聚合、VLAN、BD 与邻居</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-ip-routing/">IPv4/IPv6、VPN、静态路由与路由组</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-dynamic-routing/">路由策略、OSPF、BGP、IS-IS、RIP、BFD 与 VRRP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-tunnels/">GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-policy/">ACL、QoS、MQC、MSS 与 nat-policy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-network-services/">DHCP 与 LLDP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-mpls-l3vpn/">MPLS LDP 与 L3VPN</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-vxlan-evpn/">VXLAN EVPN</a></li>
-</ul>
-</div>
-</section>
+  <section id="id1">
+<span id="配置指南"></span><h1>配置指南<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>按功能使用左侧目录，或从<a class="reference internal" href="../"><span class="std std-doc">手册介绍</span></a>开始。<a class="reference internal" href="../examples/"><span class="std std-doc">配置案例</span></a>提供完整操作步骤；<a class="reference internal" href="reference/commands/"><span class="std std-doc">命令参考</span></a>提供语法、适用视图和参数。</p>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../examples/acl/" class="btn btn-neutral float-left" title="在三层接口过滤入站流量" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="02-system-services/" class="btn btn-neutral float-right" title="系统访问、健康与服务" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

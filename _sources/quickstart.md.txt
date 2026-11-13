@@ -52,4 +52,4 @@ return
 save
 ~~~
 
-按提示确认保存。 `commit` 将 Candidate 应用到 Running，`save` 将 Running 写入启动配置。后续配置 DPDK 前，请阅读[数据面设备配置](operator/03-interfaces-l2.md#数据面设备配置)与[管理连接保护](installation/01-management-safety.md)。
+按提示确认保存。 `commit` 将 Candidate 应用到 Running，`save` 将 Running 写入启动配置。后续配置 DPDK 前，请阅读[数据面设备配置](operator/dataplane.md)与[管理连接保护](installation/01-management-safety.md)。

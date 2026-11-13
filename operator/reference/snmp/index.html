@@ -1,0 +1,534 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNMP &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/snmp/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="发布记录" href="../../../release/" />
+    <link rel="prev" title="LLDP" href="../lldp/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">SNMP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="snmp">
+<h1>SNMP<a class="headerlink" href="#snmp" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../snmp/"><span class="std std-doc">配置指南</span></a></p>
+<section id="display-snmp-agent-community">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">snmp-agent</span> <span class="pre">community</span></code><a class="headerlink" href="#display-snmp-agent-community" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display SNMPv2c read communities</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display snmp-agent community
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-snmp-agent-sys-info">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">snmp-agent</span> <span class="pre">sys-info</span></code><a class="headerlink" href="#display-snmp-agent-sys-info" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display SNMP system information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display snmp-agent sys-info
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-snmp-agent-target-host">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">snmp-agent</span> <span class="pre">target-host</span></code><a class="headerlink" href="#display-snmp-agent-target-host" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display SNMP trap receivers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display snmp-agent target-host
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-snmp-agent-usm-user">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">snmp-agent</span> <span class="pre">usm-user</span></code><a class="headerlink" href="#display-snmp-agent-usm-user" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display SNMPv3 users</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display snmp-agent usm-user
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span></code><a class="headerlink" href="#snmp-agent" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable the SNMP agent</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-community-read">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">community</span> <span class="pre">read</span></code><a class="headerlink" href="#snmp-agent-community-read" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure an SNMPv2c read community</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent community read COMMUNITY
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-protocol-source-interface">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">protocol</span> <span class="pre">source-interface</span></code><a class="headerlink" href="#snmp-agent-protocol-source-interface" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：bind the SNMP agent to an interface address</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent protocol source-interface { all-interface | IFNAME | vpn-instance VPN IFNAME }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-protocol-source-status-all-interface">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">protocol</span> <span class="pre">source-status</span> <span class="pre">all-interface</span></code><a class="headerlink" href="#snmp-agent-protocol-source-status-all-interface" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：listen on all IPv4 interfaces in public and VPN instances</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent protocol source-status all-interface
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-sys-info-contact">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">sys-info</span> <span class="pre">contact</span></code><a class="headerlink" href="#snmp-agent-sys-info-contact" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set SNMP system contact</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent sys-info contact TEXT
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-sys-info-location">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">sys-info</span> <span class="pre">location</span></code><a class="headerlink" href="#snmp-agent-sys-info-location" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set SNMP system location</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent sys-info location TEXT
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-sys-info-version-v2c">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">sys-info</span> <span class="pre">version</span> <span class="pre">v2c</span></code><a class="headerlink" href="#snmp-agent-sys-info-version-v2c" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable SNMP v2c</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent sys-info version v2c
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-sys-info-version-v3">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">sys-info</span> <span class="pre">version</span> <span class="pre">v3</span></code><a class="headerlink" href="#snmp-agent-sys-info-version-v3" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable SNMP v3</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent sys-info version v3
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-target-host-trap-address-udp-domain">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">target-host</span> <span class="pre">trap</span> <span class="pre">address</span> <span class="pre">udp-domain</span></code><a class="headerlink" href="#snmp-agent-target-host-trap-address-udp-domain" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure an SNMP trap receiver</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent target-host trap address udp-domain ADDRESS udp-port PORT params securityname NAME { v2c | v3 }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-trap-enable-standard">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">trap</span> <span class="pre">enable</span> <span class="pre">standard</span></code><a class="headerlink" href="#snmp-agent-trap-enable-standard" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable standard startup and interface traps</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent trap enable standard
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-trap-source">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">trap</span> <span class="pre">source</span></code><a class="headerlink" href="#snmp-agent-trap-source" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：select the trap source interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent trap source IFNAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="snmp-agent-usm-user-v3">
+<h2><code class="docutils literal notranslate"><span class="pre">snmp-agent</span> <span class="pre">usm-user</span> <span class="pre">v3</span></code><a class="headerlink" href="#snmp-agent-usm-user-v3" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure an SNMPv3 authPriv user</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent usm-user v3 USER authentication-mode sha2-256 AUTH privacy-mode aes128 PRIV
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span></code><a class="headerlink" href="#undo-snmp-agent" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove all SNMP configuration and stop the agent</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-community-read">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">community</span> <span class="pre">read</span></code><a class="headerlink" href="#undo-snmp-agent-community-read" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete an SNMPv2c read community</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent community read COMMUNITY
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-protocol-source-interface">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">protocol</span> <span class="pre">source-interface</span></code><a class="headerlink" href="#undo-snmp-agent-protocol-source-interface" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the SNMP source interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent protocol source-interface
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-sys-info-contact">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">sys-info</span> <span class="pre">contact</span></code><a class="headerlink" href="#undo-snmp-agent-sys-info-contact" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear SNMP system contact</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent sys-info contact
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-sys-info-location">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">sys-info</span> <span class="pre">location</span></code><a class="headerlink" href="#undo-snmp-agent-sys-info-location" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear SNMP system location</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent sys-info location
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-sys-info-version-v2c">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">sys-info</span> <span class="pre">version</span> <span class="pre">v2c</span></code><a class="headerlink" href="#undo-snmp-agent-sys-info-version-v2c" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable SNMP v2c</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent sys-info version v2c
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-sys-info-version-v3">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">sys-info</span> <span class="pre">version</span> <span class="pre">v3</span></code><a class="headerlink" href="#undo-snmp-agent-sys-info-version-v3" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable SNMP v3</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent sys-info version v3
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-target-host-trap-address-udp-domain">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">target-host</span> <span class="pre">trap</span> <span class="pre">address</span> <span class="pre">udp-domain</span></code><a class="headerlink" href="#undo-snmp-agent-target-host-trap-address-udp-domain" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete all trap targets at an address</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent target-host trap address udp-domain ADDRESS
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-trap-enable-standard">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">trap</span> <span class="pre">enable</span> <span class="pre">standard</span></code><a class="headerlink" href="#undo-snmp-agent-trap-enable-standard" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable standard traps</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent trap enable standard
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-trap-source">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">trap</span> <span class="pre">source</span></code><a class="headerlink" href="#undo-snmp-agent-trap-source" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the trap source interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent trap source
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-snmp-agent-usm-user-v3">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">snmp-agent</span> <span class="pre">usm-user</span> <span class="pre">v3</span></code><a class="headerlink" href="#undo-snmp-agent-usm-user-v3" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete an SNMPv3 user</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent usm-user v3 USER
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../lldp/" class="btn btn-neutral float-left" title="LLDP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../release/" class="btn btn-neutral float-right" title="发布记录" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

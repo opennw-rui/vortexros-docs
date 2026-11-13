@@ -1,0 +1,1330 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DHCP &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/dhcp/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="RA 与 SLAAC" href="../ipv6-autoconfig/" />
+    <link rel="prev" title="AmneziaWG" href="../amneziawg/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">DHCP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dhcp">
+<h1>DHCP<a class="headerlink" href="#dhcp" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../dhcp/"><span class="std std-doc">配置指南</span></a></p>
+<p>共用命令：<a class="reference internal" href="../dynamic-routing/#cmd-network"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">network</span></code></span></a>。</p>
+<section id="address-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">address</span> <span class="pre">prefix</span></code><a class="headerlink" href="#address-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure a stateful IPv6 allocation prefix</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>address prefix X:X::X/M [life-time VALID PREFERRED]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-client-classless-route-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">client</span> <span class="pre">classless-route</span> <span class="pre">enable</span></code><a class="headerlink" href="#dhcp-client-classless-route-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：install learned classless routes</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp client classless-route enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-client-default-route-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">client</span> <span class="pre">default-route</span> <span class="pre">enable</span></code><a class="headerlink" href="#dhcp-client-default-route-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：install the learned default route</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp client default-route enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-client-default-route-preference">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">client</span> <span class="pre">default-route</span> <span class="pre">preference</span></code><a class="headerlink" href="#dhcp-client-default-route-preference" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the DHCP default route preference</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp client default-route preference INTEGER&lt;1-255&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-client-relay-shutdown">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">client-relay</span> <span class="pre">shutdown</span></code><a class="headerlink" href="#dhcp-client-relay-shutdown" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：Suspend DHCP client and relay on this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp client-relay shutdown
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-relay-server-ip">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">relay</span> <span class="pre">server-ip</span></code><a class="headerlink" href="#dhcp-relay-server-ip" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：add a DHCPv4 relay server</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp relay server-ip X.X.X.X
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-select">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">select</span></code><a class="headerlink" href="#dhcp-select" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：select the DHCPv4 interface role</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp select { global | interface | relay }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-server-dns-list">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">dns-list</span></code><a class="headerlink" href="#dhcp-server-dns-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure interface-pool DNS servers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp server dns-list X.X.X.X [X.X.X.X]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-server-domain-name">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">domain-name</span></code><a class="headerlink" href="#dhcp-server-domain-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure the interface-pool domain name</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp server domain-name DOMAIN
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-server-excluded-ip-address">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">excluded-ip-address</span></code><a class="headerlink" href="#dhcp-server-excluded-ip-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：exclude addresses from the interface pool</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp server excluded-ip-address START [END]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-server-gateway-list">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">gateway-list</span></code><a class="headerlink" href="#dhcp-server-gateway-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure interface-pool gateway addresses</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp server gateway-list { X.X.X.X [X.X.X.X] | disable }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-server-ip-range">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">ip-range</span></code><a class="headerlink" href="#dhcp-server-ip-range" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure the allocatable interface-pool range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp server ip-range START END
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-server-lease">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">lease</span></code><a class="headerlink" href="#dhcp-server-lease" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure the interface-pool lease time</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp server lease { unlimited | day DAYS [hour HOURS [minute MINUTES]] }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcp-server-static-bind-ip-address">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">static-bind</span> <span class="pre">ip-address</span></code><a class="headerlink" href="#dhcp-server-static-bind-ip-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：bind an interface-pool address to a client MAC</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcp server static-bind ip-address X.X.X.X mac-address H-H-H
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcpv6-client-information-request">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">information-request</span></code><a class="headerlink" href="#dhcpv6-client-information-request" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：obtain non-address information by DHCPv6</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 client information-request
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcpv6-client-pd">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">pd</span></code><a class="headerlink" href="#dhcpv6-client-pd" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：request an IPv6 delegated prefix</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 client pd PREFIX-NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcpv6-client-renew">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">renew</span></code><a class="headerlink" href="#dhcpv6-client-renew" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：renew the DHCPv6 client lease now</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 client renew
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcpv6-duid">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">duid</span></code><a class="headerlink" href="#dhcpv6-duid" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：configure the DHCPv6 server identifier type</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 duid { ll | llt }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcpv6-pool">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">pool</span></code><a class="headerlink" href="#dhcpv6-pool" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create or enter an IPv6 address pool</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 pool NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcpv6-relay-destination">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">relay</span> <span class="pre">destination</span></code><a class="headerlink" href="#dhcpv6-relay-destination" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：add a DHCPv6 relay destination</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 relay destination X:X::X
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcpv6-relay-interface">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">relay</span> <span class="pre">interface</span></code><a class="headerlink" href="#dhcpv6-relay-interface" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the DHCPv6 relay upper interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 relay interface IF
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dhcpv6-server">
+<h2><code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">server</span></code><a class="headerlink" href="#dhcpv6-server" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable the DHCPv6 server on an interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 server POOL
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-dhcp-client">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcp</span> <span class="pre">client</span></code><a class="headerlink" href="#display-dhcp-client" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display DHCPv4 client state</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp client [interface IF]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-dhcp-configuration">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcp</span> <span class="pre">configuration</span></code><a class="headerlink" href="#display-dhcp-configuration" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display DHCP configuration summary</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp configuration
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-dhcp-relay">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcp</span> <span class="pre">relay</span></code><a class="headerlink" href="#display-dhcp-relay" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display DHCPv4 relay state</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp relay [interface IF]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-dhcp-service">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcp</span> <span class="pre">service</span></code><a class="headerlink" href="#display-dhcp-service" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display DHCP service status</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp service [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-dhcpv6-client">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcpv6</span> <span class="pre">client</span></code><a class="headerlink" href="#display-dhcpv6-client" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display DHCPv6 client state</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 client [interface IF]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-dhcpv6-client-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">prefix</span></code><a class="headerlink" href="#display-dhcpv6-client-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display DHCPv6 delegated-prefix state</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 client prefix [name PREFIX-NAME]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-dhcpv6-pool">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcpv6</span> <span class="pre">pool</span></code><a class="headerlink" href="#display-dhcpv6-pool" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 address pools and server leases</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 pool [name NAME] [all | used] [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-dhcpv6-relay">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcpv6</span> <span class="pre">relay</span></code><a class="headerlink" href="#display-dhcpv6-relay" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display DHCPv6 relay state</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 relay [interface IF]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ip-pool">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">pool</span></code><a class="headerlink" href="#display-ip-pool" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv4 address pools and server leases</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip pool [name NAME | interface TYPE N] [all | used] [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-ipv6-pool">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">pool</span></code><a class="headerlink" href="#display-ipv6-pool" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：display IPv6 pool information and server leases</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 pool [name NAME] [all | used] [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dns-domain-name">
+<h2><code class="docutils literal notranslate"><span class="pre">dns-domain-name</span></code><a class="headerlink" href="#dns-domain-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure DNS domain name</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dns-domain-name VALUE
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dns-list">
+<h2><code class="docutils literal notranslate"><span class="pre">dns-list</span></code><a class="headerlink" href="#dns-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure IPv4 DNS server</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dns-list X.X.X.X [X.X.X.X ...]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dns-server">
+<h2><code class="docutils literal notranslate"><span class="pre">dns-server</span></code><a class="headerlink" href="#dns-server" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure IPv6 DNS server</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dns-server VALUE
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="domain-name">
+<h2><code class="docutils literal notranslate"><span class="pre">domain-name</span></code><a class="headerlink" href="#domain-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure the DHCP domain name</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>domain-name DOMAIN
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="enable-dhcp-server">
+<h2><code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">dhcp</span> <span class="pre">server</span></code><a class="headerlink" href="#enable-dhcp-server" title="链接到此标题。"></a></h2>
+<p>允许 IPv4/IPv6 DHCP 服务端运行，客户端和中继按接口配置。见<a class="reference internal" href="../../../examples/dhcp/"><span class="std std-doc">DHCP 案例</span></a>。</p>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：enable DHCP servers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable dhcp server
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="excluded-address">
+<h2><code class="docutils literal notranslate"><span class="pre">excluded-address</span></code><a class="headerlink" href="#excluded-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：exclude an IPv6 address or range from allocation</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>excluded-address START [END]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="excluded-ip-address">
+<h2><code class="docutils literal notranslate"><span class="pre">excluded-ip-address</span></code><a class="headerlink" href="#excluded-ip-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：exclude an IPv4 address or range from allocation</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>excluded-ip-address START [END]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="gateway-list">
+<h2><code class="docutils literal notranslate"><span class="pre">gateway-list</span></code><a class="headerlink" href="#gateway-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure IPv4 gateway address</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gateway-list X.X.X.X [X.X.X.X ...]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="information-refresh">
+<h2><code class="docutils literal notranslate"><span class="pre">information-refresh</span></code><a class="headerlink" href="#information-refresh" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the DHCPv6 information refresh interval</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>information-refresh INTEGER&lt;600-4294967295&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ip-address-dhcp-alloc">
+<h2><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">address</span> <span class="pre">dhcp-alloc</span></code><a class="headerlink" href="#ip-address-dhcp-alloc" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：obtain the IPv4 address by DHCP</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip address dhcp-alloc
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ip-pool">
+<h2><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">pool</span></code><a class="headerlink" href="#ip-pool" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create or enter an IPv4 pool</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip pool NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-address-auto-dhcp">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">auto</span> <span class="pre">dhcp</span></code><a class="headerlink" href="#ipv6-address-auto-dhcp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：obtain an IPv6 address by stateful DHCPv6</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 address auto dhcp [hint X:X::X]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-address-dhcpv6-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">dhcpv6-prefix</span></code><a class="headerlink" href="#ipv6-address-dhcpv6-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：derive an interface address from a delegated prefix</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 address dhcpv6-prefix PREFIX-NAME SUFFIX/PREFIXLEN
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="lease">
+<h2><code class="docutils literal notranslate"><span class="pre">lease</span></code><a class="headerlink" href="#lease" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure the IPv4 lease time</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>lease { unlimited | day DAYS [hour HOURS [minute MINUTES]] }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="prefix-delegation">
+<h2><code class="docutils literal notranslate"><span class="pre">prefix-delegation</span></code><a class="headerlink" href="#prefix-delegation" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure an IPv6 delegated-prefix pool</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>prefix-delegation X:X::X/M INTEGER&lt;1-128&gt; [life-time VALID PREFERRED]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="section">
+<h2><code class="docutils literal notranslate"><span class="pre">section</span></code><a class="headerlink" href="#section" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：configure an allocatable IPv4 address range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>section INTEGER&lt;0-255&gt; START [END]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="static-bind-ip-address">
+<h2><code class="docutils literal notranslate"><span class="pre">static-bind</span> <span class="pre">ip-address</span></code><a class="headerlink" href="#static-bind-ip-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：bind an IPv4 address to a client MAC</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static-bind ip-address X.X.X.X mac-address H-H-H
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-address-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">address</span> <span class="pre">prefix</span></code><a class="headerlink" href="#undo-address-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove a stateful IPv6 allocation prefix</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo address prefix X:X::X/M
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-client-classless-route-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">client</span> <span class="pre">classless-route</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-dhcp-client-classless-route-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：do not install learned classless routes</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp client classless-route enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-client-default-route-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">client</span> <span class="pre">default-route</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-dhcp-client-default-route-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：do not install the learned default route</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp client default-route enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-client-relay-shutdown">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">client-relay</span> <span class="pre">shutdown</span></code><a class="headerlink" href="#undo-dhcp-client-relay-shutdown" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：Resume configured DHCP client and relay on this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp client-relay shutdown
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-relay-server-ip">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">relay</span> <span class="pre">server-ip</span></code><a class="headerlink" href="#undo-dhcp-relay-server-ip" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove a DHCPv4 relay server</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp relay server-ip X.X.X.X
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-select">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">select</span></code><a class="headerlink" href="#undo-dhcp-select" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable the DHCPv4 server or relay role</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp select
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-server-dns-list">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">dns-list</span></code><a class="headerlink" href="#undo-dhcp-server-dns-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove interface-pool DNS servers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp server dns-list [X.X.X.X]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-server-domain-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">domain-name</span></code><a class="headerlink" href="#undo-dhcp-server-domain-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the interface-pool domain name</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp server domain-name
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-server-excluded-ip-address">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">excluded-ip-address</span></code><a class="headerlink" href="#undo-dhcp-server-excluded-ip-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an interface-pool exclusion</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp server excluded-ip-address START [END]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-server-gateway-list">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">gateway-list</span></code><a class="headerlink" href="#undo-dhcp-server-gateway-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the interface-address gateway default</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp server gateway-list [X.X.X.X]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-server-ip-range">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">ip-range</span></code><a class="headerlink" href="#undo-dhcp-server-ip-range" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore allocation from the interface primary subnet</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp server ip-range
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-server-lease">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">lease</span></code><a class="headerlink" href="#undo-dhcp-server-lease" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default interface-pool lease</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp server lease
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcp-server-static-bind-ip-address">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">static-bind</span> <span class="pre">ip-address</span></code><a class="headerlink" href="#undo-dhcp-server-static-bind-ip-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an interface-pool static binding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcp server static-bind ip-address X.X.X.X
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcpv6-client-information-request">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">information-request</span></code><a class="headerlink" href="#undo-dhcpv6-client-information-request" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable DHCPv6 information requests</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcpv6 client information-request
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcpv6-client-pd">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">pd</span></code><a class="headerlink" href="#undo-dhcpv6-client-pd" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable DHCPv6 prefix delegation</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcpv6 client pd
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcpv6-duid">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">duid</span></code><a class="headerlink" href="#undo-dhcpv6-duid" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：restore the default DHCPv6 server identifier</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcpv6 duid
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcpv6-pool">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">pool</span></code><a class="headerlink" href="#undo-dhcpv6-pool" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：delete an IPv6 address pool</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcpv6 pool NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcpv6-relay-destination">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">relay</span> <span class="pre">destination</span></code><a class="headerlink" href="#undo-dhcpv6-relay-destination" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove a DHCPv6 relay destination</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcpv6 relay destination X:X::X
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcpv6-relay-interface">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">relay</span> <span class="pre">interface</span></code><a class="headerlink" href="#undo-dhcpv6-relay-interface" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove a DHCPv6 relay upper interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcpv6 relay interface IF
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dhcpv6-server">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">server</span></code><a class="headerlink" href="#undo-dhcpv6-server" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable the DHCPv6 server</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dhcpv6 server
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dns-domain-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dns-domain-name</span></code><a class="headerlink" href="#undo-dns-domain-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove DNS domain name</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dns-domain-name VALUE
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dns-list">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dns-list</span></code><a class="headerlink" href="#undo-dns-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove IPv4 DNS server</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dns-list [VALUE]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-dns-server">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dns-server</span></code><a class="headerlink" href="#undo-dns-server" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove IPv6 DNS server</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo dns-server VALUE
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-domain-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">domain-name</span></code><a class="headerlink" href="#undo-domain-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the DHCP domain name</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo domain-name
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-enable-dhcp-server">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">enable</span> <span class="pre">dhcp</span> <span class="pre">server</span></code><a class="headerlink" href="#undo-enable-dhcp-server" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：disable DHCP servers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo enable dhcp server
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-excluded-address">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">excluded-address</span></code><a class="headerlink" href="#undo-excluded-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an excluded address or range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo excluded-address START [END]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-excluded-ip-address">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">excluded-ip-address</span></code><a class="headerlink" href="#undo-excluded-ip-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an excluded address or range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo excluded-ip-address START [END]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-gateway-list">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">gateway-list</span></code><a class="headerlink" href="#undo-gateway-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove IPv4 gateway address</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo gateway-list [VALUE]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-information-refresh">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">information-refresh</span></code><a class="headerlink" href="#undo-information-refresh" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default DHCPv6 information refresh interval</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo information-refresh
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ip-address-dhcp-alloc">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">address</span> <span class="pre">dhcp-alloc</span></code><a class="headerlink" href="#undo-ip-address-dhcp-alloc" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable the DHCPv4 client</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ip address dhcp-alloc
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ip-pool">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">pool</span></code><a class="headerlink" href="#undo-ip-pool" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：delete an IPv4 address pool</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ip pool NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-address-auto-dhcp">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">auto</span> <span class="pre">dhcp</span></code><a class="headerlink" href="#undo-ipv6-address-auto-dhcp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable the stateful DHCPv6 client</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 address auto dhcp
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-address-dhcpv6-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">dhcpv6-prefix</span></code><a class="headerlink" href="#undo-ipv6-address-dhcpv6-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an address derived from a delegated prefix</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 address dhcpv6-prefix PREFIX-NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-lease">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">lease</span></code><a class="headerlink" href="#undo-lease" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default lease time</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo lease
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-prefix-delegation">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">prefix-delegation</span></code><a class="headerlink" href="#undo-prefix-delegation" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an IPv6 delegated-prefix pool</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo prefix-delegation X:X::X/M INTEGER&lt;1-128&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-section">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">section</span></code><a class="headerlink" href="#undo-section" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an allocatable IPv4 address range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo section INTEGER&lt;0-255&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-static-bind-ip-address">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">static-bind</span> <span class="pre">ip-address</span></code><a class="headerlink" href="#undo-static-bind-ip-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove a static IPv4 client binding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo static-bind ip-address X.X.X.X
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code>、<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code>、<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
+<li><p>用途（设备帮助）：bind the pool to the default network instance；remove OSPF VPN binding</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo vpn-instance
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code><a class="headerlink" href="#vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">DHCPv6地址池视图</span></code>、<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code>、<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
+<li><p>用途（设备帮助）：bind OSPF process to a VPN instance；bind the pool to a VPN instance</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vpn-instance NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../amneziawg/" class="btn btn-neutral float-left" title="AmneziaWG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ipv6-autoconfig/" class="btn btn-neutral float-right" title="RA 与 SLAAC" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

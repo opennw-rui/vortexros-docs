@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tunnel 接口 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/tunnel-settings/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="GRE" href="../gre/" />
+    <link rel="prev" title="隧道" href="../06-tunnels/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../06-tunnels/">隧道</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tunnel 接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-in-ip/">IP-in-IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../11-vxlan-evpn/">EVPN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../06-tunnels/">隧道</a></li>
+      <li class="breadcrumb-item active">Tunnel 接口</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tunnel">
+<span id="tunnel-接口"></span><h1>Tunnel 接口<a class="headerlink" href="#tunnel" title="链接到此标题。"></a></h1>
+<p>配置源地址、目的地址和封装前，先确认两端 underlay 可达。</p>
+<p><a class="reference internal" href="../reference/tunnels/"><span class="std std-doc">命令参考</span></a></p>
+<section id="id1">
+<span id="接口状态"></span><h2>接口状态<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>Tunnel配置可以在Candidate中分步编辑；协议、源和目的等必需参数不完整时，<code class="docutils literal notranslate"><span class="pre">commit</span></code>会拒绝该配置。参数完整并提交后，设备创建隧道；underlay或对端不可用时接口显示down。</p>
+<p>underlay源接口变更IP或VPN时，隧道可以暂时down；恢复依赖后应自动收敛，不应阻止underlay配置进入Candidate。</p>
+</section>
+<section id="id2">
+<span id="通用命令"></span><h2>通用命令<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="tunnel-protocol">
+<h3><code class="docutils literal notranslate"><span class="pre">tunnel-protocol</span></code><a class="headerlink" href="#tunnel-protocol" title="链接到此标题。"></a></h3>
+<p><strong>功能</strong>：配置Tunnel接口使用的封装协议。
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">tunnel-protocol</span> <span class="pre">{</span> <span class="pre">gre</span> <span class="pre">|</span> <span class="pre">ipv4-ipv4</span> <span class="pre">|</span> <span class="pre">ipv6-ipv4</span> <span class="pre">|</span> <span class="pre">ipv4-ipv6</span> <span class="pre">|</span> <span class="pre">ipv6-ipv6</span> <span class="pre">|</span> <span class="pre">wireguard</span> <span class="pre">|</span> <span class="pre">amneziawg</span> <span class="pre">}</span></code>
+<strong>视图</strong>：Tunnel接口视图。
+<strong>缺省情况</strong>：未配置封装协议，接口不能创建。
+<strong>参数</strong>：<code class="docutils literal notranslate"><span class="pre">ipvX-ipvY</span></code>中第一个地址族表示内层报文，第二个地址族表示外层传输。
+<strong>注意事项</strong>：切换协议会删除旧协议身份参数；配置仍须<code class="docutils literal notranslate"><span class="pre">commit</span></code>才生效。
+<strong>撤销命令</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">tunnel-protocol</span></code>，同时清除该Tunnel的协议身份参数。</p>
+</section>
+<section id="source">
+<h3><code class="docutils literal notranslate"><span class="pre">source</span></code><a class="headerlink" href="#source" title="链接到此标题。"></a></h3>
+<p><strong>功能</strong>：配置GRE或手工IP隧道的外层源IP地址。
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">IP</span></code>
+<strong>视图</strong>：已配置GRE或手工IP协议的Tunnel接口视图。
+<strong>缺省情况</strong>：未配置。
+<strong>参数</strong>：<code class="docutils literal notranslate"><span class="pre">IP</span></code>必须是规范IPv4或IPv6地址，并与协议的外层地址族一致。
+<strong>注意事项</strong>：该地址必须在相应underlay中由本机实际拥有；VPN选择由<code class="docutils literal notranslate"><span class="pre">destination</span></code>命令完成。
+<strong>撤销命令</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span></code>。</p>
+</section>
+<section id="destination">
+<h3><code class="docutils literal notranslate"><span class="pre">destination</span></code><a class="headerlink" href="#destination" title="链接到此标题。"></a></h3>
+<p><strong>功能</strong>：配置GRE或手工IP隧道的外层目的地址及查路VPN。
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">IP</span> <span class="pre">[vpn-instance</span> <span class="pre">NAME]</span></code>
+<strong>视图</strong>：已配置GRE或手工IP协议的Tunnel接口视图。
+<strong>缺省情况</strong>：未配置；未指定<code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code>时使用<code class="docutils literal notranslate"><span class="pre">default</span></code>。
+<strong>参数</strong>：<code class="docutils literal notranslate"><span class="pre">IP</span></code>为远端外层地址；<code class="docutils literal notranslate"><span class="pre">NAME</span></code>为已存在的VPN实例。
+<strong>注意事项</strong>：源与目的必须属于同一外层地址族；提交后应在所选VPN中验证到目的地址的路由。
+<strong>撤销命令</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span></code>，同时撤销该目的地址关联的underlay VPN。</p>
+</section>
+<section id="gre-key">
+<h3><code class="docutils literal notranslate"><span class="pre">gre</span> <span class="pre">key</span></code><a class="headerlink" href="#gre-key" title="链接到此标题。"></a></h3>
+<p><strong>功能</strong>：为GRE封装配置可选的32位Key。
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">gre</span> <span class="pre">key</span> <span class="pre">KEY</span></code>
+<strong>视图</strong>：<code class="docutils literal notranslate"><span class="pre">tunnel-protocol</span> <span class="pre">gre</span></code>的Tunnel接口视图。
+<strong>缺省情况</strong>：不携带GRE Key。
+<strong>注意事项</strong>：两端Key必须一致；该命令不适用于IP-in-IP、WireGuard或AmneziaWG。
+<strong>撤销命令</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">gre</span> <span class="pre">key</span></code>。</p>
+</section>
+<section id="undo-interface-tunnel">
+<h3><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">Tunnel</span></code><a class="headerlink" href="#undo-interface-tunnel" title="链接到此标题。"></a></h3>
+<p><strong>功能</strong>：删除Tunnel逻辑接口及其隧道、地址、LCP和相关接口配置。
+<strong>命令格式</strong>：<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">Tunnel</span> <span class="pre">INSTANCE</span></code>
+<strong>视图</strong>：系统视图。
+<strong>注意事项</strong>：命令进入Candidate，执行<code class="docutils literal notranslate"><span class="pre">commit</span></code>后才从控制面与数据面删除；删除前应确认路由和协议不再引用该接口。</p>
+</section>
+</section>
+<section id="id3">
+<span id="功能范围"></span><h2>功能范围<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>VortexROS 将 Linux/FRR 作为动态路由控制面、VPP 作为转发面。控制层维持
+Linux 全局 IPv6 forwarding 为开启状态，使 FRR 能够把 LCP 接口上的 IPv6
+直连网络作为隧道 underlay 的有效路由证据；这不会把隧道业务流量切换到
+Linux 数据面。</p>
+<p>当前版本不提供IPsec和MACsec配置命令。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../06-tunnels/" class="btn btn-neutral float-left" title="隧道" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../gre/" class="btn btn-neutral float-right" title="GRE" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

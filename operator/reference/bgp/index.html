@@ -1,0 +1,628 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BGP &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/bgp/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="IS-IS" href="../isis/" />
+    <link rel="prev" title="OSPFv3" href="../ospfv3/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">BGP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bgp">
+<h1>BGP<a class="headerlink" href="#bgp" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../bgp/"><span class="std std-doc">配置指南</span></a></p>
+<p>共用命令：<a class="reference internal" href="../dynamic-routing/#cmd-import-route"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">import-route</span></code></span></a>、<a class="reference internal" href="../dynamic-routing/#cmd-network"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">network</span></code></span></a>、<a class="reference internal" href="../dynamic-routing/#cmd-router-id"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">router-id</span></code></span></a>、<a class="reference internal" href="../tunnels/#cmd-peer"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">peer</span></code></span></a>。</p>
+<section id="id1">
+<span id="bgp-1"></span><h2><code class="docutils literal notranslate"><span class="pre">bgp</span></code><a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create a BGP instance and enter BGP view</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp ASNUM
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="default-ipv4-unicast">
+<h2><code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">ipv4-unicast</span></code><a class="headerlink" href="#default-ipv4-unicast" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：activate IPv4 unicast by default</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default ipv4-unicast
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="default-tcp-protected">
+<h2><code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">tcp-protected</span></code><a class="headerlink" href="#default-tcp-protected" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：protect the BGP TCP listener with configured peers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default tcp-protected
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-bgp">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span></code><a class="headerlink" href="#display-bgp" title="链接到此标题。"></a></h2>
+<p>peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族。见<a class="reference internal" href="../../../examples/bgp/"><span class="std std-doc">BGP 案例</span></a>。</p>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display BGP information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp {peer|routing-table|ipv6|vpnv4|vpnv6|...}
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-bgp-tcp-protection">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">tcp-protection</span></code><a class="headerlink" href="#display-bgp-tcp-protection" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display BGP TCP listener source protection</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp tcp-protection [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="group">
+<h2><code class="docutils literal notranslate"><span class="pre">group</span></code><a class="headerlink" href="#group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：create a case-sensitive BGP peer-group</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>group NAME [internal|external]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv4-family-unicast">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">unicast</span></code><a class="headerlink" href="#ipv4-family-unicast" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：enter the IPv4 unicast address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv4-family unicast
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv4-family-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#ipv4-family-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：enter the IPv4 VPN address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv4-family vpn-instance VPN
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv4-family-vpnv4">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">vpnv4</span></code><a class="headerlink" href="#ipv4-family-vpnv4" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：enter the VPNv4 address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv4-family vpnv4
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-family-unicast">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">unicast</span></code><a class="headerlink" href="#ipv6-family-unicast" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：enter the IPv6 unicast address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6-family unicast
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-family-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#ipv6-family-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：enter the IPv6 VPN address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6-family vpn-instance VPN
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="ipv6-family-vpnv6">
+<h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">vpnv6</span></code><a class="headerlink" href="#ipv6-family-vpnv6" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：enter the VPNv6 address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6-family vpnv6
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="load-balancing-as-path-ignore">
+<h2><code class="docutils literal notranslate"><span class="pre">load-balancing</span> <span class="pre">as-path-ignore</span></code><a class="headerlink" href="#load-balancing-as-path-ignore" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：allow equal-length different AS paths in BGP ECMP</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>load-balancing as-path-ignore
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="maximum-paths">
+<h2><code class="docutils literal notranslate"><span class="pre">maximum-paths</span></code><a class="headerlink" href="#maximum-paths" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the maximum OSPF ECMP paths</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>maximum-paths INTEGER&lt;1-256&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="policy-vpn-target">
+<h2><code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code><a class="headerlink" href="#policy-vpn-target" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code></p></li>
+<li><p>用途（设备帮助）：control VPN route-target filtering</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>policy vpn-target
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="reflect-between-clients">
+<h2><code class="docutils literal notranslate"><span class="pre">reflect</span> <span class="pre">between-clients</span></code><a class="headerlink" href="#reflect-between-clients" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：allow route reflection between clients</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reflect between-clients
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="reflector-cluster-id">
+<h2><code class="docutils literal notranslate"><span class="pre">reflector</span> <span class="pre">cluster-id</span></code><a class="headerlink" href="#reflector-cluster-id" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the route-reflector cluster ID</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reflector cluster-id X.X.X.X
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="reset-service-bgp">
+<h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">bgp</span></code><a class="headerlink" href="#reset-service-bgp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restart the managed bgp routing service</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset service bgp
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="timer-keepalive">
+<h2><code class="docutils literal notranslate"><span class="pre">timer</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#timer-keepalive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：set BGP keepalive and hold timers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>timer keepalive INTEGER&lt;0-21845&gt; hold INTEGER&lt;0-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-bgp">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bgp</span></code><a class="headerlink" href="#undo-bgp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a BGP instance</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo bgp ASNUM
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-default-ipv4-unicast">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default</span> <span class="pre">ipv4-unicast</span></code><a class="headerlink" href="#undo-default-ipv4-unicast" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable automatic IPv4-unicast peer activation</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo default ipv4-unicast
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-default-tcp-protected">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default</span> <span class="pre">tcp-protected</span></code><a class="headerlink" href="#undo-default-tcp-protected" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable BGP TCP listener peer protection</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo default tcp-protected
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-group">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">group</span></code><a class="headerlink" href="#undo-group" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete an unused BGP peer-group</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo group NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv4-family-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-ipv4-family-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an IPv4 VPN address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv4-family vpn-instance VPN
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv4-family-vpnv4">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span> <span class="pre">vpnv4</span></code><a class="headerlink" href="#undo-ipv4-family-vpnv4" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the VPNv4 address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv4-family vpnv4
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-family-unicast">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">unicast</span></code><a class="headerlink" href="#undo-ipv6-family-unicast" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the IPv6 unicast address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6-family unicast
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-family-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-ipv6-family-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an IPv6 VPN address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6-family vpn-instance VPN
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-ipv6-family-vpnv6">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">vpnv6</span></code><a class="headerlink" href="#undo-ipv6-family-vpnv6" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the VPNv6 address family</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6-family vpnv6
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-load-balancing-as-path-ignore">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">load-balancing</span> <span class="pre">as-path-ignore</span></code><a class="headerlink" href="#undo-load-balancing-as-path-ignore" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：require identical AS paths for BGP ECMP</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo load-balancing as-path-ignore
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-maximum-paths">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">maximum-paths</span></code><a class="headerlink" href="#undo-maximum-paths" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default OSPF ECMP path count</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo maximum-paths
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-policy-vpn-target">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">policy</span> <span class="pre">vpn-target</span></code><a class="headerlink" href="#undo-policy-vpn-target" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code></p></li>
+<li><p>用途（设备帮助）：control VPN route-target filtering</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo policy vpn-target
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-reflect-between-clients">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">reflect</span> <span class="pre">between-clients</span></code><a class="headerlink" href="#undo-reflect-between-clients" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable route reflection between clients</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo reflect between-clients
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-reflector-cluster-id">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">reflector</span> <span class="pre">cluster-id</span></code><a class="headerlink" href="#undo-reflector-cluster-id" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the router ID as the cluster ID</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo reflector cluster-id
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-timer-keepalive">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timer</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#undo-timer-keepalive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore BGP keepalive and hold timers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo timer keepalive
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../ospfv3/" class="btn btn-neutral float-left" title="OSPFv3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../isis/" class="btn btn-neutral float-right" title="IS-IS" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

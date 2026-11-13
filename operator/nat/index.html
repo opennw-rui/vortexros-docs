@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAT &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/nat/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="流量策略" href="../07-policy/" />
+    <link rel="prev" title="ACL" href="../acl/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">NAT</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nat">
+<h1>NAT<a class="headerlink" href="#nat" title="链接到此标题。"></a></h1>
+<p>通过 NAT 策略执行源地址、目的地址或双向转换。</p>
+<p><a class="reference internal" href="../reference/nat/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/nat-pat/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>在<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">name</span> <span class="pre">?</span></code>中，<code class="docutils literal notranslate"><span class="pre">&lt;NAT-POLICY&gt;</span></code>表示可输入策略名，后续各行列出当前Candidate中已有的策略名；Tab和<code class="docutils literal notranslate"><span class="pre">?</span></code>使用相同的大小写无关字母顺序。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy address-set name INSIDE
+ address 10.0.0.0/8
+#
+nat-policy port-set name WEB
+ port 80
+ port 443
+#
+nat-policy name INTERNET
+ statistic enable
+ rule 10
+  source address-set name INSIDE
+  destination port-set name WEB
+  action snat pat interface
+</pre></div>
+</div>
+<p>接口绑定：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
+ nat-policy INTERNET inbound
+</pre></div>
+</div>
+<p>统计默认关闭；只有在policy或rule下显式配置 <code class="docutils literal notranslate"><span class="pre">statistic</span> <span class="pre">enable</span></code> 后才更新对应计数。未启用统计时，display会明确显示统计关闭。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy name INTERNET
+display nat-policy statistics name INTERNET
+clear nat-policy counters
+display nat-policy sessions
+clear nat-policy sessions
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">sessions</span></code>不带参数时展示全部活动会话。也可以任意组合下列条件；多个条件采用AND语义，并由数据面按原始（转换前）五元组直接筛选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions [protocol { tcp | udp | icmp | sctp | 0..255 }]
+ [source-ip IPV4] [destination-ip IPV4]
+ [source-port PORT] [destination-port PORT]
+ [worker INDEX] [core CPU-ID] [name POLICY] [rule RULE-ID]
+ [action { no-nat | static-nat | snat-no-pat | snat-pat | dnat | twice-nat }]
+ [hairpin { enable | disable }]
+</pre></div>
+</div>
+<p>例如，查看<code class="docutils literal notranslate"><span class="pre">INTERNET</span></code>策略中由CPU 6处理、目的端口为443的TCP PAT会话：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions protocol tcp destination-port 443 core 6 name INTERNET action snat-pat
+</pre></div>
+</div>
+<p>会话按块显示。首行是协议、状态、worker、CPU核心、剩余时间和计数，第二行是接口、方向、FIB、policy/rule和动作，第三行显示原始五元组到转换后五元组。TCP、UDP和SCTP显示端口；ICMP显示identifier；GRE、ESP、AH、OSPF等无端口协议只显示地址，避免把内部零值误当成端口。</p>
+<p>NAT回流默认关闭。需要先开启全局开关，再在包含DNAT、twice-NAT或静态NAT发布规则的policy中开启：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy hairpin enable
+nat-policy name INTERNET
+ hairpin enable
+commit
+</pre></div>
+</div>
+<p>关闭时可撤销policy或全局开关：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy name INTERNET
+ undo hairpin enable
+quit
+undo nat-policy hairpin enable
+commit
+</pre></div>
+</div>
+<p>两个开关必须同时开启。显式NO_NAT和本接口的显式转换决定优先；回流只使用同一FIB中的唯一发布映射。开关不会强制清除已有会话。验证时应同时测试客户端到公网映射地址的正向连接、服务端回包恢复、同一端口多连接、会话清除后端口复用，以及关闭后已有会话不断、新会话不再回流。</p>
+<p>新增、修改或删除规则后，只影响相关policy和接口绑定。已有会话继续按会话状态处理，新连接使用新的规则。</p>
+<p>解除接口绑定后再删除policy和对象：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
+ undo nat-policy INTERNET inbound
+undo nat-policy name INTERNET
+undo nat-policy port-set name WEB
+undo nat-policy address-set name INSIDE
+commit
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../acl/" class="btn btn-neutral float-left" title="ACL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../07-policy/" class="btn btn-neutral float-right" title="流量策略" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

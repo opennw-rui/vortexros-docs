@@ -1,5 +1,6 @@
-# 诊断、清理与恢复
+# 诊断与恢复
 
+[配置指南](../09-operations.md)
 
 ## `check system-software control-plane`
 
@@ -47,30 +48,6 @@
 
   ```text
   clear interface TYPE N counter
-  ```
-
-## `clear nat-policy counters`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`任意允许视图`
-- 用途（设备帮助）：clear nat-policy runtime counters without removing sessions
-- 合法语法：
-
-  ```text
-  clear nat-policy counters
-  ```
-
-## `clear nat-policy sessions`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`任意允许视图`
-- 用途（设备帮助）：clear nat-policy sessions
-- 合法语法：
-
-  ```text
-  clear nat-policy sessions [name POLICY [rule RULE-ID]]
   ```
 
 ## `clear system-software info`
@@ -151,17 +128,6 @@
   display this
   ```
 
-## `display urpf`
-
-- 类别：只读显示命令
-- 视图：`任意允许视图`
-- 用途（设备帮助）：show per-interface uRPF mode
-- 合法语法：
-
-  ```text
-  display urpf
-  ```
-
 ## `display version`
 
 - 类别：只读显示命令
@@ -171,17 +137,6 @@
 
   ```text
   display version
-  ```
-
-## `display vrrp6`
-
-- 类别：只读显示命令
-- 视图：`任意允许视图`
-- 用途（设备帮助）：display IPv6 VRRPv3 information
-- 合法语法：
-
-  ```text
-  display vrrp6 [brief|interface INTERFACE|statistics|protocol-information|VRID]
   ```
 
 ## `mtr`
@@ -208,92 +163,6 @@
   ping [OPTIONS] HOST
   ```
 
-## `reset dataplane`
-
-应用需重启的数据面配置。VPP 和选中网卡的驱动归属可能变化，须安排业务窗口并保留管理通道。
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：Activate saved dataplane settings
-- 合法语法：
-
-  ```text
-  reset dataplane
-  ```
-
-## `reset ip arp`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`任意允许视图`
-- 用途（设备帮助）：reset dynamic IPv4 ARP entries
-- 合法语法：
-
-  ```text
-  reset ip arp [interface TYPE N] [ip X.X.X.X]
-  ```
-
-## `reset ipv6 route-static group`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`任意允许视图`
-- 用途（设备帮助）：reload an IPv6 route-static group external list
-- 合法语法：
-
-  ```text
-  reset ipv6 route-static group {name GROUP|all}
-  ```
-
-## `reset mac-address`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`任意允许视图`
-- 用途（设备帮助）：reset dynamically learned MAC addresses
-- 合法语法：
-
-  ```text
-  reset mac-address [interface TYPE N] [mac-address H-H-H]
-  ```
-
-## `reset ospf`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：reset one ospf process so pending runtime settings take effect
-- 合法语法：
-
-  ```text
-  reset ospf INTEGER<1-65535> process
-  ```
-
-## `reset ospfv3`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：reset one ospfv3 process so pending runtime settings take effect
-- 合法语法：
-
-  ```text
-  reset ospfv3 INTEGER<1-65535> process
-  ```
-
-## `reset route-static group`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`任意允许视图`
-- 用途（设备帮助）：reload an IPv4 route-static group external list
-- 合法语法：
-
-  ```text
-  reset route-static group {name GROUP|all}
-  ```
-
 ## `reset running-configuration`
 
 - 类别：即时运维命令
@@ -318,30 +187,6 @@
   reset saved-configuration [FILE.cfg]
   ```
 
-## `reset service bfd`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed bfd routing service
-- 合法语法：
-
-  ```text
-  reset service bfd
-  ```
-
-## `reset service bgp`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed bgp routing service
-- 合法语法：
-
-  ```text
-  reset service bgp
-  ```
-
 ## `reset service frr`
 
 - 类别：即时运维命令
@@ -352,42 +197,6 @@
 
   ```text
   reset service frr
-  ```
-
-## `reset service isis`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed isis routing service
-- 合法语法：
-
-  ```text
-  reset service isis
-  ```
-
-## `reset service ospf`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed ospf routing service
-- 合法语法：
-
-  ```text
-  reset service ospf [ipv4|ipv6|all]
-  ```
-
-## `reset service rip`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed rip routing service
-- 合法语法：
-
-  ```text
-  reset service rip [ipv4|ipv6|all]
   ```
 
 ## `reset service vpp`

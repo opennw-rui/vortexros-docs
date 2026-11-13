@@ -6,10 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CLI 使用指南 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>命令行 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=8bc41338" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
 
   
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/01-cli/" />
@@ -23,7 +23,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="配置案例" href="../../examples/" />
+    <link rel="next" title="系统管理" href="../02-system-services/" />
     <link rel="prev" title="从零到 Ping" href="../../quickstart/" /> 
 </head>
 
@@ -32,7 +32,6 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
 
           
           
@@ -46,37 +45,37 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-<details class="manual-version">
-  <summary>v0.28-dev-debug5 · 当前版本</summary>
-  <a href="../../">0.28 开发版</a>
-  <a href="../../versions/">文档版本说明</a>
-</details>
-
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../installation/">首次安装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">从零到 Ping</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CLI 使用指南</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">从编辑到生效</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">帮助、过滤与分页</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">试用一次编辑</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
-<ul>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../">VortexROS 0.28 操作手册</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断、清理、健康与服务恢复</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">参考</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">VortexROS 全命令参考</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../versions/">文档版本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
 </ul>
 
         </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
       </div>
     </nav>
 
@@ -90,9 +89,8 @@
           <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
       <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">CLI 使用指南</li>
+      <li class="breadcrumb-item active">命令行</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/operator/01-cli.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -100,8 +98,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="cli">
-<span id="cli-使用指南"></span><h1>CLI 使用指南<a class="headerlink" href="#cli" title="链接到此标题。"></a></h1>
+  <section id="id1">
+<span id="命令行"></span><h1>命令行<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <p>在 Linux 终端执行 sudo vortexros。登录后可直接查询运行状态，配置从 system-view 开始。</p>
 <table class="docutils align-default">
 <thead>
@@ -126,8 +124,8 @@
 </tbody>
 </table>
 <p>输入 ? 查询当前位置允许的命令、参数和范围。Tab 补全当前词，再按 Tab 循环候选。缩写必须能在当前位置唯一匹配。return 返回用户视图；如有待提交配置，按提示选择提交、丢弃或取消退出。</p>
-<section id="id1">
-<span id="从编辑到生效"></span><h2>从编辑到生效<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<section id="id2">
+<span id="从编辑到生效"></span><h2>从编辑到生效<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>命令</p></th>
@@ -160,8 +158,8 @@
 </table>
 <p>每个会话有独立的 Candidate。提交失败时先读返回信息。若配置校验被拒绝，修正 Candidate。若提示配置已接受但运行状态未收敛，用 display health verbose 和 display alarm active 查原因，再根据实际业务状态决定是否保存。</p>
 </section>
-<section id="id2">
-<span id="帮助过滤与分页"></span><h2>帮助、过滤与分页<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="帮助过滤与分页"></span><h2>帮助、过滤与分页<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface brief
 display current-configuration interface Ethernet 1
 display ip routing-table protocol static
@@ -170,8 +168,8 @@ display ip fib | include 203.0.113
 </div>
 <p>先用接口、协议或 VPN 参数缩小范围。include 过滤显示行，表头或总计可能保留。分页时按空格翻页、Enter 看下一行、q 结束显示。</p>
 </section>
-<section id="id3">
-<span id="试用一次编辑"></span><h2>试用一次编辑<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<section id="id4">
+<span id="试用一次编辑"></span><h2>试用一次编辑<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>在实验接口上暂存描述，查看差异后清除：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 interface Ethernet 1
@@ -190,7 +188,7 @@ clear configuration candidate
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../../quickstart/" class="btn btn-neutral float-left" title="从零到 Ping" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../../examples/" class="btn btn-neutral float-right" title="配置案例" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../02-system-services/" class="btn btn-neutral float-right" title="系统管理" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

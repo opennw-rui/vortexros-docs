@@ -6,10 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MPLS LDP 与 L3VPN &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>MPLS &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=8bc41338" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
 
   
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/10-mpls-l3vpn/" />
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="VXLAN EVPN" href="../11-vxlan-evpn/" />
-    <link rel="prev" title="DHCP 与 LLDP" href="../08-network-services/" /> 
+    <link rel="next" title="MPLS 与 LDP" href="../ldp/" />
+    <link rel="prev" title="EVPN" href="../11-vxlan-evpn/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,7 +32,6 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
 
           
           
@@ -46,48 +45,42 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-<details class="manual-version">
-  <summary>v0.28-dev-debug5 · 当前版本</summary>
-  <a href="../../">0.28 开发版</a>
-  <a href="../../versions/">文档版本说明</a>
-</details>
-
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation/">首次安装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">从零到 Ping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../01-cli/">CLI 使用指南</a></li>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MPLS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ldp/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../l3vpn/">MPLS L3VPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../6pe/">6PE</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
-<ul class="current">
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../">VortexROS 0.28 操作手册</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../#id1">配置指南</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../#id2">通用阅读约定</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../#id3">推荐的操作顺序</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../02-system-services/">系统访问、健康与服务</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../03-interfaces-l2/">物理接口、聚合、VLAN、BD 与邻居</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../04-ip-routing/">IPv4/IPv6、VPN、静态路由与路由组</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../05-dynamic-routing/">路由策略、OSPF、BGP、IS-IS、RIP、BFD 与 VRRP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../06-tunnels/">GRE、IP-in-IP、VXLAN/NVE、WireGuard 与 AmneziaWG</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../07-policy/">ACL、QoS、MQC、MSS 与 nat-policy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../08-network-services/">DHCP 与 LLDP</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">MPLS LDP 与 L3VPN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../11-vxlan-evpn/">VXLAN EVPN</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断、清理、健康与服务恢复</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">参考</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">VortexROS 全命令参考</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../versions/">文档版本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
 </ul>
 
         </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
       </div>
     </nav>
 
@@ -101,10 +94,8 @@
           <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
       <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../">VortexROS 0.28 操作手册</a></li>
-      <li class="breadcrumb-item active">MPLS LDP 与 L3VPN</li>
+      <li class="breadcrumb-item active">MPLS</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/operator/10-mpls-l3vpn.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -112,180 +103,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="mpls-ldp-l3vpn">
-<span id="mpls-ldp-与-l3vpn"></span><h1>MPLS LDP 与 L3VPN<a class="headerlink" href="#mpls-ldp-l3vpn" title="链接到此标题。"></a></h1>
-<p>VortexROS 使用 FRRouting 计算 LDP、BGP VPN 路由和标签，Zebra 将标准 Linux
-netlink 状态交给 LCP，再由 LCP 转换成 VPP MPLS 转发表。协议计算、标签分配和
-路由优选不在 VortexROS 控制层或 VPP 中重复实现。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VortexROS CLI / CFG
-        |
-        v
-FRR ldpd / bgpd / zebra
-        |
-        v
-Linux netlink MPLS state
-        |
-        v
-LCP -&gt; VPP MPLS forwarding
-</pre></div>
-</div>
-<p>当前数据面范围是 IPv4 LDP 传输标签、BGP VPNv4/VPNv6 L3VPN、6VPE 和 6PE。
-VPLS、RSVP-TE 和 SR-MPLS-TE 不在本版本范围内。</p>
-<section id="id1">
-<span id="使用前提"></span><h2>使用前提<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<ol class="arabic simple">
-<li><p>先为设备配置稳定的 IPv4 LSR ID，通常使用 LoopBack 地址。</p></li>
-<li><p>全局启用 MPLS 后，再启用 LDP。</p></li>
-<li><p>在参与 MPLS 转发的三层接口上分别启用 MPLS 和 LDP。</p></li>
-<li><p>底层 IPv4 IGP 必须先使各节点的 LSR ID 和 LDP transport address 可达。</p></li>
-</ol>
-<p>MPLS 只能用于三层接口。配置了 <code class="docutils literal notranslate"><span class="pre">portswitch</span></code> 的二层接口不能启用 MPLS。</p>
-</section>
-<section id="ldp">
-<span id="基本-ldp-配置"></span><h2>基本 LDP 配置<a class="headerlink" href="#ldp" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-mpls lsr-id 10.0.0.1
-mpls
-mpls ldp
-
-interface LoopBack 0
- ip address 10.0.0.1 255.255.255.255
- quit
-
-interface Ethernet 1
- ip address 192.0.2.1 255.255.255.252
- mpls
- mpls ldp
- quit
-commit
-save
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">mpls</span></code> 打开接口 MPLS 转发能力；<code class="docutils literal notranslate"><span class="pre">mpls</span> <span class="pre">ldp</span></code> 使该接口参与 LDP 邻居发现。
-两者是独立配置，系统不会根据 LDP 配置猜测接口转发身份。</p>
-</section>
-<section id="ttl">
-<span id="ttl-模式"></span><h2>TTL 模式<a class="headerlink" href="#ttl" title="链接到此标题。"></a></h2>
-<p>缺省使用 uniform 模式，IP TTL 会传播到 MPLS 标签栈：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ttl propagate
-</pre></div>
-</div>
-<p>如需隐藏 MPLS 核心跳数，可使用 pipe 模式：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ttl propagate
-</pre></div>
-</div>
-<p>Linux sysctl 是该模式的权威状态；LCP 将变化同步为 VPP 标签路径的 pipe 或
-uniform 属性，不改变 FRR 的协议计算。</p>
-</section>
-<section id="l3vpn">
-<span id="l3vpn-要点"></span><h2>L3VPN 要点<a class="headerlink" href="#l3vpn" title="链接到此标题。"></a></h2>
-<p>PE 上的 VPN-instance 需要 RD 和导入/导出 VPN-Target，BGP VPN 地址族需要与远端
-PE 或 RR 建立 MP-BGP 会话。进入 VPN-instance 地址族时，VortexROS 按产品缺省
-语义自动向 FRR 下发 <code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">vpn</span> <span class="pre">export</span> <span class="pre">auto</span></code>，无需也不允许用户重复配置该后端命令：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
- peer 10.0.0.4 as-number 65000
- peer 10.0.0.4 connect-interface LoopBack 0
- ipv4-family vpnv4
-  peer 10.0.0.4 enable
-  quit
- ipv4-family vpn-instance CUST-A
-  import-route direct
-  import-route static
-  quit
-quit
-commit
-</pre></div>
-</div>
-<p>FRR 为 VPN 路由分配导出标签；VortexROS 不创建第二套标签分配器。VPN-instance
-下配置的全部 RT 会作为完整列表直接覆盖后端当前值；目标方向变为空时才精确撤销
-该方向的旧列表。</p>
-<p>VPNv4/VPNv6 传输地址族缺省启用 VPN-Target 过滤，缺省项不写入配置。RR 或
-Inter-AS Option B 场景需要保留全部 VPN 路由时可关闭过滤：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
- ipv4-family vpnv4
-  undo policy vpn-target
- ipv6-family vpnv6
-  undo policy vpn-target
-</pre></div>
-</div>
-<p>再次输入 <code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code> 恢复缺省过滤行为，恢复后的缺省项不显示。</p>
-</section>
-<section id="pe">
-<span id="6pe"></span><h2>6PE<a class="headerlink" href="#pe" title="链接到此标题。"></a></h2>
-<p>6PE 使用 IPv4 LDP 核心承载全局 IPv6 路由。邻居仍使用 IPv4 LoopBack 建立会话，
-在 IPv6 unicast 地址族中启用邻居及标签路由能力：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
- peer 10.0.0.4 as-number 65000
- peer 10.0.0.4 connect-interface LoopBack0
- ipv6-family unicast
-  peer 10.0.0.4 enable
-  peer 10.0.0.4 label-route-capability
-  network 2001:db8:101::1 128
-</pre></div>
-</div>
-<p>后端使用 FRR 原生 <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">labeled-unicast</span></code> 地址族。Zebra 将 6PE 路由写入 Linux
-netlink，LCP 再同步到 VPP；VortexROS 不直接向 VPP 或内核下发 6PE 路由。</p>
-</section>
-<section id="id2">
-<span id="查询与验证"></span><h2>查询与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display mpls interface
-display mpls ldp peer
-display mpls ldp interface
-display mpls ldp binding
-display mpls lsp
-display mpls forwarding-table
-display bgp vpnv4 all routing-table
-display ip routing-table vpn-instance CUST-A
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">...</span></code> 显示 FRR LDP 控制面状态；</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">lsp</span></code> 显示 Zebra 的 MPLS 表；</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">forwarding-table</span></code> 显示 VPP 实际 MPLS FIB。</p></li>
+  <section id="mpls">
+<h1>MPLS<a class="headerlink" href="#mpls" title="链接到此标题。"></a></h1>
+<p>使用标签转发承载独立 VPN 或 IPv6 路由。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ldp/">MPLS 与 LDP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../l3vpn/">MPLS L3VPN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6pe/">6PE</a></li>
 </ul>
-<p>LDP接口、邻居、标签绑定和Zebra LSP均通过对应daemon的VTY流一次解析并直接输出，
-不会把大表完整反序列化后再排版。转发标签仍单独读取VPP LFIB，避免用控制面状态代替
-数据面验收。</p>
-<p>功能验收必须同时确认 LDP 邻居、标签绑定、Zebra/Linux netlink 状态、VPP MPLS
-FIB 和 CE 间实际流量。只看到配置存在不能证明数据面已生效。</p>
-<p>开发服务器上的线性、环网、链路故障和删除恢复实验记录见
-<a class="reference internal" href="../reference/mpls/"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">MPLS</span> <span class="pre">LDP</span> <span class="pre">与</span> <span class="pre">L3VPN</span> <span class="pre">命令参考</span></code></span></a>。</p>
-</section>
-<section id="id3">
-<span id="删除与恢复"></span><h2>删除与恢复<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>撤销顺序建议先关闭接口 LDP，再关闭接口 MPLS，最后关闭全局 LDP/MPLS：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
- undo mpls ldp
- undo mpls
- quit
-undo mpls ldp
-undo mpls
-commit
-</pre></div>
 </div>
-<p>VPP 或 LCP 重启后，LCP 从当前 Linux netlink 状态恢复 MPLS 对象；FRR 保持协议和
-标签的唯一权威来源。系统不会从旧 VPP 索引或控制层缓存重建另一份标签状态。</p>
-</section>
-<section id="id4">
-<span id="排障"></span><h2>排障<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">peer</span></code> 无邻居：核对接口 LDP、链路地址、IGP 和 transport
-address 可达性。</p></li>
-<li><p>有 LDP 邻居但 VPP 无标签：依次核对 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">lsp</span></code> 与
-<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">forwarding-table</span></code>，定位 Zebra 到 LCP 的转换边界。</p></li>
-<li><p>VPN 路由无导出标签：核对 RD、VPN-Target、FRR/Zebra 标签池及 VPN 地址族状态。</p></li>
-<li><p>控制面正常但业务不通：核对内外层标签、VRF 路由、CE 路由及 MTU，并用实际
-CE 到 CE 流量验证。</p></li>
-</ol>
-</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../08-network-services/" class="btn btn-neutral float-left" title="DHCP 与 LLDP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../11-vxlan-evpn/" class="btn btn-neutral float-right" title="VXLAN EVPN" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../11-vxlan-evpn/" class="btn btn-neutral float-left" title="EVPN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ldp/" class="btn btn-neutral float-right" title="MPLS 与 LDP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

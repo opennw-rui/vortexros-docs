@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VRRP &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vrrp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="路由查询" href="../routing-query/" />
+    <link rel="prev" title="BFD" href="../bfd/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../05-dynamic-routing/">路由协议</a></li>
+      <li class="breadcrumb-item active">VRRP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vrrp">
+<h1>VRRP<a class="headerlink" href="#vrrp" title="链接到此标题。"></a></h1>
+<p>在多台设备之间提供冗余的 IPv4 或 IPv6 网关。</p>
+<p><a class="reference internal" href="../reference/vrrp/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/vrrp/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>VRRP用于让两台或多台设备共享一个网关地址。VRRP只能配置在真实的三层Ethernet、Eth-Trunk、子接口、Vlanif或Vbdif上；接口必须处于路由模式。</p>
+<section id="ipv4">
+<span id="ipv4完整示例"></span><h3>IPv4完整示例<a class="headerlink" href="#ipv4" title="链接到此标题。"></a></h3>
+<p>假设P1与P2都连接到VLAN 100，客户端使用 <code class="docutils literal notranslate"><span class="pre">10.100.0.254</span></code>作为默认网关。P1优先级120作为Master，P2保持默认优先级100作为Backup。</p>
+<p>P1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
+ ip address 10.100.0.1 255.255.255.0
+ vrrp vrid 10 version-3 send-packet-mode v3-only
+ vrrp vrid 10 virtual-ip 10.100.0.254
+ vrrp vrid 10 priority 120
+ vrrp vrid 10 timer advertise 1
+ vrrp vrid 10 track interface Vlanif 200 reduced 30
+</pre></div>
+</div>
+<p>P2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
+ ip address 10.100.0.2 255.255.255.0
+ vrrp vrid 10 version-3 send-packet-mode v3-only
+ vrrp vrid 10 virtual-ip 10.100.0.254
+ vrrp vrid 10 timer advertise 1
+</pre></div>
+</div>
+<p>IPv4必须先输入 <code class="docutils literal notranslate"><span class="pre">version-3</span> <span class="pre">send-packet-mode</span> <span class="pre">v3-only</span></code>，再配置虚拟IP或其他参数。默认优先级为100、通告间隔为1秒、抢占开启。P1的Vlanif200 down后，运行优先级降低30；若低于P2，P2接管虚拟网关。</p>
+<p>虚拟IP可以与接口自身地址相同。此时设备是该虚拟地址的地址拥有者，运行优先级自动为255；配置中仍保留用户输入的优先级，状态显示以运行优先级为准。</p>
+</section>
+<section id="ipv6">
+<span id="ipv6示例"></span><h3>IPv6示例<a class="headerlink" href="#ipv6" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
+ ipv6 address 2001:db8:100::1 64
+ vrrp6 vrid 20 virtual-ip 2001:db8:100::fe
+ vrrp6 vrid 20 priority 120
+ vrrp6 vrid 20 timer advertise 1
+</pre></div>
+</div>
+<p>IPv6组使用 <code class="docutils literal notranslate"><span class="pre">vrrp6</span></code>，无需单独输入IPv4的版本命令。</p>
+</section>
+<section id="id2">
+<span id="查看状态和效果"></span><h3>查看状态和效果<a class="headerlink" href="#id2" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vrrp brief
+display vrrp interface Vlanif 100
+display vrrp 10
+display vrrp statistics
+display vrrp6 brief
+</pre></div>
+</div>
+<p>brief输出示例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VRID  State   Interface  Type  Virtual IP      Priority  RunPri  Adv
+10    Master  Vlanif100  IPv4  10.100.0.254   120       120     1.00s
+</pre></div>
+</div>
+<p>详细输出会显示状态、版本、地址族、虚拟IP、配置优先级、运行优先级、虚拟MAC、通告间隔和抢占状态。配置已经提交但VRRP组尚未创建时，State显示 <code class="docutils literal notranslate"><span class="pre">Pending</span> <span class="pre">(not</span> <span class="pre">created</span> <span class="pre">in</span> <span class="pre">dataplane)</span></code>，应检查接口模式、地址和服务健康状态。</p>
+<p>数据面遵循VRRPv3规范：IPv4通告校验和只覆盖VRRP消息，IPv6通告使用IPv6伪首部；Master收到优先级低于或等于本机的通告时会立即发送一次自身通告，并继续保持Master状态。此行为可缩短错误Master出现后的收敛时间，不需要额外CLI配置。</p>
+<p>业务验证应包括：客户端持续ping虚拟IP和外部地址；关闭Master的上联或被跟踪接口；确认Backup接管、ARP/ND更新且业务恢复；再恢复接口并观察抢占行为。</p>
+</section>
+<section id="id3">
+<span id="修改和删除"></span><h3>修改和删除<a class="headerlink" href="#id3" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
+ undo vrrp vrid 10 track interface Vlanif 200
+ undo vrrp vrid 10 priority
+ undo vrrp vrid 10 timer advertise
+ undo vrrp vrid 10 virtual-ip 10.100.0.254
+ undo vrrp vrid 10
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">priority</span></code>恢复100，<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timer</span> <span class="pre">advertise</span></code>恢复1秒，<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">preempt-mode</span></code>恢复抢占。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vrrp</span> <span class="pre">vrid</span> <span class="pre">10</span></code>删除整个IPv4组；IPv6使用对应的 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vrrp6</span> <span class="pre">vrid</span> <span class="pre">20</span> <span class="pre">...</span></code>。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../bfd/" class="btn btn-neutral float-left" title="BFD" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../routing-query/" class="btn btn-neutral float-right" title="路由查询" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

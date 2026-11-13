@@ -1,5 +1,6 @@
-# MPLS LDP 与 L3VPN
+# MPLS 与 LDP
 
+[配置指南](../ldp.md)
 
 ## `display mpls forwarding-table`
 

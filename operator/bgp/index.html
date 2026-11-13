@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BGP &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bgp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="IS-IS" href="../isis/" />
+    <link rel="prev" title="OSPFv3" href="../ospfv3/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../05-dynamic-routing/">路由协议</a></li>
+      <li class="breadcrumb-item active">BGP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bgp">
+<h1>BGP<a class="headerlink" href="#bgp" title="链接到此标题。"></a></h1>
+<p>使用邻居和地址族控制前缀交换。</p>
+<p><a class="reference internal" href="../reference/bgp/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/bgp/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>全系统只允许一个主BGP AS。再次输入相同AS会进入现有视图；输入不同AS会报错且不会修改配置。AS 65535不可使用。</p>
+<section id="ipv4">
+<span id="建立ipv4邻居"></span><h3>建立IPv4邻居<a class="headerlink" href="#ipv4" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ router-id 10.0.0.1
+ peer 10.0.0.2 as-number 64513
+ peer 10.0.0.2 description EBGP-P2
+ peer 10.0.0.2 connect-interface LoopBack 0
+ peer 10.0.0.2 route-policy RP-IN import
+ ipv4-family unicast
+  network 10.10.0.0 255.255.0.0
+</pre></div>
+</div>
+<p>常用会话、GTSM、GR、RR和多路径控制均进入Canonical配置，而不是直接透传FRR：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ timer keepalive 10 hold 30
+ graceful-restart enable
+ graceful-restart timer restart 90
+ graceful-restart timer wait-for-rib 300
+ reflector cluster-id 10.0.0.1
+ load-balancing as-path-ignore
+ peer 192.0.2.2 valid-ttl-hops 2
+ peer 192.0.2.2 timer keepalive 5 hold 15
+ peer 192.0.2.2 timer connect-retry 10
+ peer 192.0.2.2 graceful-restart helper-only
+ ipv4-family unicast
+  maximum load-balancing ebgp 8
+  maximum load-balancing ibgp 4
+  import-route static route-policy REDIST cost 100
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">valid-ttl-hops</span></code>与<code class="docutils literal notranslate"><span class="pre">ebgp-max-hop</span></code>互斥，系统在进入Candidate前拒绝同时配置。全局和邻居keepalive/hold必须成对配置；除显式<code class="docutils literal notranslate"><span class="pre">0/0</span></code>外，hold不能小于keepalive的三倍。显式<code class="docutils literal notranslate"><span class="pre">0/0</span></code>和<code class="docutils literal notranslate"><span class="pre">graceful-restart</span> <span class="pre">timer</span> <span class="pre">restart</span> <span class="pre">0</span></code>会原样保存并下发，与<code class="docutils literal notranslate"><span class="pre">undo</span></code>恢复默认值的语义不同。scoped GR、RR和ECMP命令都支持精确<code class="docutils literal notranslate"><span class="pre">undo</span></code>和保存恢复。</p>
+<p>提交后，设备使用指定源接口连接邻居，对收到的路由应用 <code class="docutils literal notranslate"><span class="pre">RP-IN</span></code>，并在本地路由表存在相同前缀时发布network。输入 <code class="docutils literal notranslate"><span class="pre">lo0</span></code> 等合法缩写时，配置会显示为设备中的规范接口名。</p>
+</section>
+<section id="tcp-md5">
+<span id="邻居组与tcp-md5认证"></span><h3>邻居组与TCP MD5认证<a class="headerlink" href="#tcp-md5" title="链接到此标题。"></a></h3>
+<p>具有相同属性的邻居可以加入同一个邻居组。内部组继承本地AS；外部组必须先指定对端AS，再加入成员：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ group IBGP-RR internal
+ peer IBGP-RR password simple Lab-Password-01
+ peer IBGP-RR connect-interface LoopBack 0
+ peer 10.0.0.2 group IBGP-RR
+ peer 10.0.0.3 group IBGP-RR
+ group TRANSIT external
+ peer TRANSIT as-number 64513
+ peer TRANSIT password simple Transit-Password-01
+ peer 192.0.2.2 group TRANSIT
+ ipv4-family unicast
+  peer IBGP-RR reflect-client
+  peer TRANSIT route-policy RP-IN import
+</pre></div>
+</div>
+<p>命令关键字不区分大小写，邻居组名称按输入原样保存并区分大小写；<code class="docutils literal notranslate"><span class="pre">TRANSIT</span></code>与<code class="docutils literal notranslate"><span class="pre">transit</span></code>是两个不同对象。成员继承组的AS、认证、源接口及地址族策略。邻居可以用<code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">password</span> <span class="pre">simple</span> <span class="pre">PASSWORD</span></code>设置自己的认证密码，以覆盖组密码。已经加入邻居组的成员不能再单独配置AS；需要改变归属时，应先执行<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span> <span class="pre">ADDRESS</span></code>，再重新创建。</p>
+<p>BFD按字段继承。组上启用BFD并配置计时器后，成员默认继承；成员只配置一个计时字段时，仅该字段覆盖组值，其余字段继续继承。<code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">bfd</span> <span class="pre">disable</span></code>用于明确关闭该成员从组继承的BFD，<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">bfd</span> <span class="pre">disable</span></code>恢复继承；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">bfd</span> <span class="pre">enable</span></code>同样删除成员级开关。存在显式关闭的成员时，系统会把组的有效BFD配置逐一投影到其余成员，避免后端重新继承组BFD而使关闭失效。运行态、BFD会话归属和FRR profile使用同一套有效值。</p>
+<p>密码认证使用BGP TCP MD5。当前只提供<code class="docutils literal notranslate"><span class="pre">simple</span></code>形式，密码以明文进入配置并按明文下发到FRR，<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span></code>也会显示原值；应限制配置文件、命令输出和运维会话的访问权限。密码长度为1至80个不含空格的可打印字符，不支持<code class="docutils literal notranslate"><span class="pre">cipher</span></code>输入形式。</p>
+<p>邻居组不能在仍有成员引用时删除。可按以下顺序撤销：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ undo peer 192.0.2.2
+ undo peer TRANSIT password
+ undo group TRANSIT
+commit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">group</span></code>用于查看后端邻居组状态；<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span> <span class="pre">configuration</span> <span class="pre">bgp</span></code>用于核对设备配置。密码只应通过配置查看，不会作为普通BGP会话状态字段输出。</p>
+</section>
+<section id="vrpas">
+<span id="vrp邻居as与入站路由属性"></span><h3>VRP邻居AS与入站路由属性<a class="headerlink" href="#vrpas" title="链接到此标题。"></a></h3>
+<p>VortexROS只开放能够用VRP语义完整映射到当前FRR 10.7.1后端、并可保存和撤销的命令，不直接暴露FRR的<code class="docutils literal notranslate"><span class="pre">neighbor</span></code>语法。外部邻居可以使用伪本地AS：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ peer 192.0.2.2 as-number 64513
+ peer 192.0.2.2 fake-as 64514 dual-as
+ ipv4-family unicast
+  peer 192.0.2.2 substitute-as
+  peer 192.0.2.2 preferred-value 200
+  peer 192.0.2.2 keep-all-routes
+</pre></div>
+</div>
+<p>这些命令也可配置在外部邻居组上，成员继承组值。<code class="docutils literal notranslate"><span class="pre">fake-as</span></code>只适用于EBGP邻居；伪AS不能等于全局AS。<code class="docutils literal notranslate"><span class="pre">dual-as</span></code>允许对端使用全局AS或伪AS建立会话；<code class="docutils literal notranslate"><span class="pre">prepend-global-as</span></code>在发出的AS_PATH中同时保留全局AS。FRR 10.7.1不能精确表达<code class="docutils literal notranslate"><span class="pre">dual-as</span></code>和<code class="docutils literal notranslate"><span class="pre">prepend-global-as</span></code>同时启用的VRP行为，因此该组合会在提交前明确拒绝，不会静默改变含义。</p>
+<p>地址族命令的含义如下：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">substitute-as</span></code>把发往EBGP邻居的路径中与对端AS相同的AS替换为本地AS；后端使用<code class="docutils literal notranslate"><span class="pre">as-override</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preferred-value</span></code>设置本机选择从该邻居收到的路由时使用的优先值；后端使用本地<code class="docutils literal notranslate"><span class="pre">weight</span></code>，不会向其他设备传播。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keep-all-routes</span></code>保留被入方向策略拒绝的原始更新，供策略变更后重新计算；后端使用入方向软重配置。</p></li>
+</ul>
+<p>精确撤销示例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ undo peer 192.0.2.2 fake-as
+ ipv4-family unicast
+  undo peer 192.0.2.2 substitute-as
+  undo peer 192.0.2.2 preferred-value
+  undo peer 192.0.2.2 keep-all-routes
+</pre></div>
+</div>
+<p>本次命令覆盖审计见<a class="reference internal" href="../reference/commands/"><span class="std std-doc">《BGP命令覆盖与后端映射》</span></a>。FRR支持但VRP没有等价公开语义、或者尚未具备Candidate、撤销、持久化与权威回读闭环的命令不会仅因后端存在而自动开放。</p>
+</section>
+<section id="vpnipv6">
+<span id="vpn与ipv6地址族"></span><h3>VPN与IPv6地址族<a class="headerlink" href="#vpnipv6" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ ipv4-family vpn-instance BLUE
+  import-route direct
+ ipv6-family vpn-instance BLUE
+</pre></div>
+</div>
+<p>VPN地址族使用VPN实例下配置的RD和全部RT。进入VPN-instance地址族后，设备按缺省语义向FRR下发自动导出标签，不在公开配置中显示后端的<code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">vpn</span> <span class="pre">export</span> <span class="pre">auto</span></code>。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default</span> <span class="pre">ipv4-unicast</span></code>用于取消自动启用新IPv4邻居；此后需要在IPv4 unicast地址族中显式启用邻居。</p>
+<p>全局VPNv4/VPNv6传输地址族缺省启用VPN-Target过滤，缺省配置不显示。RR或Inter-AS Option B需要保留所有VPN路由时使用：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ ipv4-family vpnv4
+  undo policy vpn-target
+ ipv6-family vpnv6
+  undo policy vpn-target
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code>恢复缺省过滤行为。FRR后端分别使用<code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">bgp</span> <span class="pre">retain</span> <span class="pre">route-target</span> <span class="pre">all</span></code>和<code class="docutils literal notranslate"><span class="pre">bgp</span> <span class="pre">retain</span> <span class="pre">route-target</span> <span class="pre">all</span></code>表达这两个状态。</p>
+<p>6PE使用IPv4邻居承载全局IPv6标签路由：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ peer 10.0.0.2 as-number 64512
+ peer 10.0.0.2 connect-interface LoopBack0
+ ipv6-family unicast
+  peer 10.0.0.2 enable
+  peer 10.0.0.2 label-route-capability
+</pre></div>
+</div>
+<p>设备使用FRR原生IPv6 labeled-unicast地址族，路由仍经Zebra、Linux netlink和LCP进入VPP。</p>
+<p>VortexROS对外只有一个BGP进程。VPN地址族未单独配置<code class="docutils literal notranslate"><span class="pre">router-id</span></code>时继承BGP视图的全局Router-ID；只有在对应VPN地址族中显式配置时才覆盖该值。全局Router-ID修改会同步更新后端VPN实例，并在同一事务恢复IPv4/IPv6的RD/RT投影，防止后端自动身份刷新改变已配置的VPN目标。</p>
+<p>IPv4与IPv6邻居只能在对应的unicast地址族视图下修改。引用了IPv4 <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">ip-prefix</span></code>的route-policy不能挂载到IPv6邻居、IPv6 network或IPv6 <code class="docutils literal notranslate"><span class="pre">import-route</span></code>；IPv6地址族应使用<code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">ipv6-prefix</span></code>和<code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">prefix-list</span></code>。IPv6地址族使用<code class="docutils literal notranslate"><span class="pre">import-route</span> <span class="pre">ospfv3</span></code>，由系统映射到后端OSPFv3路由类型。</p>
+<p>地址族中可以生成聚合路由：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ ipv4-family unicast
+  aggregate 10.0.0.0 255.0.0.0 detail-suppressed
+ ipv6-family unicast
+  aggregate 2001:db8:: 32 as-set detail-suppressed
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">detail-suppressed</span></code>只发布聚合路由；<code class="docutils literal notranslate"><span class="pre">as-set</span></code>保留组成路由的AS信息。显式使用<code class="docutils literal notranslate"><span class="pre">as-set</span></code>时，系统会同步调整该BGP实例的后端AS_SET接收模式，使配置不会被FRR静默忽略。两项均未配置时，聚合路由与组成路由同时发布。</p>
+</section>
+<section id="id2">
+<span id="验证与撤销"></span><h3>验证与撤销<a class="headerlink" href="#id2" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp peer
+display bgp peer 10.0.0.2 verbose
+display bgp vpnv4 vpn-instance BLUE peer 10.0.0.2 verbose
+display bgp vpnv4 vpn-instance BLUE peer 10.0.0.2 log-info
+display bgp vpnv6 all peer verbose
+display bgp routing-table
+display bgp routing-table peer 10.0.0.2 received-routes
+display bgp vpnv4 vpn-instance BLUE routing-table
+display bgp vpnv4 vpn-instance BLUE routing-table statistics
+display bgp tcp-protection verbose
+</pre></div>
+</div>
+<p>动态路由的 <code class="docutils literal notranslate"><span class="pre">display</span></code> 输出由 VortexROS 统一排版，不透出 FRR 的原始标题、内部实例号或内存地址。BGP 全表、VPN 路由表、邻居收发路由及 AS Path 列表，OSPF/OSPFv3 路由与 LSDB，以及 IS-IS 路由与 LSDB，均直接读取对应协议 daemon 的 VTY 数据并逐项输出，首批记录不需要等待完整表进入内存；总数位于表尾。BGP 路由表的 <code class="docutils literal notranslate"><span class="pre">Path/Ogn</span></code> 与 AS Path 列表统一使用十进制 AS 号。<code class="docutils literal notranslate"><span class="pre">routing-table</span> <span class="pre">statistics</span></code> 显示后端统计的前缀、通告和重分发数量。BGP 邻居明细和 <code class="docutils literal notranslate"><span class="pre">log-info</span></code> 从对应地址族的 FRR 会话查询逐个解码邻居，<code class="docutils literal notranslate"><span class="pre">all</span></code> 查询按 VPN 实例标出结果。<code class="docutils literal notranslate"><span class="pre">log-info</span></code> 显示当前会话状态、可用的建立时间及 FRR 保留的最近重置和 Notification 原因。邻居摘要、接口和其他有界状态读取一次后端快照并按固定字段排版。</p>
+<p>默认TCP保护只接受已经配置的BGP邻居源地址。需要关闭时：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ undo default tcp-protected
+</pre></div>
+</div>
+<p>精确删除邻居或单项参数：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ undo peer 10.0.0.2 route-policy RP-IN import
+ undo peer 10.0.0.2 description
+ undo peer 10.0.0.2
+undo bgp 64512
+commit
+</pre></div>
+</div>
+</section>
+</section>
+<section id="add-path">
+<span id="更新组和-add-path"></span><h2>更新组和 Add-Path<a class="headerlink" href="#add-path" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">update-peer-group</span> <span class="pre">statistics</span></code> 显示 BGP 更新组计数。
+在单播地址族视图配置 <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">&lt;邻居或组&gt;</span> <span class="pre">add-path</span> <span class="pre">send</span> <span class="pre">2</span></code> 后，除最佳路径外最多再通告两条路径。
+对端需要协商 Add-Path 接收能力。用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span> <span class="pre">&lt;邻居或组&gt;</span> <span class="pre">add-path</span></code> 恢复默认通告。撤销或修改已有的通告条数时，受影响的邻居或组成员会重新建立会话。
+变更能力可能触发会话重新协商。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../ospfv3/" class="btn btn-neutral float-left" title="OSPFv3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../isis/" class="btn btn-neutral float-right" title="IS-IS" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

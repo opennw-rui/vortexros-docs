@@ -1,0 +1,563 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数据面 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/dataplane/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="链路聚合" href="../link-aggregation/" />
+    <link rel="prev" title="Ethernet 与接口" href="../interfaces/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">数据面</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="数据面"></span><h1>数据面<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../dataplane/"><span class="std std-doc">配置指南</span></a></p>
+<p>共用命令：<a class="reference internal" href="../interfaces/#cmd-mode"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">mode</span></code></span></a>、<a class="reference internal" href="../interfaces/#cmd-hardware-offload"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">hardware</span> <span class="pre">offload</span></code></span></a>。</p>
+<section id="cpu-isolation-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">cpu</span> <span class="pre">isolation</span> <span class="pre">enable</span></code><a class="headerlink" href="#cpu-isolation-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Isolate VPP CPUs at Linux boot</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cpu isolation enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="cpu-main-core">
+<h2><code class="docutils literal notranslate"><span class="pre">cpu</span> <span class="pre">main-core</span></code><a class="headerlink" href="#cpu-main-core" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Pin the VPP main thread</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cpu main-core NUMBER
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="cpu-worker-cores">
+<h2><code class="docutils literal notranslate"><span class="pre">cpu</span> <span class="pre">worker-cores</span></code><a class="headerlink" href="#cpu-worker-cores" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Pin VPP worker threads</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cpu worker-cores CPU-LIST
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dataplane">
+<h2><code class="docutils literal notranslate"><span class="pre">dataplane</span></code><a class="headerlink" href="#dataplane" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：Configure dataplane startup</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="descriptors">
+<h2><code class="docutils literal notranslate"><span class="pre">descriptors</span></code><a class="headerlink" href="#descriptors" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane-if</span></code></p></li>
+<li><p>用途（设备帮助）：Set RX and TX descriptors</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>descriptors rx COUNT tx COUNT
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="device">
+<h2><code class="docutils literal notranslate"><span class="pre">device</span></code><a class="headerlink" href="#device" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Assign a physical PCI port to an Ethernet interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>device PCI-BDF name Ethernet NUMBER
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-dataplane">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span></code><a class="headerlink" href="#display-dataplane" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：Display active dataplane resources</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dataplane [verbose|interfaces|cpu|memory|iommu|tables]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-vpp-api-compatibility">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vpp</span> <span class="pre">api</span> <span class="pre">compatibility</span></code><a class="headerlink" href="#display-vpp-api-compatibility" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display VPP binary API compatibility</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vpp api compatibility [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-vpp-takeover-transaction">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vpp</span> <span class="pre">takeover</span> <span class="pre">transaction</span></code><a class="headerlink" href="#display-vpp-takeover-transaction" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display the current or most recent VPP takeover transaction</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vpp takeover transaction
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="iommu-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">iommu</span> <span class="pre">enable</span></code><a class="headerlink" href="#iommu-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Enable IOMMU at Linux boot</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>iommu enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="mac-address-learn-limit">
+<h2><code class="docutils literal notranslate"><span class="pre">mac-address</span> <span class="pre">learn-limit</span></code><a class="headerlink" href="#mac-address-learn-limit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Set the VPP global dynamic MAC learning limit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mac-address learn-limit INTEGER&lt;1-2147483647&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="memory-hugepages">
+<h2><code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">hugepages</span></code><a class="headerlink" href="#memory-hugepages" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Reserve huge pages at boot</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>memory hugepages size { 2M | 1G } count NUMBER
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="neighbor-ipv4-limit">
+<h2><code class="docutils literal notranslate"><span class="pre">neighbor</span> <span class="pre">ipv4</span> <span class="pre">limit</span></code><a class="headerlink" href="#neighbor-ipv4-limit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Set the Linux and VPP IPv4 neighbor limit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>neighbor ipv4 limit INTEGER&lt;4-2147483647&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="neighbor-ipv6-limit">
+<h2><code class="docutils literal notranslate"><span class="pre">neighbor</span> <span class="pre">ipv6</span> <span class="pre">limit</span></code><a class="headerlink" href="#neighbor-ipv6-limit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Set the Linux and VPP IPv6 neighbor limit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>neighbor ipv6 limit INTEGER&lt;4-2147483647&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="queues">
+<h2><code class="docutils literal notranslate"><span class="pre">queues</span></code><a class="headerlink" href="#queues" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane-if</span></code></p></li>
+<li><p>用途（设备帮助）：Set RX and TX queues</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>queues rx COUNT tx COUNT
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="reset-dataplane">
+<h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code><a class="headerlink" href="#reset-dataplane" title="链接到此标题。"></a></h2>
+<p>应用需重启的数据面配置。VPP 和选中网卡的驱动归属可能变化，须安排业务窗口并保留管理通道。</p>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：Activate saved dataplane settings</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset dataplane
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-cpu-isolation-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">cpu</span> <span class="pre">isolation</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-cpu-isolation-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Remove this dataplane setting</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo cpu isolation enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-cpu-main-core">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">cpu</span> <span class="pre">main-core</span></code><a class="headerlink" href="#undo-cpu-main-core" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Remove this dataplane setting</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo cpu main-core
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-cpu-worker-cores">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">cpu</span> <span class="pre">worker-cores</span></code><a class="headerlink" href="#undo-cpu-worker-cores" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Remove this dataplane setting</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo cpu worker-cores
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-descriptors">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">descriptors</span></code><a class="headerlink" href="#undo-descriptors" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane-if</span></code></p></li>
+<li><p>用途（设备帮助）：Restore default descriptors</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo descriptors
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-device">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">device</span></code><a class="headerlink" href="#undo-device" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Remove a PCI port assignment</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo device PCI-BDF
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-iommu-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">iommu</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-iommu-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Remove this dataplane setting</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo iommu enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-mac-address-learn-limit">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mac-address</span> <span class="pre">learn-limit</span></code><a class="headerlink" href="#undo-mac-address-learn-limit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Restore the default table limit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo mac-address learn-limit
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-memory-hugepages">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">memory</span> <span class="pre">hugepages</span></code><a class="headerlink" href="#undo-memory-hugepages" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Remove this dataplane setting</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo memory hugepages
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-neighbor-ipv4-limit">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">neighbor</span> <span class="pre">ipv4</span> <span class="pre">limit</span></code><a class="headerlink" href="#undo-neighbor-ipv4-limit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Restore the default table limit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo neighbor ipv4 limit
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-neighbor-ipv6-limit">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">neighbor</span> <span class="pre">ipv6</span> <span class="pre">limit</span></code><a class="headerlink" href="#undo-neighbor-ipv6-limit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></li>
+<li><p>用途（设备帮助）：Restore the default table limit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo neighbor ipv6 limit
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-queues">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">queues</span></code><a class="headerlink" href="#undo-queues" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">dataplane-if</span></code></p></li>
+<li><p>用途（设备帮助）：Restore default queues</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo queues
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-vpp-startup-config">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vpp</span> <span class="pre">startup-config</span></code><a class="headerlink" href="#undo-vpp-startup-config" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore default VPP startup configuration path</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo vpp startup-config
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="vpp-startup-config">
+<h2><code class="docutils literal notranslate"><span class="pre">vpp</span> <span class="pre">startup-config</span></code><a class="headerlink" href="#vpp-startup-config" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：VPP process startup configuration file (-c)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vpp startup-config PATH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../interfaces/" class="btn btn-neutral float-left" title="Ethernet 与接口" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../link-aggregation/" class="btn btn-neutral float-right" title="链路聚合" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

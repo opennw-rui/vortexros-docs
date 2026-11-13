@@ -1,5 +1,6 @@
-# CLI、Candidate 与配置管理
+# CLI
 
+[配置指南](../01-cli.md)
 
 ## `commit`
 

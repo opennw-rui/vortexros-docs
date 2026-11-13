@@ -1,14 +1,44 @@
 # 配置案例
 
-这些案例使用独立实验接口和示例地址。选择与实际目标相同的案例，按页面中的前提、配置、验证、撤销顺序操作。业务环境请替换示例值，并先核对已有配置。
+每个案例说明前提、配置影响、验收和撤销。示例默认使用独立实验接口与示例地址；请先核对现有配置和管理路径。
 
 ~~~{toctree}
 :maxdepth: 1
+:caption: 接口与交换
+
+vlan-gateway
+lacp
+~~~
+
+~~~{toctree}
+:maxdepth: 1
+:caption: 路由与可靠性
 
 static-route
-vlan-gateway
+route-group
 ospf
 bgp
-dhcp
+bgp-policy
+isis
+bfd
+vrrp
+~~~
+
+~~~{toctree}
+:maxdepth: 1
+:caption: 策略与服务
+
 acl
+nat-pat
+qos
+dhcp
+lldp
+~~~
+
+~~~{toctree}
+:maxdepth: 1
+:caption: 隧道与 IPv6
+
+gre
+ipv6-ra
 ~~~

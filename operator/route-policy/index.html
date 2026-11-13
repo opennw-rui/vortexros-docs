@@ -1,0 +1,201 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>路由策略 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/route-policy/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="OSPF" href="../ospf/" />
+    <link rel="prev" title="前缀列表" href="../prefix-lists/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../05-dynamic-routing/">路由协议</a></li>
+      <li class="breadcrumb-item active">路由策略</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="路由策略"></span><h1>路由策略<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>允许、拒绝或修改协议接收或发布的路由。</p>
+<p><a class="reference internal" href="../reference/route-policy/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/bgp-policy/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id2">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>前缀列表负责匹配路由，路由策略决定允许、拒绝或修改匹配的路由。下面的策略只允许 <code class="docutils literal notranslate"><span class="pre">10.0.0.0/8</span></code> 中掩码长度为16至24的前缀，并把BGP本地优先级设为200：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip ip-prefix PL-IN index 10 permit 10.0.0.0 8 greater-equal 16 less-equal 24
+route-policy RP-IN permit node 10
+ if-match ip-prefix PL-IN
+ apply local-preference 200
+</pre></div>
+</div>
+<p>配置完成后，输入 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">ip-prefix</span> <span class="pre">?</span></code>、<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-policy</span> <span class="pre">?</span></code> 或在协议中输入 <code class="docutils literal notranslate"><span class="pre">route-policy</span> <span class="pre">?</span></code>，会同时显示参数说明和已经存在的对象名称。</p>
+<p>可用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">ip-prefix</span> <span class="pre">&lt;名称&gt;</span> <span class="pre">verbose</span></code>、<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">ipv6-prefix</span> <span class="pre">&lt;名称&gt;</span> <span class="pre">verbose</span></code>
+查看 BGP 后端中的前缀规则与命中计数。用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-policy</span> <span class="pre">&lt;名称&gt;</span> <span class="pre">verbose</span></code> 查看
+BGP 后端的策略节点和调用次数。
+在前缀列表名称后使用 <code class="docutils literal notranslate"><span class="pre">first-match</span> <span class="pre">&lt;CIDR&gt;</span></code>，可按规则顺序查看第一个匹配项。
+IPv4 和 IPv6 分别使用各自的显示命令。</p>
+<p>命令关键字不区分大小写；用户定义的对象名按输入原样保存并区分大小写。例如<code class="docutils literal notranslate"><span class="pre">RP-IN</span></code>和<code class="docutils literal notranslate"><span class="pre">rp-in</span></code>是两个不同策略，引用时必须使用定义时的大小写。同一个route-policy节点只能有一个IPv4前缀列表条件和一个IPv6前缀列表条件；再次输入同地址族的<code class="docutils literal notranslate"><span class="pre">if-match</span></code>会替换原条件。需要匹配多个前缀时，应在同一个前缀列表中增加多条规则，或者使用不同的策略节点。</p>
+<p>IPv6前缀列表和策略条件使用独立命令：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip ipv6-prefix V6-IN index 10 permit 2001:db8:: 32 greater-equal 48 less-equal 64
+route-policy V6-POLICY permit node 10
+ if-match ipv6 address prefix-list V6-IN
+</pre></div>
+</div>
+<p>可使用<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">prefix</span> <span class="pre">V6-IN</span></code>验证IPv6列表。IPv4与IPv6列表可以同名，但引用命令明确区分地址族；旧入口<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">ipv6-prefix</span></code>仍保留，便于已有运维脚本继续使用。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip ip-prefix PL-IN
+display route-policy RP-IN
+display current-configuration | include PL-IN
+</pre></div>
+</div>
+<p>删除前应先解除协议中的引用：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo route-policy RP-IN permit node 10
+undo ip ip-prefix PL-IN
+</pre></div>
+</div>
+<p>策略节点还可匹配路由tag、cost和来源协议，并设置tag、origin、IPv4/IPv6下一跳、AS_PATH、标准community和large-community。<code class="docutils literal notranslate"><span class="pre">continue</span> <span class="pre">node</span></code>只允许跳到同一策略中已经存在的更大节点号：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-policy REDIST permit node 10
+ if-match protocol static
+ if-match tag 100
+ apply tag 200
+ apply cost 30
+ apply origin igp
+ apply community 65000:100 no-export additive
+ apply large-community 65000:1:100 additive
+ continue node 20
+quit
+route-policy REDIST permit node 20
+</pre></div>
+</div>
+<p>这些动作按实际使用的协议能力解释；例如BGP community只影响BGP属性。配置链在提交前校验引用和地址族，IPv4协议引入不能引用含IPv6 prefix-list条件的策略，反之亦然。<code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">protocol</span></code>可用于BGP引入；当前OSPF/OSPFv3后端不能在对应消费者中执行该条件，因此OSPF引入引用这类策略时会在提交前明确拒绝，不能静默退化为无条件许可。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../prefix-lists/" class="btn btn-neutral float-left" title="前缀列表" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ospf/" class="btn btn-neutral float-right" title="OSPF" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>路由策略 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/route-policy/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="OSPF" href="../ospf/" />
+    <link rel="prev" title="前缀列表" href="../prefix-lists/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">路由策略</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="路由策略"></span><h1>路由策略<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../route-policy/"><span class="std std-doc">配置指南</span></a></p>
+<section id="apply-as-path">
+<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">as-path</span></code><a class="headerlink" href="#apply-as-path" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：prepend AS numbers to the BGP AS path</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply as-path ASNUM [ASNUM ...]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="apply-community">
+<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">community</span></code><a class="headerlink" href="#apply-community" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set BGP community values</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply community VALUE [VALUE ...] [additive]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="apply-cost">
+<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">cost</span></code><a class="headerlink" href="#apply-cost" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set route metric</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply cost VALUE
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="apply-ip-address-next-hop">
+<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">ip-address</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#apply-ip-address-next-hop" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set an IPv4 next hop</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply ip-address next-hop X.X.X.X
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="apply-ipv6-next-hop">
+<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">ipv6</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#apply-ipv6-next-hop" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set an IPv6 next hop</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply ipv6 next-hop X:X::X
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="apply-large-community">
+<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">large-community</span></code><a class="headerlink" href="#apply-large-community" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set BGP large-community values</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply large-community VALUE [VALUE ...] [additive]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="apply-local-preference">
+<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">local-preference</span></code><a class="headerlink" href="#apply-local-preference" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set local preference</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply local-preference VALUE
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="apply-origin">
+<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">origin</span></code><a class="headerlink" href="#apply-origin" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the BGP origin attribute</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply origin {igp|egp|incomplete}
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="apply-tag">
+<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">tag</span></code><a class="headerlink" href="#apply-tag" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set route tag</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply tag INTEGER&lt;0-4294967295&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="continue-node">
+<h2><code class="docutils literal notranslate"><span class="pre">continue</span> <span class="pre">node</span></code><a class="headerlink" href="#continue-node" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：continue evaluation at a later route-policy node</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>continue node INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-route-policy">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-policy</span></code><a class="headerlink" href="#display-route-policy" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display route policies</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display route-policy [NAME [verbose]]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="if-match-cost">
+<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">cost</span></code><a class="headerlink" href="#if-match-cost" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set route metric</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match cost INTEGER&lt;0-4294967295&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="if-match-ip-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#if-match-ip-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：match an IP prefix list</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match ip-prefix NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="if-match-ipv6-address-prefix-list">
+<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">prefix-list</span></code><a class="headerlink" href="#if-match-ipv6-address-prefix-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：match an IPv6 prefix list</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match ipv6 address prefix-list NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="if-match-protocol">
+<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">protocol</span></code><a class="headerlink" href="#if-match-protocol" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：match the route source protocol</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match protocol {direct|static|ospf|ospfv3|isis|rip|ripng|bgp}
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="if-match-tag">
+<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">tag</span></code><a class="headerlink" href="#if-match-tag" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set route tag</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match tag INTEGER&lt;0-4294967295&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="route-policy">
+<h2><code class="docutils literal notranslate"><span class="pre">route-policy</span></code><a class="headerlink" href="#route-policy" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create a route policy node and enter its view</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-policy NAME {permit|deny} node INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-apply-as-path">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">as-path</span></code><a class="headerlink" href="#undo-apply-as-path" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the AS-path prepend action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply as-path
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-apply-community">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">community</span></code><a class="headerlink" href="#undo-apply-community" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the BGP community action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply community
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-apply-cost">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">cost</span></code><a class="headerlink" href="#undo-apply-cost" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore default route metric</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply cost
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-apply-ip-address-next-hop">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">ip-address</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#undo-apply-ip-address-next-hop" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the IPv4 next-hop action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply ip-address next-hop
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-apply-ipv6-next-hop">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">ipv6</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#undo-apply-ipv6-next-hop" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the IPv6 next-hop action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply ipv6 next-hop
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-apply-large-community">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">large-community</span></code><a class="headerlink" href="#undo-apply-large-community" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the BGP large-community action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply large-community
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-apply-local-preference">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">local-preference</span></code><a class="headerlink" href="#undo-apply-local-preference" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore default local preference</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply local-preference
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-apply-origin">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">origin</span></code><a class="headerlink" href="#undo-apply-origin" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the BGP origin action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply origin
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-apply-tag">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">tag</span></code><a class="headerlink" href="#undo-apply-tag" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove route tag</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply tag
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-continue">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">continue</span></code><a class="headerlink" href="#undo-continue" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：stop evaluation after this route-policy node</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo continue
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-if-match-cost">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">cost</span></code><a class="headerlink" href="#undo-if-match-cost" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove route metric</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match cost
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-if-match-ip-prefix">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#undo-if-match-ip-prefix" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an IP prefix match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match ip-prefix NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-if-match-ipv6-address-prefix-list">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">prefix-list</span></code><a class="headerlink" href="#undo-if-match-ipv6-address-prefix-list" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an IPv6 prefix match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match ipv6 address prefix-list NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-if-match-protocol">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">protocol</span></code><a class="headerlink" href="#undo-if-match-protocol" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the route source protocol match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match protocol
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-if-match-tag">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">tag</span></code><a class="headerlink" href="#undo-if-match-tag" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove route tag</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match tag
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-route-policy">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route-policy</span></code><a class="headerlink" href="#undo-route-policy" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a route policy</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo route-policy NAME [permit|deny node INTEGER&lt;1-65535&gt;]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../prefix-lists/" class="btn btn-neutral float-left" title="前缀列表" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ospf/" class="btn btn-neutral float-right" title="OSPF" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

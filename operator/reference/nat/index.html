@@ -1,0 +1,1044 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAT &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/nat/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="QoS" href="../qos/" />
+    <link rel="prev" title="ACL" href="../acl/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">NAT</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nat">
+<h1>NAT<a class="headerlink" href="#nat" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../nat/"><span class="std std-doc">配置指南</span></a></p>
+<p>共用命令：<a class="reference internal" href="../policy/#cmd-rule"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">rule</span></code></span></a>、<a class="reference internal" href="../policy/#cmd-undo-rule"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">rule</span></code></span></a>、<a class="reference internal" href="../policy/#cmd-apply-config"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">config</span></code></span></a>。</p>
+<section id="action-dnat">
+<h2><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">dnat</span></code><a class="headerlink" href="#action-dnat" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：set DNAT action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>action dnat IP [port PORT]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="action-no-nat">
+<h2><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">no-nat</span></code><a class="headerlink" href="#action-no-nat" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：permit matching flows without translation</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>action no-nat
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="action-snat">
+<h2><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">snat</span></code><a class="headerlink" href="#action-snat" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：set SNAT action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>action snat { pat | no-pat } { interface | address-pool NAME }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="action-static-nat">
+<h2><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">static-nat</span></code><a class="headerlink" href="#action-static-nat" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：set static prefix translation</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>action static-nat PREFIX
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="action-twice-nat">
+<h2><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">twice-nat</span></code><a class="headerlink" href="#action-twice-nat" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：translate both source and destination</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>action twice-nat source IP [port PORT] destination IP [port PORT]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="address">
+<h2><code class="docutils literal notranslate"><span class="pre">address</span></code><a class="headerlink" href="#address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT地址池视图</span></code>、<code class="docutils literal notranslate"><span class="pre">NAT地址集视图</span></code></p></li>
+<li><p>用途（设备帮助）：add an IPv4 prefix to this NAT address-pool；add an IPv4 prefix to this NAT address-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>address { IP | IP/LEN | IP MASK }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="clear-nat-policy-counters">
+<h2><code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">nat-policy</span> <span class="pre">counters</span></code><a class="headerlink" href="#clear-nat-policy-counters" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear nat-policy runtime counters without removing sessions</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>clear nat-policy counters
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="clear-nat-policy-sessions">
+<h2><code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">nat-policy</span> <span class="pre">sessions</span></code><a class="headerlink" href="#clear-nat-policy-sessions" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear nat-policy sessions</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>clear nat-policy sessions [name POLICY [rule RULE-ID]]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="destination-address">
+<h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">address</span></code><a class="headerlink" href="#destination-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match destination address</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>destination address { IP MASK | IP/LEN | IP }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="destination-address-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#destination-address-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match a reusable NAT address-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>destination address-set name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="destination-port">
+<h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">port</span></code><a class="headerlink" href="#destination-port" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match a transport port or range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>destination port { PORT | LOW-HIGH }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="destination-port-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#destination-port-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match a reusable NAT port-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>destination port-set name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="destination-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#destination-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match an exact source/destination VPN instance</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>destination vpn-instance NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="display-nat-policy">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span></code><a class="headerlink" href="#display-nat-policy" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>用途（设备帮助）：display NAT policy configuration and runtime state</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy { all | name NAME | address-set [NAME] | port-set [NAME] | address-pool [NAME] | runtime | objects | interfaces | statistics [name POLICY] | sessions [FILTERS] | configuration | workers }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="hairpin-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">hairpin</span> <span class="pre">enable</span></code><a class="headerlink" href="#hairpin-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：allow this policy's published mappings to be used for NAT hairpin</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>hairpin enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span></code><a class="headerlink" href="#nat-policy" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：bind a NAT policy to this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy NAME { inbound | outbound }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-address-pool-name">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">address-pool</span> <span class="pre">name</span></code><a class="headerlink" href="#nat-policy-address-pool-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create/enter a NAT address-pool</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy address-pool name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-address-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#nat-policy-address-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create/enter a NAT address-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy address-set name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-hairpin-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">hairpin</span> <span class="pre">enable</span></code><a class="headerlink" href="#nat-policy-hairpin-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：enable NAT hairpin translations</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy hairpin enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-interface-pat-range">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">interface-pat-range</span></code><a class="headerlink" href="#nat-policy-interface-pat-range" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the interface-source PAT port range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy interface-pat-range LOW-HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-name">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">name</span></code><a class="headerlink" href="#nat-policy-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create/enter a NAT policy</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-port-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#nat-policy-port-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>用途（设备帮助）：create/enter a NAT port-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy port-set name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-sessions-per-worker">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">sessions-per-worker</span></code><a class="headerlink" href="#nat-policy-sessions-per-worker" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the per-worker session capacity</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy sessions-per-worker NUMBER
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-timeout">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">timeout</span></code><a class="headerlink" href="#nat-policy-timeout" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set a nat-policy session timeout</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy timeout CLASS SECONDS
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-x86-tune-expire-check-ms">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">x86-tune</span> <span class="pre">expire-check-ms</span></code><a class="headerlink" href="#nat-policy-x86-tune-expire-check-ms" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set nat-policy maintenance interval</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy x86-tune expire-check-ms 10..1000
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="nat-policy-x86-tune-lru-refresh-ms">
+<h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">x86-tune</span> <span class="pre">lru-refresh-ms</span></code><a class="headerlink" href="#nat-policy-x86-tune-lru-refresh-ms" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：set nat-policy maintenance interval</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy x86-tune lru-refresh-ms 10..1000
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="pat-port-range">
+<h2><code class="docutils literal notranslate"><span class="pre">pat-port-range</span></code><a class="headerlink" href="#pat-port-range" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：set the address-pool PAT allocation range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pat-port-range LOW-HIGH
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="port">
+<h2><code class="docutils literal notranslate"><span class="pre">port</span></code><a class="headerlink" href="#port" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT端口集视图</span></code></p></li>
+<li><p>用途（设备帮助）：add a port or inclusive range to this NAT port-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>port { PORT | LOW-HIGH }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="priority">
+<h2><code class="docutils literal notranslate"><span class="pre">priority</span></code><a class="headerlink" href="#priority" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：set rule priority; lower values run first</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>priority 0..9998
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="protocol">
+<h2><code class="docutils literal notranslate"><span class="pre">protocol</span></code><a class="headerlink" href="#protocol" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match an IP protocol</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protocol { any | tcp | udp | icmp | NUMBER }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="session-limit">
+<h2><code class="docutils literal notranslate"><span class="pre">session-limit</span></code><a class="headerlink" href="#session-limit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：set this policy's session quota</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>session-limit { unlimited | NUMBER }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="source-address">
+<h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">address</span></code><a class="headerlink" href="#source-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match source address</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>source address { IP MASK | IP/LEN | IP }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="source-address-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#source-address-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match a reusable NAT address-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>source address-set name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="source-port">
+<h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">port</span></code><a class="headerlink" href="#source-port" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match a transport port or range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>source port { PORT | LOW-HIGH }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="source-port-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#source-port-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match a reusable NAT port-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>source port-set name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="source-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#source-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：match an exact source/destination VPN instance</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>source vpn-instance NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-action">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">action</span></code><a class="headerlink" href="#undo-action" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove the translation action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo action
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-action-snat">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">action</span> <span class="pre">snat</span></code><a class="headerlink" href="#undo-action-snat" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove SNAT action</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo action snat
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-address">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">address</span></code><a class="headerlink" href="#undo-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT地址池视图</span></code>、<code class="docutils literal notranslate"><span class="pre">NAT地址集视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove an IPv4 prefix from this NAT address-pool；remove an IPv4 prefix from this NAT address-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo address { IP | IP/LEN | IP MASK }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-destination-address">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">address</span></code><a class="headerlink" href="#undo-destination-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear destination address match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo destination address
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-destination-address-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-destination-address-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear the reusable NAT address-set match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo destination address-set name
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-destination-port">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">port</span></code><a class="headerlink" href="#undo-destination-port" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear the transport port match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo destination port
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-destination-port-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-destination-port-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear the reusable NAT port-set match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo destination port-set name
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-destination-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-destination-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore ANY VPN match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo destination vpn-instance
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-hairpin-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">hairpin</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-hairpin-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：prevent this policy's mappings from being used for NAT hairpin</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo hairpin enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span></code><a class="headerlink" href="#undo-nat-policy" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>用途（设备帮助）：unbind a NAT policy from this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy [NAME] [{ inbound | outbound }]
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-address-pool-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">address-pool</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-nat-policy-address-pool-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a NAT address-pool</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy address-pool name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-address-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-nat-policy-address-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a NAT address-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy address-set name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-hairpin-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">hairpin</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-nat-policy-hairpin-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：disable NAT hairpin translations</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy hairpin enable
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-interface-pat-range">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">interface-pat-range</span></code><a class="headerlink" href="#undo-nat-policy-interface-pat-range" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default interface PAT range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy interface-pat-range
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-nat-policy-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a NAT policy</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-port-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-nat-policy-port-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：delete a NAT port-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy port-set name NAME
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-sessions-per-worker">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">sessions-per-worker</span></code><a class="headerlink" href="#undo-nat-policy-sessions-per-worker" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default per-worker session capacity</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy sessions-per-worker
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-timeout">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">timeout</span></code><a class="headerlink" href="#undo-nat-policy-timeout" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore one nat-policy session timeout</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy timeout CLASS
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-x86-tune-expire-check-ms">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">x86-tune</span> <span class="pre">expire-check-ms</span></code><a class="headerlink" href="#undo-nat-policy-x86-tune-expire-check-ms" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default maintenance interval</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy x86-tune expire-check-ms
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-nat-policy-x86-tune-lru-refresh-ms">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">x86-tune</span> <span class="pre">lru-refresh-ms</span></code><a class="headerlink" href="#undo-nat-policy-x86-tune-lru-refresh-ms" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default maintenance interval</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nat-policy x86-tune lru-refresh-ms
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-pat-port-range">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">pat-port-range</span></code><a class="headerlink" href="#undo-pat-port-range" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT地址池视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore the default address-pool PAT range</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo pat-port-range
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-port">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">port</span></code><a class="headerlink" href="#undo-port" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT端口集视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove a port or range from this NAT port-set</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo port { PORT | LOW-HIGH }
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-priority">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">priority</span></code><a class="headerlink" href="#undo-priority" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：derive priority from rule ID</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo priority
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-protocol">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">protocol</span></code><a class="headerlink" href="#undo-protocol" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore ANY protocol match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo protocol
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-session-limit">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">session-limit</span></code><a class="headerlink" href="#undo-session-limit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT策略视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove this policy's session quota</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo session-limit
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-source-address">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">address</span></code><a class="headerlink" href="#undo-source-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear source address match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo source address
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-source-address-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-source-address-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear the reusable NAT address-set match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo source address-set name
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-source-port">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">port</span></code><a class="headerlink" href="#undo-source-port" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear the transport port match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo source port
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-source-port-set-name">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-source-port-set-name" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：clear the reusable NAT port-set match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo source port-set name
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-source-vpn-instance">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-source-vpn-instance" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">NAT规则视图</span></code></p></li>
+<li><p>用途（设备帮助）：restore ANY VPN match</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo source vpn-instance
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../acl/" class="btn btn-neutral float-left" title="ACL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../qos/" class="btn btn-neutral float-right" title="QoS" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

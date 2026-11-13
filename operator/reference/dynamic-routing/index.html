@@ -6,10 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>动态路由、策略路由、BFD 与 VRRP &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>路由通用命令 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=8bc41338" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
 
   
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/dynamic-routing/" />
@@ -23,8 +23,8 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
-    <link rel="next" title="MPLS LDP 与 L3VPN" href="../mpls/" />
-    <link rel="prev" title="IP、VPN 与静态路由" href="../ip-routing/" /> 
+    <link rel="next" title="MPLS 与 LDP" href="../mpls/" />
+    <link rel="prev" title="VRRP" href="../vrrp/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,7 +32,6 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
 
           
           
@@ -46,197 +45,82 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-<details class="manual-version">
-  <summary>v0.28-dev-debug5 · 当前版本</summary>
-  <a href="../../../">0.28 开发版</a>
-  <a href="../../../versions/">文档版本说明</a>
-</details>
-
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <p class="caption" role="heading"><span class="caption-text">安装与入门</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation/">首次安装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">从零到 Ping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">CLI 使用指南</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">配置与运维</span></p>
-<ul>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../">VortexROS 0.28 操作手册</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断、清理、健康与服务恢复</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">参考</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../commands/">VortexROS 全命令参考</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI、Candidate 与配置管理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../system/">系统、健康与服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口、二层与邻居</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">IP、VPN 与静态路由</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">动态路由、策略路由、BFD 与 VRRP</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#abr-summary"><code class="docutils literal notranslate"><span class="pre">abr-summary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#advertise-l2vpn-evpn"><code class="docutils literal notranslate"><span class="pre">advertise</span> <span class="pre">l2vpn</span> <span class="pre">evpn</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#aggregate"><code class="docutils literal notranslate"><span class="pre">aggregate</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#aggregate-address"><code class="docutils literal notranslate"><span class="pre">aggregate-address</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-as-path"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">as-path</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-community"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">community</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-cost"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">cost</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-ip-address-next-hop"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">ip-address</span> <span class="pre">next-hop</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-ipv6-next-hop"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">ipv6</span> <span class="pre">next-hop</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-large-community"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">large-community</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-local-preference"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">local-preference</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-origin"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">origin</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-tag"><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">tag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#area"><code class="docutils literal notranslate"><span class="pre">area</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#auto-cost-reference-bandwidth"><code class="docutils literal notranslate"><span class="pre">auto-cost</span> <span class="pre">reference-bandwidth</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bandwidth-reference"><code class="docutils literal notranslate"><span class="pre">bandwidth-reference</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#continue-node"><code class="docutils literal notranslate"><span class="pre">continue</span> <span class="pre">node</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cost-style"><code class="docutils literal notranslate"><span class="pre">cost-style</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#default-ipv4-unicast"><code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">ipv4-unicast</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#default-tcp-protected"><code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">tcp-protected</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#default-metric"><code class="docutils literal notranslate"><span class="pre">default-metric</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#default-route-originate"><code class="docutils literal notranslate"><span class="pre">default-route</span> <span class="pre">originate</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#default-route-advertise"><code class="docutils literal notranslate"><span class="pre">default-route-advertise</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#detect-multiplier"><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-bfd"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bfd</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-bgp"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-bgp-tcp-protection"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">tcp-protection</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-isis"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">isis</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-ospf"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ospf</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-ospfv3"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ospfv3</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-rip"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">rip</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-ripng"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ripng</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-route-policy"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-policy</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#display-vrrp"><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vrrp</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#graceful-restart"><code class="docutils literal notranslate"><span class="pre">graceful-restart</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#graceful-restart-timer-restart"><code class="docutils literal notranslate"><span class="pre">graceful-restart</span> <span class="pre">timer</span> <span class="pre">restart</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#graceful-restart-timer-wait-for-rib"><code class="docutils literal notranslate"><span class="pre">graceful-restart</span> <span class="pre">timer</span> <span class="pre">wait-for-rib</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#group"><code class="docutils literal notranslate"><span class="pre">group</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hostname-dynamic"><code class="docutils literal notranslate"><span class="pre">hostname</span> <span class="pre">dynamic</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#if-match-cost"><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">cost</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#if-match-ip-prefix"><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">ip-prefix</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#if-match-ipv6-address-prefix-list"><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">prefix-list</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#if-match-protocol"><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">protocol</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#if-match-tag"><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">tag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#import-route"><code class="docutils literal notranslate"><span class="pre">import-route</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipv4-family-unicast"><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">unicast</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipv4-family-vpn-instance"><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">vpn-instance</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipv4-family-vpnv4"><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">vpnv4</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipv6-import-route"><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">import-route</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipv6-family-unicast"><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">unicast</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipv6-family-vpn-instance"><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">vpn-instance</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipv6-family-vpnv6"><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">vpnv6</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#is-level"><code class="docutils literal notranslate"><span class="pre">is-level</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#l2vpn-family-evpn"><code class="docutils literal notranslate"><span class="pre">l2vpn-family</span> <span class="pre">evpn</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#load-balancing-as-path-ignore"><code class="docutils literal notranslate"><span class="pre">load-balancing</span> <span class="pre">as-path-ignore</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#log-adjacency-changes"><code class="docutils literal notranslate"><span class="pre">log-adjacency-changes</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#log-session-changes"><code class="docutils literal notranslate"><span class="pre">log-session-changes</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#maximum-load-balancing"><code class="docutils literal notranslate"><span class="pre">maximum</span> <span class="pre">load-balancing</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#maximum-paths"><code class="docutils literal notranslate"><span class="pre">maximum-paths</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#min-rx-interval"><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#min-tx-interval"><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#network-entity"><code class="docutils literal notranslate"><span class="pre">network-entity</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#nssa"><code class="docutils literal notranslate"><span class="pre">nssa</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#offset-list"><code class="docutils literal notranslate"><span class="pre">offset-list</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#opaque-capability-enable"><code class="docutils literal notranslate"><span class="pre">opaque-capability</span> <span class="pre">enable</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#passive-interface-default"><code class="docutils literal notranslate"><span class="pre">passive-interface</span> <span class="pre">default</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#passive-mode"><code class="docutils literal notranslate"><span class="pre">passive-mode</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#policy-vpn-target"><code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#preference"><code class="docutils literal notranslate"><span class="pre">preference</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reflect-between-clients"><code class="docutils literal notranslate"><span class="pre">reflect</span> <span class="pre">between-clients</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reflector-cluster-id"><code class="docutils literal notranslate"><span class="pre">reflector</span> <span class="pre">cluster-id</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#router-id"><code class="docutils literal notranslate"><span class="pre">router-id</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#set-overload-bit"><code class="docutils literal notranslate"><span class="pre">set-overload-bit</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#silent-interface"><code class="docutils literal notranslate"><span class="pre">silent-interface</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#spf-delay-ietf"><code class="docutils literal notranslate"><span class="pre">spf-delay-ietf</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stub"><code class="docutils literal notranslate"><span class="pre">stub</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#timer-keepalive"><code class="docutils literal notranslate"><span class="pre">timer</span> <span class="pre">keepalive</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#timers-rip"><code class="docutils literal notranslate"><span class="pre">timers</span> <span class="pre">rip</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-abr-summary"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">abr-summary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-advertise-l2vpn-evpn"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">advertise</span> <span class="pre">l2vpn</span> <span class="pre">evpn</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-aggregate"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">aggregate</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-aggregate-address"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">aggregate-address</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-apply-as-path"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">as-path</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-apply-community"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">community</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-apply-cost"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">cost</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-apply-ip-address-next-hop"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">ip-address</span> <span class="pre">next-hop</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-apply-ipv6-next-hop"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">ipv6</span> <span class="pre">next-hop</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-apply-large-community"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">large-community</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-apply-local-preference"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">local-preference</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-apply-origin"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">origin</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-apply-tag"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">tag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-auto-cost-reference-bandwidth"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">auto-cost</span> <span class="pre">reference-bandwidth</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-bandwidth-reference"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bandwidth-reference</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-bgp"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bgp</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-continue"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">continue</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-default-ipv4-unicast"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default</span> <span class="pre">ipv4-unicast</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-default-tcp-protected"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default</span> <span class="pre">tcp-protected</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-default-metric"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default-metric</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-default-route-originate"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default-route</span> <span class="pre">originate</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-default-route-advertise"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default-route-advertise</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-detect-multiplier"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">detect-multiplier</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-graceful-restart"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">graceful-restart</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-graceful-restart-timer-restart"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">graceful-restart</span> <span class="pre">timer</span> <span class="pre">restart</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-graceful-restart-timer-wait-for-rib"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">graceful-restart</span> <span class="pre">timer</span> <span class="pre">wait-for-rib</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-group"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">group</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-hostname"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">hostname</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-if-match-cost"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">cost</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-if-match-ip-prefix"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">ip-prefix</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-if-match-ipv6-address-prefix-list"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">prefix-list</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-if-match-protocol"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">protocol</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-if-match-tag"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">tag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-import-route"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">import-route</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-ipv4-family-vpn-instance"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span> <span class="pre">vpn-instance</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-ipv4-family-vpnv4"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span> <span class="pre">vpnv4</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-import-route"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">import-route</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-family-unicast"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">unicast</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-family-vpn-instance"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">vpn-instance</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-ipv6-family-vpnv6"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">vpnv6</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-is-level"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">is-level</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-isis"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-l2vpn-family-evpn"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">l2vpn-family</span> <span class="pre">evpn</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-load-balancing-as-path-ignore"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">load-balancing</span> <span class="pre">as-path-ignore</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-log-adjacency-changes"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">log-adjacency-changes</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-log-session-changes"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">log-session-changes</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-maximum-load-balancing"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">maximum</span> <span class="pre">load-balancing</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-maximum-paths"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">maximum-paths</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-min-rx-interval"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">min-rx-interval</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-min-tx-interval"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">min-tx-interval</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-network-entity"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">network-entity</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-nssa"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nssa</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-offset-list"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">offset-list</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-opaque-capability-enable"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">opaque-capability</span> <span class="pre">enable</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-ospf"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-passive-interface-default"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">passive-interface</span> <span class="pre">default</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-passive-mode"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">passive-mode</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-policy-vpn-target"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">policy</span> <span class="pre">vpn-target</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-preference"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">preference</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-reflect-between-clients"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">reflect</span> <span class="pre">between-clients</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-reflector-cluster-id"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">reflector</span> <span class="pre">cluster-id</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-rip"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">rip</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-ripng"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ripng</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-route-policy"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route-policy</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-router-id"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">router-id</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-set-overload-bit"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">set-overload-bit</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-silent-interface"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">silent-interface</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-spf-delay-ietf"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">spf-delay-ietf</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-stub"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">stub</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-timer-keepalive"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timer</span> <span class="pre">keepalive</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#undo-timers-rip"><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timers</span> <span class="pre">rip</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#version"><code class="docutils literal notranslate"><span class="pre">version</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS LDP 与 L3VPN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tunnels/">GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../policy/">ACL、QoS、MQC、MSS 与 NAT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../services/">DHCP、LLDP 与 SNMP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断、清理与恢复</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../versions/">文档版本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
 </ul>
 
         </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
       </div>
     </nav>
 
@@ -250,10 +134,9 @@
           <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../commands/">VortexROS 全命令参考</a></li>
-      <li class="breadcrumb-item active">动态路由、策略路由、BFD 与 VRRP</li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">路由通用命令</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/operator/reference/dynamic-routing.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -261,10 +144,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="bfd-vrrp">
-<span id="动态路由策略路由bfd-与-vrrp"></span><h1>动态路由、策略路由、BFD 与 VRRP<a class="headerlink" href="#bfd-vrrp" title="链接到此标题。"></a></h1>
-<section id="abr-summary">
-<h2><code class="docutils literal notranslate"><span class="pre">abr-summary</span></code><a class="headerlink" href="#abr-summary" title="链接到此标题。"></a></h2>
+  <section id="id1">
+<span id="路由通用命令"></span><h1>路由通用命令<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="cmd-abr-summary">
+<span id="abr-summary"></span><h2><code class="docutils literal notranslate"><span class="pre">abr-summary</span></code><a class="headerlink" href="#cmd-abr-summary" title="链接到此标题。"></a></h2>
 <ul>
 <li><p>类别：配置命令</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></p></li>
@@ -274,19 +157,6 @@
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>abr-summary X:X::X:X INTEGER&lt;0-128&gt; [not-advertise]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="advertise-l2vpn-evpn">
-<h2><code class="docutils literal notranslate"><span class="pre">advertise</span> <span class="pre">l2vpn</span> <span class="pre">evpn</span></code><a class="headerlink" href="#advertise-l2vpn-evpn" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code></p></li>
-<li><p>用途（设备帮助）：export VPN routes to the EVPN address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>advertise l2vpn evpn
 </pre></div>
 </div>
 </li>
@@ -305,138 +175,8 @@
 </li>
 </ul>
 </section>
-<section id="aggregate-address">
-<h2><code class="docutils literal notranslate"><span class="pre">aggregate-address</span></code><a class="headerlink" href="#aggregate-address" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">RIPng视图</span></code></p></li>
-<li><p>用途（设备帮助）：advertise a RIPng aggregate</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>aggregate-address X:X::X/M
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="apply-as-path">
-<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">as-path</span></code><a class="headerlink" href="#apply-as-path" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：prepend AS numbers to the BGP AS path</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply as-path ASNUM [ASNUM ...]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="apply-community">
-<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">community</span></code><a class="headerlink" href="#apply-community" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set BGP community values</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply community VALUE [VALUE ...] [additive]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="apply-cost">
-<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">cost</span></code><a class="headerlink" href="#apply-cost" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set route metric</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply cost VALUE
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="apply-ip-address-next-hop">
-<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">ip-address</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#apply-ip-address-next-hop" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set an IPv4 next hop</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply ip-address next-hop X.X.X.X
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="apply-ipv6-next-hop">
-<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">ipv6</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#apply-ipv6-next-hop" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set an IPv6 next hop</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply ipv6 next-hop X:X::X
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="apply-large-community">
-<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">large-community</span></code><a class="headerlink" href="#apply-large-community" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set BGP large-community values</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply large-community VALUE [VALUE ...] [additive]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="apply-local-preference">
-<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">local-preference</span></code><a class="headerlink" href="#apply-local-preference" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set local preference</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply local-preference VALUE
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="apply-origin">
-<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">origin</span></code><a class="headerlink" href="#apply-origin" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set the BGP origin attribute</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply origin {igp|egp|incomplete}
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="apply-tag">
-<h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">tag</span></code><a class="headerlink" href="#apply-tag" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set route tag</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apply tag INTEGER&lt;0-4294967295&gt;
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="area">
-<h2><code class="docutils literal notranslate"><span class="pre">area</span></code><a class="headerlink" href="#area" title="链接到此标题。"></a></h2>
+<section id="cmd-area">
+<span id="area"></span><h2><code class="docutils literal notranslate"><span class="pre">area</span></code><a class="headerlink" href="#cmd-area" title="链接到此标题。"></a></h2>
 <ul>
 <li><p>类别：配置命令</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></li>
@@ -456,71 +196,6 @@
 <li><p>用途（设备帮助）：set the OSPF reference bandwidth</p></li>
 <li><p>合法语法：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>auto-cost reference-bandwidth INTEGER&lt;1-4294967&gt;
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="bandwidth-reference">
-<h2><code class="docutils literal notranslate"><span class="pre">bandwidth-reference</span></code><a class="headerlink" href="#bandwidth-reference" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></li>
-<li><p>用途（设备帮助）：set the OSPFv3 reference bandwidth</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bandwidth-reference INTEGER&lt;1-4294967&gt;
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="continue-node">
-<h2><code class="docutils literal notranslate"><span class="pre">continue</span> <span class="pre">node</span></code><a class="headerlink" href="#continue-node" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：continue evaluation at a later route-policy node</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>continue node INTEGER&lt;1-65535&gt;
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="cost-style">
-<h2><code class="docutils literal notranslate"><span class="pre">cost-style</span></code><a class="headerlink" href="#cost-style" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：set IS-IS metric style</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cost-style {narrow|wide|transition}
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="default-ipv4-unicast">
-<h2><code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">ipv4-unicast</span></code><a class="headerlink" href="#default-ipv4-unicast" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：activate IPv4 unicast by default</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default ipv4-unicast
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="default-tcp-protected">
-<h2><code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">tcp-protected</span></code><a class="headerlink" href="#default-tcp-protected" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：protect the BGP TCP listener with configured peers</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default tcp-protected
 </pre></div>
 </div>
 </li>
@@ -568,151 +243,6 @@
 </li>
 </ul>
 </section>
-<section id="detect-multiplier">
-<h2><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code><a class="headerlink" href="#detect-multiplier" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BFD会话视图</span></code></p></li>
-<li><p>用途（设备帮助）：Detect multiplier</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>detect-multiplier INTEGER
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-bfd">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bfd</span></code><a class="headerlink" href="#display-bfd" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display BFD information</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bfd [configuration|session [all|NAME]|statistics]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-bgp">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span></code><a class="headerlink" href="#display-bgp" title="链接到此标题。"></a></h2>
-<p>peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族。见<a class="reference internal" href="../../../examples/bgp/"><span class="std std-doc">BGP 案例</span></a>。</p>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display BGP information</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp {peer|routing-table|ipv6|vpnv4|vpnv6|...}
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-bgp-tcp-protection">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">tcp-protection</span></code><a class="headerlink" href="#display-bgp-tcp-protection" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display BGP TCP listener source protection</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp tcp-protection [verbose]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-isis">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">isis</span></code><a class="headerlink" href="#display-isis" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display IS-IS information</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display isis [process-id] [brief|peer|lsdb|route|interface|spf-delay|traffic-eng]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-ospf">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ospf</span></code><a class="headerlink" href="#display-ospf" title="链接到此标题。"></a></h2>
-<p>peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据库。</p>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display OSPF information</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospf [process-id] lsdb [{router|network|summary|asbr|ase|nssa|opaque-*} [link-state-id]] [originate-router router-id|self-originate] [age {min-value|max-value} seconds]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-ospfv3">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ospfv3</span></code><a class="headerlink" href="#display-ospfv3" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display OSPFv3 information</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospfv3 [process-id|vpn-instance NAME] [brief|peer|interface|lsdb|routing]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-rip">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">rip</span></code><a class="headerlink" href="#display-rip" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display RIP information</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display rip [process-id] [database|route|interface|statistics]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-ripng">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ripng</span></code><a class="headerlink" href="#display-ripng" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display RIPng information</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ripng [process-id] [database|route|interface|statistics]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-route-policy">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-policy</span></code><a class="headerlink" href="#display-route-policy" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display route policies</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display route-policy [NAME [verbose]]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="display-vrrp">
-<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vrrp</span></code><a class="headerlink" href="#display-vrrp" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：只读显示命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
-<li><p>用途（设备帮助）：display IPv4 VRRPv3 information</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vrrp [brief|interface INTERFACE|statistics|protocol-information|VRID]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="graceful-restart">
 <h2><code class="docutils literal notranslate"><span class="pre">graceful-restart</span></code><a class="headerlink" href="#graceful-restart" title="链接到此标题。"></a></h2>
 <ul>
@@ -752,99 +282,8 @@
 </li>
 </ul>
 </section>
-<section id="group">
-<h2><code class="docutils literal notranslate"><span class="pre">group</span></code><a class="headerlink" href="#group" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：create a case-sensitive BGP peer-group</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>group NAME [internal|external]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="hostname-dynamic">
-<h2><code class="docutils literal notranslate"><span class="pre">hostname</span> <span class="pre">dynamic</span></code><a class="headerlink" href="#hostname-dynamic" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：enable the IS-IS dynamic hostname</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>hostname dynamic
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="if-match-cost">
-<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">cost</span></code><a class="headerlink" href="#if-match-cost" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set route metric</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match cost INTEGER&lt;0-4294967295&gt;
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="if-match-ip-prefix">
-<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#if-match-ip-prefix" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：match an IP prefix list</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match ip-prefix NAME
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="if-match-ipv6-address-prefix-list">
-<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">prefix-list</span></code><a class="headerlink" href="#if-match-ipv6-address-prefix-list" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：match an IPv6 prefix list</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match ipv6 address prefix-list NAME
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="if-match-protocol">
-<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">protocol</span></code><a class="headerlink" href="#if-match-protocol" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：match the route source protocol</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match protocol {direct|static|ospf|ospfv3|isis|rip|ripng|bgp}
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="if-match-tag">
-<h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">tag</span></code><a class="headerlink" href="#if-match-tag" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：set route tag</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if-match tag INTEGER&lt;0-4294967295&gt;
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="import-route">
-<h2><code class="docutils literal notranslate"><span class="pre">import-route</span></code><a class="headerlink" href="#import-route" title="链接到此标题。"></a></h2>
+<section id="cmd-import-route">
+<span id="import-route"></span><h2><code class="docutils literal notranslate"><span class="pre">import-route</span></code><a class="headerlink" href="#cmd-import-route" title="链接到此标题。"></a></h2>
 <ul>
 <li><p>类别：配置命令</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code>、<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code>、<code class="docutils literal notranslate"><span class="pre">RIPng视图</span></code>、<code class="docutils literal notranslate"><span class="pre">RIP视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></li>
@@ -865,136 +304,6 @@
 </li>
 </ul>
 </section>
-<section id="ipv4-family-unicast">
-<h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">unicast</span></code><a class="headerlink" href="#ipv4-family-unicast" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：enter the IPv4 unicast address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv4-family unicast
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="ipv4-family-vpn-instance">
-<h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#ipv4-family-vpn-instance" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：enter the IPv4 VPN address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv4-family vpn-instance VPN
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="ipv4-family-vpnv4">
-<h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">vpnv4</span></code><a class="headerlink" href="#ipv4-family-vpnv4" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：enter the VPNv4 address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv4-family vpnv4
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="ipv6-import-route">
-<h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">import-route</span></code><a class="headerlink" href="#ipv6-import-route" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：redistribute IPv6 routes into IS-IS</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 import-route {direct|static|ospfv3|bgp}
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="ipv6-family-unicast">
-<h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">unicast</span></code><a class="headerlink" href="#ipv6-family-unicast" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：enter the IPv6 unicast address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6-family unicast
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="ipv6-family-vpn-instance">
-<h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#ipv6-family-vpn-instance" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：enter the IPv6 VPN address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6-family vpn-instance VPN
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="ipv6-family-vpnv6">
-<h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">vpnv6</span></code><a class="headerlink" href="#ipv6-family-vpnv6" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：enter the VPNv6 address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6-family vpnv6
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="is-level">
-<h2><code class="docutils literal notranslate"><span class="pre">is-level</span></code><a class="headerlink" href="#is-level" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：set IS-IS level</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>is-level {level-1|level-2|level-1-2}
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="l2vpn-family-evpn">
-<h2><code class="docutils literal notranslate"><span class="pre">l2vpn-family</span> <span class="pre">evpn</span></code><a class="headerlink" href="#l2vpn-family-evpn" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：enter the BGP EVPN address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>l2vpn-family evpn
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="load-balancing-as-path-ignore">
-<h2><code class="docutils literal notranslate"><span class="pre">load-balancing</span> <span class="pre">as-path-ignore</span></code><a class="headerlink" href="#load-balancing-as-path-ignore" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：allow equal-length different AS paths in BGP ECMP</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>load-balancing as-path-ignore
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="log-adjacency-changes">
 <h2><code class="docutils literal notranslate"><span class="pre">log-adjacency-changes</span></code><a class="headerlink" href="#log-adjacency-changes" title="链接到此标题。"></a></h2>
 <ul>
@@ -1006,19 +315,6 @@
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>log-adjacency-changes [detail]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="log-session-changes">
-<h2><code class="docutils literal notranslate"><span class="pre">log-session-changes</span></code><a class="headerlink" href="#log-session-changes" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BFD会话视图</span></code></p></li>
-<li><p>用途（设备帮助）：log-session-changes</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>log-session-changes
 </pre></div>
 </div>
 </li>
@@ -1043,92 +339,26 @@
 </li>
 </ul>
 </section>
-<section id="maximum-paths">
-<h2><code class="docutils literal notranslate"><span class="pre">maximum-paths</span></code><a class="headerlink" href="#maximum-paths" title="链接到此标题。"></a></h2>
+<section id="cmd-network">
+<span id="network"></span><h2><code class="docutils literal notranslate"><span class="pre">network</span></code><a class="headerlink" href="#cmd-network" title="链接到此标题。"></a></h2>
 <ul>
 <li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
-<li><p>用途（设备帮助）：set the maximum OSPF ECMP paths</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code>、<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">RIPng视图</span></code>、<code class="docutils literal notranslate"><span class="pre">RIP视图</span></code></p></li>
+<li><p>用途（设备帮助）：add an OSPF network；advertise a RIPng network；advertise a classful RIP network；configure the IPv4 pool network；originate a BGP network</p></li>
 <li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>maximum-paths INTEGER&lt;1-256&gt;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>network ADDRESS MASK [route-policy NAME]
 </pre></div>
 </div>
-</li>
-</ul>
-</section>
-<section id="min-rx-interval">
-<h2><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code><a class="headerlink" href="#min-rx-interval" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BFD会话视图</span></code></p></li>
-<li><p>用途（设备帮助）：Minimum receive interval in milliseconds</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>min-rx-interval INTEGER
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>network X.X.X.X
 </pre></div>
 </div>
-</li>
-</ul>
-</section>
-<section id="min-tx-interval">
-<h2><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code><a class="headerlink" href="#min-tx-interval" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BFD会话视图</span></code></p></li>
-<li><p>用途（设备帮助）：Minimum transmit interval in milliseconds</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>min-tx-interval INTEGER
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>network X.X.X.X X.X.X.X [description TEXT]
 </pre></div>
 </div>
-</li>
-</ul>
-</section>
-<section id="network-entity">
-<h2><code class="docutils literal notranslate"><span class="pre">network-entity</span></code><a class="headerlink" href="#network-entity" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：set an IS-IS network entity title</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>network-entity NET
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>network X.X.X.X mask { X.X.X.X | INTEGER&lt;0-32&gt; }
 </pre></div>
 </div>
-</li>
-</ul>
-</section>
-<section id="nssa">
-<h2><code class="docutils literal notranslate"><span class="pre">nssa</span></code><a class="headerlink" href="#nssa" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></p></li>
-<li><p>用途（设备帮助）：configure a not-so-stubby area；configure an OSPFv3 nssa area</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nssa [no-summary]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="offset-list">
-<h2><code class="docutils literal notranslate"><span class="pre">offset-list</span></code><a class="headerlink" href="#offset-list" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">RIPng视图</span></code></p></li>
-<li><p>用途（设备帮助）：adjust RIPng route metrics selected by an IPv6 ACL</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>offset-list ACL {in|out} INTEGER&lt;0-16&gt; [interface IF]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="opaque-capability-enable">
-<h2><code class="docutils literal notranslate"><span class="pre">opaque-capability</span> <span class="pre">enable</span></code><a class="headerlink" href="#opaque-capability-enable" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
-<li><p>用途（设备帮助）：enable OSPF opaque LSA capability</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>opaque-capability enable
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>network X:X::X/M
 </pre></div>
 </div>
 </li>
@@ -1160,19 +390,6 @@
 </li>
 </ul>
 </section>
-<section id="policy-vpn-target">
-<h2><code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code><a class="headerlink" href="#policy-vpn-target" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code></p></li>
-<li><p>用途（设备帮助）：control VPN route-target filtering</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>policy vpn-target
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="preference">
 <h2><code class="docutils literal notranslate"><span class="pre">preference</span></code><a class="headerlink" href="#preference" title="链接到此标题。"></a></h2>
 <ul>
@@ -1186,53 +403,14 @@
 </li>
 </ul>
 </section>
-<section id="reflect-between-clients">
-<h2><code class="docutils literal notranslate"><span class="pre">reflect</span> <span class="pre">between-clients</span></code><a class="headerlink" href="#reflect-between-clients" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：allow route reflection between clients</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reflect between-clients
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="reflector-cluster-id">
-<h2><code class="docutils literal notranslate"><span class="pre">reflector</span> <span class="pre">cluster-id</span></code><a class="headerlink" href="#reflector-cluster-id" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：set the route-reflector cluster ID</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reflector cluster-id X.X.X.X
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="router-id">
-<h2><code class="docutils literal notranslate"><span class="pre">router-id</span></code><a class="headerlink" href="#router-id" title="链接到此标题。"></a></h2>
+<section id="cmd-router-id">
+<span id="router-id"></span><h2><code class="docutils literal notranslate"><span class="pre">router-id</span></code><a class="headerlink" href="#cmd-router-id" title="链接到此标题。"></a></h2>
 <ul>
 <li><p>类别：配置命令</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code>、<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></li>
 <li><p>用途（设备帮助）：set BGP router ID；set OSPF router ID；set the OSPFv3 router ID</p></li>
 <li><p>合法语法：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>router-id X.X.X.X
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="set-overload-bit">
-<h2><code class="docutils literal notranslate"><span class="pre">set-overload-bit</span></code><a class="headerlink" href="#set-overload-bit" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：set the IS-IS overload bit</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>set-overload-bit
 </pre></div>
 </div>
 </li>
@@ -1246,58 +424,6 @@
 <li><p>用途（设备帮助）：suppress OSPF Hellos on an interface；suppress OSPFv3 Hellos on an interface；suppress RIP updates on an interface</p></li>
 <li><p>合法语法：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>silent-interface INTERFACE
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="spf-delay-ietf">
-<h2><code class="docutils literal notranslate"><span class="pre">spf-delay-ietf</span></code><a class="headerlink" href="#spf-delay-ietf" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：configure IETF SPF backoff timers</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>spf-delay-ietf init-delay MS short-delay MS long-delay MS holddown MS time-to-learn MS
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="stub">
-<h2><code class="docutils literal notranslate"><span class="pre">stub</span></code><a class="headerlink" href="#stub" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></p></li>
-<li><p>用途（设备帮助）：configure a stub area；configure an OSPFv3 stub area</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stub [no-summary]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="timer-keepalive">
-<h2><code class="docutils literal notranslate"><span class="pre">timer</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#timer-keepalive" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：set BGP keepalive and hold timers</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>timer keepalive INTEGER&lt;0-21845&gt; hold INTEGER&lt;0-65535&gt;
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="timers-rip">
-<h2><code class="docutils literal notranslate"><span class="pre">timers</span> <span class="pre">rip</span></code><a class="headerlink" href="#timers-rip" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">RIPng视图</span></code>、<code class="docutils literal notranslate"><span class="pre">RIP视图</span></code></p></li>
-<li><p>用途（设备帮助）：set RIP update, timeout and garbage timers</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>timers rip INTEGER&lt;1-32767&gt; INTEGER&lt;1-32767&gt; INTEGER&lt;1-32767&gt;
 </pre></div>
 </div>
 </li>
@@ -1319,19 +445,6 @@
 </li>
 </ul>
 </section>
-<section id="undo-advertise-l2vpn-evpn">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">advertise</span> <span class="pre">l2vpn</span> <span class="pre">evpn</span></code><a class="headerlink" href="#undo-advertise-l2vpn-evpn" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code></p></li>
-<li><p>用途（设备帮助）：export VPN routes to the EVPN address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo advertise l2vpn evpn
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="undo-aggregate">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">aggregate</span></code><a class="headerlink" href="#undo-aggregate" title="链接到此标题。"></a></h2>
 <ul>
@@ -1345,136 +458,6 @@
 </li>
 </ul>
 </section>
-<section id="undo-aggregate-address">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">aggregate-address</span></code><a class="headerlink" href="#undo-aggregate-address" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">RIPng视图</span></code></p></li>
-<li><p>用途（设备帮助）：withdraw a RIPng aggregate</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo aggregate-address X:X::X/M
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-apply-as-path">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">as-path</span></code><a class="headerlink" href="#undo-apply-as-path" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the AS-path prepend action</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply as-path
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-apply-community">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">community</span></code><a class="headerlink" href="#undo-apply-community" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the BGP community action</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply community
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-apply-cost">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">cost</span></code><a class="headerlink" href="#undo-apply-cost" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore default route metric</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply cost
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-apply-ip-address-next-hop">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">ip-address</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#undo-apply-ip-address-next-hop" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the IPv4 next-hop action</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply ip-address next-hop
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-apply-ipv6-next-hop">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">ipv6</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#undo-apply-ipv6-next-hop" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the IPv6 next-hop action</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply ipv6 next-hop
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-apply-large-community">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">large-community</span></code><a class="headerlink" href="#undo-apply-large-community" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the BGP large-community action</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply large-community
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-apply-local-preference">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">local-preference</span></code><a class="headerlink" href="#undo-apply-local-preference" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore default local preference</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply local-preference
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-apply-origin">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">origin</span></code><a class="headerlink" href="#undo-apply-origin" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the BGP origin action</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply origin
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-apply-tag">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">tag</span></code><a class="headerlink" href="#undo-apply-tag" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove route tag</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo apply tag
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="undo-auto-cost-reference-bandwidth">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">auto-cost</span> <span class="pre">reference-bandwidth</span></code><a class="headerlink" href="#undo-auto-cost-reference-bandwidth" title="链接到此标题。"></a></h2>
 <ul>
@@ -1483,71 +466,6 @@
 <li><p>用途（设备帮助）：restore the OSPF reference bandwidth</p></li>
 <li><p>合法语法：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo auto-cost reference-bandwidth
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-bandwidth-reference">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bandwidth-reference</span></code><a class="headerlink" href="#undo-bandwidth-reference" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></li>
-<li><p>用途（设备帮助）：restore the OSPFv3 reference bandwidth</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo bandwidth-reference
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-bgp">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bgp</span></code><a class="headerlink" href="#undo-bgp" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
-<li><p>用途（设备帮助）：delete a BGP instance</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo bgp ASNUM
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-continue">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">continue</span></code><a class="headerlink" href="#undo-continue" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：stop evaluation after this route-policy node</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo continue
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-default-ipv4-unicast">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default</span> <span class="pre">ipv4-unicast</span></code><a class="headerlink" href="#undo-default-ipv4-unicast" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：disable automatic IPv4-unicast peer activation</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo default ipv4-unicast
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-default-tcp-protected">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default</span> <span class="pre">tcp-protected</span></code><a class="headerlink" href="#undo-default-tcp-protected" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：disable BGP TCP listener peer protection</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo default tcp-protected
 </pre></div>
 </div>
 </li>
@@ -1592,19 +510,6 @@
 </li>
 </ul>
 </section>
-<section id="undo-detect-multiplier">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">detect-multiplier</span></code><a class="headerlink" href="#undo-detect-multiplier" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BFD会话视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore the default Detect multiplier</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo detect-multiplier
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="undo-graceful-restart">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">graceful-restart</span></code><a class="headerlink" href="#undo-graceful-restart" title="链接到此标题。"></a></h2>
 <ul>
@@ -1644,97 +549,6 @@
 </li>
 </ul>
 </section>
-<section id="undo-group">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">group</span></code><a class="headerlink" href="#undo-group" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：delete an unused BGP peer-group</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo group NAME
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-hostname">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">hostname</span></code><a class="headerlink" href="#undo-hostname" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore the default IS-IS hostname</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo hostname
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-if-match-cost">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">cost</span></code><a class="headerlink" href="#undo-if-match-cost" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove route metric</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match cost
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-if-match-ip-prefix">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#undo-if-match-ip-prefix" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove an IP prefix match</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match ip-prefix NAME
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-if-match-ipv6-address-prefix-list">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">prefix-list</span></code><a class="headerlink" href="#undo-if-match-ipv6-address-prefix-list" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove an IPv6 prefix match</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match ipv6 address prefix-list NAME
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-if-match-protocol">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">protocol</span></code><a class="headerlink" href="#undo-if-match-protocol" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the route source protocol match</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match protocol
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-if-match-tag">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">tag</span></code><a class="headerlink" href="#undo-if-match-tag" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">路由策略视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove route tag</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo if-match tag
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="undo-import-route">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">import-route</span></code><a class="headerlink" href="#undo-import-route" title="链接到此标题。"></a></h2>
 <ul>
@@ -1748,136 +562,6 @@
 </li>
 </ul>
 </section>
-<section id="undo-ipv4-family-vpn-instance">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-ipv4-family-vpn-instance" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove an IPv4 VPN address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv4-family vpn-instance VPN
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-ipv4-family-vpnv4">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span> <span class="pre">vpnv4</span></code><a class="headerlink" href="#undo-ipv4-family-vpnv4" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the VPNv4 address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv4-family vpnv4
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-ipv6-import-route">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">import-route</span></code><a class="headerlink" href="#undo-ipv6-import-route" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：stop redistributing IPv6 routes into IS-IS</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 import-route PROTOCOL
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-ipv6-family-unicast">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">unicast</span></code><a class="headerlink" href="#undo-ipv6-family-unicast" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the IPv6 unicast address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6-family unicast
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-ipv6-family-vpn-instance">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-ipv6-family-vpn-instance" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove an IPv6 VPN address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6-family vpn-instance VPN
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-ipv6-family-vpnv6">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">vpnv6</span></code><a class="headerlink" href="#undo-ipv6-family-vpnv6" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the VPNv6 address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6-family vpnv6
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-is-level">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">is-level</span></code><a class="headerlink" href="#undo-is-level" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore IS-IS level</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo is-level
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-isis">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span></code><a class="headerlink" href="#undo-isis" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
-<li><p>用途（设备帮助）：delete an IS-IS process</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo isis INTEGER&lt;1-65535&gt;
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-l2vpn-family-evpn">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">l2vpn-family</span> <span class="pre">evpn</span></code><a class="headerlink" href="#undo-l2vpn-family-evpn" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove the BGP EVPN address family</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo l2vpn-family evpn
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-load-balancing-as-path-ignore">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">load-balancing</span> <span class="pre">as-path-ignore</span></code><a class="headerlink" href="#undo-load-balancing-as-path-ignore" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：require identical AS paths for BGP ECMP</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo load-balancing as-path-ignore
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="undo-log-adjacency-changes">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">log-adjacency-changes</span></code><a class="headerlink" href="#undo-log-adjacency-changes" title="链接到此标题。"></a></h2>
 <ul>
@@ -1886,19 +570,6 @@
 <li><p>用途（设备帮助）：stop logging IS-IS adjacency changes；stop logging OSPF adjacency changes</p></li>
 <li><p>合法语法：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo log-adjacency-changes
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-log-session-changes">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">log-session-changes</span></code><a class="headerlink" href="#undo-log-session-changes" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BFD会话视图</span></code></p></li>
-<li><p>用途（设备帮助）：undo log-session-changes</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo log-session-changes
 </pre></div>
 </div>
 </li>
@@ -1920,105 +591,26 @@
 </li>
 </ul>
 </section>
-<section id="undo-maximum-paths">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">maximum-paths</span></code><a class="headerlink" href="#undo-maximum-paths" title="链接到此标题。"></a></h2>
+<section id="undo-network">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">network</span></code><a class="headerlink" href="#undo-network" title="链接到此标题。"></a></h2>
 <ul>
 <li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore the default OSPF ECMP path count</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code>、<code class="docutils literal notranslate"><span class="pre">IPv4地址池视图</span></code>、<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">RIPng视图</span></code>、<code class="docutils literal notranslate"><span class="pre">RIP视图</span></code></p></li>
+<li><p>用途（设备帮助）：remove a BGP network；remove a RIP network；remove a RIPng network；remove an OSPF network；remove the IPv4 pool network</p></li>
 <li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo maximum-paths
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo network
 </pre></div>
 </div>
-</li>
-</ul>
-</section>
-<section id="undo-min-rx-interval">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">min-rx-interval</span></code><a class="headerlink" href="#undo-min-rx-interval" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BFD会话视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore the default Minimum receive interval in milliseconds</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo min-rx-interval
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo network ADDRESS MASK
 </pre></div>
 </div>
-</li>
-</ul>
-</section>
-<section id="undo-min-tx-interval">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">min-tx-interval</span></code><a class="headerlink" href="#undo-min-tx-interval" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BFD会话视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore the default Minimum transmit interval in milliseconds</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo min-tx-interval
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo network X.X.X.X
 </pre></div>
 </div>
-</li>
-</ul>
-</section>
-<section id="undo-network-entity">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">network-entity</span></code><a class="headerlink" href="#undo-network-entity" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove an IS-IS network entity title</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo network-entity NET
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo network X.X.X.X X.X.X.X
 </pre></div>
 </div>
-</li>
-</ul>
-</section>
-<section id="undo-nssa">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nssa</span></code><a class="headerlink" href="#undo-nssa" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></p></li>
-<li><p>用途（设备帮助）：restore a normal OSPF area；restore a normal OSPFv3 area</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nssa
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-offset-list">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">offset-list</span></code><a class="headerlink" href="#undo-offset-list" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">RIPng视图</span></code></p></li>
-<li><p>用途（设备帮助）：remove a RIPng metric offset</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo offset-list {in|out} [interface IF]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-opaque-capability-enable">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">opaque-capability</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-opaque-capability-enable" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
-<li><p>用途（设备帮助）：disable OSPF opaque LSA capability</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo opaque-capability enable
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-ospf">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span></code><a class="headerlink" href="#undo-ospf" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
-<li><p>用途（设备帮助）：delete an OSPF process</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf INTEGER&lt;1-65535&gt;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo network X:X::X/M
 </pre></div>
 </div>
 </li>
@@ -2050,19 +642,6 @@
 </li>
 </ul>
 </section>
-<section id="undo-policy-vpn-target">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">policy</span> <span class="pre">vpn-target</span></code><a class="headerlink" href="#undo-policy-vpn-target" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code></p></li>
-<li><p>用途（设备帮助）：control VPN route-target filtering</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo policy vpn-target
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="undo-preference">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">preference</span></code><a class="headerlink" href="#undo-preference" title="链接到此标题。"></a></h2>
 <ul>
@@ -2071,71 +650,6 @@
 <li><p>用途（设备帮助）：restore RIP route preference</p></li>
 <li><p>合法语法：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo preference
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-reflect-between-clients">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">reflect</span> <span class="pre">between-clients</span></code><a class="headerlink" href="#undo-reflect-between-clients" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：disable route reflection between clients</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo reflect between-clients
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-reflector-cluster-id">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">reflector</span> <span class="pre">cluster-id</span></code><a class="headerlink" href="#undo-reflector-cluster-id" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore the router ID as the cluster ID</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo reflector cluster-id
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-rip">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">rip</span></code><a class="headerlink" href="#undo-rip" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
-<li><p>用途（设备帮助）：delete a RIP process</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo rip INTEGER&lt;1-65535&gt; [vpn-instance NAME]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-ripng">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ripng</span></code><a class="headerlink" href="#undo-ripng" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
-<li><p>用途（设备帮助）：delete a RIP process</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ripng INTEGER&lt;1-65535&gt; [vpn-instance NAME]
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-route-policy">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route-policy</span></code><a class="headerlink" href="#undo-route-policy" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
-<li><p>用途（设备帮助）：delete a route policy</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo route-policy NAME [permit|deny node INTEGER&lt;1-65535&gt;]
 </pre></div>
 </div>
 </li>
@@ -2154,19 +668,6 @@
 </li>
 </ul>
 </section>
-<section id="undo-set-overload-bit">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">set-overload-bit</span></code><a class="headerlink" href="#undo-set-overload-bit" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：clear the IS-IS overload bit</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo set-overload-bit
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="undo-silent-interface">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">silent-interface</span></code><a class="headerlink" href="#undo-silent-interface" title="链接到此标题。"></a></h2>
 <ul>
@@ -2175,58 +676,6 @@
 <li><p>用途（设备帮助）：enable RIP updates on an interface；restore OSPF Hellos on an interface；restore OSPFv3 Hellos on an interface</p></li>
 <li><p>合法语法：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo silent-interface INTERFACE
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-spf-delay-ietf">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">spf-delay-ietf</span></code><a class="headerlink" href="#undo-spf-delay-ietf" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">IS-IS视图</span></code></p></li>
-<li><p>用途（设备帮助）：disable IETF SPF backoff timers</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo spf-delay-ietf
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-stub">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">stub</span></code><a class="headerlink" href="#undo-stub" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></p></li>
-<li><p>用途（设备帮助）：restore a normal OSPF area；restore a normal OSPFv3 area</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo stub
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-timer-keepalive">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timer</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#undo-timer-keepalive" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore BGP keepalive and hold timers</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo timer keepalive
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="undo-timers-rip">
-<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timers</span> <span class="pre">rip</span></code><a class="headerlink" href="#undo-timers-rip" title="链接到此标题。"></a></h2>
-<ul>
-<li><p>类别：配置命令</p></li>
-<li><p>视图：<code class="docutils literal notranslate"><span class="pre">RIPng视图</span></code>、<code class="docutils literal notranslate"><span class="pre">RIP视图</span></code></p></li>
-<li><p>用途（设备帮助）：restore RIP timers</p></li>
-<li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo timers rip
 </pre></div>
 </div>
 </li>
@@ -2251,8 +700,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../ip-routing/" class="btn btn-neutral float-left" title="IP、VPN 与静态路由" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../mpls/" class="btn btn-neutral float-right" title="MPLS LDP 与 L3VPN" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../vrrp/" class="btn btn-neutral float-left" title="VRRP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../mpls/" class="btn btn-neutral float-right" title="MPLS 与 LDP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

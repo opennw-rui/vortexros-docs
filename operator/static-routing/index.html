@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>静态路由 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/static-routing/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="静态路由组" href="../route-groups/" />
+    <link rel="prev" title="VPN 实例" href="../vrf/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../04-ip-routing/">IP 路由</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing-tables/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../04-ip-routing/">IP 路由</a></li>
+      <li class="breadcrumb-item active">静态路由</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="静态路由"></span><h1>静态路由<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>为指定前缀配置固定路径、黑洞路径或跨表查询。</p>
+<p><a class="reference internal" href="../reference/static-routing/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/static-route/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id2">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip route-static 203.0.113.0 255.255.255.0 192.0.2.1 preference 60 tag 100 description TO-WAN
+ip route-static 198.51.100.0 255.255.255.0 NULL 0 preference 80 tag 900 description DISCARD
+ip route-static vpn-instance BLUE 10.0.0.0 8 vpn-instance default 192.0.2.1 Tunnel 1
+ip route-static vpn-instance BLUE 198.51.100.0 24 vpn-instance default
+ipv6 route-static 2001:db8:100:: 64 2001:db8::1
+ipv6 route-static vpn-instance BLUE 2001:db8:200:: 64 vpn-instance default
+ipv6 route-static 2001:db8:dead:: 48 NULL 0 preference 80 tag 900 description DISCARD-V6
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">NULL</span> <span class="pre">0</span></code>明确创建黑洞路由，可同时携带<code class="docutils literal notranslate"><span class="pre">preference</span></code>、<code class="docutils literal notranslate"><span class="pre">tag</span></code>和<code class="docutils literal notranslate"><span class="pre">description</span></code>，但不能再指定下一跳、出接口或下一跳VPN。撤销时使用同一目的前缀和<code class="docutils literal notranslate"><span class="pre">NULL</span> <span class="pre">0</span></code>，只删除该黑洞路径，不影响同前缀的普通静态路径。运行路由表中的接口名称仍显示为<code class="docutils literal notranslate"><span class="pre">NULL0</span></code>。</p>
+<p>多条静态路由在配置中连续显示，不用无意义的<code class="docutils literal notranslate"><span class="pre">#</span></code>逐条分隔。跨VPN下一跳要同时显示目标VPN和下一跳VPN。</p>
+<p>不指定下一跳和出接口、只指定不同下一跳VPN实例的形式表示“在目标VPP FIB中继续查表”。VPP仍是
+这类路由唯一的数据面所有者，路由不会写入Linux路由表。控制层同时通过route-zapi向Zebra发布一条
+不写内核的控制面影子，使BGP <code class="docutils literal notranslate"><span class="pre">network</span></code>、<code class="docutils literal notranslate"><span class="pre">redistribute</span> <span class="pre">static</span></code>、路由策略和递归下一跳能够观察该路由；
+带下一跳、出接口或<code class="docutils literal notranslate"><span class="pre">NULL</span> <span class="pre">0</span></code>的普通静态路由由统一静态路由后端发布，不再触发协议配置全树提交；
+CLI、保存配置及显示语义保持不变。相同目的VPN和前缀不能同时配置继续查表路径与
+普通路径，也不能配置多个查表目标。运行显示以精确VPP读回作为安装状态，不重复显示控制面影子，因此
+少量此类路由不会触发对大型FIB的全表扫描。</p>
+<p><a class="reference internal" href="../routing-tables/"><span class="std std-doc">查询 RIB 与 FIB</span></a>。</p>
+</section>
+<section id="id3">
+<span id="验收场景"></span><h2>验收场景<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>场景</p></th>
+<th class="head"><p>配置</p></th>
+<th class="head"><p>数据面效果</p></th>
+<th class="head"><p>验证</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>直连下一跳</p></td>
+<td><p>普通静态路由</p></td>
+<td><p>安装到目标VRF</p></td>
+<td><p>ping和routing-table</p></td>
+</tr>
+<tr class="row-odd"><td><p>递归下一跳</p></td>
+<td><p>先建递归可达路由</p></td>
+<td><p>解析成功后安装</p></td>
+<td><p>verbose中的NextHop/Interface</p></td>
+</tr>
+<tr class="row-even"><td><p>ECMP</p></td>
+<td><p>同前缀不同下一跳</p></td>
+<td><p>多路径进入RIB/FIB</p></td>
+<td><p>route verbose和流量</p></td>
+</tr>
+<tr class="row-odd"><td><p>跨VPN</p></td>
+<td><p>目标VPN+下一跳VPN</p></td>
+<td><p>在目标表安装、去指定表解析下一跳</p></td>
+<td><p>两个VPN路由表</p></td>
+</tr>
+<tr class="row-even"><td><p>默认路由</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/0</span></code></p></td>
+<td><p>无更长匹配时使用</p></td>
+<td><p>特定目的ping/tracert</p></td>
+</tr>
+<tr class="row-odd"><td><p>精确undo</p></td>
+<td><p>完整路径参数</p></td>
+<td><p>只删除一个所有者/路径</p></td>
+<td><p>其他所有者仍保留</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../vrf/" class="btn btn-neutral float-left" title="VPN 实例" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../route-groups/" class="btn btn-neutral float-right" title="静态路由组" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
