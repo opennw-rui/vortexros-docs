@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>支持的硬件 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>支持的硬件 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/hardware/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -73,9 +73,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -104,7 +104,7 @@
              
   <section id="id1">
 <span id="支持的硬件"></span><h1>支持的硬件<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>本页对应 <strong>VortexROS 0.28 开发版 Debug 5</strong>、配套 <strong>VPP 26.10.3</strong> 和 <strong>DPDK 26.07</strong>。选型时先看本版安装范围，再按 PCI ID、驱动和实际用途确认网卡。内核驱动、PCI 绑定驱动和 DPDK PMD 是三项独立信息。</p>
+<p>本页对应 <strong>VortexROS 0.28 开发版 Debug 9</strong>、配套 <strong>VPP 26.10.4</strong> 和 <strong>DPDK 26.07</strong>。选型时先看本版安装范围，再按 PCI ID、驱动和实际用途确认网卡。内核驱动、PCI 绑定驱动和 DPDK PMD 是三项独立信息。</p>
 <section id="vortexros">
 <span id="vortexros-验证记录"></span><h2>VortexROS 验证记录<a class="headerlink" href="#vortexros" title="链接到此标题。"></a></h2>
 <table class="docutils align-default">
@@ -117,7 +117,7 @@
 <tbody>
 <tr class="row-even"><td><p>Intel Celeron N5105（x86‑64），Intel I225‑V rev 03（<code class="docutils literal notranslate"><span class="pre">8086:15f3</span></code>）</p></td>
 <td><p>Linux 模块 <code class="docutils literal notranslate"><span class="pre">igc</span></code>。DPDK 接管时，Linux 显示 <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code>，VPP 使用 IGC PMD</p></td>
-<td><p>Ubuntu amd64 真机运行 Debug 5 和 VPP 26.10.3。库存确认四个 I225‑V，VPP 识别四口，核对时两口有链路。见当前<a class="reference internal" href="../../release/vortexros/"><span class="std std-doc">发布验证</span></a>。</p></td>
+<td><p>Ubuntu amd64 真机运行 Debug 5 和 VPP 26.10.3。库存确认四个 I225‑V，VPP 识别四口，核对时两口有链路。该条为 Debug 5 的历史硬件验证，Debug 9 没有重新执行性能验收。当前<a class="reference internal" href="../../release/vortexros/"><span class="std std-doc">发布验证</span></a>另列。</p></td>
 </tr>
 <tr class="row-odd"><td><p>Intel I226 系列</p></td>
 <td><p>Linux <code class="docutils literal notranslate"><span class="pre">igc</span></code> 与 DPDK IGC PMD，按 PCI ID 确认具体型号</p></td>

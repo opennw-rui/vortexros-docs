@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>首次安装 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>首次安装 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../_static/documentation_options.js?v=788bb127"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/translations.js?v=540d3cec"></script>
@@ -83,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../">当前手册（v0.28-dev-debug9）</a>
     <a href="../versions/">文档版本说明</a>
   </div>
 </details>
@@ -118,8 +118,8 @@
 <p>选型见<a class="reference internal" href="hardware/"><span class="std std-doc">支持的硬件</span></a>和<a class="reference internal" href="support/"><span class="std std-doc">支持矩阵</span></a>，首装后的状态见<a class="reference internal" href="defaults/"><span class="std std-doc">默认行为</span></a>。</p>
 <section id="id2">
 <span id="下载并运行"></span><h2>下载并运行<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>从 <a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug5">当前版本发布页</a> 下载对应的 .run 文件，在 Ubuntu 终端执行：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-install_0.28-dev-debug5_amd64.run
+<p>从 <a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug9">当前版本发布页</a> 下载对应的 .run 文件，在 Ubuntu 终端执行：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.28-dev-debug9_amd64.run
 </pre></div>
 </div>
 <p>安装器需要访问已配置的 Ubuntu APT 软件源。它更新软件包索引，安装必要依赖和内嵌的 VortexROS、VPP、FRR，启动受 VortexROS 管理的服务，并屏蔽发行版提供的独立 VPP 和 FRR 服务。首装使用 <strong>Linux 数据面</strong>。业务口改用 DPDK 是后续独立操作，会改变对应网卡的驱动归属。</p>
@@ -130,6 +130,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>vortexros
 </pre></div>
 </div>
+<p>需要受管 SSH 登录时，先按<a class="reference internal" href="../operator/aaa/"><span class="std std-doc">本地账号与 SSH</span></a>创建管理员；出厂配置没有内置账号。安装和使用手册统一在线维护，后续构建不再内置；已发布 Debug 9 安装包附带的历史副本不作为当前使用入口。</p>
 <p>接下来按<a class="reference internal" href="../quickstart/"><span class="std std-doc">从零到 Ping</span></a>配置实验口、提交并验证连通性。已有 VortexROS 的设备请使用<a class="reference internal" href="07-upgrade-uninstall/"><span class="std std-doc">升级与回退</span></a>。</p>
 <div class="toctree-wrapper compound">
 <ul>

@@ -4,8 +4,8 @@
 
 | 组件 | 配套版本 |
 | --- | --- |
-| VortexROS | [0.28-dev-debug5](https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug5) |
-| VPP | [26.10.3+vortexros-vpp](https://github.com/opennw-rui/VortexROS-VPP/releases/tag/v26.10.3%2Bvortexros-vpp) |
+| VortexROS | [0.28-dev-debug9](https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug9) |
+| VPP | [26.10.4+vortexros-vpp](https://github.com/opennw-rui/VortexROS-VPP/releases/tag/v26.10.4%2Bvortexros-vpp) |
 | FRR | [10.7.1-vortexros-1.5-dev](https://github.com/opennw-rui/vortexros-frr/releases/tag/v10.7.1-vortexros-1.5-dev) |
 
 ~~~{toctree}

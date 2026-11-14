@@ -2,28 +2,16 @@
 
 [配置指南](../09-operations.md)
 
-## `check system-software control-plane`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`
-- 用途（设备帮助）：check software compatibility without changing the device
-- 合法语法：
-
-  ```text
-  check system-software control-plane TARGET rollback-package CURRENT
-  ```
-
 ## `check system-software package`
 
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`
-- 用途（设备帮助）：check software compatibility without changing the device
+- CLI 帮助：check a VortexROS system package
 - 合法语法：
 
   ```text
-  check system-software package TARGET rollback-package CURRENT
+  check system-software package TARGET.tar
   ```
 
 ## `clear configuration candidate`
@@ -211,40 +199,16 @@
   reset service vpp
   ```
 
-## `rollback system-software control-plane`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`
-- 用途（设备帮助）：rollback VortexROS control-plane software without restarting VPP
-- 合法语法：
-
-  ```text
-  rollback system-software control-plane TARGET.deb rollback-package CURRENT.deb
-  ```
-
 ## `rollback system-software package`
 
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`
-- 用途（设备帮助）：rollback the complete VortexROS and VPP system package
+- CLI 帮助：rollback a VortexROS system package
 - 合法语法：
 
   ```text
-  rollback system-software package TARGET.tar rollback-package CURRENT.tar
-  ```
-
-## `simulate system-software control-plane`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`
-- 用途（设备帮助）：simulate package resolution and the software transaction without changing the device
-- 合法语法：
-
-  ```text
-  simulate system-software control-plane TARGET rollback-package CURRENT
+  rollback system-software package TARGET.tar
   ```
 
 ## `simulate system-software package`
@@ -252,11 +216,11 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`
-- 用途（设备帮助）：simulate package resolution and the software transaction without changing the device
+- CLI 帮助：simulate a VortexROS system package
 - 合法语法：
 
   ```text
-  simulate system-software package TARGET rollback-package CURRENT
+  simulate system-software package TARGET.tar
   ```
 
 ## `traceroute`
@@ -283,26 +247,14 @@
   tracert [OPTIONS] HOST
   ```
 
-## `upgrade system-software control-plane`
-
-- 类别：即时运维命令
-- 执行效果：立即执行受权限控制的运维动作，不写入配置。
-- 视图：`用户视图`
-- 用途（设备帮助）：upgrade VortexROS control-plane software without restarting VPP
-- 合法语法：
-
-  ```text
-  upgrade system-software control-plane TARGET.deb rollback-package CURRENT.deb
-  ```
-
 ## `upgrade system-software package`
 
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`
-- 用途（设备帮助）：upgrade the complete VortexROS and VPP system package
+- CLI 帮助：upgrade a VortexROS system package
 - 合法语法：
 
   ```text
-  upgrade system-software package TARGET.tar rollback-package CURRENT.tar
+  upgrade system-software package TARGET.tar
   ```

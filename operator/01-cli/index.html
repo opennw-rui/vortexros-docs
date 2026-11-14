@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>命令行 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>命令行 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/01-cli/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -48,7 +48,10 @@
         </div>
 <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">命令行</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
@@ -62,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
@@ -69,9 +73,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -100,7 +104,7 @@
              
   <section id="id1">
 <span id="命令行"></span><h1>命令行<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>在 Linux 终端执行 sudo vortexros。登录后可直接查询运行状态，配置从 system-view 开始。</p>
+<p>Linux 救援账号在终端执行 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">vortexros</span></code>；受管账号通过 SSH 直接进入 CLI。可执行的查询和配置由<a class="reference internal" href="../aaa/"><span class="std std-doc">AAA 角色</span></a>决定，网络配置从 <code class="docutils literal notranslate"><span class="pre">system-view</span></code> 开始。</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>提示符示例</p></th>
@@ -123,7 +127,7 @@
 </tr>
 </tbody>
 </table>
-<p>输入 ? 查询当前位置允许的命令、参数和范围。Tab 补全当前词，再按 Tab 循环候选。缩写必须能在当前位置唯一匹配。return 返回用户视图；如有待提交配置，按提示选择提交、丢弃或取消退出。</p>
+<p>输入 ? 查询当前位置允许的命令、参数和范围。输入当前词的前缀后，Tab 补全并循环候选；空行和空格后的空参数不触发补全。缩写必须能在当前位置唯一匹配。return 返回用户视图；如有待提交配置，按提示选择提交、丢弃或取消退出。</p>
 <section id="id2">
 <span id="从编辑到生效"></span><h2>从编辑到生效<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <table class="docutils align-default">
@@ -180,6 +184,10 @@ clear configuration candidate
 </pre></div>
 </div>
 <p>按提示确认清除。description 只修改接口说明文本，本例没有执行 commit。实际配置地址和转发见<a class="reference internal" href="../../examples/static-route/"><span class="std std-doc">静态路由案例</span></a>。</p>
+</section>
+<section id="id5">
+<span id="提交等待提示"></span><h2>提交等待提示<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>普通交互式 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 等待约 1 秒后显示 <code class="docutils literal notranslate"><span class="pre">Committing.</span></code>，随后每秒追加一点，单行最多 12 点。完成后换行显示原有结果。Ctrl+C 停止进度显示，已经发出的提交请求继续执行；重新查询 Candidate、Running 和健康状态确认结果。快速提交和脚本调用不显示通用进度，数据面接管和远程路由列表保留各自阶段提示。</p>
 </section>
 </section>
 

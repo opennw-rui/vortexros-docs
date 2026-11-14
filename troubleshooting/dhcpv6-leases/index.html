@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DHCPv6 有地址但查不到租约 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>DHCPv6 租约查询 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/troubleshooting/dhcpv6-leases/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -68,7 +68,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../">常见故障</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../route-missing/">邻居正常但 FIB 缺路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tunnel-no-traffic/">隧道 Up 但业务不通</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">DHCPv6 有地址但查不到租约</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DHCPv6 租约查询</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dpdk-management/">切换 DPDK 后管理连接中断</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../backend-not-ready/">提交后后端未收敛</a></li>
 </ul>
@@ -80,9 +80,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -101,7 +101,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../">常见故障</a></li>
-      <li class="breadcrumb-item active">DHCPv6 有地址但查不到租约</li>
+      <li class="breadcrumb-item active">DHCPv6 租约查询</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -111,21 +111,22 @@
            <div itemprop="articleBody">
              
   <section id="dhcpv6">
-<span id="dhcpv6-有地址但查不到租约"></span><h1>DHCPv6 有地址但查不到租约<a class="headerlink" href="#dhcpv6" title="链接到此标题。"></a></h1>
-<p>Debug 5 配套 Kea 3.0.3 的服务端租约查询可能报错。先区分客户端拿不到地址和服务端显示失败。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 client interface host-p2b12
+<span id="dhcpv6-租约查询"></span><h1>DHCPv6 租约查询<a class="headerlink" href="#dhcpv6" title="链接到此标题。"></a></h1>
+<p>先区分客户端未获地址和管理端租约显示失败。Debug 9 已继承 DHCPv6 类型解码及正常空租约汇总的修复。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp service verbose
+display dhcpv6 client interface Ethernet 1
 display ipv6 pool name LAB-V6 used
+display ipv6 pool name LAB-V6 verbose
 </pre></div>
 </div>
-<p>在客户端执行第一条，用现场接口名替换 <code class="docutils literal notranslate"><span class="pre">host-p2b12</span></code>。若显示已分配的 IPv6 地址，用该客户端 Ping 网关。第二条在服务端执行，用现场地址池名替换 <code class="docutils literal notranslate"><span class="pre">LAB-V6</span></code>。</p>
+<p>客户端命令在客户端执行，池查询在服务端执行；替换为现场接口和池名。</p>
 <ul class="simple">
-<li><p>客户端没有地址时，检查对应三层接口的链路、DHCPv6 服务绑定、地址池及服务状态。</p></li>
-<li><p>客户端有地址、网关可达，而查询出现以下错误时，Debug 5 读取了 Kea 的租约回复，但无法解码字符串形式的 <code class="docutils literal notranslate"><span class="pre">IA_NA</span></code>。</p></li>
+<li><p>客户端没有地址：检查链路、服务绑定、地址池和服务状态。</p></li>
+<li><p>正常空租约数据库：查询成功并显示零租约。Kea 列表查询的结果码 3 表示正常空结果。</p></li>
+<li><p>同地址族多实例：一个实例为空时，其他实例的租约及池名筛选仍应正常。</p></li>
+<li><p>socket、服务命令或回复格式错误：保留错误并检查服务日志，不能按零租约处理。</p></li>
 </ul>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>json: cannot unmarshal string into Go struct field keaLeaseArguments.leases.0.type of type uint8
-</pre></div>
-</div>
-<p>此时保留服务和地址池配置，以客户端状态及连通性确认业务。升级至明确修复此问题的发布版后，重新执行服务端租约查询并和客户端地址对照。案例中的实际输出见<a class="reference internal" href="../../examples/dhcpv6/"><span class="std std-doc">DHCPv6 地址分配</span></a>。</p>
+<p>Debug 5 的 <code class="docutils literal notranslate"><span class="pre">IA_NA</span></code> 字符串解码错误已在 Debug 6 修复；正常空结果及多实例汇总在 Debug 7 修复。原始错误和流量结果保留在<a class="reference internal" href="../../examples/dhcpv6/"><span class="std std-doc">历史实测案例</span></a>，不代表 Debug 9 仍有该限制，也不表示本轮重新运行了 DHCPv6 拓扑。</p>
 </section>
 
 

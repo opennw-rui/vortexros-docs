@@ -1,12 +1,12 @@
 # 支持的硬件
 
-本页对应 **VortexROS 0.28 开发版 Debug 5**、配套 **VPP 26.10.3** 和 **DPDK 26.07**。选型时先看本版安装范围，再按 PCI ID、驱动和实际用途确认网卡。内核驱动、PCI 绑定驱动和 DPDK PMD 是三项独立信息。
+本页对应 **VortexROS 0.28 开发版 Debug 9**、配套 **VPP 26.10.4** 和 **DPDK 26.07**。选型时先看本版安装范围，再按 PCI ID、驱动和实际用途确认网卡。内核驱动、PCI 绑定驱动和 DPDK PMD 是三项独立信息。
 
 ## VortexROS 验证记录
 
 | 平台或设备 | 路径 | 验证范围 |
 | --- | --- | --- |
-| Intel Celeron N5105（x86‑64），Intel I225‑V rev 03（`8086:15f3`） | Linux 模块 `igc`。DPDK 接管时，Linux 显示 `vfio-pci`，VPP 使用 IGC PMD | Ubuntu amd64 真机运行 Debug 5 和 VPP 26.10.3。库存确认四个 I225‑V，VPP 识别四口，核对时两口有链路。见当前[发布验证](../release/vortexros.md)。 |
+| Intel Celeron N5105（x86‑64），Intel I225‑V rev 03（`8086:15f3`） | Linux 模块 `igc`。DPDK 接管时，Linux 显示 `vfio-pci`，VPP 使用 IGC PMD | Ubuntu amd64 真机运行 Debug 5 和 VPP 26.10.3。库存确认四个 I225‑V，VPP 识别四口，核对时两口有链路。该条为 Debug 5 的历史硬件验证，Debug 9 没有重新执行性能验收。当前[发布验证](../release/vortexros.md)另列。 |
 | Intel I226 系列 | Linux `igc` 与 DPDK IGC PMD，按 PCI ID 确认具体型号 | 上游支持。DPDK 26.07 还列有 I226‑LM 的平台验证。目前无 VortexROS I226 真机验收记录。 |
 | QEMU/KVM amd64 | Linux 数据面首装，VPP 隔离案例使用 AF_PACKET／veth 或 memif | 隔离环境已验证首装和相关协议及转发案例。memif 和 veth 属于虚拟测试路径。 |
 | Proxmox VE（PVE）VirtIO 网卡 | 虚拟机网卡模型选 **VirtIO (paravirtualized)**，来宾 Linux 驱动为 `virtio_net`。来宾若使用 DPDK，对应独立的 Virtio PMD | 上游有驱动。PVE 宿主桥接、来宾 Linux 转发和来宾 DPDK 是不同路径。目前无 PVE 专项验收记录。 |

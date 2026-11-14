@@ -2,7 +2,7 @@
 
 VortexROS 是运行在 Ubuntu 上的网络操作系统。通过统一 CLI 配置接口、路由和网络服务。首次安装使用 Linux 数据面；需要 DPDK 时，再选择由 VPP 接管的网卡。
 
-手册对应 **VortexROS 0.28 开发版（Debug 5）**。配套软件、更新及测试范围见[发布记录](release/index.md)。
+手册对应 **VortexROS 0.28 开发版（Debug 9）**。配套软件、更新及测试范围见[发布记录](release/index.md)。
 
 首次使用请从[安装](installation/index.md)和[入门](quickstart.md)开始。已有设备可直接从左侧选择功能，也可按[配置案例](examples/index.md)完成一个任务，或在[命令参考](operator/reference/commands.md)查询语法。
 

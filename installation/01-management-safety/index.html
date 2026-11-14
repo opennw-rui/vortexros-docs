@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>保护远程管理连接 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>保护远程管理连接 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/01-management-safety/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -48,6 +48,8 @@
         </div>
 <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support/">支持矩阵</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../">安装</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../00-planning/">部署规划</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">保护远程管理连接</a></li>
@@ -59,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../08-hardware-acceptance/">硬件验收</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../defaults/">默认行为</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
@@ -72,6 +75,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
@@ -79,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -138,7 +142,7 @@
 </tr>
 <tr class="row-even"><td><p>3</p></td>
 <td><p>验证Linux OpenSSH和sudo策略</p></td>
-<td><p>新连接仍由Linux认证，sudo决定能否进入CLI</p></td>
+<td><p>Linux 救援账号通过 sudo 进入 CLI，受管账号按 AAA 角色授权</p></td>
 <td><p>保留旧会话，另开终端执行<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">vortexros</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>4</p></td>

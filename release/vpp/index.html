@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VPP 更新 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>VPP 更新 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/vpp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -48,7 +48,10 @@
         </div>
 <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
@@ -62,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../">发布记录</a><ul class="current">
@@ -75,9 +79,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -107,11 +111,15 @@
              
   <section id="vpp">
 <span id="vpp-更新"></span><h1>VPP 更新<a class="headerlink" href="#vpp" title="链接到此标题。"></a></h1>
-<p><strong>当前配套版本：26.10.3+vortexros-vpp。</strong> <a class="reference external" href="https://github.com/opennw-rui/VortexROS-VPP/releases/tag/v26.10.3%2Bvortexros-vpp">完整发布说明</a></p>
+<p><strong>当前配套版本：26.10.4+vortexros-vpp。</strong> <a class="reference external" href="https://github.com/opennw-rui/VortexROS-VPP/releases/tag/v26.10.4%2Bvortexros-vpp">完整发布说明</a></p>
+<p>26.10.4 在删除 FDB 时将 libnl 的 <code class="docutils literal notranslate"><span class="pre">NLE_NODEV</span></code> 与 <code class="docutils literal notranslate"><span class="pre">NLE_OBJ_NOTFOUND</span></code> 一并视为原目标已经不存在，结束该条待删工作；新增操作的同类错误仍报错。Debug 9 保持此配套版本。</p>
+<section id="id1">
+<span id="历史-26103"></span><h2>历史 26.10.3<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <p>相对 26.10.2，源码只修改 LCP 的 FDB 删除。Linux Netlink 拒绝删除时，保留原桥端口和 VLAN，供后续处理继续清理；同一 VPP 端口重新学到该 MAC 时，废弃旧删除。Binary API、Go 绑定和 FRR 版本未变。</p>
 <p>发布版 VPP 与隔离 Linux 网桥验证了连续四次删除失败后的收敛，以及同端口重学后保留表项。EVPN 事件队列实测到达 1,024 条，3,600 条邻居新增和撤销均收敛，保留原批处理参数。</p>
-<section id="id1">
-<span id="上游-2610"></span><h2>上游 26.10<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+</section>
+<section id="id2">
+<span id="上游-2610"></span><h2>上游 26.10<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/FDio/vpp/commit/a788d6c589">跨 worker handoff</a> 改用固定槽位队列；配套 WireGuard、AmneziaWG、NAT Policy、L2 policer 和 flow steering 已适配。</p></li>
 <li><p>更新配套 Binary API 与 Go 绑定；继续保留 VortexROS 自有的 LCP、EVPN、静态 FDB 回放和物理接口状态同步。</p></li>

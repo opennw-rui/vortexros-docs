@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>支持矩阵 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>支持矩阵 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/support/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -73,9 +73,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -104,7 +104,7 @@
              
   <section id="id1">
 <span id="支持矩阵"></span><h1>支持矩阵<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>VortexROS 0.28 开发版 Debug 5 的单文件安装器适用于 <strong>Ubuntu 26.04 amd64</strong>。默认从 Linux 数据面启动。配套 VPP、FRR 版本见<a class="reference internal" href="../02-backends/"><span class="std std-doc">软件组成</span></a>，CPU、网卡和虚拟机路径见<a class="reference internal" href="../hardware/"><span class="std std-doc">支持的硬件</span></a>。</p>
+<p>VortexROS 0.28 开发版 Debug 9 的单文件安装器适用于 <strong>Ubuntu 26.04 amd64</strong>。默认从 Linux 数据面启动。配套 VPP、FRR 版本见<a class="reference internal" href="../02-backends/"><span class="std std-doc">软件组成</span></a>，CPU、网卡和虚拟机路径见<a class="reference internal" href="../hardware/"><span class="std std-doc">支持的硬件</span></a>。</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>使用目标</p></th>
@@ -113,27 +113,31 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>管理 SSH、sudo、系统时间、主机 DNS</p></td>
-<td><p>由 Ubuntu 管理</p></td>
-<td><p>同样由 Ubuntu 管理，管理口归属需单独规划</p></td>
+<tr class="row-even"><td><p>本地 AAA、管理 SSH 与 sudo</p></td>
+<td><p>OpenSSH 认证，VortexROS 受管账号与角色投影到 Linux</p></td>
+<td><p>同样按 AAA 角色授权，管理口归属另行规划</p></td>
 </tr>
-<tr class="row-odd"><td><p>三层接口、IPv4／IPv6 静态路由、VPN 实例</p></td>
+<tr class="row-odd"><td><p>系统时间、主机 DNS</p></td>
+<td><p>由 Ubuntu 管理</p></td>
+<td><p>由 Ubuntu 管理</p></td>
+</tr>
+<tr class="row-even"><td><p>三层接口、IPv4／IPv6 静态路由、VPN 实例</p></td>
 <td><p>使用 Linux 接口及路由表</p></td>
 <td><p>VPP 转发，按功能与 Linux 同步</p></td>
 </tr>
-<tr class="row-even"><td><p>BGP、OSPF、OSPFv3、IS‑IS、RIP／RIPng</p></td>
+<tr class="row-odd"><td><p>BGP、OSPF、OSPFv3、IS‑IS、RIP／RIPng</p></td>
 <td><p>FRR 提供控制面，实际路由从 Linux 核对</p></td>
 <td><p>FRR 提供控制面，还需核对 VPP FIB</p></td>
 </tr>
-<tr class="row-odd"><td><p>DHCPv4／v6、SNMP</p></td>
+<tr class="row-even"><td><p>DHCPv4／v6、SNMP</p></td>
 <td><p>Linux 主机服务，按接口和功能配置</p></td>
 <td><p>仍由 Linux 服务提供，业务口需有相应的 Linux/LCP 路径。SNMP 系统对象和 VPP 接口计数来源不同</p></td>
 </tr>
-<tr class="row-even"><td><p>接口 ACL、MQC、NAT Policy</p></td>
+<tr class="row-odd"><td><p>接口 ACL、MQC、NAT Policy</p></td>
 <td><p>此处列出的 VortexROS 转发策略使用 VPP</p></td>
 <td><p>使用配套 VPP 插件，按功能页确认接口类型和方向</p></td>
 </tr>
-<tr class="row-odd"><td><p>WireGuard、AmneziaWG、静态 VXLAN、VXLAN EVPN、MPLS L3VPN</p></td>
+<tr class="row-even"><td><p>WireGuard、AmneziaWG、静态 VXLAN、VXLAN EVPN、MPLS L3VPN</p></td>
 <td><p>本手册的实现和案例使用 VPP</p></td>
 <td><p>使用配套 VPP，EVPN／MPLS L3VPN 另需 FRR 控制面</p></td>
 </tr>

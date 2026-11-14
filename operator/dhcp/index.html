@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DHCP &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>DHCP &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dhcp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -48,7 +48,10 @@
         </div>
 <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
@@ -68,6 +71,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
@@ -75,9 +79,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -222,7 +226,7 @@ display ip pool interface vlanif 20
 </div>
 <p>默认视图和<code class="docutils literal notranslate"><span class="pre">used</span></code>都只显示仍有效的已分配地址；<code class="docutils literal notranslate"><span class="pre">all</span></code>显示Kea仍保留的全部租约状态，包括已过期或被拒绝的记录。<code class="docutils literal notranslate"><span class="pre">used</span></code>可以放在接口选择器之前或之后，例如<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">pool</span> <span class="pre">used</span> <span class="pre">interface</span> <span class="pre">vlanif</span> <span class="pre">20</span> <span class="pre">verbose</span></code>。不存在<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">pool</span> <span class="pre">use</span></code>命令。表格包含地址池或接口、客户端IP、MAC、Client-ID、剩余租期、状态、主机名和VPN实例。租约来自Kea控制Socket的权威运行态，不读取可能正在写入的CSV文件；读取失败会明确报错，不会把观察失败显示为零租约。</p>
 <p><code class="docutils literal notranslate"><span class="pre">verbose</span></code>把租约表切换成逐项详情，因此不必同时指定<code class="docutils literal notranslate"><span class="pre">used</span></code>。每条IPv4租约显示IP、MAC、网关、DNS、地址范围、域名、Client-ID、主机名、VPN实例、Kea服务实例、Subnet ID、状态、最近一次客户端事务时间、到期时间、有效租期和剩余租期。<code class="docutils literal notranslate"><span class="pre">used</span> <span class="pre">verbose</span></code>语义相同；<code class="docutils literal notranslate"><span class="pre">all</span> <span class="pre">verbose</span></code>还会展开已过期、declined及Kea保留的其他状态。没有由客户端提供的字段明确显示为<code class="docutils literal notranslate"><span class="pre">-</span></code>，不会根据MAC猜测厂商、操作系统或设备型号。</p>
-<p>Debug 5 搭配 Kea 3.0.3 时，以下租约查询可能因租约类型字段解码失败而报错。可用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcpv6</span> <span class="pre">client</span></code> 和实际连通性单独验证地址分配，详见<a class="reference internal" href="../../examples/dhcpv6/#id2"><span class="std std-ref">实测案例</span></a>。</p>
+<p>Debug 9 已包含 DHCPv6 IA_NA/IA_TA/IA_PD 类型解码以及 Kea 正常空租约结果的修复。正常空库应显示零租约；同地址族的空实例不会阻断其他实例的租约或池名筛选。传输和服务错误仍报错。历史输出见<a class="reference internal" href="../../examples/dhcpv6/#id2"><span class="std std-ref">实测案例</span></a>。</p>
 <p>DHCPv6服务器使用相同的运行态语义：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 pool name V6-POOL used
 display ipv6 pool name V6-POOL all

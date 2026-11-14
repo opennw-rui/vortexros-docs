@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>默认行为 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>默认行为 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/defaults/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -73,9 +73,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -104,7 +104,7 @@
              
   <section id="id1">
 <span id="默认行为"></span><h1>默认行为<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>以下为 Debug 5 空白 Ubuntu 首装时的产品默认行为。已有设备的 Running、启动配置及 Ubuntu 管理策略以当前设备查询为准。</p>
+<p>以下为 Debug 9 空白 Ubuntu 首装时的产品默认行为。已有设备的 Running、启动配置及 Ubuntu 管理策略以当前设备查询为准。</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>项目</p></th>
@@ -126,8 +126,8 @@
 <td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">service</span> <span class="pre">verbose</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>远程管理</p></td>
-<td><p>沿用 Ubuntu 的 OpenSSH 和 sudo，管理 CLI 通过仅 root 可访问的本地 Socket 连接</p></td>
-<td><p>Ubuntu 的 SSH／sudo 配置，<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">vortexros</span></code></p></td>
+<td><p>没有预置受管用户和密码。Linux 救援账号使用 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">vortexros</span></code>；创建的受管账号通过 OpenSSH 直接进入 CLI，按 AAA 角色授权</p></td>
+<td><p><a class="reference internal" href="../../operator/aaa/"><span class="std std-doc">本地账号与 SSH</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>网络服务</p></td>
 <td><p>DHCP 服务端、SNMP 按配置启用。DHCP 客户端和中继按接口配置</p></td>

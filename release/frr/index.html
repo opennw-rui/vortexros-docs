@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FRR 更新 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>FRR 更新 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/frr/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -48,7 +48,10 @@
         </div>
 <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
@@ -62,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../">发布记录</a><ul class="current">
@@ -75,9 +79,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -107,7 +111,7 @@
              
   <section id="frr">
 <span id="frr-更新"></span><h1>FRR 更新<a class="headerlink" href="#frr" title="链接到此标题。"></a></h1>
-<p><strong>当前配套版本：10.7.1-vortexros-1.5-dev。</strong> Debug 5 未更新 FRR 包。<a class="reference external" href="https://github.com/opennw-rui/vortexros-frr/releases/tag/v10.7.1-vortexros-1.5-dev">配套 FRR 发布说明</a></p>
+<p><strong>当前配套版本：10.7.1-vortexros-1.5-dev。</strong> Debug 9 保持 FRR 包版本。<a class="reference external" href="https://github.com/opennw-rui/vortexros-frr/releases/tag/v10.7.1-vortexros-1.5-dev">配套 FRR 发布说明</a></p>
 <p>此配套版本回移了 FRRouting 对默认 BGP 实例隐藏并恢复时的 EVPN 状态修复（<a class="reference external" href="https://github.com/FRRouting/frr/pull/23851">#23851</a>，固定在 <code class="docutils literal notranslate"><span class="pre">6c068bfd707e</span></code>），以及关联的 <a class="reference external" href="https://github.com/FRRouting/frr/pull/23676">10.7 回移</a>。打包时 #23851 仍在上游审查；这里记录配套包采用的版本。</p>
 <p>FRR 发布时在开发服务器通过真实 CLI 验证了重启、Running 配置回放、VPN 路由恢复和实际连通性。这里没有独立的 FRR 吞吐或收敛延时对比。</p>
 </section>

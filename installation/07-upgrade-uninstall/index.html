@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>升级与回退 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>升级与回退 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/07-upgrade-uninstall/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -48,6 +48,8 @@
         </div>
 <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support/">支持矩阵</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../">安装</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../00-planning/">部署规划</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../01-management-safety/">保护远程管理连接</a></li>
@@ -59,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../08-hardware-acceptance/">硬件验收</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../defaults/">默认行为</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
@@ -72,6 +75,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
@@ -79,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -111,40 +115,58 @@
              
   <section id="id1">
 <span id="升级与回退"></span><h1>升级与回退<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>将目标包与<strong>当前已安装版本的回退包</strong>放到 /VortexROS/install。保存并验证当前业务后启动升级。</p>
+<p>首次安装、升级、检查和模拟统一使用对应版本的单文件 <code class="docutils literal notranslate"><span class="pre">.run</span></code>。包内包含 VortexROS、配套 VPP 和 FRR；安装器比较版本，只更新变化的组件。</p>
+<section id="id2">
+<span id="使用单文件安装包"></span><h2>使用单文件安装包<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>从<a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug9">Debug 9 发布页</a>下载 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SHA256SUMS</span></code>，核对校验值。更新前在 CLI 执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>，确认当前配置和服务收敛，然后运行：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sha256sum<span class="w"> </span>-c<span class="w"> </span>SHA256SUMS
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.28-dev-debug9_amd64.run<span class="w"> </span>--check-only
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.28-dev-debug9_amd64.run<span class="w"> </span>--simulate
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.28-dev-debug9_amd64.run
+</pre></div>
+</div>
+<p>检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。后端版本相同则保留对应包和进程；后端版本变化时安装器重启受影响的服务，需预留相应的业务中断窗口。</p>
+<p>已安装的 Linux-only 设备可以更新，VPP 服务保持停止；VPP 模式继续检查进程及适用的运行版本。安装器要求升级和回退前后的数据面归属一致。</p>
+</section>
+<section id="id3">
+<span id="回退材料与健康观察"></span><h2>回退材料与健康观察<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>安装器从上次保留的系统包、本地软件包目录或 APT 缓存取得待更新组件的精确旧版本包。统一 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 入口不要求预先创建 <code class="docutils literal notranslate"><span class="pre">/VortexROS/install</span></code>。缺少回退材料时，预检会报告实际缺少的包名和版本。</p>
+<p>Debug 9 在预检中逐项检查 <code class="docutils literal notranslate"><span class="pre">vortexros.target</span></code>、FRR、route-zapi、switchd 和 vortexrosd；观察期间逐项检查四个关键服务，并验证配置、数据面和严格健康状态。最后一次严格健康采样后，还会再次核对服务与数据面不变量。服务刚停时，daemon 的健康快照可能尚未刷新，不能只看一个 ready 结果。</p>
+<p>默认目标版本稳定观察为 <strong>180 秒</strong>，回退版本稳定观察为 <strong>90 秒</strong>。目标失败时自动尝试回退。用 CLI 查看事务：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display system-software verbose
+</pre></div>
+</div>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p>更新范围</p></th>
-<th class="head"><p>材料</p></th>
-<th class="head"><p>影响</p></th>
+<tr class="row-odd"><th class="head"><p>状态</p></th>
+<th class="head"><p>含义</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>只更新控制层</p></td>
-<td><p>目标与当前版本各自的 Debian 包</p></td>
-<td><p>重启控制层，VPP 继续转发</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">committed</span></code></p></td>
+<td><p>目标版本完成连续健康观察</p></td>
 </tr>
-<tr class="row-odd"><td><p>同时更新 VPP</p></td>
-<td><p>两份系统 tar，软件包集合一致</p></td>
-<td><p>重启 VPP 和控制服务，业务和管理路径可能短暂中断</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rolled-back</span></code></p></td>
+<td><p>目标失败，原版本已恢复并通过观察</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rollback-failed</span></code></p></td>
+<td><p>原版本未能恢复健康，需使用救援入口检查失败原因</p></td>
 </tr>
 </tbody>
 </table>
-<section id="id2">
-<span id="执行升级"></span><h2>执行升级<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>以下 NEW.tar 与 CURRENT.tar 是示例名。换成实际下载的文件：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>vortexros-safe-upgrade<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--system-package<span class="w"> </span>/VortexROS/install/NEW.tar<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--rollback-system-package<span class="w"> </span>/VortexROS/install/CURRENT.tar
+<p>外部故障仍持续时，须先解除故障才能恢复健康；回退旧软件不能代替修复持续不可用的依赖。</p>
+</section>
+<section id="cli">
+<span id="cli-系统包入口"></span><h2>CLI 系统包入口<a class="headerlink" href="#cli" title="链接到此标题。"></a></h2>
+<p>需要在设备 CLI 操作时，将系统 tar 放到软件目录，使用单目标包命令。此入口与 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 共用通用安装器。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>check system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
+simulate system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
+upgrade system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
 </pre></div>
 </div>
-<p>只更新控制层时使用 --package 和 --rollback-package，并提供两份 Debian 包的完整路径。安装器会检查版本、当前配置与设备健康。需要提前查看软件包计划时，可在同一命令加 --simulate。</p>
-</section>
-<section id="id3">
-<span id="确认或恢复"></span><h2>确认或恢复<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>进入 CLI 执行 display system-software verbose。committed 表示已完成连续健康观察。升级失败时安装器尝试恢复原软件，恢复成功显示 rolled-back。rollback-failed 表示需要通过恢复通道排查。系统包升级保留现有启动 CFG。</p>
-<p>主动降级时，按同一入口传入旧目标包与当前版本回退材料。若需恢复首次安装前的状态，且尚未执行数据面重置，可用 sudo vortexros-safe-upgrade --restore-install。</p>
-<p>更多 CLI 操作见<a class="reference internal" href="../../operator/reference/system/"><span class="std std-doc">系统命令参考</span></a>。</p>
+<p>主动回退用 <code class="docutils literal notranslate"><span class="pre">rollback</span> <span class="pre">system-software</span> <span class="pre">package</span> <span class="pre">TARGET.tar</span></code>，旧版 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 也可作为更新目标。目标必须能读取当前启动 CFG，并具备当前已安装版本的精确回退材料。较早的 Debug 6 无法读取包含 Debug 7 受管账号的 CFG，需保留原文件并选择兼容的启动配置，操作时保留独立救援入口。</p>
+<p>首次安装恢复材料可用时，且尚未执行数据面重置，可按安装器说明执行 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">vortexros-safe-upgrade</span> <span class="pre">--restore-install</span></code> 恢复首次安装前状态。</p>
+<p><a class="reference internal" href="../../operator/reference/system/"><span class="std std-doc">系统命令参考</span></a> · <a class="reference internal" href="../../release/vortexros/"><span class="std std-doc">最终包验证</span></a></p>
 </section>
 </section>
 

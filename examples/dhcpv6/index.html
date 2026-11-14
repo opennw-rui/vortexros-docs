@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DHCPv6 地址池 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>DHCPv6 地址池 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/dhcpv6/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -48,7 +48,10 @@
         </div>
 <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
@@ -62,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
@@ -101,9 +105,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -196,10 +200,11 @@ host-p2b12  IPv6            client                default       running  2001:db
 </pre></div>
 </div>
 <p>在 P2 的接口视图执行 <code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">renew</span></code>，再查询客户端，实测地址仍为 <code class="docutils literal notranslate"><span class="pre">2001:db8:252:10::3/128</span></code>。续租是运行命令，不需要提交。</p>
-<p><strong>当前版本限制：</strong> Debug 5 搭配 Kea 3.0.3 时，服务端 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">pool</span> <span class="pre">name</span> <span class="pre">LAB-V6</span> <span class="pre">used</span></code> 的查询实测返回以下错误片段。服务端就绪、客户端获得地址和 Ping 成功均已单独验证；服务端租约明细查询没有通过。 Kea 的实际回复使用字符串 <code class="docutils literal notranslate"><span class="pre">&quot;IA_NA&quot;</span></code>，Debug 5 的控制层按数字解码。</p>
+<p><strong>历史实测（Debug 5，当前已修复）：</strong> Debug 5 搭配 Kea 3.0.3 时，服务端 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">pool</span> <span class="pre">name</span> <span class="pre">LAB-V6</span> <span class="pre">used</span></code> 的查询实测返回以下错误片段。服务端就绪、客户端获得地址和 Ping 成功均已单独验证；服务端租约明细查询没有通过。 Kea 的实际回复使用字符串 <code class="docutils literal notranslate"><span class="pre">&quot;IA_NA&quot;</span></code>，Debug 5 的控制层按数字解码。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>json: cannot unmarshal string into Go struct field keaLeaseArguments.leases.0.type of type uint8
 </pre></div>
 </div>
+<p>Debug 6 已修复 IA_NA/IA_TA/IA_PD 类型解码，Debug 7 已修复 Kea 正常空结果及同地址族多实例汇总。Debug 9 继承这些修复；上面的报错只记录历史案例，本轮没有重复运行该拓扑。当前执行相同查询应返回实际租约或成功空结果。</p>
 </section>
 <section id="id3">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>

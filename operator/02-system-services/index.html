@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>系统管理 &mdash; VortexROS 文档 v0.28-dev-debug5 文档</title>
+  <title>系统管理 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/02-system-services/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=bbb6946f"></script>
+      <script src="../../_static/documentation_options.js?v=788bb127"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,7 +23,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="接口" href="../03-interfaces-l2/" />
+    <link rel="next" title="本地账号与 SSH" href="../aaa/" />
     <link rel="prev" title="命令行" href="../01-cli/" /> 
 </head>
 
@@ -48,10 +48,16 @@
         </div>
 <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">系统管理</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">系统管理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aaa/">本地账号与 SSH</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
@@ -62,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
@@ -69,9 +76,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug5）</summary>
+  <summary>版本：最新（v0.28-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug5）</a>
+    <a href="../../">当前手册（v0.28-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -100,15 +107,7 @@
              
   <section id="id1">
 <span id="系统管理"></span><h1>系统管理<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>VortexROS只负责VPP、FRR和网络功能的控制面。用户、SSH、sudo、系统时间、DNS以及日志持久化由Linux管理员维护，不在设备配置中重复定义。</p>
-<section id="cli">
-<span id="进入cli"></span><h2>进入CLI<a class="headerlink" href="#cli" title="链接到此标题。"></a></h2>
-<p>先通过Linux OpenSSH登录，再执行：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sudo vortexros
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">vortexrosd</span></code>的管理Socket只允许UID 0连接。非root直接执行<code class="docutils literal notranslate"><span class="pre">vortexros</span></code>会被拒绝；程序不使用setuid，也不会把Linux账号投影成设备账号。</p>
-</section>
+<p>本地账号、SSH、角色、首次改密及失败恢复见<a class="reference internal" href="../aaa/"><span class="std std-doc">本地账号与 SSH</span></a>。Linux 救援入口继续使用 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">vortexros</span></code>，受管账号按已提交的 AAA 角色进入 CLI。</p>
 <section id="id2">
 <span id="检查服务"></span><h2>检查服务<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display service
@@ -134,7 +133,7 @@ display alarm history last 100
 </pre></div>
 </div>
 <p>Heap 分区显示 VPP 各堆的容量、已用量和空闲量。Process RSS 是进程常驻内存，Process VSZ 是虚拟地址空间大小，二者分别读取 Linux 进程状态。</p>
-<p>Buffer pools 的 Available、Used、Cached 以缓冲区个数计量，分别表示池内可分配、已使用及线程缓存的缓冲区。三项之和等于该池的缓冲区总数。查询通过 VPP Binary API 的只读命令取得实时池状态，配套 VPP 26.06 的 gauge 计数不会被转换为虚构的零值。后端不可用时显示采集失败原因。</p>
+<p>Buffer pools 的 Available、Used、Cached 以缓冲区个数计量，分别表示池内可分配、已使用及线程缓存的缓冲区。三项之和等于该池的缓冲区总数。查询通过 VPP Binary API 的只读命令取得实时池状态，配套 VPP 的 gauge 计数不会被转换为虚构的零值。后端不可用时显示采集失败原因。</p>
 </section>
 <section id="id5">
 <span id="日志"></span><h2>日志<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
@@ -149,6 +148,11 @@ journalctl -u vortexros-route-zapi.service
 <span id="重置后端服务"></span><h2>重置后端服务<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
 <p>管理员可在CLI内使用对应的<code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span></code>命令重启受管后端，再通过<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">service</span> <span class="pre">verbose</span></code>和<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health</span> <span class="pre">verbose</span></code>确认恢复。重启服务不会替代<code class="docutils literal notranslate"><span class="pre">commit</span></code>或<code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
 <p><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">frr</span></code> 重启整套受管 FRR。命令成功时，Running 已回放并通过配置回读验证。路由邻居和业务流量会随协议重新收敛。用对应的路由表查询和 <code class="docutils literal notranslate"><span class="pre">ping</span></code> 确认业务恢复。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aaa/">本地账号与 SSH</a></li>
+</ul>
+</div>
 </section>
 </section>
 
@@ -157,7 +161,7 @@ journalctl -u vortexros-route-zapi.service
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../01-cli/" class="btn btn-neutral float-left" title="命令行" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../03-interfaces-l2/" class="btn btn-neutral float-right" title="接口" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../aaa/" class="btn btn-neutral float-right" title="本地账号与 SSH" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

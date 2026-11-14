@@ -1,6 +1,10 @@
 # VPP 更新
 
-**当前配套版本：26.10.3+vortexros-vpp。** [完整发布说明](https://github.com/opennw-rui/VortexROS-VPP/releases/tag/v26.10.3%2Bvortexros-vpp)
+**当前配套版本：26.10.4+vortexros-vpp。** [完整发布说明](https://github.com/opennw-rui/VortexROS-VPP/releases/tag/v26.10.4%2Bvortexros-vpp)
+
+26.10.4 在删除 FDB 时将 libnl 的 `NLE_NODEV` 与 `NLE_OBJ_NOTFOUND` 一并视为原目标已经不存在，结束该条待删工作；新增操作的同类错误仍报错。Debug 9 保持此配套版本。
+
+## 历史 26.10.3
 
 相对 26.10.2，源码只修改 LCP 的 FDB 删除。Linux Netlink 拒绝删除时，保留原桥端口和 VLAN，供后续处理继续清理；同一 VPP 端口重新学到该 MAC 时，废弃旧删除。Binary API、Go 绑定和 FRR 版本未变。
 
