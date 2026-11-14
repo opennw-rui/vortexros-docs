@@ -5,7 +5,7 @@
 ## 预览和构建
 
     python -m pip install -r requirements.txt
-    sphinx-build -W -b dirhtml docs site
+    sphinx-build -W -d .cache/doctrees -b dirhtml docs site
 
 使用 Python 3.12 或更新版本。在本地用 python -m http.server --directory site 预览。GitHub Pages 从 gh-pages 根目录发布生成结果，保留 .nojekyll。
 
