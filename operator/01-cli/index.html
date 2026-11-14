@@ -189,6 +189,16 @@ clear configuration candidate
 <span id="提交等待提示"></span><h2>提交等待提示<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
 <p>普通交互式 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 等待约 1 秒后显示 <code class="docutils literal notranslate"><span class="pre">Committing.</span></code>，随后每秒追加一点，单行最多 12 点。完成后换行显示原有结果。Ctrl+C 停止进度显示，已经发出的提交请求继续执行；重新查询 Candidate、Running 和健康状态确认结果。快速提交和脚本调用不显示通用进度，数据面接管和远程路由列表保留各自阶段提示。</p>
 </section>
+<section id="id6">
+<span id="启动配置片段"></span><h2>启动配置片段<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
+<p>以下片段仅修改设备名称，可用于 CFG 解析和保存回放的语义校验；不代表网络拓扑验收。</p>
+<div class="highlight-vortexros-config notranslate"><div class="highlight"><pre><span></span>#
+sysname Manual-Test
+#
+return
+</pre></div>
+</div>
+</section>
 </section>
 
 

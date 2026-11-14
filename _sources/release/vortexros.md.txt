@@ -42,4 +42,4 @@
 
 ## 手册维护
 
-当前手册统一在 [vortexros-docs](https://github.com/opennw-rui/vortexros-docs) 维护。产品仓库的文档入口和后续构建的安装布局已改为在线手册；已发布的 Debug 9 `.run` 保持原附件及校验值，其附带的历史手册不作为当前使用入口。本次仅发布文档，没有重新打包或部署软件。
+当前手册统一在 [vortexros-docs](https://github.com/opennw-rui/vortexros-docs) 维护。产品仓库只保留架构、开发和验证记录，旧用户手册源文件已删除；文档入口和后续构建的安装布局已改为在线手册；已发布的 Debug 9 `.run` 保持原附件及校验值，其附带的历史手册不作为当前使用入口。本次仅发布文档，没有重新打包或部署软件。

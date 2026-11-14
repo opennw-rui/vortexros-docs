@@ -128,8 +128,8 @@
 <td><p>隔离环境已验证首装和相关协议及转发案例。memif 和 veth 属于虚拟测试路径。</p></td>
 </tr>
 <tr class="row-odd"><td><p>Proxmox VE（PVE）VirtIO 网卡</p></td>
-<td><p>虚拟机网卡模型选 <strong>VirtIO (paravirtualized)</strong>，来宾 Linux 驱动为 <code class="docutils literal notranslate"><span class="pre">virtio_net</span></code>。来宾若使用 DPDK，对应独立的 Virtio PMD</p></td>
-<td><p>上游有驱动。PVE 宿主桥接、来宾 Linux 转发和来宾 DPDK 是不同路径。目前无 PVE 专项验收记录。</p></td>
+<td><p>虚拟机网卡模型选 <strong>VirtIO (paravirtualized)</strong>，虚拟机中的 Linux 驱动为 <code class="docutils literal notranslate"><span class="pre">virtio_net</span></code>。虚拟机若使用 DPDK，对应独立的 Virtio PMD</p></td>
+<td><p>上游有驱动。PVE 宿主桥接、虚拟机中的 Linux 转发和虚拟机中的 DPDK 是不同路径。目前无 PVE 专项验收记录。</p></td>
 </tr>
 </tbody>
 </table>
@@ -137,7 +137,7 @@
 </section>
 <section id="proxmox-ve-virtio">
 <span id="在-proxmox-ve-中选择-virtio"></span><h2>在 Proxmox VE 中选择 VirtIO<a class="headerlink" href="#proxmox-ve-virtio" title="链接到此标题。"></a></h2>
-<p>在虚拟机的 <strong>硬件 → 网络设备</strong> 中选择 VirtIO，并将设备接到所需的 PVE bridge。按 Linux 模式首装后，在来宾内运行 <code class="docutils literal notranslate"><span class="pre">ethtool</span> <span class="pre">-i</span></code>，确认驱动为 <code class="docutils literal notranslate"><span class="pre">virtio_net</span></code>，再通过 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span> <span class="pre">brief</span></code> 核对接口。来宾 DPDK 仍须独立验证 PCI 设备识别、IOMMU／VFIO 条件及管理路径。</p>
+<p>在虚拟机的 <strong>硬件 → 网络设备</strong> 中选择 VirtIO，并将设备接到所需的 PVE bridge。按 Linux 模式首装后，在虚拟机内运行 <code class="docutils literal notranslate"><span class="pre">ethtool</span> <span class="pre">-i</span></code>，确认驱动为 <code class="docutils literal notranslate"><span class="pre">virtio_net</span></code>，再通过 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span> <span class="pre">brief</span></code> 核对接口。虚拟机中的 DPDK 仍须独立验证 PCI 设备识别、IOMMU／VFIO 条件及管理路径。</p>
 </section>
 <section id="fd-io-vpp">
 <span id="fdio-vpp-支持范围"></span><h2>FD.io VPP 支持范围<a class="headerlink" href="#fd-io-vpp" title="链接到此标题。"></a></h2>
@@ -224,7 +224,7 @@
 </section>
 <section id="id3">
 <span id="核对自己的设备"></span><h2>核对自己的设备<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>在 Ubuntu 终端查看 CPU、网卡 PCI ID 和当前驱动。若为 PVE VirtIO，以下命令在来宾内执行，并用实际接口名替换 <code class="docutils literal notranslate"><span class="pre">ens18</span></code>。</p>
+<p>在 Ubuntu 终端查看 CPU、网卡 PCI ID 和当前驱动。若为 PVE VirtIO，以下命令在虚拟机内执行，并用实际接口名替换 <code class="docutils literal notranslate"><span class="pre">ens18</span></code>。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lscpu
 lspci<span class="w"> </span>-nnk
 ethtool<span class="w"> </span>-i<span class="w"> </span>ens18
