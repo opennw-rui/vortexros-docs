@@ -1,19 +1,19 @@
-# DHCPv6 有地址但查不到租约
+# DHCPv6 租约查询
 
-Debug 5 配套 Kea 3.0.3 的服务端租约查询可能报错。先区分客户端拿不到地址和服务端显示失败。
+先区分客户端未获地址和管理端租约显示失败。Debug 9 已继承 DHCPv6 类型解码及正常空租约汇总的修复。
 
 ~~~text
-display dhcpv6 client interface host-p2b12
+display dhcp service verbose
+display dhcpv6 client interface Ethernet 1
 display ipv6 pool name LAB-V6 used
+display ipv6 pool name LAB-V6 verbose
 ~~~
 
-在客户端执行第一条，用现场接口名替换 `host-p2b12`。若显示已分配的 IPv6 地址，用该客户端 Ping 网关。第二条在服务端执行，用现场地址池名替换 `LAB-V6`。
+客户端命令在客户端执行，池查询在服务端执行；替换为现场接口和池名。
 
-- 客户端没有地址时，检查对应三层接口的链路、DHCPv6 服务绑定、地址池及服务状态。
-- 客户端有地址、网关可达，而查询出现以下错误时，Debug 5 读取了 Kea 的租约回复，但无法解码字符串形式的 `IA_NA`。
+- 客户端没有地址：检查链路、服务绑定、地址池和服务状态。
+- 正常空租约数据库：查询成功并显示零租约。Kea 列表查询的结果码 3 表示正常空结果。
+- 同地址族多实例：一个实例为空时，其他实例的租约及池名筛选仍应正常。
+- socket、服务命令或回复格式错误：保留错误并检查服务日志，不能按零租约处理。
 
-~~~text
-json: cannot unmarshal string into Go struct field keaLeaseArguments.leases.0.type of type uint8
-~~~
-
-此时保留服务和地址池配置，以客户端状态及连通性确认业务。升级至明确修复此问题的发布版后，重新执行服务端租约查询并和客户端地址对照。案例中的实际输出见[DHCPv6 地址分配](../examples/dhcpv6.md)。
+Debug 5 的 `IA_NA` 字符串解码错误已在 Debug 6 修复；正常空结果及多实例汇总在 Debug 7 修复。原始错误和流量结果保留在[历史实测案例](../examples/dhcpv6.md)，不代表 Debug 9 仍有该限制，也不表示本轮重新运行了 DHCPv6 拓扑。

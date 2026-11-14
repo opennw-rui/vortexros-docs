@@ -73,11 +73,13 @@ host-p2b12  IPv6            client                default       running  2001:db
 
 在 P2 的接口视图执行 `dhcpv6 client renew`，再查询客户端，实测地址仍为 `2001:db8:252:10::3/128`。续租是运行命令，不需要提交。
 
-**当前版本限制：** Debug 5 搭配 Kea 3.0.3 时，服务端 `display ipv6 pool name LAB-V6 used` 的查询实测返回以下错误片段。服务端就绪、客户端获得地址和 Ping 成功均已单独验证；服务端租约明细查询没有通过。 Kea 的实际回复使用字符串 `"IA_NA"`，Debug 5 的控制层按数字解码。
+**历史实测（Debug 5，当前已修复）：** Debug 5 搭配 Kea 3.0.3 时，服务端 `display ipv6 pool name LAB-V6 used` 的查询实测返回以下错误片段。服务端就绪、客户端获得地址和 Ping 成功均已单独验证；服务端租约明细查询没有通过。 Kea 的实际回复使用字符串 `"IA_NA"`，Debug 5 的控制层按数字解码。
 
 ~~~text
 json: cannot unmarshal string into Go struct field keaLeaseArguments.leases.0.type of type uint8
 ~~~
+
+Debug 6 已修复 IA_NA/IA_TA/IA_PD 类型解码，Debug 7 已修复 Kea 正常空结果及同地址族多实例汇总。Debug 9 继承这些修复；上面的报错只记录历史案例，本轮没有重复运行该拓扑。当前执行相同查询应返回实际租约或成功空结果。
 
 ## 撤销
 

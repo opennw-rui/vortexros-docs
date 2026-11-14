@@ -10,7 +10,7 @@
 |---|---|---|---|
 | 1 | 记录当前地址与路由 | 无修改 | `ip address`、`ip route`、`ip -6 route` |
 | 2 | 为当前管理源增加精确明细路由 | 只影响该管理网段/地址的回程 | 从第二个终端重连；失败即删除新增路由 |
-| 3 | 验证Linux OpenSSH和sudo策略 | 新连接仍由Linux认证，sudo决定能否进入CLI | 保留旧会话，另开终端执行`sudo vortexros` |
+| 3 | 验证Linux OpenSSH和sudo策略 | Linux 救援账号通过 sudo 进入 CLI，受管账号按 AAA 角色授权 | 保留旧会话，另开终端执行`sudo vortexros` |
 | 4 | 确认TCP/22只由预期的Linux SSH监听 | 避免未知服务抢占管理入口 | `ss -lntp` |
 | 5 | 保留带外控制台或云控制台 | 不改变设备状态 | 模拟断开SSH后确认仍可进入系统 |
 

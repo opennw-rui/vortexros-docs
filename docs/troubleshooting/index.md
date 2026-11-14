@@ -13,3 +13,5 @@ backend-not-ready
 ~~~
 
 通用命令和服务恢复入口见[诊断与恢复](../operator/09-operations.md)。
+
+账号登录或首次改密失败，见[首次改密失败恢复](../operator/aaa.md#首次改密失败恢复)。
