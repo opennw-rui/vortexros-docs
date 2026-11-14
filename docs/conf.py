@@ -50,4 +50,6 @@ html_search_language = "vortexros"
 
 
 def setup(app):
+    from pygments.lexers.special import TextLexer
     app.add_search_language(SearchVortexROS)
+    app.add_lexer("vortexros-config", TextLexer)

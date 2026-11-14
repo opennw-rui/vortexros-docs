@@ -9,13 +9,13 @@
 | Intel Celeron N5105（x86‑64），Intel I225‑V rev 03（`8086:15f3`） | Linux 模块 `igc`。DPDK 接管时，Linux 显示 `vfio-pci`，VPP 使用 IGC PMD | Ubuntu amd64 真机运行 Debug 5 和 VPP 26.10.3。库存确认四个 I225‑V，VPP 识别四口，核对时两口有链路。该条为 Debug 5 的历史硬件验证，Debug 9 没有重新执行性能验收。当前[发布验证](../release/vortexros.md)另列。 |
 | Intel I226 系列 | Linux `igc` 与 DPDK IGC PMD，按 PCI ID 确认具体型号 | 上游支持。DPDK 26.07 还列有 I226‑LM 的平台验证。目前无 VortexROS I226 真机验收记录。 |
 | QEMU/KVM amd64 | Linux 数据面首装，VPP 隔离案例使用 AF_PACKET／veth 或 memif | 隔离环境已验证首装和相关协议及转发案例。memif 和 veth 属于虚拟测试路径。 |
-| Proxmox VE（PVE）VirtIO 网卡 | 虚拟机网卡模型选 **VirtIO (paravirtualized)**，来宾 Linux 驱动为 `virtio_net`。来宾若使用 DPDK，对应独立的 Virtio PMD | 上游有驱动。PVE 宿主桥接、来宾 Linux 转发和来宾 DPDK 是不同路径。目前无 PVE 专项验收记录。 |
+| Proxmox VE（PVE）VirtIO 网卡 | 虚拟机网卡模型选 **VirtIO (paravirtualized)**，虚拟机中的 Linux 驱动为 `virtio_net`。虚拟机若使用 DPDK，对应独立的 Virtio PMD | 上游有驱动。PVE 宿主桥接、虚拟机中的 Linux 转发和虚拟机中的 DPDK 是不同路径。目前无 PVE 专项验收记录。 |
 
 [N5105 产品规格](https://www.intel.com/content/www/us/en/products/sku/212328/intel-celeron-processor-n5105-4m-cache-up-to-2-90-ghz/specifications.html) · [DPDK 26.07 IGC](https://doc.dpdk.org/guides-26.07/nics/igc.html) · [DPDK 26.07 平台验证](https://doc.dpdk.org/guides-26.07/rel_notes/release_26_07.html) · [Proxmox VE 虚拟机手册](https://pve.proxmox.com/pve-docs/qm.1.html) · [DPDK 26.07 Virtio](https://doc.dpdk.org/guides-26.07/nics/virtio.html)
 
 ## 在 Proxmox VE 中选择 VirtIO
 
-在虚拟机的 **硬件 → 网络设备** 中选择 VirtIO，并将设备接到所需的 PVE bridge。按 Linux 模式首装后，在来宾内运行 `ethtool -i`，确认驱动为 `virtio_net`，再通过 `display interface brief` 核对接口。来宾 DPDK 仍须独立验证 PCI 设备识别、IOMMU／VFIO 条件及管理路径。
+在虚拟机的 **硬件 → 网络设备** 中选择 VirtIO，并将设备接到所需的 PVE bridge。按 Linux 模式首装后，在虚拟机内运行 `ethtool -i`，确认驱动为 `virtio_net`，再通过 `display interface brief` 核对接口。虚拟机中的 DPDK 仍须独立验证 PCI 设备识别、IOMMU／VFIO 条件及管理路径。
 
 ## FD.io VPP 支持范围
 
@@ -56,7 +56,7 @@ N5105／I225 的记录用于说明 VortexROS 的硬件功能验证范围。本�
 
 ## 核对自己的设备
 
-在 Ubuntu 终端查看 CPU、网卡 PCI ID 和当前驱动。若为 PVE VirtIO，以下命令在来宾内执行，并用实际接口名替换 `ens18`。
+在 Ubuntu 终端查看 CPU、网卡 PCI ID 和当前驱动。若为 PVE VirtIO，以下命令在虚拟机内执行，并用实际接口名替换 `ens18`。
 
 ~~~bash
 lscpu

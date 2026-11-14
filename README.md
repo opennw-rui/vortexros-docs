@@ -11,4 +11,10 @@
 
 ## 维护边界
 
-用户手册、配置案例和命令参考统一在本仓库维护并发布，VortexROS 安装包不再内置手册。产品仓库保留实现、研发文档和历史验证材料。命令参考应与目标版本的 CLI Registry 对照；页面中的历史实测结果保留原版本，不作为当前版本的重新验收。
+用户手册、配置案例和命令参考统一在本仓库维护并发布，VortexROS 安装包不再内置手册。产品仓库保留实现、架构、开发和验证记录，不保留用户手册副本。命令参考应与目标版本的 CLI Registry 对照；页面中的历史实测结果保留原版本，不作为当前版本的重新验收。
+
+## 从产品 Registry 核对命令
+
+在对应产品分支执行 `make docs DOCS_REFERENCE=/tmp/vortexros-commands.md`，然后在本仓执行 `python tools/check-commands.py /tmp/vortexros-commands.md`。产品构建只检查自身元数据；命令参考的路径、视图和语法在文档侧与导出文件核对。
+
+需要检查手册配置和 CLI 示例时，在产品仓库执行 `make docs-examples DOCS_ROOT=/path/to/vortexros-docs`。这是显式文档集成检查，不是普通产品构建的前提。
