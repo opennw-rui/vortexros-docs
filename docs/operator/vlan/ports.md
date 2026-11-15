@@ -30,9 +30,9 @@ U: Up;         D: Down;         TG: Tagged;         UT: Untagged;
 
 VID  Type    Status  MAC-LRN  Description    Ports
 -----------------------------------------------------------------
-1    common  enable  enable   VLAN 1         UT:eth2(D)  eth3(D)
-10   common  enable  enable   To_CTC_ISP     UT:eth0(U)
-20   common  enable  enable   To_LAN_Client  UT:eth1(U)
+1    common  enable  enable   VLAN 1         UT:Ethernet2(D)  Ethernet3(D)
+10   common  enable  enable   To_CTC_ISP     UT:Ethernet0(U)
+20   common  enable  enable   To_LAN_Client  UT:Ethernet1(U)
 -----------------------------------------------------------------
 ```
 
@@ -40,11 +40,11 @@ VID  Type    Status  MAC-LRN  Description    Ports
 
 隐式默认MAC不进入 `display current-configuration` 或 `display this`。
 
-`enable switch`还会启用LCP二层控制通道。创建LCP对时，VortexROS根据配置模型明确下发L2或L3角色；linux-cp不根据接口名称、BVI、业务VLAN或VPP瞬时mode再次猜测。`vortexros-switchd`创建一座名为`switch`的VLAN-aware Linux bridge；只要接口配置了`portswitch`，对应父LCP TAP就加入其中，包括尚未配置`port link-type`的缺省VLAN端口和链路Down端口。VLAN配置只决定该bridge端口的VLAN成员关系，不决定端口是否属于bridge。Vlanif、Vbdif、路由物理口、LoopBack和隧道等L3 LCP均不加入`switch`，其IP地址仍属于各自Linux L3接口。trunk的业务VLAN仍由VPP隐式子接口承载，不为每个VLAN再创建一套Linux TAP或bridge，因此接口数量不会随VLAN/VNI线性膨胀。
+enable switch 后，portswitch 将接口作为二层业务口。缺省 VLAN、trunk 允许列表和 PVID 分别控制其业务成员关系。Vlanif、Vbdif 及路由口保持三层角色，不作为普通交换成员。
 
 `switch`自身不承载业务IP，其MTU自动设置为当前L2控制端口的最大MTU。switchd创建或重新校准bridge时会直接查询Linux bridge能力；若内核支持`fdb_local_vlan_0`则自动开启，不支持时不设置。接口从L3切换为switchport或从switchport切回L3时，只更新既有LCP对的角色和bridge成员关系，不删除重建TAP。
 
-这座bridge只表示控制面状态：VPP继续负责MAC学习、老化、未知单播/广播泛洪和报文转发；Linux bridge端口关闭自主学习和泛洪。VPP新学、迁移或老化的动态MAC通过现有MAC事件同步为Linux `extern_learn` FDB；Linux内核的`offload`标记只由真实switchdev驱动设置，控制通道不会伪造该标记。Linux控制程序下发的静态FDB再经linux-cp进入对应VPP bridge-domain。普通业务报文不会为了同步MAC而复制到Linux，也没有新增VPP转发节点。ARP/ND、接口、地址、路由、MPLS和IS-IS继续使用原LCP通道。
+普通业务由 VPP 学习、泛洪并转发；控制面同步 MAC、邻居及路由状态。用户只需通过 VortexROS 配置业务，不需要创建额外 Linux bridge、TAP 或逐 VLAN 的控制接口。
 
 ```text
 display lcp
@@ -52,7 +52,7 @@ display vlan
 display mac-address
 ```
 
-`display lcp`会同时显示二层控制通道、Linux bridge ifindex、控制端口数和原有LCP接口对。静态VXLAN继续使用NVE中的显式peer；BGP EVPN使用一座single VXLAN device（SVD）`vxlan0`承载所有动态VNI，不为每个VNI创建一套Linux bridge和VXLAN设备。完整配置和验证见[VXLAN EVPN](../11-vxlan-evpn.md)。
+display lcp 用于诊断控制通道和接口配对。静态 VXLAN 在 NVE 配置显式对端，动态 EVPN 由 BGP 学习，见[VXLAN EVPN](../11-vxlan-evpn.md)。
 
 
 [功能目录](../vlan.md) · [命令参数](../reference/vlan.md)

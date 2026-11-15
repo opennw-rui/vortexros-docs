@@ -6,17 +6,12 @@
 
 规则中配置 `action snat pat interface`，接口只能绑定 **outbound**。接口 PAT 缺省端口范围为 10000–65535，可在系统视图配置 `nat-policy interface-pat-range LOW-HIGH`。接口和上游必须有可用路由；NAT 不代替 ACL 或下一跳解析。
 
-## 完整配置与真实结果
+## 配置、检查与撤销
 
-[接口 PAT 案例](../../examples/nat-pat.md)给出两端 UDP 端点、地址集、端口集、统计、会话配额及撤销。该案例实际会话节选：
+[完整案例](../../examples/nat-pat.md)给出三台 VortexROS 的配置、策略、查询及撤销顺序。使用出口接口地址，有状态流量同时分配转换标识；仅支持相应出方向绑定。
 
-~~~text
-host-p1a12/outbound  FIB:0 -> FIB:0  Policy:CLI-UDP(1996602227)/10  Action:SNAT-PAT
-198.19.80.1:47100 -> 198.19.80.2:48100  =>  198.19.80.1:52002 -> 198.19.80.2:48100
-~~~
+提交后查询 display nat-policy name、interfaces、statistics 和 sessions。先确认策略绑定及命中，再检查原始与转换后的地址；TCP/UDP 还需核对端口，ICMP 则核对标识符。旧会话可能保留原映射，修改策略后用新连接检查。
 
-这里地址恰好与接口地址相同，源端口仍从 47100 转换到 52002；端点收包与回复证明实际生效。独立内网端点实验还验证了 198.18.11.2 转换为出口 198.19.80.1，见[地址池案例的基础拓扑](../../examples/nat/topology.md)。
+撤销先解除接口绑定，再删除策略及不再引用的对象，commit 后确认绑定和目标规则消失；需要持久保留时 save。其他策略、共享地址和路由应保留。
 
-撤销必须先 `undo nat-policy POLICY outbound`，再删策略；全局范围用 `undo nat-policy interface-pat-range` 恢复默认。全局分配参数仍有活动会话时可能被后端拒绝；先查会话并安排业务维护，不能忽略 Instance in use。
-
-[会话与统计](sessions.md) · [容量与计时](capacity.md) · [命令参数](../reference/nat.md)
+[对象与规则](objects.md) · [会话与统计](sessions.md) · [命令参考](../reference/nat.md)

@@ -5,4 +5,4 @@
 `undo spf-delay-ietf` 并提交可关闭这组定时器。
 
 
-[双端配置和真实路由](../../examples/isis.md) · [全部参数](../reference/isis.md)
+[双端配置和路由查询](../../examples/isis.md) · [全部参数](../reference/isis.md)

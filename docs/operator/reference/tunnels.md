@@ -56,8 +56,8 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-gre
+接口类别：隧道
+接口类别：GRE 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -281,8 +281,8 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：WireGuard 隧道、AmneziaWG 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -293,8 +293,8 @@
 | 命令后 | `STRING<44>` | Base64-encoded 32-byte private key | 输入值 |
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：WireGuard 隧道、AmneziaWG 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -329,8 +329,8 @@
 | 命令后 | `KEY` | base64 32-byte key | 输入值 |
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：WireGuard 隧道、AmneziaWG 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -368,8 +368,8 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-gre
+接口类别：隧道
+接口类别：GRE 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -383,8 +383,8 @@
 | 命令后 | `IP` | fixed outer source address | 输入值 |
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：WireGuard 隧道、AmneziaWG 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -400,7 +400,7 @@
 | 命令后 | `IP` | fixed outer source address | 输入值 |
 
 **适用视图：`interface`**
-适用分区：interface/nve
+接口类别：NVE
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -428,8 +428,8 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：WireGuard 隧道、AmneziaWG 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -452,8 +452,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：tunnel
-适用分区：interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -514,8 +514,8 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-gre
+接口类别：隧道
+接口类别：GRE 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 此形式没有额外参数。
@@ -674,8 +674,8 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：WireGuard 隧道、AmneziaWG 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 此形式没有额外参数。
@@ -723,8 +723,8 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-gre
+接口类别：隧道
+接口类别：GRE 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 此形式没有额外参数。
@@ -734,8 +734,8 @@
 此形式没有额外参数。
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：WireGuard 隧道、AmneziaWG 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 此形式没有额外参数。
@@ -745,7 +745,7 @@
 此形式没有额外参数。
 
 **适用视图：`interface`**
-适用分区：interface/nve
+接口类别：NVE
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 此形式没有额外参数。
@@ -768,8 +768,8 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：tunnel
-适用分区：interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：WireGuard 隧道、AmneziaWG 隧道
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 此形式没有额外参数。
@@ -790,7 +790,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：tunnel
-适用分区：interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg
+接口类别：隧道
+接口类别：尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道
 
 此形式没有额外参数。

@@ -67,5 +67,4 @@ commit
 当前版本已经验证IPv4与IPv6 overlay、IPv4 underlay、header protection、内容填充、随机尾部、cookie关闭、静态/动态垃圾包以及peer反复增删。动态表达式采用上述明确语法，非法或超过边界的输入不会部分生效。
 
 
-
 [功能目录](../amneziawg.md) · [命令参数](../reference/amneziawg.md)

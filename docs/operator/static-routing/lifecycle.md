@@ -13,4 +13,4 @@ display ipv6 fib
 
 黑洞路由必须以同一前缀和NULL 0精确撤销；普通静态路由保留原VPN、前缀、下一跳与接口等定位参数加undo。跨表lookup-only路由的Lookup-Table显示实际查表号，普通路径显示-，默认VPP表0与Linux main254各有含义。
 
-[完整配置、真实查询和撤销](../../examples/static-route.md) · [全部参数](../reference/static-routing.md)
+[完整配置、示例输出和撤销](../../examples/static-route.md) · [全部参数](../reference/static-routing.md)

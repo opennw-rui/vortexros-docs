@@ -1,41 +1,67 @@
 # QinQ
 
-## 拓扑与用途
+## 拓扑与作用
 
-将客户侧未打标签或已有C-Tag的报文，统一装入服务VLAN2200穿过二层核心。两端边缘口使用dot1q-tunnel，核心口用trunk；出口移除服务标签，保留客户原有标签。这个动作不是IP路由、NAT或任意标签翻译。
+CE1、PE1、PE2、CE2 均运行 VortexROS。客户未打标签的报文及 VLAN 10 报文，通过服务 VLAN 2200 穿过核心；出口移除服务标签，保留客户标签。本例不提供跨子网路由。
 
 ~~~text
-CE-A ce2 ─ host-p2docmh PE2 host-p2d23 ─ host-p3d23 PE3 host-p3docce ─ remote0 CE-B
-             QinQ客户口        trunk S2200          QinQ客户口
-未打标签：198.18.209.2/24                                        198.18.209.3/24
-客户VLAN10：198.18.210.2/24                                      198.18.210.3/24
+CE1 Ethernet0 ── Ethernet0 PE1 Ethernet1 ── Ethernet0 PE2 Ethernet1 ── Ethernet0 CE2
+未打标签: 198.18.209.2/24                                      198.18.209.3/24
+VLAN 10: 198.18.210.2/24                                       198.18.210.3/24
+                          核心服务 VLAN 2200
 ~~~
 
-本例使用开发服务器隔离VPP/LCP实例与真实veth端点。VPP基础口已经由实验启动清单创建；物理设备应替换为各自实际接口。客户口不得保留其他三层地址或子接口；核心链路本例独占，避免与其他trunk分类冲突。
+客户口由 dot1q-tunnel 独占标签分类空间，不应再保留三层地址或独立子接口。核心链路需容纳额外 VLAN 标签，其他 VLAN 业务应与本例分开规划。
 
-## 端点
+## CE1 与 CE2
 
-CE-A Linux：
+CE1：
 
-~~~sh
-ip link set ce2 up
-ip address add 198.18.209.2/24 dev ce2
-ip link add link ce2 name ce2.10 type vlan id 10
-ip link set ce2.10 up
-ip address add 198.18.210.2/24 dev ce2.10
+~~~text
+system-view
+interface Ethernet0
+ ip address 198.18.209.2 255.255.255.0
+quit
+interface Ethernet0.10
+ vlan-type dot1q 10
+ ip address 198.18.210.2 255.255.255.0
+quit
+commit
 ~~~
 
-CE-B Linux：
+CE2：
 
-~~~sh
-ip link set remote0 up
-ip address add 198.18.209.3/24 dev remote0
-ip link add link remote0 name remote0.10 type vlan id 10
-ip link set remote0.10 up
-ip address add 198.18.210.3/24 dev remote0.10
+~~~text
+system-view
+interface Ethernet0
+ ip address 198.18.209.3 255.255.255.0
+quit
+interface Ethernet0.10
+ vlan-type dot1q 10
+ ip address 198.18.210.3 255.255.255.0
+quit
+commit
 ~~~
 
-端点接口如原先属于bond/bridge，应先按自身操作系统解除该归属。本实验的CE-A另保留其他测试地址，以上新网段不与它们重叠。
+## PE1
+
+~~~text
+system-view
+enable switch
+vlan 2200
+quit
+interface Ethernet0
+ portswitch
+ port link-type dot1q-tunnel
+ port default vlan 2200
+quit
+interface Ethernet1
+ portswitch
+ port link-type trunk
+ port trunk allow-pass vlan 2200
+quit
+commit
+~~~
 
 ## PE2
 
@@ -44,12 +70,12 @@ system-view
 enable switch
 vlan 2200
 quit
-interface host-p2docmh
+interface Ethernet1
  portswitch
  port link-type dot1q-tunnel
  port default vlan 2200
 quit
-interface host-p2d23
+interface Ethernet0
  portswitch
  port link-type trunk
  port trunk allow-pass vlan 2200
@@ -57,87 +83,53 @@ quit
 commit
 ~~~
 
-## PE3
+## 验证
 
-~~~text
-system-view
-enable switch
-vlan 2200
-quit
-interface host-p3docce
- portswitch
- port link-type dot1q-tunnel
- port default vlan 2200
-quit
-interface host-p3d23
- portswitch
- port link-type trunk
- port trunk allow-pass vlan 2200
-quit
-commit
-~~~
-
-客户侧父接口接管全部标签分类空间，不能再在同一父接口创建独立L2/L3子接口。客户C-Tag10与服务S-Tag2200是不同层次，不应把客户VLAN10也配置为此核心trunk的业务VLAN。部署时还要考虑额外标签开销和两端实际MTU；本例没有测量最大帧长。
-
-## 实际CLI和流量
+两台 PE 查询 VLAN 和客户口配置：
 
 ~~~text
 display vlan 2200
-display current-configuration interface host-p2docmh
+display current-configuration interface Ethernet0
+display current-configuration interface Ethernet1
 display health
 ~~~
 
-PE2真实输出节选：
+PE1 示例输出：
 
 ~~~text
 VID   Type    Status  MAC-LRN  Description      Ports
-2200  common  enable  enable   VLAN 2200        UT:host-p2docmh(U)
-                                                TG:host-p2d23(U)
-
-Health state              : ready
-Running/Actual generation : 2/2
-Reconcile state           : in-sync
-Active alarms             : 0
+2200  common  enable  enable   VLAN 2200        UT:Ethernet0(U)
+                                                TG:Ethernet1(U)
 ~~~
 
-PE3对应为host-p3docce、host-p3d23，健康ready、代号7/7、零告警。UT表示客户侧业务接入，不代表收到的客户报文一定没有C-Tag。
+UT 表示客户侧业务接入，不表示收到的客户帧一定不含 C-Tag。PE2 对应的 UT 是 Ethernet1，TG 是 Ethernet0。
 
-CE-A发起：
-
-~~~sh
-ping -n -c 3 198.18.209.3
-ping -n -c 3 198.18.210.3
-~~~
-
-两个网段均实际3发3收。CE-B反向分别探测1包，均1/1。核心原始口抓到实际双层标签：
+CE1 执行以下命令，CE2 使用本端地址向 .2 反向检查，两条业务均应可达：
 
 ~~~text
-ethertype 802.1Q (0x8100), vlan 2200, ethertype 802.1Q (0x8100), vlan 10,
-ethertype IPv4, 198.18.210.2 > 198.18.210.3: ICMP echo reply
+ping -a 198.18.209.2 -c 3 198.18.209.3
+ping -a 198.18.210.2 -c 3 198.18.210.3
 ~~~
 
-抓包窗口实际只捕获一包后结束，不宣称收齐了预设的四包，也不把此功能探测当作吞吐/丢包率测试。
+VLAN 10 在核心的帧格式为 S-Tag 2200、C-Tag 10、客户载荷。普通 Ping 只验证可达性；需要确认线上标签时，在核心链路使用独立报文分析设备。
 
 ## 撤销
 
-PE2：
+两台 PE 均执行以下命令。本例核心口为专用口；共享核心口应只撤销 VLAN 2200 的放行及引用。
 
 ~~~text
-interface host-p2docmh
+system-view
+interface Ethernet0
  undo portswitch
 quit
-interface host-p2d23
+interface Ethernet1
  undo portswitch
 quit
 undo vlan 2200
 commit
 display vlan 2200
-display health
-save
 ~~~
 
-PE3用自身两个接口执行相同撤销。真实CLI返回VLAN2200不存在；PE2代号3/3、PE3代号8/8，均ready、零告警。客户VLAN10再次探测为3发0收，业务已撤销。保存应答Y并等待成功；共享核心口上有其他VLAN时只撤本例的allow-pass，不能清空整个端口。
+CE1/CE2 删除 Ethernet0.10，并在 Ethernet0 撤销本例 IP 地址，再提交。客户业务应不再通过该服务 VLAN 互通；各设备按需 save 保存撤销结果。
 
-Linux端点最后删除本例新增的.10接口和198.18.209.0/24地址，保留原有地址和其他业务。
-
-[QinQ功能](../operator/qinq.md) · [子接口](subinterfaces/index.md) · [VLAN参数](../operator/reference/vlan.md)
+[QinQ 功能](../operator/qinq.md) · [子接口](subinterfaces/index.md) · [VLAN 参数](../operator/reference/vlan.md)

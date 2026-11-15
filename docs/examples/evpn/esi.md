@@ -1,38 +1,32 @@
-# ESI 生命周期
+# ESI 配置变更
 
-## 场景与前提
+## 前提
 
-检查聚合接口从普通桥接切换为本地 Ethernet Segment，再恢复普通桥接。原隔离拓扑已有聚合、VLAN400、EVPN 邻居及两端业务，普通桥接探测2/2。底层建网参见[L2VPN](l2vpn.md)，多 PE/CE 组网见[多归属](../../operator/evpn/multihoming.md)。
+按 [All-Active](all-active.md)先完成 CE、三台 PE、Eth-Trunk11、VLAN/BD460 与 VNI50460。ESI 标识同一以太网段，两台接入 PE 必须一致，不能为不同客户接入重复使用。
 
-下面的聚合编号须替换为本地已建立业务的实验 Eth-Trunk。本例是生命周期增量操作，没有声称建立完整双归属 CE。
-
-## 创建与验证
-
-在选定的 Eth-Trunk 视图：
+## 查询
 
 ~~~text
-esi 0000.0000.0000.0000.0010
-quit
-commit
+display current-configuration interface Eth-Trunk 11
 display bgp evpn all routing-table
-display interface Eth-Trunk 1
-display health
+display mac-address bridge-domain 460
+display interface Eth-Trunk 11
 ~~~
 
-真实 FRR ES 清单为 local/up，CLI 出现对应 Type-4 通告，VLAN400 探测2/2。ES 清单来自后端回读，不能冒称产品另外存在一条 ES 查询命令。
+应有本段 Type-4 通告及远端客户 MAC 对应的 ES 下一跳组。双归属的链路关闭、恢复和完整删除见前置案例。
 
-## 撤销
+## 撤销与重新加入
+
+在其中一台接入 PE 执行：
 
 ~~~text
 system-view
-interface Eth-Trunk 1
+interface Eth-Trunk 11
  undo esi
 quit
 commit
-display interface Eth-Trunk 1
-display health
 ~~~
 
-真实撤销一次提交成功，Linux/VPP 端口 Up，FRR ES 清单为空，健康 ready；即刻探测1/2，稳定后2/2。普通 VLAN 和聚合配置保留。需要持久保存时执行 `save`。
+该设备不再以此 ESI 参与多归属，普通聚合及 VLAN 配置仍保留。先协调另一台 PE 与 CE 的接入，避免在同一个无环保护的二层网络中无计划地撤销 ESI。
 
-本例不证明无损切换、MAC ECMP 或完整 All-Active 故障恢复，不能把组网模板中的预期当作实测。
+需要恢复时，在同一聚合视图重新配置原 ESI 0000.1111.2222.1111.1111 并提交，重新检查通告、MAC 和双向探测。确认后 save 保存当前选择；改变 ESI 会影响分流、DF 与远端下一跳，不属于无中断操作。

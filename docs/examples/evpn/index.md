@@ -1,6 +1,6 @@
 # VXLAN EVPN
 
-按业务层次选择独立案例。L2VPN 扩展二层网段，L3VPN 交换租户前缀；ESI 与 Anycast 是接入/网关能力，不混为同一个实验的结论。
+按业务层次选择独立案例。L2VPN 扩展二层网段，L3VPN 交换租户前缀；ESI 与 Anycast 是接入/网关能力，不混为同一个示例的结论。
 
 ~~~{toctree}
 :maxdepth: 2

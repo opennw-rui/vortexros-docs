@@ -19,4 +19,4 @@ save
 ```
 
 
-[完整NMS配置、真实输出与撤销](../../examples/snmp.md) · [监听范围](source.md) · [检查与限制](monitoring.md)
+[完整NMS配置、示例输出与撤销](../../examples/snmp.md) · [监听范围](source.md) · [检查与限制](monitoring.md)

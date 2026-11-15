@@ -33,7 +33,7 @@ interface Ethernet 1
 
 ## 路由与撤销验证
 
-本轮隔离拓扑实测设置 default-route preference 80 后，路由摘要显示 Kernel、Pre 80、Cost 0。
+例如设置`default-route preference 80`后，可在路由摘要检查Pre是否为80；DHCP缺省路由的显示协议为Kernel。
 加入同前缀的静态默认路由时，优先级 90 保留 DHCP 选路，优先级 60 改选静态路由；
 撤销静态路由后恢复 DHCP。验证时应同时查看路由表、实际 FIB 和连通性，不能只看配置。
 
@@ -57,7 +57,7 @@ display interface Ethernet0
 display ip fib
 ~~~
 
-本轮真实终端验证了上述撤销链，Linux 路由和 VPP FIB 均不再保留 DHCP 默认路径。
+撤销后检查默认路由和FIB，确认不再保留该DHCP客户端产生的默认路径。
 
 
 [DHCP 功能与开关](../dhcp.md) · [逐条命令参数](../reference/dhcp.md)

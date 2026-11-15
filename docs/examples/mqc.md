@@ -3,7 +3,7 @@
 ## 拓扑
 
 ~~~text
-P1 host-p1a12 192.0.2.81/30 ─── 192.0.2.82/30 host-p2a12 P2
+P1 Ethernet0 192.0.2.81/30 ─── 192.0.2.82/30 Ethernet0 P2
             出方向标记                         接收侧抓包
 ~~~
 
@@ -13,7 +13,7 @@ P1 host-p1a12 192.0.2.81/30 ─── 192.0.2.82/30 host-p2a12 P2
 
 ~~~text
 system-view
-interface host-p2a12
+interface Ethernet0
  ip address 192.0.2.82 255.255.255.252
  quit
 commit
@@ -25,7 +25,7 @@ commit
 
 ~~~text
 system-view
-interface host-p1a12
+interface Ethernet0
  ip address 192.0.2.81 255.255.255.252
  quit
 commit
@@ -42,7 +42,7 @@ traffic behavior LAB-MARK
 traffic policy LAB-POLICY
  classifier LAB-DST behavior LAB-MARK precedence 10
  quit
-interface host-p1a12
+interface Ethernet0
  traffic-policy LAB-POLICY outbound
  quit
 commit
@@ -52,7 +52,7 @@ commit
 
 ## 验证
 
-在 P1 执行 `display traffic policy user-defined LAB-POLICY`。实际输出节选：
+在 P1 执行 `display traffic policy user-defined LAB-POLICY`。示例输出：
 
 ~~~text
   User Defined Traffic Policy Information:
@@ -63,28 +63,15 @@ commit
           dscp af11(10)
 ~~~
 
-在 P2 的 Linux 环境执行下列抓包命令；实验中底层 veth 名为 `p2a12`，生产设备应在实际接收链路上观察。随后从 P1 执行 `ping -n -c 3 -t 1000 192.0.2.82`。
-
-~~~bash
-sudo tcpdump -n -vv -c 1 -i any 'icmp and dst host 192.0.2.82'
-~~~
-
-实际抓包节选。P1 同时收到 3 个回包：
-
-~~~text
-p2a12 P   IP (tos 0x28, ttl 64, id 60590, offset 0, flags [DF], proto ICMP (1), length 84)
-    192.0.2.81 > 192.0.2.82: ICMP echo request, id 36772, seq 1, length 64
-~~~
-
-`0x28 >> 2 = 10`。这是接收侧的报文证据；只查看策略显示无法证明实际改写。
+在 P1 执行 ping -n -c 3 -t 1000 192.0.2.82，确认业务仍可达。DSCP AF11 对应 10，IPv4 ToS 在 ECN 为 0 时为 0x28。display 查询用于核对策略配置，不能单独证明报文已改写；需要检查字段时，在链路使用报文分析设备观察同类新报文的 DSCP。
 
 ## 撤销
 
-在 P1 先解除绑定，再删除仅供此实验使用的对象：
+在 P1 先解除绑定，再删除仅供此示例使用的对象：
 
 ~~~text
 system-view
-interface host-p1a12
+interface Ethernet0
  undo traffic-policy outbound
  quit
 undo traffic policy LAB-POLICY
@@ -93,13 +80,13 @@ undo traffic classifier LAB-DST
 commit
 ~~~
 
-重复抓包和探测。实测仍是 3 发 3 收，接收侧同类新报文恢复为 `tos 0x0`。如果地址也为本次实验新建，再分别在两端撤销对应 `ip address`。
+重复业务探测，确认策略解除后仍能普通转发。需要检查 DSCP 恢复时观察新报文；若接口地址也只供本例使用，再在两端撤销。
 
 [MQC 配置指南](../operator/mqc.md)
 
 ## 匹配全部与恢复默认优先级
 
-本轮另在 P2 出接口验证 `if-match any`。链路地址为 P2 `host-p2a12` 的 `198.19.80.2/30` 与 P1 `host-p1a12` 的 `198.19.80.1/30`，两端均为 default VPN。地址配置沿用前面的三层接口步骤，不能与前一案例的 192.0.2.0/30 混用。
+在同一拓扑的 P2 出口改用 if-match any，覆盖所有报文。两端沿用 192.0.2.81/30 与 192.0.2.82/30，无需更换地址。
 
 P2：
 
@@ -113,15 +100,15 @@ traffic behavior CLI-REMARK
 traffic policy CLI-MARK
  classifier CLI-ANY behavior CLI-REMARK precedence 7
  quit
-interface host-p2a12
+interface Ethernet0
  traffic-policy CLI-MARK outbound
  quit
 commit
-ping -c 3 -a 198.19.80.2 198.19.80.1
+ping -c 3 -a 192.0.2.82 192.0.2.81
 display traffic policy user-defined CLI-MARK
 ```
 
-P1 接收侧实际抓到三条 ICMP 请求，均为 `tos 0x50`，即 DSCP 20；P2 探测 3/3。`any` 会匹配该方向上的所有报文，包括控制流量，应确认作用范围后使用。
+DSCP 20 对应 ECN 为 0 时的 ToS 0x50。any 会匹配该方向所有报文，包括控制流量；应确认作用范围后使用。
 
 撤销标记、恢复优先级默认值，保留放行：
 
@@ -134,13 +121,13 @@ traffic policy CLI-MARK
  undo precedence
  quit
 commit
-ping -c 1 -a 198.19.80.2 198.19.80.1
+ping -c 1 -a 192.0.2.82 192.0.2.81
 ```
 
-实测策略显示 `Precedence: 0`、不再包含 Remark；P1 同类新报文为 `tos 0x0`，回包 1/1。撤销时先解除绑定，再删除对象：
+查询策略应显示 Precedence: 0，且不再包含 Remark。撤销时先解除绑定，再删除对象：
 
 ```text
-interface host-p2a12
+interface Ethernet0
  undo traffic-policy outbound
  quit
 undo traffic policy CLI-MARK

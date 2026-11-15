@@ -1,26 +1,28 @@
 # VortexROS 0.29-dev
 
-正式手册从0.29-dev开始。当前控制包为0.29~dev+run1，统一安装包包含配套VPP26.10.7、FRR1.7-dev和Kea修复包。软件候选包仍未公开发布，本文不提供此前试验版本的安装附件。
+0.29-dev使用统一CLI管理接口、路由、隧道、流量策略和网络服务。首次安装从Linux数据面启动，业务网卡可随后通过CLI配置为DPDK模式。当前配套版本见[软件组成](../installation/02-backends.md)。
 
-## 本版能力与修复
+## 配置和操作
 
-- Candidate私有编辑、跨会话增量同步、Running快照与代号一致；路由组增量与精确拒绝后的同目标镜像回退。
-- 本地AAA三种角色、首次改密、SSH和Bash/sudo；账号投影失败保持登录限制，沿用告警和自动收敛。
-- 同一.run完成首次安装、升级、检查、模拟和失败回退，按组件版本安装；Linux-only与VPP数据面分别核对状态，逐项检查关键服务。
-- 静态路由导入动态协议、IS-IS在线Level切换、RIP/RIPng默认preference100及IS-IS15、OSPF/OSPFv3查询和重算。
-- RIP重建接口释放旧多播订阅，Zebra重连后重放已有路由；完整根因和恢复记录见[RIP](../operator/rip.md)。
-- DHCPv6租约类型、正常空租约和多实例汇总，中继与Information-Request；配套Kea采用上游服务器组修复。
-- CLI视图、帮助、补全、配置显示、接口身份、数据面容量与软件事务显示按当前命令参考统一。
-- EVPN双栈Type-5、ESI生命周期、Anycast端点、静态FDB、VNI撤销及冷回放；接口归属、RA/SLAAC、静态ND和Proxy ARP按恢复阶段处理。
+- 每个管理会话拥有独立的待提交配置。通过`display configuration changes`检查修改，`commit`提交，`save`持久保存。
+- 接口名称统一使用Ethernet编号；二层子接口、三层子接口、VLAN网关及聚合接口按用途配置。
+- 本地账号支持network-operator、network-admin和system-admin。首次改密、SSH公钥、会话管理和Bash/sudo分别见[账号管理](../operator/aaa.md)。
+- 首次安装、升级、检查、模拟和失败回退共用一个.run，安装器只更新版本发生变化的组件。
 
-## 本轮新增修复
+## 路由与网络服务
 
-1. ACL只保留无状态permit/deny，删除permit-reflect入口、配置读取和下发。TCP established仍是标志位匹配。
-2. EVPN的vni子上下文和exit-vni正确解析，冷清理不再生成无效no exit-vni；VRF下L3VNI仍是叶子。
-3. 6PE根据已有标签邻居意图生成FRR的IPv6 explicit-null策略，首次启用刷新已有本地起源，最后邻居撤销时取消策略。未增加用户配置项，未改FRR源码。
-4. 物理接口最后一项二层配置撤销后，现有LCP对正确切回L3，复用已有角色API。
-5. LCP的MPLS表不再调用仅支持IP的MFIB生命周期函数，修正最后标签路由撤销时的崩溃。见[VPP说明](vpp.md)。
+支持静态路由、路由组、OSPF/OSPFv3、BGP、IS-IS、RIP/RIPng、BFD和VRRP。IS-IS默认路由优先级15，RIP/RIPng100；显式配置可调整优先级。
 
-功能树和案例扩展为独立页面，包含拓扑、两端配置、参数作用、真实display、报文和撤销。新补All-Active、6PE、静态MAC及简单QinQ；既有已通过且未受影响的功能沿用原始证据，未重复全量或CI。
+支持VXLAN EVPN二层/三层业务、All-Active多归属、MPLS L3VPN和6PE。不同业务的RD、RT、VNI、地址族和底层可达性应分别规划。
 
-最终包的身份、QEMU事务和验证边界见[CLI实测记录](cli-validation.md)；逐条参考的覆盖边界见[手册覆盖](manual-coverage.md)。当前工作树未提交产品代码、未推送软件或部署真机。
+DHCP客户端、服务端、中继及IPv6自动配置独立管理。空租约池显示零租约；其他健康实例的租约仍可查询。
+
+## 本版行为调整
+
+- ACL仅做无状态permit/deny过滤；TCP established是标志位匹配，不是会话跟踪。
+- EVPN配置在保存恢复和业务撤销时保持一致；撤销接口最后一项二层配置后恢复三层接口角色。
+- 6PE使用IPv6显式空标签承载IPv6报文，不需要用户手工修改FRR配置。
+- 撤销MPLS标签路由后正常释放相关状态，不要求重启数据面。
+- RIP在接口重建和路由服务恢复后重新参与协议并恢复已有路由。
+
+完整配置、查询及撤销见[配置案例](../examples/index.md)。使用限制见[版本能力与限制](cli-validation.md)。

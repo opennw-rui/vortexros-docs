@@ -3,7 +3,6 @@
 DHCPv6 服务端分配 IA_NA 地址、IA_PD 前缀或提供非地址信息。默认网关来自 RA，不能因为租约成功就假定默认路由已存在。全局启用 `enable dhcp server` 后，在接口绑定已有的 DHCPv6 池。
 
 
-
 ```text
 dhcpv6 pool LAN6
  address prefix 2001:db8:100::/64

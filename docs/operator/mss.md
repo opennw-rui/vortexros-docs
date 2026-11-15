@@ -1,82 +1,59 @@
 # TCP MSS
 
-TCP MSS 只调整带 MSS 选项的 TCP SYN，包括建连请求和应答。它限制 TCP 单段数据长度，不改变接口 MTU，也不会解决 UDP 或其他非 TCP 报文的分片问题。只将过大的值调小，不会放大对端声明的 MSS。
-
-[命令参考](reference/mss.md)
+TCP MSS 只调整带 MSS 选项的 TCP SYN，包括请求和应答。它将过大的值调小，不放大对端值、不改变接口 MTU，也不解决 UDP 分片。修改后只影响新连接，已有 TCP 连接不会重新协商。
 
 ## 配置
 
-在承载流量的接口上选择自动模式或固定值，两者互斥。自动模式根据接口 MTU 分别计算 IPv4、IPv6 的上限，接口 MTU 改变后会更新：
+在流量经过的接口上选择自动或固定模式，两者互斥：
 
-```text
+~~~text
 system-view
-interface host-p1q13
+interface Ethernet0
  tcp mss clamp
 quit
 commit
-```
+~~~
 
-固定值适合已知路径上限：
+固定上限为 1200：
 
-```text
-interface host-p1q13
+~~~text
+interface Ethernet0
  tcp mss 1200
 quit
 commit
-```
+~~~
 
-`commit` 应用当前修改；确认后执行 `save` 才会写入启动配置。只影响新建立连接的握手，已有连接不会重新协商 MSS。
+自动模式随接口 MTU 更新。常规无扩展头的示例：
 
-## 双栈实例与实际结果
-
-本例在开发服务器的隔离 VPP 拓扑中完成。客户端通过 P1 的 `host-p1q13` 接入，HTTP 服务器位于 P2，P1 与 P2 已有双栈路由：
-
-```text
-客户端                           P1                        P2 HTTP 服务器
-198.18.11.100/24 --- host-p1q13 198.18.11.1 --- 10.201.12.2:18080
-2001:db8:11::105 ---            2001:db8:11::1 --- [2001:db8:12::2]:18081
-```
-
-HTTP 服务只提供本次测试的公共文件。测试客户端原始 SYN 的 MSS 为 IPv4 1460、IPv6 1440；在客户端和服务器同时抓取新连接的 SYN/SYN-ACK，区分原值与实际修改值。客户端使用：
-
-```sh
-curl -4 http://10.201.12.2:18080/probe.txt
-curl -6 'http://[2001:db8:12::2]:18081/probe.txt'
-```
-
-两次请求均实际返回：
-
-```text
-VortexROS CLI MSS acceptance
-```
-
-实际验证结果如下，两个方向均检查握手，而不是仅凭配置存在判断生效：
-
-| 配置 | 服务器收到的 IPv4 / IPv6 SYN MSS | 客户端收到的 IPv4 / IPv6 SYN-ACK MSS |
+| 接口 MTU | IPv4 MSS 上限 | IPv6 MSS 上限 |
 | --- | --- | --- |
-| `tcp mss 1200` | 1200 / 1200 | 1200 / 1200 |
-| `tcp mss clamp`，接口 MTU 1320 | 1280 / 1260 | 1280 / 1260 |
-| 撤销 MSS 和 MTU 修改 | 1460 / 1440 | 1460 / 1440 |
+| 1500 | 1460 | 1440 |
+| 1320 | 1280 | 1260 |
 
-固定模式验证后，先配置自动模式和 MTU 1400，再只将 MTU 改为 1320 并提交，抓包得到上表自动模式的值，证明无需重新输入 MSS 命令。上述请求都成功完成；该功能验证不代表吞吐性能测试。
+封装及更小的端到端 MTU 仍需另行规划。
 
-查看已提交配置：
+## 双端检查
 
-```text
-display current-configuration interface host-p1q13
-```
+两台 VortexROS 的 Ethernet0 直连，分别配置 192.0.2.1/30、192.0.2.2/30，在 P1 的 Ethernet0 配置 MSS。按 [BGP 对等体](../examples/bgp.md)建立两端 BGP，或让该接口承载其他真实 TCP 业务；修改 MSS 后使用新连接检查。
+
+~~~text
+display current-configuration interface Ethernet0
+display interface Ethernet0
+display bgp peer
+~~~
+
+配置显示可确认模式与上限，BGP Established 说明 TCP 会话可建立；它们均不直接显示 SYN 的 MSS。需要确认报文字段时，在链路上用报文分析设备检查新 SYN/SYN-ACK：原值高于上限时应变为上限，原值较小时应保持原值。Ping 不能验证 MSS。
 
 ## 撤销与排查
 
-```text
+~~~text
 system-view
-interface host-p1q13
+interface Ethernet0
  undo tcp mss
- undo mtu
 quit
 commit
-```
+~~~
 
-`undo mtu` 只用于撤销本例额外的 MTU 修改；有实际业务 MTU 要求时保留原值。撤销后用新连接抓包，确认 MSS 恢复。若没有变化，检查连接是否新建、接口及流量路径是否正确，以及原始 MSS 是否已低于上限。不要用旧连接或仅有配置输出作为报文修改的证据。
+若为本例修改过 MTU，再恢复原 MTU；不要撤销实际业务需要的 MTU。重新建立 TCP 连接，核对不再受本功能限制。没有变化时检查是否为旧连接、实际经过的接口、SYN 是否包含 MSS，以及原值是否已低于上限。验证后 save 保存。
 
-[完整案例、实际查询与撤销](../examples/qos.md)
+[命令参考](reference/mss.md) · [QoS 案例](../examples/qos.md)

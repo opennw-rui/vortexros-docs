@@ -30,7 +30,7 @@ reset route-static group name CDN
 
 `reset running-configuration` 经确认后立即清除 Running 中的业务配置。启用 VPP 时，设备重启 VPP 并按清除后的 Running 重建转发状态，业务会中断。VPP 启用状态、VPP 启动文件设置和已保存的启动 CFG 均保留。
 
-清除前用 `display startup` 确认所选 CFG。清除后用 `display configuration storage` 核对 Running 与 Actual；如需恢复，执行 `apply config` 并确认，然后用 `health check --wait --timeout 2m --require-saved` 验证运行状态与已保存配置一致。需要清除已保存配置时使用独立的 `restore factory-configuration` 流程。通过 AF_PACKET 等内核接口启动 VPP 时，保存供重启加载的 CFG 前，须配置至少一个由 VPP 启动文件创建的物理接口。
+清除前用 `display startup` 确认所选 CFG。清除后用 `display configuration storage` 核对 Running 与 Actual；如需恢复，执行 `apply config` 并确认，然后用 `health check --wait --timeout 2m --require-saved` 验证运行状态与已保存配置一致。需要清除已保存配置时使用独立的 `restore factory-configuration` 流程。重建数据面前，确认业务接口已纳入数据面设备配置，相关地址和路由已提交、保存。
 
 
 [目录](../09-operations.md)

@@ -52,7 +52,7 @@ bgp 64512
 `detail-suppressed`只发布聚合路由；`as-set`保留组成路由的AS信息。显式使用`as-set`时，系统会同步调整该BGP实例的后端AS_SET接收模式，使配置不会被FRR静默忽略。两项均未配置时，聚合路由与组成路由同时发布。
 
 
-## VPN-Target 实测
+## VPN-Target过滤
 
 `policy vpn-target` 是产品默认行为，配置中省略；`undo policy vpn-target` 保留传输地址族收到的全部 VPN 路由，适用于明确需要此行为的 RR/中转场景。它不替代业务 VPN 的 import/export RT。
 
@@ -69,6 +69,6 @@ commit
 display current-configuration configuration bgp
 ```
 
-本轮两族切换均由真实 CLI 提交成功。FRR 的默认值是 retain-all，因此原生配置可能连空地址族一起省略；不能仅因缺少 `bgp retain route-target all` 文本就判断下发失败。控制层回读仍拒绝相反的显式过滤值和缺失的 BGP 进程。恢复产品缺省值时在相应地址族执行 `policy vpn-target` 并提交；产品配置再次省略默认行。
+关闭VPN-Target过滤会保留更广的VPN路由，可能增加路由数量。恢复默认时，在对应地址族执行`policy vpn-target`并提交；默认行随后从当前配置省略。请结合VPN路由查询确认实际导入范围。
 
 [会话与路由查询、精确撤销](queries.md) · [完整双端案例](../../examples/bgp.md) · [策略实际结果](../../examples/bgp-policy.md)

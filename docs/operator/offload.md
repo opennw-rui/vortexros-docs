@@ -27,6 +27,6 @@ display interface hardware offload Ethernet 1
 
 恢复使用 `hardware offload gso` 并提交。恢复默认不保证每个驱动细项都变成Active=yes，未开放控制的driver项仍按驱动实际状态显示。GSO是软件分段，TSO是硬件TCP分段，二者不是同一层功能。
 
-QEMU virtio的真实在线GSO关闭/恢复、PCI接管和流量2/2见[数据面恢复](dataplane/recovery.md)。该结果不外推为所有驱动项均可在线切换，也不是吞吐测试。
+修改后检查Active列；需要重新初始化驱动的项目应按提示重建数据面。操作步骤见[数据面激活与恢复](dataplane/recovery.md)。
 
 [数据面设备](dataplane/devices.md) · [完整参数](reference/interfaces.md)

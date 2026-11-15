@@ -10,4 +10,4 @@ ipv6-autoconfig/default-route
 ipv6-autoconfig/combined
 ~~~
 
-[完整案例与真实输出](../examples/ipv6-ra.md) · [全部命令参数](reference/ipv6-autoconfig.md)
+[完整案例与示例输出](../examples/ipv6-ra.md) · [全部命令参数](reference/ipv6-autoconfig.md)

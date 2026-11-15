@@ -15,7 +15,7 @@ display acl name WEB-IN
 
 source 的最后一项是通配掩码，不是子网掩码。只允许 SYN 不会自动放行后续 TCP 报文；Web 访问策略需按完整双向业务设计，不应将此字段演示直接当作可用的有状态防火墙。
 
-[完整过滤、流量和撤销案例](../../examples/acl.md)已有真实结果。新一轮工作树真实 CLI 另确认 permit-reflect 被拒绝，Candidate 未留下该规则，permit/deny 仍可创建并显示：
+ACL动作只有permit和deny。完整绑定及流量检查见[过滤案例](../../examples/acl.md)。例如：
 
 ~~~text
 acl name DOC-STATELESS advance

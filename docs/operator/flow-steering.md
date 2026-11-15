@@ -25,11 +25,8 @@ commit
 ```
 
 
-## 开发服务器实测
+## 查看运行状态
 
-两端 GRE Tunnel30，入口为 host-p2a12。P2 使用 main CPU2、worker CPU3-4。真实 CLI 启用后显示 active/inner-flow，健康 ready；P1 的 GRE 探测 4/4。原生累计 GRE 命中从 1 到 6，handoff/resume 从 1 到 2，handoff-drop 为 0。背景控制报文也在运行，不能将计数差全部归于四个探测包。
+用 display flow-steering interface Ethernet1 检查实际状态。active/inner-flow 表示内层流分配已激活；inactive/single-worker 表示配置保留，但当前只有一个 worker。需要至少两个 worker 才能观察跨线程分配。
 
-单 worker inactive 和双 worker active 是不同验收条件。完整配置与删除应同时检查 CLI 状态、实际流量和后端回读；不能把保留配置但未激活当作多 worker 已验证。
-
-
-最终配套 26.10.6 包实际加载后，同一双 worker 拓扑启用及撤销均首次提交成功，启用前后探测各 2/2；撤销后原生与 CLI 一致为空，健康 ready、零告警。GET 回复的局部修复不改变 handoff 数据面算法。
+启用前后用相同业务检查往返和丢弃计数；计数还可能包含后台协议报文，不能直接当成测试报文数。撤销后确认该接口不再启用此功能。功能只改变线程分配，不提供固定吞吐或无损保证。

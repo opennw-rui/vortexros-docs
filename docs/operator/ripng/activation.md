@@ -13,4 +13,4 @@ ripng 2 vpn-instance BLUE
 RIPng视图中的`import-route ospf`表示导入OSPFv3路由，系统会映射到后端的IPv6协议名称。
 
 
-[完整双端案例与实测](../../examples/ripng.md) · [参数参考](../reference/ripng.md)
+[完整双端案例](../../examples/ripng.md) · [参数参考](../reference/ripng.md)

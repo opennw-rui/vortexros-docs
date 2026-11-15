@@ -80,8 +80,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Ethernet、Eth-Trunk
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -103,8 +103,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Ethernet、Eth-Trunk
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -130,8 +130,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Ethernet、Eth-Trunk
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -156,8 +156,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Ethernet、Eth-Trunk
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -183,14 +183,14 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：eth-trunk
-适用分区：interface/ethernet-neutral, interface/eth-trunk-neutral, interface/eth-trunk-l3
+接口类别：Eth-Trunk
+接口类别：Ethernet（未选择二/三层）、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk
 
 此形式没有额外参数。
 
 **适用视图：`interface`**
-接口类别：ethernet
-适用分区：interface/ethernet-neutral, interface/eth-trunk-neutral, interface/eth-trunk-l3
+接口类别：Ethernet
+接口类别：Ethernet（未选择二/三层）、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk
 
 此形式没有额外参数。
 
@@ -210,8 +210,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-neutral
+接口类别：Ethernet、Eth-Trunk
+接口类别：Ethernet（未选择二/三层）
 
 此形式没有额外参数。
 
@@ -250,8 +250,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Ethernet、Eth-Trunk
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 此形式没有额外参数。
 
@@ -271,8 +271,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Ethernet、Eth-Trunk
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 此形式没有额外参数。
 
@@ -292,8 +292,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Ethernet、Eth-Trunk
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -318,8 +318,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Ethernet、Eth-Trunk
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -343,14 +343,14 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：eth-trunk
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Eth-Trunk
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 此形式没有额外参数。
 
 **适用视图：`interface`**
-接口类别：ethernet
-适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+接口类别：Ethernet
+接口类别：二层 Ethernet、二层 Eth-Trunk
 
 此形式没有额外参数。
 
@@ -370,8 +370,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet, eth-trunk
-适用分区：interface/ethernet-l2
+接口类别：Ethernet、Eth-Trunk
+接口类别：二层 Ethernet
 
 此形式没有额外参数。
 
@@ -437,8 +437,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：subif
-适用分区：interface/subif-l3
+接口类别：子接口
+接口类别：三层子接口
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 此形式没有额外参数。
@@ -505,8 +505,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：subif
-适用分区：interface/subif-l3
+接口类别：子接口
+接口类别：三层子接口
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |

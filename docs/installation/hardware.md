@@ -6,9 +6,9 @@
 
 | 平台或设备 | 路径 | 验证范围 |
 | --- | --- | --- |
-| Intel Celeron N5105（x86‑64），Intel I225‑V rev 03（`8086:15f3`） | Linux 模块 `igc`。DPDK 接管时，Linux 显示 `vfio-pci`，VPP 使用 IGC PMD | 既有Ubuntu amd64设备库存确认N5105和四个I225-V，VPP可识别四口。此为沿用的硬件身份与接口识别证据；0.29-dev本轮只在QEMU验证，未重新做该硬件验收或吞吐测试。 |
+| Intel Celeron N5105（x86‑64），Intel I225‑V rev 03（`8086:15f3`） | Linux 模块 `igc`。DPDK 接管时，Linux 显示 `vfio-pci`，VPP 使用 IGC PMD | 已有 N5105/I225-V 设备识别及接口运行记录，不是本版满载或线速保证。 |
 | Intel I226 系列 | Linux `igc` 与 DPDK IGC PMD，按 PCI ID 确认具体型号 | 上游支持。DPDK 26.07 还列有 I226‑LM 的平台验证。目前无 VortexROS I226 真机验收记录。 |
-| QEMU/KVM amd64 | Linux 数据面首装，VPP 隔离案例使用 AF_PACKET／veth 或 memif | 隔离环境已验证首装和相关协议及转发案例。memif 和 veth 属于虚拟测试路径。 |
+| QEMU/KVM amd64 | Ubuntu amd64 虚拟机安装与虚拟接口 | 已有安装、协议及转发功能记录；虚拟接口结果不能代替 PCI 网卡的硬件能力。 |
 | Proxmox VE（PVE）VirtIO 网卡 | 虚拟机网卡模型选 **VirtIO (paravirtualized)**，虚拟机中的 Linux 驱动为 `virtio_net`。虚拟机若使用 DPDK，对应独立的 Virtio PMD | 上游有驱动。PVE 宿主桥接、虚拟机中的 Linux 转发和虚拟机中的 DPDK 是不同路径。目前无 PVE 专项验收记录。 |
 
 [N5105 产品规格](https://www.intel.com/content/www/us/en/products/sku/212328/intel-celeron-processor-n5105-4m-cache-up-to-2-90-ghz/specifications.html) · [DPDK 26.07 IGC](https://doc.dpdk.org/guides-26.07/nics/igc.html) · [DPDK 26.07 平台验证](https://doc.dpdk.org/guides-26.07/rel_notes/release_26_07.html) · [Proxmox VE 虚拟机手册](https://pve.proxmox.com/pve-docs/qm.1.html) · [DPDK 26.07 Virtio](https://doc.dpdk.org/guides-26.07/nics/virtio.html)

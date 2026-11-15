@@ -10,15 +10,12 @@ source/destination 后的 port 分别指定源/目的转换端口，不写则保
 
 此功能需要 VPP。配置写入 Candidate，`commit` 后参与下发，`save` 保存已提交配置；重启后从启动 CFG 恢复。缺省不创建 NAT 策略或接口绑定。
 
-## 配置、显示与撤销
+## 配置、检查与撤销
 
-[完整独立案例](../../examples/nat/twice.md)包含拓扑、网关和端点前提、完整策略、实际 display 输出、HTTP 往返及撤销。以下是本功能实际验收的转换结果节选：
+[完整案例](../../examples/nat/twice.md)给出三台 VortexROS 的配置、策略、查询及撤销顺序。同时改写源和目的，适用于需保证回程经过网关的服务发布。源地址必须在实际回程可达的地址范围内。
 
-~~~text
-host-p1a12/inbound  FIB:0 -> FIB:0  Policy:LAB-DNAT(2572252004)/10  Action:TWICE-NAT
-198.19.80.2:46738 -> 198.19.80.1:18080  =>  198.18.11.1:46738 -> 198.18.11.2:8081
-~~~
+提交后查询 display nat-policy name、interfaces、statistics 和 sessions。先确认策略绑定及命中，再检查原始与转换后的地址；TCP/UDP 还需核对端口，ICMP 则核对标识符。旧会话可能保留原映射，修改策略后用新连接检查。
 
-P2 访问发布地址实际 HTTP 200，P3 日志看到 198.18.11.1。实验首次未接入 LAN 回程状态处理时失败；绑定 LAB-LAN-PASS 后成功，不能省略该回程条件。
+撤销先解除接口绑定，再删除策略及不再引用的对象，commit 后确认绑定和目标规则消失；需要持久保留时 save。其他策略、共享地址和路由应保留。
 
 [对象与规则](objects.md) · [会话与统计](sessions.md) · [命令参考](../reference/nat.md)

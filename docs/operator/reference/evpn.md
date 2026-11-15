@@ -37,8 +37,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：eth-trunk
-适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+接口类别：Eth-Trunk
+接口类别：Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -138,8 +138,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：eth-trunk
-适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+接口类别：Eth-Trunk
+接口类别：Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk
 
 此形式没有额外参数。
 

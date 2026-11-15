@@ -9,4 +9,4 @@ vrf/families
 vrf/interfaces
 ~~~
 
-[完整案例与真实输出](../examples/mpls-l3vpn.md) · [全部命令参数](reference/vrf.md)
+[完整案例与示例输出](../examples/mpls-l3vpn.md) · [全部命令参数](reference/vrf.md)

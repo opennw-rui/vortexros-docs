@@ -14,7 +14,7 @@ display ip pool interface vlanif 20
 
 `verbose`把租约表切换成逐项详情，因此不必同时指定`used`。每条IPv4租约显示IP、MAC、网关、DNS、地址范围、域名、Client-ID、主机名、VPN实例、Kea服务实例、Subnet ID、状态、最近一次客户端事务时间、到期时间、有效租期和剩余租期。`used verbose`语义相同；`all verbose`还会展开已过期、declined及Kea保留的其他状态。没有由客户端提供的字段明确显示为`-`，不会根据MAC猜测厂商、操作系统或设备型号。
 
-0.29-dev包含 DHCPv6 IA_NA/IA_TA/IA_PD 类型解码以及 Kea 正常空租约结果的修复。正常空库应显示零租约；同地址族的空实例不会阻断其他实例的租约或池名筛选。传输和服务错误仍报错。历史输出见[实测案例](../../examples/dhcpv6.md#空池查询)。
+租约查询区分IA_NA、IA_TA和IA_PD。空池显示零租约，不影响其他池的查询；查询失败会报告错误，应先排查服务状态。示例见[DHCPv6案例](../../examples/dhcpv6.md#空池查询)。
 
 DHCPv6服务器使用相同的运行态语义：
 

@@ -1,8 +1,19 @@
-# 会话管理
+# 管理会话
 
+使用`display users`查看已登录用户、角色和会话状态：
 
-开发服务器中，公钥账号 cli-active 以 system-admin 登录，实际进入 Bash 后 exit 返回 CLI。另一 root 终端的 display users 同时显示两个会话；执行 reset aaa user cli-active sessions 并确认后，返回 Closed 1 management sessions，受管 SSH 连接实际断开，root 救援会话保留。公钥登录不等于已验证需要密码的 sudo；密码与 sudo 的既有验收另行保留。
+~~~text
+display users
+~~~
 
+需要断开某个受管账号的会话时执行：
 
+~~~text
+reset aaa user admin sessions
+~~~
 
-[角色与入口](../aaa.md) · [命令参考](../reference/aaa.md)
+按提示确认后，该账号当前的受管SSH/CLI会话关闭。此操作不删除账号或密码；账号仍为活跃状态时可重新登录。需要禁止再次登录，在账号视图配置`undo active`并提交。
+
+执行前确认目标账号，避免关闭自己的唯一管理连接。root救援入口不作为普通受管账号会话清理对象。
+
+[账号管理](../aaa.md) · [命令参数](../reference/aaa.md)

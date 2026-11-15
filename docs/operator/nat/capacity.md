@@ -2,7 +2,7 @@
 
 ## 缺省值
 
-以下值来自 0.29-dev 配置模型和配套插件的真实 `display nat-policy configuration` 回读；默认项在配置中省略。这些是资源/老化参数，不是满表性能承诺。
+以下是 0.29-dev 的资源和老化参数，可用 display nat-policy configuration 查询。默认项在配置中省略，容量设置不等同于满表性能保证。
 
 | 参数 | 缺省 |
 |---|---:|
@@ -38,7 +38,7 @@ display nat-policy configuration
 display nat-policy workers
 ~~~
 
-上述值在隔离真实 CLI 中已逐项回读。增大超时会延长空闲状态占用，缩小 PAT 范围或容量会使新建连接更早失败；维护间隔影响状态维护频率，不是业务限速。
+增大超时会延长空闲状态占用，缩小 PAT 范围或容量会使新建连接更早失败；维护间隔影响状态维护频率，不是业务限速。
 
 有活动会话时，修改分配参数曾实际收到 `Instance in use`，Running 已接受意图而后端未完成。应先查询健康与会话，安排维护后清理所需会话，再确认实际值和健康恢复；不要把 commit 返回和实际生效混为一谈。
 
@@ -60,7 +60,7 @@ commit
 display nat-policy configuration
 ~~~
 
-真实撤销回读节选：
+恢复默认后的示例输出：
 
 ~~~text
 Hairpin NAT              disabled

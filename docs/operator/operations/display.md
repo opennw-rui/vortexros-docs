@@ -27,14 +27,14 @@ display current-configuration
 
 命令错误只显示一次错误位置和原因，不重复回显整条命令，也不会附加与用户无关的内部读取错误。
 
-自动化安装、升级和发布验收必须使用严格健康检查，而不是把 systemd
+自动化安装和升级必须使用严格健康检查，而不是把 systemd
 `READY=1` 或 `display health` 的可读输出当作已经收敛：
 
 ```text
 health check --wait --timeout 2m --json
 ```
 
-该命令仅在 Running/Actual generation一致、reconcile为`in-sync`、没有活动告警且所有必需VPP API组可用时返回0。`--timeout`会自动启用等待；超时或未收敛返回非零。`--json`只输出一次最终快照，适合作为安装程序的稳定接口。
+该命令仅在 Running/Actual generation一致、reconcile为`in-sync`、没有活动告警且所有必需VPP API组可用时返回0。`--timeout`会自动启用等待；超时或未收敛返回非零。`--json`只输出一次最终快照，可用于运维系统读取结果。
 
 
 [目录](../09-operations.md)

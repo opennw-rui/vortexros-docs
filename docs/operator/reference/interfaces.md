@@ -20,7 +20,7 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif, interface/ethernet-aggregate-member
+接口类别：Ethernet（未选择二/三层）、二层 Ethernet、三层 Ethernet、Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk、二层子接口、三层子接口、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif、聚合成员口
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -33,7 +33,7 @@
 | 命令后 | `TEXT` | description text | 输入值、后续文本 |
 
 **适用视图：`interface`**
-适用分区：interface/nve
+接口类别：NVE
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -239,8 +239,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：subif
-适用分区：interface/subif-l2
+接口类别：子接口
+接口类别：二层子接口
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
@@ -272,7 +272,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet
+接口类别：Ethernet
 
 此形式没有额外参数。
 
@@ -293,7 +293,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet
+接口类别：Ethernet
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -407,7 +407,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -431,7 +431,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -455,7 +455,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -492,8 +492,8 @@
 | 命令后 | `dpdk` | VPP DPDK driver | 关键字 |
 
 **适用视图：`interface`**
-接口类别：eth-trunk
-适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+接口类别：Eth-Trunk
+接口类别：Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -516,7 +516,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、二层 Ethernet、三层 Ethernet、Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk、二层子接口、三层子接口、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -540,7 +540,7 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif, interface/ethernet-aggregate-member
+接口类别：Ethernet（未选择二/三层）、二层 Ethernet、三层 Ethernet、Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk、二层子接口、三层子接口、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif、聚合成员口
 
 此形式没有额外参数。
 
@@ -566,7 +566,7 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：ethernet
+接口类别：Ethernet
 
 此形式没有额外参数。
 
@@ -596,7 +596,7 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif, interface/ethernet-aggregate-member
+接口类别：Ethernet（未选择二/三层）、二层 Ethernet、三层 Ethernet、Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk、二层子接口、三层子接口、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif、聚合成员口
 
 此形式没有额外参数。
 
@@ -605,7 +605,7 @@
 此形式没有额外参数。
 
 **适用视图：`interface`**
-适用分区：interface/nve
+接口类别：NVE
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 此形式没有额外参数。
@@ -650,8 +650,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：subif
-适用分区：interface/subif-l2
+接口类别：子接口
+接口类别：二层子接口
 还受当前对象/配置条件限制；以本视图 ? 为准
 
 此形式没有额外参数。
@@ -672,7 +672,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet
+接口类别：Ethernet
 
 此形式没有额外参数。
 
@@ -692,7 +692,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet
+接口类别：Ethernet
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -744,7 +744,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -767,7 +767,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -790,7 +790,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif
 
 此形式没有额外参数。
 
@@ -816,8 +816,8 @@
 此形式没有额外参数。
 
 **适用视图：`interface`**
-接口类别：eth-trunk
-适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+接口类别：Eth-Trunk
+接口类别：Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk
 
 此形式没有额外参数。
 
@@ -837,7 +837,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、二层 Ethernet、三层 Ethernet、Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk、二层子接口、三层子接口、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif
 
 此形式没有额外参数。
 
@@ -859,7 +859,7 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif, interface/ethernet-aggregate-member
+接口类别：Ethernet（未选择二/三层）、二层 Ethernet、三层 Ethernet、Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk、二层子接口、三层子接口、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif、聚合成员口
 
 此形式没有额外参数。
 
@@ -885,7 +885,7 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 **适用视图：`interface`**
-接口类别：ethernet
+接口类别：Ethernet
 
 此形式没有额外参数。
 

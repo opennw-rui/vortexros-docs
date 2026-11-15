@@ -9,4 +9,4 @@ display ripng 2 route
 
 执行 `undo ripng 2 vpn-instance BLUE` 并提交会删除该进程。
 
-[完整双端案例与实测](../../examples/ripng.md) · [参数参考](../reference/ripng.md)
+[完整双端案例](../../examples/ripng.md) · [参数参考](../reference/ripng.md)

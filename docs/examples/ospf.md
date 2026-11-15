@@ -30,7 +30,7 @@ commit
 
 ## VPN 实例的静态引入
 
-本轮开发服务器另以 `CLI-UNDER` 验证完整链路：P1 `host-p1b12` 为198.18.180.1/30，P2 `host-p2b12` 为198.18.180.2/30；两端接口属于这个 VPN。P2 的 LoopBack80 同属该 VPN，地址198.18.181.2/32。两端先创建 `ip vpn-instance CLI-UNDER` 并启用 `ipv4-family`，再绑定接口、配置地址；绑定会清除原接口地址。
+本节在 CLI-UNDER VPN 中建立 OSPF。P1/P2 Ethernet0 分别为 198.18.180.1/30、198.18.180.2/30；P2 LoopBack80 为 198.18.181.2/32。两端先创建 VPN 并启用 ipv4-family，再绑定接口、配置地址；绑定会清除原地址。
 
 P1：
 
@@ -70,7 +70,7 @@ display ip routing-table vpn-instance CLI-UNDER 198.18.181.2 verbose
 ping -vpn-instance CLI-UNDER -c 3 -a 198.18.180.1 198.18.181.2
 ```
 
-实际明细包含：
+示例输出：
 
 ```text
 Type      : External
@@ -81,18 +81,18 @@ TOS 0  Metric: 37
 E type    : 2
 ```
 
-摘要中同一 External 行的 Len 为36、Metric 为37；实际选中路由为 OSPF、Preference150、Cost37，经host-p1b12到198.18.180.2，流量3/3。不能以 NULL 汇总路由自身作为响应端：本例由更具体的 LoopBack80 地址响应。
+同一 External 的摘要应显示 Len 36、Metric 37。路由应来源 OSPF，Preference 150、Cost 37，下一跳为 198.18.180.2。使用更具体的 LoopBack80 地址探测，NULL 汇总路由本身不响应。
 
 在 P2 的 `ospf 80 vpn-instance CLI-UNDER` 视图执行 `undo import-route static` 并提交，停止发布该静态前缀。撤销测试期间没有其他协议替代发布时，P1 成功查询的 Summary Count 为0；LSDB 中可能暂时保留 Age3600 的撤销 LSA，这不是仍有有效路由。恢复原引入命令后再查询协议、出口和流量。保存当前结果使用 `save`，退出时确认 Y。
 
 ## 多区域、汇总与区域类型
 
-在上面的 CLI-UNDER 实例上增加第二条链路：b12 属于骨干区域，q12 属于区域 1。P2 的两个 LoopBack 地址位于区域 1。两台路由器都连接区域 0 和区域 1，因此都是 ABR；这与只有一个 ABR 的单出口 stub 拓扑不同。
+在上面的 CLI-UNDER 实例上增加第二条链路：Ethernet0 属于骨干区域，Ethernet1 属于区域 1。P2 的两个 LoopBack 地址位于区域 1。两台路由器都连接区域 0 和区域 1，因此都是 ABR；这与只有一个 ABR 的单出口 stub 拓扑不同。
 
 ```text
       area 0: 198.18.180.0/30
-P1 b12 -------------------- b12 P2
-   q12 -------------------- q12
+P1 Ethernet0 -------------------- Ethernet0 P2
+   Ethernet1 -------------------- Ethernet1
       area 1: 198.18.182.0/30
                          LoopBack81 198.18.184.2/32
                          LoopBack82 198.18.185.2/32
@@ -106,7 +106,7 @@ ospf 80
   network 198.18.182.0 0.0.0.3
   quit
  quit
-interface host-p1q12
+interface Ethernet1
  ip binding vpn-instance CLI-UNDER
  ip address 198.18.182.1 255.255.255.252
  ospf network-type p2p
@@ -136,7 +136,7 @@ ospf 80
 commit
 ```
 
-为了单独验证区域间汇总，经 P1 的 q12 设置 `ospf passive` 并提交，使测试流量经骨干链路。实测 P1 学到 `198.18.184.0/23`、优先级 10、代价 11，指定源地址的 IPv4 探测为 3/3。把 P2 的汇总改成 `abr-summary 198.18.184.0 255.255.254.0 not-advertise` 后，成功查询显示该前缀路由数为 0，目标探测为 0/1。恢复汇总后再执行 `undo ospf passive` 恢复区域 1 邻接。汇总控制区域间发布，不是本机接口地址的替代配置。
+为了单独验证区域间汇总，经 P1 的 Ethernet1 设置 `ospf passive` 并提交，使测试流量经骨干链路。示例中 P1 学到 `198.18.184.0/23`、优先级 10、代价 11，指定源地址的 IPv4 探测为 3/3。把 P2 的汇总改成 `abr-summary 198.18.184.0 255.255.254.0 not-advertise` 后，成功查询显示该前缀路由数为 0，目标探测为 0/1。恢复汇总后再执行 `undo ospf passive` 恢复区域 1 邻接。汇总控制区域间发布，不是本机接口地址的替代配置。
 
 两端一致切换区域类型；先删除本例的汇总，再配置 NSSA：
 
@@ -152,7 +152,7 @@ display ospf vpn-instance CLI-UNDER peer
 display ospf vpn-instance CLI-UNDER lsdb nssa
 ```
 
-P1 无该汇总时省略对应的 `undo abr-summary`。本例实测区域 1 邻居 Full；P2 引入的静态前缀 `198.18.181.0` 出现在 Type7 LSA，长度 36、E2、Metric 37。它不再是普通区域的 Type5 发布方式。双方区域选项必须一致。
+P1 无该汇总时省略对应的 `undo abr-summary`。区域 1 邻居应 Full；P2 引入的静态前缀 `198.18.181.0` 出现在 Type7 LSA，长度 36、E2、Metric 37。它不再是普通区域的 Type5 发布方式。双方区域选项必须一致。
 
 切换为完全 stub 区域：
 
@@ -166,6 +166,6 @@ ospf 80
 commit
 ```
 
-两端原生后端配置均出现 `area 0.0.0.1 stub no-summary`，区域 0 和区域 1 邻居均保持 Full。此双 ABR 案例验证了在线类型切换和邻接；不能据此声称已验证单出口 stub 路由器收到默认路由。
+两端区域选项一致时邻居应保持 Full。双 ABR 的实际出口需要分别检查；单出口 stub 的默认路由应按对应组网规划。
 
-恢复普通区域使用 `undo stub` 并在两端提交；删除实验接口前，先撤销区域中的 `network`、汇总及协议选项，再删除接口和不再使用的区域。确认查询与业务符合预期后再 `save`。
+恢复普通区域使用 `undo stub` 并在两端提交；删除示例接口前，先撤销区域中的 `network`、汇总及协议选项，再删除接口和不再使用的区域。确认查询与业务符合预期后再 `save`。

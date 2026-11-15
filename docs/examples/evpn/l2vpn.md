@@ -3,28 +3,28 @@
 ## 拓扑
 
 ~~~text
-H1 ── P1 ── P2 ── P3 ── H3
+CE1 ── P1 ── P2 ── P3 ── CE2
       VTEP          VTEP
   10.255.0.1    10.255.0.3
 ~~~
 
 | 用途 | 左侧 | 右侧 |
 | --- | --- | --- |
-| P1—P2 | host-p1e12：10.201.12.1/24 | host-p2e12：10.201.12.2/24 |
-| P2—P3 | host-p2e23：10.201.23.2/24 | host-p3e23：10.201.23.3/24 |
-| VLAN 101，VNI 5010 | H1：192.0.2.1/24 | H3：192.0.2.3/24 |
-| VLAN 102，VNI 5020 | H1：198.18.2.1/24 | H3：198.18.2.3/24 |
+| P1—P2 | Ethernet0：10.201.12.1/24 | Ethernet0：10.201.12.2/24 |
+| P2—P3 | Ethernet1：10.201.23.2/24 | Ethernet0：10.201.23.3/24 |
+| VLAN 101，VNI 5010 | CE1：192.0.2.1/24 | CE2：192.0.2.3/24 |
+| VLAN 102，VNI 5020 | CE1：198.18.2.1/24 | CE2：198.18.2.3/24 |
 
-三台路由器运行 VPP；P2 只做三层转发。H1/H3 接在 P1 的 `host-p1h1` 和 P3 的 `host-p3h3`。VLAN 101 为不带标签的本征 VLAN，VLAN 102 带 802.1Q 标签。没有跨 VLAN 路由或网关。本实验用两个 VNI 检验撤销一个 VNI 不会影响另一个。
+所有设备均运行 VortexROS。P1/P3 是 VTEP，P2 只做三层转发；CE1/CE2 接在两端 PE 的客户口。VLAN 101 为不带标签的本征 VLAN，VLAN 102 带 802.1Q 标签。两条业务使用不同 VNI，不提供跨 VLAN 路由。
 
 ## 配置 P2
 
 ~~~text
 system-view
-interface host-p2e12
+interface Ethernet0
  ip address 10.201.12.2 255.255.255.0
 quit
-interface host-p2e23
+interface Ethernet1
  ip address 10.201.23.2 255.255.255.0
 quit
 ip route-static 10.255.0.1 255.255.255.255 10.201.12.1
@@ -57,10 +57,10 @@ bridge-domain 102
   vpn-target 65000:5020 import-extcommunity
  quit
 quit
-interface host-p1e12
+interface Ethernet0
  ip address 10.201.12.1 255.255.255.0
 quit
-interface host-p1h1
+interface Ethernet1
  switchport
  port link-type trunk
  port trunk allow-pass vlan 101 102
@@ -111,10 +111,10 @@ bridge-domain 102
   vpn-target 65000:5020 import-extcommunity
  quit
 quit
-interface host-p3e23
+interface Ethernet0
  ip address 10.201.23.3 255.255.255.0
 quit
-interface host-p3h3
+interface Ethernet1
  switchport
  port link-type trunk
  port trunk allow-pass vlan 101 102
@@ -140,19 +140,39 @@ quit
 commit
 ~~~
 
-同一业务 VNI 的两端 RT 必须相同，RD 应各自唯一。BGP EVPN 发布可达 VTEP 和本地 MAC，P2 不参与 EVPN。H1/H3 的二层广播域延伸到对端；VLAN 101 和 102 仍互相隔离。
+同一业务 VNI 的两端 RT 必须相同，RD 应各自唯一。BGP EVPN 发布可达 VTEP 和本地 MAC，P2 不参与 EVPN。CE1/CE2 的二层广播域延伸到对端；VLAN 101 和 102 仍互相隔离。
 
-## 配置 H1 和 H3
+## 配置 CE1 和 CE2
 
-以下是在独立 Linux 实验主机上执行的命令。H1 用 `h1eth`；H3 把接口换成 `h3eth`，两个地址的末尾都换成 `.3`。
+CE1：
 
-~~~bash
-sudo ip link set h1eth up
-sudo ip addr add 192.0.2.1/24 dev h1eth
-sudo ip link add link h1eth name h1eth.102 type vlan id 102
-sudo ip link set h1eth.102 up
-sudo ip addr add 198.18.2.1/24 dev h1eth.102
+~~~text
+system-view
+interface Ethernet0
+ ip address 192.0.2.1 255.255.255.0
+quit
+interface Ethernet0.102
+ vlan-type dot1q 102
+ ip address 198.18.2.1 255.255.255.0
+quit
+commit
 ~~~
+
+CE2：
+
+~~~text
+system-view
+interface Ethernet0
+ ip address 192.0.2.3 255.255.255.0
+quit
+interface Ethernet0.102
+ vlan-type dot1q 102
+ ip address 198.18.2.3 255.255.255.0
+quit
+commit
+~~~
+
+父接口承载不带标签的 VLAN 101；子接口承载 VLAN 102。CE 不配置 VNI 或 EVPN 邻居。
 
 ## 验证
 
@@ -167,7 +187,7 @@ display bgp evpn all routing-table inclusive-route
 display vxlan tunnel
 ~~~
 
-实际输出节选；Type-2 的 RD 65000:301 为 P3 的 VLAN 101：
+示例输出；Type-2 的 RD 65000:301 为 P3 的 VLAN 101：
 
 ~~~text
 Route Distinguisher: 65000:301
@@ -178,16 +198,16 @@ Total Number of Inclusive Routes: 4
 Total: 2    Static: 2    L2 dynamic: 0    L3 dynamic: 0
 ~~~
 
-此版本的 Tunnel 简表使用 `static` 标签显示实验中两条隧道。判断 EVPN 学习请看 BGP Type-2/Type-3 路由及业务流量，不要用该标签判断 peer 是否通过 BGP 学到。
+此版本的 Tunnel 简表使用 `static` 标签显示示例中两条隧道。判断 EVPN 学习请看 BGP Type-2/Type-3 路由及业务流量，不要用该标签判断 peer 是否通过 BGP 学到。
 
-**H1：**
+**CE1：**
 
-~~~bash
-ping -n -c 3 -W 1 192.0.2.3
-ping -n -I h1eth.102 -c 3 -W 1 198.18.2.3
+~~~text
+ping -n -a 192.0.2.1 -c 3 -t 1000 192.0.2.3
+ping -n -a 198.18.2.1 -c 3 -t 1000 198.18.2.3
 ~~~
 
-两条业务各 3 发 3 收。H3 在 VLAN 101 向 H1 反向探测也是 3 发 3 收。
+两条业务各 3 发 3 收。CE2 在 VLAN 101 向 CE1 反向探测也是 3 发 3 收。
 
 ## 撤销
 
@@ -202,8 +222,19 @@ commit
 display vxlan tunnel
 ~~~
 
-实测 P1 隧道从 2 条减到 1 条。H1 到 H3 的 VLAN 101 探测变为 **3 发 0 收**，VLAN 102 仍为 **3 发 3 收**。重新输入原 `vni 5010 ... protocol bgp` 可恢复该业务，随后重查 BGP 和 Ping。
+示例中 P1 隧道从 2 条减到 1 条。CE1 到 CE2 的 VLAN 101 探测变为 **3 发 0 收**，VLAN 102 仍为 **3 发 3 收**。重新输入原 `vni 5010 ... protocol bgp` 可恢复该业务，随后重查 BGP 和 Ping。
 
-要拆除整个实验，依次撤销两端的 NVE VNI，删除专用 NVE、解除 EVPN 邻居，撤销专用桥域和 VLAN。最后清理实验主机的地址和 VLAN 子接口。共用的 BGP 进程和底层路由按现有业务保留。
+要拆除整个示例，依次撤销两端的 NVE VNI，删除专用 NVE、解除 EVPN 邻居，撤销专用桥域和 VLAN。最后清理示例主机的地址和 VLAN 子接口。共用的 BGP 进程和底层路由按现有业务保留。
 
 [EVPN 配置指南](../../operator/11-vxlan-evpn.md)
+
+CE1/CE2 最后执行以下撤销。
+
+~~~text
+system-view
+undo interface Ethernet0.102
+interface Ethernet0
+ undo ip address
+quit
+commit
+~~~

@@ -1,7 +1,29 @@
-# 业务桥域绑定
+# VLAN 与业务桥域
 
-## 服务桥域 VLAN 绑定撤销
+使用业务桥域关联VLAN及可选的VNI，Vbdif提供该桥域的三层网关。例如将VLAN666绑定到桥域666：
 
-开发服务器使用空闲 VLAN666、bridge-domain666 设置 l2 binding vlan666，提交后 display this 显示该绑定。撤销命令是无参数的 undo l2 binding vlan；提交后 bridge-domain666 仍保留，但 display this 不再包含绑定。最后删除临时桥域与 VLAN。该隔离检查验证绑定配置的创建和撤销；具体业务转发沿用已有服务桥域案例，不将无端口桥域冒充流量验证。
+~~~text
+system-view
+enable switch
+vlan 666
+quit
+bridge-domain 666
+ l2 binding vlan 666
+ display this
+quit
+commit
+display bridge-domain 666
+~~~
 
-[功能目录](../vlan.md) · [命令参数](../reference/vlan.md)
+撤销绑定时，进入同一桥域执行无参数的`undo l2 binding vlan`：
+
+~~~text
+bridge-domain 666
+ undo l2 binding vlan
+quit
+commit
+~~~
+
+撤销绑定不会自动删除桥域。仍有Vbdif、VNI或其他引用时，应先按业务依赖解除；不再使用后再删除桥域和VLAN。
+
+[桥域配置](../bridge-domains.md) · [二层子接口案例](../../examples/subinterfaces/l2.md)

@@ -1,12 +1,22 @@
-# 进程重置
+# 重启 OSPF 进程
 
-
-开发服务器 Linux 数据面只配置 OSPF1，router-id 198.51.100.9、area0 和 198.51.100.0/24 接口。真实终端执行 reset ospf 1 process 并确认后返回：
+需要重新建立指定OSPF进程的运行状态时执行：
 
 ~~~text
-Info: ospf process 1 reset; runtime state matches the running configuration.
+reset ospf 1 process
 ~~~
 
-随后 display ospf 1 brief 显示 Router ID 198.51.100.9，接口到虚拟对端的探测 2/2；删除进程与临时地址后提交，恢复原配置。本项证明单进程重置入口及运行回读，不把单路由器结果写成额外双邻居故障切换验证。
+按提示确认后，进程按已提交配置重新启动。该命令会中断目标进程的邻接，可能导致路由撤销和重新收敛；它不是无影响的查询命令。
 
-[OSPF 总览](../ospf.md) · [完整案例](../../examples/ospf.md) · [命令参数](../reference/ospf.md)
+完成后检查：
+
+~~~text
+display ospf 1 peer
+display ospf 1 lsdb
+display ospf 1 routing
+display ip routing-table protocol ospf
+~~~
+
+确认邻居恢复Full、所需路由重新进入FIB，再检查业务连通性。配置修改尚未提交时，应先决定提交或放弃，避免把候选配置误认为重启后生效的配置。
+
+[OSPF案例](../../examples/ospf.md) · [命令参考](../reference/ospf.md)

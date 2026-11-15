@@ -1,20 +1,28 @@
-# 变更与恢复
+# EVPN 变更与恢复
 
-## ESI 撤销
+## 撤销 ESI
 
-在 Eth-Trunk 下配置 `esi 0000.0000.0000.0000.0010` 后，本次真实 FRR ES 清单为 local/up，BGP 显示对应 Type-4 路由，聚合链路 VLAN400 探测2/2。执行 `undo esi` 后，聚合端口应回到普通桥接成员，保留原来的管理状态和 VLAN 配置。
+在聚合接口视图执行`undo esi`并提交。聚合恢复为普通桥接成员，原有VLAN、成员接口及管理状态保留：
 
-这项撤销曾实际失败：Linux 删除承载 ES 的 bond 时会关闭其原成员；同时未映射的旧 ES 索引被错误当作 LCP 索引回放，阻断恢复。现由控制层在删除自己的 bond 时保留成员原状态，并按真实 ES/LCP 生命周期清理失效工作。修复后真实撤销一次提交即成功，Linux/VPP 端口均 Up、FRR ES 清单为空、健康 ready。即刻探测为1/2，随后稳定探测为2/2；不声称无损切换或完整 All-Active 故障验证。
+~~~text
+interface Eth-Trunk 11
+ undo esi
+quit
+commit
+display interface Eth-Trunk 11
+display bgp evpn all routing-table
+~~~
 
+多归属业务的远端下一跳组会随ES通告变化。变更期间检查剩余路径和客户业务，不能只查看本地聚合是否Up。
 
 ## 删除 VNI
 
-`undo vni VNI` 删除选定 VNI 的整个 head-end 绑定，包括静态对端或 BGP 动态发现。指定 `head-end peer-list PEER` 仅删除该静态对端；指定 `head-end peer-list protocol bgp` 仅撤销动态发现。其他 VNI 保留。
+`undo vni VNI`删除选定VNI的整个head-end绑定；带静态peer后缀时只删除该对端，带`protocol bgp`时只撤销动态发现。其他VNI保留。
 
-真实 CLI 对 VNI10450 执行不带后缀的撤销、提交后，Nve 当前配置不再显示该 VNI，EVPN 路由清单为零；重新配置动态发现并提交后，恢复实际 Type-2/Type-3 路由。删除 BGP EVPN 地址族之前，应先撤销使用它的 NVE 绑定，依赖未解除时 Candidate 会拒绝。
+先在NVE视图撤销绑定，提交后核对隧道、MAC及对应业务路由。删除BGP EVPN地址族前，必须先解除使用它的NVE依赖。
 
-## 保存和重启
+## 保存与重建
 
-配置按 Candidate → commit → Running → save → 启动 CFG 流转。核对邻居、路由和流量后再保存；不直接编辑 FRR、Linux 控制桥或内部 VPP 桥域作为持久配置。
+完成变更并确认业务正常后执行`save`。重建数据面后检查BGP邻居、EVPN路由、VXLAN隧道、业务FIB和客户连通性。
 
-恢复后分别检查 BGP 会话、Type-2/3/5、LCP 对象、VPP FIB 和租户流量。已有双栈 L3VPN 的重启证据见[案例](../../examples/evpn/l3vpn.md)，不外推为完整多归属冷重启已经通过。
+共用的NVE、BGP进程和底层路由不应随单个业务一起删除。完整操作见[二层业务](../../examples/evpn/l2vpn.md)、[三层业务](../../examples/evpn/l3vpn.md)和[多归属](../../examples/evpn/all-active.md)。

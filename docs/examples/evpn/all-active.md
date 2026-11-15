@@ -1,47 +1,47 @@
 # All-Active 多归属
 
-## 拓扑与前提
+## 拓扑与用途
 
-两台接入PE共享一个ESI，CE以静态balance-xor聚合双接入；第三台PE承载远端主机。三台PE全互联IBGP EVPN，无需RR。全部VTEP为IPv4，业务为L2VNI；不把此例当作Single-Active或L3VNI多归属。
+CE1 通过静态 Eth-Trunk 双接入 PE1/P1 与 PE2/P2；PE3/P3 连接 CE2。五台设备均运行 VortexROS。PE1、PE2 使用同一个 ESI，PE 间通过 IBGP EVPN 通告以太网段及 MAC。
 
 ~~~text
-CE bond0 192.0.2.12/24
-  ce1 ── host-p1docmh ── P1(198.19.80.1)
-  ce2 ── host-p2docmh ── P2(198.19.80.2) ── P3(198.19.23.3)
-                                               host-p3docce ── 192.0.2.3/24
-P1—P2: 198.19.80.0/30
-P2—P3: 198.19.23.0/24
-VLAN/BD460，VNI50460，RT65000:50460
-ESI0000.1111.2222.1111.1111
+CE1 Ethernet0 ── P1 Ethernet1
+CE1 Ethernet1 ── P2 Ethernet2
+P1 Ethernet0 ── P2 Ethernet0   198.19.80.0/30
+P2 Ethernet1 ── P3 Ethernet0   198.19.23.0/24
+P3 Ethernet1 ── CE2 Ethernet0
+CE1 Eth-Trunk1: 192.0.2.12/24   CE2: 192.0.2.3/24
+VLAN/BD 460; VNI 50460; RT 65000:50460
+ESI 0000.1111.2222.1111.1111
 ~~~
 
-开发服务器使用QEMU中的隔离netns和VPP AF_PACKET承载；下面的host-*替换为各设备实际由VPP管理的物理接口。先完成数据面启动与接口库存，原生AF_PACKET实验口必须写入该实例启动清单，单次动态创建不能保证VPP重启后存在。生产DPDK设备按[数据面配置](../../operator/dataplane/devices.md)管理。
+PE 的承载接口应已完成数据面配置，互联 MTU 足以容纳 VXLAN 封装。本例使用 IPv4 VTEP、L2VNI 和 All-Active；不适用于 Single-Active 或 L3VNI 多归属。
 
-CE与远端主机是Linux流量端点，不运行VortexROS。CE先创建balance-xor、layer3+4散列的bond，两个接入口都加入bond且Up；MAC固定02:00:00:00:12:12，地址192.0.2.12/24。远端端口Up并配置192.0.2.3/24。链路两端不带标签，以接入PVID460进入业务。
+## CE1
 
-## Linux 流量端点
-
-在CE实验namespace中，ce1/ce2已与两台PE对应物理测试口相连：
-
-~~~bash
-ip link add bond0 type bond mode balance-xor xmit_hash_policy layer3+4
-ip link set bond0 address 02:00:00:00:12:12
-ip link set ce1 master bond0
-ip link set ce2 master bond0
-ip link set ce1 up
-ip link set ce2 up
-ip link set bond0 up
-ip address add 192.0.2.12/24 dev bond0
+~~~text
+system-view
+interface Eth-Trunk 1
+ mode manual
+ trunkport Ethernet0
+ trunkport Ethernet1
+ mac-address 0200-0000-1212
+ ip address 192.0.2.12 255.255.255.0
+quit
+commit
 ~~~
 
-远端主机：
+## CE2
 
-~~~bash
-ip link set remote0 up
-ip address add 192.0.2.3/24 dev remote0
+~~~text
+system-view
+interface Ethernet0
+ ip address 192.0.2.3 255.255.255.0
+quit
+commit
 ~~~
 
-端点均在同一二层子网，不需要默认网关。用于注入断链的Linux命令仅作用于CE端相应ce1/ce2，不修改生产管理口。
+CE 接口不带 VLAN 标签，由 PE 接入口的 PVID 460 归入业务。CE1 的两个成员口只加入聚合，不再单独配置 IP。
 
 ## P1 完整业务配置
 
@@ -49,7 +49,7 @@ ip address add 192.0.2.3/24 dev remote0
 system-view
 enable switch
 evpn-overlay enable
-interface host-p1a12
+interface Ethernet0
  ip address 198.19.80.1 255.255.255.252
 quit
 ip route-static 198.19.23.0 255.255.255.0 198.19.80.2
@@ -65,7 +65,7 @@ bridge-domain 460
 quit
 interface Eth-Trunk 11
  mode manual
- trunkport host-p1docmh
+ trunkport Ethernet1
  portswitch
  port link-type trunk
  port trunk allow-pass vlan 460
@@ -80,7 +80,7 @@ bgp 65000
  router-id 1.1.1.1
  peer 198.19.80.2 as-number 65000
  peer 198.19.23.3 as-number 65000
- peer 198.19.23.3 connect-interface host-p1a12
+ peer 198.19.23.3 connect-interface Ethernet0
  l2vpn-family evpn
   peer 198.19.80.2 enable
   peer 198.19.23.3 enable
@@ -95,10 +95,10 @@ commit
 system-view
 enable switch
 evpn-overlay enable
-interface host-p2a12
+interface Ethernet0
 ip address 198.19.80.2 255.255.255.252
 quit
-interface host-p2e23
+interface Ethernet1
 ip address 198.19.23.2 255.255.255.0
 quit
 vlan 460
@@ -113,7 +113,7 @@ bridge-domain 460
 quit
 interface Eth-Trunk 11
  mode manual
- trunkport host-p2docmh
+ trunkport Ethernet2
  portswitch
  port link-type trunk
  port trunk allow-pass vlan 460
@@ -128,7 +128,7 @@ bgp 65000
  router-id 2.2.2.2
  peer 198.19.80.1 as-number 65000
  peer 198.19.23.3 as-number 65000
- peer 198.19.23.3 connect-interface host-p2a12
+ peer 198.19.23.3 connect-interface Ethernet0
  l2vpn-family evpn
   peer 198.19.80.1 enable
   peer 198.19.23.3 enable
@@ -143,7 +143,7 @@ commit
 system-view
 enable switch
 evpn-overlay enable
-interface host-p3e23
+interface Ethernet0
  ip address 198.19.23.3 255.255.255.0
 quit
 ip route-static 198.19.80.0 255.255.255.252 198.19.23.2
@@ -157,7 +157,7 @@ bridge-domain 460
   vpn-target 65000:50460 import-extcommunity
  quit
 quit
-interface host-p3docce
+interface Ethernet1
  portswitch
  port link-type access
  port default vlan 460
@@ -180,9 +180,10 @@ commit
 
 先检查两段underlay与各VTEP互通，再等待EVPN邻居建立。RD各自唯一，ESI/VLAN/VNI/RT在业务两端一致。bridge-domain EVPN视图的RT分别配置import-extcommunity和export-extcommunity，不能使用该视图不支持的both缩写。
 
-## 查询与正常转发
 
-三台PE分别执行：
+## 验证
+
+在三台 PE 执行：
 
 ~~~text
 display bgp evpn all routing-table
@@ -191,57 +192,35 @@ display mac-address bridge-domain 460
 display health
 ~~~
 
-P1/P2还执行display interface Eth-Trunk 11。真实CLI中有Type-1、Type-4及MAC/IP通告，P3的CE MAC指向ES下一跳组：
+P1/P2 另执行 display interface Eth-Trunk 11。检查 EVPN 邻居 Established，路由包含 Type-1、Type-4 和客户 MAC/IP 通告。P3 到 CE1 MAC 的出口应为包含两台接入 PE 的 ES 下一跳组。
+
+示例输出（组编号由运行状态决定）：
 
 ~~~text
 0200-0000-1212    -/-/460    evpn-nhg-50460-536870913    static
 ~~~
 
-后端辅助回读（不是产品额外的CLI）：
+CE1 执行 ping -a 192.0.2.12 -c 3 192.0.2.3；CE2 执行 ping -a 192.0.2.3 -c 3 192.0.2.12。两端应可达；单次 Ping 不用于证明两条成员链路的负载分担比例。
 
-~~~text
-id 268435458 via 198.19.80.1 scope link proto zebra fdb
-id 268435459 via 198.19.80.2 scope link proto zebra fdb
-id 536870913 group 268435458/268435459 proto zebra fdb
-~~~
+## 单接入链路关闭与恢复
 
-在CE和远端主机的Linux终端分别ping对端，正常稳定时两向均3/3。首次建网的0/3及1/3记录保留；这里不宣称无损或测量收敛时间。接口/组ID由运行时分配，不应写成固定配置。
+在 P1 的 Ethernet1 和 CE1 的 Ethernet0 分别执行 shutdown、quit、commit，模拟链路两端均 Down。P1 的 Eth-Trunk11 应 Down，P3 的 CE1 MAC 下一跳组应只保留 P2。重复 CE1/CE2 双向 Ping，业务应经剩余接入恢复。
 
-## 单链路失败与恢复
+两端执行 undo shutdown 并提交，等待双成员组恢复。对 P2 Ethernet2 和 CE1 Ethernet1 做同样检查，然后恢复。手工关闭一端不一定使另一端立即检测到物理失载，因此本步骤明确同时关闭链路两端。
 
-P1：
+## 保存与重建
 
-~~~text
-interface host-p1docmh
- shutdown
-quit
-commit
-display interface Eth-Trunk 11
-~~~
+各设备配置完成后执行 save，应答 Y 并等待成功。在维护窗口对一台 PE 执行 reset service vpp；恢复后重新检查 EVPN 邻居、客户 MAC、ES 下一跳组和双向 Ping。数据面重建会中断该 PE 上的转发，其他业务也可能受影响。
 
-实验中同步关闭CE的ce1，模拟真实断链两端状态。实际P1聚合Down，P3下一跳组只剩198.19.80.2，CE→远端3/3，P2成为DF。P1执行undo shutdown并提交，CE恢复ce1后，再对P2接入口执行同样的shutdown/undo shutdown（CE对应ce2）。
+## 撤销
 
-P2接入口Down时，组只剩198.19.80.1，CE→远端同样3/3；两端恢复后重新出现双成员。该流量测试证明剩余路径可转发，不是所有散列桶、BUM复制或split-horizon穷举。
-
-## 保存和冷恢复
-
-在各节点提交并核对后save，应答Y且等待保存成功，再进行恢复试验。不能把配置尚未保存时的控制进程重启当作Running持久化验收。
-
-VPP重启必须先保证基础承载接口的启动清单完整。初次实验遗漏动态AF_PACKET口，真实reset被接口恢复屏障拒绝，该失败不是转发成功。之后补齐实验启动清单。
-
-补验还确认控制层把exit-vni当作可取反叶子的缺陷，导致冷回放出现no exit-vni。修正VNI上下文解析和退出命令后，在同一后端版本上继续核对恢复；修前函数反例失败、修后定向测试通过。修后保存配置并执行冷启动恢复：P1 ready1/1、零告警；P3重新出现双成员组，CE→远端3/3。P2历史实验混有其他业务及失效运行缓存，最终补验将其替换为只含本例业务的独立实例，未把恢复另一套历史配置的失败写成All-Active成功。最终撤销另列如下。
-
-[多归属功能](../../operator/evpn/multihoming.md) · [EVPN参数](../../operator/reference/evpn.md)
-
-## 撤销和实际结果
-
-P1、P2分别执行以下配置（PE2把端口名换为host-p2docmh）：
+P1、P2分别执行以下配置（PE2把端口名换为Ethernet2）：
 
 ~~~text
 interface Eth-Trunk 11
  undo esi
 quit
-interface host-p1docmh
+interface Ethernet1
  undo eth-trunk
 quit
 undo interface Eth-Trunk 11
@@ -256,7 +235,7 @@ commit
 P3执行：
 
 ~~~text
-interface host-p3docce
+interface Ethernet1
  undo portswitch
 quit
 interface Nve 1
@@ -270,14 +249,23 @@ display vxlan tunnel
 display health
 ~~~
 
-各节点MAC查询Total items displayed = 0，VXLAN隧道Total: 0。远端PE的ES清单为空，下一跳中不再有本例ES成员组；CE向远端发送3包，0包返回，说明撤销后的业务没有残留可达路径。三台最终健康均ready、in-sync、零告警。underlay IP和共享BGP会话没有随业务撤销。
 
-P3首次撤销失败的记录没有丢弃：在前一步MPLS撤销引起VPP替换后，接口最后一项二层配置被移除，控制层遗漏了现有LCP对的L2→L3更新，二层控制通道返回Invalid value。补齐这条物理口角色转换后，用真实CLI重复原撤销操作，P3代号3/3、健康ready，MAC和隧道均归零。该修正复用现有角色设置API，没有新增回退或忽略错误。
+检查 MAC 中不再有本业务客户项，Nve1 不再承载 VNI 50460。底层和 BGP 邻居仍可保留供其他业务使用。
 
-本例结束后按需撤销专用EVPN邻居和实验underlay静态路由；共享邻居不能随本业务删除。save应答Y并等待成功，使撤销也能持久保存。
+CE1 解除两条成员口的聚合归属，再删除专用 Eth-Trunk1；CE2 撤销接入地址：
 
-## 0.29-dev run1最终包核对
+~~~text
+system-view
+interface Ethernet0
+ undo eth-trunk
+quit
+interface Ethernet1
+ undo eth-trunk
+quit
+undo interface Eth-Trunk 1
+commit
+~~~
 
-最终.run安装后，三节点使用包内daemon和VPP。P1保存本例配置，再通过真实CLI执行reset service vpp，实际版本26.10.7、健康ready2/2、零告警；远端重新出现双成员ES组，CE→远端3/3。该项为VPP数据面重建，不冒称同时重新做了一轮控制进程冷启动或双接入故障测试。
+CE2 进入 Ethernet0 执行 undo ip address 并提交。各节点核对后执行 save。若底层及 BGP 也为本业务独占，再撤销专用邻居、静态路由和接口地址。
 
-按本页步骤撤销后，三节点MAC均0，P3隧道0、ES组消失、端点0/3；健康分别为3/3、6/6、8/8、零告警，均保存成功。两条接入分别故障的已通过结果沿用前面的实际记录，没有重复运行。
+[多归属功能](../../operator/evpn/multihoming.md) · [EVPN 参数](../../operator/reference/evpn.md)

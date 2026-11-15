@@ -21,7 +21,7 @@ commit
 
 ## 验证
 
-用 `display vrrp brief` 确认一台 Master、一台 Backup。从客户端连续探测虚拟网关和上游。断开 Master 的实验 VLAN 接口，确认 Backup 接管且上游探测恢复；重新接入后观察角色。
+用 `display vrrp brief` 确认一台 Master、一台 Backup。从客户端连续探测虚拟网关和上游。断开 Master 的示例 VLAN 接口，确认 Backup 接管且上游探测恢复；重新接入后观察角色。
 
 ## 撤销
 
@@ -42,7 +42,7 @@ display vrrp brief
 display vrrp6 brief
 ```
 
-真实显示的关键字段：
+示例输出：
 
 ```text
 40    Master  Vlanif400  IPv4  198.18.104.3  100       100     1.00s

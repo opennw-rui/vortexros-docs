@@ -31,7 +31,7 @@ commit
 
 ## VPN 实例内的 IPv4/IPv6 静态引入
 
-本轮使用 [CLI-UNDER 拓扑](ospf.md#vpn-实例的静态引入)：P1/P2 b12 接口为198.18.180.1/.2、2001:db8:180::1/::2。P2 有 VPN 内静态198.18.181.0/24和2001:db8:181::/64，以及更具体的 LoopBack80 地址198.18.181.2/32、2001:db8:181::2/128。这里验证的是 VPN 内 unicast 邻居，不要求另建 VPNv4/VPNv6 传输邻居。
+本节使用 [CLI-UNDER 拓扑](ospf.md#vpn-实例的静态引入)。P1/P2 接口地址为 198.18.180.1/.2 与 2001:db8:180::1/::2；P2 在该 VPN 发布 198.18.181.0/24、2001:db8:181::/64，具体响应地址位于 LoopBack80。此处是 VPN 内单播邻居，不需要 VPNv4/VPNv6 传输邻居。
 
 P1：
 
@@ -67,7 +67,7 @@ bgp 65000
 commit
 ```
 
-同一 VPN 若还有 OSPF/OSPFv3 引入这些静态前缀，它们可能以更优 Preference 被选中，不能用其可达性冒充 BGP 转发证据。本轮暂时撤销两个 OSPF 进程的 static 引入后，才进行以下验证：
+本节不让 OSPF/OSPFv3 同时发布这些前缀，以免更优 Preference 改变选路。检查 BGP 时应确认选中来源及实际出口：
 
 ```text
 display bgp vpnv4 vpn-instance CLI-UNDER peer
@@ -78,6 +78,6 @@ ping -vpn-instance CLI-UNDER -c 3 -a 198.18.180.1 198.18.181.2
 ping ipv6 -vpn-instance CLI-UNDER -c 3 -a 2001:db8:180::1 2001:db8:181::2
 ```
 
-实际邻居为 Established，两族前缀都选中 BGP、Preference254、Cost0，经host-p1b12。IPv4下一跳为198.18.180.2，IPv6为对端链路本地地址。两族探测均为3/3。IPv6邻居也默认启用了IPv4地址族，因此 IPv4 摘要实际出现两条 BGP 路径；不要把路径数量当作两个不同目的前缀。
+邻居应 Established；选中的两族路由来源应为 BGP，下一跳为对端接口。iBGP 默认 Preference 为 254。IPv6 邻居可能同时启用 IPv4 地址族，路径条数不一定等于不同前缀数。
 
 P2 在两个 VPN 地址族下分别 `undo import-route static` 后提交，P1 两次成功查询均为 Summary Count0。恢复引入后执行 `reset service bgp` 并确认 Y，控制层返回 Running configuration re-applied and verified；两族路由恢复，后续一包探测各1/1。该操作会重启整个 BGP 服务并影响既有邻居，应仅在允许的维护窗口使用。

@@ -29,7 +29,7 @@ underlay变化导致VXLAN暂时不可用时，应撤销相关数据面接口/路
 `vni VNI head-end peer-list protocol bgp`，并配置bridge-domain EVPN RD/RT和BGP
 EVPN地址族。完整步骤、限制及Type-2/Type-3验证见[VXLAN EVPN](11-vxlan-evpn.md)。
 
-NVE是控制层逻辑对象，没有独立的VPP收发计数器和MTU，因此`display interface brief`中的利用率显示`0.0%`、MTU显示`--`。实际VXLAN成员的原始计数使用`display vxlan statistics`查看，避免把父接口、子接口和多个VXLAN成员重复相加。创建、管理状态、MTU、桥域绑定及删除属于同一VPP会话事务；VPP在中途重启时本次操作失败关闭，由下一轮权威收敛重建，不会继续使用旧接口索引。
+NVE是控制层逻辑对象，没有独立的VPP收发计数器和MTU，因此`display interface brief`中的利用率显示`0.0%`、MTU显示`--`。实际VXLAN成员的原始计数使用`display vxlan statistics`查看，避免把父接口、子接口和多个VXLAN成员重复相加。创建、变更或删除后，检查隧道、业务桥域和流量；数据面重建期间的操作可能尚未完成，应等待健康状态恢复后再检查业务。
 
 删除远端或整个NVE配置：
 

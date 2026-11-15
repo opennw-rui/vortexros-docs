@@ -23,28 +23,25 @@ nat-policy name LAB-SNAT
   action snat pat address-pool LAB-PUBLIC
  quit
 quit
-interface host-p1a12
+interface Ethernet0
  nat-policy LAB-SNAT outbound
 quit
 commit
 ~~~
 
-## 验证与真实结果
+## 验证
 
-在 P3 访问 http://198.19.80.2:8080/。随后在 P1 查询：
-
-~~~text
-display nat-policy sessions action snat-pat source-ip 198.18.11.2 destination-ip 198.19.80.2 destination-port 8080
-~~~
-
-已有隔离实验真实输出节选：
+P3 执行 `ping -a 198.18.11.2 -c 3 198.19.80.2`，然后在 P1 查询：
 
 ~~~text
-host-p1a12/outbound  FIB:0 -> FIB:0  Policy:LAB-SNAT(4124874345)/10  Action:SNAT-PAT
-198.18.11.2:44510 -> 198.19.80.2:8080  =>  198.19.81.1:20058 -> 198.19.80.2:8080
+display nat-policy name LAB-SNAT
+display nat-policy statistics name LAB-SNAT
+display nat-policy sessions action snat-pat
 ~~~
 
-P3 到 P2 的 HTTP 返回 200；P2 日志看到 198.19.81.1。转换端口 20058 在配置的 20000–20063 内。端口不是固定分配值。 该记录证明本例路径，不是地址池耗尽、满表容量或吞吐测试。运行 ID、端口和时间会随连接变化。
+应能往返，且源地址变为 198.19.81.1，目的地址仍为 198.19.80.2。在会话中核对原始和转换后的地址；ICMP 使用标识符而非 TCP/UDP 端口。
+
+Ping 成功只证明往返路径，应同时核对转换结果。查看状态要紧接探测执行，避免会话已老化。地址池耗尽和端口范围需要对应并发业务验证，不能从三次 Ping 推断。
 
 ## 撤销与保存
 
@@ -52,7 +49,7 @@ P1 系统视图：
 
 ~~~text
 system-view
-interface host-p1a12
+interface Ethernet0
  undo nat-policy LAB-SNAT outbound
 quit
 undo nat-policy name LAB-SNAT

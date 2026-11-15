@@ -3,23 +3,26 @@
 ## 拓扑
 
 ~~~text
-P1 host-p1e12 ─────────── host-p2e12 P2
+P1 Ethernet0 ─────────── Ethernet0 P2
    10.201.12.1/24         10.201.12.2/24
    Tunnel10              Tunnel10
    198.51.100.1/30       198.51.100.2/30
 ~~~
 
-两端均运行 VPP。先确认外层地址已配置、在 default 路由域互通，且双方允许 UDP 51820。实验中 `host-p1e12` 和 `host-p2e12` 是 VPP 的 AF_PACKET 接口名；使用物理设备时，换成实际端口名。若尚未配置外层地址，先在两端的相应接口上分别提交 `ip address 10.201.12.1 255.255.255.0` 和 `ip address 10.201.12.2 255.255.255.0`。
+两端运行 VortexROS 与配套 VPP，底层地址 10.201.12.1/24、10.201.12.2/24 配置在各自 Ethernet0，default 路由域双向可达，并允许 UDP 51820。
 
-在各自设备上生成一对密钥。以下是 Linux 命令，需要 `wireguard-tools`：
+两端先在 Tunnel10 视图生成各自密钥，保持当前 Candidate，交换 display this 中的公钥；完成下方 Profile 及隧道配置后再统一提交：
 
-~~~bash
-umask 077
-wg genkey > lab-wg.key
-wg pubkey < lab-wg.key > lab-wg.pub
+~~~text
+system-view
+interface Tunnel 10
+ tunnel-protocol wireguard
+ privatekey auto
+ display this
+quit
 ~~~
 
-只交换公钥。下列大写占位符要替换为实际值；私钥只填到本端，且会进入设备配置和备份。示例输出省略了公钥行。
+只交换公钥，私钥随配置保存，应限制配置和备份的访问。后续不再重复执行 privatekey auto，以免更换已交换的密钥。
 
 ## 配置 P1
 
@@ -36,7 +39,6 @@ wireguard profile WG-P2
  quit
 interface Tunnel 10
  tunnel-protocol wireguard
- privatekey P1_PRIVATE_KEY
  source vpn-instance default
  source-port 51820
  wireguard-profile WG-P2
@@ -60,7 +62,6 @@ wireguard profile WG-P1
  quit
 interface Tunnel 10
  tunnel-protocol wireguard
- privatekey P2_PRIVATE_KEY
  source vpn-instance default
  source-port 51820
  wireguard-profile WG-P1
@@ -73,7 +74,7 @@ commit
 
 ## 验证
 
-先从 P2 向 P1 发起一次探测，让 peer 完成初始交换，再分别检查两端。若要定位握手问题，可以在外层链路仅观察 UDP 51820 的收发；不要公开密钥或配置转储。下面沿用已有实验的实际输出节选；本轮未重复执行该未受影响的用例。
+先向对端隧道地址发起探测，再查询握手时间、端点与收发计数。外层 UDP 可达、密钥和 Allowed IP 正确才可能建立隧道。示例输出省略密钥，不应公开实际配置转储。
 
 **P1：查询接口与 peer**
 
@@ -122,93 +123,96 @@ commit
 display wireguard interface
 ~~~
 
-P2 同样删除 Tunnel 10，将 profile 名换为 `WG-P1`。实测两端查询均不再列出 Tunnel10。保留原外层链路；若已经保存过实验配置，撤销后再保存。
+P2 同样删除 Tunnel 10，将 profile 名换为 `WG-P1`。两端查询应不再列出 Tunnel10。保留原外层链路；若已经保存过示例配置，撤销后再保存。
 
 [WireGuard 配置指南](../operator/wireguard.md)
 
 
 ## IPv6 外层与 VPN 实例
 
-下面沿用开发服务器的补充实测，使用已建立的 Tunnel10。两端隧道内层仍为 `10.240.10.1/30`、`10.240.10.2/30` 和 `2001:db8:240:10::1/64`、`::2/64`；只把加密 UDP 外层从公网 IPv4 改为命名 VPN 实例中的 IPv6。内层接口不必加入外层 VPN 实例。
+本节是独立双端配置，先按上一节撤销冲突的 Tunnel10 和 Profile。双方 Ethernet0 位于 CLI-UNDER，内层 Tunnel10 位于 default VPN，内外层路由归属独立。
 
-```text
-P1 Tunnel10 ── 加密 UDP/IPv6 ── P2 Tunnel10
-  host-p1b12                    host-p2b12
-  2001:db8:180::1/64             2001:db8:180::2/64
-  └──────── VPN CLI-UNDER ────────────┘
-```
+先按本页开头在两端创建 Tunnel10、执行 privatekey auto，并交换公钥；保留该 Candidate，再补齐以下配置。将 P1_PUBLIC_KEY、P2_PUBLIC_KEY 替换为对应实际公钥。
 
-P1：
+### P1
 
-```text
+~~~text
 system-view
 ip vpn-instance CLI-UNDER
- ipv4-family
-  quit
  ipv6-family
-  quit
  quit
-interface host-p1b12
+quit
+interface Ethernet0
  ip binding vpn-instance CLI-UNDER
  ipv6 address 2001:db8:180::1 64
- quit
+quit
 wireguard profile WG-P2
  peer P2
-  undo source
-  destination vpn-instance CLI-UNDER 2001:db8:180::2 port 51820
+  publickey P2_PUBLIC_KEY
+  allowd-ip 10.240.10.2 32
+  allowd-ip 2001:db8:240:10::2 128
   source 2001:db8:180::1
-  quit
+  destination vpn-instance CLI-UNDER 2001:db8:180::2 port 51820
+  keepalive 5
  quit
+quit
 interface Tunnel10
+ tunnel-protocol wireguard
+ source vpn-instance CLI-UNDER
  source-port 51820
- quit
+ wireguard-profile WG-P2
+ ip address 10.240.10.1 255.255.255.252
+ ipv6 address 2001:db8:240:10::1 64
+quit
 commit
-```
+~~~
 
-P2：
+### P2
 
-```text
+~~~text
 system-view
 ip vpn-instance CLI-UNDER
- ipv4-family
-  quit
  ipv6-family
-  quit
  quit
-interface host-p2b12
+quit
+interface Ethernet0
  ip binding vpn-instance CLI-UNDER
  ipv6 address 2001:db8:180::2 64
- quit
+quit
 wireguard profile WG-P1
  peer P1
-  undo source
-  destination vpn-instance CLI-UNDER 2001:db8:180::1 port 51820
+  publickey P1_PUBLIC_KEY
+  allowd-ip 10.240.10.1 32
+  allowd-ip 2001:db8:240:10::1 128
   source 2001:db8:180::2
-  quit
+  destination vpn-instance CLI-UNDER 2001:db8:180::1 port 51820
+  keepalive 5
  quit
+quit
 interface Tunnel10
+ tunnel-protocol wireguard
+ source vpn-instance CLI-UNDER
  source-port 51820
- quit
+ wireguard-profile WG-P1
+ ip address 10.240.10.2 255.255.255.252
+ ipv6 address 2001:db8:240:10::2 64
+quit
 commit
-```
+~~~
 
-`ip binding vpn-instance` 会清除该接口原有 IP 地址，应先确认接口用途，再在绑定后配置地址。改变外层地址族时先撤销旧 `source`，再设置新目的和新源，避免保留地址族不匹配的中间配置。示例使用两端已完成的密钥及 allowed-IP 配置，不会另行生成或覆盖密钥。
+两端查询 display wireguard interface Tunnel10 和各自 peer；端点应是 2001:db8:180::1、::2。P1 执行以下命令，P2 使用本端源地址反向检查：
 
-实测查询与流量：
+~~~text
+ping -a 10.240.10.1 -c 3 10.240.10.2
+ping ipv6 -a 2001:db8:240:10::1 -c 3 2001:db8:240:10::2
+~~~
 
-```text
-display current-configuration configuration wireguard
-display ip vpn-instance verbose
-ping -c 3 -a 10.240.10.1 10.240.10.2
-ping ipv6 -c 3 -a 2001:db8:240:10::2 2001:db8:240:10::1
-```
+检查握手和计数更新，确认两族内层双向可达。保存使用 save。
 
-配置查询显示 `destination vpn-instance CLI-UNDER 2001:db8:180::2 port 51820`；实际 peer 外层端点也是两端的 `2001:db8:180::` 地址。IPv4 两个方向均为 3/3；上述 IPv6 P2→P1 为 3/3。这里是实际转发验证，不是吞吐测量。
-
-恢复原外层时，在两端 peer 视图先 `undo source`，然后把 `destination` 和 `source` 改回原地址、端口及外层实例，提交并复测。只有没有接口、路由、协议或其他隧道引用时，才能删除 `CLI-UNDER`。
+撤销时先删除 Tunnel10，再删除 WG-P1/WG-P2；两端解除 Ethernet0 的 VPN 绑定并撤销本例地址，删除不再引用的 CLI-UNDER，提交并保存。其他共用接口、VPN 和业务不能随本例删除。
 
 ## 漫游端点
 
 固定服务器在 Tunnel 视图配置 `source-port`；服务器 peer 可以撤销 `source` 和 `destination`，让经过认证的客户端握手更新远端地址与端口。客户端通过 `destination ... port ...` 指定服务器，`undo source-port` 使用自动分配的本地端口。`keepalive 0` 是不发送周期保活，不会禁止业务触发握手。
 
-本轮实测客户端重启 VPP 后，服务器学到的新 WireGuard 端口为 58120，AmneziaWG 为 60103，均与重启前不同；对应 IPv4 双向探测均为 3/3。自动端口没有固定数值，不能在真实配置中照抄这些观测值。
+使用自动端口时，数据面重建后端口可能变化。对端需允许端点更新，检查新握手及双向流量；不要把一次运行的动态端口固定写入配置。

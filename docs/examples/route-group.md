@@ -2,7 +2,7 @@
 
 **目标**：让两个目的前缀共用一个网关，后续增删成员时无需重复写下一跳。
 
-**前提**：实验设备能直接到达 192.0.2.1，且目标前缀没有与本例冲突的同路径配置。
+**前提**：示例设备能直接到达 192.0.2.1，且目标前缀没有与本例冲突的同路径配置。
 
 ## 配置
 
@@ -20,7 +20,7 @@ commit
 
 ## 验证
 
-用 `display route-static group name LAB verbose` 检查成员，用 `display ip routing-table-group name LAB verbose` 检查应用结果。再查询目标前缀和下一跳，并从实验网发起探测。
+用 `display route-static group name LAB verbose` 检查成员，用 `display ip routing-table-group name LAB verbose` 检查应用结果。再查询目标前缀和下一跳，并从示例网发起探测。
 
 ## 撤销
 
@@ -28,16 +28,16 @@ commit
 
 ## 双栈外部列表与撤销
 
-开发拓扑 P1/P2 的互连接口地址为 `198.19.80.1/30`、`.2/30`，IPv6 为 `2001:db8:80::1/64`、`::2/64`。P2 的 LoopBack199 配置 `198.18.199.2/32` 和 `2001:db8:199::2/128`。P1 上实验 HTTP 服务提供两个文件，每个文件只有对应的一个前缀；该服务是测试输入端，不是产品功能。
+两台 VortexROS 的 Ethernet0 直连，分别配置 198.19.80.1/30、.2/30 与 2001:db8:80::1/64、::2/64。P2 LoopBack199 配置 198.18.199.2/32、2001:db8:199::2/128。外部列表由独立的列表发布服务提供，分别包含这两个前缀；发布服务是数据来源，不是路由设备或本机手工启动的网络服务。
 
 ```text
 route-static group name CLI-FINAL4
- source url http://127.0.0.1:8189/v4.txt insecure
+ source url https://lists.example.net/routes/v4.txt
  auto-refresh interval 5
  auto-refresh enable
  quit
 ipv6 route-static group name CLI-FINAL6
- source url http://127.0.0.1:8189/v6.txt insecure
+ source url https://lists.example.net/routes/v6.txt
  auto-refresh interval 5
  auto-refresh enable
  quit
@@ -46,7 +46,7 @@ ipv6 route-static-group CLI-FINAL6 2001:db8:80::2
 commit
 ```
 
-真实 CLI 进度分别显示 `complete 16/16 bytes, 1 entries`、`complete 20/20 bytes, 1 entries`。两个组的 verbose 均为 `Members: manual 0 external 1 effective 1`，自动刷新为5分钟，应用状态为 applied。IPv4 探测2/2；IPv6 首次为1/2，随后稳定状态2/2，不将初次丢包改写为全程无损。
+将 URL 替换为实际可访问的列表地址，证书应有效。下载完成后，两组 verbose 应各有一个 external 成员，刷新周期为 5 分钟，应用状态为 applied；检查两族路由和到 LoopBack199 的探测。
 
 将来源改为手工维护时，在各组中撤销自动刷新和 URL，再加入同一前缀并提交：
 

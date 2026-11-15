@@ -13,4 +13,4 @@ SCTP 只支持协议与地址匹配，不能配置端口条件。数字协议号
 
 修改规则进入 Candidate，失败不应改变原规则；commit 后更新被引用的实际 ACL。MQC 引用内容修改后不必解绑再绑定。参数和完整子命令见[规则参考](../reference/acl.md)。
 
-[IPv4](ipv4.md) · [IPv6](ipv6.md) · [真实案例](../../examples/acl.md)
+[IPv4](ipv4.md) · [IPv6](ipv6.md) · [配置案例](../../examples/acl.md)

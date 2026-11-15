@@ -20,9 +20,8 @@ commit
 
 用 `display mac-address` 查看实际表项。
 
-静态 MAC 表项的出口必须实际属于该表项的桥域；trunk与业务桥域先转换为Linux控制端口和VLAN后再校验，
-普通静态项由switchd写入Linux FDB并经LCP进入对应VPP bridge-domain，不能把其他桥域的端口写入当前桥域。
+静态 MAC 的出口必须属于对应业务桥域；access、trunk 和 VLAN 映射应先配置正确，跨桥域出口会被拒绝。
 
 [功能目录](../mac-table.md) · [命令参数](../reference/bridge-domains.md)
 
-[静态MAC完整案例](../../examples/static-mac.md)记录关闭学习/未知单播泛洪后的真实3/3，以及删除目标项后的0/3对照。
+[静态MAC完整案例](../../examples/static-mac.md)说明关闭学习与未知单播泛洪时，如何验证目标静态 MAC 的转发及删除效果。

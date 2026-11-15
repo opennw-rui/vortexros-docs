@@ -8,9 +8,9 @@
 | UDP 监听 | 51920 | 51920 |
 | Tunnel20 | 198.51.100.41/30 | 198.51.100.42/30 |
 
-两端运行同一配套 VPP，底层地址已双向可达。两端生成各自密钥对，例如在 Linux 上用 `wg genkey`、`wg pubkey` 生成 X25519 密钥，只交换公钥。替换下面的 `LOCAL_PRIVATE_KEY` 和 `REMOTE_PUBLIC_KEY`。私钥随配置保存，不应写入公开日志。
+两端运行 VortexROS 与配套 VPP。各自 Ethernet0 配置底层地址，双向可达并允许 UDP 51920。先在 Tunnel20 视图配置 tunnel-protocol amneziawg、privatekey auto，再用 display this 取得本端公钥并交换；完成下列 Profile 后一起提交。私钥进入配置和备份，应限制其访问。
 
-两端的填充和消息头范围要相同。实验只允许对端隧道地址进入各自 peer，不通告其他业务网段。
+两端的填充和消息头范围要相同。示例只允许对端隧道地址进入各自 peer，不通告其他业务网段。
 
 ## P1 配置
 
@@ -39,7 +39,6 @@ amneziawg profile AWG-P2
 quit
 interface Tunnel 20
  tunnel-protocol amneziawg
- privatekey LOCAL_PRIVATE_KEY
  source vpn-instance default
  source-port 51920
  amneziawg-profile AWG-P2
@@ -75,7 +74,6 @@ amneziawg profile AWG-P1
 quit
 interface Tunnel 20
  tunnel-protocol amneziawg
- privatekey LOCAL_PRIVATE_KEY
  source vpn-instance default
  source-port 51920
  amneziawg-profile AWG-P1
@@ -96,7 +94,7 @@ display amneziawg peer AWG-P2 P2
 ping -n -c 3 -t 1500 198.51.100.42
 ~~~
 
-P2 反向执行 `ping -n -c 3 -t 1500 198.51.100.41`。实际输出节选：
+P2 反向执行 `ping -n -c 3 -t 1500 198.51.100.41`。示例输出：
 
 ~~~text
 Interface : Tunnel20
@@ -130,25 +128,25 @@ commit
 display amneziawg interface
 ~~~
 
-P2 将 profile 换为 `AWG-P1`。实测两端查询均不再显示 Tunnel20。
+P2 将 profile 换为 `AWG-P1`。示例中两端查询均不再显示 Tunnel20。
 
 [AmneziaWG 配置指南](../operator/amneziawg.md)
 
 
-## 高级参数实测
+## 高级参数配置
 
-本轮开发服务器以另一组地址验证了高级参数、预共享密钥和 IPv6 内层流量：
+以下为高级参数的独立双端配置，包含预共享密钥及 IPv6 内层。先撤销与基础例冲突的 Tunnel20 和 Profile，再生成本例密钥并交换公钥。
 
 | 项目 | P1 | P2 |
 | --- | --- | --- |
-| 外层接口 | host-p1a12 | host-p2a12 |
+| 外层接口 | Ethernet0 | Ethernet0 |
 | 外层 IPv4 | 198.19.80.1 | 198.19.80.2 |
 | Tunnel20 IPv4 | 10.240.20.1/30 | 10.240.20.2/30 |
 | Tunnel20 IPv6 | 2001:db8:240:20::1/64 | 2001:db8:240:20::2/64 |
 | Profile / peer | AWG-P2 / P2 | AWG-P1 / P1 |
 | 监听端口 | 51920 | 51920 |
 
-生成并交换公钥的步骤与上文相同。以下 `LOCAL_PRIVATE_KEY`、`REMOTE_PUBLIC_KEY` 分别是各端自己的私钥和对端公钥；`SHARED_PSK`、`SHARED_HEADER_KEY` 是双方一致的两项独立 32 字节 Base64 密钥，不要直接使用公开文档中的演示值作为秘密。
+生成并交换公钥的步骤与上文相同。以下 REMOTE_PUBLIC_KEY 为对端公钥；本端私钥由前置步骤生成，`SHARED_PSK`、`SHARED_HEADER_KEY` 是双方一致的两项独立 32 字节 Base64 密钥，不要直接使用公开文档中的演示值作为秘密。
 
 **P1：**
 
@@ -187,7 +185,6 @@ amneziawg profile AWG-P2
  quit
 interface Tunnel 20
  tunnel-protocol amneziawg
- privatekey LOCAL_PRIVATE_KEY
  source vpn-instance default
  source-port 51920
  amneziawg-profile AWG-P2
@@ -235,7 +232,6 @@ amneziawg profile AWG-P1
  quit
 interface Tunnel 20
  tunnel-protocol amneziawg
- privatekey LOCAL_PRIVATE_KEY
  source vpn-instance default
  source-port 51920
  amneziawg-profile AWG-P1
@@ -264,7 +260,7 @@ save
 
 `timing` 的两个数值是范围，不能将配置范围当成正在使用的单个随机值。`display amneziawg profile` 中的 0-0 表示沿用插件默认时序，不表示零秒；默认项不输出到配置正文。
 
-### 实际查询、回放与转发
+### 查询、保存与转发
 
 ```text
 display amneziawg profile AWG-P2
@@ -273,7 +269,7 @@ ping -c 3 -a 10.240.20.1 10.240.20.2
 ping ipv6 -c 3 -a 2001:db8:240:20::1 2001:db8:240:20::2
 ```
 
-P1 Profile 实际输出节选：
+P1 Profile 示例输出：
 
 ```text
 Junk : count 3, size 16-48
@@ -287,9 +283,9 @@ Junk Packet 1 : raw 4 bytes
 Junk Packet 2 : expression <b 0x160301><c><t><r 32><rc 16><rd 8>
 ```
 
-两端 IPv4 双向均为 3/3；两端加载 Saved 配置后，P1 重启 VPP 完成回放，IPv6 双向均为 3/3。撤销双方预共享密钥后，实际 peer 中不再显示已配置 PSK，IPv4 仍为 3/3。观察这次重新握手，抓包确实包含两个精确的 `01 02 03 04` 静态垃圾载荷，以及两个以 `16 03 01` 开头、长度 67 字节的动态载荷；另有配置的随机垃圾包。这个结果证明签名槽位有实际出包，不能只看配置存在。
+两端分别检查 IPv4/IPv6 内层可达、握手及收发。保存并重建一端数据面后，再次检查恢复。需要确认签名或填充时，用报文分析设备核对静态载荷 01 02 03 04 与以 16 03 01 开头的动态载荷；仅配置存在不能证明字段已发出。
 
-这些是隔离环境功能与流量结果，不是性能比较，也不是硬件验收。
+混淆参数可能增加包长和处理开销，应与对端保持一致，另行检查实际路径 MTU。
 
 ### 恢复协议默认值
 
@@ -322,14 +318,14 @@ amneziawg profile AWG-P2
 commit
 ```
 
-P2 对 AWG-P1 执行同一撤销步骤。实际结果：插件显示 jc/jmin/jmax 和四类填充为 0，消息标识恢复 1/2/3/4，头保护关闭，签名槽位消失；`display this` 只保留 Profile/peer 配置，不再输出这些默认参数。恢复默认后的转发为 3/3。
+P2 对 AWG-P1 执行相同撤销。默认项不在 display this 中展开；查询运行参数并重新探测，确认不再使用自定义填充、标识、签名和头保护。
 
-最后删除业务时，先撤销 Tunnel 引用或删除专用 Tunnel，再删除不再使用的 Profile。保存已确认的最终配置，避免下次加载恢复到实验参数。
+最后删除业务时，先撤销 Tunnel 引用或删除专用 Tunnel，再删除不再使用的 Profile。保存已确认的最终配置，避免下次加载恢复到示例参数。
 
 
 ### 命名 VPN 中的 IPv6 外层
 
-同一轮还把两端 AWG peer 的外层改到 `CLI-UNDER`，拓扑和 VPN/接口配置见 [WireGuard 的 IPv6 外层案例](wireguard.md#ipv6-外层与-vpn-实例)。AWG 使用自己的 profile 和 UDP 51920：
+保留本页高级参数及内层配置，将两端 AWG peer 的外层改到 `CLI-UNDER`，拓扑和 VPN/接口配置见 [WireGuard 的 IPv6 外层案例](wireguard.md#ipv6-外层与-vpn-实例)。AWG 使用自己的 profile 和 UDP 51920：
 
 P1：
 
@@ -363,4 +359,4 @@ interface Tunnel20
 commit
 ```
 
-实际 peer 外层源和目的均为上述 IPv6 地址。内层 IPv4 两个方向均为 3/3，IPv6 P1→P2 为 3/3。外层实例选择不改变隧道内层的路由归属。撤销或恢复时按 WireGuard 案例的地址族切换顺序执行，并使用 AWG 自己的 profile/端口。
+运行 peer 的源与目的应为所配 IPv6 地址。分别检查内层两族流量；外层 VPN 选择不改变内层路由归属。恢复地址族时按 WireGuard 案例顺序执行，并使用本例 Profile 与端口。

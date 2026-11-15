@@ -70,7 +70,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -103,7 +103,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -135,7 +135,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
@@ -176,7 +176,7 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/vlanif, interface/vbdif
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、Vlanif、Vbdif
 
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|

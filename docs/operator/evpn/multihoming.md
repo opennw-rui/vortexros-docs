@@ -71,9 +71,9 @@ display health
 
 ## 范围、实际记录和撤销
 
-配套 FRR 只支持 All-Active，不提供 Single-Active，多归属 VTEP 限定 IPv4。上面的RR组网仍是模板；本轮另有三PE全互联的[完整All-Active案例](../../examples/evpn/all-active.md)，记录真实双成员组、双接入故障、恢复、冷回放及撤销。两种组网的证据不混用。
+当前支持 All-Active，不提供 Single-Active，多归属 VTEP 限定 IPv4。[完整 All-Active 案例](../../examples/evpn/all-active.md)给出三 PE 全互联的逐设备配置、故障检查和撤销；使用 RR 时另需正确配置路由反射。
 
-[ESI 生命周期案例](../../examples/evpn/esi.md)记录真实配置、ES local/up、Type-4 通告、VLAN400 转发和撤销后的端口恢复。双归属CE的补验见All-Active案例；单ESI增删与多PE故障验证仍分别记录。
+[ESI 变更](../../examples/evpn/esi.md)说明同一组网中的撤销与重新加入；完整双接入检查见 All-Active 案例。
 
 撤销单个接入的多归属属性，在对应 Eth-Trunk 执行 `undo esi` 并提交，保留普通桥接和 VLAN 成员关系。只有确认业务无引用时才删除聚合、VNI 或桥域。
 

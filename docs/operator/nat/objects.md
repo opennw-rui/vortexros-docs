@@ -28,7 +28,7 @@ nat-policy name LAB-SNAT
   action snat pat address-pool LAB-PUBLIC
  quit
 quit
-interface host-p1a12
+interface Ethernet0
  nat-policy LAB-SNAT outbound
 quit
 commit
@@ -47,7 +47,7 @@ display nat-policy interfaces
 display nat-policy name LAB-SNAT
 ~~~
 
-旧实验的真实输出节选（地址池尚未缩小 PAT 范围时）：
+旧示例的示例输出（地址池尚未缩小 PAT 范围时）：
 
 ~~~text
 Name        Address         PAT range
@@ -63,7 +63,7 @@ LAB-PUBLIC  198.19.81.1/32  10000-65535
 
 ~~~text
 system-view
-interface host-p1a12
+interface Ethernet0
  undo nat-policy LAB-SNAT outbound
 quit
 undo nat-policy name LAB-SNAT

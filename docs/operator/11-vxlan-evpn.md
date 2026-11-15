@@ -19,20 +19,6 @@ evpn/anycast
 evpn/lifecycle
 ~~~
 
-## 组件职责
-
-| 组件 | 职责 |
-|---|---|
-| VortexROS | 保存 VLAN、BD、VNI、RD、RT、NVE 和 BGP 配置，配置VPP对象并完成严格读回 |
-| switchd | 创建和收敛Linux `switch`、端口VLAN、共享`vxlan0`、服务SVI及多归属控制接口；不承载业务报文 |
-| FRR | 建立 BGP EVPN 邻居，选择 Type-2/Type-3/Type-5 路由并通过标准 Linux netlink 发布结果 |
-| LCP | 观察switchd创建的Linux对象，在FDB、邻居、VRF路由与VPP VXLAN/L2 FIB/ARP-ND终结表/租户FIB之间转换状态 |
-| VPP | 执行 MAC 学习、泛洪、VXLAN 封装以及二层、三层业务报文转发 |
-
-FRR 已有的 EVPN 选路、RD/RT 处理和路由发布不会在 VortexROS 或 LCP 中重复实现；
-VPP 已有的 VXLAN、bridge-domain 和 L2 FIB 也不会复制一套数据面。
-
-
 ## 配置前提
 
 - VTEP 源地址之间已经通过 underlay 路由可达；

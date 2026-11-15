@@ -8,12 +8,12 @@ L2 子接口按 VLAN 标签识别报文，加入 bridge-domain 后转发。它�
 
 创建后补齐封装并绑定桥域；不能在已有接口上通过重复进入时改写 mode 完成二三层转换。应先解除业务引用、删除接口，再创建目标模式。
 
-## 配置、实际显示和撤销
+## 配置、示例输出和撤销
 
 [完整双端案例](../examples/subinterfaces/l2.md)包含 P1 L2 子接口/Vbdif、P2 L3 对端，VLAN701 的真实接口与桥域查询、稳定探测3/3，以及 dot1ad/QinQ 和父端口生命周期。
 
 ~~~text
-display interface host-p1b12.701
+display interface Ethernet0.701
 display bridge-domain 701
 ~~~
 
