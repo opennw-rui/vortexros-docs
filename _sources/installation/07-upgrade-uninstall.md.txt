@@ -8,9 +8,9 @@
 
 ~~~bash
 sha256sum -c SHA256SUMS
-sudo sh ./vortexros-0.29-dev-run1-amd64.run --check-only
-sudo sh ./vortexros-0.29-dev-run1-amd64.run --simulate
-sudo sh ./vortexros-0.29-dev-run1-amd64.run
+sudo sh ./vortexros-0.29-dev-amd64.run --check-only
+sudo sh ./vortexros-0.29-dev-amd64.run --simulate
+sudo sh ./vortexros-0.29-dev-amd64.run
 ~~~
 
 检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。后端版本相同则保留对应包和进程；后端版本变化时安装器重启受影响的服务，需预留相应的业务中断窗口。

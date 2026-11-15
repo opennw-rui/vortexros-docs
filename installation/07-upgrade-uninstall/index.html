@@ -120,9 +120,9 @@
 <span id="使用单文件安装包"></span><h2>使用单文件安装包<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>从<a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases">项目Release</a>或已提供的0.29-dev候选包位置取得 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SHA256SUMS</span></code>，核对校验值。更新前在 CLI 执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>，确认当前配置和服务收敛，然后运行：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sha256sum<span class="w"> </span>-c<span class="w"> </span>SHA256SUMS
-sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.29-dev-run1-amd64.run<span class="w"> </span>--check-only
-sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.29-dev-run1-amd64.run<span class="w"> </span>--simulate
-sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.29-dev-run1-amd64.run
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.29-dev-amd64.run<span class="w"> </span>--check-only
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.29-dev-amd64.run<span class="w"> </span>--simulate
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.29-dev-amd64.run
 </pre></div>
 </div>
 <p>检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。后端版本相同则保留对应包和进程；后端版本变化时安装器重启受影响的服务，需预留相应的业务中断窗口。</p>
