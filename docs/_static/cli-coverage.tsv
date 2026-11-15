@@ -1,0 +1,821 @@
+command	reference	guide	view_variants	evidence_scope	terminal_records
+active	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+display aaa authentication	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log
+display aaa user	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,root-final-session.log
+display aaa users	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log
+display users	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	key-role-session.log,main-session.log,main2-session.log,root-final-session.log
+password	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,root-final-session.log
+password change-required	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	
+reset aaa user	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+role	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,root-final-session.log
+run bash	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,network-role-session.log,p1-vpp265-session.log,system-role-session.log
+shell-access enable	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+ssh-public-key	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+undo active	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+undo password	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo shell-access	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo ssh-public-key	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo user	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+user	operator/reference/aaa.md	operator/aaa.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,network-role-session.log,root-final-session.log
+acl ipv6 name	operator/reference/acl.md	operator/acl.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-vpp265-session.log
+acl name	operator/reference/acl.md	operator/acl.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log
+display acl	operator/reference/acl.md	operator/acl.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log
+traffic-filter	operator/reference/acl.md	operator/acl.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log
+undo acl ipv6 name	operator/reference/acl.md	operator/acl.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-vpp265-session.log
+undo acl name	operator/reference/acl.md	operator/acl.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo traffic-filter	operator/reference/acl.md	operator/acl.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log
+amneziawg profile	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-codex-recovered-session.log,p1-session.log,p1-subif-final-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log
+amneziawg-profile	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+disable-cookies enable	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p2-codex-recovered-session.log
+display amneziawg	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p1-subif-final-session.log,p2-session.log,p2-subif-final-session.log
+header cookie	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+header init	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+header response	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+header transport	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+header-protection	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p2-codex-recovered-session.log
+junk count	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+junk size	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-session.log
+junk-packet	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p2-codex-recovered-session.log
+padding content	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+padding cookie	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+padding init	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-codex-recovered-session.log,p2-session.log
+padding response	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+padding transport	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+random-trailers enable	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+timing keepalive	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p2-codex-recovered-session.log
+timing max-handshakes	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p2-codex-recovered-session.log
+timing reject-after	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p2-codex-recovered-session.log
+timing rekey-after	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log
+timing rekey-timeout	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p2-codex-recovered-session.log
+undo amneziawg profile	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo amneziawg-profile	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo disable-cookies enable	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo header cookie	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo header init	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo header response	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo header transport	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo header-protection	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo junk count	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo junk size	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo junk-packet	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo padding content	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo padding cookie	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo padding init	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo padding response	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo padding transport	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo random-trailers enable	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo timing keepalive	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo timing max-handshakes	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo timing reject-after	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo timing rekey-after	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo timing rekey-timeout	operator/reference/amneziawg.md	operator/amneziawg.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+bfd	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+detect-multiplier	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+display bfd	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+log-session-changes	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+min-rx-interval	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+min-tx-interval	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+reset service bfd	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo bfd	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo detect-multiplier	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+undo log-session-changes	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+undo min-rx-interval	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+undo min-tx-interval	operator/reference/bfd.md	operator/bfd.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+bgp	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+default ipv4-unicast	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+default tcp-protected	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+display bgp	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+display bgp tcp-protection	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+group	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-session.log,p2-subif-final-session.log
+ipv4-family unicast	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+ipv4-family vpn-instance	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log
+ipv4-family vpnv4	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log
+ipv6-family unicast	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log
+ipv6-family vpn-instance	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-subif-final-session.log,p3-session.log
+ipv6-family vpnv6	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p3-session.log
+load-balancing as-path-ignore	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+maximum-paths	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+policy vpn-target	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+reflect between-clients	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+reflector cluster-id	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+reset service bgp	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+timer keepalive	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo bgp	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo default ipv4-unicast	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo default tcp-protected	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo group	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo ipv4-family vpn-instance	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ipv4-family vpnv4	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo ipv6-family unicast	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo ipv6-family vpn-instance	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ipv6-family vpnv6	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo load-balancing as-path-ignore	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo maximum-paths	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo policy vpn-target	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo reflect between-clients	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo reflector cluster-id	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo timer keepalive	operator/reference/bgp.md	operator/bgp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+bridge-domain	operator/reference/bridge-domains.md	operator/bridge-domains.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+display bridge-domain	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-vpp265-session.log,p2-codex-recovered-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p3-session.log
+display mac-address	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-vpp265-session.log
+l2 binding vlan	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+mac-address	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p2-subif-final-session.log
+mac-address aging-time	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+mac-address static	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+reset mac-address	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo bridge-domain	operator/reference/bridge-domains.md	operator/bridge-domains.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-subif-final-before-owner-session.log,p1-vpp265-session.log,p2-codex-recovered-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log
+undo l2 binding vlan	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-subif-final-session.log
+undo mac-address	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo mac-address aging-time	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo mac-address static	operator/reference/bridge-domains.md	operator/bridge-domains.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+commit	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,network-role-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-qinq-session.log,p2-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+end	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+export configuration	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+load configuration	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+quit	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,network-role-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-qinq-session.log,p2-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log,system-role-session.log
+refresh configuration candidate	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-vpp265-session.log
+refresh nat-policy interface-pat	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+restore factory-configuration	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+return	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,network-role-session.log,p1-after-oom-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+save	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+startup saved-configuration	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+system-view	operator/reference/cli.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,network-role-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-qinq-session.log,p2-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+cpu isolation enable	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+cpu main-core	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+cpu worker-cores	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+dataplane	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+descriptors	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+device	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+display dataplane	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-vpp265-session.log,root-final-session.log
+display vpp api compatibility	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+display vpp takeover transaction	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+iommu enable	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+mac-address learn-limit	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+memory hugepages	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+neighbor ipv4 limit	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+neighbor ipv6 limit	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+queues	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+reset dataplane	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo cpu isolation enable	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo cpu main-core	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo cpu worker-cores	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo descriptors	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo device	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo iommu enable	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo mac-address learn-limit	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo memory hugepages	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo neighbor ipv4 limit	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo neighbor ipv6 limit	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo queues	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo vpp startup-config	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+vpp startup-config	operator/reference/dataplane.md	operator/dataplane.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+address prefix	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+dhcp client classless-route enable	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log
+dhcp client default-route enable	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+dhcp client default-route preference	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+dhcp client-relay shutdown	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+dhcp relay server-ip	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+dhcp select	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+dhcp server dns-list	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+dhcp server domain-name	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+dhcp server excluded-ip-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+dhcp server gateway-list	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+dhcp server ip-range	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+dhcp server lease	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+dhcp server static-bind ip-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+dhcpv6 client information-request	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log
+dhcpv6 client pd	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+dhcpv6 client renew	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log
+dhcpv6 duid	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+dhcpv6 pool	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+dhcpv6 relay destination	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+dhcpv6 relay interface	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+dhcpv6 server	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+display dhcp client	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log
+display dhcp configuration	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-session.log,p2-vpp265-session.log
+display dhcp relay	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+display dhcp service	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+display dhcpv6 client	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log
+display dhcpv6 client prefix	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+display dhcpv6 pool	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+display dhcpv6 relay	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+display ip pool	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+display ipv6 pool	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+dns-domain-name	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log,p2-vpp265-session.log
+dns-list	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+dns-server	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+domain-name	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+enable dhcp server	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-vpp265-session.log
+excluded-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+excluded-ip-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log
+gateway-list	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+information-refresh	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log,p2-vpp265-session.log
+ip address dhcp-alloc	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log
+ip pool	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+ipv6 address auto dhcp	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-session.log
+ipv6 address dhcpv6-prefix	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+lease	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+prefix-delegation	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log,p2-vpp265-session.log
+section	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log,p2-vpp265-session.log
+static-bind ip-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo address prefix	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo dhcp client classless-route enable	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo dhcp client default-route enable	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo dhcp client-relay shutdown	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo dhcp relay server-ip	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo dhcp select	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo dhcp server dns-list	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo dhcp server domain-name	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo dhcp server excluded-ip-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo dhcp server gateway-list	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo dhcp server ip-range	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo dhcp server lease	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo dhcp server static-bind ip-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo dhcpv6 client information-request	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log
+undo dhcpv6 client pd	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo dhcpv6 duid	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo dhcpv6 pool	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+undo dhcpv6 relay destination	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo dhcpv6 relay interface	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo dhcpv6 server	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo dns-domain-name	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo dns-list	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo dns-server	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo domain-name	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo enable dhcp server	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo excluded-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo excluded-ip-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo gateway-list	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo information-refresh	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo ip address dhcp-alloc	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log
+undo ip pool	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log,root-final-session.log
+undo ipv6 address auto dhcp	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo ipv6 address dhcpv6-prefix	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo lease	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo prefix-delegation	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo section	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo static-bind ip-address	operator/reference/dhcp.md	operator/dhcp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo vpn-instance	operator/reference/dhcp.md	operator/dhcp.md	3	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+vpn-instance	operator/reference/dhcp.md	operator/dhcp.md	3	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+abr-summary	operator/reference/dynamic-routing.md	operator/01-cli.md	2	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+aggregate	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+area	operator/reference/dynamic-routing.md	operator/01-cli.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+auto-cost reference-bandwidth	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+default-metric	operator/reference/dynamic-routing.md	operator/01-cli.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+default-route originate	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+default-route-advertise	operator/reference/dynamic-routing.md	operator/01-cli.md	2	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+graceful-restart	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+graceful-restart timer restart	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+graceful-restart timer wait-for-rib	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+import-route	operator/reference/dynamic-routing.md	operator/01-cli.md	5	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+log-adjacency-changes	operator/reference/dynamic-routing.md	operator/01-cli.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+maximum load-balancing	operator/reference/dynamic-routing.md	operator/01-cli.md	4	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p3-session.log
+network	operator/reference/dynamic-routing.md	operator/01-cli.md	5	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+passive-interface default	operator/reference/dynamic-routing.md	operator/01-cli.md	2	真实终端已记录命令输入；不单独等同功能通过	p3-session.log
+passive-mode	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+preference	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p3-session.log
+router-id	operator/reference/dynamic-routing.md	operator/01-cli.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+silent-interface	operator/reference/dynamic-routing.md	operator/01-cli.md	4	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log
+undo abr-summary	operator/reference/dynamic-routing.md	operator/01-cli.md	2	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo aggregate	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo auto-cost reference-bandwidth	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo default-metric	operator/reference/dynamic-routing.md	operator/01-cli.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo default-route originate	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo default-route-advertise	operator/reference/dynamic-routing.md	operator/01-cli.md	2	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo graceful-restart	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo graceful-restart timer restart	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo graceful-restart timer wait-for-rib	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo import-route	operator/reference/dynamic-routing.md	operator/01-cli.md	5	真实终端已记录命令输入；不单独等同功能通过	p2-codex-recovered-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo log-adjacency-changes	operator/reference/dynamic-routing.md	operator/01-cli.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo maximum load-balancing	operator/reference/dynamic-routing.md	operator/01-cli.md	4	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p3-session.log
+undo network	operator/reference/dynamic-routing.md	operator/01-cli.md	5	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo passive-interface default	operator/reference/dynamic-routing.md	operator/01-cli.md	2	真实终端已记录命令输入；不单独等同功能通过	p3-session.log
+undo passive-mode	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo preference	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo router-id	operator/reference/dynamic-routing.md	operator/01-cli.md	3	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo silent-interface	operator/reference/dynamic-routing.md	operator/01-cli.md	4	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p3-session.log
+version	operator/reference/dynamic-routing.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log,p3-session.log
+advertise l2vpn evpn	operator/reference/evpn.md	operator/11-vxlan-evpn.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+esi	operator/reference/evpn.md	operator/11-vxlan-evpn.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+evpn	operator/reference/evpn.md	operator/11-vxlan-evpn.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-vpp265-session.log,p3-session.log
+evpn-overlay	operator/reference/evpn.md	operator/11-vxlan-evpn.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+l2vpn-family evpn	operator/reference/evpn.md	operator/11-vxlan-evpn.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-vpp265-session.log,p3-session.log
+undo advertise l2vpn evpn	operator/reference/evpn.md	operator/11-vxlan-evpn.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo esi	operator/reference/evpn.md	operator/11-vxlan-evpn.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo evpn-overlay	operator/reference/evpn.md	operator/11-vxlan-evpn.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo l2vpn-family evpn	operator/reference/evpn.md	operator/11-vxlan-evpn.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+gre key	operator/reference/gre.md	operator/gre.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p2-after-oom-session.log,p2-session.log
+undo gre key	operator/reference/gre.md	operator/gre.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+description	operator/reference/interfaces.md	operator/ethernet.md	9	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,network-role-session.log,p1-subif-final-session.log,p1-vpp265-session.log,root-final-session.log
+display flow-steering	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log
+display interface	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log,root-final-session.log
+display interface brief	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+display interface description	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	network-role-session.log,p1-subif-final-session.log,p2-after-oom-session.log,root-final-session.log
+display interface hardware offload	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-after-oom-session.log,root-final-session.log
+display interface statistics	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-after-oom-session.log,root-final-session.log
+display lcp	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+encapsulation	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-qinq-session.log,p1-subif-final-before-owner-session.log,p1-vpp265-session.log,p2-vpp265-session.log
+flow-steering enable	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+hardware offload	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+interface	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,network-role-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-qinq-session.log,p2-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+interface range	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+interface user-defined	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-session.log,p3-session.log,root-final-session.log
+ip address	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+ipv6 address	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-session.log,p1-subif-final-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+lcp host	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+mode	operator/reference/interfaces.md	operator/ethernet.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log,root-final-session.log
+mtu	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-vpp265-session.log,p2-session.log
+shutdown	operator/reference/interfaces.md	operator/ethernet.md	2	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-vpp265-session.log,p2-subif-final-session.log,root-final-session.log
+statistic enable	operator/reference/interfaces.md	operator/ethernet.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+undo description	operator/reference/interfaces.md	operator/ethernet.md	9	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-subif-final-session.log
+undo encapsulation	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-subif-final-before-owner-session.log
+undo flow-steering enable	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo hardware offload	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo interface	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-codex-recovered-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-codex-recovered-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+undo ip address	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log,root-final-session.log
+undo ipv6 address	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-subif-final-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo lcp host	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo mode	operator/reference/interfaces.md	operator/ethernet.md	2	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo mtu	operator/reference/interfaces.md	operator/ethernet.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-vpp265-session.log
+undo shutdown	operator/reference/interfaces.md	operator/ethernet.md	2	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-vpp265-session.log,p2-subif-final-session.log,root-final-session.log
+undo statistic enable	operator/reference/interfaces.md	operator/ethernet.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+display ip fib	operator/reference/ip-routing.md	operator/routing-tables.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log,p2-session.log,p3-session.log
+display ip interface brief	operator/reference/ip-routing.md	operator/routing-tables.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log,p2-subif-final-session.log,root-final-session.log
+display ip routing-table	operator/reference/ip-routing.md	operator/routing-tables.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+display ipv6 fib	operator/reference/ip-routing.md	operator/routing-tables.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log
+display ipv6 interface brief	operator/reference/ip-routing.md	operator/routing-tables.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-after-oom-session.log,p1-session.log,p2-session.log
+display ipv6 pathmtu	operator/reference/ip-routing.md	operator/routing-tables.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+display ipv6 routing-table	operator/reference/ip-routing.md	operator/routing-tables.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-codex-recovered-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+ipv6 address auto global default	operator/reference/ipv6-autoconfig.md	operator/ipv6-autoconfig.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-subif-final-session.log
+ipv6 address auto slaac	operator/reference/ipv6-autoconfig.md	operator/ipv6-autoconfig.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+ipv6 nd ra default-route enable	operator/reference/ipv6-autoconfig.md	operator/ipv6-autoconfig.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo ipv6 address auto global default	operator/reference/ipv6-autoconfig.md	operator/ipv6-autoconfig.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo ipv6 address auto slaac	operator/reference/ipv6-autoconfig.md	operator/ipv6-autoconfig.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo ipv6 nd ra default-route enable	operator/reference/ipv6-autoconfig.md	operator/ipv6-autoconfig.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+cost-style	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log,p3-session.log
+display isis	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+hostname dynamic	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+ipv6 import-route	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+is-level	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log,p3-session.log
+isis	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+isis bfd	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+isis bfd enable	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+isis circuit-level	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+isis circuit-type p2p	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+isis cost	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+isis enable	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+isis ipv6-enable	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+isis passive	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+isis priority	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+network-entity	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log,p3-session.log
+reset service isis	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+set-overload-bit	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+spf-delay-ietf	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo hostname	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo ipv6 import-route	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo is-level	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo isis	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-codex-recovered-session.log
+undo isis bfd	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo isis bfd enable	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo isis circuit-level	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo isis circuit-type	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo isis cost	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo isis enable	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log
+undo isis ipv6-enable	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-codex-recovered-session.log,p2-qinq-session.log,p2-subif-final-before-owner-session.log
+undo isis passive	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo isis priority	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo network-entity	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo set-overload-bit	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo spf-delay-ietf	operator/reference/isis.md	operator/isis.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+display eth-trunk	operator/reference/link-aggregation.md	operator/link-aggregation.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+eth-trunk	operator/reference/link-aggregation.md	operator/link-aggregation.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+trunkport	operator/reference/link-aggregation.md	operator/link-aggregation.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+undo eth-trunk	operator/reference/link-aggregation.md	operator/link-aggregation.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo trunkport	operator/reference/link-aggregation.md	operator/link-aggregation.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+display lldp local	operator/reference/lldp.md	operator/lldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log,p2-vpp265-session.log
+display lldp neighbor brief	operator/reference/lldp.md	operator/lldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log
+display lldp neighbor interface	operator/reference/lldp.md	operator/lldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+enable lldp	operator/reference/lldp.md	operator/lldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log
+lldp enable	operator/reference/lldp.md	operator/lldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log
+undo enable lldp	operator/reference/lldp.md	operator/lldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+undo lldp enable	operator/reference/lldp.md	operator/lldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+display mpls forwarding-table	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log,p3-session.log
+display mpls interface	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-session.log,p2-subif-final-session.log,p3-session.log
+display mpls ldp binding	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-session.log
+display mpls ldp interface	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log
+display mpls ldp peer	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log
+display mpls lsp	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-session.log
+mpls	operator/reference/mpls.md	operator/ldp.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log
+mpls ldp	operator/reference/mpls.md	operator/ldp.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log
+mpls lsr-id	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log
+ttl propagate	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log
+undo mpls	operator/reference/mpls.md	operator/ldp.md	2	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo mpls ldp	operator/reference/mpls.md	operator/ldp.md	2	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo mpls lsr-id	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo ttl propagate	operator/reference/mpls.md	operator/ldp.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+car	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+classifier	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p2-subif-final-session.log
+display traffic behavior	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p2-subif-final-session.log
+display traffic classifier	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log,p2-subif-final-session.log
+display traffic policy	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log
+if-match	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log
+if-match any	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+redirect	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+remark dscp	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p2-subif-final-session.log
+traffic behavior	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p2-subif-final-session.log
+traffic classifier	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log,p2-subif-final-session.log
+traffic policy	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p2-subif-final-session.log
+traffic-policy	operator/reference/mqc.md	operator/mqc.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log,p2-subif-final-session.log
+undo car	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo classifier	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo if-match	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log
+undo redirect	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo remark dscp	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo traffic behavior	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo traffic classifier	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo traffic policy	operator/reference/mqc.md	operator/mqc.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo traffic-policy	operator/reference/mqc.md	operator/mqc.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-vpp265-session.log,p2-subif-final-session.log
+tcp mss	operator/reference/mss.md	operator/mss.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo tcp mss	operator/reference/mss.md	operator/mss.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+action dnat	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-vpp265-session.log
+action no-nat	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+action snat	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log,p1-vpp265-session.log
+action static-nat	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+action twice-nat	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+address	operator/reference/nat.md	operator/nat.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log,p2-vpp265-session.log
+clear nat-policy counters	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+clear nat-policy sessions	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+destination address	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+destination address-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+destination port	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+destination port-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log,p1-vpp265-session.log
+destination vpn-instance	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-subif-final-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log
+display nat-policy	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+hairpin enable	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+nat-policy	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log,p1-vpp265-session.log
+nat-policy address-pool name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+nat-policy address-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+nat-policy hairpin enable	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+nat-policy interface-pat-range	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+nat-policy name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log,p1-vpp265-session.log
+nat-policy port-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log,p1-vpp265-session.log
+nat-policy sessions-per-worker	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+nat-policy timeout	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+nat-policy x86-tune expire-check-ms	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+nat-policy x86-tune lru-refresh-ms	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+pat-port-range	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+port	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log,p1-vpp265-session.log
+priority	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+protocol	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+session-limit	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+source address	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+source address-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+source port	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+source port-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+source vpn-instance	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p1-subif-final-session.log,p2-codex-recovered-session.log,p2-session.log
+undo action	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo action snat	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo address	operator/reference/nat.md	operator/nat.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo destination address	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo destination address-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo destination port	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo destination port-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+undo destination vpn-instance	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo hairpin enable	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo nat-policy	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+undo nat-policy address-pool name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+undo nat-policy address-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+undo nat-policy hairpin enable	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo nat-policy interface-pat-range	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+undo nat-policy name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+undo nat-policy port-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+undo nat-policy sessions-per-worker	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo nat-policy timeout	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo nat-policy x86-tune expire-check-ms	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo nat-policy x86-tune lru-refresh-ms	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo pat-port-range	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo port	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo priority	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo protocol	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo session-limit	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo source address	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo source address-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-subif-final-session.log
+undo source port	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo source port-set name	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo source vpn-instance	operator/reference/nat.md	operator/nat.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+arp proxy	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+arp static	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+arp timeout	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+display arp	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log
+display arp proxy	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+display ipv6 nd	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+display ipv6 neighbors	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p2-after-oom-session.log
+ipv6 nd max-number	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+ipv6 nd recycle	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+ipv6 nd stale-timeout	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+ipv6 neighbor	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+reset ip arp	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo arp proxy	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo arp static	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo arp timeout	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo ipv6 nd max-number	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo ipv6 nd recycle	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo ipv6 nd stale-timeout	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo ipv6 neighbor	operator/reference/neighbors.md	operator/neighbors.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+check system-software package	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,root-final-session.log
+clear configuration candidate	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log,p2-subif-final-session.log
+clear interface	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+clear system-software info	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+display resource-mapping	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+display saved-configuration	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,root-final-session.log
+display startup	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,p1-vpp265-session.log
+display system mac-address	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-after-oom-session.log
+display system-software	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,root-final-session.log
+display this	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+display version	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,p2-after-oom-session.log,p2-vpp265-session.log
+mtr	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+ping	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+reset running-configuration	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+reset saved-configuration	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+reset service frr	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+reset service vpp	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+rollback system-software package	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,root-final-session.log
+simulate system-software package	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log
+traceroute	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+tracert	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+upgrade system-software package	operator/reference/operations.md	operator/09-operations.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log
+bandwidth-reference	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-vpp265-session.log
+display ospf	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+nssa	operator/reference/ospf.md	operator/ospf.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+opaque-capability enable	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+ospf	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+ospf bfd	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+ospf bfd enable	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+ospf cost	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+ospf dr-priority	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+ospf enable	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-vpp265-session.log
+ospf network-type	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+ospf passive	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+ospf timer dead	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+ospf timer hello	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+ospf timer retransmit	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+ospf timer transmit-delay	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+reset ospf	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,root-final-session.log
+reset service ospf	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-codex-recovered-session.log,p2-subif-final-session.log
+stub	operator/reference/ospf.md	operator/ospf.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo bandwidth-reference	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo nssa	operator/reference/ospf.md	operator/ospf.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo opaque-capability enable	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo ospf	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,root-final-session.log
+undo ospf bfd	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospf bfd enable	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo ospf cost	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospf dr-priority	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospf enable	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo ospf network-type	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospf passive	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo ospf timer dead	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospf timer hello	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospf timer retransmit	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospf timer transmit-delay	operator/reference/ospf.md	operator/ospf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo stub	operator/reference/ospf.md	operator/ospf.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+display ospfv3	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+ospfv3	operator/reference/ospfv3.md	operator/ospfv3.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+ospfv3 bfd	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+ospfv3 bfd enable	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+ospfv3 cost	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+ospfv3 dr-priority	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+ospfv3 network-type	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+ospfv3 timer dead	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+ospfv3 timer hello	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+ospfv3 timer retransmit	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+ospfv3 timer transmit-delay	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+reset ospfv3	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3	operator/reference/ospfv3.md	operator/ospfv3.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3 bfd	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3 bfd enable	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3 cost	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3 dr-priority	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3 network-type	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3 timer dead	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3 timer hello	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3 timer retransmit	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ospfv3 timer transmit-delay	operator/reference/ospfv3.md	operator/ospfv3.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+apply config	operator/reference/policy.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log,root-final-session.log
+deny	operator/reference/policy.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+permit	operator/reference/policy.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p2-subif-final-session.log
+rule	operator/reference/policy.md	operator/01-cli.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log
+undo deny	operator/reference/policy.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo permit	operator/reference/policy.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo precedence	operator/reference/policy.md	operator/01-cli.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo rule	operator/reference/policy.md	operator/01-cli.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+display ip ip-prefix	operator/reference/prefix-lists.md	operator/prefix-lists.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+display ip ipv6-prefix	operator/reference/prefix-lists.md	operator/prefix-lists.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+display ipv6 prefix	operator/reference/prefix-lists.md	operator/prefix-lists.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+ip ip-prefix	operator/reference/prefix-lists.md	operator/prefix-lists.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+ip ipv6-prefix	operator/reference/prefix-lists.md	operator/prefix-lists.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+undo ip ip-prefix	operator/reference/prefix-lists.md	operator/prefix-lists.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo ip ipv6-prefix	operator/reference/prefix-lists.md	operator/prefix-lists.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+qos lr	operator/reference/qos.md	operator/qos.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-vpp265-session.log
+undo qos lr	operator/reference/qos.md	operator/qos.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-vpp265-session.log
+display rip	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+reset service rip	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+rip	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+rip bfd	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+rip bfd enable	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+timers rip	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p3-session.log
+undo rip	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo rip bfd	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo rip bfd enable	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo timers rip	operator/reference/rip.md	operator/rip.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p3-session.log
+aggregate-address	operator/reference/ripng.md	operator/ripng.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log,p3-session.log
+display ripng	operator/reference/ripng.md	operator/ripng.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+offset-list	operator/reference/ripng.md	operator/ripng.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+ripng	operator/reference/ripng.md	operator/ripng.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+undo aggregate-address	operator/reference/ripng.md	operator/ripng.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log,p3-session.log
+undo offset-list	operator/reference/ripng.md	operator/ripng.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo ripng	operator/reference/ripng.md	operator/ripng.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+auto-refresh enable	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log
+auto-refresh interval	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log
+display ip routing-table-group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+display ipv6 route-static group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log
+display ipv6 routing-table-group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+display route-static group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-vpp265-session.log
+ip route-static-group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-vpp265-session.log
+ipv6 route-static group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log
+ipv6 route-static-group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log
+reset ipv6 route-static group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+reset route-static group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+route	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-vpp265-session.log
+route-static group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-vpp265-session.log
+source file	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+source url	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log
+undo auto-refresh enable	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo auto-refresh interval	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo ip route-static-group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo ipv6 route-static group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo ipv6 route-static-group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo route	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo route-static group	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo source file	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log
+undo source url	operator/reference/route-groups.md	operator/route-groups.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+apply as-path	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+apply community	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+apply cost	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+apply ip-address next-hop	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+apply ipv6 next-hop	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+apply large-community	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+apply local-preference	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+apply origin	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+apply tag	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+continue node	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+display route-policy	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+if-match cost	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+if-match ip-prefix	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+if-match ipv6 address prefix-list	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+if-match protocol	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-vpp265-session.log
+if-match tag	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+route-policy	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log
+undo apply as-path	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo apply community	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo apply cost	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo apply ip-address next-hop	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo apply ipv6 next-hop	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo apply large-community	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo apply local-preference	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo apply origin	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo apply tag	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo continue	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo if-match cost	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo if-match ip-prefix	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo if-match ipv6 address prefix-list	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo if-match protocol	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo if-match tag	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo route-policy	operator/reference/route-policy.md	operator/route-policy.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+display snmp-agent community	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+display snmp-agent sys-info	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+display snmp-agent target-host	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+display snmp-agent usm-user	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+snmp-agent	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+snmp-agent community read	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+snmp-agent protocol source-interface	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+snmp-agent protocol source-status all-interface	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+snmp-agent sys-info contact	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+snmp-agent sys-info location	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+snmp-agent sys-info version v2c	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+snmp-agent sys-info version v3	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+snmp-agent target-host trap address udp-domain	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+snmp-agent trap enable standard	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+snmp-agent trap source	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+snmp-agent usm-user v3	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo snmp-agent	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo snmp-agent community read	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo snmp-agent protocol source-interface	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+undo snmp-agent sys-info contact	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo snmp-agent sys-info location	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo snmp-agent sys-info version v2c	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo snmp-agent sys-info version v3	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo snmp-agent target-host trap address udp-domain	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+undo snmp-agent trap enable standard	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+undo snmp-agent trap source	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,root-final-session.log
+undo snmp-agent usm-user v3	operator/reference/snmp.md	operator/snmp.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+ip route-static	operator/reference/static-routing.md	operator/static-routing.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+ipv6 route-static	operator/reference/static-routing.md	operator/static-routing.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo ip route-static	operator/reference/static-routing.md	operator/static-routing.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+undo ipv6 route-static	operator/reference/static-routing.md	operator/static-routing.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log,p2-vpp265-session.log
+display alarm active	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-vpp265-session.log
+display alarm history	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+display configuration candidate	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-after-oom-session.log,p1-session.log,p1-vpp265-session.log
+display configuration storage	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log
+display cpu-usage	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-after-oom-session.log
+display current-configuration	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+display health	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,main2-session.log,p1-after-oom-session.log,p1-codex-recovered-session.log,p1-qinq-session.log,p1-session.log,p1-subif-final-before-owner-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-qinq-session.log,p2-session.log,p2-subif-final-before-owner-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+display history	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,p1-session.log,p2-after-oom-session.log
+display memory-usage	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-after-oom-session.log
+display service	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main-session.log,p1-after-oom-session.log
+display vpp interface-ownership	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+health check	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p2-subif-final-session.log
+sysname	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log,p1-vpp265-session.log
+undo sysname	operator/reference/system.md	operator/02-system-services.md	1	真实终端已记录命令输入；不单独等同功能通过	main2-session.log
+allowd-ip	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+destination	operator/reference/tunnels.md	operator/tunnel-settings.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p1-subif-final-session.log,p2-after-oom-session.log,p2-session.log
+keepalive	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+peer	operator/reference/tunnels.md	operator/tunnel-settings.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-codex-recovered-session.log,p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+presharedkey	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p2-codex-recovered-session.log
+privatekey	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log
+publickey	operator/reference/tunnels.md	operator/tunnel-settings.md	4	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log
+source	operator/reference/tunnels.md	operator/tunnel-settings.md	6	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-codex-recovered-session.log,p1-session.log,p1-subif-final-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+source-port	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log
+tunnel-protocol	operator/reference/tunnels.md	operator/tunnel-settings.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-codex-recovered-session.log,p1-session.log,p1-subif-final-session.log,p2-after-oom-session.log,p2-codex-recovered-session.log,p2-session.log
+undo allowd-ip	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p2-subif-final-session.log
+undo destination	operator/reference/tunnels.md	operator/tunnel-settings.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo keepalive	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo peer	operator/reference/tunnels.md	operator/tunnel-settings.md	3	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo presharedkey	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo privatekey	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo publickey	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo source	operator/reference/tunnels.md	operator/tunnel-settings.md	6	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo source-port	operator/reference/tunnels.md	operator/tunnel-settings.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo tunnel-protocol	operator/reference/tunnels.md	operator/tunnel-settings.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+display ipv6 urpf	operator/reference/urpf.md	operator/urpf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+display urpf	operator/reference/urpf.md	operator/urpf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+ip urpf	operator/reference/urpf.md	operator/urpf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+ipv6 urpf	operator/reference/urpf.md	operator/urpf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo ip urpf	operator/reference/urpf.md	operator/urpf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+undo ipv6 urpf	operator/reference/urpf.md	operator/urpf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log
+display vlan	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-vpp265-session.log,root-final-session.log
+display vlan summary	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+enable switch	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+port default vlan	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-vpp265-session.log,p3-session.log
+port link-type	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log,p3-session.log
+port trunk allow-pass vlan	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log
+port trunk pvid vlan	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-vpp265-session.log
+portswitch	operator/reference/vlan.md	operator/vlan.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-session.log,p2-vpp265-session.log,p3-session.log
+switchport	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo enable switch	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	root-final-session.log
+undo port default vlan	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-vpp265-session.log
+undo port link-type	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo port trunk allow-pass vlan	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-vpp265-session.log
+undo port trunk pvid vlan	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+undo portswitch	operator/reference/vlan.md	operator/vlan.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo switchport	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo vlan	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-vpp265-session.log
+undo vlan batch	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo vlan-type	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-subif-final-before-owner-session.log
+vlan	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-vpp265-session.log,p2-session.log,p3-session.log
+vlan batch	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p1-vpp265-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+vlan-type dot1q	operator/reference/vlan.md	operator/vlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-subif-final-before-owner-session.log,p1-vpp265-session.log,p2-vpp265-session.log
+display ip vpn-instance	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log,p2-vpp265-session.log
+display ip vpn-instance interface	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-vpp265-session.log
+display ip vpn-instance verbose	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log
+ip binding vpn-instance	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+ip vpn-instance	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+ipv4-family	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log,root-final-session.log
+ipv6-family	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log,p2-subif-final-session.log,p3-session.log,root-final-session.log
+route-distinguisher	operator/reference/vrf.md	operator/vrf.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+undo ip binding vpn-instance	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,root-final-session.log
+undo ip vpn-instance	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log,p2-vpp265-session.log,root-final-session.log
+undo ipv4-family	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo ipv6-family	operator/reference/vrf.md	operator/vrf.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo route-distinguisher	operator/reference/vrf.md	operator/vrf.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo vpn-target	operator/reference/vrf.md	operator/vrf.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+vpn-target	operator/reference/vrf.md	operator/vrf.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+display vrrp	operator/reference/vrrp.md	operator/vrrp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log
+display vrrp6	operator/reference/vrrp.md	operator/vrrp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log
+undo vrrp vrid	operator/reference/vrrp.md	operator/vrrp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+undo vrrp6 vrid	operator/reference/vrrp.md	operator/vrrp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log
+vrrp vrid	operator/reference/vrrp.md	operator/vrrp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log
+vrrp6 vrid	operator/reference/vrrp.md	operator/vrrp.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-session.log
+display vxlan statistics	operator/reference/vxlan.md	operator/vxlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p3-session.log
+display vxlan tunnel	operator/reference/vxlan.md	operator/vxlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p3-session.log
+undo vni	operator/reference/vxlan.md	operator/vxlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo vxlan anycast-gateway enable	operator/reference/vxlan.md	operator/vxlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+undo vxlan vni	operator/reference/vxlan.md	operator/vxlan.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+vni	operator/reference/vxlan.md	operator/vxlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+vxlan anycast-gateway enable	operator/reference/vxlan.md	operator/vxlan.md	1	真实终端已记录命令输入；不单独等同功能通过	p2-subif-final-session.log
+vxlan vni	operator/reference/vxlan.md	operator/vxlan.md	2	真实终端已记录命令输入；不单独等同功能通过	p1-session.log,p1-subif-final-session.log,p2-subif-final-session.log,p2-vpp265-session.log,p3-session.log
+display wireguard	operator/reference/wireguard.md	operator/wireguard.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-session.log,p2-subif-final-session.log
+undo wireguard profile	operator/reference/wireguard.md	operator/wireguard.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+undo wireguard-profile	operator/reference/wireguard.md	operator/wireguard.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-subif-final-session.log,p2-subif-final-session.log
+wireguard profile	operator/reference/wireguard.md	operator/wireguard.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-after-oom-session.log,p1-codex-recovered-session.log,p1-session.log,p1-subif-final-session.log,p2-codex-recovered-session.log,p2-session.log,p2-subif-final-session.log
+wireguard-profile	operator/reference/wireguard.md	operator/wireguard.md	1	真实终端已记录命令输入；不单独等同功能通过	p1-codex-recovered-session.log,p1-session.log,p2-codex-recovered-session.log,p2-session.log

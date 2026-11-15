@@ -16,6 +16,41 @@
   bridge-domain ID [bvi]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`interface`**
+接口类别：ethernet, eth-trunk, subif, loopback, tunnel
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/subif-l2, interface/eth-trunk-neutral, interface/eth-trunk-l2
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ID` | bridge-domain ID | 输入值 |
+| ID | `bvi` | bridged virtual interface | 可选 |
+
+**适用视图：`system, interface, vpn-instance, acl, acl6, bridge-domain, vlan, classifier, behavior, policy, nat-policy, nat-address-set, nat-port-set, nat-address-pool, ospf, ospfv3, bgp, route-policy, wireguard-profile, amneziawg-profile, bfd, route-static-group, ip-pool, dhcpv6-pool, mpls, dataplane, local-user, bridge-domain-evpn, nat-rule, vpn-family, ospf-area, ospfv3-area, bgp-family, rip, ripng, isis, wireguard-peer, amneziawg-peer, bfd-session, dataplane-if`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ID` | bridge-domain ID | 输入值 |
+| ID | `flood` | enable flooding | 可选、可组合 |
+| ID | `no-flood` | disable flooding | 可选、可组合 |
+| ID | `forward` | enable forwarding | 可选、可组合 |
+| ID | `no-forward` | disable forwarding | 可选、可组合 |
+| ID | `learn` | enable MAC learning | 可选、可组合 |
+| ID | `no-learn` | disable MAC learning | 可选、可组合 |
+| ID | `uu-flood` | enable unknown-unicast flooding | 可选、可组合 |
+| ID | `no-uu-flood` | disable unknown-unicast flooding | 可选、可组合 |
+| ID | `arp-term` | enable ARP termination | 可选、可组合 |
+| ID | `no-arp-term` | disable ARP termination | 可选、可组合 |
+| ID | `arp-ufwd` | enable ARP unicast forwarding | 可选、可组合 |
+| ID | `no-arp-ufwd` | disable ARP unicast forwarding | 可选、可组合 |
+| ID | `mac-age SECONDS` | set MAC aging time；aging time | 可选、可组合 |
+| ID | `tag TEXT` | set bridge-domain tag；tag text | 可选、可组合 |
+
 ## `display bridge-domain`
 
 - 类别：只读显示命令
@@ -26,6 +61,16 @@
   ```text
   display bridge-domain [ID]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ID` | bridge-domain ID (user-facing for service BD) | 输入值、可选 |
 
 ## `display mac-address`
 
@@ -38,6 +83,24 @@
   display mac-address [MAC | vlan VLAN-ID | bridge-domain BD | interface IF | static | dynamic]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `vlan` | filter by VLAN | 可选 |
+| vlan | `VLAN-ID` | VLAN ID | 输入值 |
+| 命令后 | `bridge-domain` | filter by service bridge-domain | 可选 |
+| bridge-domain | `BD` | bridge-domain ID | 输入值 |
+| 命令后 | `interface` | filter by interface | 可选 |
+| interface | `IF` | interface name | 输入值 |
+| 命令后 | `static` | static entries | 可选 |
+| 命令后 | `dynamic` | dynamic entries | 可选 |
+| 命令后 | `MAC` | MAC address | 输入值、可选 |
+
 ## `l2 binding vlan`
 
 - 类别：配置命令
@@ -48,6 +111,16 @@
   ```text
   l2 binding vlan VLAN-ID
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VLAN-ID` | VLAN ID 1-4095 | 输入值 |
 
 ## `mac-address`
 
@@ -60,6 +133,17 @@
   mac-address MAC
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `MAC` | MAC address | 输入值 |
+
 ## `mac-address aging-time`
 
 - 类别：配置命令
@@ -70,6 +154,16 @@
   ```text
   mac-address aging-time INTEGER<60-15300>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<60-15300>` | aging time in seconds (whole minutes) | 输入值 |
 
 ## `mac-address static`
 
@@ -82,6 +176,19 @@
   mac-address static MAC IF bridge-domain BD
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `MAC` | MAC address | 输入值 |
+| MAC | `IF` | outgoing interface | 输入值 |
+| IF | `bridge-domain` | bridge-domain | 关键字 |
+| bridge-domain | `ID` | bridge-domain ID | 输入值 |
+
 ## `reset mac-address`
 
 - 类别：即时运维命令
@@ -93,6 +200,20 @@
   ```text
   reset mac-address [interface TYPE N] [mac-address H-H-H]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `H-H-H` | learned MAC address | 输入值、可选、可组合 |
+| 命令后 | `interface` | select a Layer 2 interface | 可选、可组合 |
+| interface | `IF` | interface name or TYPE N | 输入值 |
+| 命令后 | `mac-address` | select one learned MAC address | 可选、可组合 |
+| mac-address | `H-H-H` | learned MAC address | 输入值 |
 
 ## `undo bridge-domain`
 
@@ -108,6 +229,24 @@
   undo bridge-domain ID
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`interface`**
+接口类别：ethernet, eth-trunk, subif, loopback, tunnel
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/subif-l2, interface/eth-trunk-neutral, interface/eth-trunk-l2
+
+此形式没有额外参数。
+
+**适用视图：`system`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ID` | bridge-domain ID | 输入值 |
+
 ## `undo l2 binding vlan`
 
 - 类别：配置命令
@@ -118,6 +257,14 @@
   ```text
   undo l2 binding vlan
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo mac-address`
 
@@ -130,6 +277,15 @@
   undo mac-address
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
+
 ## `undo mac-address aging-time`
 
 - 类别：配置命令
@@ -141,6 +297,14 @@
   undo mac-address aging-time
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo mac-address static`
 
 - 类别：配置命令
@@ -151,3 +315,16 @@
   ```text
   undo mac-address static MAC IF bridge-domain BD
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `MAC` | MAC address | 输入值 |
+| MAC | `IF` | outgoing interface | 输入值 |
+| IF | `bridge-domain` | bridge-domain | 关键字 |
+| bridge-domain | `ID` | bridge-domain ID | 输入值 |

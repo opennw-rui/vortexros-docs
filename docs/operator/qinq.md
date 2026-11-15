@@ -25,3 +25,5 @@ interface Ethernet 2
 
 
 查看 `display vlan` 核对服务 VLAN 和客户侧成员。
+
+[完整双端案例](../examples/qinq.md)记录未打标签与客户VLAN10的真实流量、核心双标签报文、CLI成员和撤销结果。

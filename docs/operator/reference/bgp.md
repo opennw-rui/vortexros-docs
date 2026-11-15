@@ -15,6 +15,17 @@
   bgp ASNUM
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-4294967295>` | AS number in asplain format (number<1-4294967295>) | 输入值 |
+| 命令后 | `STRING<3-11>` | AS number in asdot format (number<1-65535>.number<0-65535>) | 输入值 |
+
 ## `default ipv4-unicast`
 
 - 类别：配置命令
@@ -26,6 +37,14 @@
   default ipv4-unicast
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `default tcp-protected`
 
 - 类别：配置命令
@@ -36,6 +55,14 @@
   ```text
   default tcp-protected
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `display bgp`
 
@@ -50,6 +77,56 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   display bgp {peer|routing-table|ipv6|vpnv4|vpnv6|...}
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `bfd` | Bidirectional forwarding detection | 关键字 |
+| 命令后 | `evpn` | EVPN address family | 关键字 |
+| evpn | `all` | All EVPN instances | 关键字 |
+| all | `routing-table` | EVPN routing table | 关键字 |
+| routing-table | `mac-route` | MAC advertisement routes | 可选 |
+| routing-table | `inclusive-route` | Inclusive multicast routes | 可选 |
+| 命令后 | `group` | Peer groups | 关键字 |
+| 命令后 | `ipv6` | IPv6 unicast address family | 关键字 |
+| DISPLAY-VRF / all / ipv6 | `peer` | A BGP neighbor | 可选 |
+| peer | `X.X.X.X` | Neighbor address | 输入值、可选 |
+| X.X.X.X / X:X::X | `log-info` | Log information | 关键字 |
+| X.X.X.X / X:X::X | `orf` | Outbound route filter capability | 关键字 |
+| orf | `ip-prefix` | Outbound route filter based on IP prefix | 关键字 |
+| X.X.X.X / X:X::X | `verbose` | Verbose information | 关键字 |
+| peer | `X:X::X` | IPv6 neighbor address | 输入值、可选 |
+| peer | `verbose` | Verbose information | 可选 |
+| DISPLAY-VRF / all / ipv6 | `routing-table` | BGP routing table | 可选 |
+| routing-table | `peer` | Peer routes | 可选 |
+| peer | `X.X.X.X` | IPv4 peer address | 输入值 |
+| X.X.X.X / X:X::X | `accepted-routes` | Routes accepted by routing policy | 关键字 |
+| X.X.X.X / X:X::X | `advertised-routes` | Routes advertised to the remote peer | 关键字 |
+| X.X.X.X / X:X::X | `received-routes` | Routes received from the remote peer | 关键字 |
+| peer | `X:X::X` | IPv6 peer address | 输入值 |
+| routing-table | `X:X::X` | Specify an IPv6 network address | 输入值、可选 |
+| X:X::X | `INTEGER<0-128>` | IPv6 prefix length | 输入值、可选 |
+| routing-table | `cidr` | Classless inter-domain routes | 可选 |
+| routing-table | `statistics` | Route statistics | 可选 |
+| 命令后 | `network` | Routes advertised through network command | 关键字 |
+| 命令后 | `paths` | Path attribute information | 关键字 |
+| 命令后 | `peer` | A BGP neighbor | 关键字 |
+| 命令后 | `routing-table` | BGP routing table | 关键字 |
+| routing-table | `X.X.X.X` | Specify an IPv4 network address | 输入值、可选 |
+| X.X.X.X | `INTEGER<0-32>` | Length of IP address mask | 输入值、可选 |
+| X.X.X.X | `X.X.X.X` | IPv4 network mask | 输入值、可选 |
+| 命令后 | `update-peer-group` | Update peer group | 关键字 |
+| update-peer-group | `statistics` | Update group counters | 可选 |
+| 命令后 | `vpnv4` | VPNv4 address family | 关键字 |
+| vpnv4 / vpnv6 | `all` | All VPN routes | 可选 |
+| vpnv4 / vpnv6 | `vpn-instance` | Specify a VPN instance | 可选 |
+| vpn-instance | `DISPLAY-VRF` | VPN instance name | 输入值 |
+| 命令后 | `vpnv6` | VPNv6 address family | 关键字 |
+
 ## `display bgp tcp-protection`
 
 - 类别：只读显示命令
@@ -60,6 +137,16 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   display bgp tcp-protection [verbose]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `verbose` | include kernel ownership details | 可选 |
 
 ## `group`
 
@@ -72,6 +159,18 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   group NAME [internal|external]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `BGP-GROUP` | Case-sensitive peer-group name | 输入值 |
+| BGP-GROUP | `internal` | Create an internal peer-group | 可选 |
+| BGP-GROUP | `external` | Create an external peer-group | 可选 |
+
 ## `ipv4-family unicast`
 
 - 类别：配置命令
@@ -82,6 +181,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   ipv4-family unicast
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `ipv4-family vpn-instance`
 
@@ -94,6 +201,16 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ipv4-family vpn-instance VPN
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VPN` | VPN instance name | 输入值 |
+
 ## `ipv4-family vpnv4`
 
 - 类别：配置命令
@@ -104,6 +221,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   ipv4-family vpnv4
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `ipv6-family unicast`
 
@@ -116,6 +241,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ipv6-family unicast
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `ipv6-family vpn-instance`
 
 - 类别：配置命令
@@ -126,6 +259,16 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   ipv6-family vpn-instance VPN
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VPN` | VPN instance name | 输入值 |
 
 ## `ipv6-family vpnv6`
 
@@ -138,6 +281,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ipv6-family vpnv6
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `load-balancing as-path-ignore`
 
 - 类别：配置命令
@@ -148,6 +299,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   load-balancing as-path-ignore
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `maximum-paths`
 
@@ -160,6 +319,16 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   maximum-paths INTEGER<1-256>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-256>` | Number of paths | 输入值 |
+
 ## `policy vpn-target`
 
 - 类别：配置命令
@@ -170,6 +339,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   policy vpn-target
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `reflect between-clients`
 
@@ -182,6 +359,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   reflect between-clients
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `reflector cluster-id`
 
 - 类别：配置命令
@@ -192,6 +377,16 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   reflector cluster-id X.X.X.X
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | cluster ID | 输入值 |
 
 ## `reset service bgp`
 
@@ -205,6 +400,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   reset service bgp
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `timer keepalive`
 
 - 类别：配置命令
@@ -215,6 +418,18 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   timer keepalive INTEGER<0-21845> hold INTEGER<0-65535>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-21845>` | seconds | 输入值 |
+| INTEGER<0-21845> | `hold` | hold time | 关键字 |
+| hold | `INTEGER<0-65535>` | seconds | 输入值 |
 
 ## `undo bgp`
 
@@ -227,6 +442,17 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   undo bgp ASNUM
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-4294967295>` | AS number in asplain format (number<1-4294967295>) | 输入值 |
+| 命令后 | `STRING<3-11>` | AS number in asdot format (number<1-65535>.number<0-65535>) | 输入值 |
+
 ## `undo default ipv4-unicast`
 
 - 类别：配置命令
@@ -237,6 +463,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   undo default ipv4-unicast
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo default tcp-protected`
 
@@ -249,6 +483,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   undo default tcp-protected
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo group`
 
 - 类别：配置命令
@@ -259,6 +501,16 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   undo group NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `BGP-GROUP` | Case-sensitive peer-group name | 输入值 |
 
 ## `undo ipv4-family vpn-instance`
 
@@ -271,6 +523,16 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   undo ipv4-family vpn-instance VPN
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VPN` | VPN instance name | 输入值 |
+
 ## `undo ipv4-family vpnv4`
 
 - 类别：配置命令
@@ -281,6 +543,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   undo ipv4-family vpnv4
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo ipv6-family unicast`
 
@@ -293,6 +563,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   undo ipv6-family unicast
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo ipv6-family vpn-instance`
 
 - 类别：配置命令
@@ -303,6 +581,16 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   undo ipv6-family vpn-instance VPN
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VPN` | VPN instance name | 输入值 |
 
 ## `undo ipv6-family vpnv6`
 
@@ -315,6 +603,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   undo ipv6-family vpnv6
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo load-balancing as-path-ignore`
 
 - 类别：配置命令
@@ -325,6 +621,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   undo load-balancing as-path-ignore
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo maximum-paths`
 
@@ -337,6 +641,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   undo maximum-paths
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo policy vpn-target`
 
 - 类别：配置命令
@@ -347,6 +659,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   undo policy vpn-target
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo reflect between-clients`
 
@@ -359,6 +679,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   undo reflect between-clients
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo reflector cluster-id`
 
 - 类别：配置命令
@@ -370,6 +698,14 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   undo reflector cluster-id
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo timer keepalive`
 
 - 类别：配置命令
@@ -380,3 +716,11 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
   ```text
   undo timer keepalive
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。

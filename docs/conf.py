@@ -1,14 +1,14 @@
 project = "VortexROS 文档"
 copyright = "VortexROS 项目"
-version = "0.28"
-release = "v0.28-dev-debug9"
+version = "0.29"
+release = "v0.29-dev"
 language = "zh_CN"
 extensions = ["myst_parser"]
 source_suffix = {".md": "markdown"}
 root_doc = "index"
 myst_heading_anchors = 4
 html_theme = "sphinx_rtd_theme"
-html_theme_options = {"collapse_navigation": True, "navigation_depth": 3, "style_external_links": True, "titles_only": True}
+html_theme_options = {"collapse_navigation": True, "navigation_depth": 5, "style_external_links": True, "titles_only": True}
 html_baseurl = "https://opennw-rui.github.io/vortexros-docs/"
 html_static_path = ["_static"]
 templates_path = ["_templates"]

@@ -1,29 +1,19 @@
-# 三层子接口
+# 子接口
 
-用 802.1Q 或 QinQ 标签将物理链路划分成多个三层接口。
+子接口将同一父端口上的不同 VLAN 流量分开。先根据用途选择模式，再配置对应封装，不能将两种模式的命令混用。
 
-[命令参考](reference/interfaces.md)
+| 用途 | 创建方式 | 封装命令 | IP 地址位置 |
+| --- | --- | --- | --- |
+| L3 路由接口 | `interface Ethernet 1.100` | `vlan-type dot1q 100` | 子接口本身 |
+| L2 桥接成员 | `interface Ethernet 1.100 mode l2` | `encapsulation dot1q vid 100` | 所属桥域的 Vbdif |
 
-## 配置与验证
+```{toctree}
+:maxdepth: 1
 
-```text
-interface Ethernet 1.100
- encapsulation dot1q vid 100
- ip address 10.100.0.1 255.255.255.0
+subinterfaces-l3
+subinterfaces-l2
 ```
 
-QinQ示例：
+[接口命令参考](reference/interfaces.md) · [桥域](bridge-domains.md) · [QinQ](qinq.md)
 
-```text
-interface Ethernet 1.200
- encapsulation qinq vid 200 ce-vid 20
- ip address 10.200.20.1 255.255.255.0
-```
-
-提交后，只有标签匹配的报文进入对应子接口。父接口down时子接口随之down；父接口恢复后自动恢复。使用以下命令验证：
-
-```text
-display interface Ethernet 1.100
-display ip interface brief
-display ip routing-table protocol direct
-```
+父端口必须存在。子接口编号用于接口身份，VLAN ID 用于报文分类，两者不要求相同。已有子接口不能通过重复进入时改写 `mode` 来切换二层/三层角色；先撤销引用并删除，再按目标模式创建。创建后必须补齐封装，未完成的对象会在提交校验时被拒绝。

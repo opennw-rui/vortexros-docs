@@ -13,6 +13,16 @@
   apply as-path ASNUM [ASNUM ...]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ASNUM` | one or more AS numbers | 输入值、后续文本 |
+
 ## `apply community`
 
 - 类别：配置命令
@@ -23,6 +33,16 @@
   ```text
   apply community VALUE [VALUE ...] [additive]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | community values and optional additive | 输入值、后续文本 |
 
 ## `apply cost`
 
@@ -35,6 +55,16 @@
   apply cost VALUE
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | route metric | 输入值 |
+
 ## `apply ip-address next-hop`
 
 - 类别：配置命令
@@ -45,6 +75,16 @@
   ```text
   apply ip-address next-hop X.X.X.X
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | IPv4 next hop | 输入值 |
 
 ## `apply ipv6 next-hop`
 
@@ -57,6 +97,16 @@
   apply ipv6 next-hop X:X::X
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X:X::X` | IPv6 next hop | 输入值 |
+
 ## `apply large-community`
 
 - 类别：配置命令
@@ -67,6 +117,16 @@
   ```text
   apply large-community VALUE [VALUE ...] [additive]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | large-community values and optional additive | 输入值、后续文本 |
 
 ## `apply local-preference`
 
@@ -79,6 +139,16 @@
   apply local-preference VALUE
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | local preference | 输入值 |
+
 ## `apply origin`
 
 - 类别：配置命令
@@ -89,6 +159,18 @@
   ```text
   apply origin {igp|egp|incomplete}
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `igp` | IGP origin | 关键字 |
+| 命令后 | `egp` | EGP origin | 关键字 |
+| 命令后 | `incomplete` | incomplete origin | 关键字 |
 
 ## `apply tag`
 
@@ -101,6 +183,16 @@
   apply tag INTEGER<0-4294967295>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-4294967295>` | route tag | 输入值 |
+
 ## `continue node`
 
 - 类别：配置命令
@@ -111,6 +203,16 @@
   ```text
   continue node INTEGER<1-65535>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | target node | 输入值 |
 
 ## `display route-policy`
 
@@ -123,6 +225,17 @@
   display route-policy [NAME [verbose]]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ROUTE-POLICY` | Name of the route policy | 输入值、可选 |
+| ROUTE-POLICY | `verbose` | Backend policy counters | 可选 |
+
 ## `if-match cost`
 
 - 类别：配置命令
@@ -133,6 +246,16 @@
   ```text
   if-match cost INTEGER<0-4294967295>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-4294967295>` | route metric | 输入值 |
 
 ## `if-match ip-prefix`
 
@@ -145,6 +268,16 @@
   if-match ip-prefix NAME
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IP-PREFIX` | Specify a prefix list name | 输入值 |
+
 ## `if-match ipv6 address prefix-list`
 
 - 类别：配置命令
@@ -155,6 +288,16 @@
   ```text
   if-match ipv6 address prefix-list NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IPV6-PREFIX` | Specify an IPv6 prefix list name | 输入值 |
 
 ## `if-match protocol`
 
@@ -167,6 +310,23 @@
   if-match protocol {direct|static|ospf|ospfv3|isis|rip|ripng|bgp}
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `direct` | DIRECT routes | 关键字 |
+| 命令后 | `static` | STATIC routes | 关键字 |
+| 命令后 | `ospf` | OSPF routes | 关键字 |
+| 命令后 | `ospfv3` | OSPFV3 routes | 关键字 |
+| 命令后 | `isis` | ISIS routes | 关键字 |
+| 命令后 | `rip` | RIP routes | 关键字 |
+| 命令后 | `ripng` | RIPNG routes | 关键字 |
+| 命令后 | `bgp` | BGP routes | 关键字 |
+
 ## `if-match tag`
 
 - 类别：配置命令
@@ -177,6 +337,16 @@
   ```text
   if-match tag INTEGER<0-4294967295>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-4294967295>` | route tag | 输入值 |
 
 ## `route-policy`
 
@@ -189,6 +359,20 @@
   route-policy NAME {permit|deny} node INTEGER<1-65535>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ROUTE-POLICY` | Name of the route policy | 输入值 |
+| ROUTE-POLICY | `permit` | permit node | 关键字 |
+| deny / permit | `node` | Specify a route-policy node | 关键字 |
+| node | `INTEGER<1-65535>` | Node number | 输入值 |
+| ROUTE-POLICY | `deny` | deny node | 关键字 |
+
 ## `undo apply as-path`
 
 - 类别：配置命令
@@ -199,6 +383,14 @@
   ```text
   undo apply as-path
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo apply community`
 
@@ -211,6 +403,14 @@
   undo apply community
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo apply cost`
 
 - 类别：配置命令
@@ -221,6 +421,14 @@
   ```text
   undo apply cost
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo apply ip-address next-hop`
 
@@ -233,6 +441,14 @@
   undo apply ip-address next-hop
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo apply ipv6 next-hop`
 
 - 类别：配置命令
@@ -243,6 +459,14 @@
   ```text
   undo apply ipv6 next-hop
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo apply large-community`
 
@@ -255,6 +479,14 @@
   undo apply large-community
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo apply local-preference`
 
 - 类别：配置命令
@@ -265,6 +497,14 @@
   ```text
   undo apply local-preference
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo apply origin`
 
@@ -277,6 +517,14 @@
   undo apply origin
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo apply tag`
 
 - 类别：配置命令
@@ -287,6 +535,14 @@
   ```text
   undo apply tag
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo continue`
 
@@ -299,6 +555,14 @@
   undo continue
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo if-match cost`
 
 - 类别：配置命令
@@ -309,6 +573,14 @@
   ```text
   undo if-match cost
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo if-match ip-prefix`
 
@@ -321,6 +593,16 @@
   undo if-match ip-prefix NAME
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IP-PREFIX` | Specify a prefix list name | 输入值 |
+
 ## `undo if-match ipv6 address prefix-list`
 
 - 类别：配置命令
@@ -331,6 +613,16 @@
   ```text
   undo if-match ipv6 address prefix-list NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IPV6-PREFIX` | Specify an IPv6 prefix list name | 输入值 |
 
 ## `undo if-match protocol`
 
@@ -343,6 +635,14 @@
   undo if-match protocol
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo if-match tag`
 
 - 类别：配置命令
@@ -354,6 +654,14 @@
   undo if-match tag
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo route-policy`
 
 - 类别：配置命令
@@ -364,3 +672,17 @@
   ```text
   undo route-policy NAME [permit|deny node INTEGER<1-65535>]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ROUTE-POLICY` | Name of the route policy | 输入值 |
+| ROUTE-POLICY | `permit` | delete a permit node | 可选 |
+| deny / permit | `node` | Specify a route-policy node | 关键字 |
+| node | `INTEGER<1-65535>` | Node number | 输入值 |
+| ROUTE-POLICY | `deny` | delete a deny node | 可选 |

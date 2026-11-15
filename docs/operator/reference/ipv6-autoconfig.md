@@ -13,6 +13,14 @@
   ipv6 address auto global default
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `ipv6 address auto slaac`
 
 - 类别：配置命令
@@ -23,6 +31,14 @@
   ```text
   ipv6 address auto slaac
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `ipv6 nd ra default-route enable`
 
@@ -35,6 +51,14 @@
   ipv6 nd ra default-route enable
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo ipv6 address auto global default`
 
 - 类别：配置命令
@@ -45,6 +69,14 @@
   ```text
   undo ipv6 address auto global default
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo ipv6 address auto slaac`
 
@@ -57,6 +89,14 @@
   undo ipv6 address auto slaac
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo ipv6 nd ra default-route enable`
 
 - 类别：配置命令
@@ -67,3 +107,11 @@
   ```text
   undo ipv6 nd ra default-route enable
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。

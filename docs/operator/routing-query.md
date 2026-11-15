@@ -52,3 +52,16 @@ display alarm active
 ```
 
 随后使用本节对应的邻居、路由、BFD或VRRP命令检查运行状态。确认业务正常后再执行 `save`。删除配置时先解除引用或接口绑定，再删除协议进程和策略对象。
+
+## VPN 内的组合查询
+
+```text
+display ip routing-table vpn-instance CLI-UNDER 198.18.181.0 24
+display ipv6 routing-table vpn-instance CLI-UNDER 2001:db8:181:: 64
+display ip routing-table vpn-instance CLI-UNDER protocol ospf
+display ipv6 routing-table vpn-instance CLI-UNDER protocol ospfv3
+```
+
+本轮隔离拓扑中，上述精确查询各显示一条实际安装的外部路由：IPv4 代价 37、IPv6 代价 38，优先级均为 150。协议查询分别显示 3 条和 4 条。先按 VPN 选择后再按前缀、协议过滤，不会把非默认 VPN 的结果重新按 default 过滤。
+
+默认路由的精确查询使用 `0.0.0.0 0` 和 `:: 0`；这里的第二项是前缀长度。实测 OSPF/OSPFv3 的 `default-route-advertise always` 发布后，各显示一条优先级 150、代价 1 的默认路由；撤销后两族精确查询均为零条。路由数为零必须来自一次成功查询，不能用报错或空的错误输出代替。

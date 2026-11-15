@@ -15,6 +15,19 @@
   address prefix X:X::X/M [life-time VALID PREFERRED]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X:X::X/M` | IPv6 prefix | 输入值 |
+| X:X::X/M | `life-time` | address lifetimes | 可选 |
+| life-time | `VALID` | valid lifetime seconds | 输入值 |
+| VALID | `PREFERRED` | preferred lifetime seconds | 输入值 |
+
 ## `dhcp client classless-route enable`
 
 - 类别：配置命令
@@ -25,6 +38,14 @@
   ```text
   dhcp client classless-route enable
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `dhcp client default-route enable`
 
@@ -37,6 +58,14 @@
   dhcp client default-route enable
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `dhcp client default-route preference`
 
 - 类别：配置命令
@@ -47,6 +76,16 @@
   ```text
   dhcp client default-route preference INTEGER<1-255>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-255>` | route preference | 输入值 |
 
 ## `dhcp client-relay shutdown`
 
@@ -59,6 +98,14 @@
   dhcp client-relay shutdown
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `dhcp relay server-ip`
 
 - 类别：配置命令
@@ -69,6 +116,16 @@
   ```text
   dhcp relay server-ip X.X.X.X
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | DHCPv4 server address | 输入值 |
 
 ## `dhcp select`
 
@@ -81,6 +138,18 @@
   dhcp select { global | interface | relay }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `global` | use a matching global address pool | 关键字 |
+| 命令后 | `interface` | use the interface primary subnet | 关键字 |
+| 命令后 | `relay` | relay DHCP messages | 关键字 |
+
 ## `dhcp server dns-list`
 
 - 类别：配置命令
@@ -91,6 +160,17 @@
   ```text
   dhcp server dns-list X.X.X.X [X.X.X.X]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | IPv4 DNS server | 输入值 |
+| X.X.X.X | `X.X.X.X` | IPv4 DNS server | 输入值、可选、可重复 |
 
 ## `dhcp server domain-name`
 
@@ -103,6 +183,16 @@
   dhcp server domain-name DOMAIN
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `DOMAIN` | DNS domain name | 输入值 |
+
 ## `dhcp server excluded-ip-address`
 
 - 类别：配置命令
@@ -113,6 +203,17 @@
   ```text
   dhcp server excluded-ip-address START [END]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `START` | first excluded IPv4 address | 输入值 |
+| START | `END` | last excluded IPv4 address | 输入值、可选 |
 
 ## `dhcp server gateway-list`
 
@@ -125,6 +226,18 @@
   dhcp server gateway-list { X.X.X.X [X.X.X.X] | disable }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | IPv4 gateway address | 输入值 |
+| X.X.X.X | `X.X.X.X` | IPv4 gateway address | 输入值、可选、可重复 |
+| 命令后 | `disable` | do not advertise a default gateway | 关键字 |
+
 ## `dhcp server ip-range`
 
 - 类别：配置命令
@@ -135,6 +248,17 @@
   ```text
   dhcp server ip-range START END
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `START` | first allocatable IPv4 address | 输入值 |
+| START | `END` | last allocatable IPv4 address | 输入值 |
 
 ## `dhcp server lease`
 
@@ -147,6 +271,22 @@
   dhcp server lease { unlimited | day DAYS [hour HOURS [minute MINUTES]] }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `unlimited` | lease does not expire | 关键字 |
+| 命令后 | `day` | lease days | 关键字 |
+| day | `DAYS` | days | 输入值 |
+| DAYS | `hour` | lease hours | 可选 |
+| hour | `HOURS` | hours | 输入值 |
+| HOURS | `minute` | lease minutes | 可选 |
+| minute | `MINUTES` | minutes | 输入值 |
+
 ## `dhcp server static-bind ip-address`
 
 - 类别：配置命令
@@ -157,6 +297,18 @@
   ```text
   dhcp server static-bind ip-address X.X.X.X mac-address H-H-H
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | reserved IPv4 address | 输入值 |
+| X.X.X.X | `mac-address` | client MAC address | 关键字 |
+| mac-address | `H-H-H` | MAC address | 输入值 |
 
 ## `dhcpv6 client information-request`
 
@@ -169,6 +321,14 @@
   dhcpv6 client information-request
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `dhcpv6 client pd`
 
 - 类别：配置命令
@@ -179,6 +339,16 @@
   ```text
   dhcpv6 client pd PREFIX-NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PREFIX-NAME` | delegated prefix name | 输入值 |
 
 ## `dhcpv6 client renew`
 
@@ -192,6 +362,14 @@
   dhcpv6 client renew
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `dhcpv6 duid`
 
 - 类别：配置命令
@@ -202,6 +380,17 @@
   ```text
   dhcpv6 duid { ll | llt }
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ll` | link-layer address DUID | 关键字 |
+| 命令后 | `llt` | link-layer address plus time DUID | 关键字 |
 
 ## `dhcpv6 pool`
 
@@ -214,6 +403,16 @@
   dhcpv6 pool NAME
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `DHCPV6-POOL` | IPv6 address pool name | 输入值 |
+
 ## `dhcpv6 relay destination`
 
 - 类别：配置命令
@@ -224,6 +423,16 @@
   ```text
   dhcpv6 relay destination X:X::X
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X:X::X` | DHCPv6 server address | 输入值 |
 
 ## `dhcpv6 relay interface`
 
@@ -236,6 +445,16 @@
   dhcpv6 relay interface IF
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IF` | DHCPv6 relay upper interface | 输入值 |
+
 ## `dhcpv6 server`
 
 - 类别：配置命令
@@ -246,6 +465,16 @@
   ```text
   dhcpv6 server POOL
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `DHCPV6-POOL` | DHCPv6 pool name | 输入值 |
 
 ## `display dhcp client`
 
@@ -258,6 +487,17 @@
   display dhcp client [interface IF]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `interface` | interface name | 可选 |
+| interface | `IF` | DHCP client interface | 输入值 |
+
 ## `display dhcp configuration`
 
 - 类别：只读显示命令
@@ -268,6 +508,14 @@
   ```text
   display dhcp configuration
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
 
 ## `display dhcp relay`
 
@@ -280,6 +528,17 @@
   display dhcp relay [interface IF]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `interface` | interface name | 可选 |
+| interface | `IF` | relay interface | 输入值 |
+
 ## `display dhcp service`
 
 - 类别：只读显示命令
@@ -290,6 +549,16 @@
   ```text
   display dhcp service [verbose]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `verbose` | include instance details | 可选、可组合 |
 
 ## `display dhcpv6 client`
 
@@ -302,6 +571,17 @@
   display dhcpv6 client [interface IF]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `interface` | interface name | 可选 |
+| interface | `IF` | DHCPv6 client interface | 输入值 |
+
 ## `display dhcpv6 client prefix`
 
 - 类别：只读显示命令
@@ -312,6 +592,17 @@
   ```text
   display dhcpv6 client prefix [name PREFIX-NAME]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `name` | delegated prefix name | 可选 |
+| name | `PREFIX-NAME` | delegated prefix name | 输入值 |
 
 ## `display dhcpv6 pool`
 
@@ -324,6 +615,20 @@
   display dhcpv6 pool [name NAME] [all | used] [verbose]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `name` | pool name | 可选、可组合 |
+| name | `DHCPV6-POOL` | IPv6 pool name | 输入值 |
+| 命令后 | `all` | include every observed lease state | 可选、可组合 |
+| 命令后 | `used` | include active allocated addresses and prefixes | 可选、可组合 |
+| 命令后 | `verbose` | include pool and detailed active lease information | 可选、可组合 |
+
 ## `display dhcpv6 relay`
 
 - 类别：只读显示命令
@@ -334,6 +639,17 @@
   ```text
   display dhcpv6 relay [interface IF]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `interface` | interface name | 可选 |
+| interface | `IF` | relay interface | 输入值 |
 
 ## `display ip pool`
 
@@ -346,6 +662,22 @@
   display ip pool [name NAME | interface TYPE N] [all | used] [verbose]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| all / used / 命令后 | `name` | global pool name | 可选 |
+| name | `IP-POOL` | IPv4 pool name | 输入值 |
+| IF / IP-POOL / 命令后 | `all` | include every observed lease state | 可选 |
+| IF / IP-POOL / all / used / 命令后 | `verbose` | include pool and detailed active lease information | 可选 |
+| IF / IP-POOL / 命令后 | `used` | include active allocated addresses | 可选 |
+| all / used / 命令后 | `interface` | interface address pool | 可选 |
+| interface | `IF` | interface name or TYPE N | 输入值 |
+
 ## `display ipv6 pool`
 
 - 类别：只读显示命令
@@ -356,6 +688,20 @@
   ```text
   display ipv6 pool [name NAME] [all | used] [verbose]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `name` | pool name | 可选、可组合 |
+| name | `DHCPV6-POOL` | IPv6 pool name | 输入值 |
+| 命令后 | `all` | include every observed lease state | 可选、可组合 |
+| 命令后 | `used` | include active allocated addresses and prefixes | 可选、可组合 |
+| 命令后 | `verbose` | include pool and detailed active lease information | 可选、可组合 |
 
 ## `dns-domain-name`
 
@@ -368,6 +714,16 @@
   dns-domain-name VALUE
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | DNS domain name | 输入值 |
+
 ## `dns-list`
 
 - 类别：配置命令
@@ -378,6 +734,17 @@
   ```text
   dns-list X.X.X.X [X.X.X.X ...]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | IPv4 DNS server | 输入值 |
+| X.X.X.X | `X.X.X.X` | IPv4 DNS server | 输入值、可选、可重复 |
 
 ## `dns-server`
 
@@ -390,6 +757,16 @@
   dns-server VALUE
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | IPv6 DNS server | 输入值 |
+
 ## `domain-name`
 
 - 类别：配置命令
@@ -400,6 +777,16 @@
   ```text
   domain-name DOMAIN
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `DOMAIN` | DNS domain name | 输入值 |
 
 ## `enable dhcp server`
 
@@ -414,6 +801,14 @@
   enable dhcp server
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `excluded-address`
 
 - 类别：配置命令
@@ -424,6 +819,17 @@
   ```text
   excluded-address START [END]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `START` | first excluded address | 输入值 |
+| START | `END` | last excluded address | 输入值、可选 |
 
 ## `excluded-ip-address`
 
@@ -436,6 +842,17 @@
   excluded-ip-address START [END]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `START` | first excluded address | 输入值 |
+| START | `END` | last excluded address | 输入值、可选 |
+
 ## `gateway-list`
 
 - 类别：配置命令
@@ -446,6 +863,17 @@
   ```text
   gateway-list X.X.X.X [X.X.X.X ...]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | IPv4 gateway address | 输入值 |
+| X.X.X.X | `X.X.X.X` | IPv4 gateway address | 输入值、可选、可重复 |
 
 ## `information-refresh`
 
@@ -458,6 +886,16 @@
   information-refresh INTEGER<600-4294967295>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<600-4294967295>` | refresh interval seconds | 输入值 |
+
 ## `ip address dhcp-alloc`
 
 - 类别：配置命令
@@ -468,6 +906,14 @@
   ```text
   ip address dhcp-alloc
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `ip pool`
 
@@ -480,6 +926,16 @@
   ip pool NAME
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IP-POOL` | IPv4 pool name | 输入值 |
+
 ## `ipv6 address auto dhcp`
 
 - 类别：配置命令
@@ -490,6 +946,17 @@
   ```text
   ipv6 address auto dhcp [hint X:X::X]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `hint` | requested IPv6 address | 可选 |
+| hint | `X:X::X` | IPv6 address | 输入值 |
 
 ## `ipv6 address dhcpv6-prefix`
 
@@ -502,6 +969,17 @@
   ipv6 address dhcpv6-prefix PREFIX-NAME SUFFIX/PREFIXLEN
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PREFIX-NAME` | delegated prefix name | 输入值 |
+| PREFIX-NAME | `SUFFIX/PREFIXLEN` | IPv6 suffix and downstream prefix length | 输入值 |
+
 ## `lease`
 
 - 类别：配置命令
@@ -512,6 +990,22 @@
   ```text
   lease { unlimited | day DAYS [hour HOURS [minute MINUTES]] }
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `unlimited` | lease does not expire | 关键字 |
+| 命令后 | `day` | lease days | 关键字 |
+| day | `DAYS` | days | 输入值 |
+| DAYS | `hour` | lease hours | 可选 |
+| hour | `HOURS` | hours | 输入值 |
+| HOURS | `minute` | lease minutes | 可选 |
+| minute | `MINUTES` | minutes | 输入值 |
 
 ## `prefix-delegation`
 
@@ -524,6 +1018,20 @@
   prefix-delegation X:X::X/M INTEGER<1-128> [life-time VALID PREFERRED]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X:X::X/M` | aggregate prefix | 输入值 |
+| X:X::X/M | `INTEGER<1-128>` | delegated prefix length | 输入值 |
+| INTEGER<1-128> | `life-time` | prefix lifetimes | 可选 |
+| life-time | `VALID` | valid lifetime seconds | 输入值 |
+| VALID | `PREFERRED` | preferred lifetime seconds | 输入值 |
+
 ## `section`
 
 - 类别：配置命令
@@ -534,6 +1042,18 @@
   ```text
   section INTEGER<0-255> START [END]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-255>` | section index | 输入值 |
+| INTEGER<0-255> | `START` | first allocatable IPv4 address | 输入值 |
+| START | `END` | last allocatable IPv4 address | 输入值、可选 |
 
 ## `static-bind ip-address`
 
@@ -546,6 +1066,18 @@
   static-bind ip-address X.X.X.X mac-address H-H-H
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | reserved IPv4 address | 输入值 |
+| X.X.X.X | `mac-address` | client MAC address | 关键字 |
+| mac-address | `H-H-H` | MAC address | 输入值 |
+
 ## `undo address prefix`
 
 - 类别：配置命令
@@ -556,6 +1088,16 @@
   ```text
   undo address prefix X:X::X/M
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X:X::X/M` | IPv6 prefix | 输入值 |
 
 ## `undo dhcp client classless-route enable`
 
@@ -568,6 +1110,14 @@
   undo dhcp client classless-route enable
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo dhcp client default-route enable`
 
 - 类别：配置命令
@@ -578,6 +1128,14 @@
   ```text
   undo dhcp client default-route enable
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo dhcp client-relay shutdown`
 
@@ -590,6 +1148,14 @@
   undo dhcp client-relay shutdown
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo dhcp relay server-ip`
 
 - 类别：配置命令
@@ -600,6 +1166,16 @@
   ```text
   undo dhcp relay server-ip X.X.X.X
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | DHCPv4 server address | 输入值 |
 
 ## `undo dhcp select`
 
@@ -612,6 +1188,14 @@
   undo dhcp select
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo dhcp server dns-list`
 
 - 类别：配置命令
@@ -622,6 +1206,16 @@
   ```text
   undo dhcp server dns-list [X.X.X.X]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | IPv4 DNS server | 输入值、可选 |
 
 ## `undo dhcp server domain-name`
 
@@ -634,6 +1228,14 @@
   undo dhcp server domain-name
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo dhcp server excluded-ip-address`
 
 - 类别：配置命令
@@ -644,6 +1246,17 @@
   ```text
   undo dhcp server excluded-ip-address START [END]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `START` | first excluded IPv4 address | 输入值 |
+| START | `END` | last excluded IPv4 address | 输入值、可选 |
 
 ## `undo dhcp server gateway-list`
 
@@ -656,6 +1269,16 @@
   undo dhcp server gateway-list [X.X.X.X]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | IPv4 gateway address | 输入值、可选 |
+
 ## `undo dhcp server ip-range`
 
 - 类别：配置命令
@@ -666,6 +1289,14 @@
   ```text
   undo dhcp server ip-range
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo dhcp server lease`
 
@@ -678,6 +1309,14 @@
   undo dhcp server lease
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo dhcp server static-bind ip-address`
 
 - 类别：配置命令
@@ -688,6 +1327,16 @@
   ```text
   undo dhcp server static-bind ip-address X.X.X.X
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | reserved IPv4 address | 输入值 |
 
 ## `undo dhcpv6 client information-request`
 
@@ -700,6 +1349,14 @@
   undo dhcpv6 client information-request
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo dhcpv6 client pd`
 
 - 类别：配置命令
@@ -710,6 +1367,14 @@
   ```text
   undo dhcpv6 client pd
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo dhcpv6 duid`
 
@@ -722,6 +1387,14 @@
   undo dhcpv6 duid
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo dhcpv6 pool`
 
 - 类别：配置命令
@@ -732,6 +1405,16 @@
   ```text
   undo dhcpv6 pool NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `DHCPV6-POOL` | IPv6 address pool name | 输入值 |
 
 ## `undo dhcpv6 relay destination`
 
@@ -744,6 +1427,16 @@
   undo dhcpv6 relay destination X:X::X
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X:X::X` | DHCPv6 server address | 输入值 |
+
 ## `undo dhcpv6 relay interface`
 
 - 类别：配置命令
@@ -754,6 +1447,16 @@
   ```text
   undo dhcpv6 relay interface IF
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IF` | DHCPv6 relay upper interface | 输入值 |
 
 ## `undo dhcpv6 server`
 
@@ -766,6 +1469,14 @@
   undo dhcpv6 server
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo dns-domain-name`
 
 - 类别：配置命令
@@ -776,6 +1487,16 @@
   ```text
   undo dns-domain-name VALUE
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | DNS domain name | 输入值 |
 
 ## `undo dns-list`
 
@@ -788,6 +1509,16 @@
   undo dns-list [VALUE]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | IPv4 DNS server | 输入值、可选 |
+
 ## `undo dns-server`
 
 - 类别：配置命令
@@ -798,6 +1529,16 @@
   ```text
   undo dns-server VALUE
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | IPv6 DNS server | 输入值 |
 
 ## `undo domain-name`
 
@@ -810,6 +1551,14 @@
   undo domain-name
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo enable dhcp server`
 
 - 类别：配置命令
@@ -820,6 +1569,14 @@
   ```text
   undo enable dhcp server
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo excluded-address`
 
@@ -832,6 +1589,17 @@
   undo excluded-address START [END]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `START` | first excluded address | 输入值 |
+| START | `END` | last excluded address | 输入值、可选 |
+
 ## `undo excluded-ip-address`
 
 - 类别：配置命令
@@ -842,6 +1610,17 @@
   ```text
   undo excluded-ip-address START [END]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `START` | first excluded address | 输入值 |
+| START | `END` | last excluded address | 输入值、可选 |
 
 ## `undo gateway-list`
 
@@ -854,6 +1633,16 @@
   undo gateway-list [VALUE]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VALUE` | IPv4 gateway address | 输入值、可选 |
+
 ## `undo information-refresh`
 
 - 类别：配置命令
@@ -864,6 +1653,14 @@
   ```text
   undo information-refresh
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo ip address dhcp-alloc`
 
@@ -876,6 +1673,14 @@
   undo ip address dhcp-alloc
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo ip pool`
 
 - 类别：配置命令
@@ -886,6 +1691,16 @@
   ```text
   undo ip pool NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IP-POOL` | IPv4 address pool name | 输入值 |
 
 ## `undo ipv6 address auto dhcp`
 
@@ -898,6 +1713,14 @@
   undo ipv6 address auto dhcp
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo ipv6 address dhcpv6-prefix`
 
 - 类别：配置命令
@@ -908,6 +1731,16 @@
   ```text
   undo ipv6 address dhcpv6-prefix PREFIX-NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PREFIX-NAME` | delegated prefix name | 输入值 |
 
 ## `undo lease`
 
@@ -920,6 +1753,14 @@
   undo lease
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo prefix-delegation`
 
 - 类别：配置命令
@@ -930,6 +1771,17 @@
   ```text
   undo prefix-delegation X:X::X/M INTEGER<1-128>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X:X::X/M` | aggregate prefix | 输入值 |
+| X:X::X/M | `INTEGER<1-128>` | delegated prefix length | 输入值 |
 
 ## `undo section`
 
@@ -942,6 +1794,16 @@
   undo section INTEGER<0-255>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-255>` | section index | 输入值 |
+
 ## `undo static-bind ip-address`
 
 - 类别：配置命令
@@ -952,6 +1814,16 @@
   ```text
   undo static-bind ip-address X.X.X.X
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | reserved IPv4 address | 输入值 |
 
 ## `undo vpn-instance`
 
@@ -964,6 +1836,24 @@
   undo vpn-instance
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`ip-pool`**
+
+此形式没有额外参数。
+
+**适用视图：`dhcpv6-pool`**
+
+此形式没有额外参数。
+
+**适用视图：`ospf`**
+
+此形式没有额外参数。
+
 ## `vpn-instance`
 
 - 类别：配置命令
@@ -974,3 +1864,27 @@
   ```text
   vpn-instance NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`ip-pool`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VRF` | VPN instance name | 输入值 |
+
+**适用视图：`dhcpv6-pool`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VRF` | VPN instance name | 输入值 |
+
+**适用视图：`ospf`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VPN` | VPN instance name | 输入值 |

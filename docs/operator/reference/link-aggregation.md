@@ -15,6 +15,16 @@
   display eth-trunk [INTEGER<0-63>]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-63>` | Eth-Trunk interface number | 输入值、可选 |
+
 ## `eth-trunk`
 
 - 类别：配置命令
@@ -25,6 +35,18 @@
   ```text
   eth-trunk INTEGER<0-63>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet
+适用分区：interface/ethernet-neutral
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-63>` | Eth-Trunk interface number | 输入值 |
 
 ## `trunkport`
 
@@ -37,6 +59,20 @@
   trunkport INTERFACE [to INTERFACE]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：eth-trunk
+适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PHYS-IF` | physical Ethernet interface | 输入值 |
+| PHYS-IF | `to` | range link symbol | 可选 |
+| to | `PHYS-IF` | last physical Ethernet interface | 输入值 |
+
 ## `undo eth-trunk`
 
 - 类别：配置命令
@@ -48,6 +84,18 @@
   undo eth-trunk [INTEGER<0-63>]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet
+适用分区：interface/ethernet-aggregate-member
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-63>` | Eth-Trunk interface number | 输入值、可选 |
+
 ## `undo trunkport`
 
 - 类别：配置命令
@@ -58,3 +106,17 @@
   ```text
   undo trunkport INTERFACE [to INTERFACE]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：eth-trunk
+适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PHYS-IF` | physical Ethernet interface | 输入值 |
+| PHYS-IF | `to` | range link symbol | 可选 |
+| to | `PHYS-IF` | last physical Ethernet interface | 输入值 |

@@ -15,6 +15,17 @@
   display vlan [VLAN-ID | summary]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `summary` | VLAN summary | 可选 |
+| 命令后 | `ID` | VLAN ID | 输入值、可选 |
+
 ## `display vlan summary`
 
 - 类别：只读显示命令
@@ -25,6 +36,14 @@
   ```text
   display vlan summary
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
 
 ## `enable switch`
 
@@ -37,6 +56,14 @@
   enable switch
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `port default vlan`
 
 - 类别：配置命令
@@ -48,6 +75,18 @@
   port default vlan VLAN-ID
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VID` | VLAN ID 1-4095 | 输入值 |
+
 ## `port link-type`
 
 - 类别：配置命令
@@ -58,6 +97,20 @@
   ```text
   port link-type { access | dot1q-tunnel | trunk }
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `access` | Access port | 关键字 |
+| 命令后 | `dot1q-tunnel` | QinQ port | 关键字 |
+| 命令后 | `trunk` | Trunk port | 关键字 |
 
 ## `port trunk allow-pass vlan`
 
@@ -72,6 +125,21 @@
   port trunk allow-pass vlan { VLAN-LIST | all }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `all` | all VLANs | 关键字 |
+| 命令后 | `VLAN-ID` | VLAN ID | 输入值 |
+| VLAN-ID | `to VLAN-ID` | VLAN range；VLAN ID | 可选、可重复 |
+| VLAN-ID | `VLAN-ID` | VLAN ID | 输入值、可选、可重复 |
+
 ## `port trunk pvid vlan`
 
 - 类别：配置命令
@@ -82,6 +150,18 @@
   ```text
   port trunk pvid vlan VLAN-ID
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VID` | VLAN ID | 输入值 |
 
 ## `portswitch`
 
@@ -96,6 +176,24 @@
   portswitch
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`interface`**
+接口类别：eth-trunk
+适用分区：interface/ethernet-neutral, interface/eth-trunk-neutral, interface/eth-trunk-l3
+
+此形式没有额外参数。
+
+**适用视图：`interface`**
+接口类别：ethernet
+适用分区：interface/ethernet-neutral, interface/eth-trunk-neutral, interface/eth-trunk-l3
+
+此形式没有额外参数。
+
 ## `switchport`
 
 - 类别：配置命令
@@ -106,6 +204,16 @@
   ```text
   switchport
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-neutral
+
+此形式没有额外参数。
 
 ## `undo enable switch`
 
@@ -118,6 +226,14 @@
   undo enable switch
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo port default vlan`
 
 - 类别：配置命令
@@ -128,6 +244,16 @@
   ```text
   undo port default vlan
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+此形式没有额外参数。
 
 ## `undo port link-type`
 
@@ -140,6 +266,16 @@
   undo port link-type
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+此形式没有额外参数。
+
 ## `undo port trunk allow-pass vlan`
 
 - 类别：配置命令
@@ -150,6 +286,21 @@
   ```text
   undo port trunk allow-pass vlan { VLAN-LIST | all }
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `all` | all VLANs | 关键字 |
+| 命令后 | `VLAN-ID` | VLAN ID | 输入值 |
+| VLAN-ID | `to VLAN-ID` | VLAN range；VLAN ID | 可选、可重复 |
+| VLAN-ID | `VLAN-ID` | VLAN ID | 输入值、可选、可重复 |
 
 ## `undo port trunk pvid vlan`
 
@@ -162,6 +313,18 @@
   undo port trunk pvid vlan [VLAN-ID]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VID` | VLAN ID | 输入值、可选 |
+
 ## `undo portswitch`
 
 - 类别：配置命令
@@ -172,6 +335,24 @@
   ```text
   undo portswitch
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`interface`**
+接口类别：eth-trunk
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+此形式没有额外参数。
+
+**适用视图：`interface`**
+接口类别：ethernet
+适用分区：interface/ethernet-l2, interface/eth-trunk-l2
+
+此形式没有额外参数。
 
 ## `undo switchport`
 
@@ -184,6 +365,16 @@
   undo switchport
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet, eth-trunk
+适用分区：interface/ethernet-l2
+
+此形式没有额外参数。
+
 ## `undo vlan`
 
 - 类别：配置命令
@@ -194,6 +385,18 @@
   ```text
   undo vlan VLAN-ID [to VLAN-ID]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ID` | VLAN ID | 输入值 |
+| ID | `to` | end of range | 可选 |
+| to | `ID` | end VLAN ID | 输入值 |
 
 ## `undo vlan batch`
 
@@ -206,6 +409,18 @@
   undo vlan batch { VLAN-ID [to VLAN-ID] } *
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VLAN-ID` | VLAN ID | 输入值 |
+| VLAN-ID | `to VLAN-ID` | VLAN range；VLAN ID | 可选、可重复 |
+| VLAN-ID | `VLAN-ID` | VLAN ID | 输入值、可选、可重复 |
+
 ## `undo vlan-type`
 
 - 类别：配置命令
@@ -216,6 +431,17 @@
   ```text
   undo vlan-type
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：subif
+适用分区：interface/subif-l3
+还受当前对象/配置条件限制；以本视图 ? 为准
+
+此形式没有额外参数。
 
 ## `vlan`
 
@@ -228,6 +454,18 @@
   vlan VLAN-ID [to VLAN-ID]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ID` | VLAN ID 1-4095 | 输入值 |
+| ID | `to` | end of range | 可选 |
+| to | `ID` | end VLAN ID | 输入值 |
+
 ## `vlan batch`
 
 - 类别：配置命令
@@ -239,6 +477,18 @@
   vlan batch { VLAN-ID [to VLAN-ID] } *
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VLAN-ID` | VLAN ID | 输入值 |
+| VLAN-ID | `to VLAN-ID` | VLAN range；VLAN ID | 可选、可重复 |
+| VLAN-ID | `VLAN-ID` | VLAN ID | 输入值、可选、可重复 |
+
 ## `vlan-type dot1q`
 
 - 类别：配置命令
@@ -249,3 +499,18 @@
   ```text
   vlan-type dot1q VLAN-ID [inner VLAN-ID]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：subif
+适用分区：interface/subif-l3
+还受当前对象/配置条件限制；以本视图 ? 为准
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VID` | VLAN ID 1-4095 | 输入值 |
+| VID | `inner` | QinQ inner VLAN | 可选 |
+| inner | `VID` | inner VLAN ID | 输入值 |

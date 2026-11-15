@@ -16,6 +16,10 @@ def signature(text):
 
 
 root = Path(__file__).resolve().parents[1]
+# dirhtml maps both feature.md and feature/index.md to feature/index.html.
+for page in (root / "docs").rglob("*.md"):
+    if page.name != "index.md" and (page.with_suffix("") / "index.md").exists():
+        raise SystemExit(f"conflicting dirhtml output: {page}")
 exported = entries(Path(sys.argv[1]).read_text(), "###")
 actual = {}
 for path in (root / "docs/operator/reference").glob("*.md"):

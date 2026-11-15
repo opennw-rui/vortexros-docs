@@ -73,7 +73,7 @@ commit
 
 ## 验证
 
-先从 P2 向 P1 发起一次探测，让 peer 完成初始交换，再分别检查两端。若要定位握手问题，可以在外层链路仅观察 UDP 51820 的收发；不要公开密钥或配置转储。下面是 Debug 5 实验的实际输出节选。
+先从 P2 向 P1 发起一次探测，让 peer 完成初始交换，再分别检查两端。若要定位握手问题，可以在外层链路仅观察 UDP 51820 的收发；不要公开密钥或配置转储。下面沿用已有实验的实际输出节选；本轮未重复执行该未受影响的用例。
 
 **P1：查询接口与 peer**
 
@@ -125,3 +125,90 @@ display wireguard interface
 P2 同样删除 Tunnel 10，将 profile 名换为 `WG-P1`。实测两端查询均不再列出 Tunnel10。保留原外层链路；若已经保存过实验配置，撤销后再保存。
 
 [WireGuard 配置指南](../operator/wireguard.md)
+
+
+## IPv6 外层与 VPN 实例
+
+下面沿用开发服务器的补充实测，使用已建立的 Tunnel10。两端隧道内层仍为 `10.240.10.1/30`、`10.240.10.2/30` 和 `2001:db8:240:10::1/64`、`::2/64`；只把加密 UDP 外层从公网 IPv4 改为命名 VPN 实例中的 IPv6。内层接口不必加入外层 VPN 实例。
+
+```text
+P1 Tunnel10 ── 加密 UDP/IPv6 ── P2 Tunnel10
+  host-p1b12                    host-p2b12
+  2001:db8:180::1/64             2001:db8:180::2/64
+  └──────── VPN CLI-UNDER ────────────┘
+```
+
+P1：
+
+```text
+system-view
+ip vpn-instance CLI-UNDER
+ ipv4-family
+  quit
+ ipv6-family
+  quit
+ quit
+interface host-p1b12
+ ip binding vpn-instance CLI-UNDER
+ ipv6 address 2001:db8:180::1 64
+ quit
+wireguard profile WG-P2
+ peer P2
+  undo source
+  destination vpn-instance CLI-UNDER 2001:db8:180::2 port 51820
+  source 2001:db8:180::1
+  quit
+ quit
+interface Tunnel10
+ source-port 51820
+ quit
+commit
+```
+
+P2：
+
+```text
+system-view
+ip vpn-instance CLI-UNDER
+ ipv4-family
+  quit
+ ipv6-family
+  quit
+ quit
+interface host-p2b12
+ ip binding vpn-instance CLI-UNDER
+ ipv6 address 2001:db8:180::2 64
+ quit
+wireguard profile WG-P1
+ peer P1
+  undo source
+  destination vpn-instance CLI-UNDER 2001:db8:180::1 port 51820
+  source 2001:db8:180::2
+  quit
+ quit
+interface Tunnel10
+ source-port 51820
+ quit
+commit
+```
+
+`ip binding vpn-instance` 会清除该接口原有 IP 地址，应先确认接口用途，再在绑定后配置地址。改变外层地址族时先撤销旧 `source`，再设置新目的和新源，避免保留地址族不匹配的中间配置。示例使用两端已完成的密钥及 allowed-IP 配置，不会另行生成或覆盖密钥。
+
+实测查询与流量：
+
+```text
+display current-configuration configuration wireguard
+display ip vpn-instance verbose
+ping -c 3 -a 10.240.10.1 10.240.10.2
+ping ipv6 -c 3 -a 2001:db8:240:10::2 2001:db8:240:10::1
+```
+
+配置查询显示 `destination vpn-instance CLI-UNDER 2001:db8:180::2 port 51820`；实际 peer 外层端点也是两端的 `2001:db8:180::` 地址。IPv4 两个方向均为 3/3；上述 IPv6 P2→P1 为 3/3。这里是实际转发验证，不是吞吐测量。
+
+恢复原外层时，在两端 peer 视图先 `undo source`，然后把 `destination` 和 `source` 改回原地址、端口及外层实例，提交并复测。只有没有接口、路由、协议或其他隧道引用时，才能删除 `CLI-UNDER`。
+
+## 漫游端点
+
+固定服务器在 Tunnel 视图配置 `source-port`；服务器 peer 可以撤销 `source` 和 `destination`，让经过认证的客户端握手更新远端地址与端口。客户端通过 `destination ... port ...` 指定服务器，`undo source-port` 使用自动分配的本地端口。`keepalive 0` 是不发送周期保活，不会禁止业务触发握手。
+
+本轮实测客户端重启 VPP 后，服务器学到的新 WireGuard 端口为 58120，AmneziaWG 为 60103，均与重启前不同；对应 IPv4 双向探测均为 3/3。自动端口没有固定数值，不能在真实配置中照抄这些观测值。

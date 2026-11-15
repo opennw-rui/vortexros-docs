@@ -13,6 +13,14 @@
   advertise l2vpn evpn
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `esi`
 
 - 类别：配置命令
@@ -23,6 +31,18 @@
   ```text
   esi XXXX.XXXX.XXXX.XXXX.XXXX
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：eth-trunk
+适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `XXXX.XXXX.XXXX.XXXX.XXXX` | Ethernet segment identifier | 输入值 |
 
 ## `evpn`
 
@@ -35,6 +55,14 @@
   evpn
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `evpn-overlay`
 
 - 类别：配置命令
@@ -45,6 +73,16 @@
   ```text
   evpn-overlay enable
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `enable` | enable the EVPN overlay | 关键字 |
 
 ## `l2vpn-family evpn`
 
@@ -57,6 +95,14 @@
   l2vpn-family evpn
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo advertise l2vpn evpn`
 
 - 类别：配置命令
@@ -67,6 +113,14 @@
   ```text
   undo advertise l2vpn evpn
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo esi`
 
@@ -79,6 +133,16 @@
   undo esi
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：eth-trunk
+适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+
+此形式没有额外参数。
+
 ## `undo evpn-overlay`
 
 - 类别：配置命令
@@ -90,6 +154,16 @@
   undo evpn-overlay enable
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `enable` | disable the EVPN overlay | 关键字 |
+
 ## `undo l2vpn-family evpn`
 
 - 类别：配置命令
@@ -100,3 +174,11 @@
   ```text
   undo l2vpn-family evpn
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。

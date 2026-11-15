@@ -13,6 +13,14 @@
   display lldp local
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `display lldp neighbor brief`
 
 - 类别：只读显示命令
@@ -23,6 +31,14 @@
   ```text
   display lldp neighbor brief
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
 
 ## `display lldp neighbor interface`
 
@@ -35,6 +51,16 @@
   display lldp neighbor interface IF
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IF` | interface name | 输入值 |
+
 ## `enable lldp`
 
 - 类别：配置命令
@@ -45,6 +71,14 @@
   ```text
   enable lldp
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `lldp enable`
 
@@ -57,6 +91,16 @@
   lldp enable
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/ethernet-aggregate-member, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+
+此形式没有额外参数。
+
 ## `undo enable lldp`
 
 - 类别：配置命令
@@ -68,6 +112,14 @@
   undo enable lldp
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo lldp enable`
 
 - 类别：配置命令
@@ -78,3 +130,12 @@
   ```text
   undo lldp enable
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：ethernet
+
+此形式没有额外参数。

@@ -22,3 +22,7 @@ netlink，LCP 再同步到 VPP；VortexROS 不直接向 VPP 或内核下发 6PE 
 
 
 在对端检查 IPv6 BGP 路由、VPP MPLS 转发表和 IPv6 业务连通性。
+
+## 完整双端案例
+
+[6PE案例](../examples/mpls/6pe.md)包含两台PE的完整IPv4承载、LDP、BGP LU、实际标签、双向流量和撤销。控制层在存在6PE邻居时生成IPv6显式空标签策略，不要求用户手工写FRR配置。参数默认不作为额外命令显示于config。

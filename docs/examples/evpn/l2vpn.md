@@ -206,4 +206,4 @@ display vxlan tunnel
 
 要拆除整个实验，依次撤销两端的 NVE VNI，删除专用 NVE、解除 EVPN 邻居，撤销专用桥域和 VLAN。最后清理实验主机的地址和 VLAN 子接口。共用的 BGP 进程和底层路由按现有业务保留。
 
-[EVPN 配置指南](../operator/11-vxlan-evpn.md)
+[EVPN 配置指南](../../operator/11-vxlan-evpn.md)
