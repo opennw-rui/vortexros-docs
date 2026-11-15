@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candidate、提交与保存 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/cli/configuration/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="帮助、补全与过滤" href="../help/" />
+    <link rel="prev" title="命令行" href="../../01-cli/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../01-cli/">命令行</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Candidate、提交与保存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../help/">帮助、补全与过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../startup/">启动配置格式</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../01-cli/">命令行</a></li>
+      <li class="breadcrumb-item active">Candidate、提交与保存</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="candidate">
+<span id="candidate提交与保存"></span><h1>Candidate、提交与保存<a class="headerlink" href="#candidate" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="从编辑到生效"></span><h2>从编辑到生效<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>命令</p></th>
+<th class="head"><p>作用和影响</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>display configuration candidate</p></td>
+<td><p>查看本会话待提交的变更</p></td>
+</tr>
+<tr class="row-odd"><td><p>refresh configuration candidate</p></td>
+<td><p>将本会话变更合并到最新 Running；若有冲突，按提示检查具体对象</p></td>
+</tr>
+<tr class="row-even"><td><p>commit</p></td>
+<td><p>检查依赖并接受配置，可能改变接口、路由或转发策略</p></td>
+</tr>
+<tr class="row-odd"><td><p>display current-configuration</p></td>
+<td><p>查看已提交的 Running；接口视图可用 display this 查看对应范围</p></td>
+</tr>
+<tr class="row-even"><td><p>display health</p></td>
+<td><p>查看后端收敛状态</p></td>
+</tr>
+<tr class="row-odd"><td><p>save</p></td>
+<td><p>把 Running 保存为启动配置，按提示确认</p></td>
+</tr>
+<tr class="row-even"><td><p>clear configuration candidate</p></td>
+<td><p>只清除本会话未提交的修改，按提示确认</p></td>
+</tr>
+</tbody>
+</table>
+<p>每个会话有独立的 Candidate。提交失败时先读返回信息。若配置校验被拒绝，修正 Candidate。若提示配置已接受但运行状态未收敛，用 display health verbose 和 display alarm active 查原因，再根据实际业务状态决定是否保存。</p>
+</section>
+<section id="id2">
+<span id="试用一次编辑"></span><h2>试用一次编辑<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>在实验接口上暂存描述，查看差异后清除：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet 1
+description LAB-UPLINK
+quit
+display configuration candidate
+clear configuration candidate
+</pre></div>
+</div>
+<p>按提示确认清除。description 只修改接口说明文本，本例没有执行 commit。实际配置地址和转发见<a class="reference internal" href="../../../examples/static-route/"><span class="std std-doc">静态路由案例</span></a>。</p>
+</section>
+<section id="id3">
+<span id="提交等待提示"></span><h2>提交等待提示<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>普通交互式 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 等待约 1 秒后显示 <code class="docutils literal notranslate"><span class="pre">Committing.</span></code>，随后每秒追加一点，单行最多 12 点。完成后换行显示原有结果。Ctrl+C 停止进度显示，已经发出的提交请求继续执行；重新查询 Candidate、Running 和健康状态确认结果。快速提交和脚本调用不显示通用进度，数据面接管和远程路由列表保留各自阶段提示。</p>
+<p><a class="reference internal" href="../../01-cli/"><span class="std std-doc">目录</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../../01-cli/" class="btn btn-neutral float-left" title="命令行" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../help/" class="btn btn-neutral float-right" title="帮助、补全与过滤" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

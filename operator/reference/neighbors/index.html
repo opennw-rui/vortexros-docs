@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARP 与 ND &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>ARP 与 ND &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/neighbors/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -164,6 +164,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>start IPv4 address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>end IPv4 address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>X.X.X.X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>incoming Layer-3 interface</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ARP-IF</span></code></p></td>
+<td><p>Layer-3 Ethernet ARP interface</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="arp-static">
 <h2><code class="docutils literal notranslate"><span class="pre">arp</span> <span class="pre">static</span></code><a class="headerlink" href="#arp-static" title="链接到此标题。"></a></h2>
@@ -177,6 +213,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP</span></code></p></td>
+<td><p>IPv4 address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code></p></td>
+<td><p>MAC address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>MAC</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code></p></td>
+<td><p>bridge-domain</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>bridge-domain</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>bridge-domain ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="arp-timeout">
 <h2><code class="docutils literal notranslate"><span class="pre">arp</span> <span class="pre">timeout</span></code><a class="headerlink" href="#arp-timeout" title="链接到此标题。"></a></h2>
@@ -190,6 +262,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;60-86400&gt;</span></code></p></td>
+<td><p>aging time in seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-arp">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">arp</span></code><a class="headerlink" href="#display-arp" title="链接到此标题。"></a></h2>
@@ -203,6 +296,57 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">all</span></code></p></td>
+<td><p>all ARP entries including VPN instances</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>ARP entries on an interface</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></p></td>
+<td><p>ARP entries in a VPN instance</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>vpn-instance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DISPLAY-VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static</span></code></p></td>
+<td><p>static ARP entries</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dynamic</span></code></p></td>
+<td><p>dynamic ARP entries</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-arp-proxy">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">arp</span> <span class="pre">proxy</span></code><a class="headerlink" href="#display-arp-proxy" title="链接到此标题。"></a></h2>
@@ -216,6 +360,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="display-ipv6-nd">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">nd</span></code><a class="headerlink" href="#display-ipv6-nd" title="链接到此标题。"></a></h2>
@@ -229,6 +379,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="display-ipv6-neighbors">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">neighbors</span></code><a class="headerlink" href="#display-ipv6-neighbors" title="链接到此标题。"></a></h2>
@@ -242,6 +398,57 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>IPv6 neighbors on an interface</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></p></td>
+<td><p>IPv6 neighbors in a VPN instance</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>vpn-instance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DISPLAY-VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static</span></code></p></td>
+<td><p>static IPv6 neighbors</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dynamic</span></code></p></td>
+<td><p>dynamic IPv6 neighbors</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ipv6-nd-max-number">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">max-number</span></code><a class="headerlink" href="#ipv6-nd-max-number" title="链接到此标题。"></a></h2>
@@ -255,6 +462,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>maximum IPv6 neighbor entries</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ipv6-nd-recycle">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">recycle</span></code><a class="headerlink" href="#ipv6-nd-recycle" title="链接到此标题。"></a></h2>
@@ -268,6 +496,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable</span></code></p></td>
+<td><p>recycle the oldest dynamic entry</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">disable</span></code></p></td>
+<td><p>reject new entries at capacity</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ipv6-nd-stale-timeout">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">stale-timeout</span></code><a class="headerlink" href="#ipv6-nd-stale-timeout" title="链接到此标题。"></a></h2>
@@ -281,6 +535,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;60-172800&gt;</span></code></p></td>
+<td><p>aging time in seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ipv6-neighbor">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">neighbor</span></code><a class="headerlink" href="#ipv6-neighbor" title="链接到此标题。"></a></h2>
@@ -294,6 +569,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IPV6</span></code></p></td>
+<td><p>IPv6 neighbor address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPV6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code></p></td>
+<td><p>unicast link-layer address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>MAC</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>outgoing interface</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="reset-ip-arp">
 <h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">ip</span> <span class="pre">arp</span></code><a class="headerlink" href="#reset-ip-arp" title="链接到此标题。"></a></h2>
@@ -308,6 +619,47 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>IPv4 ARP address</p></td>
+<td><p>输入值、可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>select a Layer 3 interface</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name or TYPE N</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ip</span></code></p></td>
+<td><p>select one IPv4 ARP address</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>ip</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>IPv4 ARP address</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-arp-proxy">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">arp</span> <span class="pre">proxy</span></code><a class="headerlink" href="#undo-arp-proxy" title="链接到此标题。"></a></h2>
@@ -321,6 +673,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>start IPv4 address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>end IPv4 address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>X.X.X.X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>incoming Layer-3 interface</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ARP-IF</span></code></p></td>
+<td><p>Layer-3 Ethernet ARP interface</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-arp-static">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">arp</span> <span class="pre">static</span></code><a class="headerlink" href="#undo-arp-static" title="链接到此标题。"></a></h2>
@@ -334,6 +722,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP</span></code></p></td>
+<td><p>IPv4 address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code></p></td>
+<td><p>MAC address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>MAC</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code></p></td>
+<td><p>bridge-domain</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>bridge-domain</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>bridge-domain ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-arp-timeout">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">arp</span> <span class="pre">timeout</span></code><a class="headerlink" href="#undo-arp-timeout" title="链接到此标题。"></a></h2>
@@ -347,6 +771,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-ipv6-nd-max-number">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">max-number</span></code><a class="headerlink" href="#undo-ipv6-nd-max-number" title="链接到此标题。"></a></h2>
@@ -360,6 +790,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-ipv6-nd-recycle">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">recycle</span></code><a class="headerlink" href="#undo-ipv6-nd-recycle" title="链接到此标题。"></a></h2>
@@ -373,6 +809,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-ipv6-nd-stale-timeout">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">stale-timeout</span></code><a class="headerlink" href="#undo-ipv6-nd-stale-timeout" title="链接到此标题。"></a></h2>
@@ -386,6 +828,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-ipv6-neighbor">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">neighbor</span></code><a class="headerlink" href="#undo-ipv6-neighbor" title="链接到此标题。"></a></h2>
@@ -399,6 +847,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IPV6</span></code></p></td>
+<td><p>IPv6 neighbor address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPV6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code></p></td>
+<td><p>unicast link-layer address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>MAC</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>outgoing interface</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

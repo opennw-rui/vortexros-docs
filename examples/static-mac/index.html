@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>静态 MAC &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/static-mac/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="QinQ" href="../qinq/" />
+    <link rel="prev" title="L3 子接口" href="../subinterfaces/l3/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../interfaces/">接口与交换</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">静态 MAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qinq/">QinQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.29-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../interfaces/">接口与交换</a></li>
+      <li class="breadcrumb-item active">静态 MAC</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mac">
+<span id="静态-mac"></span><h1>静态 MAC<a class="headerlink" href="#mac" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑和作用"></span><h2>拓扑和作用<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>本例把远端MAC固定到指定桥域出口，并关闭学习和未知单播泛洪，以便用流量区分“表项实际转发”和“只是泛洪可达”。实验复用开发服务器的隔离PE3与Linux端点，不涉及真机：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PE3 Vbdif777 192.0.2.1/24
+  BD777 / VLAN777
+  host-p3docce ───── remote0 192.0.2.3/24
+                       MAC 92:28:40:07:45:9d
+</pre></div>
+</div>
+<p>静态MAC只决定二层目的MAC的出口，不创建IP路由或ARP。实际设备必须替换端口名和对端真实MAC；不能把示例MAC用于其他主机。</p>
+</section>
+<section id="linux">
+<span id="linux端点"></span><h2>Linux端点<a class="headerlink" href="#linux" title="链接到此标题。"></a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>remote0<span class="w"> </span>up
+ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.0.2.3/24<span class="w"> </span>dev<span class="w"> </span>remote0
+</pre></div>
+</div>
+<p>实验端口已在独立网络命名空间中连通，若地址已存在不重复添加。VPP基础口和LCP应已建立；PE3开启switch。</p>
+</section>
+<section id="pe3">
+<span id="pe3完整配置"></span><h2>PE3完整配置<a class="headerlink" href="#pe3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+enable switch
+vlan 777
+quit
+bridge-domain 777 no-learn no-uu-flood
+ l2 binding vlan 777
+quit
+interface host-p3docce
+ portswitch
+ port link-type access
+ port default vlan 777
+quit
+interface Vbdif 777
+ ip address 192.0.2.1 255.255.255.0
+quit
+mac-address static 9228-4007-459d host-p3docce bridge-domain 777
+commit
+display bridge-domain 777
+display mac-address bridge-domain 777
+ping -a 192.0.2.1 -c 3 192.0.2.3
+</pre></div>
+</div>
+<p>业务桥域777由模型映射为内部VPP桥域，不应手动依赖内部编号。出口必须属于本业务，跨VLAN端口会在配置校验时拒绝。关闭学习和未知单播泛洪会影响该域所有未知目的流量；本例是独占实验域，不应直接用在承载其他客户的桥域。</p>
+</section>
+<section id="id2">
+<span id="真实结果"></span><h2>真实结果<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 777
+  flood: on  uu-flood: off  forward: on  learn: off
+  bvi: Vbdif777
+  ports:
+    Vbdif777         shg 0
+    host-p3docce     shg 0
+
+MAC Address       VLAN/VSI/BD                    Learned-From        Type
+02fe-ade9-8be5    -/-/777                        host-p3docce        static
+9228-4007-459d    -/-/777                        host-p3docce        static
+Total items displayed = 2
+
+3 packets transmitted, 3 received, 0% packet loss
+</pre></div>
+</div>
+<p>运行时自动产生的本地项不应冒充用户静态配置。上面第二条为本例目标MAC。</p>
+</section>
+<section id="id3">
+<span id="撤销对照"></span><h2>撤销对照<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo mac-address static 9228-4007-459d host-p3docce bridge-domain 777
+commit
+display mac-address bridge-domain 777
+ping -a 192.0.2.1 -c 3 192.0.2.3
+</pre></div>
+</div>
+<p>真实查询只剩本地项，目标MAC不再存在；探测3发0收。由于学习和未知单播泛洪仍关闭，这次失败证明原可达性依赖该静态出口，不能将删除后的失败当作产品故障。</p>
+<p>最后撤销本例独占对象：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Vbdif 777
+interface host-p3docce
+ undo portswitch
+quit
+undo bridge-domain 777
+undo vlan 777
+commit
+display bridge-domain 777
+display health
+save
+</pre></div>
+</div>
+<p>真实撤销后display bridge-domain 777显示(no bridge-domain)，健康ready、Running/Actual=6/6、零告警；save应答Y并保存成功。已有其他业务时，只撤本例新增项，保留共享接口和交换全局设置。</p>
+<p><a class="reference internal" href="../../operator/mac-table/"><span class="std std-doc">MAC功能</span></a> · <a class="reference internal" href="../../operator/reference/bridge-domains/"><span class="std std-doc">桥域参数</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../subinterfaces/l3/" class="btn btn-neutral float-left" title="L3 子接口" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../qinq/" class="btn btn-neutral float-right" title="QinQ" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

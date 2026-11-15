@@ -1,0 +1,189 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>状态与撤销 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bgp/queries/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="IS-IS" href="../../isis/" />
+    <link rel="prev" title="地址族与聚合" href="../families/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">BGP</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../peers/">邻居与会话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../groups/">邻居组与认证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../attributes/">AS 与路由属性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../families/">地址族与聚合</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">状态与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">BGP</a></li>
+      <li class="breadcrumb-item active">状态与撤销</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="状态与撤销"></span><h1>状态与撤销<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp peer
+display bgp peer 10.0.0.2 verbose
+display bgp vpnv4 vpn-instance BLUE peer 10.0.0.2 verbose
+display bgp vpnv4 vpn-instance BLUE peer 10.0.0.2 log-info
+display bgp vpnv6 all peer verbose
+display bgp routing-table
+display bgp routing-table peer 10.0.0.2 received-routes
+display bgp vpnv4 vpn-instance BLUE routing-table
+display bgp vpnv4 vpn-instance BLUE routing-table statistics
+display bgp tcp-protection verbose
+</pre></div>
+</div>
+<p>动态路由的 <code class="docutils literal notranslate"><span class="pre">display</span></code> 输出由 VortexROS 统一排版，不透出 FRR 的原始标题、内部实例号或内存地址。BGP 全表、VPN 路由表、邻居收发路由及 AS Path 列表，OSPF/OSPFv3 路由与 LSDB，以及 IS-IS 路由与 LSDB，均直接读取对应协议 daemon 的 VTY 数据并逐项输出，首批记录不需要等待完整表进入内存；总数位于表尾。BGP 路由表的 <code class="docutils literal notranslate"><span class="pre">Path/Ogn</span></code> 与 AS Path 列表统一使用十进制 AS 号。<code class="docutils literal notranslate"><span class="pre">routing-table</span> <span class="pre">statistics</span></code> 显示后端统计的前缀、通告和重分发数量。BGP 邻居明细和 <code class="docutils literal notranslate"><span class="pre">log-info</span></code> 从对应地址族的 FRR 会话查询逐个解码邻居，<code class="docutils literal notranslate"><span class="pre">all</span></code> 查询按 VPN 实例标出结果。<code class="docutils literal notranslate"><span class="pre">log-info</span></code> 显示当前会话状态、可用的建立时间及 FRR 保留的最近重置和 Notification 原因。邻居摘要、接口和其他有界状态读取一次后端快照并按固定字段排版。</p>
+<p>默认TCP保护只接受已经配置的BGP邻居源地址。需要关闭时：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ undo default tcp-protected
+</pre></div>
+</div>
+<p>精确删除邻居或单项参数：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ undo peer 10.0.0.2 route-policy RP-IN import
+ undo peer 10.0.0.2 description
+ undo peer 10.0.0.2
+undo bgp 64512
+commit
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../families/" class="btn btn-neutral float-left" title="地址族与聚合" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../isis/" class="btn btn-neutral float-right" title="IS-IS" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

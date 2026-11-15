@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IS-IS &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>IS-IS &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/isis/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -165,6 +165,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">narrow</span></code></p></td>
+<td><p>narrow metrics</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wide</span></code></p></td>
+<td><p>wide metrics</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transition</span></code></p></td>
+<td><p>transition metrics</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-isis">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">isis</span></code><a class="headerlink" href="#display-isis" title="链接到此标题。"></a></h2>
@@ -178,6 +209,87 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>Process ID</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">brief</span></code></p></td>
+<td><p>Active configuration in brief</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer</span></code></p></td>
+<td><p>IS-IS neighbors</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lsdb</span></code></p></td>
+<td><p>IS-IS link-state database</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">route</span></code></p></td>
+<td><p>IS-IS routing table</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">spf-delay</span></code></p></td>
+<td><p>IS-IS SPF backoff state</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>IS-IS interface information</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">traffic-eng</span></code></p></td>
+<td><p>IS-IS traffic engineering information</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>traffic-eng</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p>Traffic engineering database</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>traffic-eng</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>Traffic engineering interface</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>traffic-eng</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">router</span></code></p></td>
+<td><p>Traffic engineering router</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></p></td>
+<td><p>VPN instance</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>vpn-instance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DISPLAY-VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="hostname-dynamic">
 <h2><code class="docutils literal notranslate"><span class="pre">hostname</span> <span class="pre">dynamic</span></code><a class="headerlink" href="#hostname-dynamic" title="链接到此标题。"></a></h2>
@@ -191,6 +303,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="ipv6-import-route">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">import-route</span></code><a class="headerlink" href="#ipv6-import-route" title="链接到此标题。"></a></h2>
@@ -204,6 +322,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">direct</span></code></p></td>
+<td><p>direct</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static</span></code></p></td>
+<td><p>static</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></td>
+<td><p>OSPFv3</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bgp</span></code></p></td>
+<td><p>BGP</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="is-level">
 <h2><code class="docutils literal notranslate"><span class="pre">is-level</span></code><a class="headerlink" href="#is-level" title="链接到此标题。"></a></h2>
@@ -217,6 +371,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">level-1</span></code></p></td>
+<td><p>level-1</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">level-2</span></code></p></td>
+<td><p>level-2</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">level-1-2</span></code></p></td>
+<td><p>level-1-2</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="isis">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span></code><a class="headerlink" href="#isis" title="链接到此标题。"></a></h2>
@@ -230,6 +415,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>Process ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></p></td>
+<td><p>VPN instance</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>vpn-instance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VPN</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="isis-bfd">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">bfd</span></code><a class="headerlink" href="#isis-bfd" title="链接到此标题。"></a></h2>
@@ -243,6 +459,68 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>min-tx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;100-1000&gt;</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;100-1000&gt; / INTEGER&lt;3-50&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>min-rx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;100-1000&gt;</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;100-1000&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code></p></td>
+<td><p>BFD detection multiplier</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>detect-multiplier</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;3-50&gt;</span></code></p></td>
+<td><p>Detection multiplier</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;100-1000&gt; / INTEGER&lt;3-50&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code></p></td>
+<td><p>BFD detection multiplier</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="isis-bfd-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">bfd</span> <span class="pre">enable</span></code><a class="headerlink" href="#isis-bfd-enable" title="链接到此标题。"></a></h2>
@@ -256,6 +534,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="isis-circuit-level">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">circuit-level</span></code><a class="headerlink" href="#isis-circuit-level" title="链接到此标题。"></a></h2>
@@ -269,6 +554,38 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">level-1</span></code></p></td>
+<td><p>Level-1 only</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">level-1-2</span></code></p></td>
+<td><p>Level-1-2</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">level-2</span></code></p></td>
+<td><p>Level-2 only</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="isis-circuit-type-p2p">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">circuit-type</span> <span class="pre">p2p</span></code><a class="headerlink" href="#isis-circuit-type-p2p" title="链接到此标题。"></a></h2>
@@ -282,6 +599,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="isis-cost">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">cost</span></code><a class="headerlink" href="#isis-cost" title="链接到此标题。"></a></h2>
@@ -295,6 +619,28 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-16777215&gt;</span></code></p></td>
+<td><p>metric</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="isis-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">enable</span></code><a class="headerlink" href="#isis-enable" title="链接到此标题。"></a></h2>
@@ -308,6 +654,28 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>Process ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="isis-ipv6-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">ipv6-enable</span></code><a class="headerlink" href="#isis-ipv6-enable" title="链接到此标题。"></a></h2>
@@ -321,6 +689,28 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>Process ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="isis-passive">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">passive</span></code><a class="headerlink" href="#isis-passive" title="链接到此标题。"></a></h2>
@@ -334,6 +724,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="isis-priority">
 <h2><code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">priority</span></code><a class="headerlink" href="#isis-priority" title="链接到此标题。"></a></h2>
@@ -347,6 +744,28 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-127&gt;</span></code></p></td>
+<td><p>priority</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="network-entity">
 <h2><code class="docutils literal notranslate"><span class="pre">network-entity</span></code><a class="headerlink" href="#network-entity" title="链接到此标题。"></a></h2>
@@ -360,6 +779,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NET</span></code></p></td>
+<td><p>NSAP network entity title</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="reset-service-isis">
 <h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">isis</span></code><a class="headerlink" href="#reset-service-isis" title="链接到此标题。"></a></h2>
@@ -374,6 +814,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="set-overload-bit">
 <h2><code class="docutils literal notranslate"><span class="pre">set-overload-bit</span></code><a class="headerlink" href="#set-overload-bit" title="链接到此标题。"></a></h2>
@@ -387,6 +833,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="spf-delay-ietf">
 <h2><code class="docutils literal notranslate"><span class="pre">spf-delay-ietf</span></code><a class="headerlink" href="#spf-delay-ietf" title="链接到此标题。"></a></h2>
@@ -400,6 +852,52 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">init-delay</span></code></p></td>
+<td><p>SPF backoff timer</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>holddown / init-delay / long-delay / short-delay / time-to-learn</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-60000&gt;</span></code></p></td>
+<td><p>Milliseconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;0-60000&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">short-delay</span></code></p></td>
+<td><p>SPF backoff timer</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-60000&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long-delay</span></code></p></td>
+<td><p>SPF backoff timer</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;0-60000&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">holddown</span></code></p></td>
+<td><p>SPF backoff timer</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-60000&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">time-to-learn</span></code></p></td>
+<td><p>SPF backoff timer</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-hostname">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">hostname</span></code><a class="headerlink" href="#undo-hostname" title="链接到此标题。"></a></h2>
@@ -413,6 +911,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-ipv6-import-route">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">import-route</span></code><a class="headerlink" href="#undo-ipv6-import-route" title="链接到此标题。"></a></h2>
@@ -426,6 +930,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">direct</span></code></p></td>
+<td><p>direct</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static</span></code></p></td>
+<td><p>static</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></td>
+<td><p>OSPFv3</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bgp</span></code></p></td>
+<td><p>BGP</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-is-level">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">is-level</span></code><a class="headerlink" href="#undo-is-level" title="链接到此标题。"></a></h2>
@@ -439,6 +979,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-isis">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span></code><a class="headerlink" href="#undo-isis" title="链接到此标题。"></a></h2>
@@ -452,6 +998,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>Process ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-isis-bfd">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">bfd</span></code><a class="headerlink" href="#undo-isis-bfd" title="链接到此标题。"></a></h2>
@@ -465,6 +1032,53 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>detect-multiplier / min-tx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>min-rx-interval / min-tx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code></p></td>
+<td><p>BFD detection multiplier</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>detect-multiplier / min-rx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code></p></td>
+<td><p>BFD detection multiplier</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-isis-bfd-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">bfd</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-isis-bfd-enable" title="链接到此标题。"></a></h2>
@@ -478,6 +1092,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-isis-circuit-level">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">circuit-level</span></code><a class="headerlink" href="#undo-isis-circuit-level" title="链接到此标题。"></a></h2>
@@ -491,6 +1112,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-isis-circuit-type">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">circuit-type</span></code><a class="headerlink" href="#undo-isis-circuit-type" title="链接到此标题。"></a></h2>
@@ -504,6 +1132,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-isis-cost">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">cost</span></code><a class="headerlink" href="#undo-isis-cost" title="链接到此标题。"></a></h2>
@@ -517,6 +1152,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-isis-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-isis-enable" title="链接到此标题。"></a></h2>
@@ -530,6 +1172,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-isis-ipv6-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">ipv6-enable</span></code><a class="headerlink" href="#undo-isis-ipv6-enable" title="链接到此标题。"></a></h2>
@@ -543,6 +1192,28 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>Process ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-isis-passive">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">passive</span></code><a class="headerlink" href="#undo-isis-passive" title="链接到此标题。"></a></h2>
@@ -556,6 +1227,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-isis-priority">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">isis</span> <span class="pre">priority</span></code><a class="headerlink" href="#undo-isis-priority" title="链接到此标题。"></a></h2>
@@ -569,6 +1247,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-network-entity">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">network-entity</span></code><a class="headerlink" href="#undo-network-entity" title="链接到此标题。"></a></h2>
@@ -582,6 +1267,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NET</span></code></p></td>
+<td><p>NSAP network entity title</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-set-overload-bit">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">set-overload-bit</span></code><a class="headerlink" href="#undo-set-overload-bit" title="链接到此标题。"></a></h2>
@@ -595,6 +1301,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-spf-delay-ietf">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">spf-delay-ietf</span></code><a class="headerlink" href="#undo-spf-delay-ietf" title="链接到此标题。"></a></h2>
@@ -608,6 +1320,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 </section>
 

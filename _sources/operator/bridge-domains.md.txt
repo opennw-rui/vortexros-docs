@@ -23,3 +23,10 @@ display interface Vbdif 11
 ```
 
 删除前先解除Vbdif、VNI和VLAN绑定，避免业务仍在引用BD。
+
+
+## 控制网桥 MTU
+
+Linux 控制网桥用于 LCP/FRR 的二层状态投影，普通业务仍由 VPP 转发。网桥 MTU 按受管端口所需的最大值设置，不因另一个成员使用较小 MTU 或变为 Down 而自动压低；这不表示小 MTU 端口能够转发超过自身能力的报文。实际业务仍受出口 MTU、封装开销与路径 MTU 限制。
+
+EVPN 的 Linux VLAN 端点与控制网桥应保持一致的 MTU。更改端口或重新应用相同配置不应短暂缩小已有端点。开发服务器已验证 9000/1500 混合成员、较大成员降至1500/Down、重复投影，以及携带既有 EVPN VNI 的真实 `reset service vpp`。最终网桥和 EVPN 端点均为9000；这些结果不构成满 MTU 吞吐保证。

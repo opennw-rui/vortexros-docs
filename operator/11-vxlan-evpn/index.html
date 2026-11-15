@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EVPN &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>EVPN &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/11-vxlan-evpn/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,7 +23,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="MPLS" href="../10-mpls-l3vpn/" />
+    <link rel="next" title="L2VPN" href="../evpn/l2vpn/" />
     <link rel="prev" title="VXLAN" href="../vxlan/" /> 
 </head>
 
@@ -68,7 +68,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">EVPN</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">EVPN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evpn/l2vpn/">L2VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evpn/l3vpn/">L3VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evpn/multihoming/">多归属</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evpn/anycast/">Anycast 网关</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evpn/lifecycle/">变更与恢复</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
@@ -82,9 +89,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -119,7 +126,37 @@
 MAC/IP、Type-3 Inclusive Multicast、Type-4 Ethernet Segment 与 Type-5 IP Prefix
 路由；LCP 把标准 Linux FDB、邻居和 VRF 路由转换为 VPP VXLAN、L2 FIB、ARP/ND
 终结表、租户 FIB 和多归属转发状态，VPP 完成业务报文转发。</p>
-<p><a class="reference internal" href="../reference/evpn/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/evpn/"><span class="std std-doc">配置案例</span></a></p>
+<p><a class="reference internal" href="../reference/evpn/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/evpn/"><span class="std std-doc">案例目录</span></a></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../evpn/l2vpn/">L2VPN</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/l2vpn/#id1">配置顺序和参数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/l2vpn/#id2">完整案例和真实验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/l2vpn/#id3">修改和撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evpn/l3vpn/">L3VPN</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/l3vpn/#id1">配置和限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/l3vpn/#id2">真实验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/l3vpn/#id3">撤销与保存</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evpn/multihoming/">多归属</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/multihoming/#id2">范围、实际记录和撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evpn/anycast/">Anycast 网关</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/anycast/#id1">使用顺序</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evpn/lifecycle/">变更与恢复</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/lifecycle/#esi">ESI 撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/lifecycle/#vni">删除 VNI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/lifecycle/#id2">保存和重启</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <section id="id1">
 <span id="组件职责"></span><h2>组件职责<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <table class="docutils align-default">
@@ -154,13 +191,13 @@ VPP 已有的 VXLAN、bridge-domain 和 L2 FIB 也不会复制一套数据面。
 <ul class="simple">
 <li><p>VTEP 源地址之间已经通过 underlay 路由可达；</p></li>
 <li><p>已执行 <code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">switch</span></code> 和 <code class="docutils literal notranslate"><span class="pre">evpn-overlay</span> <span class="pre">enable</span></code>；</p></li>
-<li><p>每个 EVPN VNI 绑定一个存在的 bridge-domain 和 VLAN；</p></li>
+<li><p>每个 L2VNI 绑定一个存在的 bridge-domain 和 VLAN；L3VNI 的内部桥域和服务接口由系统管理；</p></li>
 <li><p>NVE 源地址是本机稳定的 IPv4 或 IPv6 地址；</p></li>
 <li><p>BGP EVPN 对等体已经配置 AS 和源接口。</p></li>
 </ul>
 <p>使用 L3VNI 时还需要：</p>
 <ul class="simple">
-<li><p>已启用 <code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code>，目标 VPN-instance 已配置 RD、RT 和 <code class="docutils literal notranslate"><span class="pre">vxlan</span> <span class="pre">vni</span></code>；</p></li>
+<li><p>已创建目标 VPN-instance，并配置对应地址族的 RD、RT 和 <code class="docutils literal notranslate"><span class="pre">vxlan</span> <span class="pre">vni</span></code>；</p></li>
 <li><p>对应 BGP VPN-instance IPv4/IPv6 地址族已配置 <code class="docutils literal notranslate"><span class="pre">advertise</span> <span class="pre">l2vpn</span> <span class="pre">evpn</span></code>；</p></li>
 <li><p>待发布前缀已通过直连、静态或动态路由进入该 VPN-instance。</p></li>
 </ul>
@@ -168,120 +205,7 @@ VPP 已有的 VXLAN、bridge-domain 和 L2 FIB 也不会复制一套数据面。
 同一个 NVE 源地址及 underlay VPN-instance；每个 VNI 只能由一个 NVE 接口拥有。</p>
 </section>
 <section id="id3">
-<span id="二层业务实验"></span><h2>二层业务实验<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>从 <a class="reference internal" href="../../examples/evpn/"><span class="std std-doc">VXLAN EVPN 案例</span></a>配置 P1、P2、P3，核对真实 Type-2/Type-3 路由及两个 VNI 的转发和撤销。</p>
-</section>
-<section id="l3vni-type-5">
-<span id="l3vni-与-type-5"></span><h2>L3VNI 与 Type-5<a class="headerlink" href="#l3vni-type-5" title="链接到此标题。"></a></h2>
-<p>下面在 P1 的 BLUE 租户中配置 L3VNI 50000，并把直连 IPv4/IPv6 前缀发布为 EVPN
-Type-5。P3 使用相同 VNI/RT、不同 RD 和本地地址；其余 underlay 与 EVPN peer 配置
-沿用前述拓扑。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip vpn-instance BLUE
- vxlan vni 50000
- ipv4-family
-  route-distinguisher 65000:50001
-  vpn-target 65000:50000 both
- quit
-quit
-interface LoopBack 100
- ip binding vpn-instance BLUE
- ip address 172.16.1.1 255.255.255.255
- ipv6 address 2001:db8:1::1 128
-quit
-bgp 65000
- ipv4-family vpn-instance BLUE
-  import-route direct
-  advertise l2vpn evpn
- quit
- ipv6-family vpn-instance BLUE
-  import-route direct
-  advertise l2vpn evpn
- quit
-quit
-commit
-</pre></div>
-</div>
-<p>P3 对应地址为 <code class="docutils literal notranslate"><span class="pre">172.16.3.3/32</span></code>、<code class="docutils literal notranslate"><span class="pre">2001:db8:3::3/128</span></code>，RD 为
-<code class="docutils literal notranslate"><span class="pre">65000:50003</span></code>。使用以下命令检查 Type-5 和租户路由：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp evpn all routing-table
-display ip routing-table vpn-instance BLUE
-display ipv6 routing-table vpn-instance BLUE
-display health
-</pre></div>
-</div>
-<p>完整双租户、双栈、撤销恢复和 VPP 重启验收入口为：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VORTEXROS_BIN=/path/to/current/vortexros tests/run-p1-p2-p3-evpn-type5.sh
-</pre></div>
-</div>
-</section>
-<section id="evpn-all-active">
-<span id="evpn-all-active-多归属"></span><h2>EVPN All-Active 多归属<a class="headerlink" href="#evpn-all-active" title="链接到此标题。"></a></h2>
-<p>All-Active 多归属使用同一 ESI 把 CE 同时接入 P1、P2，P3 作为远端 PE，P4 作为
-Route Reflector。FRR 负责 Type-1/Type-4、DF 选举和 EVPN 路径选择；switchd 维护
-Linux 控制对象；LCP 只负责在 Linux/FRR 与 VPP 之间传递多归属状态；VPP 执行
-MAC ECMP、非 DF BUM 过滤、local-bias、split-horizon 和故障切换。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>                  P4 (RR)
-                 /       \
-CE1 == Eth-Trunk1 == P1   P2 == Eth-Trunk1 == CE1
-                         \
-                          P3 -- CE2
-</pre></div>
-</div>
-<p>P1、P2 的 CE 侧 Eth-Trunk 使用相同 ESI。以下为 P1 示例；P2 使用相同 ESI、VLAN、
-VNI 和 RT，但使用自己的 RD、VTEP 地址及物理成员：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-enable switch
-evpn-overlay enable
-vlan 101
-bridge-domain 101
- l2 binding vlan 101
- vxlan vni 5010
- evpn
-  route-distinguisher 65000:101
-  vpn-target 65000:5010 both
- quit
-quit
-interface Eth-Trunk 1
- mode manual
- trunkport Ethernet 2
- portswitch
- port link-type trunk
- port trunk allow-pass vlan 101
- port trunk pvid vlan 101
- esi 0000.0000.0000.0000.0001
-quit
-interface Nve 1
- source 10.255.0.1
- vni 5010 head-end peer-list protocol bgp
-quit
-bgp 65000
- peer 10.255.0.4 as-number 65000
- peer 10.255.0.4 connect-interface LoopBack 0
- l2vpn-family evpn
-  peer 10.255.0.4 enable
- quit
-quit
-commit
-</pre></div>
-</div>
-<p>Underlay 必须能分别到达 P1、P2、P3 的 VTEP；多归属 VTEP 当前使用 IPv4。P4
-按普通 EVPN RR 配置，对 P1、P2、P3 启用 <code class="docutils literal notranslate"><span class="pre">l2vpn-family</span> <span class="pre">evpn</span></code> 并配置反射客户端。</p>
-<p>使用以下命令确认 Type-1/Type-4、DF、远端 MAC ECMP 和设备健康：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp evpn all routing-table
-display mac-address
-display interface Eth-Trunk 1
-display health
-</pre></div>
-</div>
-<p>链路故障验收必须同时确认：故障成员退出本地 ES、远端 NHG 缩减为单成员、业务仍然
-连通；链路恢复后 NHG 恢复双成员。VPP 冷重启验收必须确认本地 ES、远端 NHG 和
-业务转发均恢复，不能只以其他 PE 仍能转发作为成功依据。完整入口为：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VORTEXROS_BIN=/path/to/current/vortexros tests/run-p1-p2-p3-p4-evpn-mh.sh
-</pre></div>
-</div>
-</section>
-<section id="id4">
-<span id="当前范围"></span><h2>当前范围<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<span id="当前范围"></span><h2>当前范围<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>当前支持单归属和 All-Active 多归属 L2VNI、L3VNI、Type-1/Type-2/Type-3/
 Type-4/Type-5、IPv4/IPv6 MAC/IP 和租户前缀、ARP/ND 抑制、共享 SVD 多 VNI、
 远端 MAC 迁移、MAC ECMP、DF 选举、非 DF BUM 过滤、local-bias、split-horizon，
@@ -306,7 +230,7 @@ All-Active ES 与 DF 选举；</p></li>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../vxlan/" class="btn btn-neutral float-left" title="VXLAN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../10-mpls-l3vpn/" class="btn btn-neutral float-right" title="MPLS" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../evpn/l2vpn/" class="btn btn-neutral float-right" title="L2VPN" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

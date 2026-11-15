@@ -1,21 +1,6 @@
 # 性能测试
 
-下列数据来自不同的测试环境。控制层 CLI 耗时、隔离 memif 实收速率和上游 PDR 分别报告。
-
-## 控制层
-
-| 真实 CLI，3,200 条 ACL 规则 | Debug 4 | Debug 5 |
-| --- | ---: | ---: |
-| MTU 编辑，三次中位数 | 54.20 ms | 34.67 ms |
-| 显式 Candidate 刷新，单次对照 | 118.36 ms | 39.49 ms |
-
-成对测试由夹具发布新的 Running。由第二个真实 CLI 会话提交后，第一会话另一次显式刷新为 43.09 ms。[Debug 5 发布记录](https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug5)
-
-Debug 4 的 IPv4/IPv6 FIB 分别用 50,000 条路由对照组合过滤，输出保持逐字节一致。IPv4 CLI 峰值内存从 58–76 MiB 降为 49–50 MiB，IPv6 从 127–142 MiB 降为 52–54 MiB。范围对应不同过滤组合。[Debug 4 测试记录](https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug4)
-
-## VPP 隔离测试
-
-双 VPP memif 升载和恢复测试的最高实收约为 **6.67 Mpps**。持续学习期间触发 MAC 扫描，L2FIB 计数与逐条读回均为 3,707。该样本未命中 handoff 拥塞与 worker refork 的精确交错，也未在 MAC 扫描内部插桩。结果适用于该隔离拓扑。
+0.29-dev本轮未进行新的吞吐、满表或跨版本性能测试。此前试验版本的产品对比表不再在正式手册发布。以下仅保留明确标注来源的上游性能参考，不能作为VortexROS或自有插件的性能保证。
 
 ## FD.io CSIT
 

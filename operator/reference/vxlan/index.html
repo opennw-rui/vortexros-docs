@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VXLAN &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>VXLAN &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/vxlan/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -164,6 +164,52 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>local VTEP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>source</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SRC</span></code></p></td>
+<td><p>source IP</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>SRC</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer</span></code></p></td>
+<td><p>remote VTEP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>peer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DST</span></code></p></td>
+<td><p>peer IP</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>DST</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vni</span></code></p></td>
+<td><p>filter by VNI</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>vni</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VNI</span></code></p></td>
+<td><p>VXLAN network identifier</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-vxlan-tunnel">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vxlan</span> <span class="pre">tunnel</span></code><a class="headerlink" href="#display-vxlan-tunnel" title="链接到此标题。"></a></h2>
@@ -177,6 +223,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>tunnel id (sw_if_index)</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-vni">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vni</span></code><a class="headerlink" href="#undo-vni" title="链接到此标题。"></a></h2>
@@ -190,6 +257,54 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/nve
+还受当前对象/配置条件限制；以本视图 ? 为准</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VNI</span></code></p></td>
+<td><p>VXLAN VNI</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>VNI</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">head-end</span></code></p></td>
+<td><p>head-end replication</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>head-end</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer-list</span></code></p></td>
+<td><p>remote VTEP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>peer-list</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PEER</span></code></p></td>
+<td><p>Remote VTEP IP address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>peer-list</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">protocol</span></code></p></td>
+<td><p>dynamic peer discovery</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>protocol</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bgp</span></code></p></td>
+<td><p>BGP EVPN</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-vxlan-anycast-gateway-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vxlan</span> <span class="pre">anycast-gateway</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-vxlan-anycast-gateway-enable" title="链接到此标题。"></a></h2>
@@ -203,6 +318,14 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：vbdif
+适用分区：interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-vxlan-vni">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vxlan</span> <span class="pre">vni</span></code><a class="headerlink" href="#undo-vxlan-vni" title="链接到此标题。"></a></h2>
@@ -216,6 +339,15 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code></strong></p>
+<p>此形式没有额外参数。</p>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></strong></p>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="vni">
 <h2><code class="docutils literal notranslate"><span class="pre">vni</span></code><a class="headerlink" href="#vni" title="链接到此标题。"></a></h2>
@@ -229,6 +361,54 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/nve
+还受当前对象/配置条件限制；以本视图 ? 为准</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VNI</span></code></p></td>
+<td><p>VXLAN VNI</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>VNI</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">head-end</span></code></p></td>
+<td><p>head-end replication</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>head-end</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer-list</span></code></p></td>
+<td><p>remote VTEP list</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>peer-list</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PEER</span></code></p></td>
+<td><p>Remote VTEP IP address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>peer-list</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">protocol</span></code></p></td>
+<td><p>dynamic peer discovery</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>protocol</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bgp</span></code></p></td>
+<td><p>BGP EVPN</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="vxlan-anycast-gateway-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">vxlan</span> <span class="pre">anycast-gateway</span> <span class="pre">enable</span></code><a class="headerlink" href="#vxlan-anycast-gateway-enable" title="链接到此标题。"></a></h2>
@@ -242,6 +422,14 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：vbdif
+适用分区：interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="vxlan-vni">
 <h2><code class="docutils literal notranslate"><span class="pre">vxlan</span> <span class="pre">vni</span></code><a class="headerlink" href="#vxlan-vni" title="链接到此标题。"></a></h2>
@@ -255,6 +443,45 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VNI</span></code></p></td>
+<td><p>VXLAN network identifier</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-16777215&gt;</span></code></p></td>
+<td><p>VXLAN network identifier</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

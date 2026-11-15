@@ -4,13 +4,13 @@
 
 ## 使用单文件安装包
 
-从[Debug 9 发布页](https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug9)下载 `.run` 和 `SHA256SUMS`，核对校验值。更新前在 CLI 执行 `save`，确认当前配置和服务收敛，然后运行：
+从[项目Release](https://github.com/opennw-rui/VortexROS/releases)或已提供的0.29-dev候选包位置取得 `.run` 和 `SHA256SUMS`，核对校验值。更新前在 CLI 执行 `save`，确认当前配置和服务收敛，然后运行：
 
 ~~~bash
 sha256sum -c SHA256SUMS
-sudo sh ./vortexros_0.28-dev-debug9_amd64.run --check-only
-sudo sh ./vortexros_0.28-dev-debug9_amd64.run --simulate
-sudo sh ./vortexros_0.28-dev-debug9_amd64.run
+sudo sh ./vortexros-0.29-dev-run1-amd64.run --check-only
+sudo sh ./vortexros-0.29-dev-run1-amd64.run --simulate
+sudo sh ./vortexros-0.29-dev-run1-amd64.run
 ~~~
 
 检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。后端版本相同则保留对应包和进程；后端版本变化时安装器重启受影响的服务，需预留相应的业务中断窗口。
@@ -21,7 +21,7 @@ sudo sh ./vortexros_0.28-dev-debug9_amd64.run
 
 安装器从上次保留的系统包、本地软件包目录或 APT 缓存取得待更新组件的精确旧版本包。统一 `.run` 入口不要求预先创建 `/VortexROS/install`。缺少回退材料时，预检会报告实际缺少的包名和版本。
 
-Debug 9 在预检中逐项检查 `vortexros.target`、FRR、route-zapi、switchd 和 vortexrosd；观察期间逐项检查四个关键服务，并验证配置、数据面和严格健康状态。最后一次严格健康采样后，还会再次核对服务与数据面不变量。服务刚停时，daemon 的健康快照可能尚未刷新，不能只看一个 ready 结果。
+安装器在预检中逐项检查 `vortexros.target`、FRR、route-zapi、switchd 和 vortexrosd；观察期间逐项检查四个关键服务，并验证配置、数据面和严格健康状态。最后一次严格健康采样后，还会再次核对服务与数据面不变量。服务刚停时，daemon 的健康快照可能尚未刷新，不能只看一个 ready 结果。
 
 默认目标版本稳定观察为 **180 秒**，回退版本稳定观察为 **90 秒**。目标失败时自动尝试回退。用 CLI 查看事务：
 
@@ -47,7 +47,7 @@ simulate system-software package /VortexROS/install/vortexros-system_VERSION_amd
 upgrade system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
 ~~~
 
-主动回退用 `rollback system-software package TARGET.tar`，旧版 `.run` 也可作为更新目标。目标必须能读取当前启动 CFG，并具备当前已安装版本的精确回退材料。较早的 Debug 6 无法读取包含 Debug 7 受管账号的 CFG，需保留原文件并选择兼容的启动配置，操作时保留独立救援入口。
+主动回退用 `rollback system-software package TARGET.tar`，旧版 `.run` 也可作为更新目标。目标必须能读取当前启动 CFG，并具备当前已安装版本的精确回退材料。本手册从0.29-dev开始维护，不提供此前试验版本的配置迁移保证；操作时保留独立救援入口。
 
 首次安装恢复材料可用时，且尚未执行数据面重置，可按安装器说明执行 `sudo vortexros-safe-upgrade --restore-install` 恢复首次安装前状态。
 

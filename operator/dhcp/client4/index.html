@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPv4 客户端 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dhcp/client4/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="DHCPv6" href="../ipv6/" />
+    <link rel="prev" title="IPv4 服务端" href="../server4/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../08-network-services/">网络服务</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../">DHCP</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../server4/">IPv4 服务端</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">IPv4 客户端</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ipv6/">DHCPv6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../relay/">中继</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../leases/">租约查询</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../08-network-services/">网络服务</a></li>
+          <li class="breadcrumb-item"><a href="../">DHCP</a></li>
+      <li class="breadcrumb-item active">IPv4 客户端</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ipv4">
+<span id="ipv4-客户端"></span><h1>IPv4 客户端<a class="headerlink" href="#ipv4" title="链接到此标题。"></a></h1>
+<section id="dhcpv4">
+<span id="dhcpv4客户端"></span><h2>DHCPv4客户端<a class="headerlink" href="#dhcpv4" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
+ ip address dhcp-alloc
+commit
+display dhcp client
+</pre></div>
+</div>
+<p>客户端只接收和维护IPv4地址、默认路由、classless route及租约生命周期。撤销：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
+ undo ip address dhcp-alloc
+commit
+</pre></div>
+</div>
+<p>VPP启用时，DHCP客户端运行在VPP为业务接口建立的LCP host接口上。报文仍通过对应VPP物理接口收发，客户端不会重新绑定、独占或接管物理网卡。这样IPv4与IPv6租约采用同一套生命周期、VRF、撤销和重启恢复逻辑，并且可以完整处理默认路由和classless route。租约中的DNS选项不写入Linux系统解析配置。</p>
+<p>接口<code class="docutils literal notranslate"><span class="pre">shutdown</span></code>只暂停对应的DHCP client、relay和PD运行单元，配置意图仍保留。子接口还继承父接口的有效管理状态：父接口关闭时子接口单元同时暂停；父接口恢复后，只有自身未配置<code class="docutils literal notranslate"><span class="pre">shutdown</span></code>的子接口才按原配置恢复。该行为不删除租约配置，也不会把显式关闭的子接口强制拉起。</p>
+<p>默认会安装 DHCP 学习到的默认路由，默认优先级为 60。该值用于与其他协议路由比较；数值越小越优先，不是路由的 Cost。可以调整优先级，或显式禁止默认路由：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
+ dhcp client default-route preference 80
+ # 如不需要上游默认路由：
+ undo dhcp client default-route enable
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<span id="路由与撤销验证"></span><h2>路由与撤销验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>本轮隔离拓扑实测设置 default-route preference 80 后，路由摘要显示 Kernel、Pre 80、Cost 0。
+加入同前缀的静态默认路由时，优先级 90 保留 DHCP 选路，优先级 60 改选静态路由；
+撤销静态路由后恢复 DHCP。验证时应同时查看路由表、实际 FIB 和连通性，不能只看配置。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp client interface Ethernet0
+display ip routing-table 0.0.0.0
+display ip fib | include 0.0.0.0/0
+</pre></div>
+</div>
+<p>接口名请替换为实际客户端接口。撤销客户端后，原租约地址、客户端安装的路由和 FIB 投影均应清除；
+保留接口本身和其他来源的静态地址。租约记录在资源清理失败时保留以便继续清理，错误会返回给提交方。
+不应把进程已经停止当作地址和路由都已撤销。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ undo ip address dhcp-alloc
+ quit
+commit
+display dhcp client interface Ethernet0
+display interface Ethernet0
+display ip fib
+</pre></div>
+</div>
+<p>本轮真实终端验证了上述撤销链，Linux 路由和 VPP FIB 均不再保留 DHCP 默认路径。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">DHCP 功能与开关</span></a> · <a class="reference internal" href="../../reference/dhcp/"><span class="std std-doc">逐条命令参数</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../server4/" class="btn btn-neutral float-left" title="IPv4 服务端" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ipv6/" class="btn btn-neutral float-right" title="DHCPv6" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VPN 实例 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>VPN 实例 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/vrf/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -164,6 +164,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>show interface binding</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>show verbose information</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-ip-vpn-instance-interface">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span> <span class="pre">interface</span></code><a class="headerlink" href="#display-ip-vpn-instance-interface" title="链接到此标题。"></a></h2>
@@ -177,6 +208,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="display-ip-vpn-instance-verbose">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span> <span class="pre">verbose</span></code><a class="headerlink" href="#display-ip-vpn-instance-verbose" title="链接到此标题。"></a></h2>
@@ -190,6 +227,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="ip-binding-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">binding</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#ip-binding-vpn-instance" title="链接到此标题。"></a></h2>
@@ -204,6 +247,28 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ip-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#ip-vpn-instance" title="链接到此标题。"></a></h2>
@@ -217,6 +282,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ipv4-family">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span></code><a class="headerlink" href="#ipv4-family" title="链接到此标题。"></a></h2>
@@ -230,6 +316,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+还受当前对象/配置条件限制；以本视图 ? 为准</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="ipv6-family">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span></code><a class="headerlink" href="#ipv6-family" title="链接到此标题。"></a></h2>
@@ -243,6 +336,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+还受当前对象/配置条件限制；以本视图 ? 为准</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="route-distinguisher">
 <h2><code class="docutils literal notranslate"><span class="pre">route-distinguisher</span></code><a class="headerlink" href="#route-distinguisher" title="链接到此标题。"></a></h2>
@@ -256,6 +356,45 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">bridge-domain-evpn</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RD</span></code></p></td>
+<td><p>route distinguisher</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">vpn-instance,</span> <span class="pre">vpn-family</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RD</span></code></p></td>
+<td><p>route distinguisher (A:B)</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-ip-binding-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">binding</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-ip-binding-vpn-instance" title="链接到此标题。"></a></h2>
@@ -269,6 +408,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-ip-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-ip-vpn-instance" title="链接到此标题。"></a></h2>
@@ -282,6 +428,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-ipv4-family">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span></code><a class="headerlink" href="#undo-ipv4-family" title="链接到此标题。"></a></h2>
@@ -295,6 +462,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-ipv6-family">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span></code><a class="headerlink" href="#undo-ipv6-family" title="链接到此标题。"></a></h2>
@@ -308,6 +481,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-route-distinguisher">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route-distinguisher</span></code><a class="headerlink" href="#undo-route-distinguisher" title="链接到此标题。"></a></h2>
@@ -321,6 +500,15 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">bridge-domain-evpn</span></code></strong></p>
+<p>此形式没有额外参数。</p>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">vpn-instance,</span> <span class="pre">vpn-family</span></code></strong></p>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-vpn-target">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vpn-target</span></code><a class="headerlink" href="#undo-vpn-target" title="链接到此标题。"></a></h2>
@@ -337,6 +525,70 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">bridge-domain-evpn</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RT</span></code></p></td>
+<td><p>route target</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">export-extcommunity</span></code></p></td>
+<td><p>export route target</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">import-extcommunity</span></code></p></td>
+<td><p>import route target</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">vpn-instance,</span> <span class="pre">vpn-family</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RT</span></code></p></td>
+<td><p>VPN target (A:B)</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">export-extcommunity</span></code></p></td>
+<td><p>export route target</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">import-extcommunity</span></code></p></td>
+<td><p>import route target</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">both</span></code></p></td>
+<td><p>both import and export</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="vpn-target">
 <h2><code class="docutils literal notranslate"><span class="pre">vpn-target</span></code><a class="headerlink" href="#vpn-target" title="链接到此标题。"></a></h2>
@@ -353,6 +605,70 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">bridge-domain-evpn</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RT</span></code></p></td>
+<td><p>route target</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">export-extcommunity</span></code></p></td>
+<td><p>export route target</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">import-extcommunity</span></code></p></td>
+<td><p>import route target</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">vpn-instance,</span> <span class="pre">vpn-family</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RT</span></code></p></td>
+<td><p>VPN target (A:B)</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">export-extcommunity</span></code></p></td>
+<td><p>export route target</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">import-extcommunity</span></code></p></td>
+<td><p>import route target</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>RT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">both</span></code></p></td>
+<td><p>both import and export</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

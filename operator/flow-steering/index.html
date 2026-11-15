@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flow Steering &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>Flow Steering &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/flow-steering/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -61,7 +61,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Flow Steering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">三层子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../qinq/">QinQ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
@@ -87,9 +87,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -137,6 +137,12 @@ display flow-steering interface Ethernet 1
 commit
 </pre></div>
 </div>
+</section>
+<section id="id2">
+<span id="开发服务器实测"></span><h2>开发服务器实测<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>两端 GRE Tunnel30，入口为 host-p2a12。P2 使用 main CPU2、worker CPU3-4。真实 CLI 启用后显示 active/inner-flow，健康 ready；P1 的 GRE 探测 4/4。原生累计 GRE 命中从 1 到 6，handoff/resume 从 1 到 2，handoff-drop 为 0。背景控制报文也在运行，不能将计数差全部归于四个探测包。</p>
+<p>单 worker inactive 和双 worker active 是不同验收条件。完整配置与删除应同时检查 CLI 状态、实际流量和后端回读；不能把保留配置但未激活当作多 worker 已验证。</p>
+<p>最终配套 26.10.6 包实际加载后，同一双 worker 拓扑启用及撤销均首次提交成功，启用前后探测各 2/2；撤销后原生与 CLI 一致为空，健康 ready、零告警。GET 回复的局部修复不改变 handoff 数据面算法。</p>
 </section>
 </section>
 

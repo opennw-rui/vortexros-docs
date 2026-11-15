@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RIPng &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>RIPng &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ripng/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="BFD" href="../bfd/" />
-    <link rel="prev" title="RIP" href="../rip/" /> 
+    <link rel="next" title="进程与发布" href="activation/" />
+    <link rel="prev" title="接口重建与重放" href="../rip/recovery/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -65,7 +65,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">RIPng</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RIPng</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="activation/">进程与发布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="policy/">汇总与度量偏移</a></li>
+<li class="toctree-l3"><a class="reference internal" href="queries/">查询与撤销</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../routing-query/">路由查询</a></li>
@@ -86,9 +91,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -118,41 +123,28 @@
              
   <section id="ripng">
 <h1>RIPng<a class="headerlink" href="#ripng" title="链接到此标题。"></a></h1>
-<p>使用 RIPng 在 IPv6 网络交换路由。路由使用后端默认优先级 120。</p>
-<p><a class="reference internal" href="../reference/ripng/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/ripng/"><span class="std std-doc">配置案例</span></a></p>
-<section id="id1">
-<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ripng 2 vpn-instance BLUE
- network 2001:db8:100::/64
- import-route static
- default-route originate
-</pre></div>
+<p>在 IPv6 网络交换路由，默认路由优先级100，当前没有独立 preference 命令；不能把协议内部跳数当作系统优先级。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="activation/">进程与发布</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="activation/#id2">配置</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="policy/">汇总与度量偏移</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queries/">查询与撤销</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="queries/#id2">验证与撤销</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<p>RIPng视图中的<code class="docutils literal notranslate"><span class="pre">import-route</span> <span class="pre">ospf</span></code>表示导入OSPFv3路由，系统会映射到后端的IPv6协议名称。</p>
-<p>在 RIPng 进程视图用 <code class="docutils literal notranslate"><span class="pre">aggregate-address</span> <span class="pre">2001:db8:100::/48</span></code> 配置汇总。
-提交后可在邻居的 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ripng</span> <span class="pre">&lt;进程号&gt;</span> <span class="pre">route</span></code> 核对收到的前缀。
-用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">aggregate-address</span> <span class="pre">2001:db8:100::/48</span></code> 并提交撤销。</p>
-<p><code class="docutils literal notranslate"><span class="pre">offset-list</span> <span class="pre">&lt;IPv6</span> <span class="pre">ACL&gt;</span> <span class="pre">in</span> <span class="pre">4</span> <span class="pre">interface</span> <span class="pre">&lt;接口&gt;</span></code> 可调整匹配入向路由的度量，
-<code class="docutils literal notranslate"><span class="pre">out</span></code> 用于出向，省略接口时应用于该进程。ACL 规则只可用 permit 或 deny 匹配
-IPv6 源前缀，该前缀在这里对应路由目的前缀。已引用的 ACL 须保留至少一条规则。用
-<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">offset-list</span> <span class="pre">in</span> <span class="pre">interface</span> <span class="pre">&lt;接口&gt;</span></code> 撤销，提交后在 RIPng 路由表核对度量。</p>
-</section>
-<section id="id2">
-<span id="验证与撤销"></span><h2>验证与撤销<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ripng 2 interface
-display ripng 2 route
-</pre></div>
-</div>
-<p>执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ripng</span> <span class="pre">2</span> <span class="pre">vpn-instance</span> <span class="pre">BLUE</span></code> 并提交会删除该进程。</p>
-</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../rip/" class="btn btn-neutral float-left" title="RIP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../bfd/" class="btn btn-neutral float-right" title="BFD" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../rip/recovery/" class="btn btn-neutral float-left" title="接口重建与重放" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="activation/" class="btn btn-neutral float-right" title="进程与发布" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>静态路由组 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>静态路由组 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/route-groups/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="路由表与 FIB" href="../routing-tables/" />
-    <link rel="prev" title="静态路由" href="../static-routing/" /> 
+    <link rel="next" title="本地路由组" href="local/" />
+    <link rel="prev" title="收敛与精确撤销" href="../static-routing/lifecycle/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -59,7 +59,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../04-ip-routing/">IP 路由</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">静态路由组</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">静态路由组</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="local/">本地路由组</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sources/">文件与 URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="updates/">增量更新</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../routing-tables/">路由表与 FIB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
 </ul>
@@ -80,9 +85,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -114,70 +119,30 @@
 <span id="静态路由组"></span><h1>静态路由组<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <p>为大量前缀共用下一跳与路由属性。</p>
 <p><a class="reference internal" href="../reference/route-groups/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/route-group/"><span class="std std-doc">配置案例</span></a></p>
-<section id="id2">
-<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>静态路由组用于让大量前缀共用相同的下一跳、出接口、VPN、Preference和Tag。配置中只保留路由组及其绑定关系，不会把十万条成员展开成同样数量的普通静态路由命令。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-static group name CDN
- description CDN-PREFIXES
- route 198.18.0.0/24
- route 198.18.1.1
-#
-ip route-static-group CDN 192.0.2.1 preference 60 tag 100
-</pre></div>
-</div>
-<p>裸IPv4规范为<code class="docutils literal notranslate"><span class="pre">/32</span></code>，裸IPv6规范为<code class="docutils literal notranslate"><span class="pre">/128</span></code>，输入掩码后配置统一显示CIDR。手工成员自动去重。</p>
-<section id="url">
-<span id="文件成员与url成员"></span><h3>文件成员与URL成员<a class="headerlink" href="#url" title="链接到此标题。"></a></h3>
-<p>路由组的外部列表统一存放在：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/VortexROS/route-static-groupd
-</pre></div>
-</div>
-<p>管理员可先把每行一个CIDR的文件放到该目录，再在路由组视图中选择。<code class="docutils literal notranslate"><span class="pre">?</span></code>和Tab只列出目录顶层的普通文件，不接受子目录、符号链接或包含路径分隔符的名称：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-static group name CDN
- source file cdn-v4.txt
-</pre></div>
-</div>
-<p>首次<code class="docutils literal notranslate"><span class="pre">commit</span></code>会解析、规范化并生成不可变运行快照。之后直接修改原文件不会绕过配置事务改变现网；执行下面的命令才会重新读取、显示进度并增量更新路由：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset route-static group name CDN
-</pre></div>
-</div>
-<p>URL与本地文件互斥。URL下载后的原始物化结果和元数据也由系统存放在同一目录的受管子目录中：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-static group name CDN
- source url https://lists.example.net/cdn-v4.txt vpn-instance BLUE
- auto-refresh enable
- auto-refresh interval 4320
-</pre></div>
-</div>
-<p>URL默认必须使用HTTPS。只有明确接受明文传输的受控环境才可配置
-<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">url</span> <span class="pre">http://192.0.2.10/routes.txt</span> <span class="pre">insecure</span></code>；HTTPS来源不允许经重定向降级为HTTP。</p>
-<p>两种来源的内容均为每行一个CIDR，空行和整行<code class="docutils literal notranslate"><span class="pre">#</span></code>注释跳过；任一非法行使新版本整体失效。手工与外部成员取并集。本地文件不支持<code class="docutils literal notranslate"><span class="pre">auto-refresh</span></code>；URL可按配置定时刷新。</p>
-<p>首次配置URL后，执行全局 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 会显示连接、下载、检查、应用和完成等进度；只有文件下载并检查成功后配置才会生效。后续普通commit不会重复下载：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset route-static group name CDN
-display route-static group name CDN verbose
-display ip routing-table-group name CDN verbose
-</pre></div>
-</div>
-<p>Ctrl+C只停止当前终端的进度显示，不取消设备正在执行的更新，也不关闭SSH。</p>
-</section>
-</section>
-<section id="id3">
-<span id="路由组增量修改"></span><h2>路由组增量修改<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<ul class="simple">
-<li><p>一个成员变化只影响“该前缀×引用该组的绑定”；</p></li>
-<li><p>一个绑定变化只处理该组成员；</p></li>
-<li><p>普通静态路由和多个路由组产生完全相同的路径和属性时，设备只保留一条有效路由；</p></li>
-<li><p>路径相同但Preference、Tag等不同会报告冲突；</p></li>
-<li><p>增加或删除单个成员时，只更新该成员所影响的路由，不重新加载整个路由组。</p></li>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="local/">本地路由组</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="local/#id2">配置</a></li>
 </ul>
-</section>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sources/">文件与 URL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sources/#id1">文件成员与URL成员</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="updates/">增量更新</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="updates/#id2">路由组增量修改</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../static-routing/" class="btn btn-neutral float-left" title="静态路由" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../routing-tables/" class="btn btn-neutral float-right" title="路由表与 FIB" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../static-routing/lifecycle/" class="btn btn-neutral float-left" title="收敛与精确撤销" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="local/" class="btn btn-neutral float-right" title="本地路由组" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

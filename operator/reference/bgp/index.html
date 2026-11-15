@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BGP &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>BGP &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/bgp/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -165,6 +165,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>AS number in asplain format (number&lt;1-4294967295&gt;)</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">STRING&lt;3-11&gt;</span></code></p></td>
+<td><p>AS number in asdot format (number&lt;1-65535&gt;.number&lt;0-65535&gt;)</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="default-ipv4-unicast">
 <h2><code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">ipv4-unicast</span></code><a class="headerlink" href="#default-ipv4-unicast" title="链接到此标题。"></a></h2>
@@ -178,6 +204,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="default-tcp-protected">
 <h2><code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">tcp-protected</span></code><a class="headerlink" href="#default-tcp-protected" title="链接到此标题。"></a></h2>
@@ -191,6 +223,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="display-bgp">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span></code><a class="headerlink" href="#display-bgp" title="链接到此标题。"></a></h2>
@@ -205,6 +243,227 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bfd</span></code></p></td>
+<td><p>Bidirectional forwarding detection</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">evpn</span></code></p></td>
+<td><p>EVPN address family</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>evpn</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">all</span></code></p></td>
+<td><p>All EVPN instances</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>all</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">routing-table</span></code></p></td>
+<td><p>EVPN routing table</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>routing-table</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mac-route</span></code></p></td>
+<td><p>MAC advertisement routes</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>routing-table</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inclusive-route</span></code></p></td>
+<td><p>Inclusive multicast routes</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">group</span></code></p></td>
+<td><p>Peer groups</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span></code></p></td>
+<td><p>IPv6 unicast address family</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>DISPLAY-VRF / all / ipv6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer</span></code></p></td>
+<td><p>A BGP neighbor</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>peer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>Neighbor address</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">log-info</span></code></p></td>
+<td><p>Log information</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">orf</span></code></p></td>
+<td><p>Outbound route filter capability</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>orf</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ip-prefix</span></code></p></td>
+<td><p>Outbound route filter based on IP prefix</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>Verbose information</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>peer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X:X::X</span></code></p></td>
+<td><p>IPv6 neighbor address</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>peer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>Verbose information</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>DISPLAY-VRF / all / ipv6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">routing-table</span></code></p></td>
+<td><p>BGP routing table</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>routing-table</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer</span></code></p></td>
+<td><p>Peer routes</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>peer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>IPv4 peer address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">accepted-routes</span></code></p></td>
+<td><p>Routes accepted by routing policy</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">advertised-routes</span></code></p></td>
+<td><p>Routes advertised to the remote peer</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">received-routes</span></code></p></td>
+<td><p>Routes received from the remote peer</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>peer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X:X::X</span></code></p></td>
+<td><p>IPv6 peer address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>routing-table</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X:X::X</span></code></p></td>
+<td><p>Specify an IPv6 network address</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-128&gt;</span></code></p></td>
+<td><p>IPv6 prefix length</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>routing-table</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cidr</span></code></p></td>
+<td><p>Classless inter-domain routes</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>routing-table</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">statistics</span></code></p></td>
+<td><p>Route statistics</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">network</span></code></p></td>
+<td><p>Routes advertised through network command</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">paths</span></code></p></td>
+<td><p>Path attribute information</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer</span></code></p></td>
+<td><p>A BGP neighbor</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">routing-table</span></code></p></td>
+<td><p>BGP routing table</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>routing-table</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>Specify an IPv4 network address</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>X.X.X.X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-32&gt;</span></code></p></td>
+<td><p>Length of IP address mask</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>IPv4 network mask</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">update-peer-group</span></code></p></td>
+<td><p>Update peer group</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>update-peer-group</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">statistics</span></code></p></td>
+<td><p>Update group counters</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpnv4</span></code></p></td>
+<td><p>VPNv4 address family</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>vpnv4 / vpnv6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">all</span></code></p></td>
+<td><p>All VPN routes</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>vpnv4 / vpnv6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></p></td>
+<td><p>Specify a VPN instance</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>vpn-instance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DISPLAY-VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpnv6</span></code></p></td>
+<td><p>VPNv6 address family</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-bgp-tcp-protection">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">tcp-protection</span></code><a class="headerlink" href="#display-bgp-tcp-protection" title="链接到此标题。"></a></h2>
@@ -218,6 +477,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>include kernel ownership details</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="group">
 <h2><code class="docutils literal notranslate"><span class="pre">group</span></code><a class="headerlink" href="#group" title="链接到此标题。"></a></h2>
@@ -231,6 +511,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BGP-GROUP</span></code></p></td>
+<td><p>Case-sensitive peer-group name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>BGP-GROUP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">internal</span></code></p></td>
+<td><p>Create an internal peer-group</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>BGP-GROUP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external</span></code></p></td>
+<td><p>Create an external peer-group</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ipv4-family-unicast">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">unicast</span></code><a class="headerlink" href="#ipv4-family-unicast" title="链接到此标题。"></a></h2>
@@ -244,6 +555,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="ipv4-family-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#ipv4-family-vpn-instance" title="链接到此标题。"></a></h2>
@@ -257,6 +574,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VPN</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ipv4-family-vpnv4">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv4-family</span> <span class="pre">vpnv4</span></code><a class="headerlink" href="#ipv4-family-vpnv4" title="链接到此标题。"></a></h2>
@@ -270,6 +608,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="ipv6-family-unicast">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">unicast</span></code><a class="headerlink" href="#ipv6-family-unicast" title="链接到此标题。"></a></h2>
@@ -283,6 +627,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="ipv6-family-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#ipv6-family-vpn-instance" title="链接到此标题。"></a></h2>
@@ -296,6 +646,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VPN</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ipv6-family-vpnv6">
 <h2><code class="docutils literal notranslate"><span class="pre">ipv6-family</span> <span class="pre">vpnv6</span></code><a class="headerlink" href="#ipv6-family-vpnv6" title="链接到此标题。"></a></h2>
@@ -309,6 +680,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="load-balancing-as-path-ignore">
 <h2><code class="docutils literal notranslate"><span class="pre">load-balancing</span> <span class="pre">as-path-ignore</span></code><a class="headerlink" href="#load-balancing-as-path-ignore" title="链接到此标题。"></a></h2>
@@ -322,6 +699,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="maximum-paths">
 <h2><code class="docutils literal notranslate"><span class="pre">maximum-paths</span></code><a class="headerlink" href="#maximum-paths" title="链接到此标题。"></a></h2>
@@ -335,6 +718,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-256&gt;</span></code></p></td>
+<td><p>Number of paths</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="policy-vpn-target">
 <h2><code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code><a class="headerlink" href="#policy-vpn-target" title="链接到此标题。"></a></h2>
@@ -348,6 +752,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="reflect-between-clients">
 <h2><code class="docutils literal notranslate"><span class="pre">reflect</span> <span class="pre">between-clients</span></code><a class="headerlink" href="#reflect-between-clients" title="链接到此标题。"></a></h2>
@@ -361,6 +771,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="reflector-cluster-id">
 <h2><code class="docutils literal notranslate"><span class="pre">reflector</span> <span class="pre">cluster-id</span></code><a class="headerlink" href="#reflector-cluster-id" title="链接到此标题。"></a></h2>
@@ -374,6 +790,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>cluster ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="reset-service-bgp">
 <h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">bgp</span></code><a class="headerlink" href="#reset-service-bgp" title="链接到此标题。"></a></h2>
@@ -388,6 +825,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="timer-keepalive">
 <h2><code class="docutils literal notranslate"><span class="pre">timer</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#timer-keepalive" title="链接到此标题。"></a></h2>
@@ -401,6 +844,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-21845&gt;</span></code></p></td>
+<td><p>seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-21845&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hold</span></code></p></td>
+<td><p>hold time</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>hold</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-bgp">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bgp</span></code><a class="headerlink" href="#undo-bgp" title="链接到此标题。"></a></h2>
@@ -414,6 +888,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>AS number in asplain format (number&lt;1-4294967295&gt;)</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">STRING&lt;3-11&gt;</span></code></p></td>
+<td><p>AS number in asdot format (number&lt;1-65535&gt;.number&lt;0-65535&gt;)</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-default-ipv4-unicast">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default</span> <span class="pre">ipv4-unicast</span></code><a class="headerlink" href="#undo-default-ipv4-unicast" title="链接到此标题。"></a></h2>
@@ -427,6 +927,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-default-tcp-protected">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default</span> <span class="pre">tcp-protected</span></code><a class="headerlink" href="#undo-default-tcp-protected" title="链接到此标题。"></a></h2>
@@ -440,6 +946,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-group">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">group</span></code><a class="headerlink" href="#undo-group" title="链接到此标题。"></a></h2>
@@ -453,6 +965,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BGP-GROUP</span></code></p></td>
+<td><p>Case-sensitive peer-group name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-ipv4-family-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-ipv4-family-vpn-instance" title="链接到此标题。"></a></h2>
@@ -466,6 +999,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VPN</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-ipv4-family-vpnv4">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv4-family</span> <span class="pre">vpnv4</span></code><a class="headerlink" href="#undo-ipv4-family-vpnv4" title="链接到此标题。"></a></h2>
@@ -479,6 +1033,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-ipv6-family-unicast">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">unicast</span></code><a class="headerlink" href="#undo-ipv6-family-unicast" title="链接到此标题。"></a></h2>
@@ -492,6 +1052,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-ipv6-family-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-ipv6-family-vpn-instance" title="链接到此标题。"></a></h2>
@@ -505,6 +1071,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VPN</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-ipv6-family-vpnv6">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6-family</span> <span class="pre">vpnv6</span></code><a class="headerlink" href="#undo-ipv6-family-vpnv6" title="链接到此标题。"></a></h2>
@@ -518,6 +1105,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-load-balancing-as-path-ignore">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">load-balancing</span> <span class="pre">as-path-ignore</span></code><a class="headerlink" href="#undo-load-balancing-as-path-ignore" title="链接到此标题。"></a></h2>
@@ -531,6 +1124,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-maximum-paths">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">maximum-paths</span></code><a class="headerlink" href="#undo-maximum-paths" title="链接到此标题。"></a></h2>
@@ -544,6 +1143,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-policy-vpn-target">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">policy</span> <span class="pre">vpn-target</span></code><a class="headerlink" href="#undo-policy-vpn-target" title="链接到此标题。"></a></h2>
@@ -557,6 +1162,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-reflect-between-clients">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">reflect</span> <span class="pre">between-clients</span></code><a class="headerlink" href="#undo-reflect-between-clients" title="链接到此标题。"></a></h2>
@@ -570,6 +1181,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-reflector-cluster-id">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">reflector</span> <span class="pre">cluster-id</span></code><a class="headerlink" href="#undo-reflector-cluster-id" title="链接到此标题。"></a></h2>
@@ -583,6 +1200,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-timer-keepalive">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timer</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#undo-timer-keepalive" title="链接到此标题。"></a></h2>
@@ -596,6 +1219,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 </section>
 

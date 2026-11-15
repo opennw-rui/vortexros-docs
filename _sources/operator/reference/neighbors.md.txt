@@ -13,6 +13,19 @@
   arp proxy X.X.X.X X.X.X.X interface IFNAME
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | start IPv4 address | 输入值 |
+| X.X.X.X | `X.X.X.X` | end IPv4 address | 输入值 |
+| X.X.X.X | `interface` | incoming Layer-3 interface | 关键字 |
+| interface | `ARP-IF` | Layer-3 Ethernet ARP interface | 输入值 |
+
 ## `arp static`
 
 - 类别：配置命令
@@ -23,6 +36,19 @@
   ```text
   arp static IP MAC bridge-domain BD
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IP` | IPv4 address | 输入值 |
+| IP | `MAC` | MAC address | 输入值 |
+| MAC | `bridge-domain` | bridge-domain | 关键字 |
+| bridge-domain | `ID` | bridge-domain ID | 输入值 |
 
 ## `arp timeout`
 
@@ -35,6 +61,16 @@
   arp timeout INTEGER<60-86400>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<60-86400>` | aging time in seconds | 输入值 |
+
 ## `display arp`
 
 - 类别：只读显示命令
@@ -45,6 +81,22 @@
   ```text
   display arp [all | interface IF | vpn-instance VRF | static | dynamic]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `all` | all ARP entries including VPN instances | 可选 |
+| 命令后 | `interface` | ARP entries on an interface | 可选 |
+| interface | `IF` | interface name | 输入值 |
+| 命令后 | `vpn-instance` | ARP entries in a VPN instance | 可选 |
+| vpn-instance | `DISPLAY-VRF` | VPN instance name | 输入值 |
+| 命令后 | `static` | static ARP entries | 可选 |
+| 命令后 | `dynamic` | dynamic ARP entries | 可选 |
 
 ## `display arp proxy`
 
@@ -57,6 +109,14 @@
   display arp proxy
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `display ipv6 nd`
 
 - 类别：只读显示命令
@@ -67,6 +127,14 @@
   ```text
   display ipv6 nd
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
 
 ## `display ipv6 neighbors`
 
@@ -79,6 +147,22 @@
   display ipv6 neighbors [interface IF | vpn-instance VRF | static | dynamic]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IF` | interface name | 输入值、可选 |
+| 命令后 | `interface` | IPv6 neighbors on an interface | 可选 |
+| interface | `IF` | interface name | 输入值 |
+| 命令后 | `vpn-instance` | IPv6 neighbors in a VPN instance | 可选 |
+| vpn-instance | `DISPLAY-VRF` | VPN instance name | 输入值 |
+| 命令后 | `static` | static IPv6 neighbors | 可选 |
+| 命令后 | `dynamic` | dynamic IPv6 neighbors | 可选 |
+
 ## `ipv6 nd max-number`
 
 - 类别：配置命令
@@ -89,6 +173,16 @@
   ```text
   ipv6 nd max-number INTEGER<1-4294967295>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-4294967295>` | maximum IPv6 neighbor entries | 输入值 |
 
 ## `ipv6 nd recycle`
 
@@ -101,6 +195,17 @@
   ipv6 nd recycle { enable | disable }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `enable` | recycle the oldest dynamic entry | 关键字 |
+| 命令后 | `disable` | reject new entries at capacity | 关键字 |
+
 ## `ipv6 nd stale-timeout`
 
 - 类别：配置命令
@@ -112,6 +217,16 @@
   ipv6 nd stale-timeout INTEGER<60-172800>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<60-172800>` | aging time in seconds | 输入值 |
+
 ## `ipv6 neighbor`
 
 - 类别：配置命令
@@ -122,6 +237,19 @@
   ```text
   ipv6 neighbor IPV6 MAC interface IF
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IPV6` | IPv6 neighbor address | 输入值 |
+| IPV6 | `MAC` | unicast link-layer address | 输入值 |
+| MAC | `interface` | outgoing interface | 关键字 |
+| interface | `IF` | interface name | 输入值 |
 
 ## `reset ip arp`
 
@@ -135,6 +263,20 @@
   reset ip arp [interface TYPE N] [ip X.X.X.X]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | IPv4 ARP address | 输入值、可选、可组合 |
+| 命令后 | `interface` | select a Layer 3 interface | 可选、可组合 |
+| interface | `IF` | interface name or TYPE N | 输入值 |
+| 命令后 | `ip` | select one IPv4 ARP address | 可选、可组合 |
+| ip | `X.X.X.X` | IPv4 ARP address | 输入值 |
+
 ## `undo arp proxy`
 
 - 类别：配置命令
@@ -145,6 +287,19 @@
   ```text
   undo arp proxy X.X.X.X X.X.X.X interface IFNAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `X.X.X.X` | start IPv4 address | 输入值 |
+| X.X.X.X | `X.X.X.X` | end IPv4 address | 输入值 |
+| X.X.X.X | `interface` | incoming Layer-3 interface | 关键字 |
+| interface | `ARP-IF` | Layer-3 Ethernet ARP interface | 输入值 |
 
 ## `undo arp static`
 
@@ -157,6 +312,19 @@
   undo arp static IP MAC bridge-domain BD
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IP` | IPv4 address | 输入值 |
+| IP | `MAC` | MAC address | 输入值 |
+| MAC | `bridge-domain` | bridge-domain | 关键字 |
+| bridge-domain | `ID` | bridge-domain ID | 输入值 |
+
 ## `undo arp timeout`
 
 - 类别：配置命令
@@ -167,6 +335,14 @@
   ```text
   undo arp timeout
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo ipv6 nd max-number`
 
@@ -179,6 +355,14 @@
   undo ipv6 nd max-number
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo ipv6 nd recycle`
 
 - 类别：配置命令
@@ -189,6 +373,14 @@
   ```text
   undo ipv6 nd recycle
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo ipv6 nd stale-timeout`
 
@@ -201,6 +393,14 @@
   undo ipv6 nd stale-timeout
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo ipv6 neighbor`
 
 - 类别：配置命令
@@ -211,3 +411,16 @@
   ```text
   undo ipv6 neighbor IPV6 MAC interface IF
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IPV6` | IPv6 neighbor address | 输入值 |
+| IPV6 | `MAC` | unicast link-layer address | 输入值 |
+| MAC | `interface` | outgoing interface | 关键字 |
+| interface | `IF` | interface name | 输入值 |

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>本地账号 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>本地账号 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/aaa/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -160,6 +160,11 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：enable SSH login</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
 </section>
 <section id="display-aaa-authentication">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">aaa</span> <span class="pre">authentication</span></code><a class="headerlink" href="#display-aaa-authentication" title="链接到此标题。"></a></h2>
@@ -168,6 +173,11 @@
 <li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
 <li><p>CLI 帮助：display the local login authentication policy</p></li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
 </ul>
 </section>
 <section id="display-aaa-user">
@@ -178,6 +188,32 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
 <li><p>CLI 帮助：display details for a local AAA account</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>local user</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>NAME</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>credential and shell access state</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-aaa-users">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">aaa</span> <span class="pre">users</span></code><a class="headerlink" href="#display-aaa-users" title="链接到此标题。"></a></h2>
@@ -186,6 +222,11 @@
 <li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
 <li><p>CLI 帮助：display local AAA accounts</p></li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
 </ul>
 </section>
 <section id="display-users">
@@ -196,6 +237,11 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
 <li><p>CLI 帮助：display active management sessions</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
 </section>
 <section id="password">
 <h2><code class="docutils literal notranslate"><span class="pre">password</span></code><a class="headerlink" href="#password" title="链接到此标题。"></a></h2>
@@ -205,6 +251,27 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：set local password</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASSWORD</span></code></p></td>
+<td><p>local password</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="password-change-required">
 <h2><code class="docutils literal notranslate"><span class="pre">password</span> <span class="pre">change-required</span></code><a class="headerlink" href="#password-change-required" title="链接到此标题。"></a></h2>
@@ -213,6 +280,11 @@
 <li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：require a password change on the next login</p></li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
 </ul>
 </section>
 <section id="reset-aaa-user">
@@ -223,6 +295,32 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code></p></li>
 <li><p>CLI 帮助：disconnect sessions for a managed user</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>local user</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>NAME</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sessions</span></code></p></td>
+<td><p>active management sessions</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="role">
 <h2><code class="docutils literal notranslate"><span class="pre">role</span></code><a class="headerlink" href="#role" title="链接到此标题。"></a></h2>
@@ -232,6 +330,37 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：set local user role</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">network-operator</span></code></p></td>
+<td><p>read-only</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">network-admin</span></code></p></td>
+<td><p>network configuration</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">system-admin</span></code></p></td>
+<td><p>full device management</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="run-bash">
 <h2><code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">bash</span></code><a class="headerlink" href="#run-bash" title="链接到此标题。"></a></h2>
@@ -240,6 +369,11 @@
 <li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code></p></li>
 <li><p>CLI 帮助：open the managed administrator's Linux shell</p></li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
 </ul>
 </section>
 <section id="shell-access-enable">
@@ -250,6 +384,11 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：allow system-admin to enter Bash</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
 </section>
 <section id="ssh-public-key">
 <h2><code class="docutils literal notranslate"><span class="pre">ssh-public-key</span></code><a class="headerlink" href="#ssh-public-key" title="链接到此标题。"></a></h2>
@@ -259,6 +398,37 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：set an Ed25519 SSH public key</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">KEY-NAME</span></code></p></td>
+<td><p>key name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>KEY-NAME</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ssh-ed25519</span></code></p></td>
+<td><p>key type</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>ssh-ed25519</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">KEY</span></code></p></td>
+<td><p>base64 key</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-active">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">active</span></code><a class="headerlink" href="#undo-active" title="链接到此标题。"></a></h2>
@@ -267,6 +437,11 @@
 <li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：disable SSH login</p></li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
 </ul>
 </section>
 <section id="undo-password">
@@ -277,6 +452,11 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：remove local password</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
 </section>
 <section id="undo-shell-access">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">shell-access</span></code><a class="headerlink" href="#undo-shell-access" title="链接到此标题。"></a></h2>
@@ -285,6 +465,11 @@
 <li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：revoke Bash access</p></li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
 </ul>
 </section>
 <section id="undo-ssh-public-key">
@@ -295,6 +480,27 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">local-user</span></code></p></li>
 <li><p>CLI 帮助：remove an SSH public key</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">KEY-NAME</span></code></p></td>
+<td><p>key name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-user">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">user</span></code><a class="headerlink" href="#undo-user" title="链接到此标题。"></a></h2>
@@ -304,6 +510,27 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
 <li><p>CLI 帮助：remove local user</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">LOCAL-USER</span></code></p></td>
+<td><p>local account name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="user">
 <h2><code class="docutils literal notranslate"><span class="pre">user</span></code><a class="headerlink" href="#user" title="链接到此标题。"></a></h2>
@@ -313,6 +540,27 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
 <li><p>CLI 帮助：enter local user view</p></li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">LOCAL-USER</span></code></p></td>
+<td><p>local account name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

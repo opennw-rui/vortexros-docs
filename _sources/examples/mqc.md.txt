@@ -96,3 +96,55 @@ commit
 重复抓包和探测。实测仍是 3 发 3 收，接收侧同类新报文恢复为 `tos 0x0`。如果地址也为本次实验新建，再分别在两端撤销对应 `ip address`。
 
 [MQC 配置指南](../operator/mqc.md)
+
+## 匹配全部与恢复默认优先级
+
+本轮另在 P2 出接口验证 `if-match any`。链路地址为 P2 `host-p2a12` 的 `198.19.80.2/30` 与 P1 `host-p1a12` 的 `198.19.80.1/30`，两端均为 default VPN。地址配置沿用前面的三层接口步骤，不能与前一案例的 192.0.2.0/30 混用。
+
+P2：
+
+```text
+traffic classifier CLI-ANY operator or
+ if-match any
+ quit
+traffic behavior CLI-REMARK
+ remark dscp 20
+ quit
+traffic policy CLI-MARK
+ classifier CLI-ANY behavior CLI-REMARK precedence 7
+ quit
+interface host-p2a12
+ traffic-policy CLI-MARK outbound
+ quit
+commit
+ping -c 3 -a 198.19.80.2 198.19.80.1
+display traffic policy user-defined CLI-MARK
+```
+
+P1 接收侧实际抓到三条 ICMP 请求，均为 `tos 0x50`，即 DSCP 20；P2 探测 3/3。`any` 会匹配该方向上的所有报文，包括控制流量，应确认作用范围后使用。
+
+撤销标记、恢复优先级默认值，保留放行：
+
+```text
+traffic behavior CLI-REMARK
+ undo remark dscp
+ permit
+ quit
+traffic policy CLI-MARK
+ undo precedence
+ quit
+commit
+ping -c 1 -a 198.19.80.2 198.19.80.1
+```
+
+实测策略显示 `Precedence: 0`、不再包含 Remark；P1 同类新报文为 `tos 0x0`，回包 1/1。撤销时先解除绑定，再删除对象：
+
+```text
+interface host-p2a12
+ undo traffic-policy outbound
+ quit
+undo traffic policy CLI-MARK
+undo traffic behavior CLI-REMARK
+undo traffic classifier CLI-ANY
+commit
+```

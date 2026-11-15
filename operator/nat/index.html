@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NAT &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>NAT &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/nat/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="流量策略" href="../07-policy/" />
-    <link rel="prev" title="ACL" href="../acl/" /> 
+    <link rel="next" title="对象与规则" href="objects/" />
+    <link rel="prev" title="接口绑定与撤销" href="../acl/attachment/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -59,7 +59,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">NAT</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="objects/">对象与规则</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface-pat/">接口 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pool-pat/">地址池 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no-pat/">NO-PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static/">静态 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnat/">DNAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twice/">Twice NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no-nat/">No-NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hairpin/">NAT 回流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sessions/">会话与统计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capacity/">容量与计时</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
@@ -73,9 +86,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -104,88 +117,113 @@
              
   <section id="nat">
 <h1>NAT<a class="headerlink" href="#nat" title="链接到此标题。"></a></h1>
-<p>通过 NAT 策略执行源地址、目的地址或双向转换。</p>
-<p><a class="reference internal" href="../reference/nat/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/nat-pat/"><span class="std std-doc">配置案例</span></a></p>
-<section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>在<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">name</span> <span class="pre">?</span></code>中，<code class="docutils literal notranslate"><span class="pre">&lt;NAT-POLICY&gt;</span></code>表示可输入策略名，后续各行列出当前Candidate中已有的策略名；Tab和<code class="docutils literal notranslate"><span class="pre">?</span></code>使用相同的大小写无关字母顺序。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy address-set name INSIDE
- address 10.0.0.0/8
-#
-nat-policy port-set name WEB
- port 80
- port 443
-#
-nat-policy name INTERNET
- statistic enable
- rule 10
-  source address-set name INSIDE
-  destination port-set name WEB
-  action snat pat interface
-</pre></div>
+<p>NAT 策略按接口和方向匹配 IPv4 流量，可执行源地址转换、目的地址转换、双向转换或明确不转换。规则、地址集和地址池只定义意图，绑定接口并提交后才参与转发。NAT 需要 VPP 数据面。</p>
+<p>先按转换方式选择子页；共享对象、回流、会话和容量分别维护。各子页给出适用条件、配置、真实查询结果和撤销步骤。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>需求</p></th>
+<th class="head"><p>功能</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>多个内部连接共享出口地址</p></td>
+<td><p>接口 PAT、地址池 PAT</p></td>
+</tr>
+<tr class="row-odd"><td><p>保留源端口</p></td>
+<td><p>NO-PAT</p></td>
+</tr>
+<tr class="row-even"><td><p>固定前缀的一对一转换</p></td>
+<td><p>静态 NAT</p></td>
+</tr>
+<tr class="row-odd"><td><p>发布内网服务</p></td>
+<td><p>DNAT</p></td>
+</tr>
+<tr class="row-even"><td><p>同时改变源、目的地址</p></td>
+<td><p>Twice NAT</p></td>
+</tr>
+<tr class="row-odd"><td><p>指定流量不做转换</p></td>
+<td><p>No-NAT</p></td>
+</tr>
+<tr class="row-even"><td><p>内网访问发布地址</p></td>
+<td><p>NAT 回流</p></td>
+</tr>
+</tbody>
+</table>
+<p>接口地址作为 SNAT 来源时，只能绑定 <strong>outbound</strong>；地址池 SNAT 的方向按业务路径选择。带端口转换的 DNAT 使用直接的目的端口匹配，不能以 port-set 替代。</p>
+<p>配置改变主要影响新流；已有状态会话继续使用已建立的映射。验证新规则时使用新的连接，不将旧会话仍存在误判为下发失败。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="objects/">对象与规则</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="objects/#id2">创建和绑定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects/#id3">查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects/#id4">撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interface-pat/">接口 PAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interface-pat/#id1">参数和限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface-pat/#id2">完整配置与真实结果</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pool-pat/">地址池 PAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pool-pat/#id1">行为与限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pool-pat/#id2">配置、显示与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="no-pat/">NO-PAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="no-pat/#id1">行为与限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no-pat/#id2">配置、显示与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static/">静态 NAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static/#id1">行为与限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static/#id2">配置、显示与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dnat/">DNAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dnat/#id1">行为与限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnat/#id2">配置、显示与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="twice/">Twice NAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="twice/#id1">行为与限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twice/#id2">配置、显示与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="no-nat/">No-NAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="no-nat/#id1">行为与限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no-nat/#id2">配置、显示与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hairpin/">NAT 回流</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hairpin/#id1">开关与影响</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hairpin/#id2">配置与真实显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hairpin/#id3">撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sessions/">会话与统计</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sessions/#id2">查看哪一层</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sessions/#id3">筛选子命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sessions/#id4">默认统计与真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sessions/#id5">清理与风险</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="capacity/">容量与计时</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="capacity/#id2">缺省值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capacity/#id3">调整与影响</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capacity/#id4">恢复默认</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<p>接口绑定：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
- nat-policy INTERNET inbound
-</pre></div>
-</div>
-<p>统计默认关闭；只有在policy或rule下显式配置 <code class="docutils literal notranslate"><span class="pre">statistic</span> <span class="pre">enable</span></code> 后才更新对应计数。未启用统计时，display会明确显示统计关闭。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy name INTERNET
-display nat-policy statistics name INTERNET
-clear nat-policy counters
-display nat-policy sessions
-clear nat-policy sessions
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">sessions</span></code>不带参数时展示全部活动会话。也可以任意组合下列条件；多个条件采用AND语义，并由数据面按原始（转换前）五元组直接筛选：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions [protocol { tcp | udp | icmp | sctp | 0..255 }]
- [source-ip IPV4] [destination-ip IPV4]
- [source-port PORT] [destination-port PORT]
- [worker INDEX] [core CPU-ID] [name POLICY] [rule RULE-ID]
- [action { no-nat | static-nat | snat-no-pat | snat-pat | dnat | twice-nat }]
- [hairpin { enable | disable }]
-</pre></div>
-</div>
-<p>例如，查看<code class="docutils literal notranslate"><span class="pre">INTERNET</span></code>策略中由CPU 6处理、目的端口为443的TCP PAT会话：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions protocol tcp destination-port 443 core 6 name INTERNET action snat-pat
-</pre></div>
-</div>
-<p>会话按块显示。首行是协议、状态、worker、CPU核心、剩余时间和计数，第二行是接口、方向、FIB、policy/rule和动作，第三行显示原始五元组到转换后五元组。TCP、UDP和SCTP显示端口；ICMP显示identifier；GRE、ESP、AH、OSPF等无端口协议只显示地址，避免把内部零值误当成端口。</p>
-<p>NAT回流默认关闭。需要先开启全局开关，再在包含DNAT、twice-NAT或静态NAT发布规则的policy中开启：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy hairpin enable
-nat-policy name INTERNET
- hairpin enable
-commit
-</pre></div>
-</div>
-<p>关闭时可撤销policy或全局开关：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy name INTERNET
- undo hairpin enable
-quit
-undo nat-policy hairpin enable
-commit
-</pre></div>
-</div>
-<p>两个开关必须同时开启。显式NO_NAT和本接口的显式转换决定优先；回流只使用同一FIB中的唯一发布映射。开关不会强制清除已有会话。验证时应同时测试客户端到公网映射地址的正向连接、服务端回包恢复、同一端口多连接、会话清除后端口复用，以及关闭后已有会话不断、新会话不再回流。</p>
-<p>新增、修改或删除规则后，只影响相关policy和接口绑定。已有会话继续按会话状态处理，新连接使用新的规则。</p>
-<p>解除接口绑定后再删除policy和对象：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
- undo nat-policy INTERNET inbound
-undo nat-policy name INTERNET
-undo nat-policy port-set name WEB
-undo nat-policy address-set name INSIDE
-commit
-</pre></div>
-</div>
-</section>
+<p><a class="reference internal" href="../reference/nat/"><span class="std std-doc">逐条命令参考</span></a> · <a class="reference internal" href="../../examples/nat/"><span class="std std-doc">NAT 案例目录</span></a></p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../acl/" class="btn btn-neutral float-left" title="ACL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../07-policy/" class="btn btn-neutral float-right" title="流量策略" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../acl/attachment/" class="btn btn-neutral float-left" title="接口绑定与撤销" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="objects/" class="btn btn-neutral float-right" title="对象与规则" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

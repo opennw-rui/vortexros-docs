@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BFD &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>BFD &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/bfd/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -164,6 +164,73 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+还受当前对象/配置条件限制；以本视图 ? 为准</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>Static BFD session name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>NAME</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bind</span></code></p></td>
+<td><p>Bind a static BFD session</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>bind</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer-ip</span></code></p></td>
+<td><p>Set the IPv4 peer address</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>peer-ip</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>Peer IPv4 address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source-ip</span> <span class="pre">IP-ADDRESS</span></code></p></td>
+<td><p>Set the source IP address；Source IP address</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">INTERFACE</span></code></p></td>
+<td><p>Bind the outgoing interface；Interface name</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span> <span class="pre">VPN</span></code></p></td>
+<td><p>Bind a VPN instance；VPN instance name</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">multi-hop</span></code></p></td>
+<td><p>Use a multi-hop BFD session</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>bind</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer-ipv6</span></code></p></td>
+<td><p>Set the IPv6 peer address</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>peer-ipv6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X:X::X</span></code></p></td>
+<td><p>Peer IPv6 address</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="detect-multiplier">
 <h2><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code><a class="headerlink" href="#detect-multiplier" title="链接到此标题。"></a></h2>
@@ -177,6 +244,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;3-50&gt;</span></code></p></td>
+<td><p>Detect multiplier</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-bfd">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bfd</span></code><a class="headerlink" href="#display-bfd" title="链接到此标题。"></a></h2>
@@ -190,6 +278,47 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">configuration</span></code></p></td>
+<td><p>BFD configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">session</span></code></p></td>
+<td><p>BFD session information</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>session</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">all</span></code></p></td>
+<td><p>All BFD sessions</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>session</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>Static BFD session name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">statistics</span></code></p></td>
+<td><p>BFD session statistics</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="log-session-changes">
 <h2><code class="docutils literal notranslate"><span class="pre">log-session-changes</span></code><a class="headerlink" href="#log-session-changes" title="链接到此标题。"></a></h2>
@@ -203,6 +332,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="min-rx-interval">
 <h2><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code><a class="headerlink" href="#min-rx-interval" title="链接到此标题。"></a></h2>
@@ -216,6 +351,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;100-1000&gt;</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="min-tx-interval">
 <h2><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code><a class="headerlink" href="#min-tx-interval" title="链接到此标题。"></a></h2>
@@ -229,6 +385,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;100-1000&gt;</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="reset-service-bfd">
 <h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">bfd</span></code><a class="headerlink" href="#reset-service-bfd" title="链接到此标题。"></a></h2>
@@ -243,6 +420,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-bfd">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bfd</span></code><a class="headerlink" href="#undo-bfd" title="链接到此标题。"></a></h2>
@@ -256,6 +439,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>Static BFD session name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-detect-multiplier">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">detect-multiplier</span></code><a class="headerlink" href="#undo-detect-multiplier" title="链接到此标题。"></a></h2>
@@ -269,6 +473,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-log-session-changes">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">log-session-changes</span></code><a class="headerlink" href="#undo-log-session-changes" title="链接到此标题。"></a></h2>
@@ -282,6 +492,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-min-rx-interval">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">min-rx-interval</span></code><a class="headerlink" href="#undo-min-rx-interval" title="链接到此标题。"></a></h2>
@@ -295,6 +511,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-min-tx-interval">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">min-tx-interval</span></code><a class="headerlink" href="#undo-min-tx-interval" title="链接到此标题。"></a></h2>
@@ -308,6 +530,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 </section>
 

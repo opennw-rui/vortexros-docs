@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anycast 网关 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/evpn/anycast/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="变更与恢复" href="../lifecycle/" />
+    <link rel="prev" title="多归属" href="../multihoming/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../06-tunnels/">隧道</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../tunnel-settings/">Tunnel 接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ip-in-ip/">IP-in-IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vxlan/">VXLAN</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../11-vxlan-evpn/">EVPN</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../l2vpn/">L2VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../l3vpn/">L3VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multihoming/">多归属</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Anycast 网关</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lifecycle/">变更与恢复</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../06-tunnels/">隧道</a></li>
+          <li class="breadcrumb-item"><a href="../../11-vxlan-evpn/">EVPN</a></li>
+      <li class="breadcrumb-item active">Anycast 网关</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="anycast">
+<span id="anycast-网关"></span><h1>Anycast 网关<a class="headerlink" href="#anycast" title="链接到此标题。"></a></h1>
+<p>Vbdif 启用 <code class="docutils literal notranslate"><span class="pre">vxlan</span> <span class="pre">anycast-gateway</span> <span class="pre">enable</span></code> 前必须配置明确的网关 MAC。未配置时，Candidate 会拒绝，Running 保持原配置。</p>
+<p>开发拓扑的桥域450/VNI10450使用如下真实配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vbdif 450
+ mac-address 0200-0000-0450
+ ip address 198.18.145.1 255.255.255.0
+ vxlan anycast-gateway enable
+ quit
+commit
+display interface Vbdif450
+display bgp evpn all routing-table
+</pre></div>
+</div>
+<p>Linux 与 VPP 的网关 MAC 均为 <code class="docutils literal notranslate"><span class="pre">02:00:00:00:04:50</span></code>；FRR 实际 VNI 显示 <code class="docutils literal notranslate"><span class="pre">Advertise-gw-macip:</span> <span class="pre">Yes</span></code>，BGP 出现 <code class="docutils literal notranslate"><span class="pre">0:48:0200-0000-0450:32:198.18.145.1</span></code> 的 Type-2 路由。对端 CE 在旧 MAC 的邻居缓存尚未更新时首轮3包全丢；网关发起邻居交互后，CE 缓存已变为新 MAC，CE→网关及网关→CE 均3/3。修改网关 MAC 会影响对端缓存，部署时应在维护窗口处理；不能将最初失败省略成全程无损。</p>
+<p>撤销 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vxlan</span> <span class="pre">anycast-gateway</span> <span class="pre">enable</span></code> 并提交后，FRR 显示 <code class="docutils literal notranslate"><span class="pre">Advertise-gw-macip:</span> <span class="pre">No</span></code>，网关通告撤销。显式 MAC 和接口 IP 是独立配置，不随开关自动删除。本次拓扑仅有一个活动网关，没有据此宣称完成双网关漫游或全套 All-Active 故障验收。</p>
+<section id="id1">
+<span id="使用顺序"></span><h2>使用顺序<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>先完成 L2VPN 的 underlay、桥域、BGP EVPN 和接入。Anycast 缺省关闭，需显式网关 MAC 后才可启用。改变 MAC 会影响主机 ARP/ND 缓存，应协调两端参数并比较通告和流量。本页 VLAN450 是已有实验的增量配置，不能单独建立完整 EVPN。</p>
+<p><a class="reference internal" href="../../../examples/evpn/anycast/"><span class="std std-doc">配置案例</span></a> · <a class="reference internal" href="../../../examples/evpn/l2vpn/"><span class="std std-doc">L2VPN 基础配置</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../multihoming/" class="btn btn-neutral float-left" title="多归属" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../lifecycle/" class="btn btn-neutral float-right" title="变更与恢复" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>静态 NAT &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/nat/static/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="DNAT" href="../dnat/" />
+    <link rel="prev" title="NO-PAT" href="../no-pat/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">NAT</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../objects/">对象与规则</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interface-pat/">接口 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pool-pat/">地址池 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../no-pat/">NO-PAT</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">静态 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dnat/">DNAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../twice/">Twice NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../no-nat/">No-NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hairpin/">NAT 回流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sessions/">会话与统计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capacity/">容量与计时</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">NAT</a></li>
+      <li class="breadcrumb-item active">静态 NAT</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nat">
+<span id="静态-nat"></span><h1>静态 NAT<a class="headerlink" href="#nat" title="链接到此标题。"></a></h1>
+<p>为匹配的源前缀建立固定转换。本例使用 /32 到 /32 一对一映射，不分配 PAT 端口。外网必须有到映射地址的返回路由。</p>
+<section id="id1">
+<span id="行为与限制"></span><h2>行为与限制<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>必须使用单一直接 source 前缀，不能用 source address-set；内外前缀长度必须相等，不允许端口匹配，协议必须为 any；不要把一个大网段全部压成一个 /32 来实现端口复用，该需求使用 PAT。未匹配流量不因此自动转换。</p>
+<p>此功能需要 VPP。配置写入 Candidate，<code class="docutils literal notranslate"><span class="pre">commit</span></code> 后参与下发，<code class="docutils literal notranslate"><span class="pre">save</span></code> 保存已提交配置；重启后从启动 CFG 恢复。缺省不创建 NAT 策略或接口绑定。</p>
+</section>
+<section id="id2">
+<span id="配置显示与撤销"></span><h2>配置、显示与撤销<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p><a class="reference internal" href="../../../examples/nat/static/"><span class="std std-doc">完整独立案例</span></a>包含拓扑、网关和端点前提、完整策略、实际 display 输出、HTTP 往返及撤销。以下是本功能实际验收的转换结果节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Scope: active stateful NAT translations; no-NAT and static NAT are stateless and are not listed
+</pre></div>
+</div>
+<p>真实 HTTP 返回 200，服务端看到 198.19.81.2；这项动作是无状态转换，不会生成 sessions 中的条目。上面摘录的是真实会话查询的范围提示，不是静态映射表。</p>
+<p><a class="reference internal" href="../objects/"><span class="std std-doc">对象与规则</span></a> · <a class="reference internal" href="../sessions/"><span class="std std-doc">会话与统计</span></a> · <a class="reference internal" href="../../reference/nat/"><span class="std std-doc">命令参考</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../no-pat/" class="btn btn-neutral float-left" title="NO-PAT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../dnat/" class="btn btn-neutral float-right" title="DNAT" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

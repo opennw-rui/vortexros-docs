@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>阅读说明 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>阅读说明 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/reading/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -158,6 +158,12 @@
 <li><p>完整配置步骤、输出样例和故障处理请进入对应配置指南章节。</p></li>
 </ul>
 <p>配置命令先写入本会话 Candidate，提交后才影响 Running。即时运维命令可直接改变运行状态。用 ? 查看当前视图合法参数。</p>
+<section id="id2">
+<span id="参数表"></span><h2>参数表<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>命令参考按当前 0.29-dev Registry 的实际参数树列出子命令、位置、可选性、组合标记和设备帮助。相同命令在不同视图有不同参数时分别列出，不把 BGP、WireGuard、NAT 的同名 peer/rule 等语义混在一起。</p>
+<p>参数表的帮助文字保留设备原文；配置影响、有效默认值、依赖、流量结果和撤销步骤由各功能指南说明。参数表不是新的产品命令，也不代表每种组合均完成独立动态验收。</p>
+<p>表中“可组合/可重复”来自 CLI 提示树，不改变上方完整语法或处理器校验。运行库存（已有接口、策略名等）不是固定的合法范围，需在实际设备输入 <code class="docutils literal notranslate"><span class="pre">?</span></code> 查看。未配置的默认项通常不显示在 config 中；<code class="docutils literal notranslate"><span class="pre">undo</span></code> 的删除对象与恢复缺省两类行为以具体命令/功能说明为准。</p>
+</section>
 </section>
 
 

@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>邻居组与认证 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bgp/groups/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="AS 与路由属性" href="../attributes/" />
+    <link rel="prev" title="邻居与会话" href="../peers/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">BGP</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../peers/">邻居与会话</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">邻居组与认证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../attributes/">AS 与路由属性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../families/">地址族与聚合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../queries/">状态与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">BGP</a></li>
+      <li class="breadcrumb-item active">邻居组与认证</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="邻居组与认证"></span><h1>邻居组与认证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>具有相同属性的邻居可以加入同一个邻居组。内部组继承本地AS；外部组必须先指定对端AS，再加入成员：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ group IBGP-RR internal
+ peer IBGP-RR password simple Lab-Password-01
+ peer IBGP-RR connect-interface LoopBack 0
+ peer 10.0.0.2 group IBGP-RR
+ peer 10.0.0.3 group IBGP-RR
+ group TRANSIT external
+ peer TRANSIT as-number 64513
+ peer TRANSIT password simple Transit-Password-01
+ peer 192.0.2.2 group TRANSIT
+ ipv4-family unicast
+  peer IBGP-RR reflect-client
+  peer TRANSIT route-policy RP-IN import
+</pre></div>
+</div>
+<p>命令关键字不区分大小写，邻居组名称按输入原样保存并区分大小写；<code class="docutils literal notranslate"><span class="pre">TRANSIT</span></code>与<code class="docutils literal notranslate"><span class="pre">transit</span></code>是两个不同对象。成员继承组的AS、认证、源接口及地址族策略。邻居可以用<code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">password</span> <span class="pre">simple</span> <span class="pre">PASSWORD</span></code>设置自己的认证密码，以覆盖组密码。已经加入邻居组的成员不能再单独配置AS；需要改变归属时，应先执行<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span> <span class="pre">ADDRESS</span></code>，再重新创建。</p>
+<p>BFD按字段继承。组上启用BFD并配置计时器后，成员默认继承；成员只配置一个计时字段时，仅该字段覆盖组值，其余字段继续继承。<code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">bfd</span> <span class="pre">disable</span></code>用于明确关闭该成员从组继承的BFD，<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">bfd</span> <span class="pre">disable</span></code>恢复继承；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">bfd</span> <span class="pre">enable</span></code>同样删除成员级开关。存在显式关闭的成员时，系统会把组的有效BFD配置逐一投影到其余成员，避免后端重新继承组BFD而使关闭失效。运行态、BFD会话归属和FRR profile使用同一套有效值。</p>
+<p>密码认证使用BGP TCP MD5。当前只提供<code class="docutils literal notranslate"><span class="pre">simple</span></code>形式，密码以明文进入配置并按明文下发到FRR，<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span></code>也会显示原值；应限制配置文件、命令输出和运维会话的访问权限。密码长度为1至80个不含空格的可打印字符，不支持<code class="docutils literal notranslate"><span class="pre">cipher</span></code>输入形式。</p>
+<p>邻居组不能在仍有成员引用时删除。可按以下顺序撤销：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ undo peer 192.0.2.2
+ undo peer TRANSIT password
+ undo group TRANSIT
+commit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">group</span></code>用于查看后端邻居组状态；<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span> <span class="pre">configuration</span> <span class="pre">bgp</span></code>用于核对设备配置。密码只应通过配置查看，不会作为普通BGP会话状态字段输出。</p>
+<p><a class="reference internal" href="../queries/"><span class="std std-doc">会话与路由查询、精确撤销</span></a> · <a class="reference internal" href="../../../examples/bgp/"><span class="std std-doc">完整双端案例</span></a> · <a class="reference internal" href="../../../examples/bgp-policy/"><span class="std std-doc">策略实际结果</span></a></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../peers/" class="btn btn-neutral float-left" title="邻居与会话" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../attributes/" class="btn btn-neutral float-right" title="AS 与路由属性" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

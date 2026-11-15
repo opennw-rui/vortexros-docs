@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>接口与交换 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/interfaces/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="VLAN 网关" href="../vlan-gateway/" />
+    <link rel="prev" title="配置案例" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">接口与交换</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../static-mac/">静态 MAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qinq/">QinQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.29-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+      <li class="breadcrumb-item active">接口与交换</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="接口与交换"></span><h1>接口与交换<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>从物理接入、VLAN 网关到聚合链路，先检查接口归属和二三层模式，再配置业务。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/#id1">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/#id2">验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/#id3">撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../lacp/">LACP 聚合</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/#id1">拓扑与前提</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/#p1">P1 配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/#p2">P2 配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/#id2">验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lacp/#id4">调整与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../subinterfaces/">子接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/l2/">L2 子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/l3/">L3 子接口</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../static-mac/">静态 MAC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../static-mac/#id1">拓扑和作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-mac/#linux">Linux端点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-mac/#pe3">PE3完整配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-mac/#id2">真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-mac/#id3">撤销对照</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qinq/">QinQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/#id1">拓扑与用途</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/#id2">端点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/#pe2">PE2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/#pe3">PE3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/#cli">实际CLI和流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/#id3">撤销</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="配置案例" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../vlan-gateway/" class="btn btn-neutral float-right" title="VLAN 网关" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

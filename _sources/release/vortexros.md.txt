@@ -1,45 +1,26 @@
-# VortexROS 更新
+# VortexROS 0.29-dev
 
-**当前版本：0.28-dev-debug9。** [完整发布说明与安装包](https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug9)
+正式手册从0.29-dev开始。当前控制包为0.29~dev+run1，统一安装包包含配套VPP26.10.7、FRR1.7-dev和Kea修复包。软件候选包仍未公开发布，本文不提供此前试验版本的安装附件。
 
-对应控制层提交 `338800076ffc1de0201428c1fa19b641612ef607`，配套 VPP 26.10.4 和 FRR 10.7.1-vortexros-1.5-dev。
+## 本版能力与修复
 
-## Debug 9
+- Candidate私有编辑、跨会话增量同步、Running快照与代号一致；路由组增量与精确拒绝后的同目标镜像回退。
+- 本地AAA三种角色、首次改密、SSH和Bash/sudo；账号投影失败保持登录限制，沿用告警和自动收敛。
+- 同一.run完成首次安装、升级、检查、模拟和失败回退，按组件版本安装；Linux-only与VPP数据面分别核对状态，逐项检查关键服务。
+- 静态路由导入动态协议、IS-IS在线Level切换、RIP/RIPng默认preference100及IS-IS15、OSPF/OSPFv3查询和重算。
+- RIP重建接口释放旧多播订阅，Zebra重连后重放已有路由；完整根因和恢复记录见[RIP](../operator/rip.md)。
+- DHCPv6租约类型、正常空租约和多实例汇总，中继与Information-Request；配套Kea采用上游服务器组修复。
+- CLI视图、帮助、补全、配置显示、接口身份、数据面容量与软件事务显示按当前命令参考统一。
+- EVPN双栈Type-5、ESI生命周期、Anycast端点、静态FDB、VNI撤销及冷回放；接口归属、RA/SLAAC、静态ND和Proxy ARP按恢复阶段处理。
 
-- **V028D8R-001：** 首次改密的 CFG 和 Running 已接受，但 Linux 凭据投影失败时，旧临时密码不能获得普通 CLI 权限。只有完整投影成功、凭据快照一致，才授权受管 CLI；新 sudo 授权在成功后发布。
-- **V028D8R-B01：** 安装器逐项检查关键服务，最后一次严格健康采样后再次核对服务和数据面不变量。服务已经停止而 daemon 健康快照尚未更新时，也能拒绝提交。
-- 复用已有 AAA 告警、自动收敛和安装器回退机制，没有新增服务、角色或配置格式；VPP、FRR 源码和版本保持不变。
+## 本轮新增修复
 
-使用与排障见[本地账号与 SSH](../operator/aaa.md)、[升级与回退](../installation/07-upgrade-uninstall.md)。
+1. ACL只保留无状态permit/deny，删除permit-reflect入口、配置读取和下发。TCP established仍是标志位匹配。
+2. EVPN的vni子上下文和exit-vni正确解析，冷清理不再生成无效no exit-vni；VRF下L3VNI仍是叶子。
+3. 6PE根据已有标签邻居意图生成FRR的IPv6 explicit-null策略，首次启用刷新已有本地起源，最后邻居撤销时取消策略。未增加用户配置项，未改FRR源码。
+4. 物理接口最后一项二层配置撤销后，现有LCP对正确切回L3，复用已有角色API。
+5. LCP的MPLS表不再调用仅支持IP的MFIB生命周期函数，修正最后标签路由撤销时的崩溃。见[VPP说明](vpp.md)。
 
-## 最终包定向验证
+功能树和案例扩展为独立页面，包含拓扑、两端配置、参数作用、真实display、报文和撤销。新补All-Active、6PE、静态MAC及简单QinQ；既有已通过且未受影响的功能沿用原始证据，未重复全量或CI。
 
-验收包为 `vortexros_0.28-dev-debug9_amd64.run`，SHA-256：
-
-~~~text
-69d1b7dc9b41bb7183202c84d11c43b70421040d732643bcc51c453a5e55a734
-~~~
-
-| 环境 | 实际验证 |
-| --- | --- |
-| QEMU，Linux-only Debug 8 基线 | 同一个最终包正常升级；分别停止 FRR、route-zapi、switchd 后自动进入回退，恢复 Debug 8；原 CFG 字节和后端版本不变，VPP 保持停止 |
-| QEMU，真实 SSH 与产品 CLI | 准备文件写入失败、chpasswd 失败、部分投影后失败均保留 CLI 限制；解除故障自动恢复；新密码登录、旧密码失效、公钥登录及控制服务重启通过 |
-| VPP 模式设备 | 同包预检、模拟、正式升级及默认稳定观察通过；仅更新控制层，VPP、FRR、route-zapi 进程保持；原配置与 SSH AllowUsers 保留 |
-| VPP 模式设备的临时账号 | 真实 SSH、Bash、密码验证的 sudo 返回 root 身份；清理测试账号后，原启动 CFG 字节不变，严格健康 ready、零告警 |
-
-服务停止故障保持至安装器自动进入回退，再解除人为注入，随后验证旧版本恢复和默认 90 秒回退观察。正常升级使用默认 180 秒稳定观察。故障注入只在隔离 QEMU 执行。未运行全量测试、CI 或新的性能测试；本次文档同步没有重复运行上述产品验收。
-
-## 从 Debug 5 到当前版本
-
-| 版本 | 已交付变化 |
-| --- | --- |
-| Debug 5 | Candidate 按变更域复制、跨会话增量同步及显式刷新；路由组在精确旧基线拒绝后使用同一目标完整镜像完成发布 |
-| Debug 6 | Running 快照与对应代号一致；LCP 删除不存在端口的 FDB 待处理记录；DHCPv6 IA_NA/IA_TA/IA_PD 类型解码 |
-| Debug 7 / 7.1 / 7.2 | 三种本地 AAA 角色、首次改密、用户视图与 active 状态、密码哈希显示、Tab 与 Bash 返回修复；Kea 正常空租约及多实例汇总；统一 .run 比较组件版本 |
-| Debug 8 | Linux-only 升级回退、无需预建安装目录、首次改密 CFG 已替换后的持久性处理、AAA 失败告警与自动收敛，以及普通 commit 等待提示 |
-
-上述历史测试仍按其原版本归属，[性能数据](performance.md)没有改标为 Debug 9 的新测试。
-
-## 手册维护
-
-当前手册统一在 [vortexros-docs](https://github.com/opennw-rui/vortexros-docs) 维护。产品仓库只保留架构、开发和验证记录，旧用户手册源文件已删除；文档入口和后续构建的安装布局已改为在线手册；已发布的 Debug 9 `.run` 保持原附件及校验值，其附带的历史手册不作为当前使用入口。本次仅发布文档，没有重新打包或部署软件。
+最终包的身份、QEMU事务和验证边界见[CLI实测记录](cli-validation.md)；逐条参考的覆盖边界见[手册覆盖](manual-coverage.md)。当前工作树未提交产品代码、未推送软件或部署真机。

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>升级与回退 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>升级与回退 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/07-upgrade-uninstall/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -83,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -118,11 +118,11 @@
 <p>首次安装、升级、检查和模拟统一使用对应版本的单文件 <code class="docutils literal notranslate"><span class="pre">.run</span></code>。包内包含 VortexROS、配套 VPP 和 FRR；安装器比较版本，只更新变化的组件。</p>
 <section id="id2">
 <span id="使用单文件安装包"></span><h2>使用单文件安装包<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>从<a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases/tag/v0.28-dev-debug9">Debug 9 发布页</a>下载 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SHA256SUMS</span></code>，核对校验值。更新前在 CLI 执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>，确认当前配置和服务收敛，然后运行：</p>
+<p>从<a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases">项目Release</a>或已提供的0.29-dev候选包位置取得 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SHA256SUMS</span></code>，核对校验值。更新前在 CLI 执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>，确认当前配置和服务收敛，然后运行：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sha256sum<span class="w"> </span>-c<span class="w"> </span>SHA256SUMS
-sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.28-dev-debug9_amd64.run<span class="w"> </span>--check-only
-sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.28-dev-debug9_amd64.run<span class="w"> </span>--simulate
-sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.28-dev-debug9_amd64.run
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.29-dev-run1-amd64.run<span class="w"> </span>--check-only
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.29-dev-run1-amd64.run<span class="w"> </span>--simulate
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.29-dev-run1-amd64.run
 </pre></div>
 </div>
 <p>检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。后端版本相同则保留对应包和进程；后端版本变化时安装器重启受影响的服务，需预留相应的业务中断窗口。</p>
@@ -131,7 +131,7 @@ sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.28-dev-debug
 <section id="id3">
 <span id="回退材料与健康观察"></span><h2>回退材料与健康观察<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>安装器从上次保留的系统包、本地软件包目录或 APT 缓存取得待更新组件的精确旧版本包。统一 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 入口不要求预先创建 <code class="docutils literal notranslate"><span class="pre">/VortexROS/install</span></code>。缺少回退材料时，预检会报告实际缺少的包名和版本。</p>
-<p>Debug 9 在预检中逐项检查 <code class="docutils literal notranslate"><span class="pre">vortexros.target</span></code>、FRR、route-zapi、switchd 和 vortexrosd；观察期间逐项检查四个关键服务，并验证配置、数据面和严格健康状态。最后一次严格健康采样后，还会再次核对服务与数据面不变量。服务刚停时，daemon 的健康快照可能尚未刷新，不能只看一个 ready 结果。</p>
+<p>安装器在预检中逐项检查 <code class="docutils literal notranslate"><span class="pre">vortexros.target</span></code>、FRR、route-zapi、switchd 和 vortexrosd；观察期间逐项检查四个关键服务，并验证配置、数据面和严格健康状态。最后一次严格健康采样后，还会再次核对服务与数据面不变量。服务刚停时，daemon 的健康快照可能尚未刷新，不能只看一个 ready 结果。</p>
 <p>默认目标版本稳定观察为 <strong>180 秒</strong>，回退版本稳定观察为 <strong>90 秒</strong>。目标失败时自动尝试回退。用 CLI 查看事务：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display system-software verbose
 </pre></div>
@@ -164,7 +164,7 @@ simulate system-software package /VortexROS/install/vortexros-system_VERSION_amd
 upgrade system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
 </pre></div>
 </div>
-<p>主动回退用 <code class="docutils literal notranslate"><span class="pre">rollback</span> <span class="pre">system-software</span> <span class="pre">package</span> <span class="pre">TARGET.tar</span></code>，旧版 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 也可作为更新目标。目标必须能读取当前启动 CFG，并具备当前已安装版本的精确回退材料。较早的 Debug 6 无法读取包含 Debug 7 受管账号的 CFG，需保留原文件并选择兼容的启动配置，操作时保留独立救援入口。</p>
+<p>主动回退用 <code class="docutils literal notranslate"><span class="pre">rollback</span> <span class="pre">system-software</span> <span class="pre">package</span> <span class="pre">TARGET.tar</span></code>，旧版 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 也可作为更新目标。目标必须能读取当前启动 CFG，并具备当前已安装版本的精确回退材料。本手册从0.29-dev开始维护，不提供此前试验版本的配置迁移保证；操作时保留独立救援入口。</p>
 <p>首次安装恢复材料可用时，且尚未执行数据面重置，可按安装器说明执行 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">vortexros-safe-upgrade</span> <span class="pre">--restore-install</span></code> 恢复首次安装前状态。</p>
 <p><a class="reference internal" href="../../operator/reference/system/"><span class="std std-doc">系统命令参考</span></a> · <a class="reference internal" href="../../release/vortexros/"><span class="std std-doc">最终包验证</span></a></p>
 </section>

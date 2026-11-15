@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>前缀列表 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>前缀列表 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/prefix-lists/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -164,6 +164,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP-PREFIX</span></code></p></td>
+<td><p>Prefix list name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>Backend rule counters</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>IP-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">first-match</span></code></p></td>
+<td><p>First rule that matches a prefix</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>first-match</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X/M</span></code></p></td>
+<td><p>Prefix to test</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-ip-ipv6-prefix">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">ipv6-prefix</span></code><a class="headerlink" href="#display-ip-ipv6-prefix" title="链接到此标题。"></a></h2>
@@ -177,6 +213,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IPV6-PREFIX</span></code></p></td>
+<td><p>Prefix list name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPV6-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>Backend rule counters</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>IPV6-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">first-match</span></code></p></td>
+<td><p>First rule that matches a prefix</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>first-match</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X:X::X/M</span></code></p></td>
+<td><p>Prefix to test</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-ipv6-prefix">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">prefix</span></code><a class="headerlink" href="#display-ipv6-prefix" title="链接到此标题。"></a></h2>
@@ -190,6 +262,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IPV6-PREFIX</span></code></p></td>
+<td><p>Prefix list name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPV6-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>Backend rule counters</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>IPV6-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">first-match</span></code></p></td>
+<td><p>First rule that matches a prefix</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>first-match</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X:X::X/M</span></code></p></td>
+<td><p>Prefix to test</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ip-ip-prefix">
 <h2><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#ip-ip-prefix" title="链接到此标题。"></a></h2>
@@ -203,6 +311,77 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP-PREFIX</span></code></p></td>
+<td><p>Specify a prefix list name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>Set the sequence number of this entry for IP prefix-list</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>index</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>sequence number</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-65535&gt; / IP-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">permit</span></code></p></td>
+<td><p>Specify a permit rule</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>deny / permit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP</span></code></p></td>
+<td><p>prefix address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MASK</span></code></p></td>
+<td><p>mask length or dotted mask</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>IP / MASK</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">greater-equal</span></code></p></td>
+<td><p>minimum prefix length</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>greater-equal</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-32&gt;</span></code></p></td>
+<td><p>minimum prefix length</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>IP / MASK</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">less-equal</span></code></p></td>
+<td><p>maximum prefix length</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>less-equal</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-32&gt;</span></code></p></td>
+<td><p>maximum prefix length</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;1-65535&gt; / IP-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">deny</span></code></p></td>
+<td><p>Specify a deny rule</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ip-ipv6-prefix">
 <h2><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">ipv6-prefix</span></code><a class="headerlink" href="#ip-ipv6-prefix" title="链接到此标题。"></a></h2>
@@ -216,6 +395,77 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IPV6-PREFIX</span></code></p></td>
+<td><p>Specify a prefix list name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPV6-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>Set the sequence number of this entry for IP prefix-list</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>index</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>sequence number</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-65535&gt; / IPV6-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">permit</span></code></p></td>
+<td><p>Specify a permit rule</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>deny / permit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X:X::X</span></code></p></td>
+<td><p>IPv6 prefix address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MASK</span></code></p></td>
+<td><p>mask length or dotted mask</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>MASK / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">greater-equal</span></code></p></td>
+<td><p>minimum prefix length</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>greater-equal</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-128&gt;</span></code></p></td>
+<td><p>minimum prefix length</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>MASK / X:X::X</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">less-equal</span></code></p></td>
+<td><p>maximum prefix length</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>less-equal</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-128&gt;</span></code></p></td>
+<td><p>maximum prefix length</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;1-65535&gt; / IPV6-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">deny</span></code></p></td>
+<td><p>Specify a deny rule</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-ip-ip-prefix">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#undo-ip-ip-prefix" title="链接到此标题。"></a></h2>
@@ -229,6 +479,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP-PREFIX</span></code></p></td>
+<td><p>Specify a prefix list name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>sequence</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>index</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SEQ</span></code></p></td>
+<td><p>sequence</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-ip-ipv6-prefix">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">ipv6-prefix</span></code><a class="headerlink" href="#undo-ip-ipv6-prefix" title="链接到此标题。"></a></h2>
@@ -242,6 +523,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IPV6-PREFIX</span></code></p></td>
+<td><p>Specify an IPv6 prefix list name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPV6-PREFIX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>sequence</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>index</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SEQ</span></code></p></td>
+<td><p>sequence</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

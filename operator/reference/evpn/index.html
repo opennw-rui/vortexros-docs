@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EVPN &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>EVPN &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/evpn/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -164,6 +164,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="esi">
 <h2><code class="docutils literal notranslate"><span class="pre">esi</span></code><a class="headerlink" href="#esi" title="链接到此标题。"></a></h2>
@@ -177,6 +183,29 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：eth-trunk
+适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">XXXX.XXXX.XXXX.XXXX.XXXX</span></code></p></td>
+<td><p>Ethernet segment identifier</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="id1">
 <span id="evpn-1"></span><h2><code class="docutils literal notranslate"><span class="pre">evpn</span></code><a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
@@ -190,6 +219,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="evpn-overlay">
 <h2><code class="docutils literal notranslate"><span class="pre">evpn-overlay</span></code><a class="headerlink" href="#evpn-overlay" title="链接到此标题。"></a></h2>
@@ -203,6 +238,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable</span></code></p></td>
+<td><p>enable the EVPN overlay</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="l2vpn-family-evpn">
 <h2><code class="docutils literal notranslate"><span class="pre">l2vpn-family</span> <span class="pre">evpn</span></code><a class="headerlink" href="#l2vpn-family-evpn" title="链接到此标题。"></a></h2>
@@ -216,6 +272,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-advertise-l2vpn-evpn">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">advertise</span> <span class="pre">l2vpn</span> <span class="pre">evpn</span></code><a class="headerlink" href="#undo-advertise-l2vpn-evpn" title="链接到此标题。"></a></h2>
@@ -229,6 +291,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-esi">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">esi</span></code><a class="headerlink" href="#undo-esi" title="链接到此标题。"></a></h2>
@@ -242,6 +310,14 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：eth-trunk
+适用分区：interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-evpn-overlay">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">evpn-overlay</span></code><a class="headerlink" href="#undo-evpn-overlay" title="链接到此标题。"></a></h2>
@@ -255,6 +331,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable</span></code></p></td>
+<td><p>disable the EVPN overlay</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-l2vpn-family-evpn">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">l2vpn-family</span> <span class="pre">evpn</span></code><a class="headerlink" href="#undo-l2vpn-family-evpn" title="链接到此标题。"></a></h2>
@@ -268,6 +365,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 </section>
 

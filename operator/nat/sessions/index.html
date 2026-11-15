@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>会话与统计 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/nat/sessions/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="容量与计时" href="../capacity/" />
+    <link rel="prev" title="NAT 回流" href="../hairpin/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">NAT</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../objects/">对象与规则</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interface-pat/">接口 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pool-pat/">地址池 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../no-pat/">NO-PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static/">静态 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dnat/">DNAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../twice/">Twice NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../no-nat/">No-NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hairpin/">NAT 回流</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">会话与统计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capacity/">容量与计时</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">NAT</a></li>
+      <li class="breadcrumb-item active">会话与统计</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="会话与统计"></span><h1>会话与统计<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>会话表示已建立的有状态转换，规则计数表示启用了统计的规则命中，worker 计数用于区分配额、容量、PAT 端口或哈希等失败。三者不能相互替代。</p>
+<section id="id2">
+<span id="查看哪一层"></span><h2>查看哪一层<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>命令</p></th>
+<th class="head"><p>用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">all</span></code>、<code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">NAME</span></code></p></td>
+<td><p>策略与规则</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">runtime</span></code></p></td>
+<td><p>实际策略、引用数、会话配额、活动会话、统计和回流状态</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">objects</span></code>、<code class="docutils literal notranslate"><span class="pre">interfaces</span></code></p></td>
+<td><p>实际对象与方向绑定</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">statistics</span> <span class="pre">[name</span> <span class="pre">NAME]</span></code></p></td>
+<td><p>规则包、字节计数</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">sessions</span> <span class="pre">[FILTERS]</span></code></p></td>
+<td><p>活跃有状态映射及原始/转换五元组</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">configuration</span></code></p></td>
+<td><p>实际全局容量与超时</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span> <span class="pre">workers</span></code></p></td>
+<td><p>每 worker 的会话、命中、丢弃及失败分类</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id3">
+<span id="筛选子命令"></span><h2>筛选子命令<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>过滤条件可组合，使用 AND 语义，地址和端口匹配转换前五元组：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions protocol tcp destination-port 443 name INTERNET action snat-pat
+display nat-policy sessions source-ip 198.18.11.2 destination-ip 198.19.80.2 destination-port 8080
+display nat-policy sessions hairpin enable
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>含义</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">protocol</span></code></p></td>
+<td><p>tcp、udp、icmp、sctp 或 0–255 协议号</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source-ip</span></code>、<code class="docutils literal notranslate"><span class="pre">destination-ip</span></code></p></td>
+<td><p>原始 IPv4 主机地址</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source-port</span></code>、<code class="docutils literal notranslate"><span class="pre">destination-port</span></code></p></td>
+<td><p>原始端口，0–65535</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">worker</span></code></p></td>
+<td><p>VPP 线程索引</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">core</span></code></p></td>
+<td><p>逻辑 CPU 编号，不能与 worker 索引混用</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code>、<code class="docutils literal notranslate"><span class="pre">rule</span></code></p></td>
+<td><p>策略名和规则 ID</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">action</span></code></p></td>
+<td><p>no-nat、static-nat、snat-no-pat、snat-pat、dnat、twice-nat</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hairpin</span></code></p></td>
+<td><p>enable 只显示回流，disable 排除回流</p></td>
+</tr>
+</tbody>
+</table>
+<p>TCP/UDP/SCTP 显示端口，ICMP 显示 identifier；无端口协议只显示地址。No-NAT、静态 NAT 不产生状态会话，所以会话数为零不代表未生效。</p>
+</section>
+<section id="id4">
+<span id="默认统计与真实结果"></span><h2>默认统计与真实结果<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>策略/规则 <code class="docutils literal notranslate"><span class="pre">statistic</span> <span class="pre">enable</span></code> 缺省关闭，显式开启后才能据此检查命中。真实接口 PAT 规则命中：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Policy      Rule  Priority  Statistics  Packets  Bytes
+-------------------------------------------------------------------------------
+4124874345  10    10        policy      18       1248
+</pre></div>
+</div>
+<p>逐会话包/字节统计是独立的后端开关，当前产品 CLI 不提供该开关；关闭时显示 <code class="docutils literal notranslate"><span class="pre">--</span></code>。旧记录中 <code class="docutils literal notranslate"><span class="pre">Packets:0</span> <span class="pre">Bytes:0</span></code> 不能据此认定没有流量。<a class="reference internal" href="../../../examples/nat-pat/"><span class="std std-doc">接口 PAT 案例</span></a>已经验证当前显示的 enabled/disabled 与端点收发。</p>
+<p>策略 <code class="docutils literal notranslate"><span class="pre">session-limit</span> <span class="pre">2</span></code> 的真实对照中，第 3 条 UDP 新流失败，worker 的 Quota 增加 1，PAT fail/exhaust 仍为 0；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">session-limit</span></code> 后新流成功。这是配额限制，不是 PAT 耗尽。</p>
+</section>
+<section id="id5">
+<span id="清理与风险"></span><h2>清理与风险<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>clear nat-policy counters
+clear nat-policy sessions name LAB-SNAT rule 10
+display nat-policy sessions name LAB-SNAT
+</pre></div>
+</div>
+<p>清计数不删除会话；清会话会中断对应连接。不带名字的 <code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">nat-policy</span> <span class="pre">sessions</span></code> 清除全部 NAT 会话。解除接口绑定再删除策略和对象，见<a class="reference internal" href="../objects/"><span class="std std-doc">对象与规则</span></a>。</p>
+<p><a class="reference internal" href="../../reference/nat/"><span class="std std-doc">全部语法</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../hairpin/" class="btn btn-neutral float-left" title="NAT 回流" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../capacity/" class="btn btn-neutral float-right" title="容量与计时" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

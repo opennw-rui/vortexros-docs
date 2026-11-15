@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MQC &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>MQC &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/mqc/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -165,6 +165,202 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cir</span></code></p></td>
+<td><p>committed information rate</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>cir</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CIR</span></code></p></td>
+<td><p>CIR value (default kbps)</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>CIR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">kbps</span></code></p></td>
+<td><p>kilobits per second</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>CIR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mbps</span></code></p></td>
+<td><p>megabits per second</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>CIR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pir</span> <span class="pre">PIR</span></code></p></td>
+<td><p>peak information rate；PIR value</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>CIR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cbs</span> <span class="pre">CBS</span></code></p></td>
+<td><p>committed burst size (bytes)；CBS in bytes</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>CIR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pbs</span> <span class="pre">PBS</span></code></p></td>
+<td><p>peak burst size (bytes)；PBS in bytes</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>CIR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">green</span></code></p></td>
+<td><p>green packets</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>green / red / yellow</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pass</span></code></p></td>
+<td><p>forward packets</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>green / red / yellow</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">discard</span></code></p></td>
+<td><p>drop packets</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>green / red / yellow</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">remark</span></code></p></td>
+<td><p>remark a color's DSCP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>remark</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dscp</span></code></p></td>
+<td><p>DSCP value</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs0</span></code></p></td>
+<td><p>CS0 / default (0)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs1</span></code></p></td>
+<td><p>CS1 (8)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af11</span></code></p></td>
+<td><p>AF11 (10)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af12</span></code></p></td>
+<td><p>AF12 (12)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af13</span></code></p></td>
+<td><p>AF13 (14)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs2</span></code></p></td>
+<td><p>CS2 (16)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af21</span></code></p></td>
+<td><p>AF21 (18)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af22</span></code></p></td>
+<td><p>AF22 (20)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af23</span></code></p></td>
+<td><p>AF23 (22)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs3</span></code></p></td>
+<td><p>CS3 (24)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af31</span></code></p></td>
+<td><p>AF31 (26)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af32</span></code></p></td>
+<td><p>AF32 (28)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af33</span></code></p></td>
+<td><p>AF33 (30)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs4</span></code></p></td>
+<td><p>CS4 (32)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af41</span></code></p></td>
+<td><p>AF41 (34)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af42</span></code></p></td>
+<td><p>AF42 (36)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af43</span></code></p></td>
+<td><p>AF43 (38)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs5</span></code></p></td>
+<td><p>CS5 (40)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ef</span></code></p></td>
+<td><p>EF (46)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs6</span></code></p></td>
+<td><p>CS6 (48)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs7</span></code></p></td>
+<td><p>CS7 (56)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DSCP</span></code></p></td>
+<td><p>DSCP value 0-63</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>CIR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yellow</span></code></p></td>
+<td><p>yellow packets</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>CIR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">red</span></code></p></td>
+<td><p>red packets</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="classifier">
 <h2><code class="docutils literal notranslate"><span class="pre">classifier</span></code><a class="headerlink" href="#classifier" title="链接到此标题。"></a></h2>
@@ -178,6 +374,47 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CLASSIFIER</span></code></p></td>
+<td><p>classifier name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLASSIFIER</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">behavior</span></code></p></td>
+<td><p>behavior</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>behavior</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BEHAVIOR</span></code></p></td>
+<td><p>behavior name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>BEHAVIOR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">precedence</span></code></p></td>
+<td><p>bind precedence</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>precedence</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+<td><p>precedence</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-traffic-behavior">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">traffic</span> <span class="pre">behavior</span></code><a class="headerlink" href="#display-traffic-behavior" title="链接到此标题。"></a></h2>
@@ -191,6 +428,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：配置与运行态，按子命令区分。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">user-defined</span></code></p></td>
+<td><p>user-defined behavior</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>user-defined</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BEHAVIOR</span></code></p></td>
+<td><p>behavior name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-traffic-classifier">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">traffic</span> <span class="pre">classifier</span></code><a class="headerlink" href="#display-traffic-classifier" title="链接到此标题。"></a></h2>
@@ -204,6 +467,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Running（已接受配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">user-defined</span></code></p></td>
+<td><p>user-defined classifier</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>user-defined</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CLASSIFIER</span></code></p></td>
+<td><p>classifier name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-traffic-policy">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">traffic</span> <span class="pre">policy</span></code><a class="headerlink" href="#display-traffic-policy" title="链接到此标题。"></a></h2>
@@ -217,6 +506,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Running（已接受配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">user-defined</span></code></p></td>
+<td><p>user-defined policy</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>user-defined</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">POLICY</span></code></p></td>
+<td><p>policy name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="if-match">
 <h2><code class="docutils literal notranslate"><span class="pre">if-match</span></code><a class="headerlink" href="#if-match" title="链接到此标题。"></a></h2>
@@ -230,6 +545,302 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">any</span></code></p></td>
+<td><p>match any packet</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">acl</span></code></p></td>
+<td><p>match ACL</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>acl</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ACL</span></code></p></td>
+<td><p>ACL name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dscp</span></code></p></td>
+<td><p>match DSCP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs0</span></code></p></td>
+<td><p>CS0 / default (0)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs1</span></code></p></td>
+<td><p>CS1 (8)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af11</span></code></p></td>
+<td><p>AF11 (10)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af12</span></code></p></td>
+<td><p>AF12 (12)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af13</span></code></p></td>
+<td><p>AF13 (14)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs2</span></code></p></td>
+<td><p>CS2 (16)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af21</span></code></p></td>
+<td><p>AF21 (18)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af22</span></code></p></td>
+<td><p>AF22 (20)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af23</span></code></p></td>
+<td><p>AF23 (22)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs3</span></code></p></td>
+<td><p>CS3 (24)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af31</span></code></p></td>
+<td><p>AF31 (26)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af32</span></code></p></td>
+<td><p>AF32 (28)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af33</span></code></p></td>
+<td><p>AF33 (30)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs4</span></code></p></td>
+<td><p>CS4 (32)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af41</span></code></p></td>
+<td><p>AF41 (34)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af42</span></code></p></td>
+<td><p>AF42 (36)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af43</span></code></p></td>
+<td><p>AF43 (38)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs5</span></code></p></td>
+<td><p>CS5 (40)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ef</span></code></p></td>
+<td><p>EF (46)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs6</span></code></p></td>
+<td><p>CS6 (48)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs7</span></code></p></td>
+<td><p>CS7 (56)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>dscp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DSCP</span></code></p></td>
+<td><p>DSCP value 0-63</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vlan-id</span></code></p></td>
+<td><p>match VLAN ID</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>vlan-id</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4094&gt;</span></code></p></td>
+<td><p>VLAN ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">protocol</span></code></p></td>
+<td><p>match network protocol</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>protocol</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ip</span></code></p></td>
+<td><p>IPv4</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>protocol</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span></code></p></td>
+<td><p>IPv6</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">protocol-number</span></code></p></td>
+<td><p>match IP protocol number</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>protocol-number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-255&gt;</span></code></p></td>
+<td><p>IP protocol number</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source-ip</span></code></p></td>
+<td><p>match source prefix</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>destination-ip / source-ip</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PREFIX</span></code></p></td>
+<td><p>IPv4 or IPv6 prefix</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">destination-ip</span></code></p></td>
+<td><p>match destination prefix</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source-port</span></code></p></td>
+<td><p>match source port</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>destination-port / source-port</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>first port</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;0-4294967295&gt; / INTEGER&lt;0-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">to</span></code></p></td>
+<td><p>range end</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>to</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>last port</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">destination-port</span></code></p></td>
+<td><p>match destination port</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">packet-length</span></code></p></td>
+<td><p>match packet length</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>packet-length</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-4294967295&gt;</span></code></p></td>
+<td><p>minimum length</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>to</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-4294967295&gt;</span></code></p></td>
+<td><p>maximum length</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp</span></code></p></td>
+<td><p>match TCP fields</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>tcp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">syn-flag</span></code></p></td>
+<td><p>TCP SYN flag</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp-flags</span></code></p></td>
+<td><p>match TCP flag value and mask</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>tcp-flags</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VALUE</span></code></p></td>
+<td><p>hex flag value</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>VALUE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mask</span></code></p></td>
+<td><p>flag mask</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>mask</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MASK</span></code></p></td>
+<td><p>hex flag mask</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vxlan-vni</span></code></p></td>
+<td><p>match VXLAN VNI</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>vxlan-vni</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-16777215&gt;</span></code></p></td>
+<td><p>VXLAN VNI</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inbound-interface</span></code></p></td>
+<td><p>match input interface</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>inbound-interface / outbound-interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>not / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">outbound-interface</span></code></p></td>
+<td><p>match output interface</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">not</span></code></p></td>
+<td><p>invert a condition</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="if-match-any">
 <h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">any</span></code><a class="headerlink" href="#if-match-any" title="链接到此标题。"></a></h2>
@@ -243,6 +854,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="redirect">
 <h2><code class="docutils literal notranslate"><span class="pre">redirect</span></code><a class="headerlink" href="#redirect" title="链接到此标题。"></a></h2>
@@ -256,6 +873,72 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ip-nexthop</span></code></p></td>
+<td><p>next-hop IP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>ip-nexthop</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP</span></code></p></td>
+<td><p>next-hop</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>IP / IPv6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">IF</span></code></p></td>
+<td><p>outgoing interface；interface</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP / IPv6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span> <span class="pre">VRF</span></code></p></td>
+<td><p>next-hop VPN instance；VPN instance</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv6-nexthop</span></code></p></td>
+<td><p>next-hop IPv6</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>ipv6-nexthop</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IPv6</span></code></p></td>
+<td><p>next-hop</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>outgoing interface</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></p></td>
+<td><p>look up the packet destination in a VPN routing table</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>vpn-instance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="remark-dscp">
 <h2><code class="docutils literal notranslate"><span class="pre">remark</span> <span class="pre">dscp</span></code><a class="headerlink" href="#remark-dscp" title="链接到此标题。"></a></h2>
@@ -269,6 +952,132 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs0</span></code></p></td>
+<td><p>CS0 / default (0)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs1</span></code></p></td>
+<td><p>CS1 (8)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af11</span></code></p></td>
+<td><p>AF11 (10)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af12</span></code></p></td>
+<td><p>AF12 (12)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af13</span></code></p></td>
+<td><p>AF13 (14)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs2</span></code></p></td>
+<td><p>CS2 (16)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af21</span></code></p></td>
+<td><p>AF21 (18)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af22</span></code></p></td>
+<td><p>AF22 (20)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af23</span></code></p></td>
+<td><p>AF23 (22)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs3</span></code></p></td>
+<td><p>CS3 (24)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af31</span></code></p></td>
+<td><p>AF31 (26)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af32</span></code></p></td>
+<td><p>AF32 (28)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af33</span></code></p></td>
+<td><p>AF33 (30)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs4</span></code></p></td>
+<td><p>CS4 (32)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af41</span></code></p></td>
+<td><p>AF41 (34)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af42</span></code></p></td>
+<td><p>AF42 (36)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af43</span></code></p></td>
+<td><p>AF43 (38)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs5</span></code></p></td>
+<td><p>CS5 (40)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ef</span></code></p></td>
+<td><p>EF (46)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs6</span></code></p></td>
+<td><p>CS6 (48)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cs7</span></code></p></td>
+<td><p>CS7 (56)</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DSCP</span></code></p></td>
+<td><p>DSCP value 0-63</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="traffic-behavior">
 <h2><code class="docutils literal notranslate"><span class="pre">traffic</span> <span class="pre">behavior</span></code><a class="headerlink" href="#traffic-behavior" title="链接到此标题。"></a></h2>
@@ -282,6 +1091,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">STRING&lt;1-31&gt;</span></code></p></td>
+<td><p>Name of behavior</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="traffic-classifier">
 <h2><code class="docutils literal notranslate"><span class="pre">traffic</span> <span class="pre">classifier</span></code><a class="headerlink" href="#traffic-classifier" title="链接到此标题。"></a></h2>
@@ -295,6 +1125,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">STRING&lt;1-31&gt;</span></code></p></td>
+<td><p>Name of classifier</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>STRING&lt;1-31&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">operator</span></code></p></td>
+<td><p>match operator</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>operator</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">and</span></code></p></td>
+<td><p>and</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>operator</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">or</span></code></p></td>
+<td><p>or</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="traffic-policy">
 <h2><code class="docutils literal notranslate"><span class="pre">traffic</span> <span class="pre">policy</span></code><a class="headerlink" href="#traffic-policy" title="链接到此标题。"></a></h2>
@@ -308,6 +1174,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">STRING&lt;1-31&gt;</span></code></p></td>
+<td><p>Name of Traffic policy</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="id1">
 <span id="traffic-policy-1"></span><h2><code class="docutils literal notranslate"><span class="pre">traffic-policy</span></code><a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
@@ -324,6 +1211,66 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">interface</span></code></strong>
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif, interface/ethernet-aggregate-member</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">POLICY</span></code></p></td>
+<td><p>policy name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inbound</span></code></p></td>
+<td><p>inbound</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">outbound</span></code></p></td>
+<td><p>outbound</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">vlan</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">POLICY</span></code></p></td>
+<td><p>policy name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inbound</span></code></p></td>
+<td><p>inbound</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">outbound</span></code></p></td>
+<td><p>outbound</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-car">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">car</span></code><a class="headerlink" href="#undo-car" title="链接到此标题。"></a></h2>
@@ -337,6 +1284,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-classifier">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">classifier</span></code><a class="headerlink" href="#undo-classifier" title="链接到此标题。"></a></h2>
@@ -350,6 +1303,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CLASSIFIER</span></code></p></td>
+<td><p>classifier name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-if-match">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span></code><a class="headerlink" href="#undo-if-match" title="链接到此标题。"></a></h2>
@@ -363,6 +1337,102 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">any</span></code></p></td>
+<td><p>undo match-any rule</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">acl</span></code></p></td>
+<td><p>undo ACL match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dscp</span></code></p></td>
+<td><p>undo DSCP match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vlan-id</span></code></p></td>
+<td><p>undo VLAN ID match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">protocol</span></code></p></td>
+<td><p>undo network protocol match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">protocol-number</span></code></p></td>
+<td><p>undo IP protocol-number match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source-ip</span></code></p></td>
+<td><p>undo source prefix match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">destination-ip</span></code></p></td>
+<td><p>undo destination prefix match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source-port</span></code></p></td>
+<td><p>undo source-port match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">destination-port</span></code></p></td>
+<td><p>undo destination-port match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">packet-length</span></code></p></td>
+<td><p>undo packet-length match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp</span></code></p></td>
+<td><p>undo TCP match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp-flags</span></code></p></td>
+<td><p>undo TCP-flags match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vxlan-vni</span></code></p></td>
+<td><p>undo VXLAN VNI match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inbound-interface</span></code></p></td>
+<td><p>undo input-interface match</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">outbound-interface</span></code></p></td>
+<td><p>undo output-interface match</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-redirect">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">redirect</span></code><a class="headerlink" href="#undo-redirect" title="链接到此标题。"></a></h2>
@@ -376,6 +1446,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-remark-dscp">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">remark</span> <span class="pre">dscp</span></code><a class="headerlink" href="#undo-remark-dscp" title="链接到此标题。"></a></h2>
@@ -389,6 +1465,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-traffic-behavior">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">traffic</span> <span class="pre">behavior</span></code><a class="headerlink" href="#undo-traffic-behavior" title="链接到此标题。"></a></h2>
@@ -402,6 +1484,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BEHAVIOR</span></code></p></td>
+<td><p>behavior name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-traffic-classifier">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">traffic</span> <span class="pre">classifier</span></code><a class="headerlink" href="#undo-traffic-classifier" title="链接到此标题。"></a></h2>
@@ -415,6 +1518,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CLASSIFIER</span></code></p></td>
+<td><p>classifier name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-traffic-policy">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">traffic</span> <span class="pre">policy</span></code><a class="headerlink" href="#undo-traffic-policy" title="链接到此标题。"></a></h2>
@@ -428,6 +1552,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">POLICY</span></code></p></td>
+<td><p>policy name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="id2">
 <span id="undo-traffic-policy-1"></span><h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">traffic-policy</span></code><a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
@@ -444,6 +1589,56 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">interface</span></code></strong>
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif, interface/ethernet-aggregate-member</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inbound</span></code></p></td>
+<td><p>inbound</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">outbound</span></code></p></td>
+<td><p>outbound</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">vlan</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inbound</span></code></p></td>
+<td><p>inbound</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">outbound</span></code></p></td>
+<td><p>outbound</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

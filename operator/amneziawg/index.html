@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AmneziaWG &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>AmneziaWG &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/amneziawg/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="VXLAN" href="../vxlan/" />
-    <link rel="prev" title="WireGuard" href="../wireguard/" /> 
+    <link rel="next" title="配置与混淆" href="profile/" />
+    <link rel="prev" title="握手与转发" href="../wireguard/queries/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -66,7 +66,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ip-in-ip/">IP-in-IP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">AmneziaWG</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AmneziaWG</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="profile/">配置与混淆</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timers/">计时与预共享密钥</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11-vxlan-evpn/">EVPN</a></li>
 </ul>
@@ -82,9 +86,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -116,71 +120,26 @@
 <h1>AmneziaWG<a class="headerlink" href="#amneziawg" title="链接到此标题。"></a></h1>
 <p>配置独立的 AmneziaWG 隧道及两端的协议参数。</p>
 <p><a class="reference internal" href="../reference/amneziawg/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/amneziawg/"><span class="std std-doc">配置案例</span></a></p>
-<section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>AmneziaWG使用独立的数据面插件、接口和peer对象，不替换WireGuard；两类隧道可以同时配置。Profile除peer外，还保存握手前垃圾包、报文前置填充、消息头范围、内容填充、随机尾部和定时参数。两端必须使用一致的协议参数。</p>
-<p>下面示例启用3个随机垃圾包、不同消息头范围和固定前置填充。启用header protection时，四类报文的前置填充都必须不少于12字节。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>amneziawg profile AWG-PROFILE
- junk size 16 48
- junk count 3
- padding init 24
- padding response 28
- padding cookie 20
- padding transport 16
- header init 100 110
- header response 200 210
- header cookie 300 310
- header transport 400 410
- padding content 4 16
- timing rekey-timeout 4 6
- header-protection BASE64-32-BYTE-KEY
- random-trailers enable
- junk-packet 1 expression "&lt;b 0x160301&gt;&lt;c&gt;&lt;t&gt;&lt;r 32&gt;&lt;rc 16&gt;&lt;rd 8&gt;"
- #
- peer SITE-B
-  publickey BASE64-PUBLIC-KEY
-  allowd-ip 10.30.0.0 16
-  source 192.0.2.1
-  destination vpn-instance default 198.51.100.2 port 51820
-  keepalive 25
-#
-interface Tunnel 20
- tunnel-protocol amneziawg
- privatekey auto
- source vpn-instance default
- amneziawg-profile AWG-PROFILE
- mtu 1500
- ip address 10.255.20.1 255.255.255.252
-commit
-</pre></div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="profile/">配置与混淆</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="profile/#id2">配置与验证</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="timers/">计时与预共享密钥</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="timers/#id2">定时范围和预共享密钥</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">junk-packet</span> <span class="pre">SLOT</span> <span class="pre">BASE64</span></code>用于配置1至5号静态原始报文槽位；<code class="docutils literal notranslate"><span class="pre">junk-packet</span> <span class="pre">SLOT</span> <span class="pre">expression</span> <span class="pre">&quot;EXPRESSION&quot;</span></code>用于动态生成握手前报文。表达式支持：<code class="docutils literal notranslate"><span class="pre">&lt;b</span> <span class="pre">0x...&gt;</span></code>固定字节、<code class="docutils literal notranslate"><span class="pre">&lt;c&gt;</span></code>每次握手随机起始且逐槽递增的32位网络序计数、<code class="docutils literal notranslate"><span class="pre">&lt;t&gt;</span></code>当前Unix秒、<code class="docutils literal notranslate"><span class="pre">&lt;r</span> <span class="pre">N&gt;</span></code>随机字节、<code class="docutils literal notranslate"><span class="pre">&lt;rc</span> <span class="pre">N&gt;</span></code>随机英文字母和<code class="docutils literal notranslate"><span class="pre">&lt;rd</span> <span class="pre">N&gt;</span></code>随机数字。表达式最多4096字节，展开后的单个报文最多4096字节，动态标签最多128个；错误表达式在进入Candidate前拒绝。表达式在配置时编译，握手热路径只复制模板并填充动态字段。Jc/Jmin/Jmax产生的随机垃圾包与这些槽位相互独立。</p>
-<p>Allowed IP、underlay VPN、动态客户端源端口、固定服务端监听端口和漫游endpoint的语义与 <a class="reference internal" href="../wireguard/"><span class="std std-doc">WireGuard</span></a> 相同。Tunnel直连前缀会按Allowed IP最长前缀映射到peer，非直连业务网段仍由路由配置决定。修改协议参数时，已存在的peer会被最小化重建；修改单个peer只影响该peer。</p>
-<p>验证命令：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display amneziawg profile AWG-PROFILE
-display amneziawg peer AWG-PROFILE SITE-B
-display amneziawg interface Tunnel 20
-display interface Tunnel 20
-ping 10.255.20.2
-</pre></div>
-</div>
-<p>删除时先解除Tunnel引用，再删除profile：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 20
- undo amneziawg-profile
-undo amneziawg profile AWG-PROFILE
-commit
-</pre></div>
-</div>
-<p>当前版本已经验证IPv4与IPv6 overlay、IPv4 underlay、header protection、内容填充、随机尾部、cookie关闭、静态/动态垃圾包以及peer反复增删。动态表达式采用上述明确语法，非法或超过边界的输入不会部分生效。</p>
-</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../wireguard/" class="btn btn-neutral float-left" title="WireGuard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../vxlan/" class="btn btn-neutral float-right" title="VXLAN" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../wireguard/queries/" class="btn btn-neutral float-left" title="握手与转发" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="profile/" class="btn btn-neutral float-right" title="配置与混淆" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

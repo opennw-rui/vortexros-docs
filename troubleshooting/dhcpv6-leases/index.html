@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DHCPv6 租约查询 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>DHCPv6 租约查询 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/troubleshooting/dhcpv6-leases/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -80,9 +80,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -112,7 +112,7 @@
              
   <section id="dhcpv6">
 <span id="dhcpv6-租约查询"></span><h1>DHCPv6 租约查询<a class="headerlink" href="#dhcpv6" title="链接到此标题。"></a></h1>
-<p>先区分客户端未获地址和管理端租约显示失败。Debug 9 已继承 DHCPv6 类型解码及正常空租约汇总的修复。</p>
+<p>先区分客户端未获地址和管理端租约显示失败。0.29-dev包含 DHCPv6 类型解码及正常空租约汇总的修复。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp service verbose
 display dhcpv6 client interface Ethernet 1
 display ipv6 pool name LAB-V6 used
@@ -126,7 +126,7 @@ display ipv6 pool name LAB-V6 verbose
 <li><p>同地址族多实例：一个实例为空时，其他实例的租约及池名筛选仍应正常。</p></li>
 <li><p>socket、服务命令或回复格式错误：保留错误并检查服务日志，不能按零租约处理。</p></li>
 </ul>
-<p>Debug 5 的 <code class="docutils literal notranslate"><span class="pre">IA_NA</span></code> 字符串解码错误已在 Debug 6 修复；正常空结果及多实例汇总在 Debug 7 修复。原始错误和流量结果保留在<a class="reference internal" href="../../examples/dhcpv6/"><span class="std std-doc">历史实测案例</span></a>，不代表 Debug 9 仍有该限制，也不表示本轮重新运行了 DHCPv6 拓扑。</p>
+<p>当前支持IA_NA、IA_TA、IA_PD以及正常空结果和多实例汇总。具体输出见<a class="reference internal" href="../../examples/dhcpv6/"><span class="std std-doc">实测案例</span></a>；本轮未重复运行该未受影响的拓扑。</p>
 </section>
 
 

@@ -15,6 +15,14 @@
   cpu isolation enable
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `cpu main-core`
 
 - 类别：配置命令
@@ -25,6 +33,16 @@
   ```text
   cpu main-core NUMBER
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `NUMBER` | Logical CPU | 输入值 |
 
 ## `cpu worker-cores`
 
@@ -37,6 +55,16 @@
   cpu worker-cores CPU-LIST
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `CPU-LIST` | CPU list such as 3-5,8 | 输入值 |
+
 ## `dataplane`
 
 - 类别：配置命令
@@ -47,6 +75,14 @@
   ```text
   dataplane
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `descriptors`
 
@@ -59,6 +95,19 @@
   descriptors rx COUNT tx COUNT
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `rx` | Receive | 关键字 |
+| rx | `COUNT` | RX count | 输入值 |
+| COUNT | `tx` | Transmit | 关键字 |
+| tx | `COUNT` | TX count | 输入值 |
+
 ## `device`
 
 - 类别：配置命令
@@ -69,6 +118,19 @@
   ```text
   device PCI-BDF name Ethernet NUMBER
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PCI-BDF` | PCI address | 输入值 |
+| PCI-BDF | `name` | Assign interface name | 关键字 |
+| name | `Ethernet` | Ethernet interface | 关键字 |
+| Ethernet | `NUMBER` | Interface number starting at 0 | 输入值 |
 
 ## `display dataplane`
 
@@ -81,6 +143,21 @@
   display dataplane [verbose|interfaces|cpu|memory|iommu|tables]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `verbose` | Show all dataplane status sections | 可选 |
+| 命令后 | `interfaces` | Show PCI devices, drivers and receive queues | 可选 |
+| 命令后 | `cpu` | Show VPP threads and Linux CPU isolation | 可选 |
+| 命令后 | `memory` | Show reserved and free Linux hugepages | 可选 |
+| 命令后 | `iommu` | Show IOMMU groups and PCI bindings | 可选 |
+| 命令后 | `tables` | Show neighbor and MAC learning limits | 可选 |
+
 ## `display vpp api compatibility`
 
 - 类别：只读显示命令
@@ -91,6 +168,16 @@
   ```text
   display vpp api compatibility [verbose]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `verbose` | include compatibility failure details | 可选 |
 
 ## `display vpp takeover transaction`
 
@@ -103,6 +190,14 @@
   display vpp takeover transaction
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `iommu enable`
 
 - 类别：配置命令
@@ -113,6 +208,14 @@
   ```text
   iommu enable
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `mac-address learn-limit`
 
@@ -125,6 +228,16 @@
   mac-address learn-limit INTEGER<1-2147483647>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-2147483647>` | Maximum entries | 输入值 |
+
 ## `memory hugepages`
 
 - 类别：配置命令
@@ -135,6 +248,19 @@
   ```text
   memory hugepages size { 2M | 1G } count NUMBER
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `size` | Page size | 关键字 |
+| size | `SIZE` | 2M or 1G | 输入值 |
+| SIZE | `count` | Number of pages | 关键字 |
+| count | `NUMBER` | Page count | 输入值 |
 
 ## `neighbor ipv4 limit`
 
@@ -147,6 +273,16 @@
   neighbor ipv4 limit INTEGER<4-2147483647>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<4-2147483647>` | Maximum entries | 输入值 |
+
 ## `neighbor ipv6 limit`
 
 - 类别：配置命令
@@ -158,6 +294,16 @@
   neighbor ipv6 limit INTEGER<4-2147483647>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<4-2147483647>` | Maximum entries | 输入值 |
+
 ## `queues`
 
 - 类别：配置命令
@@ -168,6 +314,19 @@
   ```text
   queues rx COUNT tx COUNT
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `rx` | Receive | 关键字 |
+| rx | `COUNT` | RX count | 输入值 |
+| COUNT | `tx` | Transmit | 关键字 |
+| tx | `COUNT` | TX count | 输入值 |
 
 ## `reset dataplane`
 
@@ -183,6 +342,14 @@
   reset dataplane
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `undo cpu isolation enable`
 
 - 类别：配置命令
@@ -193,6 +360,14 @@
   ```text
   undo cpu isolation enable
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo cpu main-core`
 
@@ -205,6 +380,14 @@
   undo cpu main-core
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo cpu worker-cores`
 
 - 类别：配置命令
@@ -215,6 +398,14 @@
   ```text
   undo cpu worker-cores
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo descriptors`
 
@@ -227,6 +418,14 @@
   undo descriptors
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo device`
 
 - 类别：配置命令
@@ -237,6 +436,16 @@
   ```text
   undo device PCI-BDF
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PCI-BDF` | PCI address | 输入值 |
 
 ## `undo iommu enable`
 
@@ -249,6 +458,14 @@
   undo iommu enable
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo mac-address learn-limit`
 
 - 类别：配置命令
@@ -259,6 +476,14 @@
   ```text
   undo mac-address learn-limit
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo memory hugepages`
 
@@ -271,6 +496,14 @@
   undo memory hugepages
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo neighbor ipv4 limit`
 
 - 类别：配置命令
@@ -281,6 +514,14 @@
   ```text
   undo neighbor ipv4 limit
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo neighbor ipv6 limit`
 
@@ -293,6 +534,14 @@
   undo neighbor ipv6 limit
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo queues`
 
 - 类别：配置命令
@@ -303,6 +552,14 @@
   ```text
   undo queues
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo vpp startup-config`
 
@@ -315,6 +572,14 @@
   undo vpp startup-config
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `vpp startup-config`
 
 - 类别：配置命令
@@ -325,3 +590,13 @@
   ```text
   vpp startup-config PATH
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PATH` | Linux path to VPP startup.conf (default /VortexROS/startup.conf) | 输入值 |

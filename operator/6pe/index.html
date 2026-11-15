@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6PE &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>6PE &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/6pe/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -78,9 +78,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -127,6 +127,10 @@
 <p>后端使用 FRR 原生 <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">labeled-unicast</span></code> 地址族。Zebra 将 6PE 路由写入 Linux
 netlink，LCP 再同步到 VPP；VortexROS 不直接向 VPP 或内核下发 6PE 路由。</p>
 <p>在对端检查 IPv6 BGP 路由、VPP MPLS 转发表和 IPv6 业务连通性。</p>
+</section>
+<section id="id2">
+<span id="完整双端案例"></span><h2>完整双端案例<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p><a class="reference internal" href="../../examples/mpls/6pe/"><span class="std std-doc">6PE案例</span></a>包含两台PE的完整IPv4承载、LDP、BGP LU、实际标签、双向流量和撤销。控制层在存在6PE邻居时生成IPv6显式空标签策略，不要求用户手工写FRR配置。参数默认不作为额外命令显示于config。</p>
 </section>
 </section>
 

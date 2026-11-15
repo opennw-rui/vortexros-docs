@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>路由查询 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>路由查询 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/routing-query/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -24,7 +24,7 @@
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
     <link rel="next" title="ACL" href="../acl/" />
-    <link rel="prev" title="VRRP" href="../vrrp/" /> 
+    <link rel="prev" title="检查与撤销" href="../vrrp/operations/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -86,9 +86,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -185,13 +185,24 @@ display alarm active
 </div>
 <p>随后使用本节对应的邻居、路由、BFD或VRRP命令检查运行状态。确认业务正常后再执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。删除配置时先解除引用或接口绑定，再删除协议进程和策略对象。</p>
 </section>
+<section id="vpn">
+<span id="vpn-内的组合查询"></span><h2>VPN 内的组合查询<a class="headerlink" href="#vpn" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip routing-table vpn-instance CLI-UNDER 198.18.181.0 24
+display ipv6 routing-table vpn-instance CLI-UNDER 2001:db8:181:: 64
+display ip routing-table vpn-instance CLI-UNDER protocol ospf
+display ipv6 routing-table vpn-instance CLI-UNDER protocol ospfv3
+</pre></div>
+</div>
+<p>本轮隔离拓扑中，上述精确查询各显示一条实际安装的外部路由：IPv4 代价 37、IPv6 代价 38，优先级均为 150。协议查询分别显示 3 条和 4 条。先按 VPN 选择后再按前缀、协议过滤，不会把非默认 VPN 的结果重新按 default 过滤。</p>
+<p>默认路由的精确查询使用 <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span> <span class="pre">0</span></code> 和 <code class="docutils literal notranslate"><span class="pre">::</span> <span class="pre">0</span></code>；这里的第二项是前缀长度。实测 OSPF/OSPFv3 的 <code class="docutils literal notranslate"><span class="pre">default-route-advertise</span> <span class="pre">always</span></code> 发布后，各显示一条优先级 150、代价 1 的默认路由；撤销后两族精确查询均为零条。路由数为零必须来自一次成功查询，不能用报错或空的错误输出代替。</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../vrrp/" class="btn btn-neutral float-left" title="VRRP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../vrrp/operations/" class="btn btn-neutral float-left" title="检查与撤销" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="../acl/" class="btn btn-neutral float-right" title="ACL" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

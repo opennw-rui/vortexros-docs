@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>代理 ARP &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>代理 ARP &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/proxy-arp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -24,7 +24,7 @@
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
     <link rel="next" title="IP 路由" href="../04-ip-routing/" />
-    <link rel="prev" title="ARP 与 ND" href="../neighbors/" /> 
+    <link rel="prev" title="IPv6 邻居查询" href="../neighbors/ipv6-query/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -61,7 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../flow-steering/">Flow Steering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">三层子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../qinq/">QinQ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
@@ -87,9 +87,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -119,17 +119,128 @@
              
   <section id="arp">
 <span id="代理-arp"></span><h1>代理 ARP<a class="headerlink" href="#arp" title="链接到此标题。"></a></h1>
-<p>在指定三层接口上为一个或一段 IPv4 地址回答 ARP。</p>
+<p>代理 ARP 让设备在指定三层接口上，为配置范围内的 IPv4 地址回答 ARP。它适用于主机认为目标在本地网段、目标实际需要经过路由器到达的场景。</p>
+<p>它不替代路由，也不执行 NAT。设备必须有到目标的路由，目标必须有回程路由。只有列出的地址范围会被代理；其他可路由地址不会因此自动获得代理响应。</p>
 <p><a class="reference internal" href="../reference/neighbors/"><span class="std std-doc">命令参考</span></a></p>
 <section id="id1">
-<span id="配置与撤销"></span><h2>配置与撤销<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>静态ARP和单IP/范围代理ARP必须绑定一个真实、具备MAC且能发送ARP的L3接口；LoopBack和NVE不出现在补全中。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>arp proxy 10.10.10.12 10.10.10.14 interface Vlanif 100
-display arp proxy
-undo arp proxy 10.10.10.12 10.10.10.14 interface Vlanif 100
+<span id="使用条件"></span><h2>使用条件<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>接口必须是具备以太网 MAC 的三层接口，例如物理口、三层聚合口、Vlanif 或 Vbdif。二层成员口、LoopBack 和 NVE 不能作为代理入口。接口绑定的 VPN 实例决定其路由域。</p>
+<p>Linux 数据面使用显式代理邻居项。VPP 数据面先处理普通 ARP，再把代理入口上未回答的请求交给 Linux；地址范围仍由同一份配置生成，不需要另外配置 VPP 原生命令。</p>
+</section>
+<section id="id2">
+<span id="配置案例"></span><h2>配置案例<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>以下是开发服务器真实 CLI 验证使用的地址和接口。接口名称需替换为实际设备名称。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE                  P1                        P2                  Linux 目标端
+198.18.11.100/24 -- host-p1q13
+                   198.18.11.1/24
+                   host-p1a12 -- host-p2a12
+                   198.19.80.1/30  198.19.80.2/30
+                                  host-p2e23 -- p3e23
+                                  198.19.23.2/24  198.19.23.3/24
+                                                  lo: 198.18.11.150/32
 </pre></div>
 </div>
-<p>提交后，指定地址范围的ARP请求从所选三层接口代理响应。接口down/up或重新创建后，设备会自动恢复已经提交的代理配置。</p>
+<p>CE 认为198.18.11.150与自己直接相连，因此直接请求目标的 MAC。P1 代理回答，随后按主机路由将数据交给 P2。</p>
+<section id="p1">
+<h3>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p1q13
+ ip address 198.18.11.1 24
+quit
+interface host-p1a12
+ ip address 198.19.80.1 30
+quit
+ip route-static 198.18.11.150 32 198.19.80.2
+arp proxy 198.18.11.150 198.18.11.150 interface host-p1q13
+commit
+save
+</pre></div>
+</div>
+<p>起始、结束地址相同表示代理一个地址；配置连续范围时更改结束地址即可。</p>
+</section>
+<section id="p2">
+<h3>P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p2a12
+ ip address 198.19.80.2 30
+quit
+interface host-p2e23
+ ip address 198.19.23.2 24
+quit
+ip route-static 198.18.11.150 32 198.19.23.3
+ip route-static 198.18.11.0 24 198.19.80.1
+commit
+save
+</pre></div>
+</div>
+</section>
+<section id="linux">
+<span id="linux-端点"></span><h3>Linux 端点<a class="headerlink" href="#linux" title="链接到此标题。"></a></h3>
+<p>目标端在已连接 P2 的以太网口上设置地址，并把目标地址放在 Loopback。实验中的该口名为p3e23：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>p3e23<span class="w"> </span>up
+ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.19.23.3/24<span class="w"> </span>dev<span class="w"> </span>p3e23
+ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.18.11.150/32<span class="w"> </span>dev<span class="w"> </span>lo
+ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.18.11.100/32<span class="w"> </span>via<span class="w"> </span><span class="m">198</span>.19.23.2<span class="w"> </span>dev<span class="w"> </span>p3e23
+</pre></div>
+</div>
+<p>CE 使用198.18.11.100/24；实验中的接口名为cli-r4：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>cli-r4<span class="w"> </span>up
+ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.18.11.100/24<span class="w"> </span>dev<span class="w"> </span>cli-r4
+ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span>default<span class="w"> </span>via<span class="w"> </span><span class="m">198</span>.18.11.1
+</pre></div>
+</div>
+<p>这些是端点操作，不是在 VortexROS CLI 中执行的命令。已有同名地址或路由时保留原配置，不要重复添加。</p>
+</section>
+</section>
+<section id="id3">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>P1 查询代理状态：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[~P1] display arp proxy
+Start Address    End Address      Interface            State
+198.18.11.150    198.18.11.150    host-p1q13           active
+Total items displayed = 1
+</pre></div>
+</div>
+<p>CE 发起实际流量：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping -n -c 3 198.18.11.150
+64 bytes from 198.18.11.150: icmp_seq=1 ttl=62 time=102 ms
+64 bytes from 198.18.11.150: icmp_seq=2 ttl=62 time=28.1 ms
+64 bytes from 198.18.11.150: icmp_seq=3 ttl=62 time=99.5 ms
+3 packets transmitted, 3 received, 0% packet loss
+</pre></div>
+</div>
+<p>这是共享开发服务器上的功能结果，不是延迟或吞吐性能保证。清空邻居后的首次探测还包含代理应答、下一跳解析时间；本次首次3包中收到1包，收敛后上述3包全部收到。实际部署若持续丢包，应检查代理入口、目标路由和回程，不能只依据配置项存在判断成功。</p>
+<p>本例还实际验证了：</p>
+<ul class="simple">
+<li><p>保留代理配置并保存，重建 P1 数据面后，配置恢复，健康状态为ready、零告警。</p></li>
+<li><p>为范围外的198.18.11.151添加指向另一接口的路由后，CE 仍未收到该地址的代理 ARP 响应。</p></li>
+<li><p>撤销代理并清空 CE 对应邻居缓存后，原地址不再获得代理响应。</p></li>
+</ul>
+</section>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>P1 撤销本例的代理和目标主机路由：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+undo arp proxy 198.18.11.150 198.18.11.150 interface host-p1q13
+undo ip route-static 198.18.11.150 32 198.19.80.2
+commit
+display arp proxy
+save
+</pre></div>
+</div>
+<p>实际查询结果为：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Total items displayed = 0
+</pre></div>
+</div>
+<p>P2 撤销本例新增的目标主机路由：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+undo ip route-static 198.18.11.150 32 198.19.23.3
+commit
+save
+</pre></div>
+</div>
+<p>如果回程网段路由和接口地址还被其他业务使用，应保留。Linux 测试端另行删除本例新增的 Loopback 地址和主机回程路由。</p>
+<p>撤销会删除显式代理项，并在 VPP 上关闭该接口不再需要的请求转交；不会为了撤销代理而关闭接口的普通三层转发。</p>
 </section>
 </section>
 
@@ -137,7 +248,7 @@ undo arp proxy 10.10.10.12 10.10.10.14 interface Vlanif 100
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../neighbors/" class="btn btn-neutral float-left" title="ARP 与 ND" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../neighbors/ipv6-query/" class="btn btn-neutral float-left" title="IPv6 邻居查询" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="../04-ip-routing/" class="btn btn-neutral float-right" title="IP 路由" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

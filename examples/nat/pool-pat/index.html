@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>地址池 PAT &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/nat/pool-pat/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="NO-PAT" href="../no-pat/" />
+    <link rel="prev" title="接口 PAT" href="../../nat-pat/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../policy/">流量策略</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">NAT</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../topology/">基础拓扑</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../nat-pat/">接口 PAT</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">地址池 PAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../no-pat/">NO-PAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../static/">静态 NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dnat/">DNAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../twice/">Twice NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../no-nat/">No-NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hairpin/">NAT 回流</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../">NAT</a></li>
+      <li class="breadcrumb-item active">地址池 PAT</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pat">
+<span id="地址池-pat"></span><h1>地址池 PAT<a class="headerlink" href="#pat" title="链接到此标题。"></a></h1>
+<p>把多个连接转换到地址池地址及分配的端口，不依赖出口接口地址。公网池地址必须能从外部路由回到 P1。</p>
+<section id="id1">
+<span id="前提与参数"></span><h2>前提与参数<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>先完成<a class="reference internal" href="../topology/"><span class="std std-doc">基础拓扑</span></a>。本例与其他 NAT 案例单独运行。池内地址由地址池对象定义，PAT 范围缺省 10000–65535；耗尽时新连接失败，不会自动使用范围外的端口。删除地址池前必须解除策略引用。</p>
+</section>
+<section id="id2">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>P1 从用户视图开始；接口与基础路由由前置拓扑提供：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+nat-policy address-pool name LAB-PUBLIC
+ address 198.19.81.1/32
+ pat-port-range 20000-20063
+quit
+nat-policy name LAB-SNAT
+ statistic enable
+ rule 10
+  source address 198.18.11.2/32
+  action snat pat address-pool LAB-PUBLIC
+ quit
+quit
+interface host-p1a12
+ nat-policy LAB-SNAT outbound
+quit
+commit
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<span id="验证与真实结果"></span><h2>验证与真实结果<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在 P3 访问 http://198.19.80.2:8080/。随后在 P1 查询：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions action snat-pat source-ip 198.18.11.2 destination-ip 198.19.80.2 destination-port 8080
+</pre></div>
+</div>
+<p>已有隔离实验真实输出节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>host-p1a12/outbound  FIB:0 -&gt; FIB:0  Policy:LAB-SNAT(4124874345)/10  Action:SNAT-PAT
+198.18.11.2:44510 -&gt; 198.19.80.2:8080  =&gt;  198.19.81.1:20058 -&gt; 198.19.80.2:8080
+</pre></div>
+</div>
+<p>P3 到 P2 的 HTTP 返回 200；P2 日志看到 198.19.81.1。转换端口 20058 在配置的 20000–20063 内。端口不是固定分配值。 该记录证明本例路径，不是地址池耗尽、满表容量或吞吐测试。运行 ID、端口和时间会随连接变化。</p>
+</section>
+<section id="id4">
+<span id="撤销与保存"></span><h2>撤销与保存<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>P1 系统视图：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p1a12
+ undo nat-policy LAB-SNAT outbound
+quit
+undo nat-policy name LAB-SNAT
+undo nat-policy address-pool name LAB-PUBLIC
+commit
+display nat-policy runtime
+display nat-policy interfaces
+</pre></div>
+</div>
+<p>解除绑定后再发起新连接，确认不再采用该策略。基础拓扑的普通路由仍在，撤销 NAT 不一定使业务断开，应比较转换结果而非只看 ping。需要重启保留配置时，在提交并验证后执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>；撤销后也再次保存。</p>
+<p><a class="reference internal" href="../../../operator/nat/pool-pat/"><span class="std std-doc">功能说明</span></a> · <a class="reference internal" href="../../../operator/reference/nat/"><span class="std std-doc">命令参数</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../../nat-pat/" class="btn btn-neutral float-left" title="接口 PAT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../no-pat/" class="btn btn-neutral float-right" title="NO-PAT" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

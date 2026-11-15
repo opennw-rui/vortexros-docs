@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BFD &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>BFD &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bfd/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="VRRP" href="../vrrp/" />
-    <link rel="prev" title="RIPng" href="../ripng/" /> 
+    <link rel="next" title="独立会话" href="static/" />
+    <link rel="prev" title="查询与撤销" href="../ripng/queries/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -66,7 +66,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">BFD</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BFD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="static/">独立会话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="protocols/">协议绑定</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../routing-query/">路由查询</a></li>
 </ul>
@@ -86,9 +90,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -118,59 +122,29 @@
              
   <section id="bfd">
 <h1>BFD<a class="headerlink" href="#bfd" title="链接到此标题。"></a></h1>
-<p>用独立会话或协议绑定快速检测路径故障。</p>
-<p><a class="reference internal" href="../reference/bfd/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/bfd/"><span class="std std-doc">配置案例</span></a></p>
-<section id="id1">
-<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>用独立会话或协议绑定检测路径故障。</p>
 <p>BFD可建立独立会话，也可由OSPF、IS-IS、RIP和BGP邻居调用。静态和协议会话均默认发送间隔 1000 ms、接收间隔 1000 ms、检测次数 3。默认参数省略于保存配置。BGP 邻居覆盖对等体组的参数时，配置仍会显示有实际影响的覆盖项。</p>
-<section id="id2">
-<span id="独立bfd会话"></span><h3>独立BFD会话<a class="headerlink" href="#id2" title="链接到此标题。"></a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bfd
-bfd TO-P2 bind peer-ip 10.0.12.2 source-ip 10.0.12.1 interface Vlanif 12
- log-session-changes
-</pre></div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="static/">独立会话</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static/#id2">被动模式与重启</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="protocols/">协议绑定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="protocols/#id2">共享和计时归属</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<p>多跳会话需要显式指定 <code class="docutils literal notranslate"><span class="pre">source-ip</span></code>，VPN场景可追加 <code class="docutils literal notranslate"><span class="pre">vpn-instance</span> <span class="pre">BLUE</span></code>。</p>
-</section>
-<section id="id3">
-<span id="路由协议调用bfd"></span><h3>路由协议调用BFD<a class="headerlink" href="#id3" title="链接到此标题。"></a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 12
- ospf bfd enable
-</pre></div>
-</div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
- peer 10.0.0.2 bfd enable
-</pre></div>
-</div>
-<p>IS-IS和RIP使用同样的接口形式，将命令前缀替换为 <code class="docutils literal notranslate"><span class="pre">isis</span> <span class="pre">bfd</span></code> 或 <code class="docutils literal notranslate"><span class="pre">rip</span> <span class="pre">bfd</span></code>。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bfd configuration
-display bfd session all
-display bfd statistics
-</pre></div>
-</div>
-<p>BFD 会话摘要显示 Local、Remote 鉴别值、出接口、单跳或多跳和状态。
-<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bfd</span> <span class="pre">session</span> <span class="pre">&lt;名称&gt;</span></code> 还显示源地址、配置与运行定时器、检测超时和诊断。
-尚未在后端建立的会话显示 Pending。</p>
-<p>若配置过非默认计时，使用以下前三条 undo 恢复；需要删除时使用最后一条 undo：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bfd TO-P2 bind peer-ip 10.0.12.2 source-ip 10.0.12.1 interface Vlanif 12
- undo min-tx-interval
- undo min-rx-interval
- undo detect-multiplier
- quit
-undo bfd TO-P2
-commit
-</pre></div>
-</div>
-</section>
-</section>
+<p><a class="reference internal" href="../../examples/bfd/"><span class="std std-doc">完整双端案例</span></a> · <a class="reference internal" href="../reference/bfd/"><span class="std std-doc">命令参数</span></a></p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../ripng/" class="btn btn-neutral float-left" title="RIPng" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../vrrp/" class="btn btn-neutral float-right" title="VRRP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../ripng/queries/" class="btn btn-neutral float-left" title="查询与撤销" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="static/" class="btn btn-neutral float-right" title="独立会话" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

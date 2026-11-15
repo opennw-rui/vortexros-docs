@@ -13,6 +13,18 @@
   display ip vpn-instance [NAME | interface | verbose]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VRF` | VPN instance name | 输入值、可选 |
+| 命令后 | `interface` | show interface binding | 可选 |
+| 命令后 | `verbose` | show verbose information | 可选 |
+
 ## `display ip vpn-instance interface`
 
 - 类别：只读显示命令
@@ -24,6 +36,14 @@
   display ip vpn-instance interface
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `display ip vpn-instance verbose`
 
 - 类别：只读显示命令
@@ -34,6 +54,14 @@
   ```text
   display ip vpn-instance verbose
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
 
 ## `ip binding vpn-instance`
 
@@ -48,6 +76,17 @@
   ip binding vpn-instance NAME
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VRF` | VPN instance name | 输入值 |
+
 ## `ip vpn-instance`
 
 - 类别：配置命令
@@ -58,6 +97,16 @@
   ```text
   ip vpn-instance NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VRF` | VPN instance name | 输入值 |
 
 ## `ipv4-family`
 
@@ -70,6 +119,15 @@
   ipv4-family
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+还受当前对象/配置条件限制；以本视图 ? 为准
+
+此形式没有额外参数。
+
 ## `ipv6-family`
 
 - 类别：配置命令
@@ -80,6 +138,15 @@
   ```text
   ipv6-family
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+还受当前对象/配置条件限制；以本视图 ? 为准
+
+此形式没有额外参数。
 
 ## `route-distinguisher`
 
@@ -92,6 +159,24 @@
   route-distinguisher RD
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`bridge-domain-evpn`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `RD` | route distinguisher | 输入值 |
+
+**适用视图：`vpn-instance, vpn-family`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `RD` | route distinguisher (A:B) | 输入值 |
+
 ## `undo ip binding vpn-instance`
 
 - 类别：配置命令
@@ -102,6 +187,15 @@
   ```text
   undo ip binding vpn-instance
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
 
 ## `undo ip vpn-instance`
 
@@ -114,6 +208,16 @@
   undo ip vpn-instance NAME
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `VRF` | VPN instance name | 输入值 |
+
 ## `undo ipv4-family`
 
 - 类别：配置命令
@@ -124,6 +228,14 @@
   ```text
   undo ipv4-family
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo ipv6-family`
 
@@ -136,6 +248,14 @@
   undo ipv6-family
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo route-distinguisher`
 
 - 类别：配置命令
@@ -146,6 +266,20 @@
   ```text
   undo route-distinguisher
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`bridge-domain-evpn`**
+
+此形式没有额外参数。
+
+**适用视图：`vpn-instance, vpn-family`**
+
+此形式没有额外参数。
 
 ## `undo vpn-target`
 
@@ -161,6 +295,29 @@
   undo vpn-target RT { export-extcommunity | import-extcommunity }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`bridge-domain-evpn`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `RT` | route target | 输入值 |
+| RT | `export-extcommunity` | export route target | 关键字 |
+| RT | `import-extcommunity` | import route target | 关键字 |
+
+**适用视图：`vpn-instance, vpn-family`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `RT` | VPN target (A:B) | 输入值 |
+| RT | `export-extcommunity` | export route target | 可选 |
+| RT | `import-extcommunity` | import route target | 可选 |
+| RT | `both` | both import and export | 可选 |
+
 ## `vpn-target`
 
 - 类别：配置命令
@@ -174,3 +331,26 @@
   ```text
   vpn-target RT { export-extcommunity | import-extcommunity }
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`bridge-domain-evpn`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `RT` | route target | 输入值 |
+| RT | `export-extcommunity` | export route target | 关键字 |
+| RT | `import-extcommunity` | import route target | 关键字 |
+
+**适用视图：`vpn-instance, vpn-family`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `RT` | VPN target (A:B) | 输入值 |
+| RT | `export-extcommunity` | export route target | 关键字 |
+| RT | `import-extcommunity` | import route target | 关键字 |
+| RT | `both` | both import and export | 关键字 |

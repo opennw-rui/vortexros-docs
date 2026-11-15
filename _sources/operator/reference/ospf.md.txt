@@ -15,6 +15,16 @@
   bandwidth-reference INTEGER<1-4294967>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-4294967>` | reference bandwidth in Mbit/s | 输入值 |
+
 ## `display ospf`
 
 peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据库。
@@ -28,6 +38,57 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   display ospf [process-id] lsdb [{router|network|summary|asbr|ase|nssa|opaque-*} [link-state-id]] [originate-router router-id|self-originate] [age {min-value|max-value} seconds]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | Process ID | 输入值、可选 |
+| DISPLAY-VRF / INTEGER<1-65535> / 命令后 | `abr-asbr` | Information of the OSPF ABR and ASBR | 可选 |
+| DISPLAY-VRF / INTEGER<1-65535> / 命令后 | `asbr-summary` | Information of aggregate addresses for OSPF | 可选 |
+| DISPLAY-VRF / INTEGER<1-65535> / 命令后 | `brief` | Brief information of OSPF processes | 可选 |
+| DISPLAY-VRF / INTEGER<1-65535> / 命令后 | `graceful-restart` | Display GR information | 可选 |
+| graceful-restart | `helper` | Helper details in the router | 可选 |
+| DISPLAY-VRF / INTEGER<1-65535> / 命令后 | `interface` | Interface information | 可选 |
+| interface | `traffic` | OSPF interface packet counters | 可选 |
+| interface / peer / traffic | `INTERFACE` | Interface name | 输入值、可选 |
+| DISPLAY-VRF / INTEGER<1-65535> / 命令后 | `lsdb` | Link state database | 可选 |
+| lsdb | `router` | Router link states | 可选 |
+| asbr / ase / lsdb / network / nssa / opaque-area / opaque-as / opaque-link / router / summary | `X.X.X.X` | Link state ID | 输入值、可选 |
+| X.X.X.X / asbr / ase / lsdb / network / nssa / opaque-area / opaque-as / opaque-link / router / summary | `originate-router` | Advertising router link states | 可选 |
+| originate-router | `X.X.X.X` | Advertising router ID | 输入值 |
+| X.X.X.X / asbr / ase / lsdb / network / nssa / opaque-area / opaque-as / opaque-link / router / summary | `self-originate` | Self-originated link states | 可选 |
+| X.X.X.X / asbr / ase / lsdb / network / nssa / opaque-area / opaque-as / opaque-link / router / summary | `age` | Only display LSAs in the age scope | 可选 |
+| age | `min-value` | Minimum LSA age | 关键字 |
+| max-value / min-value | `INTEGER<0-3600>` | LSA age in seconds | 输入值 |
+| INTEGER<0-3600> | `max-value` | Maximum LSA age | 可选 |
+| age | `max-value` | Maximum LSA age | 关键字 |
+| lsdb | `network` | Network link states | 可选 |
+| lsdb | `ase` | AS external link states | 可选 |
+| lsdb | `asbr` | ASBR summary link states | 可选 |
+| lsdb | `summary` | Network summary link states | 可选 |
+| lsdb | `nssa` | NSSA external link states | 可选 |
+| lsdb | `opaque-area` | Opaque area link states | 可选 |
+| lsdb | `opaque-as` | Opaque AS link states | 可选 |
+| lsdb | `opaque-link` | Opaque link-local link states | 可选 |
+| lsdb | `brief` | Database summary | 可选 |
+| lsdb | `detail` | Detailed database information | 可选 |
+| lsdb | `INTEGER<1-5>` | LSA type | 输入值、可选 |
+| DISPLAY-VRF / INTEGER<1-65535> / 命令后 | `mpls-te` | MPLS-TE information | 可选 |
+| mpls-te | `database` | MPLS-TE database | 关键字 |
+| mpls-te | `interface` | Interface information | 关键字 |
+| mpls-te | `router` | MPLS-TE router parameters | 关键字 |
+| DISPLAY-VRF / INTEGER<1-65535> / 命令后 | `peer` | A neighbor router | 可选 |
+| peer | `X.X.X.X` | Neighbor router ID | 输入值、可选 |
+| INTERFACE / X.X.X.X / peer | `brief` | Brief OSPF peer information | 可选 |
+| peer | `last-nbr-down` | Information of last down peer | 可选 |
+| DISPLAY-VRF / INTEGER<1-65535> / 命令后 | `routing` | OSPF route table | 可选 |
+| 命令后 | `vpn-instance` | VPN instance | 可选 |
+| vpn-instance | `DISPLAY-VRF` | VPN instance name | 输入值 |
+
 ## `nssa`
 
 - 类别：配置命令
@@ -38,6 +99,24 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   nssa [no-summary]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`ospf-area`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `no-summary` | do not advertise inter-area summaries | 可选 |
+
+**适用视图：`ospfv3-area`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `no-summary` | suppress inter-area summaries | 可选 |
 
 ## `opaque-capability enable`
 
@@ -50,6 +129,14 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   opaque-capability enable
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `ospf`
 
 - 类别：配置命令
@@ -60,6 +147,20 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   ospf INTEGER<1-65535> [router-id X.X.X.X] [vpn-instance NAME]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | OSPF process 1-65535 | 输入值 |
+| INTEGER<1-65535> | `router-id` | OSPF private router ID value | 可选、可组合 |
+| router-id | `X.X.X.X` | OSPF Private router ID value | 输入值 |
+| INTEGER<1-65535> | `vpn-instance` | VPN instance name | 可选、可组合 |
+| vpn-instance | `VPN` | VPN instance name | 输入值 |
 
 ## `ospf bfd`
 
@@ -72,6 +173,25 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ospf bfd {min-tx-interval INTEGER<100-1000> | min-rx-interval INTEGER<100-1000> | detect-multiplier INTEGER<3-50>} ...
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `min-tx-interval` | Minimum transmit interval in milliseconds | 关键字 |
+| min-tx-interval | `INTEGER<100-1000>` | Minimum transmit interval in milliseconds | 输入值 |
+| INTEGER<100-1000> / INTEGER<3-50> | `min-rx-interval` | Minimum receive interval in milliseconds | 可选、可组合 |
+| min-rx-interval | `INTEGER<100-1000>` | Minimum receive interval in milliseconds | 输入值 |
+| INTEGER<100-1000> | `detect-multiplier` | BFD detection multiplier | 可选、可组合 |
+| detect-multiplier | `INTEGER<3-50>` | Detection multiplier | 输入值 |
+| 命令后 | `min-rx-interval` | Minimum receive interval in milliseconds | 关键字 |
+| INTEGER<100-1000> / INTEGER<3-50> | `min-tx-interval` | Minimum transmit interval in milliseconds | 可选、可组合 |
+| 命令后 | `detect-multiplier` | BFD detection multiplier | 关键字 |
+
 ## `ospf bfd enable`
 
 - 类别：配置命令
@@ -82,6 +202,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   ospf bfd enable
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
 
 ## `ospf cost`
 
@@ -94,6 +223,17 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ospf cost INTEGER<1-65535>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | OSPF cost 1-65535 | 输入值 |
+
 ## `ospf dr-priority`
 
 - 类别：配置命令
@@ -104,6 +244,17 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   ospf dr-priority INTEGER<0-255>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<0-255>` | Router priority value | 输入值 |
 
 ## `ospf enable`
 
@@ -118,6 +269,19 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ospf enable INTEGER<1-65535> area X.X.X.X
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | OSPF process ID | 输入值 |
+| INTEGER<1-65535> | `area` | OSPF area | 关键字 |
+| area | `X.X.X.X` | area ID | 输入值 |
+
 ## `ospf network-type`
 
 - 类别：配置命令
@@ -128,6 +292,20 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   ospf network-type {broadcast|nbma|p2p|p2mp}
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `broadcast` | broadcast network | 关键字 |
+| 命令后 | `nbma` | non-broadcast multi-access network | 关键字 |
+| 命令后 | `p2p` | point-to-point network | 关键字 |
+| 命令后 | `p2mp` | point-to-multipoint network | 关键字 |
 
 ## `ospf passive`
 
@@ -140,6 +318,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ospf passive
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
+
 ## `ospf timer dead`
 
 - 类别：配置命令
@@ -150,6 +337,17 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   ospf timer dead INTEGER<1-65535>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | dead seconds | 输入值 |
 
 ## `ospf timer hello`
 
@@ -162,6 +360,17 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ospf timer hello INTEGER<1-65535>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | hello seconds | 输入值 |
+
 ## `ospf timer retransmit`
 
 - 类别：配置命令
@@ -173,6 +382,17 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ospf timer retransmit INTEGER<1-65535>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | retransmit seconds | 输入值 |
+
 ## `ospf timer transmit-delay`
 
 - 类别：配置命令
@@ -183,6 +403,17 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   ospf timer transmit-delay INTEGER<1-3600>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-3600>` | transmit-delay seconds | 输入值 |
 
 ## `reset ospf`
 
@@ -196,6 +427,17 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   reset ospf INTEGER<1-65535> process
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | ospf process ID | 输入值 |
+| INTEGER<1-65535> | `process` | reset this routing process | 关键字 |
+
 ## `reset service ospf`
 
 - 类别：即时运维命令
@@ -208,6 +450,18 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   reset service ospf [ipv4|ipv6|all]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ipv4` | restart the IPv4 protocol daemon | 可选 |
+| 命令后 | `ipv6` | restart the IPv6 protocol daemon | 可选 |
+| 命令后 | `all` | restart both address-family daemons | 可选 |
+
 ## `stub`
 
 - 类别：配置命令
@@ -218,6 +472,24 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   stub [no-summary]
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`ospf-area`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `no-summary` | do not advertise inter-area summaries | 可选 |
+
+**适用视图：`ospfv3-area`**
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `no-summary` | suppress inter-area summaries | 可选 |
 
 ## `undo bandwidth-reference`
 
@@ -230,6 +502,14 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   undo bandwidth-reference
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo nssa`
 
 - 类别：配置命令
@@ -240,6 +520,20 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   undo nssa
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`ospf-area`**
+
+此形式没有额外参数。
+
+**适用视图：`ospfv3-area`**
+
+此形式没有额外参数。
 
 ## `undo opaque-capability enable`
 
@@ -252,6 +546,14 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   undo opaque-capability enable
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo ospf`
 
 - 类别：配置命令
@@ -262,6 +564,16 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   undo ospf INTEGER<1-65535>
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | OSPF process ID | 输入值 |
 
 ## `undo ospf bfd`
 
@@ -274,6 +586,22 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   undo ospf bfd {min-tx-interval | min-rx-interval | detect-multiplier} ...
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `min-tx-interval` | Minimum transmit interval in milliseconds | 关键字 |
+| detect-multiplier / min-tx-interval | `min-rx-interval` | Minimum receive interval in milliseconds | 可选、可组合 |
+| min-rx-interval / min-tx-interval | `detect-multiplier` | BFD detection multiplier | 可选、可组合 |
+| 命令后 | `min-rx-interval` | Minimum receive interval in milliseconds | 关键字 |
+| detect-multiplier / min-rx-interval | `min-tx-interval` | Minimum transmit interval in milliseconds | 可选、可组合 |
+| 命令后 | `detect-multiplier` | BFD detection multiplier | 关键字 |
+
 ## `undo ospf bfd enable`
 
 - 类别：配置命令
@@ -284,6 +612,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   undo ospf bfd enable
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
 
 ## `undo ospf cost`
 
@@ -296,6 +633,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   undo ospf cost
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
+
 ## `undo ospf dr-priority`
 
 - 类别：配置命令
@@ -306,6 +652,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   undo ospf dr-priority
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
 
 ## `undo ospf enable`
 
@@ -318,6 +673,17 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   undo ospf enable INTEGER<1-65535>
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTEGER<1-65535>` | OSPF process ID | 输入值 |
+
 ## `undo ospf network-type`
 
 - 类别：配置命令
@@ -328,6 +694,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   undo ospf network-type
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
 
 ## `undo ospf passive`
 
@@ -340,6 +715,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   undo ospf passive
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
+
 ## `undo ospf timer dead`
 
 - 类别：配置命令
@@ -350,6 +734,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   undo ospf timer dead
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
 
 ## `undo ospf timer hello`
 
@@ -362,6 +755,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   undo ospf timer hello
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
+
 ## `undo ospf timer retransmit`
 
 - 类别：配置命令
@@ -372,6 +774,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   undo ospf timer retransmit
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
 
 ## `undo ospf timer transmit-delay`
 
@@ -384,6 +795,15 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   undo ospf timer transmit-delay
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
+
 ## `undo stub`
 
 - 类别：配置命令
@@ -394,3 +814,17 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
   ```text
   undo stub
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`ospf-area`**
+
+此形式没有额外参数。
+
+**适用视图：`ospfv3-area`**
+
+此形式没有额外参数。

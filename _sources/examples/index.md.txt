@@ -1,63 +1,21 @@
 # 配置案例
 
-从任务选择案例。命令与实际输出分开显示；带有“实际输出”的片段来自指定测试，显示值可能随接口、路由或运行状态变化。先准备独立实验端口，并确认管理路径不会被改动。
+选择业务，再选择具体功能。每个末级案例分别列出拓扑、各端配置、实际影响、查询和流量结果，以及撤销顺序。标为增量操作的案例依赖明确列出的基础组网，不应单独粘贴执行。
+
+已有真实记录按原拓扑和版本边界保留；配置模板、期望结果与实际输出明确区分。参数、默认值和支持限制见相应功能页，逐条语法见命令参考。
 
 ~~~{toctree}
-:maxdepth: 1
-:caption: 接口与交换
+:maxdepth: 2
 
-vlan-gateway
-lacp
+interfaces/index
+routing/index
+protocols/index
+policy/index
+nat/index
+services/index
+tunnels/index
+evpn/index
+mpls/index
 ~~~
 
-~~~{toctree}
-:maxdepth: 1
-:caption: 路由与可靠性
-
-static-route
-route-group
-urpf
-ospf
-ospfv3
-bgp
-bgp-policy
-isis
-rip
-ripng
-bfd
-vrrp
-~~~
-
-~~~{toctree}
-:maxdepth: 1
-:caption: 流量策略
-
-acl
-nat-pat
-qos
-mqc
-~~~
-
-~~~{toctree}
-:maxdepth: 1
-:caption: 网络服务
-
-dhcp
-dhcpv6
-lldp
-snmp
-ipv6-ra
-~~~
-
-~~~{toctree}
-:maxdepth: 1
-:caption: 隧道与 VPN
-
-gre
-ip-in-ip
-wireguard
-amneziawg
-vxlan
-evpn
-mpls-l3vpn
-~~~
+[二层子接口完整案例](subinterfaces/l2.md) · [三层子接口完整案例](subinterfaces/l3.md) · [全部命令参数](../operator/reference/commands.md)

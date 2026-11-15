@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>数据面 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>数据面 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dataplane/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,7 +23,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="链路聚合" href="../link-aggregation/" />
+    <link rel="next" title="设备与接管" href="devices/" />
     <link rel="prev" title="Flow Steering" href="../flow-steering/" /> 
 </head>
 
@@ -59,9 +59,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../ethernet/">Ethernet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../offload/">硬件卸载</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../flow-steering/">Flow Steering</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">数据面</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">数据面</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="devices/">设备与接管</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/">资源与运行查询</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tables/">邻居与 MAC 容量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bridge-mtu/">控制网桥 MTU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="recovery/">激活与恢复</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">三层子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../qinq/">QinQ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
@@ -87,9 +94,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -119,67 +126,27 @@
              
   <section id="id1">
 <span id="数据面"></span><h1>数据面<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>选择由 Linux 或 DPDK 管理的设备，并配置 CPU、内存、队列和容量。</p>
-<p><a class="reference internal" href="../reference/dataplane/"><span class="std std-doc">命令参考</span></a></p>
-<section id="id2">
-<span id="设备配置"></span><h2>设备配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
- device 0000:03:00.0 name Ethernet 0
-  mode dpdk
-  queues rx 2 tx 2
-  descriptors rx 1024 tx 1024
-  undo hardware offload tso
- quit
- cpu main-core 2
- cpu worker-cores 3-5
-quit
-interface user-defined Ethernet0
- ip address 192.0.2.10 255.255.255.0
-quit
-commit
-save
-display dataplane verbose
-reset dataplane
-</pre></div>
-</div>
-<p>PCI 地址用于定位硬件，<code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">Ethernet</span> <span class="pre">0</span></code> 将接口命名为 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code>。物理口默认为
-<code class="docutils literal notranslate"><span class="pre">kernel</span></code>。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mode</span></code> 恢复 Linux 驱动。按 <code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">user-defined</span></code> 预配置的接口
-以普通 <code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">Ethernet0</span></code> 视图保存，地址和静态路由在设备就绪后下发。</p>
-<p><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code> 确认后生成 udev 规则、变更物理网卡名称并核对 Linux 配置。
-之后为选择 DPDK 的设备生成 VPP 启动配置并接管。接管失败时恢复 Linux 驱动和回放地址、
-路由，保留已经验证的 Ethernet 名称。外部网络管理器由用户维护。</p>
-<section id="mac">
-<span id="邻居与-mac-学习上限"></span><h3>邻居与 MAC 学习上限<a class="headerlink" href="#mac" title="链接到此标题。"></a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
- neighbor ipv4 limit 102400
- neighbor ipv6 limit 102400
- mac-address learn-limit 102400
-quit
-commit
-save
-display current-configuration configuration dataplane
-display dataplane verbose
-</pre></div>
-</div>
-<p>IPv4、IPv6 和 MAC 学习上限默认为 102400。配置省略上限时，直接应用当前版本的默认值。等于默认值的命令不会写入配置。
-IPv4 和 IPv6 邻居上限范围为 4–2147483647，分别作用于 ARP 和 ND。提交后 Linux
-立即更新对应协议族的三个回收阈值，分别为上限的四分之一、二分之一和全值（向下取整）。
-VPP 在线时同步更新容量，VPP 启动和 Linux 重启时根据保存的配置回放。
-<code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">max-number</span></code> 修改同一个 IPv6 容量值。</p>
-<p>MAC 学习上限范围为 1–2147483647。它约束 VPP 全局动态学习，桥域还受自身学习限制。
-MAC 配置变更后，保存并执行 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code> 才生效。该参数不修改 Linux bridge 的学习上限。
-三个 <code class="docutils literal notranslate"><span class="pre">undo</span></code> 命令分别恢复 102400。配置上限和实际可承载规模需要分别核验。</p>
-<p>在 <code class="docutils literal notranslate"><span class="pre">dataplane</span></code> 视图中，<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code> 只显示该视图的已提交配置。进入设备子视图后，
-它只显示选中的 PCI 设备。<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span></code> 显示活动后端和 PCI 接管状态。<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">verbose</span></code> 汇总运行信息，各部分也可单独查询。</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">interfaces</span></code> 显示期望与活动模式、PCI 驱动及 VPP 当前和最大 RX 队列数。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">cpu</span></code> 显示 Linux 隔离 CPU 和 VPP 线程。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">memory</span></code> 显示 Linux 大页总量、空闲和保留量。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">iommu</span></code> 显示 IOMMU 组及受管设备所在组。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">tables</span></code> 对照期望容量、VPP 运行容量及 Linux GC 阈值。L2FIB 为空时，运行值不可读，显式生成的 MAC 启动值会单独标出。</p></li>
+<p>首次安装默认使用 Linux 数据面。按 PCI 设备选择 DPDK，其他接口继续归 Linux；没有全局 kernel/vpp 模式切换命令。</p>
+<p>配置页说明期望值，查询页说明实际值；二者必须分开比较。驱动、队列和启动参数按提示保存、重置后生效；在线 offload 按接口能力表处理。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="devices/">设备与接管</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources/">资源与运行查询</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources/#id2">查询实际状态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/#cpu-iommu">CPU、大页与 IOMMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/#id3">撤销</a></li>
 </ul>
-</section>
-</section>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tables/">邻居与 MAC 容量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bridge-mtu/">控制网桥 MTU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recovery/">激活与恢复</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recovery/#pci">PCI 激活与撤销的实际结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery/#id2">冷启动端点</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a class="reference internal" href="../offload/"><span class="std std-doc">硬件卸载</span></a> · <a class="reference internal" href="../flow-steering/"><span class="std std-doc">流量分发</span></a> · <a class="reference internal" href="../reference/dataplane/"><span class="std std-doc">命令参数</span></a></p>
 </section>
 
 
@@ -187,7 +154,7 @@ MAC 配置变更后，保存并执行 <code class="docutils literal notranslate"
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../flow-steering/" class="btn btn-neutral float-left" title="Flow Steering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../link-aggregation/" class="btn btn-neutral float-right" title="链路聚合" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="devices/" class="btn btn-neutral float-right" title="设备与接管" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

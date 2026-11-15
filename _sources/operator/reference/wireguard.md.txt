@@ -15,6 +15,21 @@
   display wireguard { profile [NAME] | peer [PROFILE [PEER]] | interface [TUNNEL] }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `profile` | profiles | 关键字 |
+| peer / profile | `WIREGUARD-PROFILE` | WireGuard profile name | 输入值、可选 |
+| 命令后 | `peer` | peers | 关键字 |
+| WIREGUARD-PROFILE | `WIREGUARD-PEER` | WireGuard peer name | 输入值、可选 |
+| 命令后 | `interface` | interfaces | 关键字 |
+| interface | `TUNNEL-IF` | Tunnel interface | 输入值、可选 |
+
 ## `undo wireguard profile`
 
 - 类别：配置命令
@@ -25,6 +40,16 @@
   ```text
   undo wireguard profile NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `WIREGUARD-PROFILE` | WireGuard profile name | 输入值 |
 
 ## `undo wireguard-profile`
 
@@ -37,6 +62,17 @@
   undo wireguard-profile
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：tunnel
+适用分区：interface/tunnel-wireguard
+还受当前对象/配置条件限制；以本视图 ? 为准
+
+此形式没有额外参数。
+
 ## `wireguard profile`
 
 - 类别：配置命令
@@ -48,6 +84,16 @@
   wireguard profile NAME
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `WIREGUARD-PROFILE` | WireGuard profile name | 输入值 |
+
 ## `wireguard-profile`
 
 - 类别：配置命令
@@ -58,3 +104,16 @@
   ```text
   wireguard-profile NAME
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+接口类别：tunnel
+适用分区：interface/tunnel-wireguard
+还受当前对象/配置条件限制；以本视图 ? 为准
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `WIREGUARD-PROFILE` | WireGuard profile name | 输入值 |

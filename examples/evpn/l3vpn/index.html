@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVPN 三层 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/evpn/l3vpn/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="All-Active 多归属" href="../all-active/" />
+    <link rel="prev" title="VXLAN EVPN" href="../l2vpn/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">VXLAN EVPN</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../l2vpn/">L2VPN</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">L3VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../all-active/">All-Active 多归属</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esi/">ESI 生命周期</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../anycast/">Anycast 网关</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../">VXLAN EVPN</a></li>
+      <li class="breadcrumb-item active">EVPN 三层</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="evpn">
+<span id="evpn-三层"></span><h1>EVPN 三层<a class="headerlink" href="#evpn" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑和影响"></span><h2>拓扑和影响<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>两台 PE 使用 AS65000，通过 IPv4 underlay 建立 EVPN 邻居。P1 的 host-p1a12 为198.19.80.1/30，P2 的 host-p2a12 为198.19.80.2/30；它们还作为 VTEP 地址。租户 CLI-TYPE5 使用 L3VNI50081、RT65000:50081。P1/P2 的租户环回地址分别为198.18.196.1/32、198.18.196.2/32，以及2001:db8:196::1/128、::2/128。</p>
+<p>该配置把租户直连前缀发布为 EVPN Type-5；路由隔离在租户 VRF 内，数据通过 VXLAN 转发。本例没有 VPNv4/VPNv6 传输邻居。请使用隔离实验接口，先确认 underlay 两端互通。</p>
+</section>
+<section id="p1">
+<h2>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<p>以下是完整业务配置。若接口原来已有地址，先按原配置撤销，避免保留其他业务地址。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+evpn-overlay enable
+interface host-p1a12
+ ip address 198.19.80.1 255.255.255.252
+quit
+ip vpn-instance CLI-TYPE5
+ vxlan vni 50081
+ ipv4-family
+  route-distinguisher 65000:1801
+  vpn-target 65000:50081 both
+ quit
+ ipv6-family
+  route-distinguisher 65000:1801
+  vpn-target 65000:50081 both
+ quit
+quit
+interface LoopBack 181
+ ip binding vpn-instance CLI-TYPE5
+ ip address 198.18.196.1 255.255.255.255
+ ipv6 address 2001:db8:196::1 128
+quit
+interface Nve 1
+ source 198.19.80.1
+quit
+bgp 65000
+ router-id 1.1.1.1
+ peer 198.19.80.2 as-number 65000
+ l2vpn-family evpn
+  peer 198.19.80.2 enable
+ quit
+ ipv4-family vpn-instance CLI-TYPE5
+  import-route direct
+  advertise l2vpn evpn
+ quit
+ ipv6-family vpn-instance CLI-TYPE5
+  import-route direct
+  advertise l2vpn evpn
+ quit
+quit
+commit
+</pre></div>
+</div>
+</section>
+<section id="p2">
+<h2>P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+evpn-overlay enable
+interface host-p2a12
+ ip address 198.19.80.2 255.255.255.252
+quit
+ip vpn-instance CLI-TYPE5
+ vxlan vni 50081
+ ipv4-family
+  route-distinguisher 65000:1802
+  vpn-target 65000:50081 both
+ quit
+ ipv6-family
+  route-distinguisher 65000:1802
+  vpn-target 65000:50081 both
+ quit
+quit
+interface LoopBack 182
+ ip binding vpn-instance CLI-TYPE5
+ ip address 198.18.196.2 255.255.255.255
+ ipv6 address 2001:db8:196::2 128
+quit
+interface Nve 1
+ source 198.19.80.2
+quit
+bgp 65000
+ router-id 2.2.2.2
+ peer 198.19.80.1 as-number 65000
+ l2vpn-family evpn
+  peer 198.19.80.1 enable
+ quit
+ ipv4-family vpn-instance CLI-TYPE5
+  import-route direct
+  advertise l2vpn evpn
+ quit
+ ipv6-family vpn-instance CLI-TYPE5
+  import-route direct
+  advertise l2vpn evpn
+ quit
+quit
+commit
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<span id="真实验证"></span><h2>真实验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>两端执行以下查询，P2 将目标地址替换为 P1 的地址。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp evpn all routing-table
+display ip routing-table vpn-instance CLI-TYPE5 198.18.196.2 32
+display ipv6 routing-table vpn-instance CLI-TYPE5 2001:db8:196::2 128
+ping -vpn-instance CLI-TYPE5 -c 2 -a 198.18.196.1 198.18.196.2
+ping ipv6 -vpn-instance CLI-TYPE5 -c 2 -a 2001:db8:196::1 2001:db8:196::2
+display health
+</pre></div>
+</div>
+<p>开发服务器 QEMU 双 PE 使用真实 CLI 验证，IPv4 和 IPv6 均收到远端 Type-5 前缀，双方健康 ready。四次双向探测各发送2包、收到2包；重启 VPP 的恢复流程也实际完成。真实终端探测结果：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2 packets transmitted, 2 received, 0% packet loss
+</pre></div>
+</div>
+<p>租户路由存在本身不能证明业务可用。本次还通过报文跟踪核对 VXLAN 封装、远端解封装和本机回复交付，修复了服务 SVI 的 bridge self VLAN 及未配对 L3VNI 入口的本地报文交付问题。没有据此声明吞吐或无损重启能力。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>先在两端撤销通告并查询远端前缀：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
+ ipv4-family vpn-instance CLI-TYPE5
+  undo advertise l2vpn evpn
+ quit
+ ipv6-family vpn-instance CLI-TYPE5
+  undo advertise l2vpn evpn
+ quit
+quit
+commit
+display bgp evpn all routing-table
+display ip routing-table vpn-instance CLI-TYPE5 198.18.196.2 32
+display ipv6 routing-table vpn-instance CLI-TYPE5 2001:db8:196::2 128
+</pre></div>
+</div>
+<p>实际撤销提交成功，两端 IPv4/IPv6 的远端前缀查询均为0；原有 L2VNI 的路由保留。删除测试租户时先撤销 BGP 租户地址族，按提示逐项输入 Y，再删除环回接口和 VPN-instance：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
+ undo ipv4-family vpn-instance CLI-TYPE5
+ Y
+ undo ipv6-family vpn-instance CLI-TYPE5
+ Y
+quit
+undo interface LoopBack181
+undo ip vpn-instance CLI-TYPE5
+Y
+commit
+</pre></div>
+</div>
+<p>P2 删除 LoopBack182。Nve、EVPN 邻居和 underlay 可能被其他业务共用，仅在确认无其他使用者时撤销；不要为删除单一租户而关闭整个 EVPN。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../l2vpn/" class="btn btn-neutral float-left" title="VXLAN EVPN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../all-active/" class="btn btn-neutral float-right" title="All-Active 多归属" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AmneziaWG &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>AmneziaWG &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/amneziawg/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -165,6 +165,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AMNEZIAWG-PROFILE</span></code></p></td>
+<td><p>AmneziaWG profile name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="id1">
 <span id="amneziawg-profile-1"></span><h2><code class="docutils literal notranslate"><span class="pre">amneziawg-profile</span></code><a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
@@ -178,6 +199,30 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：tunnel
+适用分区：interface/tunnel-amneziawg
+还受当前对象/配置条件限制；以本视图 ? 为准</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AMNEZIAWG-PROFILE</span></code></p></td>
+<td><p>AmneziaWG profile name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="disable-cookies-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">disable-cookies</span> <span class="pre">enable</span></code><a class="headerlink" href="#disable-cookies-enable" title="链接到此标题。"></a></h2>
@@ -191,6 +236,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="display-amneziawg">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">amneziawg</span></code><a class="headerlink" href="#display-amneziawg" title="链接到此标题。"></a></h2>
@@ -204,6 +255,52 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">profile</span></code></p></td>
+<td><p>profiles</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>peer / profile</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AMNEZIAWG-PROFILE</span></code></p></td>
+<td><p>profile name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer</span></code></p></td>
+<td><p>peers</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>AMNEZIAWG-PROFILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AMNEZIAWG-PEER</span></code></p></td>
+<td><p>peer name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>interfaces</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TUNNEL-IF</span></code></p></td>
+<td><p>Tunnel interface</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="header-cookie">
 <h2><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">cookie</span></code><a class="headerlink" href="#header-cookie" title="链接到此标题。"></a></h2>
@@ -217,6 +314,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>lowest header</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-4294967295&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>highest header</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="header-init">
 <h2><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">init</span></code><a class="headerlink" href="#header-init" title="链接到此标题。"></a></h2>
@@ -230,6 +353,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>lowest header</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-4294967295&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>highest header</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="header-response">
 <h2><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">response</span></code><a class="headerlink" href="#header-response" title="链接到此标题。"></a></h2>
@@ -243,6 +392,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>lowest header</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-4294967295&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>highest header</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="header-transport">
 <h2><code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">transport</span></code><a class="headerlink" href="#header-transport" title="链接到此标题。"></a></h2>
@@ -256,6 +431,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>lowest header</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-4294967295&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967295&gt;</span></code></p></td>
+<td><p>highest header</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="header-protection">
 <h2><code class="docutils literal notranslate"><span class="pre">header-protection</span></code><a class="headerlink" href="#header-protection" title="链接到此标题。"></a></h2>
@@ -269,6 +470,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">KEY</span></code></p></td>
+<td><p>base64 32-byte key</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cipher</span></code></p></td>
+<td><p>device-encrypted key</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>cipher</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CIPHERTEXT</span></code></p></td>
+<td><p>encrypted key material</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="junk-count">
 <h2><code class="docutils literal notranslate"><span class="pre">junk</span> <span class="pre">count</span></code><a class="headerlink" href="#junk-count" title="链接到此标题。"></a></h2>
@@ -282,6 +514,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-128&gt;</span></code></p></td>
+<td><p>junk packet count</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="junk-size">
 <h2><code class="docutils literal notranslate"><span class="pre">junk</span> <span class="pre">size</span></code><a class="headerlink" href="#junk-size" title="链接到此标题。"></a></h2>
@@ -295,6 +548,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>minimum bytes</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>maximum bytes</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="junk-packet">
 <h2><code class="docutils literal notranslate"><span class="pre">junk-packet</span></code><a class="headerlink" href="#junk-packet" title="链接到此标题。"></a></h2>
@@ -308,6 +587,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-5&gt;</span></code></p></td>
+<td><p>slot</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-5&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BASE64</span></code></p></td>
+<td><p>raw payload, maximum 512 bytes</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;1-5&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">expression</span></code></p></td>
+<td><p>dynamic signature expression</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>expression</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">STRING&lt;1-4096&gt;</span></code></p></td>
+<td><p>quoted sequence of b/c/t/r/rc/rd tags</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="padding-content">
 <h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">content</span></code><a class="headerlink" href="#padding-content" title="链接到此标题。"></a></h2>
@@ -321,6 +636,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>minimum bytes</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>maximum bytes</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="padding-cookie">
 <h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">cookie</span></code><a class="headerlink" href="#padding-cookie" title="链接到此标题。"></a></h2>
@@ -334,6 +675,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-1024&gt;</span></code></p></td>
+<td><p>padding bytes</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="padding-init">
 <h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">init</span></code><a class="headerlink" href="#padding-init" title="链接到此标题。"></a></h2>
@@ -347,6 +709,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-1024&gt;</span></code></p></td>
+<td><p>padding bytes</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="padding-response">
 <h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">response</span></code><a class="headerlink" href="#padding-response" title="链接到此标题。"></a></h2>
@@ -360,6 +743,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-1024&gt;</span></code></p></td>
+<td><p>padding bytes</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="padding-transport">
 <h2><code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">transport</span></code><a class="headerlink" href="#padding-transport" title="链接到此标题。"></a></h2>
@@ -373,6 +777,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-1024&gt;</span></code></p></td>
+<td><p>padding bytes</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="random-trailers-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">random-trailers</span> <span class="pre">enable</span></code><a class="headerlink" href="#random-trailers-enable" title="链接到此标题。"></a></h2>
@@ -386,6 +811,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="timing-keepalive">
 <h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#timing-keepalive" title="链接到此标题。"></a></h2>
@@ -399,6 +830,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>minimum</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>maximum</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="timing-max-handshakes">
 <h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">max-handshakes</span></code><a class="headerlink" href="#timing-max-handshakes" title="链接到此标题。"></a></h2>
@@ -412,6 +869,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>minimum</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>maximum</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="timing-reject-after">
 <h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">reject-after</span></code><a class="headerlink" href="#timing-reject-after" title="链接到此标题。"></a></h2>
@@ -425,6 +908,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>minimum</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>maximum</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="timing-rekey-after">
 <h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">rekey-after</span></code><a class="headerlink" href="#timing-rekey-after" title="链接到此标题。"></a></h2>
@@ -438,6 +947,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>minimum</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>maximum</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="timing-rekey-timeout">
 <h2><code class="docutils literal notranslate"><span class="pre">timing</span> <span class="pre">rekey-timeout</span></code><a class="headerlink" href="#timing-rekey-timeout" title="链接到此标题。"></a></h2>
@@ -451,6 +986,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>minimum</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;0-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-65535&gt;</span></code></p></td>
+<td><p>maximum</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-amneziawg-profile">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">amneziawg</span> <span class="pre">profile</span></code><a class="headerlink" href="#undo-amneziawg-profile" title="链接到此标题。"></a></h2>
@@ -464,6 +1025,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AMNEZIAWG-PROFILE</span></code></p></td>
+<td><p>AmneziaWG profile name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="id2">
 <span id="undo-amneziawg-profile-1"></span><h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">amneziawg-profile</span></code><a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
@@ -477,6 +1059,15 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：tunnel
+适用分区：interface/tunnel-amneziawg
+还受当前对象/配置条件限制；以本视图 ? 为准</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-disable-cookies-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">disable-cookies</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-disable-cookies-enable" title="链接到此标题。"></a></h2>
@@ -490,6 +1081,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-header-cookie">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">cookie</span></code><a class="headerlink" href="#undo-header-cookie" title="链接到此标题。"></a></h2>
@@ -503,6 +1100,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-header-init">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">init</span></code><a class="headerlink" href="#undo-header-init" title="链接到此标题。"></a></h2>
@@ -516,6 +1119,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-header-response">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">response</span></code><a class="headerlink" href="#undo-header-response" title="链接到此标题。"></a></h2>
@@ -529,6 +1138,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-header-transport">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header</span> <span class="pre">transport</span></code><a class="headerlink" href="#undo-header-transport" title="链接到此标题。"></a></h2>
@@ -542,6 +1157,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-header-protection">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">header-protection</span></code><a class="headerlink" href="#undo-header-protection" title="链接到此标题。"></a></h2>
@@ -555,6 +1176,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-junk-count">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">junk</span> <span class="pre">count</span></code><a class="headerlink" href="#undo-junk-count" title="链接到此标题。"></a></h2>
@@ -568,6 +1195,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-junk-size">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">junk</span> <span class="pre">size</span></code><a class="headerlink" href="#undo-junk-size" title="链接到此标题。"></a></h2>
@@ -581,6 +1214,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-junk-packet">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">junk-packet</span></code><a class="headerlink" href="#undo-junk-packet" title="链接到此标题。"></a></h2>
@@ -594,6 +1233,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-5&gt;</span></code></p></td>
+<td><p>slot</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-padding-content">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">content</span></code><a class="headerlink" href="#undo-padding-content" title="链接到此标题。"></a></h2>
@@ -607,6 +1267,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-padding-cookie">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">cookie</span></code><a class="headerlink" href="#undo-padding-cookie" title="链接到此标题。"></a></h2>
@@ -620,6 +1286,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-padding-init">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">init</span></code><a class="headerlink" href="#undo-padding-init" title="链接到此标题。"></a></h2>
@@ -633,6 +1305,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-padding-response">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">response</span></code><a class="headerlink" href="#undo-padding-response" title="链接到此标题。"></a></h2>
@@ -646,6 +1324,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-padding-transport">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">padding</span> <span class="pre">transport</span></code><a class="headerlink" href="#undo-padding-transport" title="链接到此标题。"></a></h2>
@@ -659,6 +1343,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-random-trailers-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">random-trailers</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-random-trailers-enable" title="链接到此标题。"></a></h2>
@@ -672,6 +1362,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-timing-keepalive">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">keepalive</span></code><a class="headerlink" href="#undo-timing-keepalive" title="链接到此标题。"></a></h2>
@@ -685,6 +1381,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-timing-max-handshakes">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">max-handshakes</span></code><a class="headerlink" href="#undo-timing-max-handshakes" title="链接到此标题。"></a></h2>
@@ -698,6 +1400,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-timing-reject-after">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">reject-after</span></code><a class="headerlink" href="#undo-timing-reject-after" title="链接到此标题。"></a></h2>
@@ -711,6 +1419,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-timing-rekey-after">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">rekey-after</span></code><a class="headerlink" href="#undo-timing-rekey-after" title="链接到此标题。"></a></h2>
@@ -724,6 +1438,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-timing-rekey-timeout">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">timing</span> <span class="pre">rekey-timeout</span></code><a class="headerlink" href="#undo-timing-rekey-timeout" title="链接到此标题。"></a></h2>
@@ -737,6 +1457,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 </section>
 

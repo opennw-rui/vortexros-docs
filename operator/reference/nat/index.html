@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NAT &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>NAT &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/nat/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -165,6 +165,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP</span></code></p></td>
+<td><p>translated destination host</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">port</span></code></p></td>
+<td><p>translated destination port</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>port</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PORT</span></code></p></td>
+<td><p>1..65535</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="action-no-nat">
 <h2><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">no-nat</span></code><a class="headerlink" href="#action-no-nat" title="链接到此标题。"></a></h2>
@@ -178,6 +209,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="action-snat">
 <h2><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">snat</span></code><a class="headerlink" href="#action-snat" title="链接到此标题。"></a></h2>
@@ -191,6 +228,47 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pat</span></code></p></td>
+<td><p>source NAT with port translation</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>no-pat / pat</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>use the egress interface address</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>no-pat / pat</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address-pool</span></code></p></td>
+<td><p>use a named address pool</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>address-pool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>NAT address-pool name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-pat</span></code></p></td>
+<td><p>source NAT without port translation</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="action-static-nat">
 <h2><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">static-nat</span></code><a class="headerlink" href="#action-static-nat" title="链接到此标题。"></a></h2>
@@ -204,6 +282,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PREFIX</span></code></p></td>
+<td><p>translated IPv4 prefix</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="action-twice-nat">
 <h2><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">twice-nat</span></code><a class="headerlink" href="#action-twice-nat" title="链接到此标题。"></a></h2>
@@ -217,6 +316,62 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>translated source</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>source</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SRC-IP</span></code></p></td>
+<td><p>translated source host</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>SRC-IP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">port</span></code></p></td>
+<td><p>translated source port</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>port</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SRC-PORT</span></code></p></td>
+<td><p>1..65535</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>SRC-IP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">destination</span></code></p></td>
+<td><p>translated destination</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>destination</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DST-IP</span></code></p></td>
+<td><p>translated destination host</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>DST-IP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">port</span></code></p></td>
+<td><p>translated destination port</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>port</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DST-PORT</span></code></p></td>
+<td><p>1..65535</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="address">
 <h2><code class="docutils literal notranslate"><span class="pre">address</span></code><a class="headerlink" href="#address" title="链接到此标题。"></a></h2>
@@ -230,6 +385,55 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">nat-address-pool</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ADDR</span></code></p></td>
+<td><p>IPv4 pool prefix</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ADDR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MASK</span></code></p></td>
+<td><p>netmask or prefix length</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">nat-address-set</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ADDR</span></code></p></td>
+<td><p>IPv4 prefix or host</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ADDR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MASK</span></code></p></td>
+<td><p>netmask or prefix length</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="clear-nat-policy-counters">
 <h2><code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">nat-policy</span> <span class="pre">counters</span></code><a class="headerlink" href="#clear-nat-policy-counters" title="链接到此标题。"></a></h2>
@@ -244,6 +448,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="clear-nat-policy-sessions">
 <h2><code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">nat-policy</span> <span class="pre">sessions</span></code><a class="headerlink" href="#clear-nat-policy-sessions" title="链接到此标题。"></a></h2>
@@ -258,6 +468,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>limit to one policy</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">POLICY</span></code></p></td>
+<td><p>policy name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rule</span></code></p></td>
+<td><p>limit to one rule</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>rule</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RULE-ID</span></code></p></td>
+<td><p>0..9998</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="destination-address">
 <h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">address</span></code><a class="headerlink" href="#destination-address" title="链接到此标题。"></a></h2>
@@ -271,6 +517,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ADDR</span></code></p></td>
+<td><p>IP address (host or X.X.X.X/M)</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ADDR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MASK</span></code></p></td>
+<td><p>Netmask or prefix length</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="destination-address-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#destination-address-set-name" title="链接到此标题。"></a></h2>
@@ -284,6 +556,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-ADDRESS-SET</span></code></p></td>
+<td><p>address-set name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="destination-port">
 <h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">port</span></code><a class="headerlink" href="#destination-port" title="链接到此标题。"></a></h2>
@@ -297,6 +590,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PORT-RANGE</span></code></p></td>
+<td><p>1..65535 or LOW-HIGH</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="destination-port-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#destination-port-set-name" title="链接到此标题。"></a></h2>
@@ -310,6 +624,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-PORT-SET</span></code></p></td>
+<td><p>port-set name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="destination-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">destination</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#destination-vpn-instance" title="链接到此标题。"></a></h2>
@@ -323,6 +658,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VRF</span></code></p></td>
+<td><p>vpn-instance name or default</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-nat-policy">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span></code><a class="headerlink" href="#display-nat-policy" title="链接到此标题。"></a></h2>
@@ -336,6 +692,207 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：配置与运行态，按子命令区分。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">all</span></code></p></td>
+<td><p>all NAT policies</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>one NAT policy</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-POLICY</span></code></p></td>
+<td><p>policy name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address-set</span></code></p></td>
+<td><p>NAT address-sets</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>address-set</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-ADDRESS-SET</span></code></p></td>
+<td><p>address-set name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">port-set</span></code></p></td>
+<td><p>NAT port-sets</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>port-set</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-PORT-SET</span></code></p></td>
+<td><p>port-set name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address-pool</span></code></p></td>
+<td><p>NAT address-pools</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>address-pool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-ADDRESS-POOL</span></code></p></td>
+<td><p>address-pool name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sessions</span></code></p></td>
+<td><p>nat-policy runtime sessions</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">protocol</span> <span class="pre">PROTOCOL</span></code></p></td>
+<td><p>filter by original IP protocol；tcp, udp, icmp, sctp or 0..255</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source-ip</span> <span class="pre">IPV4</span></code></p></td>
+<td><p>filter by original source IPv4 address；source IPv4 host address</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">destination-ip</span> <span class="pre">IPV4</span></code></p></td>
+<td><p>filter by original destination IPv4 address；destination IPv4 host address</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source-port</span> <span class="pre">PORT</span></code></p></td>
+<td><p>filter by original source port；0..65535</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">destination-port</span> <span class="pre">PORT</span></code></p></td>
+<td><p>filter by original destination port；0..65535</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">worker</span> <span class="pre">INDEX</span></code></p></td>
+<td><p>filter by VPP thread index；VPP worker thread index</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">core</span> <span class="pre">CPU-ID</span></code></p></td>
+<td><p>filter by CPU core；logical CPU identifier</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">POLICY</span></code></p></td>
+<td><p>filter by NAT policy；case-sensitive policy name</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rule</span> <span class="pre">RULE-ID</span></code></p></td>
+<td><p>filter by rule identifier；NAT policy rule identifier</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">action</span></code></p></td>
+<td><p>filter by NAT action</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>action</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-nat</span></code></p></td>
+<td><p>no translation</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>action</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static-nat</span></code></p></td>
+<td><p>static NAT</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>action</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">snat-no-pat</span></code></p></td>
+<td><p>source NAT without PAT</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>action</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">snat-pat</span></code></p></td>
+<td><p>source NAT with PAT</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>action</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dnat</span></code></p></td>
+<td><p>destination NAT</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>action</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">twice-nat</span></code></p></td>
+<td><p>source and destination NAT</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>sessions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hairpin</span></code></p></td>
+<td><p>filter by NAT hairpin state</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>hairpin</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable</span></code></p></td>
+<td><p>hairpin sessions only</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>hairpin</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">disable</span></code></p></td>
+<td><p>non-hairpin sessions only</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">runtime</span></code></p></td>
+<td><p>runtime policy state and quotas</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">objects</span></code></p></td>
+<td><p>runtime sets, pools, members and reference counts</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interfaces</span></code></p></td>
+<td><p>runtime interface attachments</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">statistics</span></code></p></td>
+<td><p>per-rule packet and byte statistics</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>statistics</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>one policy</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">POLICY</span></code></p></td>
+<td><p>policy name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">configuration</span></code></p></td>
+<td><p>nat-policy runtime configuration</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">workers</span></code></p></td>
+<td><p>nat-policy per-worker counters</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="hairpin-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">hairpin</span> <span class="pre">enable</span></code><a class="headerlink" href="#hairpin-enable" title="链接到此标题。"></a></h2>
@@ -349,6 +906,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="nat-policy">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span></code><a class="headerlink" href="#nat-policy" title="链接到此标题。"></a></h2>
@@ -362,6 +925,38 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-POLICY</span></code></p></td>
+<td><p>NAT policy name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>NAT-POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inbound</span></code></p></td>
+<td><p>inside / ingress</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>NAT-POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">outbound</span></code></p></td>
+<td><p>outside / egress</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="nat-policy-address-pool-name">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">address-pool</span> <span class="pre">name</span></code><a class="headerlink" href="#nat-policy-address-pool-name" title="链接到此标题。"></a></h2>
@@ -375,6 +970,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>NAT address-pool name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="nat-policy-address-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#nat-policy-address-set-name" title="链接到此标题。"></a></h2>
@@ -388,6 +1004,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>NAT address-set name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="nat-policy-hairpin-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">hairpin</span> <span class="pre">enable</span></code><a class="headerlink" href="#nat-policy-hairpin-enable" title="链接到此标题。"></a></h2>
@@ -401,6 +1038,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="nat-policy-interface-pat-range">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">interface-pat-range</span></code><a class="headerlink" href="#nat-policy-interface-pat-range" title="链接到此标题。"></a></h2>
@@ -414,6 +1057,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">LOW-HIGH</span></code></p></td>
+<td><p>inclusive range; lowest port is 1024</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="nat-policy-name">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">name</span></code><a class="headerlink" href="#nat-policy-name" title="链接到此标题。"></a></h2>
@@ -427,6 +1091,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>NAT policy name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="nat-policy-port-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#nat-policy-port-set-name" title="链接到此标题。"></a></h2>
@@ -440,6 +1125,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>NAT port-set name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="nat-policy-sessions-per-worker">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">sessions-per-worker</span></code><a class="headerlink" href="#nat-policy-sessions-per-worker" title="链接到此标题。"></a></h2>
@@ -453,6 +1159,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NUMBER</span></code></p></td>
+<td><p>maximum sessions per worker</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="nat-policy-timeout">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">timeout</span></code><a class="headerlink" href="#nat-policy-timeout" title="链接到此标题。"></a></h2>
@@ -466,6 +1193,57 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">udp</span></code></p></td>
+<td><p>udp session timeout</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>icmp / other / tcp-close / tcp-established / tcp-transitory / udp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SECONDS</span></code></p></td>
+<td><p>timeout in seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp-established</span></code></p></td>
+<td><p>tcp-established session timeout</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp-transitory</span></code></p></td>
+<td><p>tcp-transitory session timeout</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">icmp</span></code></p></td>
+<td><p>icmp session timeout</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">other</span></code></p></td>
+<td><p>other session timeout</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp-close</span></code></p></td>
+<td><p>tcp-close session timeout</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="nat-policy-x86-tune-expire-check-ms">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">x86-tune</span> <span class="pre">expire-check-ms</span></code><a class="headerlink" href="#nat-policy-x86-tune-expire-check-ms" title="链接到此标题。"></a></h2>
@@ -479,6 +1257,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MILLISECONDS</span></code></p></td>
+<td><p>10..1000</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="nat-policy-x86-tune-lru-refresh-ms">
 <h2><code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">x86-tune</span> <span class="pre">lru-refresh-ms</span></code><a class="headerlink" href="#nat-policy-x86-tune-lru-refresh-ms" title="链接到此标题。"></a></h2>
@@ -492,6 +1291,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MILLISECONDS</span></code></p></td>
+<td><p>10..1000</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="pat-port-range">
 <h2><code class="docutils literal notranslate"><span class="pre">pat-port-range</span></code><a class="headerlink" href="#pat-port-range" title="链接到此标题。"></a></h2>
@@ -505,6 +1325,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">LOW-HIGH</span></code></p></td>
+<td><p>inclusive port range; lowest port is 1024</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="port">
 <h2><code class="docutils literal notranslate"><span class="pre">port</span></code><a class="headerlink" href="#port" title="链接到此标题。"></a></h2>
@@ -518,6 +1359,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PORT-RANGE</span></code></p></td>
+<td><p>1..65535 or LOW-HIGH</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="priority">
 <h2><code class="docutils literal notranslate"><span class="pre">priority</span></code><a class="headerlink" href="#priority" title="链接到此标题。"></a></h2>
@@ -531,6 +1393,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NUMBER</span></code></p></td>
+<td><p>0..9998</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="protocol">
 <h2><code class="docutils literal notranslate"><span class="pre">protocol</span></code><a class="headerlink" href="#protocol" title="链接到此标题。"></a></h2>
@@ -544,6 +1427,47 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">any</span></code></p></td>
+<td><p>any IP protocol</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp</span></code></p></td>
+<td><p>TCP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">udp</span></code></p></td>
+<td><p>UDP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">icmp</span></code></p></td>
+<td><p>ICMP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NUMBER</span></code></p></td>
+<td><p>IP protocol 0..255</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="session-limit">
 <h2><code class="docutils literal notranslate"><span class="pre">session-limit</span></code><a class="headerlink" href="#session-limit" title="链接到此标题。"></a></h2>
@@ -557,6 +1481,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">unlimited</span></code></p></td>
+<td><p>no per-policy quota</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NUMBER</span></code></p></td>
+<td><p>maximum active sessions</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="source-address">
 <h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">address</span></code><a class="headerlink" href="#source-address" title="链接到此标题。"></a></h2>
@@ -570,6 +1520,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ADDR</span></code></p></td>
+<td><p>IP address (host or X.X.X.X/M)</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ADDR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MASK</span></code></p></td>
+<td><p>Netmask or prefix length</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="source-address-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#source-address-set-name" title="链接到此标题。"></a></h2>
@@ -583,6 +1559,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-ADDRESS-SET</span></code></p></td>
+<td><p>address-set name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="source-port">
 <h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">port</span></code><a class="headerlink" href="#source-port" title="链接到此标题。"></a></h2>
@@ -596,6 +1593,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PORT-RANGE</span></code></p></td>
+<td><p>1..65535 or LOW-HIGH</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="source-port-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#source-port-set-name" title="链接到此标题。"></a></h2>
@@ -609,6 +1627,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-PORT-SET</span></code></p></td>
+<td><p>port-set name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="source-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#source-vpn-instance" title="链接到此标题。"></a></h2>
@@ -622,6 +1661,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VRF</span></code></p></td>
+<td><p>vpn-instance name or default</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-action">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">action</span></code><a class="headerlink" href="#undo-action" title="链接到此标题。"></a></h2>
@@ -635,6 +1695,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-action-snat">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">action</span> <span class="pre">snat</span></code><a class="headerlink" href="#undo-action-snat" title="链接到此标题。"></a></h2>
@@ -648,6 +1714,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-address">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">address</span></code><a class="headerlink" href="#undo-address" title="链接到此标题。"></a></h2>
@@ -661,6 +1733,55 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">nat-address-pool</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ADDR</span></code></p></td>
+<td><p>IPv4 pool prefix</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ADDR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MASK</span></code></p></td>
+<td><p>netmask or prefix length</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">nat-address-set</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ADDR</span></code></p></td>
+<td><p>IPv4 prefix or host</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ADDR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MASK</span></code></p></td>
+<td><p>netmask or prefix length</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-destination-address">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">address</span></code><a class="headerlink" href="#undo-destination-address" title="链接到此标题。"></a></h2>
@@ -674,6 +1795,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-destination-address-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-destination-address-set-name" title="链接到此标题。"></a></h2>
@@ -687,6 +1814,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-destination-port">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">port</span></code><a class="headerlink" href="#undo-destination-port" title="链接到此标题。"></a></h2>
@@ -700,6 +1833,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-destination-port-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-destination-port-set-name" title="链接到此标题。"></a></h2>
@@ -713,6 +1852,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-destination-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">destination</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-destination-vpn-instance" title="链接到此标题。"></a></h2>
@@ -726,6 +1871,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-hairpin-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">hairpin</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-hairpin-enable" title="链接到此标题。"></a></h2>
@@ -739,6 +1890,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-nat-policy">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span></code><a class="headerlink" href="#undo-nat-policy" title="链接到此标题。"></a></h2>
@@ -752,6 +1909,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-POLICY|DIRECTION</span></code></p></td>
+<td><p>NAT policy name or inbound/outbound</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>NAT-POLICY|DIRECTION</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DIRECTION</span></code></p></td>
+<td><p>inbound or outbound</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-nat-policy-address-pool-name">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">address-pool</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-nat-policy-address-pool-name" title="链接到此标题。"></a></h2>
@@ -765,6 +1948,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>NAT address-pool name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-nat-policy-address-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-nat-policy-address-set-name" title="链接到此标题。"></a></h2>
@@ -778,6 +1982,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>NAT address-set name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-nat-policy-hairpin-enable">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">hairpin</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-nat-policy-hairpin-enable" title="链接到此标题。"></a></h2>
@@ -791,6 +2016,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-nat-policy-interface-pat-range">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">interface-pat-range</span></code><a class="headerlink" href="#undo-nat-policy-interface-pat-range" title="链接到此标题。"></a></h2>
@@ -804,6 +2035,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-nat-policy-name">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-nat-policy-name" title="链接到此标题。"></a></h2>
@@ -817,6 +2054,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>NAT policy name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-nat-policy-port-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-nat-policy-port-set-name" title="链接到此标题。"></a></h2>
@@ -830,6 +2088,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>NAT port-set name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-nat-policy-sessions-per-worker">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">sessions-per-worker</span></code><a class="headerlink" href="#undo-nat-policy-sessions-per-worker" title="链接到此标题。"></a></h2>
@@ -843,6 +2122,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-nat-policy-timeout">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">timeout</span></code><a class="headerlink" href="#undo-nat-policy-timeout" title="链接到此标题。"></a></h2>
@@ -856,6 +2141,52 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">udp</span></code></p></td>
+<td><p>UDP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp-established</span></code></p></td>
+<td><p>established TCP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp-transitory</span></code></p></td>
+<td><p>transitory TCP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">icmp</span></code></p></td>
+<td><p>ICMP</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">other</span></code></p></td>
+<td><p>other protocols</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp-close</span></code></p></td>
+<td><p>TCP close</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-nat-policy-x86-tune-expire-check-ms">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">x86-tune</span> <span class="pre">expire-check-ms</span></code><a class="headerlink" href="#undo-nat-policy-x86-tune-expire-check-ms" title="链接到此标题。"></a></h2>
@@ -869,6 +2200,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-nat-policy-x86-tune-lru-refresh-ms">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">x86-tune</span> <span class="pre">lru-refresh-ms</span></code><a class="headerlink" href="#undo-nat-policy-x86-tune-lru-refresh-ms" title="链接到此标题。"></a></h2>
@@ -882,6 +2219,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-pat-port-range">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">pat-port-range</span></code><a class="headerlink" href="#undo-pat-port-range" title="链接到此标题。"></a></h2>
@@ -895,6 +2238,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-port">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">port</span></code><a class="headerlink" href="#undo-port" title="链接到此标题。"></a></h2>
@@ -908,6 +2257,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PORT-RANGE</span></code></p></td>
+<td><p>1..65535 or LOW-HIGH</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-priority">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">priority</span></code><a class="headerlink" href="#undo-priority" title="链接到此标题。"></a></h2>
@@ -921,6 +2291,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-protocol">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">protocol</span></code><a class="headerlink" href="#undo-protocol" title="链接到此标题。"></a></h2>
@@ -934,6 +2310,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-session-limit">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">session-limit</span></code><a class="headerlink" href="#undo-session-limit" title="链接到此标题。"></a></h2>
@@ -947,6 +2329,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-source-address">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">address</span></code><a class="headerlink" href="#undo-source-address" title="链接到此标题。"></a></h2>
@@ -960,6 +2348,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-source-address-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">address-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-source-address-set-name" title="链接到此标题。"></a></h2>
@@ -973,6 +2367,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-source-port">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">port</span></code><a class="headerlink" href="#undo-source-port" title="链接到此标题。"></a></h2>
@@ -986,6 +2386,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-source-port-set-name">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">port-set</span> <span class="pre">name</span></code><a class="headerlink" href="#undo-source-port-set-name" title="链接到此标题。"></a></h2>
@@ -999,6 +2405,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-source-vpn-instance">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source</span> <span class="pre">vpn-instance</span></code><a class="headerlink" href="#undo-source-vpn-instance" title="链接到此标题。"></a></h2>
@@ -1012,6 +2424,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 </section>
 

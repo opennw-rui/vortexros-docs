@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>前缀列表 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>前缀列表 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/prefix-lists/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,7 +23,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="路由策略" href="../route-policy/" />
+    <link rel="next" title="IPv4 前缀" href="ipv4/" />
     <link rel="prev" title="路由协议" href="../05-dynamic-routing/" /> 
 </head>
 
@@ -58,7 +58,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">前缀列表</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">前缀列表</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ipv4/">IPv4 前缀</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ipv6/">IPv6 前缀</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
@@ -86,9 +90,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -118,19 +122,24 @@
              
   <section id="id1">
 <span id="前缀列表"></span><h1>前缀列表<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>前缀列表按规则序号匹配网络和掩码长度；由引用它的路由策略决定是否接收或发布路由。</p>
-<p><a class="reference internal" href="../reference/prefix-lists/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/bgp-policy/"><span class="std std-doc">配置案例</span></a></p>
-<section id="id2">
-<span id="配置与查询"></span><h2>配置与查询<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip ip-prefix PL-IN index 10 permit 10.0.0.0 8 greater-equal 16 less-equal 24
-ip ipv6-prefix V6-IN index 10 permit 2001:db8:: 32 greater-equal 48 less-equal 64
-commit
-display ip ip-prefix PL-IN
-display ipv6 prefix V6-IN
-</pre></div>
+<p>列表匹配路由前缀和掩码长度，只有被消费者引用后才影响路由。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ipv4/">IPv4 前缀</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ipv4/#id1">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipv4/#id2">查询与实际效果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipv4/#id3">撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ipv6/">IPv6 前缀</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ipv6/#id1">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipv6/#id2">查询与实际效果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipv6/#id3">撤销</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<p>第一条只匹配 10.0.0.0/8 以内且长度为 /16 至 /24 的前缀。可以追加不同序号的规则。用 <code class="docutils literal notranslate"><span class="pre">first-match</span></code> 检查给定 CIDR 的首条命中。创建列表本身不会过滤已安装的路由。删除前先解除 <a class="reference internal" href="../route-policy/"><span class="std std-doc">路由策略</span></a> 的引用。</p>
-</section>
+<p><a class="reference internal" href="../../examples/bgp-policy/"><span class="std std-doc">完整案例与真实输出</span></a> · <a class="reference internal" href="../reference/prefix-lists/"><span class="std std-doc">全部命令参数</span></a></p>
 </section>
 
 
@@ -138,7 +147,7 @@ display ipv6 prefix V6-IN
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../05-dynamic-routing/" class="btn btn-neutral float-left" title="路由协议" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../route-policy/" class="btn btn-neutral float-right" title="路由策略" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ipv4/" class="btn btn-neutral float-right" title="IPv4 前缀" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCP MSS &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>TCP MSS &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/mss/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -24,7 +24,7 @@
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
     <link rel="next" title="隧道" href="../06-tunnels/" />
-    <link rel="prev" title="MQC" href="../mqc/" /> 
+    <link rel="prev" title="策略与接口绑定" href="../mqc/attachment/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -78,9 +78,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -110,27 +110,85 @@
              
   <section id="tcp-mss">
 <h1>TCP MSS<a class="headerlink" href="#tcp-mss" title="链接到此标题。"></a></h1>
-<p>降低 TCP SYN 的 MSS，适应有效 MTU 较小的链路。</p>
+<p>TCP MSS 只调整带 MSS 选项的 TCP SYN，包括建连请求和应答。它限制 TCP 单段数据长度，不改变接口 MTU，也不会解决 UDP 或其他非 TCP 报文的分片问题。只将过大的值调小，不会放大对端声明的 MSS。</p>
 <p><a class="reference internal" href="../reference/mss/"><span class="std std-doc">命令参考</span></a></p>
 <section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>TCP MSS Clamp只处理包含MSS选项的TCP SYN报文。报文中的MSS大于出接口MTU允许的上限时才会被改小；原值已经足够小或报文不是SYN时不会修改。</p>
-<p>自动模式随接口MTU变化重新计算上限：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 1
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>在承载流量的接口上选择自动模式或固定值，两者互斥。自动模式根据接口 MTU 分别计算 IPv4、IPv6 的上限，接口 MTU 改变后会更新：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p1q13
  tcp mss clamp
-</pre></div>
-</div>
-<p>也可以指定固定MSS：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 1
- tcp mss 1360
-</pre></div>
-</div>
-<p>接口MTU变化后，自动模式无需重新配置。使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code> 和接口统计检查配置及报文变化。删除：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 1
- undo tcp mss
+quit
 commit
 </pre></div>
 </div>
+<p>固定值适合已知路径上限：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface host-p1q13
+ tcp mss 1200
+quit
+commit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">commit</span></code> 应用当前修改；确认后执行 <code class="docutils literal notranslate"><span class="pre">save</span></code> 才会写入启动配置。只影响新建立连接的握手，已有连接不会重新协商 MSS。</p>
+</section>
+<section id="id2">
+<span id="双栈实例与实际结果"></span><h2>双栈实例与实际结果<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>本例在开发服务器的隔离 VPP 拓扑中完成。客户端通过 P1 的 <code class="docutils literal notranslate"><span class="pre">host-p1q13</span></code> 接入，HTTP 服务器位于 P2，P1 与 P2 已有双栈路由：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>客户端                           P1                        P2 HTTP 服务器
+198.18.11.100/24 --- host-p1q13 198.18.11.1 --- 10.201.12.2:18080
+2001:db8:11::105 ---            2001:db8:11::1 --- [2001:db8:12::2]:18081
+</pre></div>
+</div>
+<p>HTTP 服务只提供本次测试的公共文件。测试客户端原始 SYN 的 MSS 为 IPv4 1460、IPv6 1440；在客户端和服务器同时抓取新连接的 SYN/SYN-ACK，区分原值与实际修改值。客户端使用：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-4<span class="w"> </span>http://10.201.12.2:18080/probe.txt
+curl<span class="w"> </span>-6<span class="w"> </span><span class="s1">'http://[2001:db8:12::2]:18081/probe.txt'</span>
+</pre></div>
+</div>
+<p>两次请求均实际返回：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VortexROS CLI MSS acceptance
+</pre></div>
+</div>
+<p>实际验证结果如下，两个方向均检查握手，而不是仅凭配置存在判断生效：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>配置</p></th>
+<th class="head"><p>服务器收到的 IPv4 / IPv6 SYN MSS</p></th>
+<th class="head"><p>客户端收到的 IPv4 / IPv6 SYN-ACK MSS</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tcp</span> <span class="pre">mss</span> <span class="pre">1200</span></code></p></td>
+<td><p>1200 / 1200</p></td>
+<td><p>1200 / 1200</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tcp</span> <span class="pre">mss</span> <span class="pre">clamp</span></code>，接口 MTU 1320</p></td>
+<td><p>1280 / 1260</p></td>
+<td><p>1280 / 1260</p></td>
+</tr>
+<tr class="row-even"><td><p>撤销 MSS 和 MTU 修改</p></td>
+<td><p>1460 / 1440</p></td>
+<td><p>1460 / 1440</p></td>
+</tr>
+</tbody>
+</table>
+<p>固定模式验证后，先配置自动模式和 MTU 1400，再只将 MTU 改为 1320 并提交，抓包得到上表自动模式的值，证明无需重新输入 MSS 命令。上述请求都成功完成；该功能验证不代表吞吐性能测试。</p>
+<p>查看已提交配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display current-configuration interface host-p1q13
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<span id="撤销与排查"></span><h2>撤销与排查<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface host-p1q13
+ undo tcp mss
+ undo mtu
+quit
+commit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mtu</span></code> 只用于撤销本例额外的 MTU 修改；有实际业务 MTU 要求时保留原值。撤销后用新连接抓包，确认 MSS 恢复。若没有变化，检查连接是否新建、接口及流量路径是否正确，以及原始 MSS 是否已低于上限。不要用旧连接或仅有配置输出作为报文修改的证据。</p>
+<p><a class="reference internal" href="../../examples/qos/"><span class="std std-doc">完整案例、实际查询与撤销</span></a></p>
 </section>
 </section>
 
@@ -138,7 +196,7 @@ commit
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../mqc/" class="btn btn-neutral float-left" title="MQC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../mqc/attachment/" class="btn btn-neutral float-left" title="策略与接口绑定" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="../06-tunnels/" class="btn btn-neutral float-right" title="隧道" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

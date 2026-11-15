@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>资源与运行查询 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dataplane/resources/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="邻居与 MAC 容量" href="../tables/" />
+    <link rel="prev" title="设备与接管" href="../devices/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">数据面</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../devices/">设备与接管</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">资源与运行查询</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tables/">邻居与 MAC 容量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bridge-mtu/">控制网桥 MTU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recovery/">激活与恢复</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.29-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.29-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../">数据面</a></li>
+      <li class="breadcrumb-item active">资源与运行查询</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="资源与运行查询"></span><h1>资源与运行查询<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="id2">
+<span id="查询实际状态"></span><h2>查询实际状态<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span> <span class="pre">configuration</span> <span class="pre">dataplane</span></code> 和 dataplane 视图中的 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code> 显示配置；它们不证明当前 Linux 或 VPP 已应用参数。进入设备子视图后，<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code> 只显示选中的 PCI 设备。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>命令</p></th>
+<th class="head"><p>实际状态和用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span></code></p></td>
+<td><p>活动后端和 PCI 接管阶段</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">interfaces</span></code></p></td>
+<td><p>期望/活动模式、PCI 驱动、VPP 当前和最大 RX 队列</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">cpu</span></code></p></td>
+<td><p>Linux 隔离 CPU、VPP 线程及 CPU</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">memory</span></code></p></td>
+<td><p>Linux 大页总量、空闲和保留量</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">iommu</span></code></p></td>
+<td><p>IOMMU 组和受管设备所属组</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">tables</span></code></p></td>
+<td><p>期望容量、VPP 实际容量、Linux 邻居 GC 阈值</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">verbose</span></code></p></td>
+<td><p>汇总上述运行信息</p></td>
+</tr>
+</tbody>
+</table>
+<p>L2FIB 为空时不能凭空读出实时容量，查询单独标记显式 MAC 启动值。大页总量是单页大小乘页数，例如 2M ×1024 为2GiB，不能用进程 VSZ 替代。</p>
+</section>
+<section id="cpu-iommu">
+<span id="cpu大页与-iommu"></span><h2>CPU、大页与 IOMMU<a class="headerlink" href="#cpu-iommu" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+dataplane
+ cpu main-core 2
+ cpu worker-cores 3-5
+ cpu isolation enable
+ memory hugepages size 2M count 1024
+ iommu enable
+quit
+commit
+save
+display dataplane cpu
+display dataplane memory
+display dataplane iommu
+reset dataplane
+</pre></div>
+</div>
+<p>这是参数示例，CPU/NUMA/PCI 条件按本机调整，不能覆盖唯一管理路径。主核和 worker 不重叠，CPU 编号从0开始。配置 worker 时必须同时指定主核。引导参数需要主机重启时会提示；只生成 GRUB 片段不代表当前内核已生效。</p>
+<p>真实 QEMU PCI 验收用 main0/worker1、RX/TX各1队列、描述符512，激活后实际线程/队列与配置一致、业务2/2；撤销 worker/队列/描述符后，恢复单 main0 和该 virtio 驱动默认256描述符，业务仍2/2。该默认值不外推到其他驱动。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>先按<a class="reference internal" href="../devices/"><span class="std std-doc">设备接管</span></a>确认是否需保留 DPDK。单独撤销 worker 时：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+dataplane
+ undo cpu worker-cores
+ undo cpu main-core
+ undo cpu isolation enable
+ undo memory hugepages
+ undo iommu enable
+quit
+commit
+save
+reset dataplane
+</pre></div>
+</div>
+<p>先撤销 worker 再撤销主核。仍有设备依赖特定启动条件时，不能靠撤销资源参数强制实现可用的 DPDK；应按激活提示处理，检查<a class="reference internal" href="../recovery/"><span class="std std-doc">恢复结果</span></a>。生产变更前确保可恢复管理路径。</p>
+<p><a class="reference internal" href="../../reference/dataplane/"><span class="std std-doc">完整参数</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../devices/" class="btn btn-neutral float-left" title="设备与接管" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../tables/" class="btn btn-neutral float-right" title="邻居与 MAC 容量" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

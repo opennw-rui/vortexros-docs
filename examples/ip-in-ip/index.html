@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IP-in-IP 互连 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>IP-in-IP 互连 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/ip-in-ip/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -67,36 +67,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../static-route/">静态路由</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../route-group/">路由组</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF 源地址检查</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bgp-policy/">BGP 入站策略</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS 邻接</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP 路由</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD 故障检测</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../acl/">入站 ACL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nat-pat/">源 NAT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../qos/">出口限速</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC 报文标记</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP 地址池</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../dhcpv6/">DHCPv6 地址池</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lldp/">发现直连邻居</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP 轮询</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ipv6-ra/">IPv6 自动配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE 互连</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">IP-in-IP 互连</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard 互连</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG 互连</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../vxlan/">静态 VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tunnels/">IP 隧道</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../gre/">GRE 互连</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">IP-in-IP 互连</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../wireguard/">WireGuard 互连</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../amneziawg/">AmneziaWG 互连</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vxlan/">静态 VXLAN</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mpls-l3vpn/">MPLS L3VPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
@@ -105,9 +91,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -126,6 +112,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../tunnels/">IP 隧道</a></li>
       <li class="breadcrumb-item active">IP-in-IP 互连</li>
       <li class="wy-breadcrumbs-aside">
       </li>

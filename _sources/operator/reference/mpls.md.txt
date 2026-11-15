@@ -13,6 +13,14 @@
   display mpls forwarding-table
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `display mpls interface`
 
 - 类别：只读显示命令
@@ -23,6 +31,14 @@
   ```text
   display mpls interface
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
 
 ## `display mpls ldp binding`
 
@@ -35,6 +51,14 @@
   display mpls ldp binding
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `display mpls ldp interface`
 
 - 类别：只读显示命令
@@ -45,6 +69,14 @@
   ```text
   display mpls ldp interface
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
 
 ## `display mpls ldp peer`
 
@@ -57,6 +89,14 @@
   display mpls ldp peer
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `display mpls lsp`
 
 - 类别：只读显示命令
@@ -67,6 +107,14 @@
   ```text
   display mpls lsp
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
 
 ## `mpls`
 
@@ -79,6 +127,20 @@
   mpls
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`system`**
+
+此形式没有额外参数。
+
+**适用视图：`interface`**
+
+此形式没有额外参数。
+
 ## `mpls ldp`
 
 - 类别：配置命令
@@ -89,6 +151,20 @@
   ```text
   mpls ldp
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`system`**
+
+此形式没有额外参数。
+
+**适用视图：`interface`**
+
+此形式没有额外参数。
 
 ## `mpls lsr-id`
 
@@ -101,6 +177,16 @@
   mpls lsr-id A.B.C.D
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `A.B.C.D` | MPLS LSR ID | 输入值 |
+
 ## `ttl propagate`
 
 - 类别：配置命令
@@ -111,6 +197,14 @@
   ```text
   ttl propagate
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo mpls`
 
@@ -123,6 +217,20 @@
   undo mpls
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`system`**
+
+此形式没有额外参数。
+
+**适用视图：`interface`**
+
+此形式没有额外参数。
+
 ## `undo mpls ldp`
 
 - 类别：配置命令
@@ -133,6 +241,20 @@
   ```text
   undo mpls ldp
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+**适用视图：`system`**
+
+此形式没有额外参数。
+
+**适用视图：`interface`**
+
+此形式没有额外参数。
 
 ## `undo mpls lsr-id`
 
@@ -145,6 +267,14 @@
   undo mpls lsr-id
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo ttl propagate`
 
 - 类别：配置命令
@@ -155,3 +285,11 @@
   ```text
   undo ttl propagate
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。

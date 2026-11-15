@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OSPFv3 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>OSPFv3 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ospfv3/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="BGP" href="../bgp/" />
-    <link rel="prev" title="OSPF" href="../ospf/" /> 
+    <link rel="next" title="接口、区域与发布" href="configuration/" />
+    <link rel="prev" title="进程重置" href="../ospf/reset/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -61,7 +61,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">OSPFv3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">OSPFv3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/">接口、区域与发布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lsdb/">LSDB 与撤销核对</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
@@ -86,9 +90,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -120,63 +124,26 @@
 <h1>OSPFv3<a class="headerlink" href="#ospfv3" title="链接到此标题。"></a></h1>
 <p>在 IPv6 路由域内建立链路状态邻接并交换前缀。</p>
 <p><a class="reference internal" href="../reference/ospfv3/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/ospfv3/"><span class="std std-doc">配置案例</span></a></p>
-<section id="id1">
-<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>OSPFv3用于IPv6动态路由。先创建进程和区域，再在三层接口下绑定进程：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospfv3 1 router-id 10.0.0.1
- maximum load-balancing 6
- bandwidth-reference 100000
- import-route static
- area 0.0.0.0
-interface Vlanif 12
- ospfv3 1 area 0.0.0.0
- ospfv3 cost 25
- ospfv3 network-type p2p
- ospfv3 dr-priority 0
- ospfv3 timer hello 3
- ospfv3 timer dead 12
- ospfv3 timer retransmit 4
- ospfv3 timer transmit-delay 2
-</pre></div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration/">接口、区域与发布</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration/#id2">配置</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lsdb/">LSDB 与撤销核对</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lsdb/#id1">LSDB 的作用域</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<p>接口必须属于与进程相同的VPN实例。进程1对应default；其他进程必须在创建时指定非default VPN，例如<code class="docutils literal notranslate"><span class="pre">ospfv3</span> <span class="pre">2</span> <span class="pre">router-id</span> <span class="pre">10.0.0.2</span> <span class="pre">vpn-instance</span> <span class="pre">BLUE</span></code>。同一个VPN只能对应一个后端OSPFv3实例，同一个接口不能同时加入两个OSPFv3进程。</p>
-<p>Stub、NSSA和IPv6区域汇总在area视图配置：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospfv3 1
- area 0.0.0.1
-  nssa no-summary
-  abr-summary 2001:db8:: 32 not-advertise
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">stub</span></code>与<code class="docutils literal notranslate"><span class="pre">nssa</span></code>互斥。<code class="docutils literal notranslate"><span class="pre">default-route-advertise</span></code>仅在本机已有IPv6默认路由时发布，<code class="docutils literal notranslate"><span class="pre">default-route-advertise</span> <span class="pre">always</span></code>则不依赖本机默认路由。<code class="docutils literal notranslate"><span class="pre">silent-interface</span> <span class="pre">INTERFACE</span></code>保留该接口的网络发布但停止建立邻居。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospfv3 1 brief
-display ospfv3 1 peer brief
-display ospfv3 1 interface
-display ospfv3 1 lsdb
-display ospfv3 1 routing
-reset ospfv3 1 process
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">brief</span></code>中的邻居状态来自FRR OSPFv3运行态，<code class="docutils literal notranslate"><span class="pre">routing</span></code>中的路由数量只统计协议为<code class="docutils literal notranslate"><span class="pre">ospf6</span></code>的IPv6路由。配置已提交但尚未形成邻接时不会伪造Full状态；验收时应同时确认邻居Full、IPv6路由存在和业务地址可达。</p>
-<p>撤销示例：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 12
- undo ospfv3 1 area 0.0.0.0
-ospfv3 1
- area 0.0.0.1
-  undo abr-summary 2001:db8:: 32
-  undo nssa
-undo ospfv3 1
-commit
-</pre></div>
-</div>
-</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../ospf/" class="btn btn-neutral float-left" title="OSPF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../bgp/" class="btn btn-neutral float-right" title="BGP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../ospf/reset/" class="btn btn-neutral float-left" title="进程重置" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="configuration/" class="btn btn-neutral float-right" title="接口、区域与发布" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

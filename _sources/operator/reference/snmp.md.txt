@@ -13,6 +13,14 @@
   display snmp-agent community
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Running（已接受配置）。
+
+此形式没有额外参数。
+
 ## `display snmp-agent sys-info`
 
 - 类别：只读显示命令
@@ -23,6 +31,14 @@
   ```text
   display snmp-agent sys-info
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Running（已接受配置）。
+
+此形式没有额外参数。
 
 ## `display snmp-agent target-host`
 
@@ -35,6 +51,14 @@
   display snmp-agent target-host
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Running（已接受配置）。
+
+此形式没有额外参数。
+
 ## `display snmp-agent usm-user`
 
 - 类别：只读显示命令
@@ -45,6 +69,14 @@
   ```text
   display snmp-agent usm-user
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Running（已接受配置）。
+
+此形式没有额外参数。
 
 ## `snmp-agent`
 
@@ -57,6 +89,16 @@
   snmp-agent
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `<cr>` | execute command | 可选 |
+
 ## `snmp-agent community read`
 
 - 类别：配置命令
@@ -67,6 +109,16 @@
   ```text
   snmp-agent community read COMMUNITY
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `COMMUNITY` | read community | 输入值 |
 
 ## `snmp-agent protocol source-interface`
 
@@ -79,6 +131,20 @@
   snmp-agent protocol source-interface { all-interface | IFNAME | vpn-instance VPN IFNAME }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `all-interface` | listen on all interfaces in public and VPN instances | 关键字 |
+| 命令后 | `vpn-instance` | select a VPN instance | 关键字 |
+| vpn-instance | `VRF` | VPN instance | 输入值 |
+| VRF | `IF` | interface in the VPN instance | 输入值 |
+| 命令后 | `IF` | public-network interface | 输入值 |
+
 ## `snmp-agent protocol source-status all-interface`
 
 - 类别：配置命令
@@ -89,6 +155,14 @@
   ```text
   snmp-agent protocol source-status all-interface
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `snmp-agent sys-info contact`
 
@@ -101,6 +175,16 @@
   snmp-agent sys-info contact TEXT
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `TEXT` | system contact | 输入值、后续文本 |
+
 ## `snmp-agent sys-info location`
 
 - 类别：配置命令
@@ -111,6 +195,16 @@
   ```text
   snmp-agent sys-info location TEXT
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `TEXT` | system location | 输入值、后续文本 |
 
 ## `snmp-agent sys-info version v2c`
 
@@ -123,6 +217,14 @@
   snmp-agent sys-info version v2c
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `snmp-agent sys-info version v3`
 
 - 类别：配置命令
@@ -133,6 +235,14 @@
   ```text
   snmp-agent sys-info version v3
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `snmp-agent target-host trap address udp-domain`
 
@@ -145,6 +255,16 @@
   snmp-agent target-host trap address udp-domain ADDRESS udp-port PORT params securityname NAME { v2c | v3 }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PARAMETERS` | receiver, port and security parameters | 输入值、后续文本 |
+
 ## `snmp-agent trap enable standard`
 
 - 类别：配置命令
@@ -155,6 +275,14 @@
   ```text
   snmp-agent trap enable standard
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `snmp-agent trap source`
 
@@ -167,6 +295,16 @@
   snmp-agent trap source IFNAME
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `IF` | interface | 输入值 |
+
 ## `snmp-agent usm-user v3`
 
 - 类别：配置命令
@@ -177,6 +315,16 @@
   ```text
   snmp-agent usm-user v3 USER authentication-mode sha2-256 AUTH privacy-mode aes128 PRIV
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `PARAMETERS` | user, authentication and privacy parameters | 输入值、后续文本 |
 
 ## `undo snmp-agent`
 
@@ -189,6 +337,14 @@
   undo snmp-agent
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo snmp-agent community read`
 
 - 类别：配置命令
@@ -199,6 +355,16 @@
   ```text
   undo snmp-agent community read COMMUNITY
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `COMMUNITY` | read community | 输入值 |
 
 ## `undo snmp-agent protocol source-interface`
 
@@ -211,6 +377,14 @@
   undo snmp-agent protocol source-interface
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo snmp-agent sys-info contact`
 
 - 类别：配置命令
@@ -221,6 +395,14 @@
   ```text
   undo snmp-agent sys-info contact
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo snmp-agent sys-info location`
 
@@ -233,6 +415,14 @@
   undo snmp-agent sys-info location
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo snmp-agent sys-info version v2c`
 
 - 类别：配置命令
@@ -243,6 +433,14 @@
   ```text
   undo snmp-agent sys-info version v2c
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `undo snmp-agent sys-info version v3`
 
@@ -255,6 +453,14 @@
   undo snmp-agent sys-info version v3
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo snmp-agent target-host trap address udp-domain`
 
 - 类别：配置命令
@@ -265,6 +471,16 @@
   ```text
   undo snmp-agent target-host trap address udp-domain ADDRESS
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `ADDRESS` | receiver address | 输入值 |
 
 ## `undo snmp-agent trap enable standard`
 
@@ -277,6 +493,14 @@
   undo snmp-agent trap enable standard
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo snmp-agent trap source`
 
 - 类别：配置命令
@@ -288,6 +512,14 @@
   undo snmp-agent trap source
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
+
 ## `undo snmp-agent usm-user v3`
 
 - 类别：配置命令
@@ -298,3 +530,13 @@
   ```text
   undo snmp-agent usm-user v3 USER
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `USER` | USM user | 输入值 |

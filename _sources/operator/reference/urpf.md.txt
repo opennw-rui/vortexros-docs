@@ -13,6 +13,14 @@
   display ipv6 urpf
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `display urpf`
 
 - 类别：只读显示命令
@@ -23,6 +31,14 @@
   ```text
   display urpf
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
 
 ## `ip urpf`
 
@@ -35,6 +51,19 @@
   ip urpf { loose | strict | disable }
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `loose` | loose mode | 关键字 |
+| 命令后 | `strict` | strict mode | 关键字 |
+| 命令后 | `disable` | disable uRPF | 关键字 |
+
 ## `ipv6 urpf`
 
 - 类别：配置命令
@@ -45,6 +74,19 @@
   ```text
   ipv6 urpf { loose | strict | disable }
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `loose` | loose mode | 关键字 |
+| 命令后 | `strict` | strict mode | 关键字 |
+| 命令后 | `disable` | disable uRPF | 关键字 |
 
 ## `undo ip urpf`
 
@@ -57,6 +99,15 @@
   undo ip urpf
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。
+
 ## `undo ipv6 urpf`
 
 - 类别：配置命令
@@ -67,3 +118,12 @@
   ```text
   undo ipv6 urpf
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l3, interface/subif-l3, interface/eth-trunk-neutral, interface/eth-trunk-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif
+
+此形式没有额外参数。

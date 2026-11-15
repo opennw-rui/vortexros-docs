@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>桥域 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>桥域 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bridge-domains/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -61,7 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../flow-steering/">Flow Steering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">三层子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../qinq/">QinQ</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">桥域</a></li>
@@ -87,9 +87,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -137,6 +137,11 @@ display interface Vbdif 11
 </pre></div>
 </div>
 <p>删除前先解除Vbdif、VNI和VLAN绑定，避免业务仍在引用BD。</p>
+</section>
+<section id="mtu">
+<span id="控制网桥-mtu"></span><h2>控制网桥 MTU<a class="headerlink" href="#mtu" title="链接到此标题。"></a></h2>
+<p>Linux 控制网桥用于 LCP/FRR 的二层状态投影，普通业务仍由 VPP 转发。网桥 MTU 按受管端口所需的最大值设置，不因另一个成员使用较小 MTU 或变为 Down 而自动压低；这不表示小 MTU 端口能够转发超过自身能力的报文。实际业务仍受出口 MTU、封装开销与路径 MTU 限制。</p>
+<p>EVPN 的 Linux VLAN 端点与控制网桥应保持一致的 MTU。更改端口或重新应用相同配置不应短暂缩小已有端点。开发服务器已验证 9000/1500 混合成员、较大成员降至1500/Down、重复投影，以及携带既有 EVPN VNI 的真实 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">vpp</span></code>。最终网桥和 EVPN 端点均为9000；这些结果不构成满 MTU 吞吐保证。</p>
 </section>
 </section>
 

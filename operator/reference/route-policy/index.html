@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>路由策略 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>路由策略 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/route-policy/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -164,6 +164,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ASNUM</span></code></p></td>
+<td><p>one or more AS numbers</p></td>
+<td><p>输入值、后续文本</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="apply-community">
 <h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">community</span></code><a class="headerlink" href="#apply-community" title="链接到此标题。"></a></h2>
@@ -177,6 +198,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VALUE</span></code></p></td>
+<td><p>community values and optional additive</p></td>
+<td><p>输入值、后续文本</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="apply-cost">
 <h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">cost</span></code><a class="headerlink" href="#apply-cost" title="链接到此标题。"></a></h2>
@@ -190,6 +232,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VALUE</span></code></p></td>
+<td><p>route metric</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="apply-ip-address-next-hop">
 <h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">ip-address</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#apply-ip-address-next-hop" title="链接到此标题。"></a></h2>
@@ -203,6 +266,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>IPv4 next hop</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="apply-ipv6-next-hop">
 <h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">ipv6</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#apply-ipv6-next-hop" title="链接到此标题。"></a></h2>
@@ -216,6 +300,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X:X::X</span></code></p></td>
+<td><p>IPv6 next hop</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="apply-large-community">
 <h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">large-community</span></code><a class="headerlink" href="#apply-large-community" title="链接到此标题。"></a></h2>
@@ -229,6 +334,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VALUE</span></code></p></td>
+<td><p>large-community values and optional additive</p></td>
+<td><p>输入值、后续文本</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="apply-local-preference">
 <h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">local-preference</span></code><a class="headerlink" href="#apply-local-preference" title="链接到此标题。"></a></h2>
@@ -242,6 +368,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VALUE</span></code></p></td>
+<td><p>local preference</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="apply-origin">
 <h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">origin</span></code><a class="headerlink" href="#apply-origin" title="链接到此标题。"></a></h2>
@@ -255,6 +402,37 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">igp</span></code></p></td>
+<td><p>IGP origin</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">egp</span></code></p></td>
+<td><p>EGP origin</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">incomplete</span></code></p></td>
+<td><p>incomplete origin</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="apply-tag">
 <h2><code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">tag</span></code><a class="headerlink" href="#apply-tag" title="链接到此标题。"></a></h2>
@@ -268,6 +446,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-4294967295&gt;</span></code></p></td>
+<td><p>route tag</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="continue-node">
 <h2><code class="docutils literal notranslate"><span class="pre">continue</span> <span class="pre">node</span></code><a class="headerlink" href="#continue-node" title="链接到此标题。"></a></h2>
@@ -281,6 +480,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>target node</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-route-policy">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-policy</span></code><a class="headerlink" href="#display-route-policy" title="链接到此标题。"></a></h2>
@@ -294,6 +514,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ROUTE-POLICY</span></code></p></td>
+<td><p>Name of the route policy</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>ROUTE-POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>Backend policy counters</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="if-match-cost">
 <h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">cost</span></code><a class="headerlink" href="#if-match-cost" title="链接到此标题。"></a></h2>
@@ -307,6 +553,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-4294967295&gt;</span></code></p></td>
+<td><p>route metric</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="if-match-ip-prefix">
 <h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#if-match-ip-prefix" title="链接到此标题。"></a></h2>
@@ -320,6 +587,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP-PREFIX</span></code></p></td>
+<td><p>Specify a prefix list name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="if-match-ipv6-address-prefix-list">
 <h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">prefix-list</span></code><a class="headerlink" href="#if-match-ipv6-address-prefix-list" title="链接到此标题。"></a></h2>
@@ -333,6 +621,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IPV6-PREFIX</span></code></p></td>
+<td><p>Specify an IPv6 prefix list name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="if-match-protocol">
 <h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">protocol</span></code><a class="headerlink" href="#if-match-protocol" title="链接到此标题。"></a></h2>
@@ -346,6 +655,62 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">direct</span></code></p></td>
+<td><p>DIRECT routes</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static</span></code></p></td>
+<td><p>STATIC routes</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ospf</span></code></p></td>
+<td><p>OSPF routes</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></td>
+<td><p>OSPFV3 routes</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">isis</span></code></p></td>
+<td><p>ISIS routes</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rip</span></code></p></td>
+<td><p>RIP routes</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ripng</span></code></p></td>
+<td><p>RIPNG routes</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bgp</span></code></p></td>
+<td><p>BGP routes</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="if-match-tag">
 <h2><code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">tag</span></code><a class="headerlink" href="#if-match-tag" title="链接到此标题。"></a></h2>
@@ -359,6 +724,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-4294967295&gt;</span></code></p></td>
+<td><p>route tag</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="route-policy">
 <h2><code class="docutils literal notranslate"><span class="pre">route-policy</span></code><a class="headerlink" href="#route-policy" title="链接到此标题。"></a></h2>
@@ -372,6 +758,47 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ROUTE-POLICY</span></code></p></td>
+<td><p>Name of the route policy</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ROUTE-POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">permit</span></code></p></td>
+<td><p>permit node</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>deny / permit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">node</span></code></p></td>
+<td><p>Specify a route-policy node</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>node</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>Node number</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>ROUTE-POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">deny</span></code></p></td>
+<td><p>deny node</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-apply-as-path">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">as-path</span></code><a class="headerlink" href="#undo-apply-as-path" title="链接到此标题。"></a></h2>
@@ -385,6 +812,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-apply-community">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">community</span></code><a class="headerlink" href="#undo-apply-community" title="链接到此标题。"></a></h2>
@@ -398,6 +831,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-apply-cost">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">cost</span></code><a class="headerlink" href="#undo-apply-cost" title="链接到此标题。"></a></h2>
@@ -411,6 +850,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-apply-ip-address-next-hop">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">ip-address</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#undo-apply-ip-address-next-hop" title="链接到此标题。"></a></h2>
@@ -424,6 +869,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-apply-ipv6-next-hop">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">ipv6</span> <span class="pre">next-hop</span></code><a class="headerlink" href="#undo-apply-ipv6-next-hop" title="链接到此标题。"></a></h2>
@@ -437,6 +888,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-apply-large-community">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">large-community</span></code><a class="headerlink" href="#undo-apply-large-community" title="链接到此标题。"></a></h2>
@@ -450,6 +907,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-apply-local-preference">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">local-preference</span></code><a class="headerlink" href="#undo-apply-local-preference" title="链接到此标题。"></a></h2>
@@ -463,6 +926,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-apply-origin">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">origin</span></code><a class="headerlink" href="#undo-apply-origin" title="链接到此标题。"></a></h2>
@@ -476,6 +945,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-apply-tag">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">tag</span></code><a class="headerlink" href="#undo-apply-tag" title="链接到此标题。"></a></h2>
@@ -489,6 +964,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-continue">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">continue</span></code><a class="headerlink" href="#undo-continue" title="链接到此标题。"></a></h2>
@@ -502,6 +983,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-if-match-cost">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">cost</span></code><a class="headerlink" href="#undo-if-match-cost" title="链接到此标题。"></a></h2>
@@ -515,6 +1002,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-if-match-ip-prefix">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">ip-prefix</span></code><a class="headerlink" href="#undo-if-match-ip-prefix" title="链接到此标题。"></a></h2>
@@ -528,6 +1021,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IP-PREFIX</span></code></p></td>
+<td><p>Specify a prefix list name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-if-match-ipv6-address-prefix-list">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">prefix-list</span></code><a class="headerlink" href="#undo-if-match-ipv6-address-prefix-list" title="链接到此标题。"></a></h2>
@@ -541,6 +1055,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IPV6-PREFIX</span></code></p></td>
+<td><p>Specify an IPv6 prefix list name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-if-match-protocol">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">protocol</span></code><a class="headerlink" href="#undo-if-match-protocol" title="链接到此标题。"></a></h2>
@@ -554,6 +1089,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-if-match-tag">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">if-match</span> <span class="pre">tag</span></code><a class="headerlink" href="#undo-if-match-tag" title="链接到此标题。"></a></h2>
@@ -567,6 +1108,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-route-policy">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route-policy</span></code><a class="headerlink" href="#undo-route-policy" title="链接到此标题。"></a></h2>
@@ -580,6 +1127,47 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ROUTE-POLICY</span></code></p></td>
+<td><p>Name of the route policy</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ROUTE-POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">permit</span></code></p></td>
+<td><p>delete a permit node</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>deny / permit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">node</span></code></p></td>
+<td><p>Specify a route-policy node</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>node</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>Node number</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>ROUTE-POLICY</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">deny</span></code></p></td>
+<td><p>delete a deny node</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>桥域 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>桥域 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/bridge-domains/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -167,6 +167,122 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">interface</span></code></strong>
+接口类别：ethernet, eth-trunk, subif, loopback, tunnel
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/subif-l2, interface/eth-trunk-neutral, interface/eth-trunk-l2</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>bridge-domain ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bvi</span></code></p></td>
+<td><p>bridged virtual interface</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">system,</span> <span class="pre">interface,</span> <span class="pre">vpn-instance,</span> <span class="pre">acl,</span> <span class="pre">acl6,</span> <span class="pre">bridge-domain,</span> <span class="pre">vlan,</span> <span class="pre">classifier,</span> <span class="pre">behavior,</span> <span class="pre">policy,</span> <span class="pre">nat-policy,</span> <span class="pre">nat-address-set,</span> <span class="pre">nat-port-set,</span> <span class="pre">nat-address-pool,</span> <span class="pre">ospf,</span> <span class="pre">ospfv3,</span> <span class="pre">bgp,</span> <span class="pre">route-policy,</span> <span class="pre">wireguard-profile,</span> <span class="pre">amneziawg-profile,</span> <span class="pre">bfd,</span> <span class="pre">route-static-group,</span> <span class="pre">ip-pool,</span> <span class="pre">dhcpv6-pool,</span> <span class="pre">mpls,</span> <span class="pre">dataplane,</span> <span class="pre">local-user,</span> <span class="pre">bridge-domain-evpn,</span> <span class="pre">nat-rule,</span> <span class="pre">vpn-family,</span> <span class="pre">ospf-area,</span> <span class="pre">ospfv3-area,</span> <span class="pre">bgp-family,</span> <span class="pre">rip,</span> <span class="pre">ripng,</span> <span class="pre">isis,</span> <span class="pre">wireguard-peer,</span> <span class="pre">amneziawg-peer,</span> <span class="pre">bfd-session,</span> <span class="pre">dataplane-if</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>bridge-domain ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">flood</span></code></p></td>
+<td><p>enable flooding</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-flood</span></code></p></td>
+<td><p>disable flooding</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward</span></code></p></td>
+<td><p>enable forwarding</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-forward</span></code></p></td>
+<td><p>disable forwarding</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">learn</span></code></p></td>
+<td><p>enable MAC learning</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-learn</span></code></p></td>
+<td><p>disable MAC learning</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uu-flood</span></code></p></td>
+<td><p>enable unknown-unicast flooding</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-uu-flood</span></code></p></td>
+<td><p>disable unknown-unicast flooding</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">arp-term</span></code></p></td>
+<td><p>enable ARP termination</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-arp-term</span></code></p></td>
+<td><p>disable ARP termination</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">arp-ufwd</span></code></p></td>
+<td><p>enable ARP unicast forwarding</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-arp-ufwd</span></code></p></td>
+<td><p>disable ARP unicast forwarding</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mac-age</span> <span class="pre">SECONDS</span></code></p></td>
+<td><p>set MAC aging time；aging time</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tag</span> <span class="pre">TEXT</span></code></p></td>
+<td><p>set bridge-domain tag；tag text</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-bridge-domain">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bridge-domain</span></code><a class="headerlink" href="#display-bridge-domain" title="链接到此标题。"></a></h2>
@@ -180,6 +296,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>bridge-domain ID (user-facing for service BD)</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-mac-address">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mac-address</span></code><a class="headerlink" href="#display-mac-address" title="链接到此标题。"></a></h2>
@@ -193,6 +330,67 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vlan</span></code></p></td>
+<td><p>filter by VLAN</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>vlan</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VLAN-ID</span></code></p></td>
+<td><p>VLAN ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code></p></td>
+<td><p>filter by service bridge-domain</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>bridge-domain</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BD</span></code></p></td>
+<td><p>bridge-domain ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>filter by interface</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static</span></code></p></td>
+<td><p>static entries</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dynamic</span></code></p></td>
+<td><p>dynamic entries</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code></p></td>
+<td><p>MAC address</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="l2-binding-vlan">
 <h2><code class="docutils literal notranslate"><span class="pre">l2</span> <span class="pre">binding</span> <span class="pre">vlan</span></code><a class="headerlink" href="#l2-binding-vlan" title="链接到此标题。"></a></h2>
@@ -206,6 +404,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VLAN-ID</span></code></p></td>
+<td><p>VLAN ID 1-4095</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="mac-address">
 <h2><code class="docutils literal notranslate"><span class="pre">mac-address</span></code><a class="headerlink" href="#mac-address" title="链接到此标题。"></a></h2>
@@ -219,6 +438,28 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code></p></td>
+<td><p>MAC address</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="mac-address-aging-time">
 <h2><code class="docutils literal notranslate"><span class="pre">mac-address</span> <span class="pre">aging-time</span></code><a class="headerlink" href="#mac-address-aging-time" title="链接到此标题。"></a></h2>
@@ -232,6 +473,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;60-15300&gt;</span></code></p></td>
+<td><p>aging time in seconds (whole minutes)</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="mac-address-static">
 <h2><code class="docutils literal notranslate"><span class="pre">mac-address</span> <span class="pre">static</span></code><a class="headerlink" href="#mac-address-static" title="链接到此标题。"></a></h2>
@@ -245,6 +507,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code></p></td>
+<td><p>MAC address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>MAC</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>outgoing interface</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>IF</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code></p></td>
+<td><p>bridge-domain</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>bridge-domain</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>bridge-domain ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="reset-mac-address">
 <h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">mac-address</span></code><a class="headerlink" href="#reset-mac-address" title="链接到此标题。"></a></h2>
@@ -259,6 +557,47 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">H-H-H</span></code></p></td>
+<td><p>learned MAC address</p></td>
+<td><p>输入值、可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>select a Layer 2 interface</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name or TYPE N</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mac-address</span></code></p></td>
+<td><p>select one learned MAC address</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>mac-address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">H-H-H</span></code></p></td>
+<td><p>learned MAC address</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-bridge-domain">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bridge-domain</span></code><a class="headerlink" href="#undo-bridge-domain" title="链接到此标题。"></a></h2>
@@ -275,6 +614,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">interface</span></code></strong>
+接口类别：ethernet, eth-trunk, subif, loopback, tunnel
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/subif-l2, interface/eth-trunk-neutral, interface/eth-trunk-l2</p>
+<p>此形式没有额外参数。</p>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">system</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>bridge-domain ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-l2-binding-vlan">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">l2</span> <span class="pre">binding</span> <span class="pre">vlan</span></code><a class="headerlink" href="#undo-l2-binding-vlan" title="链接到此标题。"></a></h2>
@@ -288,6 +653,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-mac-address">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mac-address</span></code><a class="headerlink" href="#undo-mac-address" title="链接到此标题。"></a></h2>
@@ -301,6 +672,13 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3, interface/subif-l2, interface/subif-l3, interface/tunnel-pending, interface/tunnel-gre, interface/tunnel-wireguard, interface/tunnel-amneziawg, interface/loopback, interface/vlanif, interface/vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-mac-address-aging-time">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mac-address</span> <span class="pre">aging-time</span></code><a class="headerlink" href="#undo-mac-address-aging-time" title="链接到此标题。"></a></h2>
@@ -314,6 +692,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="undo-mac-address-static">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mac-address</span> <span class="pre">static</span></code><a class="headerlink" href="#undo-mac-address-static" title="链接到此标题。"></a></h2>
@@ -327,6 +711,42 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code></p></td>
+<td><p>MAC address</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>MAC</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>outgoing interface</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>IF</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code></p></td>
+<td><p>bridge-domain</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>bridge-domain</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>bridge-domain ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

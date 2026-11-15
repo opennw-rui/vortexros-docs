@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RA 与 SLAAC &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>RA 与 SLAAC &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ipv6-autoconfig/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="LLDP" href="../lldp/" />
-    <link rel="prev" title="DHCP" href="../dhcp/" /> 
+    <link rel="next" title="SLAAC 地址" href="slaac/" />
+    <link rel="prev" title="租约查询" href="../dhcp/leases/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -65,7 +65,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../08-network-services/">网络服务</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">RA 与 SLAAC</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RA 与 SLAAC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="slaac/">SLAAC 地址</a></li>
+<li class="toctree-l3"><a class="reference internal" href="default-route/">RA 默认路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="combined/">组合与清理</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
 </ul>
@@ -79,9 +84,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../">当前手册（v0.29-dev）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -111,38 +116,38 @@
              
   <section id="ra-slaac">
 <span id="ra-与-slaac"></span><h1>RA 与 SLAAC<a class="headerlink" href="#ra-slaac" title="链接到此标题。"></a></h1>
-<p>IPv6 路由器发现独立于 DHCPv6。</p>
-<p><a class="reference internal" href="../reference/ipv6-autoconfig/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/ipv6-ra/"><span class="std std-doc">配置案例</span></a></p>
-<section id="id1">
-<span id="配置与撤销"></span><h2>配置与撤销<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>DHCPv6 不会提供IPv6默认网关；默认路由来自Router Advertisement。需要同时从RA生成全局地址并接受RA默认路由时，可使用组合命令：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
- ipv6 address auto global default
-commit
-display ipv6 interface brief
-display ipv6 neighbors
-display ipv6 routing-table
-</pre></div>
+<p>RA学习默认路由与SLAAC地址独立于DHCPv6；缺省只在显式配置的接口接受，不全局放开。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="slaac/">SLAAC 地址</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="slaac/#id1">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slaac/#id2">查询与实际效果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slaac/#id3">撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="default-route/">RA 默认路由</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="default-route/#id1">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="default-route/#id2">查询与实际效果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="default-route/#id3">撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="combined/">组合与清理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="combined/#id2">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combined/#id3">查询与实际效果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combined/#id4">撤销</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<p>若只需要其中一项，也可分别使用<code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">auto</span> <span class="pre">slaac</span></code>或<code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">ra</span> <span class="pre">default-route</span> <span class="pre">enable</span></code>。使用有状态DHCPv6获取地址、同时从RA获取默认路由时，可以组合<code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">auto</span> <span class="pre">dhcp</span></code>与<code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">ra</span> <span class="pre">default-route</span> <span class="pre">enable</span></code>，无需同时启用SLAAC地址生成。</p>
-<p>VortexROS只在已配置的接口上开启RA接收。VPP模式下由该接口的LCP host接收RA，Linux内核执行DAD并维护前缀、首选时间、有效时间和Router Lifetime，linux-cp再把有效地址和路由同步到VPP。即使系统开启IPv6转发，该接口仍会使用明确的RA接收策略；其他接口不会被全局放开。接口属于VPN实例时，LCP接口先加入对应Linux VRF，学习结果留在该VPN的路由域内。</p>
-<p>组合意图可一次撤销：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
- undo ipv6 address auto global default
-commit
-</pre></div>
-</div>
-<p>分别配置的地址自动生成与默认路由也可以用各自的精确<code class="docutils literal notranslate"><span class="pre">undo</span></code>撤销。</p>
-<p>撤销全部RA功能后，控制面关闭该接口的RA、自动前缀和默认路由接收，并清理内核中由RA协议安装的路由及可识别的SLAAC地址。DHCPv6地址不属于这套清理范围。</p>
-</section>
+<p><a class="reference internal" href="../../examples/ipv6-ra/"><span class="std std-doc">完整案例与真实输出</span></a> · <a class="reference internal" href="../reference/ipv6-autoconfig/"><span class="std std-doc">全部命令参数</span></a></p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../dhcp/" class="btn btn-neutral float-left" title="DHCP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../lldp/" class="btn btn-neutral float-right" title="LLDP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../dhcp/leases/" class="btn btn-neutral float-left" title="租约查询" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="slaac/" class="btn btn-neutral float-right" title="SLAAC 地址" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -16,6 +16,14 @@
   commit
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `end`
 
 - 类别：视图导航命令
@@ -27,6 +35,14 @@
   ```text
   end
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `export configuration`
 
@@ -40,6 +56,16 @@
   export configuration FILE
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `FILE` | protected .cfg file name in the configuration directory | 输入值 |
+
 ## `load configuration`
 
 - 类别：Candidate管理命令
@@ -52,6 +78,16 @@
   load configuration FILE
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `FILE` | input path | 输入值 |
+
 ## `quit`
 
 - 类别：视图导航命令
@@ -63,6 +99,14 @@
   ```text
   quit
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `refresh configuration candidate`
 
@@ -78,6 +122,14 @@
   refresh configuration candidate
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `refresh nat-policy interface-pat`
 
 - 类别：配置命令
@@ -88,6 +140,16 @@
   ```text
   refresh nat-policy interface-pat INTERFACE
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `INTERFACE` | interface name | 输入值 |
 
 ## `restore factory-configuration`
 
@@ -101,6 +163,14 @@
   restore factory-configuration
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+此形式没有额外参数。
+
 ## `return`
 
 - 类别：视图导航命令
@@ -112,6 +182,14 @@
   ```text
   return
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。
 
 ## `save`
 
@@ -127,6 +205,16 @@
   save [FILE.cfg]
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `FILE` | configuration file name under the config directory | 输入值、可选 |
+
 ## `startup saved-configuration`
 
 - 类别：配置文件/恢复命令
@@ -139,6 +227,16 @@
   startup saved-configuration FILE.cfg
   ```
 
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：后端运行态。
+
+| 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
+|---|---|---|---|
+| 命令后 | `FILE` | existing configuration file name | 输入值 |
+
 ## `system-view`
 
 - 类别：视图导航命令
@@ -150,3 +248,11 @@
   ```text
   system-view
   ```
+
+<!-- registry-parameters -->
+
+**参数与子命令**
+
+- 数据来源：Candidate（本会话待提交配置）。
+
+此形式没有额外参数。

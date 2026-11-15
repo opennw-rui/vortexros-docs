@@ -1,15 +1,32 @@
 # 硬件卸载
 
-按接口查看和配置网卡驱动支持的收发卸载。
+查看网卡/驱动能力与当前启用状态，只有产品提供的控制项才可用CLI修改。
 
-[命令参考](reference/interfaces.md)
-
-## 查看与配置
-
-设备直接读取物理接口实际支持的硬件卸载能力。除LRO外，支持的能力默认开启；使用 `undo hardware offload ...` 可以按接口关闭一个或多个能力。
-
-```text
+~~~text
 display interface hardware offload Ethernet 1
-```
+~~~
 
-在接口视图使用 `undo hardware offload tso` 关闭 TSO。设备视图的驱动设置见[数据面](dataplane.md)。
+| 列 | 含义 |
+|---|---|
+| Supported | 驱动报告支持该能力，不代表已开启 |
+| Active | 实际启用状态，不能由配置推断 |
+| Control=online | 产品可在线控制的能力 |
+| Control=disabled | 对应产品控制项已显式禁用 |
+| Control=driver | 由驱动决定，当前CLI不提供逐项开启入口 |
+
+同一份接口策略可在接口视图和dataplane设备视图编辑，不是两份独立配置。当前可配置项以`hardware offload ?`为准，包括GSO、TSO、收发校验和与多段报文。关闭RX/TX校验和前，需在同次命令先关闭依赖它们的TSO。
+
+~~~text
+system-view
+interface Ethernet 1
+ undo hardware offload gso
+quit
+commit
+display interface hardware offload Ethernet 1
+~~~
+
+恢复使用 `hardware offload gso` 并提交。恢复默认不保证每个驱动细项都变成Active=yes，未开放控制的driver项仍按驱动实际状态显示。GSO是软件分段，TSO是硬件TCP分段，二者不是同一层功能。
+
+QEMU virtio的真实在线GSO关闭/恢复、PCI接管和流量2/2见[数据面恢复](dataplane/recovery.md)。该结果不外推为所有驱动项均可在线切换，也不是吞吐测试。
+
+[数据面设备](dataplane/devices.md) · [完整参数](reference/interfaces.md)

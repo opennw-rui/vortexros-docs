@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>系统 &mdash; VortexROS 文档 v0.28-dev-debug9 文档</title>
+  <title>系统 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/system/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=788bb127"></script>
+      <script src="../../../_static/documentation_options.js?v=249bf719"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -119,9 +119,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.28-dev-debug9）</summary>
+  <summary>版本：最新（v0.29-dev）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.28-dev-debug9）</a>
+    <a href="../../../">当前手册（v0.29-dev）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -164,6 +164,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="display-alarm-history">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">alarm</span> <span class="pre">history</span></code><a class="headerlink" href="#display-alarm-history" title="链接到此标题。"></a></h2>
@@ -177,6 +183,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">last</span></code></p></td>
+<td><p>show the most recent records</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>last</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+<td><p>INTEGER&lt;1-1000&gt;</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-configuration-candidate">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">configuration</span> <span class="pre">candidate</span></code><a class="headerlink" href="#display-configuration-candidate" title="链接到此标题。"></a></h2>
@@ -190,6 +222,32 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">merge</span></code></p></td>
+<td><p>all configuration including uncommitted changes</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sessions</span></code></p></td>
+<td><p>private candidate session summary (administrator only)</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-configuration-storage">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">configuration</span> <span class="pre">storage</span></code><a class="headerlink" href="#display-configuration-storage" title="链接到此标题。"></a></h2>
@@ -203,6 +261,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="display-cpu-usage">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">cpu-usage</span></code><a class="headerlink" href="#display-cpu-usage" title="链接到此标题。"></a></h2>
@@ -216,6 +280,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>VPP graph runtime (show runtime) and error counters</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-current-configuration">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span></code><a class="headerlink" href="#display-current-configuration" title="链接到此标题。"></a></h2>
@@ -229,6 +314,237 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Running（已接受配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">configuration</span></code></p></td>
+<td><p>configuration by type</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">service</span></code></p></td>
+<td><p>Service configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dataplane</span></code></p></td>
+<td><p>Dataplane configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">users</span></code></p></td>
+<td><p>Local user configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></p></td>
+<td><p>VPN instance configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">acl</span></code></p></td>
+<td><p>ACL configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>acl</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>ACL name</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ACL</span></code></p></td>
+<td><p>ACL name</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>interface configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vlan</span></code></p></td>
+<td><p>VLAN configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code></p></td>
+<td><p>bridge-domain configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>bridge-domain</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ID</span></code></p></td>
+<td><p>bridge-domain ID</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">traffic</span></code></p></td>
+<td><p>MQC traffic configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>traffic</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">classifier</span></code></p></td>
+<td><p>traffic classifier</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>classifier</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CLASSIFIER</span></code></p></td>
+<td><p>classifier name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>traffic</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">behavior</span></code></p></td>
+<td><p>traffic behavior</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>behavior</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BEHAVIOR</span></code></p></td>
+<td><p>behavior name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>traffic</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">policy</span></code></p></td>
+<td><p>traffic policy</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>policy</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">POLICY</span></code></p></td>
+<td><p>policy name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nat-policy</span></code></p></td>
+<td><p>NAT policy configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>nat-policy</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAT-POLICY</span></code></p></td>
+<td><p>NAT policy name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">route-static</span></code></p></td>
+<td><p>static route configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">route-static-group</span></code></p></td>
+<td><p>static route group configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>route-static-group</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GROUP</span></code></p></td>
+<td><p>group name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ip-prefix</span></code></p></td>
+<td><p>IP prefix-list configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv6-prefix</span></code></p></td>
+<td><p>IPv6 prefix-list configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">route-policy</span></code></p></td>
+<td><p>route-policy configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ospf</span></code></p></td>
+<td><p>OSPF configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></td>
+<td><p>OSPFv3 configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bgp</span></code></p></td>
+<td><p>BGP configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rip</span></code></p></td>
+<td><p>RIP configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ripng</span></code></p></td>
+<td><p>RIPng configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">isis</span></code></p></td>
+<td><p>IS-IS configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bfd</span></code></p></td>
+<td><p>BFD configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wireguard</span></code></p></td>
+<td><p>WireGuard configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">amneziawg</span></code></p></td>
+<td><p>AmneziaWG configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dhcp</span></code></p></td>
+<td><p>DHCP configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">snmp-agent</span></code></p></td>
+<td><p>SNMP agent configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lcp</span></code></p></td>
+<td><p>LCP pair configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sysname</span></code></p></td>
+<td><p>sysname configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name or TYPE</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>IF</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+<td><p>interface number</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">all</span></code></p></td>
+<td><p>all configuration</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-health">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health</span></code><a class="headerlink" href="#display-health" title="链接到此标题。"></a></h2>
@@ -243,6 +559,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>include module and compatibility details</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-history">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">history</span></code><a class="headerlink" href="#display-history" title="链接到此标题。"></a></h2>
@@ -256,6 +593,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：当前会话。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="display-memory-usage">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">memory-usage</span></code><a class="headerlink" href="#display-memory-usage" title="链接到此标题。"></a></h2>
@@ -269,6 +612,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 <section id="display-service">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">service</span></code><a class="headerlink" href="#display-service" title="链接到此标题。"></a></h2>
@@ -282,6 +631,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>include daemon module readiness and errors</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="display-vpp-interface-ownership">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vpp</span> <span class="pre">interface-ownership</span></code><a class="headerlink" href="#display-vpp-interface-ownership" title="链接到此标题。"></a></h2>
@@ -295,6 +665,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>include PCI, driver and per-interface recovery details</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="health-check">
 <h2><code class="docutils literal notranslate"><span class="pre">health</span> <span class="pre">check</span></code><a class="headerlink" href="#health-check" title="链接到此标题。"></a></h2>
@@ -309,6 +700,47 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--wait</span></code></p></td>
+<td><p>wait until strict health converges</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--timeout</span> <span class="pre">DURATION</span></code></p></td>
+<td><p>maximum wait duration；duration such as 90s or 2m</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--json</span></code></p></td>
+<td><p>emit one JSON result</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--allow-weak-vpp</span></code></p></td>
+<td><p>accept only process-bound VPP weak readback</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--require-saved</span></code></p></td>
+<td><p>require Running to match the saved startup configuration</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="sysname">
 <h2><code class="docutils literal notranslate"><span class="pre">sysname</span></code><a class="headerlink" href="#sysname" title="链接到此标题。"></a></h2>
@@ -322,6 +754,27 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code></p></td>
+<td><p>device name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="undo-sysname">
 <h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">sysname</span></code><a class="headerlink" href="#undo-sysname" title="链接到此标题。"></a></h2>
@@ -335,6 +788,12 @@
 </div>
 </li>
 </ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
 </section>
 </section>
 

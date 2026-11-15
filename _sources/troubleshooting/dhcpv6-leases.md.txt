@@ -1,6 +1,6 @@
 # DHCPv6 租约查询
 
-先区分客户端未获地址和管理端租约显示失败。Debug 9 已继承 DHCPv6 类型解码及正常空租约汇总的修复。
+先区分客户端未获地址和管理端租约显示失败。0.29-dev包含 DHCPv6 类型解码及正常空租约汇总的修复。
 
 ~~~text
 display dhcp service verbose
@@ -16,4 +16,4 @@ display ipv6 pool name LAB-V6 verbose
 - 同地址族多实例：一个实例为空时，其他实例的租约及池名筛选仍应正常。
 - socket、服务命令或回复格式错误：保留错误并检查服务日志，不能按零租约处理。
 
-Debug 5 的 `IA_NA` 字符串解码错误已在 Debug 6 修复；正常空结果及多实例汇总在 Debug 7 修复。原始错误和流量结果保留在[历史实测案例](../examples/dhcpv6.md)，不代表 Debug 9 仍有该限制，也不表示本轮重新运行了 DHCPv6 拓扑。
+当前支持IA_NA、IA_TA、IA_PD以及正常空结果和多实例汇总。具体输出见[实测案例](../examples/dhcpv6.md)；本轮未重复运行该未受影响的拓扑。

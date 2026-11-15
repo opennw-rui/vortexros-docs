@@ -1,25 +1,43 @@
 # 出口限速
 
-**目标**：在实验出口启用两速率三色限速。
+## 拓扑与影响
 
-**前提**：VPP 已运行，Ethernet 1 是独立实验出口，没有叠加的 MQC CAR。使用接口帮助确认本机速率和突发单位。
+已有开发隔离实验中，P1/P2通过host-p1a12/host-p2a12互连（198.19.80.1/30、198.19.80.2/30）。两端接口和路由已按[基础拓扑](nat/topology.md)准备，无叠加MQC CAR；测试接收端使用iperf3。
+
+本例在P1物理出口对整条流量限速，不只限制某个业务。CAR处理超额报文丢弃，不能保证每个短期测量窗口的均值等于CIR。
 
 ## 配置
 
 ~~~text
 system-view
-interface Ethernet 1
- qos lr outbound cir 100000 pir 100000 cbs 18750000 pbs 31250000 green pass yellow pass red discard
- quit
+interface host-p1a12
+ qos lr outbound cir 100 pir 100 cbs 18750 pbs 31250 green pass yellow pass red discard
+quit
 commit
+display current-configuration interface host-p1a12
+display interface host-p1a12
 ~~~
 
-绿、黄报文放行，红色报文丢弃。该配置作用于整个接口出方向。只想限制特定流量时，应使用 [MQC](../operator/mqc.md) 分类。
+CIR/PIR缺省单位kbps，CBS/PBS单位字节。这里只示例100kbps，避免把原来较大的示例参数误认成实验实际值。
 
-## 验证
+## 真实效果
 
-用 `display current-configuration interface Ethernet 1` 核对绑定。从测试发送端依次提供低于和高于设定的持续负载，对比接收端速率和丢包；不要只用一次短突发判断限速。
+独立接收端的1Mbps UDP负载持续3秒：旧底层桶算术缺陷下接收968–970kbps，修复后接收168kbps、丢605包（83%）。三秒结果包含初始突发，不能冒称长期稳态168kbps或“必须等于100”。限速存在时普通ICMP3/3。
+
+这些数据复用既有定向记录，本轮没有重新压测。它们证明超额流量被限制，不是设备峰值吞吐测量。需要自己的稳态验收时，应根据突发桶和目标速率选择足够长的窗口。
 
 ## 撤销
 
-在 Ethernet 1 执行 `undo qos lr outbound` 并提交；在相同负载下核对限速已撤销。
+~~~text
+system-view
+interface host-p1a12
+ undo qos lr outbound
+quit
+commit
+display current-configuration interface host-p1a12
+display health
+~~~
+
+原实际撤销后后端policer解绑并删除，健康ready3/3；紧随提交的applying过渡态未当成最终通过。确认不再限速后save。接口地址和共享underlay保留。
+
+[功能及方向](../operator/qos.md) · [选择性流量CAR](../operator/mqc/actions.md)
