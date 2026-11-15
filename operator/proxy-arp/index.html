@@ -119,128 +119,101 @@
              
   <section id="arp">
 <span id="代理-arp"></span><h1>代理 ARP<a class="headerlink" href="#arp" title="链接到此标题。"></a></h1>
-<p>代理 ARP 让设备在指定三层接口上，为配置范围内的 IPv4 地址回答 ARP。它适用于主机认为目标在本地网段、目标实际需要经过路由器到达的场景。</p>
-<p>它不替代路由，也不执行 NAT。设备必须有到目标的路由，目标必须有回程路由。只有列出的地址范围会被代理；其他可路由地址不会因此自动获得代理响应。</p>
-<p><a class="reference internal" href="../reference/neighbors/"><span class="std std-doc">命令参考</span></a></p>
+<p>代理 ARP 在指定三层接口上，为配置范围内的 IPv4 地址回答 ARP，适用于客户认为目标直连、目标实际位于路由网络另一端的情况。它不执行 NAT，也不代替路由。</p>
 <section id="id1">
 <span id="使用条件"></span><h2>使用条件<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>接口必须是具备以太网 MAC 的三层接口，例如物理口、三层聚合口、Vlanif 或 Vbdif。二层成员口、LoopBack 和 NVE 不能作为代理入口。接口绑定的 VPN 实例决定其路由域。</p>
-<p>Linux 数据面使用显式代理邻居项。VPP 数据面先处理普通 ARP，再把代理入口上未回答的请求交给 Linux；地址范围仍由同一份配置生成，不需要另外配置 VPP 原生命令。</p>
+<p>入口应是具有 MAC 的三层接口，如物理口、聚合口、Vlanif 或 Vbdif；二层成员口、LoopBack 和 NVE 不能作为代理入口。接口所属 VPN 决定路由域。设备必须有到目标的路由，目标必须有回程。</p>
 </section>
 <section id="id2">
-<span id="配置案例"></span><h2>配置案例<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>以下是开发服务器真实 CLI 验证使用的地址和接口。接口名称需替换为实际设备名称。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE                  P1                        P2                  Linux 目标端
-198.18.11.100/24 -- host-p1q13
-                   198.18.11.1/24
-                   host-p1a12 -- host-p2a12
-                   198.19.80.1/30  198.19.80.2/30
-                                  host-p2e23 -- p3e23
-                                  198.19.23.2/24  198.19.23.3/24
-                                                  lo: 198.18.11.150/32
+<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>CE1、P1、P2、CE2 均运行 VortexROS：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 Ethernet0 ── Ethernet1 P1 Ethernet0 ── Ethernet0 P2 Ethernet1 ── Ethernet0 CE2
+198.18.11.100/24  198.18.11.1/24
+                            198.19.80.1/30   198.19.80.2/30
+                                                    198.19.23.2/24  198.19.23.3/24
+                                                    CE2 LoopBack0: 198.18.11.150/32
 </pre></div>
 </div>
-<p>CE 认为198.18.11.150与自己直接相连，因此直接请求目标的 MAC。P1 代理回答，随后按主机路由将数据交给 P2。</p>
-<section id="p1">
-<h3>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h3>
+<p>CE1 认为 198.18.11.150 与自己同网段，会直接请求它的 MAC；P1 代理应答后，把数据按路由转发到 CE2。</p>
+</section>
+<section id="ce1">
+<h2>CE1<a class="headerlink" href="#ce1" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1q13
- ip address 198.18.11.1 24
+interface Ethernet0
+ ip address 198.18.11.100 255.255.255.0
 quit
-interface host-p1a12
- ip address 198.19.80.1 30
-quit
-ip route-static 198.18.11.150 32 198.19.80.2
-arp proxy 198.18.11.150 198.18.11.150 interface host-p1q13
 commit
-save
 </pre></div>
 </div>
-<p>起始、结束地址相同表示代理一个地址；配置连续范围时更改结束地址即可。</p>
+</section>
+<section id="p1">
+<h2>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet1
+ ip address 198.18.11.1 255.255.255.0
+quit
+interface Ethernet0
+ ip address 198.19.80.1 255.255.255.252
+quit
+ip route-static 198.18.11.150 255.255.255.255 198.19.80.2
+arp proxy 198.18.11.150 198.18.11.150 interface Ethernet1
+commit
+</pre></div>
+</div>
+<p>起止相同表示代理单个地址；扩大范围会使更多地址的 ARP 被本设备接收，应与路由规划一致。</p>
 </section>
 <section id="p2">
-<h3>P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h3>
+<h2>P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p2a12
- ip address 198.19.80.2 30
+interface Ethernet0
+ ip address 198.19.80.2 255.255.255.252
 quit
-interface host-p2e23
- ip address 198.19.23.2 24
+interface Ethernet1
+ ip address 198.19.23.2 255.255.255.0
 quit
-ip route-static 198.18.11.150 32 198.19.23.3
-ip route-static 198.18.11.0 24 198.19.80.1
+ip route-static 198.18.11.150 255.255.255.255 198.19.23.3
+ip route-static 198.18.11.0 255.255.255.0 198.19.80.1
 commit
-save
 </pre></div>
 </div>
 </section>
-<section id="linux">
-<span id="linux-端点"></span><h3>Linux 端点<a class="headerlink" href="#linux" title="链接到此标题。"></a></h3>
-<p>目标端在已连接 P2 的以太网口上设置地址，并把目标地址放在 Loopback。实验中的该口名为p3e23：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>p3e23<span class="w"> </span>up
-ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.19.23.3/24<span class="w"> </span>dev<span class="w"> </span>p3e23
-ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.18.11.150/32<span class="w"> </span>dev<span class="w"> </span>lo
-ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.18.11.100/32<span class="w"> </span>via<span class="w"> </span><span class="m">198</span>.19.23.2<span class="w"> </span>dev<span class="w"> </span>p3e23
+<section id="ce2">
+<h2>CE2<a class="headerlink" href="#ce2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet0
+ ip address 198.19.23.3 255.255.255.0
+quit
+interface LoopBack0
+ ip address 198.18.11.150 255.255.255.255
+quit
+ip route-static 198.18.11.0 255.255.255.0 198.19.23.2
+commit
 </pre></div>
 </div>
-<p>CE 使用198.18.11.100/24；实验中的接口名为cli-r4：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>cli-r4<span class="w"> </span>up
-ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.18.11.100/24<span class="w"> </span>dev<span class="w"> </span>cli-r4
-ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span>default<span class="w"> </span>via<span class="w"> </span><span class="m">198</span>.18.11.1
-</pre></div>
-</div>
-<p>这些是端点操作，不是在 VortexROS CLI 中执行的命令。已有同名地址或路由时保留原配置，不要重复添加。</p>
-</section>
 </section>
 <section id="id3">
 <span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>P1 查询代理状态：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[~P1] display arp proxy
-Start Address    End Address      Interface            State
-198.18.11.150    198.18.11.150    host-p1q13           active
+<p>P1 执行 display arp proxy；示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Start Address    End Address      Interface            State
+198.18.11.150    198.18.11.150    Ethernet1            active
 Total items displayed = 1
 </pre></div>
 </div>
-<p>CE 发起实际流量：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping -n -c 3 198.18.11.150
-64 bytes from 198.18.11.150: icmp_seq=1 ttl=62 time=102 ms
-64 bytes from 198.18.11.150: icmp_seq=2 ttl=62 time=28.1 ms
-64 bytes from 198.18.11.150: icmp_seq=3 ttl=62 time=99.5 ms
-3 packets transmitted, 3 received, 0% packet loss
-</pre></div>
-</div>
-<p>这是共享开发服务器上的功能结果，不是延迟或吞吐性能保证。清空邻居后的首次探测还包含代理应答、下一跳解析时间；本次首次3包中收到1包，收敛后上述3包全部收到。实际部署若持续丢包，应检查代理入口、目标路由和回程，不能只依据配置项存在判断成功。</p>
-<p>本例还实际验证了：</p>
-<ul class="simple">
-<li><p>保留代理配置并保存，重建 P1 数据面后，配置恢复，健康状态为ready、零告警。</p></li>
-<li><p>为范围外的198.18.11.151添加指向另一接口的路由后，CE 仍未收到该地址的代理 ARP 响应。</p></li>
-<li><p>撤销代理并清空 CE 对应邻居缓存后，原地址不再获得代理响应。</p></li>
-</ul>
+<p>CE1 执行 ping -a 198.18.11.100 -c 3 198.18.11.150，应收到回复。用 display arp 查看目标邻居，其 MAC 应为 P1 接入口的 MAC。P1/P2 用 display ip routing-table 检查目标与回程。</p>
+<p>范围外的地址不会自动获得代理应答。若持续不通，应分别检查代理入口、目标主机路由及回程，而不是只检查配置是否存在。</p>
 </section>
 <section id="id4">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
-<p>P1 撤销本例的代理和目标主机路由：</p>
+<p>P1 执行：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-undo arp proxy 198.18.11.150 198.18.11.150 interface host-p1q13
-undo ip route-static 198.18.11.150 32 198.19.80.2
+undo arp proxy 198.18.11.150 198.18.11.150 interface Ethernet1
+undo ip route-static 198.18.11.150 255.255.255.255 198.19.80.2
 commit
 display arp proxy
-save
 </pre></div>
 </div>
-<p>实际查询结果为：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Total items displayed = 0
-</pre></div>
-</div>
-<p>P2 撤销本例新增的目标主机路由：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-undo ip route-static 198.18.11.150 32 198.19.23.3
-commit
-save
-</pre></div>
-</div>
-<p>如果回程网段路由和接口地址还被其他业务使用，应保留。Linux 测试端另行删除本例新增的 Loopback 地址和主机回程路由。</p>
-<p>撤销会删除显式代理项，并在 VPP 上关闭该接口不再需要的请求转交；不会为了撤销代理而关闭接口的普通三层转发。</p>
+<p>代理清单应为空。CE1 的旧 ARP 在老化前可能仍可使用，验证撤销时应考虑缓存。拆除拓扑时在 P2/CE2 撤销本例静态路由、各接口地址以及 CE2 LoopBack0，提交并按需 save。共享的其他业务应保留。</p>
+<p><a class="reference internal" href="../reference/neighbors/"><span class="std std-doc">命令参考</span></a></p>
 </section>
 </section>
 

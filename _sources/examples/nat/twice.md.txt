@@ -14,42 +14,38 @@ P1 从用户视图开始；接口与基础路由由前置拓扑提供：
 
 ~~~text
 system-view
-nat-policy name LAB-DNAT
+nat-policy name LAB-TWICE
  statistic enable
  rule 10
-  protocol tcp
-  destination address 198.19.80.1/32
-  destination port 18080
-  action twice-nat source 198.18.11.1 destination 198.18.11.2 port 8081
+  protocol icmp
+  destination address 198.19.81.1/32
+  action twice-nat source 198.18.11.1 destination 198.18.11.2
  quit
 quit
-interface host-p1a12
- nat-policy LAB-DNAT inbound
+interface Ethernet0
+ nat-policy LAB-TWICE inbound
 quit
 nat-policy name LAB-LAN-PASS
 quit
-interface host-p1q13
+interface Ethernet1
  nat-policy LAB-LAN-PASS inbound
 quit
 commit
 ~~~
 
-## 验证与真实结果
+## 验证
 
-在 P2 访问 http://198.19.80.1:18080/。随后在 P1 查询：
+P2 执行 `ping -a 198.19.80.2 -c 3 198.19.81.1`，然后在 P1 查询：
 
 ~~~text
+display nat-policy name LAB-TWICE
+display nat-policy statistics name LAB-TWICE
 display nat-policy sessions action twice-nat
 ~~~
 
-已有隔离实验真实输出节选：
+应能往返，且目的地址变为 198.18.11.2，源地址同时按 action 中的 source 地址转换。在会话中核对原始和转换后的地址；ICMP 使用标识符而非 TCP/UDP 端口。
 
-~~~text
-host-p1a12/inbound  FIB:0 -> FIB:0  Policy:LAB-DNAT(2572252004)/10  Action:TWICE-NAT
-198.19.80.2:46738 -> 198.19.80.1:18080  =>  198.18.11.1:46738 -> 198.18.11.2:8081
-~~~
-
-P2 访问发布地址实际 HTTP 200，P3 日志看到 198.18.11.1。实验首次未接入 LAN 回程状态处理时失败；绑定 LAB-LAN-PASS 后成功，不能省略该回程条件。 该记录证明本例路径，不是地址池耗尽、满表容量或吞吐测试。运行 ID、端口和时间会随连接变化。
+Ping 成功只证明往返路径，应同时核对转换结果。查看状态要紧接探测执行，避免会话已老化。地址池耗尽和端口范围需要对应并发业务验证，不能从三次 Ping 推断。
 
 ## 撤销与保存
 
@@ -57,13 +53,13 @@ P1 系统视图：
 
 ~~~text
 system-view
-interface host-p1a12
- undo nat-policy LAB-DNAT inbound
+interface Ethernet0
+ undo nat-policy LAB-TWICE inbound
 quit
-interface host-p1q13
+interface Ethernet1
  undo nat-policy LAB-LAN-PASS inbound
 quit
-undo nat-policy name LAB-DNAT
+undo nat-policy name LAB-TWICE
 undo nat-policy name LAB-LAN-PASS
 commit
 display nat-policy runtime

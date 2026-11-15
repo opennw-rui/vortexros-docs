@@ -71,7 +71,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../routing/">IP 路由</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">静态路由</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../route-group/">路由组</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../urpf/">uRPF 源地址检查</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../urpf/">uRPF</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
@@ -123,7 +123,7 @@
   <section id="id1">
 <span id="静态路由"></span><h1>静态路由<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <p><strong>用途</strong>。为 203.0.113.0/24 指定下一跳 192.0.2.1。适合上游固定、无需交换动态路由的链路。</p>
-<p><strong>前提</strong>。Ethernet 1 是独立三层实验口，能连接到 192.0.2.1。上游需要有返回 192.0.2.0/24 的路径。此例可在 Linux 数据面试用。</p>
+<p><strong>前提</strong>。Ethernet 1 是独立三层示例口，能连接到 192.0.2.1。上游需要有返回 192.0.2.0/24 的路径。此例可在 Linux 数据面试用。</p>
 <section id="id2">
 <span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
@@ -155,7 +155,7 @@ undo ip route-static 203.0.113.0 255.255.255.0 192.0.2.1
 commit
 </pre></div>
 </div>
-<p>核对只撤销了指定静态路径。若实验地址也应删除，再在接口视图精确撤销该地址。删除地址会同时影响使用该地址的服务和直连路由。</p>
+<p>核对只撤销了指定静态路径。若示例地址也应删除，再在接口视图精确撤销该地址。删除地址会同时影响使用该地址的服务和直连路由。</p>
 </section>
 </section>
 

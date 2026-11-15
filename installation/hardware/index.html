@@ -117,15 +117,15 @@
 <tbody>
 <tr class="row-even"><td><p>Intel Celeron N5105（x86‑64），Intel I225‑V rev 03（<code class="docutils literal notranslate"><span class="pre">8086:15f3</span></code>）</p></td>
 <td><p>Linux 模块 <code class="docutils literal notranslate"><span class="pre">igc</span></code>。DPDK 接管时，Linux 显示 <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code>，VPP 使用 IGC PMD</p></td>
-<td><p>既有Ubuntu amd64设备库存确认N5105和四个I225-V，VPP可识别四口。此为沿用的硬件身份与接口识别证据；0.29-dev本轮只在QEMU验证，未重新做该硬件验收或吞吐测试。</p></td>
+<td><p>已有 N5105/I225-V 设备识别及接口运行记录，不是本版满载或线速保证。</p></td>
 </tr>
 <tr class="row-odd"><td><p>Intel I226 系列</p></td>
 <td><p>Linux <code class="docutils literal notranslate"><span class="pre">igc</span></code> 与 DPDK IGC PMD，按 PCI ID 确认具体型号</p></td>
 <td><p>上游支持。DPDK 26.07 还列有 I226‑LM 的平台验证。目前无 VortexROS I226 真机验收记录。</p></td>
 </tr>
 <tr class="row-even"><td><p>QEMU/KVM amd64</p></td>
-<td><p>Linux 数据面首装，VPP 隔离案例使用 AF_PACKET／veth 或 memif</p></td>
-<td><p>隔离环境已验证首装和相关协议及转发案例。memif 和 veth 属于虚拟测试路径。</p></td>
+<td><p>Ubuntu amd64 虚拟机安装与虚拟接口</p></td>
+<td><p>已有安装、协议及转发功能记录；虚拟接口结果不能代替 PCI 网卡的硬件能力。</p></td>
 </tr>
 <tr class="row-odd"><td><p>Proxmox VE（PVE）VirtIO 网卡</p></td>
 <td><p>虚拟机网卡模型选 <strong>VirtIO (paravirtualized)</strong>，虚拟机中的 Linux 驱动为 <code class="docutils literal notranslate"><span class="pre">virtio_net</span></code>。虚拟机若使用 DPDK，对应独立的 Virtio PMD</p></td>

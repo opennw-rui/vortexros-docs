@@ -116,7 +116,7 @@
   <section id="id1">
 <span id="配置案例"></span><h1>配置案例<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <p>选择业务，再选择具体功能。每个末级案例分别列出拓扑、各端配置、实际影响、查询和流量结果，以及撤销顺序。标为增量操作的案例依赖明确列出的基础组网，不应单独粘贴执行。</p>
-<p>已有真实记录按原拓扑和版本边界保留；配置模板、期望结果与实际输出明确区分。参数、默认值和支持限制见相应功能页，逐条语法见命令参考。</p>
+<p>所有网络设备角色均使用 VortexROS CLI；Ethernet 编号按每台设备分别规划。配置与查询输出用于说明操作和结果，接口、地址、计数及运行编号已按文档拓扑整理，标为示例输出；请以设备实际状态为准。外部监控平台、列表源和业务应用仅承担各自用途，不作为 Linux 路由设备配置。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="interfaces/">接口与交换</a><ul>
@@ -130,7 +130,7 @@
 <li class="toctree-l1"><a class="reference internal" href="routing/">IP 路由</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="static-route/">静态路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="route-group/">路由组</a></li>
-<li class="toctree-l2"><a class="reference internal" href="urpf/">uRPF 源地址检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="urpf/">uRPF</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="protocols/">路由协议</a><ul>
@@ -160,7 +160,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nat/dnat/">DNAT</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nat/twice/">Twice NAT</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nat/no-nat/">No-NAT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nat/hairpin/">NAT 回流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nat/hairpin/">Hairpin</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="services/">网络服务</a><ul>
@@ -184,7 +184,7 @@
 <li class="toctree-l2"><a class="reference internal" href="evpn/l2vpn/">L2VPN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evpn/l3vpn/">L3VPN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evpn/all-active/">All-Active 多归属</a></li>
-<li class="toctree-l2"><a class="reference internal" href="evpn/esi/">ESI 生命周期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evpn/esi/">ESI 配置变更</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evpn/anycast/">Anycast 网关</a></li>
 </ul>
 </li>

@@ -135,8 +135,8 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>底层端口</p></td>
-<td><p>host-p1e12：10.201.12.1/24</p></td>
-<td><p>host-p2e12：10.201.12.2/24</p></td>
+<td><p>Ethernet0：10.201.12.1/24</p></td>
+<td><p>Ethernet0：10.201.12.2/24</p></td>
 </tr>
 <tr class="row-odd"><td><p>Tunnel40</p></td>
 <td><p>10.240.40.1/30</p></td>
@@ -181,7 +181,7 @@ ping -n -c 3 -t 1500 10.240.40.2
 </pre></div>
 </div>
 <p><strong>P2：</strong> <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-n</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">-t</span> <span class="pre">1500</span> <span class="pre">10.240.40.1</span></code>。</p>
-<p>实际输出节选：</p>
+<p>示例输出：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Tunnel40 current state : UP
 Line protocol current state : UP
 Tunnel protocol: ipv4-ipv4
@@ -205,7 +205,7 @@ commit
 display interface brief
 </pre></div>
 </div>
-<p>实测两端均不再列出 Tunnel40。P1 对外层地址 10.201.12.2 的探测仍为 3 发 3 收。</p>
+<p>示例中两端均不再列出 Tunnel40。P1 对外层地址 10.201.12.2 的探测仍为 3 发 3 收。</p>
 <p><a class="reference internal" href="../../operator/ip-in-ip/"><span class="std std-doc">IP-in-IP 配置指南</span></a></p>
 </section>
 </section>

@@ -143,7 +143,7 @@ nat-policy name LAB-SNAT
   action snat pat address-pool LAB-PUBLIC
  quit
 quit
-interface host-p1a12
+interface Ethernet0
  nat-policy LAB-SNAT outbound
 quit
 commit
@@ -161,7 +161,7 @@ display nat-policy interfaces
 display nat-policy name LAB-SNAT
 </pre></div>
 </div>
-<p>旧实验的真实输出节选（地址池尚未缩小 PAT 范围时）：</p>
+<p>旧示例的示例输出（地址池尚未缩小 PAT 范围时）：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Name        Address         PAT range
 -------------------------------------------------------------------------------
 LAB-PUBLIC  198.19.81.1/32  10000-65535
@@ -173,7 +173,7 @@ LAB-PUBLIC  198.19.81.1/32  10000-65535
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>先解除绑定，再删除策略，最后删除不再被使用的对象：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1a12
+interface Ethernet0
  undo nat-policy LAB-SNAT outbound
 quit
 undo nat-policy name LAB-SNAT

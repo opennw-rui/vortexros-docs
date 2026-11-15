@@ -124,40 +124,39 @@
 <span id="出口限速"></span><h1>出口限速<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <section id="id2">
 <span id="拓扑与影响"></span><h2>拓扑与影响<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>已有开发隔离实验中，P1/P2通过host-p1a12/host-p2a12互连（198.19.80.1/30、198.19.80.2/30）。两端接口和路由已按<a class="reference internal" href="../nat/topology/"><span class="std std-doc">基础拓扑</span></a>准备，无叠加MQC CAR；测试接收端使用iperf3。</p>
-<p>本例在P1物理出口对整条流量限速，不只限制某个业务。CAR处理超额报文丢弃，不能保证每个短期测量窗口的均值等于CIR。</p>
+<p>两台 VortexROS Ethernet0 直连，P1 为 198.19.80.1/30，P2 为 198.19.80.2/30。先按<a class="reference internal" href="../nat/topology/"><span class="std std-doc">NAT 基础拓扑</span></a>的 P1/P2 部分配置地址；本例不绑定 NAT 或叠加 MQC CAR。</p>
+<p>接口限速约束整条出方向流量，包括协议报文。超额报文被丢弃，不是排队整形。短窗口受突发桶影响，平均值不保证等于 CIR。</p>
 </section>
-<section id="id3">
-<span id="配置"></span><h2>配置<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<section id="p1">
+<h2>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1a12
+interface Ethernet0
  qos lr outbound cir 100 pir 100 cbs 18750 pbs 31250 green pass yellow pass red discard
 quit
 commit
-display current-configuration interface host-p1a12
-display interface host-p1a12
+display current-configuration interface Ethernet0
+display interface Ethernet0
 </pre></div>
 </div>
-<p>CIR/PIR缺省单位kbps，CBS/PBS单位字节。这里只示例100kbps，避免把原来较大的示例参数误认成实验实际值。</p>
+<p>CIR/PIR 缺省单位为 kbps，CBS/PBS 为字节；上述限值为 100kbps。不要用于仍承载重要管理或路由协议的接口。</p>
+</section>
+<section id="id3">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>P1/P2 双向 Ping 对端，确认低于限额的基础通信正常；查询接口配置和速率。若要量出限速效果，需让实际业务超过 100kbps 并持续足够时间，同时记录接收速率与丢包。VortexROS CLI 不提供通用流量发生器，少量 Ping 不能证明稳态限速数值；业务终端或专用流量仪不参与设备配置。</p>
 </section>
 <section id="id4">
-<span id="真实效果"></span><h2>真实效果<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
-<p>独立接收端的1Mbps UDP负载持续3秒：旧底层桶算术缺陷下接收968–970kbps，修复后接收168kbps、丢605包（83%）。三秒结果包含初始突发，不能冒称长期稳态168kbps或“必须等于100”。限速存在时普通ICMP3/3。</p>
-<p>这些数据复用既有定向记录，本轮没有重新压测。它们证明超额流量被限制，不是设备峰值吞吐测量。需要自己的稳态验收时，应根据突发桶和目标速率选择足够长的窗口。</p>
-</section>
-<section id="id5">
-<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1a12
+interface Ethernet0
  undo qos lr outbound
 quit
 commit
-display current-configuration interface host-p1a12
+display current-configuration interface Ethernet0
 display health
 </pre></div>
 </div>
-<p>原实际撤销后后端policer解绑并删除，健康ready3/3；紧随提交的applying过渡态未当成最终通过。确认不再限速后save。接口地址和共享underlay保留。</p>
-<p><a class="reference internal" href="../../operator/qos/"><span class="std std-doc">功能及方向</span></a> · <a class="reference internal" href="../../operator/mqc/actions/"><span class="std std-doc">选择性流量CAR</span></a></p>
+<p>确认限速配置消失、健康 ready，再用新业务检查不再受此限额约束，最后 save。接口地址及共享底层配置可以保留。</p>
+<p><a class="reference internal" href="../../operator/qos/"><span class="std std-doc">功能及方向</span></a> · <a class="reference internal" href="../../operator/mqc/actions/"><span class="std std-doc">选择性 CAR</span></a></p>
 </section>
 </section>
 

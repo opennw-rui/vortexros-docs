@@ -78,7 +78,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">L2VPN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../l3vpn/">L3VPN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../all-active/">All-Active 多归属</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esi/">ESI 生命周期</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esi/">ESI 配置变更</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../anycast/">Anycast 网关</a></li>
 </ul>
 </li>
@@ -126,7 +126,7 @@
 <h1>VXLAN EVPN<a class="headerlink" href="#vxlan-evpn" title="链接到此标题。"></a></h1>
 <section id="id1">
 <span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>H1 ── P1 ── P2 ── P3 ── H3
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 ── P1 ── P2 ── P3 ── CE2
       VTEP          VTEP
   10.255.0.1    10.255.0.3
 </pre></div>
@@ -140,32 +140,32 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>P1—P2</p></td>
-<td><p>host-p1e12：10.201.12.1/24</p></td>
-<td><p>host-p2e12：10.201.12.2/24</p></td>
+<td><p>Ethernet0：10.201.12.1/24</p></td>
+<td><p>Ethernet0：10.201.12.2/24</p></td>
 </tr>
 <tr class="row-odd"><td><p>P2—P3</p></td>
-<td><p>host-p2e23：10.201.23.2/24</p></td>
-<td><p>host-p3e23：10.201.23.3/24</p></td>
+<td><p>Ethernet1：10.201.23.2/24</p></td>
+<td><p>Ethernet0：10.201.23.3/24</p></td>
 </tr>
 <tr class="row-even"><td><p>VLAN 101，VNI 5010</p></td>
-<td><p>H1：192.0.2.1/24</p></td>
-<td><p>H3：192.0.2.3/24</p></td>
+<td><p>CE1：192.0.2.1/24</p></td>
+<td><p>CE2：192.0.2.3/24</p></td>
 </tr>
 <tr class="row-odd"><td><p>VLAN 102，VNI 5020</p></td>
-<td><p>H1：198.18.2.1/24</p></td>
-<td><p>H3：198.18.2.3/24</p></td>
+<td><p>CE1：198.18.2.1/24</p></td>
+<td><p>CE2：198.18.2.3/24</p></td>
 </tr>
 </tbody>
 </table>
-<p>三台路由器运行 VPP；P2 只做三层转发。H1/H3 接在 P1 的 <code class="docutils literal notranslate"><span class="pre">host-p1h1</span></code> 和 P3 的 <code class="docutils literal notranslate"><span class="pre">host-p3h3</span></code>。VLAN 101 为不带标签的本征 VLAN，VLAN 102 带 802.1Q 标签。没有跨 VLAN 路由或网关。本实验用两个 VNI 检验撤销一个 VNI 不会影响另一个。</p>
+<p>所有设备均运行 VortexROS。P1/P3 是 VTEP，P2 只做三层转发；CE1/CE2 接在两端 PE 的客户口。VLAN 101 为不带标签的本征 VLAN，VLAN 102 带 802.1Q 标签。两条业务使用不同 VNI，不提供跨 VLAN 路由。</p>
 </section>
 <section id="p2">
 <span id="配置-p2"></span><h2>配置 P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p2e12
+interface Ethernet0
  ip address 10.201.12.2 255.255.255.0
 quit
-interface host-p2e23
+interface Ethernet1
  ip address 10.201.23.2 255.255.255.0
 quit
 ip route-static 10.255.0.1 255.255.255.255 10.201.12.1
@@ -198,10 +198,10 @@ bridge-domain 102
   vpn-target 65000:5020 import-extcommunity
  quit
 quit
-interface host-p1e12
+interface Ethernet0
  ip address 10.201.12.1 255.255.255.0
 quit
-interface host-p1h1
+interface Ethernet1
  switchport
  port link-type trunk
  port trunk allow-pass vlan 101 102
@@ -252,10 +252,10 @@ bridge-domain 102
   vpn-target 65000:5020 import-extcommunity
  quit
 quit
-interface host-p3e23
+interface Ethernet0
  ip address 10.201.23.3 255.255.255.0
 quit
-interface host-p3h3
+interface Ethernet1
  switchport
  port link-type trunk
  port trunk allow-pass vlan 101 102
@@ -281,18 +281,35 @@ quit
 commit
 </pre></div>
 </div>
-<p>同一业务 VNI 的两端 RT 必须相同，RD 应各自唯一。BGP EVPN 发布可达 VTEP 和本地 MAC，P2 不参与 EVPN。H1/H3 的二层广播域延伸到对端；VLAN 101 和 102 仍互相隔离。</p>
+<p>同一业务 VNI 的两端 RT 必须相同，RD 应各自唯一。BGP EVPN 发布可达 VTEP 和本地 MAC，P2 不参与 EVPN。CE1/CE2 的二层广播域延伸到对端；VLAN 101 和 102 仍互相隔离。</p>
 </section>
-<section id="h1-h3">
-<span id="配置-h1-和-h3"></span><h2>配置 H1 和 H3<a class="headerlink" href="#h1-h3" title="链接到此标题。"></a></h2>
-<p>以下是在独立 Linux 实验主机上执行的命令。H1 用 <code class="docutils literal notranslate"><span class="pre">h1eth</span></code>；H3 把接口换成 <code class="docutils literal notranslate"><span class="pre">h3eth</span></code>，两个地址的末尾都换成 <code class="docutils literal notranslate"><span class="pre">.3</span></code>。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>h1eth<span class="w"> </span>up
-sudo<span class="w"> </span>ip<span class="w"> </span>addr<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.0.2.1/24<span class="w"> </span>dev<span class="w"> </span>h1eth
-sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span>add<span class="w"> </span>link<span class="w"> </span>h1eth<span class="w"> </span>name<span class="w"> </span>h1eth.102<span class="w"> </span><span class="nb">type</span><span class="w"> </span>vlan<span class="w"> </span>id<span class="w"> </span><span class="m">102</span>
-sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>h1eth.102<span class="w"> </span>up
-sudo<span class="w"> </span>ip<span class="w"> </span>addr<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.18.2.1/24<span class="w"> </span>dev<span class="w"> </span>h1eth.102
+<section id="ce1-ce2">
+<span id="配置-ce1-和-ce2"></span><h2>配置 CE1 和 CE2<a class="headerlink" href="#ce1-ce2" title="链接到此标题。"></a></h2>
+<p>CE1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet0
+ ip address 192.0.2.1 255.255.255.0
+quit
+interface Ethernet0.102
+ vlan-type dot1q 102
+ ip address 198.18.2.1 255.255.255.0
+quit
+commit
 </pre></div>
 </div>
+<p>CE2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet0
+ ip address 192.0.2.3 255.255.255.0
+quit
+interface Ethernet0.102
+ vlan-type dot1q 102
+ ip address 198.18.2.3 255.255.255.0
+quit
+commit
+</pre></div>
+</div>
+<p>父接口承载不带标签的 VLAN 101；子接口承载 VLAN 102。CE 不配置 VNI 或 EVPN 邻居。</p>
 </section>
 <section id="id2">
 <span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
@@ -304,7 +321,7 @@ display bgp evpn all routing-table inclusive-route
 display vxlan tunnel
 </pre></div>
 </div>
-<p>实际输出节选；Type-2 的 RD 65000:301 为 P3 的 VLAN 101：</p>
+<p>示例输出；Type-2 的 RD 65000:301 为 P3 的 VLAN 101：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Route Distinguisher: 65000:301
  *&gt;i   0:48:42bb-a874-99bf:0:0.0.0.0                                  10.255.0.3
 
@@ -313,13 +330,13 @@ Total Number of Inclusive Routes: 4
 Total: 2    Static: 2    L2 dynamic: 0    L3 dynamic: 0
 </pre></div>
 </div>
-<p>此版本的 Tunnel 简表使用 <code class="docutils literal notranslate"><span class="pre">static</span></code> 标签显示实验中两条隧道。判断 EVPN 学习请看 BGP Type-2/Type-3 路由及业务流量，不要用该标签判断 peer 是否通过 BGP 学到。</p>
-<p><strong>H1：</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>-n<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>-W<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">192</span>.0.2.3
-ping<span class="w"> </span>-n<span class="w"> </span>-I<span class="w"> </span>h1eth.102<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>-W<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">198</span>.18.2.3
+<p>此版本的 Tunnel 简表使用 <code class="docutils literal notranslate"><span class="pre">static</span></code> 标签显示示例中两条隧道。判断 EVPN 学习请看 BGP Type-2/Type-3 路由及业务流量，不要用该标签判断 peer 是否通过 BGP 学到。</p>
+<p><strong>CE1：</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping -n -a 192.0.2.1 -c 3 -t 1000 192.0.2.3
+ping -n -a 198.18.2.1 -c 3 -t 1000 198.18.2.3
 </pre></div>
 </div>
-<p>两条业务各 3 发 3 收。H3 在 VLAN 101 向 H1 反向探测也是 3 发 3 收。</p>
+<p>两条业务各 3 发 3 收。CE2 在 VLAN 101 向 CE1 反向探测也是 3 发 3 收。</p>
 </section>
 <section id="id3">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
@@ -332,9 +349,18 @@ commit
 display vxlan tunnel
 </pre></div>
 </div>
-<p>实测 P1 隧道从 2 条减到 1 条。H1 到 H3 的 VLAN 101 探测变为 <strong>3 发 0 收</strong>，VLAN 102 仍为 <strong>3 发 3 收</strong>。重新输入原 <code class="docutils literal notranslate"><span class="pre">vni</span> <span class="pre">5010</span> <span class="pre">...</span> <span class="pre">protocol</span> <span class="pre">bgp</span></code> 可恢复该业务，随后重查 BGP 和 Ping。</p>
-<p>要拆除整个实验，依次撤销两端的 NVE VNI，删除专用 NVE、解除 EVPN 邻居，撤销专用桥域和 VLAN。最后清理实验主机的地址和 VLAN 子接口。共用的 BGP 进程和底层路由按现有业务保留。</p>
+<p>示例中 P1 隧道从 2 条减到 1 条。CE1 到 CE2 的 VLAN 101 探测变为 <strong>3 发 0 收</strong>，VLAN 102 仍为 <strong>3 发 3 收</strong>。重新输入原 <code class="docutils literal notranslate"><span class="pre">vni</span> <span class="pre">5010</span> <span class="pre">...</span> <span class="pre">protocol</span> <span class="pre">bgp</span></code> 可恢复该业务，随后重查 BGP 和 Ping。</p>
+<p>要拆除整个示例，依次撤销两端的 NVE VNI，删除专用 NVE、解除 EVPN 邻居，撤销专用桥域和 VLAN。最后清理示例主机的地址和 VLAN 子接口。共用的 BGP 进程和底层路由按现有业务保留。</p>
 <p><a class="reference internal" href="../../../operator/11-vxlan-evpn/"><span class="std std-doc">EVPN 配置指南</span></a></p>
+<p>CE1/CE2 最后执行以下撤销。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+undo interface Ethernet0.102
+interface Ethernet0
+ undo ip address
+quit
+commit
+</pre></div>
+</div>
 </section>
 </section>
 

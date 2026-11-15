@@ -23,4 +23,4 @@ display ip routing-table
     Allowed-IP : 198.51.100.2/32
 ~~~
 
-修正后先双向探测隧道地址，再由两端业务主机探测实际业务网段。完整配置和实际输出见[WireGuard 案例](../examples/wireguard.md)；静态 VXLAN 的 VNI、桥域和 MAC 核对见[静态 VXLAN 案例](../examples/vxlan.md)。
+修正后先双向探测隧道地址，再由两端业务主机探测实际业务网段。完整配置和示例输出见[WireGuard 案例](../examples/wireguard.md)；静态 VXLAN 的 VNI、桥域和 MAC 核对见[静态 VXLAN 案例](../examples/vxlan.md)。

@@ -1,19 +1,19 @@
 # 配套 FRR
 
-0.29-dev使用 **10.7.1-vortexros-1.7-dev**。本轮打包复用原包和版本，没有新增FRR源码修改。
+FRR负责动态路由协议和路由选择。请通过VortexROS CLI配置协议，不要直接修改FRR配置文件；否则后续提交或重启可能覆盖这些修改。
 
-## 纳入的修复和语义
+当前版本为10.7.1-vortexros-1.7-dev。安装器会核对配套版本，普通配置无需单独安装或操作FRR。
 
-- 默认BGP实例恢复的EVPN状态修复采用上游[#23851](https://github.com/FRRouting/frr/pull/23851)固定提交6c068bfd707e及关联10.7回移。原记录中该补丁采用时仍处于上游审查，不能改称当时已正式发布。
-- IS-IS在线改变Level时的邻接计数采用上游[5e8b2440](https://github.com/FRRouting/frr/commit/5e8b2440a0c29befe10d8199e6adaf0b3ce6d980)。
-- OSPFv3 AS-External事件合并调度采用上游[5a2c00cf](https://github.com/FRRouting/frr/commit/5a2c00cf71450003f0643036766f599c20984ad3)。
-- 自有ZAPI静态路由保留所有权实例标记，并在Zebra枚举及OSPF导入按类型选择static策略；E2 cost37保持实际配置。
-- IS-IS L1/L2默认distance15，RIP/RIPng100；显式配置仍按实际值下发。
-- RIP在接口删除前按ifindex释放旧多播成员，包含先删地址的路径，不提高内核上限或周期重启。
-- Zebra重连重放采用上游3c9a369699d9197d65d6328f56d49ab0ca0db01a。
+## 对用户可见的行为
 
-## 证据与边界
+- IS-IS在线切换Level后，按新的级别重新建立邻接和同步路由。
+- OSPF/OSPFv3引入静态路由时使用所配置的cost和外部类型。
+- IS-IS L1/L2默认优先级15，RIP/RIPng默认100。
+- RIP接口删除或重建后释放旧协议状态；路由服务恢复后重新安装已有路由。
+- BGP默认实例及EVPN恢复后，邻居、路由和业务状态按Running配置重新建立。
 
-既有真实终端和协议报文记录覆盖邻接、LSDB、路由及流量；RIP保持进程不变重建接口后恢复，环回增删时socket资源144→192→144。独立default/red实例只重启Zebra、没有新邻居更新，两张路由表恢复，各探测3/3。后者是原生FRR/内核实验，产品CLI结果另列。
+## 服务检查
 
-本轮6PE使用FRR已有的IPv6显式空标签选项，修正控制层投影，没有为此修改FRR。没有新增FRR吞吐或收敛时延结论。详见[6PE](../examples/mpls/6pe.md)及[最终包验证](cli-validation.md)。
+先检查`display service verbose`和`display health`，再使用对应协议的邻居、路由和统计命令。协议邻居恢复后，继续检查系统路由表、FIB及业务连通性。
+
+确需重启FRR时，使用[服务控制](../operator/02-system-services.md)提供的CLI。重启会影响相关协议的邻接和路由，应选择维护窗口。

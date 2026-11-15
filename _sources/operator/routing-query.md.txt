@@ -4,10 +4,7 @@
 
 ## 协议查询
 
-BGP、OSPF、OSPFv3、IS-IS、RIP、RIPng、LDP和MPLS控制面查询都直接读取对应
-FRR daemon的VTY流，并在一次解析过程中生成VRP风格输出。路由表不会先完整读入内存，
-也不会为排版再次请求后端。`display mpls forwarding-table`例外：它直接读取VPP实际
-LFIB，用于确认数据面而不是重复显示FRR控制面。
+协议查询用于查看邻居及协议学习的路由；系统路由表显示选路结果，FIB显示实际转发路径。`display mpls forwarding-table`查看MPLS数据面转发表。
 
 常用大表入口如下：
 
@@ -22,22 +19,7 @@ display mpls ldp binding
 display mpls lsp
 ```
 
-开发服务器使用十万条记录、输出到`io.Discard`的格式化基准结果如下。该测试只衡量
-解析和排版，不包含FRR生成数据、终端传输或分页时间：
-
-| 协议 | 十万条排版时间 |
-|---|---:|
-| BGP | 721.7 ms |
-| OSPF | 669.6 ms |
-| OSPFv3 | 382.3 ms |
-| IS-IS | 220.6 ms |
-| RIP | 215.7 ms |
-| RIPng | 171.7 ms |
-| LDP binding | 619.0 ms |
-| MPLS LSP | 876.9 ms |
-
-这些数字用于防止实现退回到“全量反序列化后再排版”的路径，不是设备转发性能承诺。
-
+大表查询可按VPN、协议和前缀缩小范围；终端输出较多时使用分页或输出修饰符。控制面协议表与数据面FIB用途不同，排查转发时应同时核对。
 
 ## 变更后检查
 
@@ -62,6 +44,6 @@ display ip routing-table vpn-instance CLI-UNDER protocol ospf
 display ipv6 routing-table vpn-instance CLI-UNDER protocol ospfv3
 ```
 
-本轮隔离拓扑中，上述精确查询各显示一条实际安装的外部路由：IPv4 代价 37、IPv6 代价 38，优先级均为 150。协议查询分别显示 3 条和 4 条。先按 VPN 选择后再按前缀、协议过滤，不会把非默认 VPN 的结果重新按 default 过滤。
+先选择 VPN 实例，再按前缀或协议过滤。核对路由来源、Preference、Cost、下一跳和出口，避免把其他协议的更优路径误认为目标协议已生效。
 
-默认路由的精确查询使用 `0.0.0.0 0` 和 `:: 0`；这里的第二项是前缀长度。实测 OSPF/OSPFv3 的 `default-route-advertise always` 发布后，各显示一条优先级 150、代价 1 的默认路由；撤销后两族精确查询均为零条。路由数为零必须来自一次成功查询，不能用报错或空的错误输出代替。
+默认路由精确查询使用 0.0.0.0 0 和 :: 0，第二项为前缀长度。撤销默认路由发布后，应以成功查询返回零条作为撤销结果；查询报错时先排查服务，不能据此判断路由不存在。

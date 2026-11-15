@@ -80,7 +80,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">DNAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../twice/">Twice NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../no-nat/">No-NAT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../hairpin/">NAT 回流</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hairpin/">Hairpin</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../services/">网络服务</a></li>
@@ -128,7 +128,7 @@
              
   <section id="dnat">
 <h1>DNAT<a class="headerlink" href="#dnat" title="链接到此标题。"></a></h1>
-<p>将外部目的地址和端口改为内网服务。本例把 198.19.80.1:18080 发布到 198.18.11.2:8081，源地址保持外部客户端地址。</p>
+<p>将外部目的地址和端口改为内网服务。本例把 198.19.81.1 发布到 198.18.11.2，源地址保持外部客户端地址。</p>
 <section id="id1">
 <span id="前提与参数"></span><h2>前提与参数<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <p>显式端口转换只支持 TCP/UDP（或对应协议号6/17），不能把 SCTP 会话查询能力等同于 SCTP 端口转换。</p>
@@ -141,18 +141,17 @@
 nat-policy name LAB-DNAT
  statistic enable
  rule 10
-  protocol tcp
-  destination address 198.19.80.1/32
-  destination port 18080
-  action dnat 198.18.11.2 port 8081
+  protocol icmp
+  destination address 198.19.81.1/32
+  action dnat 198.18.11.2
  quit
 quit
-interface host-p1a12
+interface Ethernet0
  nat-policy LAB-DNAT inbound
 quit
 nat-policy name LAB-LAN-PASS
 quit
-interface host-p1q13
+interface Ethernet1
  nat-policy LAB-LAN-PASS inbound
 quit
 commit
@@ -160,27 +159,24 @@ commit
 </div>
 </section>
 <section id="id3">
-<span id="验证与真实结果"></span><h2>验证与真实结果<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>在 P2 访问 http://198.19.80.1:18080/。随后在 P1 查询：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions action dnat
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>P2 执行 <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-a</span> <span class="pre">198.19.80.2</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">198.19.81.1</span></code>，然后在 P1 查询：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy name LAB-DNAT
 display nat-policy statistics name LAB-DNAT
+display nat-policy sessions action dnat
 </pre></div>
 </div>
-<p>已有隔离实验真实输出节选：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>host-p1a12/inbound  FIB:0 -&gt; FIB:0  Policy:LAB-DNAT(2572252004)/10  Action:DNAT
-198.19.80.2:36924 -&gt; 198.19.80.1:18080  =&gt;  198.19.80.2:36924 -&gt; 198.18.11.2:8081
-</pre></div>
-</div>
-<p>从 P2 访问发布地址返回 HTTP 200。P3 回程必须经过 P1；LAN 入方向绑定空策略用于接入 NAT 状态回程处理，没有添加额外转换规则。 该记录证明本例路径，不是地址池耗尽、满表容量或吞吐测试。运行 ID、端口和时间会随连接变化。</p>
+<p>应能往返，且目的地址从 198.19.81.1 变为 198.18.11.2，源地址保持 198.19.80.2。在会话中核对原始和转换后的地址；ICMP 使用标识符而非 TCP/UDP 端口。</p>
+<p>Ping 成功只证明往返路径，应同时核对转换结果。查看状态要紧接探测执行，避免会话已老化。地址池耗尽和端口范围需要对应并发业务验证，不能从三次 Ping 推断。</p>
 </section>
 <section id="id4">
 <span id="撤销与保存"></span><h2>撤销与保存<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>P1 系统视图：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1a12
+interface Ethernet0
  undo nat-policy LAB-DNAT inbound
 quit
-interface host-p1q13
+interface Ethernet1
  undo nat-policy LAB-LAN-PASS inbound
 quit
 undo nat-policy name LAB-DNAT
@@ -192,6 +188,23 @@ display nat-policy interfaces
 </div>
 <p>解除绑定后再发起新连接，确认不再采用该策略。基础拓扑的普通路由仍在，撤销 NAT 不一定使业务断开，应比较转换结果而非只看 ping。需要重启保留配置时，在提交并验证后执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>；撤销后也再次保存。</p>
 <p><a class="reference internal" href="../../../operator/nat/dnat/"><span class="std std-doc">功能说明</span></a> · <a class="reference internal" href="../../../operator/reference/nat/"><span class="std std-doc">命令参数</span></a></p>
+</section>
+<section id="tcp-udp">
+<span id="tcpudp-端口发布"></span><h2>TCP/UDP 端口发布<a class="headerlink" href="#tcp-udp" title="链接到此标题。"></a></h2>
+<p>若 P3 的 VortexROS 已按 WireGuard 案例在 UDP 51820 提供服务，可把本例 rule 10 改为以下内容。先撤销 ICMP 规则，再创建 UDP 规则；外侧 WireGuard 对端的 endpoint 指向 198.19.81.1:18080，并用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">wireguard</span></code> 检查握手与收发。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy name LAB-DNAT
+ undo rule 10
+ rule 10
+  protocol udp
+  destination address 198.19.81.1/32
+  destination port 18080
+  action dnat 198.18.11.2 port 51820
+ quit
+quit
+commit
+</pre></div>
+</div>
+<p>显式端口映射只适用于 TCP/UDP；服务自身的密钥、允许地址、回程路由和 ACL 仍需正确配置。</p>
 </section>
 </section>
 

@@ -19,29 +19,25 @@ nat-policy name LAB-SNAT
   action static-nat 198.19.81.2/32
  quit
 quit
-interface host-p1a12
+interface Ethernet0
  nat-policy LAB-SNAT outbound
 quit
 commit
 ~~~
 
-## 验证与真实结果
+## 验证
 
-在 P3 访问 http://198.19.80.2:8080/。随后在 P1 查询：
+P3 执行 `ping -a 198.18.11.2 -c 3 198.19.80.2`，然后在 P1 查询：
 
 ~~~text
 display nat-policy name LAB-SNAT
 display nat-policy statistics name LAB-SNAT
-display nat-policy sessions
+display nat-policy sessions action static-nat
 ~~~
 
-已有隔离实验真实输出节选：
+应能往返，且源地址按静态映射转换，反向流量按相反方向还原。该动作无状态，正常情况下不会创建会话；应结合策略命中统计和对端收到的地址检查。
 
-~~~text
-Scope: active stateful NAT translations; no-NAT and static NAT are stateless and are not listed
-~~~
-
-真实 HTTP 返回 200，服务端看到 198.19.81.2；这项动作是无状态转换，不会生成 sessions 中的条目。上面摘录的是真实会话查询的范围提示，不是静态映射表。 该记录证明本例路径，不是地址池耗尽、满表容量或吞吐测试。运行 ID、端口和时间会随连接变化。
+Ping 成功只证明往返路径，应同时核对转换结果。查看状态要紧接探测执行，避免会话已老化。地址池耗尽和端口范围需要对应并发业务验证，不能从三次 Ping 推断。
 
 ## 撤销与保存
 
@@ -49,7 +45,7 @@ P1 系统视图：
 
 ~~~text
 system-view
-interface host-p1a12
+interface Ethernet0
  undo nat-policy LAB-SNAT outbound
 quit
 undo nat-policy name LAB-SNAT

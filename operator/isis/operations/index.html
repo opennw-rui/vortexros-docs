@@ -142,7 +142,7 @@ commit
 </pre></div>
 </div>
 <p>如果需要把进程迁移到另一个VPN，应先删除进程，再使用新VPN重新创建。当前配套FRR 对 Level-1、Level-2 均使用缺省路由优先级 15。这对应路由表的 <code class="docutils literal notranslate"><span class="pre">Pre</span></code>，不是协议内部的 Level 选路顺序。切换 Level 会重新建立对应级别的链路状态并计算路由；应同时检查邻居、LSDB、路由表和连通性，不能仅以邻居 Up 判断恢复。</p>
-<p><a class="reference internal" href="../../../examples/isis/"><span class="std std-doc">双端配置和真实路由</span></a> · <a class="reference internal" href="../../reference/isis/"><span class="std std-doc">全部参数</span></a></p>
+<p><a class="reference internal" href="../../../examples/isis/"><span class="std std-doc">双端配置和路由查询</span></a> · <a class="reference internal" href="../../reference/isis/"><span class="std std-doc">全部参数</span></a></p>
 </section>
 
 

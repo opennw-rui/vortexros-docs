@@ -21,8 +21,6 @@ interface Ethernet 1
 IPv6 默认网关来自 [RA 与 SLAAC](../ipv6-autoconfig.md)。
 
 
-
-
 ## 实际效果与撤销
 
 [完整双端案例](../../examples/dhcpv6.md)有真实地址/委派前缀和续租结果。只需要 DNS 等信息时选择[Information-Request](information.md)，不应期待它分配地址。

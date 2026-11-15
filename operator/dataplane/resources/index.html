@@ -63,8 +63,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../devices/">设备与接管</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">资源与运行查询</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tables/">邻居与 MAC 容量</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bridge-mtu/">控制网桥 MTU</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../recovery/">激活与恢复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bridge-mtu/">网桥与 MTU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recovery/">数据面激活与恢复</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
@@ -181,7 +181,7 @@ reset dataplane
 </pre></div>
 </div>
 <p>这是参数示例，CPU/NUMA/PCI 条件按本机调整，不能覆盖唯一管理路径。主核和 worker 不重叠，CPU 编号从0开始。配置 worker 时必须同时指定主核。引导参数需要主机重启时会提示；只生成 GRUB 片段不代表当前内核已生效。</p>
-<p>真实 QEMU PCI 验收用 main0/worker1、RX/TX各1队列、描述符512，激活后实际线程/队列与配置一致、业务2/2；撤销 worker/队列/描述符后，恢复单 main0 和该 virtio 驱动默认256描述符，业务仍2/2。该默认值不外推到其他驱动。</p>
+<p>激活后核对线程、队列和描述符的运行值。撤销显式设置后采用设备或驱动默认值；默认值并非所有网卡相同。</p>
 </section>
 <section id="id3">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>

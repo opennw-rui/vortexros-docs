@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>进程重置 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+  <title>重启 OSPF 进程 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -65,7 +65,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../areas/">Stub、NSSA 与汇总</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../redistribution/">路由引入</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../queries/">邻居、LSDB 与路由</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">进程重置</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">重启 OSPF 进程</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
@@ -115,7 +115,7 @@
       <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
           <li class="breadcrumb-item"><a href="../">OSPF</a></li>
-      <li class="breadcrumb-item active">进程重置</li>
+      <li class="breadcrumb-item active">重启 OSPF 进程</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -124,14 +124,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<span id="进程重置"></span><h1>进程重置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>开发服务器 Linux 数据面只配置 OSPF1，router-id 198.51.100.9、area0 和 198.51.100.0/24 接口。真实终端执行 reset ospf 1 process 并确认后返回：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Info: ospf process 1 reset; runtime state matches the running configuration.
+  <section id="ospf">
+<span id="重启-ospf-进程"></span><h1>重启 OSPF 进程<a class="headerlink" href="#ospf" title="链接到此标题。"></a></h1>
+<p>需要重新建立指定OSPF进程的运行状态时执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset ospf 1 process
 </pre></div>
 </div>
-<p>随后 display ospf 1 brief 显示 Router ID 198.51.100.9，接口到虚拟对端的探测 2/2；删除进程与临时地址后提交，恢复原配置。本项证明单进程重置入口及运行回读，不把单路由器结果写成额外双邻居故障切换验证。</p>
-<p><a class="reference internal" href="../"><span class="std std-doc">OSPF 总览</span></a> · <a class="reference internal" href="../../../examples/ospf/"><span class="std std-doc">完整案例</span></a> · <a class="reference internal" href="../../reference/ospf/"><span class="std std-doc">命令参数</span></a></p>
+<p>按提示确认后，进程按已提交配置重新启动。该命令会中断目标进程的邻接，可能导致路由撤销和重新收敛；它不是无影响的查询命令。</p>
+<p>完成后检查：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospf 1 peer
+display ospf 1 lsdb
+display ospf 1 routing
+display ip routing-table protocol ospf
+</pre></div>
+</div>
+<p>确认邻居恢复Full、所需路由重新进入FIB，再检查业务连通性。配置修改尚未提交时，应先决定提交或放弃，避免把候选配置误认为重启后生效的配置。</p>
+<p><a class="reference internal" href="../../../examples/ospf/"><span class="std std-doc">OSPF案例</span></a> · <a class="reference internal" href="../../reference/ospf/"><span class="std std-doc">命令参考</span></a></p>
 </section>
 
 

@@ -28,7 +28,7 @@ sudo journalctl -u vortexros-aaa-apply.service -u vortexrosd.service --since '-1
 Password changed and saved. Reconnect using the new password.
 ~~~
 
-已有包级验收在QEMU中验证了准备文件写入失败、chpasswd 失败和部分执行后失败的恢复，以及公钥登录、保存和控制服务重启。详见[发布验证](../../release/vortexros.md)。
+如改密后仍无法登录，先由另一管理会话检查账号活跃状态、角色及AAA告警；账号投影未完成时先处理告警，再使用新密码重新连接。
 
 
 [角色与入口](../aaa.md) · [命令参考](../reference/aaa.md)

@@ -8,15 +8,12 @@
 
 此功能需要 VPP。配置写入 Candidate，`commit` 后参与下发，`save` 保存已提交配置；重启后从启动 CFG 恢复。缺省不创建 NAT 策略或接口绑定。
 
-## 配置、显示与撤销
+## 配置、检查与撤销
 
-[完整独立案例](../../examples/nat/no-pat.md)包含拓扑、网关和端点前提、完整策略、实际 display 输出、HTTP 往返及撤销。以下是本功能实际验收的转换结果节选：
+[完整案例](../../examples/nat/no-pat.md)给出三台 VortexROS 的配置、策略、查询及撤销顺序。只改变地址，保留 TCP/UDP 源端口或 ICMP 标识符；发生映射冲突时不能用它代替 PAT。
 
-~~~text
-host-p1a12/outbound  FIB:0 -> FIB:0  Policy:LAB-SNAT(4124874345)/10  Action:SNAT-NO-PAT
-198.18.11.2:43092 -> 198.19.80.2:8080  =>  198.19.81.1:43092 -> 198.19.80.2:8080
-~~~
+提交后查询 display nat-policy name、interfaces、statistics 和 sessions。先确认策略绑定及命中，再检查原始与转换后的地址；TCP/UDP 还需核对端口，ICMP 则核对标识符。旧会话可能保留原映射，修改策略后用新连接检查。
 
-HTTP 返回 200，源端口 43092 保持不变。随后仅把 action 改成 snat no-pat interface，真实会话中源地址变为 198.19.80.1、端口 51388 仍保持 51388；接口形式同样只能出方向绑定。
+撤销先解除接口绑定，再删除策略及不再引用的对象，commit 后确认绑定和目标规则消失；需要持久保留时 save。其他策略、共享地址和路由应保留。
 
 [对象与规则](objects.md) · [会话与统计](sessions.md) · [命令参考](../reference/nat.md)

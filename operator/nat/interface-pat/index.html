@@ -124,15 +124,11 @@
 <p>规则中配置 <code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">snat</span> <span class="pre">pat</span> <span class="pre">interface</span></code>，接口只能绑定 <strong>outbound</strong>。接口 PAT 缺省端口范围为 10000–65535，可在系统视图配置 <code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">interface-pat-range</span> <span class="pre">LOW-HIGH</span></code>。接口和上游必须有可用路由；NAT 不代替 ACL 或下一跳解析。</p>
 </section>
 <section id="id2">
-<span id="完整配置与真实结果"></span><h2>完整配置与真实结果<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p><a class="reference internal" href="../../../examples/nat-pat/"><span class="std std-doc">接口 PAT 案例</span></a>给出两端 UDP 端点、地址集、端口集、统计、会话配额及撤销。该案例实际会话节选：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>host-p1a12/outbound  FIB:0 -&gt; FIB:0  Policy:CLI-UDP(1996602227)/10  Action:SNAT-PAT
-198.19.80.1:47100 -&gt; 198.19.80.2:48100  =&gt;  198.19.80.1:52002 -&gt; 198.19.80.2:48100
-</pre></div>
-</div>
-<p>这里地址恰好与接口地址相同，源端口仍从 47100 转换到 52002；端点收包与回复证明实际生效。独立内网端点实验还验证了 198.18.11.2 转换为出口 198.19.80.1，见<a class="reference internal" href="../../../examples/nat/topology/"><span class="std std-doc">地址池案例的基础拓扑</span></a>。</p>
-<p>撤销必须先 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">POLICY</span> <span class="pre">outbound</span></code>，再删策略；全局范围用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">interface-pat-range</span></code> 恢复默认。全局分配参数仍有活动会话时可能被后端拒绝；先查会话并安排业务维护，不能忽略 Instance in use。</p>
-<p><a class="reference internal" href="../sessions/"><span class="std std-doc">会话与统计</span></a> · <a class="reference internal" href="../capacity/"><span class="std std-doc">容量与计时</span></a> · <a class="reference internal" href="../../reference/nat/"><span class="std std-doc">命令参数</span></a></p>
+<span id="配置检查与撤销"></span><h2>配置、检查与撤销<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p><a class="reference internal" href="../../../examples/nat-pat/"><span class="std std-doc">完整案例</span></a>给出三台 VortexROS 的配置、策略、查询及撤销顺序。使用出口接口地址，有状态流量同时分配转换标识；仅支持相应出方向绑定。</p>
+<p>提交后查询 display nat-policy name、interfaces、statistics 和 sessions。先确认策略绑定及命中，再检查原始与转换后的地址；TCP/UDP 还需核对端口，ICMP 则核对标识符。旧会话可能保留原映射，修改策略后用新连接检查。</p>
+<p>撤销先解除接口绑定，再删除策略及不再引用的对象，commit 后确认绑定和目标规则消失；需要持久保留时 save。其他策略、共享地址和路由应保留。</p>
+<p><a class="reference internal" href="../objects/"><span class="std std-doc">对象与规则</span></a> · <a class="reference internal" href="../sessions/"><span class="std std-doc">会话与统计</span></a> · <a class="reference internal" href="../../reference/nat/"><span class="std std-doc">命令参考</span></a></p>
 </section>
 </section>
 

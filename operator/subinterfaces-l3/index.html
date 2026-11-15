@@ -131,9 +131,9 @@
 <p>L3 子接口有自己的 LCP 端点，Linux/FRR 使用同一三层身份。父口关闭会影响子口实际状态；恢复不能把显式 shutdown 的子口强制拉起。</p>
 </section>
 <section id="id2">
-<span id="配置真实查询和撤销"></span><h2>配置、真实查询和撤销<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<span id="配置示例输出和撤销"></span><h2>配置、示例输出和撤销<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p><a class="reference internal" href="../../examples/subinterfaces/l3/"><span class="std std-doc">完整双端案例</span></a>包含 VLAN700 地址、接口及直连路由查询、稳定探测3/3，双标签及保存/恢复和父接口删除约束。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface host-p1b12.700
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Ethernet0.700
 display ip interface brief
 display ip routing-table protocol direct
 </pre></div>

@@ -96,8 +96,8 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet
-适用分区：interface/ethernet-neutral, interface/ethernet-l2, interface/ethernet-l3, interface/ethernet-aggregate-member, interface/eth-trunk-neutral, interface/eth-trunk-l2, interface/eth-trunk-l3
+接口类别：Ethernet
+接口类别：Ethernet（未选择二/三层）、二层 Ethernet、三层 Ethernet、聚合成员口、Eth-Trunk（未选择二/三层）、二层 Eth-Trunk、三层 Eth-Trunk
 
 此形式没有额外参数。
 
@@ -136,6 +136,6 @@
 **参数与子命令**
 
 - 数据来源：Candidate（本会话待提交配置）。
-接口类别：ethernet
+接口类别：Ethernet
 
 此形式没有额外参数。

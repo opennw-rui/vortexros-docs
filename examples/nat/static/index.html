@@ -80,7 +80,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../dnat/">DNAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../twice/">Twice NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../no-nat/">No-NAT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../hairpin/">NAT 回流</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hairpin/">Hairpin</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../services/">网络服务</a></li>
@@ -144,7 +144,7 @@ nat-policy name LAB-SNAT
   action static-nat 198.19.81.2/32
  quit
 quit
-interface host-p1a12
+interface Ethernet0
  nat-policy LAB-SNAT outbound
 quit
 commit
@@ -152,24 +152,21 @@ commit
 </div>
 </section>
 <section id="id3">
-<span id="验证与真实结果"></span><h2>验证与真实结果<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>在 P3 访问 http://198.19.80.2:8080/。随后在 P1 查询：</p>
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>P3 执行 <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-a</span> <span class="pre">198.18.11.2</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">198.19.80.2</span></code>，然后在 P1 查询：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy name LAB-SNAT
 display nat-policy statistics name LAB-SNAT
-display nat-policy sessions
+display nat-policy sessions action static-nat
 </pre></div>
 </div>
-<p>已有隔离实验真实输出节选：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Scope: active stateful NAT translations; no-NAT and static NAT are stateless and are not listed
-</pre></div>
-</div>
-<p>真实 HTTP 返回 200，服务端看到 198.19.81.2；这项动作是无状态转换，不会生成 sessions 中的条目。上面摘录的是真实会话查询的范围提示，不是静态映射表。 该记录证明本例路径，不是地址池耗尽、满表容量或吞吐测试。运行 ID、端口和时间会随连接变化。</p>
+<p>应能往返，且源地址按静态映射转换，反向流量按相反方向还原。该动作无状态，正常情况下不会创建会话；应结合策略命中统计和对端收到的地址检查。</p>
+<p>Ping 成功只证明往返路径，应同时核对转换结果。查看状态要紧接探测执行，避免会话已老化。地址池耗尽和端口范围需要对应并发业务验证，不能从三次 Ping 推断。</p>
 </section>
 <section id="id4">
 <span id="撤销与保存"></span><h2>撤销与保存<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>P1 系统视图：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1a12
+interface Ethernet0
  undo nat-policy LAB-SNAT outbound
 quit
 undo nat-policy name LAB-SNAT

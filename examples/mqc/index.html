@@ -124,7 +124,7 @@
 <span id="mqc-报文标记"></span><h1>MQC 报文标记<a class="headerlink" href="#mqc" title="链接到此标题。"></a></h1>
 <section id="id1">
 <span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 host-p1a12 192.0.2.81/30 ─── 192.0.2.82/30 host-p2a12 P2
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 Ethernet0 192.0.2.81/30 ─── 192.0.2.82/30 Ethernet0 P2
             出方向标记                         接收侧抓包
 </pre></div>
 </div>
@@ -133,7 +133,7 @@
 <section id="p2">
 <span id="配置-p2"></span><h2>配置 P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p2a12
+interface Ethernet0
  ip address 192.0.2.82 255.255.255.252
  quit
 commit
@@ -144,7 +144,7 @@ commit
 <span id="配置-p1"></span><h2>配置 P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
 <p>先配置地址并确认能 Ping 通 P2，再配置并绑定策略。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1a12
+interface Ethernet0
  ip address 192.0.2.81 255.255.255.252
  quit
 commit
@@ -160,7 +160,7 @@ traffic behavior LAB-MARK
 traffic policy LAB-POLICY
  classifier LAB-DST behavior LAB-MARK precedence 10
  quit
-interface host-p1a12
+interface Ethernet0
  traffic-policy LAB-POLICY outbound
  quit
 commit
@@ -170,7 +170,7 @@ commit
 </section>
 <section id="id2">
 <span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>在 P1 执行 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">traffic</span> <span class="pre">policy</span> <span class="pre">user-defined</span> <span class="pre">LAB-POLICY</span></code>。实际输出节选：</p>
+<p>在 P1 执行 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">traffic</span> <span class="pre">policy</span> <span class="pre">user-defined</span> <span class="pre">LAB-POLICY</span></code>。示例输出：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  User Defined Traffic Policy Information:
     Policy: LAB-POLICY
       Classifier: LAB-DST Precedence: 10
@@ -179,22 +179,13 @@ commit
           dscp af11(10)
 </pre></div>
 </div>
-<p>在 P2 的 Linux 环境执行下列抓包命令；实验中底层 veth 名为 <code class="docutils literal notranslate"><span class="pre">p2a12</span></code>，生产设备应在实际接收链路上观察。随后从 P1 执行 <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-n</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">-t</span> <span class="pre">1000</span> <span class="pre">192.0.2.82</span></code>。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>tcpdump<span class="w"> </span>-n<span class="w"> </span>-vv<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-i<span class="w"> </span>any<span class="w"> </span><span class="s1">'icmp and dst host 192.0.2.82'</span>
-</pre></div>
-</div>
-<p>实际抓包节选。P1 同时收到 3 个回包：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>p2a12 P   IP (tos 0x28, ttl 64, id 60590, offset 0, flags [DF], proto ICMP (1), length 84)
-    192.0.2.81 &gt; 192.0.2.82: ICMP echo request, id 36772, seq 1, length 64
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">0x28</span> <span class="pre">&gt;&gt;</span> <span class="pre">2</span> <span class="pre">=</span> <span class="pre">10</span></code>。这是接收侧的报文证据；只查看策略显示无法证明实际改写。</p>
+<p>在 P1 执行 ping -n -c 3 -t 1000 192.0.2.82，确认业务仍可达。DSCP AF11 对应 10，IPv4 ToS 在 ECN 为 0 时为 0x28。display 查询用于核对策略配置，不能单独证明报文已改写；需要检查字段时，在链路使用报文分析设备观察同类新报文的 DSCP。</p>
 </section>
 <section id="id3">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>在 P1 先解除绑定，再删除仅供此实验使用的对象：</p>
+<p>在 P1 先解除绑定，再删除仅供此示例使用的对象：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1a12
+interface Ethernet0
  undo traffic-policy outbound
  quit
 undo traffic policy LAB-POLICY
@@ -203,12 +194,12 @@ undo traffic classifier LAB-DST
 commit
 </pre></div>
 </div>
-<p>重复抓包和探测。实测仍是 3 发 3 收，接收侧同类新报文恢复为 <code class="docutils literal notranslate"><span class="pre">tos</span> <span class="pre">0x0</span></code>。如果地址也为本次实验新建，再分别在两端撤销对应 <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">address</span></code>。</p>
+<p>重复业务探测，确认策略解除后仍能普通转发。需要检查 DSCP 恢复时观察新报文；若接口地址也只供本例使用，再在两端撤销。</p>
 <p><a class="reference internal" href="../../operator/mqc/"><span class="std std-doc">MQC 配置指南</span></a></p>
 </section>
 <section id="id4">
 <span id="匹配全部与恢复默认优先级"></span><h2>匹配全部与恢复默认优先级<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
-<p>本轮另在 P2 出接口验证 <code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">any</span></code>。链路地址为 P2 <code class="docutils literal notranslate"><span class="pre">host-p2a12</span></code> 的 <code class="docutils literal notranslate"><span class="pre">198.19.80.2/30</span></code> 与 P1 <code class="docutils literal notranslate"><span class="pre">host-p1a12</span></code> 的 <code class="docutils literal notranslate"><span class="pre">198.19.80.1/30</span></code>，两端均为 default VPN。地址配置沿用前面的三层接口步骤，不能与前一案例的 192.0.2.0/30 混用。</p>
+<p>在同一拓扑的 P2 出口改用 if-match any，覆盖所有报文。两端沿用 192.0.2.81/30 与 192.0.2.82/30，无需更换地址。</p>
 <p>P2：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>traffic classifier CLI-ANY operator or
  if-match any
@@ -219,15 +210,15 @@ traffic behavior CLI-REMARK
 traffic policy CLI-MARK
  classifier CLI-ANY behavior CLI-REMARK precedence 7
  quit
-interface host-p2a12
+interface Ethernet0
  traffic-policy CLI-MARK outbound
  quit
 commit
-ping -c 3 -a 198.19.80.2 198.19.80.1
+ping -c 3 -a 192.0.2.82 192.0.2.81
 display traffic policy user-defined CLI-MARK
 </pre></div>
 </div>
-<p>P1 接收侧实际抓到三条 ICMP 请求，均为 <code class="docutils literal notranslate"><span class="pre">tos</span> <span class="pre">0x50</span></code>，即 DSCP 20；P2 探测 3/3。<code class="docutils literal notranslate"><span class="pre">any</span></code> 会匹配该方向上的所有报文，包括控制流量，应确认作用范围后使用。</p>
+<p>DSCP 20 对应 ECN 为 0 时的 ToS 0x50。any 会匹配该方向所有报文，包括控制流量；应确认作用范围后使用。</p>
 <p>撤销标记、恢复优先级默认值，保留放行：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>traffic behavior CLI-REMARK
  undo remark dscp
@@ -237,11 +228,11 @@ traffic policy CLI-MARK
  undo precedence
  quit
 commit
-ping -c 1 -a 198.19.80.2 198.19.80.1
+ping -c 1 -a 192.0.2.82 192.0.2.81
 </pre></div>
 </div>
-<p>实测策略显示 <code class="docutils literal notranslate"><span class="pre">Precedence:</span> <span class="pre">0</span></code>、不再包含 Remark；P1 同类新报文为 <code class="docutils literal notranslate"><span class="pre">tos</span> <span class="pre">0x0</span></code>，回包 1/1。撤销时先解除绑定，再删除对象：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface host-p2a12
+<p>查询策略应显示 Precedence: 0，且不再包含 Remark。撤销时先解除绑定，再删除对象：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
  undo traffic-policy outbound
  quit
 undo traffic policy CLI-MARK

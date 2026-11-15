@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>业务桥域绑定 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+  <title>VLAN 与业务桥域 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -24,7 +24,7 @@
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
     <link rel="next" title="QinQ" href="../../qinq/" />
-    <link rel="prev" title="启停与保存" href="../lifecycle/" /> 
+    <link rel="prev" title="交换功能与保存" href="../lifecycle/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -64,8 +64,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../">VLAN</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../ports/">成员与网关</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lifecycle/">启停与保存</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">业务桥域绑定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lifecycle/">交换功能与保存</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">VLAN 与业务桥域</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
@@ -114,7 +114,7 @@
       <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
           <li class="breadcrumb-item"><a href="../">VLAN</a></li>
-      <li class="breadcrumb-item active">业务桥域绑定</li>
+      <li class="breadcrumb-item active">VLAN 与业务桥域</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -123,20 +123,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<span id="业务桥域绑定"></span><h1>业务桥域绑定<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<section id="vlan">
-<span id="服务桥域-vlan-绑定撤销"></span><h2>服务桥域 VLAN 绑定撤销<a class="headerlink" href="#vlan" title="链接到此标题。"></a></h2>
-<p>开发服务器使用空闲 VLAN666、bridge-domain666 设置 l2 binding vlan666，提交后 display this 显示该绑定。撤销命令是无参数的 undo l2 binding vlan；提交后 bridge-domain666 仍保留，但 display this 不再包含绑定。最后删除临时桥域与 VLAN。该隔离检查验证绑定配置的创建和撤销；具体业务转发沿用已有服务桥域案例，不将无端口桥域冒充流量验证。</p>
-<p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/vlan/"><span class="std std-doc">命令参数</span></a></p>
-</section>
+  <section id="vlan">
+<span id="vlan-与业务桥域"></span><h1>VLAN 与业务桥域<a class="headerlink" href="#vlan" title="链接到此标题。"></a></h1>
+<p>使用业务桥域关联VLAN及可选的VNI，Vbdif提供该桥域的三层网关。例如将VLAN666绑定到桥域666：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+enable switch
+vlan 666
+quit
+bridge-domain 666
+ l2 binding vlan 666
+ display this
+quit
+commit
+display bridge-domain 666
+</pre></div>
+</div>
+<p>撤销绑定时，进入同一桥域执行无参数的<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">l2</span> <span class="pre">binding</span> <span class="pre">vlan</span></code>：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 666
+ undo l2 binding vlan
+quit
+commit
+</pre></div>
+</div>
+<p>撤销绑定不会自动删除桥域。仍有Vbdif、VNI或其他引用时，应先按业务依赖解除；不再使用后再删除桥域和VLAN。</p>
+<p><a class="reference internal" href="../../bridge-domains/"><span class="std std-doc">桥域配置</span></a> · <a class="reference internal" href="../../../examples/subinterfaces/l2/"><span class="std std-doc">二层子接口案例</span></a></p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../lifecycle/" class="btn btn-neutral float-left" title="启停与保存" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../lifecycle/" class="btn btn-neutral float-left" title="交换功能与保存" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="../../qinq/" class="btn btn-neutral float-right" title="QinQ" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

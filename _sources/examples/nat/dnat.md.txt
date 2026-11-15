@@ -1,6 +1,6 @@
 # DNAT
 
-将外部目的地址和端口改为内网服务。本例把 198.19.80.1:18080 发布到 198.18.11.2:8081，源地址保持外部客户端地址。
+将外部目的地址和端口改为内网服务。本例把 198.19.81.1 发布到 198.18.11.2，源地址保持外部客户端地址。
 
 ## 前提与参数
 
@@ -17,40 +17,35 @@ system-view
 nat-policy name LAB-DNAT
  statistic enable
  rule 10
-  protocol tcp
-  destination address 198.19.80.1/32
-  destination port 18080
-  action dnat 198.18.11.2 port 8081
+  protocol icmp
+  destination address 198.19.81.1/32
+  action dnat 198.18.11.2
  quit
 quit
-interface host-p1a12
+interface Ethernet0
  nat-policy LAB-DNAT inbound
 quit
 nat-policy name LAB-LAN-PASS
 quit
-interface host-p1q13
+interface Ethernet1
  nat-policy LAB-LAN-PASS inbound
 quit
 commit
 ~~~
 
-## 验证与真实结果
+## 验证
 
-在 P2 访问 http://198.19.80.1:18080/。随后在 P1 查询：
+P2 执行 `ping -a 198.19.80.2 -c 3 198.19.81.1`，然后在 P1 查询：
 
 ~~~text
-display nat-policy sessions action dnat
+display nat-policy name LAB-DNAT
 display nat-policy statistics name LAB-DNAT
+display nat-policy sessions action dnat
 ~~~
 
-已有隔离实验真实输出节选：
+应能往返，且目的地址从 198.19.81.1 变为 198.18.11.2，源地址保持 198.19.80.2。在会话中核对原始和转换后的地址；ICMP 使用标识符而非 TCP/UDP 端口。
 
-~~~text
-host-p1a12/inbound  FIB:0 -> FIB:0  Policy:LAB-DNAT(2572252004)/10  Action:DNAT
-198.19.80.2:36924 -> 198.19.80.1:18080  =>  198.19.80.2:36924 -> 198.18.11.2:8081
-~~~
-
-从 P2 访问发布地址返回 HTTP 200。P3 回程必须经过 P1；LAN 入方向绑定空策略用于接入 NAT 状态回程处理，没有添加额外转换规则。 该记录证明本例路径，不是地址池耗尽、满表容量或吞吐测试。运行 ID、端口和时间会随连接变化。
+Ping 成功只证明往返路径，应同时核对转换结果。查看状态要紧接探测执行，避免会话已老化。地址池耗尽和端口范围需要对应并发业务验证，不能从三次 Ping 推断。
 
 ## 撤销与保存
 
@@ -58,10 +53,10 @@ P1 系统视图：
 
 ~~~text
 system-view
-interface host-p1a12
+interface Ethernet0
  undo nat-policy LAB-DNAT inbound
 quit
-interface host-p1q13
+interface Ethernet1
  undo nat-policy LAB-LAN-PASS inbound
 quit
 undo nat-policy name LAB-DNAT
@@ -74,3 +69,21 @@ display nat-policy interfaces
 解除绑定后再发起新连接，确认不再采用该策略。基础拓扑的普通路由仍在，撤销 NAT 不一定使业务断开，应比较转换结果而非只看 ping。需要重启保留配置时，在提交并验证后执行 `save`；撤销后也再次保存。
 
 [功能说明](../../operator/nat/dnat.md) · [命令参数](../../operator/reference/nat.md)
+
+## TCP/UDP 端口发布
+
+若 P3 的 VortexROS 已按 WireGuard 案例在 UDP 51820 提供服务，可把本例 rule 10 改为以下内容。先撤销 ICMP 规则，再创建 UDP 规则；外侧 WireGuard 对端的 endpoint 指向 198.19.81.1:18080，并用 `display wireguard` 检查握手与收发。
+
+~~~text
+nat-policy name LAB-DNAT
+ undo rule 10
+ rule 10
+  protocol udp
+  destination address 198.19.81.1/32
+  destination port 18080
+  action dnat 198.18.11.2 port 51820
+ quit
+quit
+commit
+~~~
+显式端口映射只适用于 TCP/UDP；服务自身的密钥、允许地址、回程路由和 ACL 仍需正确配置。

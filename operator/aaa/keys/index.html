@@ -23,7 +23,7 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
-    <link rel="next" title="会话管理" href="../sessions/" />
+    <link rel="next" title="管理会话" href="../sessions/" />
     <link rel="prev" title="首次改密与恢复" href="../password/" /> 
 </head>
 
@@ -59,7 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../accounts/">创建与管理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../password/">首次改密与恢复</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">公钥与启停</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sessions/">会话管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sessions/">管理会话</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../bash/">Bash 与 sudo</a></li>
 </ul>
 </li>
@@ -134,7 +134,7 @@ user auditread
 commit
 </pre></div>
 </div>
-<p>在本轮开发服务器 QEMU 的真实 OpenSSH 验证中，未设置密码的公钥账号成功进入 CLI，<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">users</span></code> 显示 network-operator / Read-only。提交 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">active</span></code> 后，原 SSH 会话由服务端关闭；再次只使用该公钥连接，返回 <code class="docutils literal notranslate"><span class="pre">Permission</span> <span class="pre">denied</span> <span class="pre">(publickey,password)</span></code>。配置中显示 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">active</span></code>，不会显示默认的 <code class="docutils literal notranslate"><span class="pre">active</span></code>。</p>
+<p>公钥账号按所配置角色进入CLI。执行<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">active</span></code>并提交后，账号停用，现有受管会话关闭，新的登录被拒绝。默认active不在配置中显示，只有停用时显示<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">active</span></code>。</p>
 <p>恢复时进入相同用户视图执行 <code class="docutils literal notranslate"><span class="pre">active</span></code>、提交并保存。撤销单把公钥使用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ssh-public-key</span> <span class="pre">laptop</span></code>；如果该账号不再使用，执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">user</span> <span class="pre">auditread</span></code> 并提交、保存。不要撤销自己唯一的管理凭据。</p>
 <p><a class="reference internal" href="../"><span class="std std-doc">角色与入口</span></a> · <a class="reference internal" href="../../reference/aaa/"><span class="std std-doc">命令参考</span></a></p>
 </section>
@@ -144,7 +144,7 @@ commit
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../password/" class="btn btn-neutral float-left" title="首次改密与恢复" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../sessions/" class="btn btn-neutral float-right" title="会话管理" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../sessions/" class="btn btn-neutral float-right" title="管理会话" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -43,7 +43,7 @@ display ospfv3 1 routing
 reset ospfv3 1 process
 ```
 
-`peer brief`中的邻居状态来自FRR OSPFv3运行态，`routing`中的路由数量只统计协议为`ospf6`的IPv6路由。配置已提交但尚未形成邻接时不会伪造Full状态；验收时应同时确认邻居Full、IPv6路由存在和业务地址可达。
+`peer brief`中的邻居状态来自FRR OSPFv3运行态，`routing`中的路由数量只统计协议为`ospf6`的IPv6路由。配置提交后，继续确认邻居Full、IPv6路由存在和业务地址可达。
 
 撤销示例：
 

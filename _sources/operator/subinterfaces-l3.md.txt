@@ -8,12 +8,12 @@ L3 子接口按 VLAN 标签区分独立三层链路，可在本接口配置 IPv4
 
 L3 子接口有自己的 LCP 端点，Linux/FRR 使用同一三层身份。父口关闭会影响子口实际状态；恢复不能把显式 shutdown 的子口强制拉起。
 
-## 配置、真实查询和撤销
+## 配置、示例输出和撤销
 
 [完整双端案例](../examples/subinterfaces/l3.md)包含 VLAN700 地址、接口及直连路由查询、稳定探测3/3，双标签及保存/恢复和父接口删除约束。
 
 ~~~text
-display interface host-p1b12.700
+display interface Ethernet0.700
 display ip interface brief
 display ip routing-table protocol direct
 ~~~

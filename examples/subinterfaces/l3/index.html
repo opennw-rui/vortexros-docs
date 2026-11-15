@@ -132,14 +132,14 @@
 <p>L3 子接口按 VLAN 标签区分独立三层链路，可在接口本身配置 IPv4/IPv6 地址和路由协议。它使用 <code class="docutils literal notranslate"><span class="pre">vlan-type</span></code>；<code class="docutils literal notranslate"><span class="pre">encapsulation</span></code> 属于 <a class="reference internal" href="../l2/"><span class="std std-doc">L2 子接口</span></a>。</p>
 <section id="id1">
 <span id="完整案例"></span><h2>完整案例<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>P1 与 P2 的物理链路分别为 <code class="docutils literal notranslate"><span class="pre">host-p1b12</span></code>、<code class="docutils literal notranslate"><span class="pre">host-p2b12</span></code>，两端以 VLAN 700 建立点到点 IP 子网。端口名称来自开发服务器的实际隔离拓扑，在设备上替换为实际 Ethernet 接口。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 host-p1b12.700 ── VLAN 700 ── P2 host-p2b12.700
+<p>P1/P2 的 Ethernet0 直连，两端用 VLAN 700 建立点到点 IP 子网。父口需已由数据面识别，且没有冲突的标签分类。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 Ethernet0.700 ── VLAN 700 ── P2 Ethernet0.700
   198.18.170.1/30                  198.18.170.2/30
 </pre></div>
 </div>
 <p>P1：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1b12.700
+interface Ethernet0.700
  vlan-type dot1q 700
  ip address 198.18.170.1 255.255.255.252
  quit
@@ -148,7 +148,7 @@ commit
 </div>
 <p>P2：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p2b12.700
+interface Ethernet0.700
  vlan-type dot1q 700
  ip address 198.18.170.2 255.255.255.252
  quit
@@ -159,14 +159,14 @@ commit
 </section>
 <section id="id2">
 <span id="查询与流量"></span><h2>查询与流量<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface host-p1b12.700
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Ethernet0.700
 display ip interface brief
 display ip routing-table protocol direct
 ping -c 3 -a 198.18.170.1 198.18.170.2
 </pre></div>
 </div>
-<p>实际输出节选：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>host-p1b12.700 current state : UP
+<p>示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Ethernet0.700 current state : UP
 Line protocol current state : UP
 Route Port,The Maximum Transmit Unit is 1500
 Internet Address is 198.18.170.1/30
@@ -180,17 +180,17 @@ Encapsulation is dot1q, VLAN 700
 <span id="保存与撤销"></span><h2>保存与撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>确认双向路由及流量后执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。两端分别撤销：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-undo interface host-p1b12.700
+undo interface Ethernet0.700
 commit
 </pre></div>
 </div>
-<p>P2 将接口名替换为 <code class="docutils literal notranslate"><span class="pre">host-p2b12.700</span></code>。删除后核对接口和直连路由消失；需要持久撤销时再 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
+<p>P2 将接口名替换为 <code class="docutils literal notranslate"><span class="pre">Ethernet0.700</span></code>。删除后核对接口和直连路由消失；需要持久撤销时再 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
 </section>
 <section id="id4">
 <span id="双层标签"></span><h2>双层标签<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>两端仍使用同一物理链路，以外标签 702、内标签 70 建立独立三层子网。无需额外配置一个外层 L3 子接口；系统负责 Linux 侧所需的标签层级。</p>
 <p>P1：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface host-p1b12.702
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.702
  vlan-type dot1q 702 inner 70
  ip address 198.18.172.1 255.255.255.252
  quit
@@ -198,20 +198,20 @@ commit
 </pre></div>
 </div>
 <p>P2：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface host-p2b12.702
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.702
  vlan-type dot1q 702 inner 70
  ip address 198.18.172.2 255.255.255.252
  quit
 commit
 </pre></div>
 </div>
-<p>真实 CLI 查询：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface host-p1b12.702
+<p>示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Ethernet0.702
 ping -c 3 -a 198.18.172.1 198.18.172.2
 </pre></div>
 </div>
-<p>实际输出节选：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>host-p1b12.702 current state : UP
+<p>示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Ethernet0.702 current state : UP
 Line protocol current state : UP
 Internet Address is 198.18.172.1/30
 Encapsulation is QinQ, Outer VLAN 702, Inner VLAN 70
@@ -220,16 +220,16 @@ Encapsulation is QinQ, Outer VLAN 702, Inner VLAN 70
 </pre></div>
 </div>
 <p>两端必须匹配外、内两层标签。接口编号 702 只标识子接口；标签由 <code class="docutils literal notranslate"><span class="pre">vlan-type</span></code> 指定。三层视图目前提供上述 dot1q 与 dot1q 内层组合，不应套用 L2 的 <code class="docutils literal notranslate"><span class="pre">encapsulation</span> <span class="pre">dot1ad</span></code> 语法。</p>
-<p>删除时分别执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">host-p1b12.702</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">host-p2b12.702</span></code> 并提交。共享同一外标签的其他内层仍存在时，系统保留所需的 Linux 外层；删除最后一个内层时清理该辅助对象。它不是独立用户配置，不应手工配置 IP 或加入桥域。</p>
+<p>删除时分别执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">Ethernet0.702</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">Ethernet0.702</span></code> 并提交。共享同一外标签的其他内层仍存在时，系统保留所需的 Linux 外层；删除最后一个内层时清理该辅助对象。它不是独立用户配置，不应手工配置 IP 或加入桥域。</p>
 </section>
 <section id="id5">
 <span id="父接口生命周期与删除结果"></span><h2>父接口生命周期与删除结果<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
-<p>本次在保留两端配置的情况下，关闭 P1 父接口并提交：普通 dot1q700 和 QinQ702 均显示 Down；恢复父接口后，两者恢复 Up。恢复后的首次探测分别为 2/3，随后稳定状态两者均为 3/3。父接口状态由现有配置的有效管理状态传给子接口，不通过删除子接口地址来实现暂停。</p>
+<p>关闭父口并提交后，其 dot1q/QinQ 子接口应 Down；恢复父口后自动 Up，地址配置保留。等待邻居与链路恢复后再检查双向探测。</p>
 <p>仅执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vlan-type</span></code> 而保留子接口，会在提交时得到实际错误：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Error: validate candidate: validate canonical configuration: sub-interface host-p1b12.700 has incomplete VLAN encapsulation
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Error: validate candidate: validate canonical configuration: sub-interface Ethernet0.700 has incomplete VLAN encapsulation
 </pre></div>
 </div>
-<p>失败时 Running 仍保留原 VLAN 与地址；补回原封装后可以正常提交。完整撤销使用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span></code>。本轮已在两端删除 .700/.702 并提交：实际接口清单与 Linux VLAN 清单均不再包含它们，198.18.170.0/30、198.18.172.0/30 的实验直连路由也已删除。最后一个 QinQ 内层删除后，没有残留辅助外层。这里的删除结论来自成功的完整清单查询，不是查询失败后未匹配到名称。</p>
+<p>封装修改被拒绝时，Running 保留原配置；先解除冲突再提交。完整删除使用 undo interface，随后检查接口和直连路由均消失；最后一个 QinQ 内层删除后，不应留下本例辅助对象。</p>
 </section>
 </section>
 

@@ -15,7 +15,7 @@ display acl ipv6 name V6-IN
 
 established 只匹配 TCP ACK/RST 等控制位，任何符合字段的报文都可命中，不验证此前是否建立连接。应保留业务所需的邻居发现、错误与路径 MTU 报文，避免只放行 TCP 后导致 IPv6 控制报文中断。
 
-工作树真实 CLI 已确认 IPv6 permit-reflect 拒绝，普通动作显示为：
+IPv6 ACL使用permit或deny，不提供有状态放行动作。例如：
 
 ~~~text
 acl ipv6 name DOC6-STATELESS advance

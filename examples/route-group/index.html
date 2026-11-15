@@ -23,7 +23,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="uRPF 源地址检查" href="../urpf/" />
+    <link rel="next" title="uRPF" href="../urpf/" />
     <link rel="prev" title="静态路由" href="../static-route/" /> 
 </head>
 
@@ -71,7 +71,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../routing/">IP 路由</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../static-route/">静态路由</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">路由组</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../urpf/">uRPF 源地址检查</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../urpf/">uRPF</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
@@ -123,7 +123,7 @@
   <section id="id1">
 <span id="路由组"></span><h1>路由组<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <p><strong>目标</strong>：让两个目的前缀共用一个网关，后续增删成员时无需重复写下一跳。</p>
-<p><strong>前提</strong>：实验设备能直接到达 192.0.2.1，且目标前缀没有与本例冲突的同路径配置。</p>
+<p><strong>前提</strong>：示例设备能直接到达 192.0.2.1，且目标前缀没有与本例冲突的同路径配置。</p>
 <section id="id2">
 <span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
@@ -139,7 +139,7 @@ commit
 </section>
 <section id="id3">
 <span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-static</span> <span class="pre">group</span> <span class="pre">name</span> <span class="pre">LAB</span> <span class="pre">verbose</span></code> 检查成员，用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">routing-table-group</span> <span class="pre">name</span> <span class="pre">LAB</span> <span class="pre">verbose</span></code> 检查应用结果。再查询目标前缀和下一跳，并从实验网发起探测。</p>
+<p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-static</span> <span class="pre">group</span> <span class="pre">name</span> <span class="pre">LAB</span> <span class="pre">verbose</span></code> 检查成员，用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">routing-table-group</span> <span class="pre">name</span> <span class="pre">LAB</span> <span class="pre">verbose</span></code> 检查应用结果。再查询目标前缀和下一跳，并从示例网发起探测。</p>
 </section>
 <section id="id4">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
@@ -147,14 +147,14 @@ commit
 </section>
 <section id="id5">
 <span id="双栈外部列表与撤销"></span><h2>双栈外部列表与撤销<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
-<p>开发拓扑 P1/P2 的互连接口地址为 <code class="docutils literal notranslate"><span class="pre">198.19.80.1/30</span></code>、<code class="docutils literal notranslate"><span class="pre">.2/30</span></code>，IPv6 为 <code class="docutils literal notranslate"><span class="pre">2001:db8:80::1/64</span></code>、<code class="docutils literal notranslate"><span class="pre">::2/64</span></code>。P2 的 LoopBack199 配置 <code class="docutils literal notranslate"><span class="pre">198.18.199.2/32</span></code> 和 <code class="docutils literal notranslate"><span class="pre">2001:db8:199::2/128</span></code>。P1 上实验 HTTP 服务提供两个文件，每个文件只有对应的一个前缀；该服务是测试输入端，不是产品功能。</p>
+<p>两台 VortexROS 的 Ethernet0 直连，分别配置 198.19.80.1/30、.2/30 与 2001:db8:80::1/64、::2/64。P2 LoopBack199 配置 198.18.199.2/32、2001:db8:199::2/128。外部列表由独立的列表发布服务提供，分别包含这两个前缀；发布服务是数据来源，不是路由设备或本机手工启动的网络服务。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-static group name CLI-FINAL4
- source url http://127.0.0.1:8189/v4.txt insecure
+ source url https://lists.example.net/routes/v4.txt
  auto-refresh interval 5
  auto-refresh enable
  quit
 ipv6 route-static group name CLI-FINAL6
- source url http://127.0.0.1:8189/v6.txt insecure
+ source url https://lists.example.net/routes/v6.txt
  auto-refresh interval 5
  auto-refresh enable
  quit
@@ -163,7 +163,7 @@ ipv6 route-static-group CLI-FINAL6 2001:db8:80::2
 commit
 </pre></div>
 </div>
-<p>真实 CLI 进度分别显示 <code class="docutils literal notranslate"><span class="pre">complete</span> <span class="pre">16/16</span> <span class="pre">bytes,</span> <span class="pre">1</span> <span class="pre">entries</span></code>、<code class="docutils literal notranslate"><span class="pre">complete</span> <span class="pre">20/20</span> <span class="pre">bytes,</span> <span class="pre">1</span> <span class="pre">entries</span></code>。两个组的 verbose 均为 <code class="docutils literal notranslate"><span class="pre">Members:</span> <span class="pre">manual</span> <span class="pre">0</span> <span class="pre">external</span> <span class="pre">1</span> <span class="pre">effective</span> <span class="pre">1</span></code>，自动刷新为5分钟，应用状态为 applied。IPv4 探测2/2；IPv6 首次为1/2，随后稳定状态2/2，不将初次丢包改写为全程无损。</p>
+<p>将 URL 替换为实际可访问的列表地址，证书应有效。下载完成后，两组 verbose 应各有一个 external 成员，刷新周期为 5 分钟，应用状态为 applied；检查两族路由和到 LoopBack199 的探测。</p>
 <p>将来源改为手工维护时，在各组中撤销自动刷新和 URL，再加入同一前缀并提交：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-static group name CLI-FINAL4
  undo auto-refresh enable
@@ -183,7 +183,7 @@ commit
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../static-route/" class="btn btn-neutral float-left" title="静态路由" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../urpf/" class="btn btn-neutral float-right" title="uRPF 源地址检查" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../urpf/" class="btn btn-neutral float-right" title="uRPF" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

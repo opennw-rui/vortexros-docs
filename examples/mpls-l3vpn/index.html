@@ -123,7 +123,7 @@
 <h1>MPLS L3VPN<a class="headerlink" href="#mpls-l3vpn" title="链接到此标题。"></a></h1>
 <section id="id1">
 <span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 ─── P1 (PE) ─── P2 ─── P3 ─── P4 (PE) ─── CE4
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 ─── P1 (PE) ─── P2 ─── P3 ─── P4 (PE) ─── CE2
         1.1.1.1     2.2.2.2  3.3.3.3  4.4.4.4    ← LoopBack0
 </pre></div>
 </div>
@@ -136,28 +136,28 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>CE1—P1</p></td>
-<td><p>ce1p1：192.0.2.2/24</p></td>
-<td><p>host-p1ce1：192.0.2.1/24</p></td>
+<td><p>Ethernet0：192.0.2.2/24</p></td>
+<td><p>Ethernet1：192.0.2.1/24</p></td>
 </tr>
 <tr class="row-odd"><td><p>P1—P2</p></td>
-<td><p>host-p1p2：10.0.12.1/30</p></td>
-<td><p>host-p2p1：10.0.12.2/30</p></td>
+<td><p>Ethernet0：10.0.12.1/30</p></td>
+<td><p>Ethernet0：10.0.12.2/30</p></td>
 </tr>
 <tr class="row-even"><td><p>P2—P3</p></td>
-<td><p>host-p2p3：10.0.23.1/30</p></td>
-<td><p>host-p3p2：10.0.23.2/30</p></td>
+<td><p>Ethernet1：10.0.23.1/30</p></td>
+<td><p>Ethernet0：10.0.23.2/30</p></td>
 </tr>
 <tr class="row-odd"><td><p>P3—P4</p></td>
-<td><p>host-p3p4：10.0.34.1/30</p></td>
-<td><p>host-p4p3：10.0.34.2/30</p></td>
+<td><p>Ethernet1：10.0.34.1/30</p></td>
+<td><p>Ethernet0：10.0.34.2/30</p></td>
 </tr>
-<tr class="row-even"><td><p>P4—CE4</p></td>
-<td><p>host-p4ce4：198.51.100.1/24</p></td>
-<td><p>ce4p4：198.51.100.2/24</p></td>
+<tr class="row-even"><td><p>P4—CE2</p></td>
+<td><p>Ethernet1：198.51.100.1/24</p></td>
+<td><p>Ethernet0：198.51.100.2/24</p></td>
 </tr>
 </tbody>
 </table>
-<p>四台 VortexROS 都启用 VPP，接口名为隔离实验使用的 AF_PACKET 名称。P2/P3 只运行底层 OSPF 与 LDP。P1/P4 将客户接口放入 CUST-A，并通过 MP-BGP 发布 VPNv4 路由。两端 RD 不同，RT 均为 65000:100。下列 IPv4 配置已在独立拓扑逐行提交并验证。</p>
+<p>CE1、CE2、P1—P4 均运行 VortexROS。P1/P4 是 PE，将客户接口放入 CUST-A；P2/P3 只运行核心 OSPF 与 LDP，不持有客户路由。两端 RD 不同，RT 均为 65000:100。PE 与核心接口由 VPP 管理。</p>
 </section>
 <section id="id2">
 <span id="配置核心"></span><h2>配置核心<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
@@ -172,7 +172,7 @@ mpls ldp
 interface LoopBack0
  ip address 1.1.1.1 255.255.255.255
  quit
-interface host-p1p2
+interface Ethernet0
  ip address 10.0.12.1 255.255.255.252
  mpls
  mpls ldp
@@ -183,7 +183,7 @@ ospf 1 router-id 1.1.1.1
   network 10.0.12.1 0.0.0.0 description Core
   quit
  quit
-interface host-p1p2
+interface Ethernet0
  ospf network-type p2p
  quit
 commit
@@ -200,12 +200,12 @@ mpls ldp
 interface LoopBack0
  ip address 2.2.2.2 255.255.255.255
  quit
-interface host-p2p1
+interface Ethernet0
  ip address 10.0.12.2 255.255.255.252
  mpls
  mpls ldp
  quit
-interface host-p2p3
+interface Ethernet1
  ip address 10.0.23.1 255.255.255.252
  mpls
  mpls ldp
@@ -217,10 +217,10 @@ ospf 1 router-id 2.2.2.2
   network 10.0.23.1 0.0.0.0 description Core
   quit
  quit
-interface host-p2p1
+interface Ethernet0
  ospf network-type p2p
  quit
-interface host-p2p3
+interface Ethernet1
  ospf network-type p2p
  quit
 commit
@@ -237,12 +237,12 @@ mpls ldp
 interface LoopBack0
  ip address 3.3.3.3 255.255.255.255
  quit
-interface host-p3p2
+interface Ethernet0
  ip address 10.0.23.2 255.255.255.252
  mpls
  mpls ldp
  quit
-interface host-p3p4
+interface Ethernet1
  ip address 10.0.34.1 255.255.255.252
  mpls
  mpls ldp
@@ -254,10 +254,10 @@ ospf 1 router-id 3.3.3.3
   network 10.0.34.1 0.0.0.0 description Core
   quit
  quit
-interface host-p3p2
+interface Ethernet0
  ospf network-type p2p
  quit
-interface host-p3p4
+interface Ethernet1
  ospf network-type p2p
  quit
 commit
@@ -274,7 +274,7 @@ mpls ldp
 interface LoopBack0
  ip address 4.4.4.4 255.255.255.255
  quit
-interface host-p4p3
+interface Ethernet0
  ip address 10.0.34.2 255.255.255.252
  mpls
  mpls ldp
@@ -285,7 +285,7 @@ ospf 1 router-id 4.4.4.4
   network 10.0.34.2 0.0.0.0 description Core
   quit
  quit
-interface host-p4p3
+interface Ethernet0
  ospf network-type p2p
  quit
 commit
@@ -305,7 +305,7 @@ ip vpn-instance CUST-A
   vpn-target 65000:100 both
   quit
  quit
-interface host-p1ce1
+interface Ethernet1
  ip binding vpn-instance CUST-A
  ip address 192.0.2.1 255.255.255.0
  quit
@@ -337,7 +337,7 @@ ip vpn-instance CUST-A
   vpn-target 65000:100 both
   quit
  quit
-interface host-p4ce4
+interface Ethernet1
  ip binding vpn-instance CUST-A
  ip address 198.51.100.1 255.255.255.0
  quit
@@ -361,14 +361,27 @@ commit
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">import-route</span> <span class="pre">direct</span></code> 将 CUST-A 的直连前缀导出给其他 PE。真实部署若只允许指定子网，应加<a class="reference internal" href="../../operator/route-policy/"><span class="std std-doc">路由策略</span></a>。改接口的 VPN 归属会改变其路由表，不能直接用于现有管理口。</p>
 </section>
-<section id="ce1-ce4">
-<span id="ce1-和-ce4"></span><h3>CE1 和 CE4<a class="headerlink" href="#ce1-ce4" title="链接到此标题。"></a></h3>
-<p>在独立的 Linux 实验主机上执行。CE4 把接口改为 <code class="docutils literal notranslate"><span class="pre">ce4p4</span></code>，本地地址为 <code class="docutils literal notranslate"><span class="pre">198.51.100.2/24</span></code>，网关为 <code class="docutils literal notranslate"><span class="pre">198.51.100.1</span></code>。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>ce1p1<span class="w"> </span>up
-sudo<span class="w"> </span>ip<span class="w"> </span>addr<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.0.2.2/24<span class="w"> </span>dev<span class="w"> </span>ce1p1
-sudo<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span>default<span class="w"> </span>via<span class="w"> </span><span class="m">192</span>.0.2.1
+<section id="ce">
+<span id="ce-配置"></span><h3>CE 配置<a class="headerlink" href="#ce" title="链接到此标题。"></a></h3>
+<p>CE1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet0
+ ip address 192.0.2.2 255.255.255.0
+quit
+ip route-static 0.0.0.0 0.0.0.0 192.0.2.1
+commit
 </pre></div>
 </div>
+<p>CE2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet0
+ ip address 198.51.100.2 255.255.255.0
+quit
+ip route-static 0.0.0.0 0.0.0.0 198.51.100.1
+commit
+</pre></div>
+</div>
+<p>客户设备只配置接入地址和默认路由，不运行核心 OSPF、LDP 或运营商 MP-BGP。</p>
 </section>
 </section>
 <section id="id6">
@@ -380,20 +393,20 @@ display ip routing-table vpn-instance CUST-A
 display ip fib vpn-instance CUST-A
 </pre></div>
 </div>
-<p>实际输出节选：</p>
+<p>示例输出：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Peer ID          Address-Family  Transport Address                State         Uptime
 2.2.2.2          ipv4            2.2.2.2                          OPERATIONAL   00:00:27
 
 Routing Table : CUST-A
 Destination/Mask   Proto   Pre  Cost    Flags   NextHop         Interface       VPN-Instance
- 198.51.100.0/24   BGP     254  0         DT   4.4.4.4          host-p1p2       default
+ 198.51.100.0/24   BGP     254  0         DT   4.4.4.4          Ethernet0       default
 
 Destination/Mask      Type      Pre    Weight    Flags    NextHop      Interface     Lookup-Table
-198.51.100.0/24       normal    20     1         -        10.0.12.2    host-p1p2     -
+198.51.100.0/24       normal    20     1         -        10.0.12.2    Ethernet0     -
 </pre></div>
 </div>
-<p><strong>P2：</strong> <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">forwarding-table</span></code>，核对已安装的标签动作和出接口。实验中有指向 <code class="docutils literal notranslate"><span class="pre">10.0.23.2</span> <span class="pre">host-p2p3</span></code> 的 MPLS 路径。标签值由协议分配，不要求与样例相同。</p>
-<p><strong>CE1：</strong> <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">198.51.100.2</span></code>；<strong>CE4：</strong> <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">192.0.2.2</span></code>。实测双向各 3 发 3 收；CE1 对核心地址 10.0.23.1 的对照探测不可达。</p>
+<p><strong>P2：</strong> <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">forwarding-table</span></code>，核对已安装的标签动作和出接口。应有指向 <code class="docutils literal notranslate"><span class="pre">10.0.23.2</span> <span class="pre">Ethernet1</span></code> 的 MPLS 路径。标签值由协议分配，不要求与样例相同。</p>
+<p><strong>CE1：</strong> <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">198.51.100.2</span></code>；<strong>CE2：</strong> <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">192.0.2.2</span></code>。两端应各收到 3 个回复。客户不应通过 CUST-A 获得核心网段路由。</p>
 </section>
 <section id="id7">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id7" title="链接到此标题。"></a></h2>
@@ -407,9 +420,10 @@ bgp 65000
 commit
 </pre></div>
 </div>
-<p>P1 的 CUST-A 路由表实测不再包含 198.51.100.0/24。CE1 到 CE4 变为 3 发 0 收，P1 的 LDP 邻居仍为 <code class="docutils literal notranslate"><span class="pre">OPERATIONAL</span></code>。</p>
-<p>拆除整个实验时，两端都撤销客户路由发布，解除客户接口的地址与 VPN 绑定，删除专用 BGP VPN 地址族引用和 CUST-A。若底层也不再使用，先移除接口 LDP/MPLS，再关闭各台全局 LDP/MPLS。只清理本实验创建的对象。</p>
+<p>P1 的 CUST-A 路由表应不再包含 198.51.100.0/24。CE1 到 CE2 应不再可达，P1 的 LDP 邻居仍为 <code class="docutils literal notranslate"><span class="pre">OPERATIONAL</span></code>。</p>
+<p>拆除整个示例时，两端都撤销客户路由发布，解除客户接口的地址与 VPN 绑定，删除专用 BGP VPN 地址族引用和 CUST-A。若底层也不再使用，先移除接口 LDP/MPLS，再关闭各台全局 LDP/MPLS。只清理本示例创建的对象。</p>
 <p><a class="reference internal" href="../../operator/l3vpn/"><span class="std std-doc">MPLS L3VPN 指南</span></a> · <a class="reference internal" href="../../operator/ldp/"><span class="std std-doc">MPLS 与 LDP 指南</span></a></p>
+<p>在 CE1 撤销 ip route-static 0.0.0.0 0.0.0.0 192.0.2.1，在 CE2 撤销相同命令但下一跳为 198.51.100.1（命令前加 undo）。两端进入 Ethernet0 执行 undo ip address，再 commit。需要保留创建或撤销结果时，在各设备执行 save。</p>
 </section>
 </section>
 

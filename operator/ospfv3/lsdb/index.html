@@ -125,8 +125,8 @@
 <span id="lsdb-与撤销核对"></span><h1>LSDB 与撤销核对<a class="headerlink" href="#lsdb" title="链接到此标题。"></a></h1>
 <section id="id1">
 <span id="lsdb-的作用域"></span><h2>LSDB 的作用域<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ospfv3</span> <span class="pre">...</span> <span class="pre">lsdb</span></code> 按 Area、Area + Interface 和 AS External Database 分区。相同 Link State ID 可以合法地出现在不同作用域，不能全局去重。后端为同一个 LSA 的多个前缀生成多条摘要记录时，CLI 将同一作用域中的同一 LSA 显示一次；<code class="docutils literal notranslate"><span class="pre">Total</span> <span class="pre">LSAs</span></code> 统计 LSA，不统计它包含的前缀数。本轮多区域实际 CLI 为 29，与原生 JSON 中按作用域统计的 29 个身份一致。</p>
-<p>LSA Age 达到 3600 的记录可能正在冲刷，显示它不等于该外部前缀仍在转发表中。撤销验收同时查询协议路由和系统路由表。区域汇总、NSSA 在线切换及实际结果见<a class="reference internal" href="../../../examples/ospfv3/#nssa"><span class="std std-ref">多区域案例</span></a>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ospfv3</span> <span class="pre">...</span> <span class="pre">lsdb</span></code> 按 Area、Area + Interface 和 AS External Database 分区。相同 Link State ID 可以合法地出现在不同作用域，不能全局去重。后端为同一个 LSA 的多个前缀生成多条摘要记录时，CLI 将同一作用域中的同一 LSA 显示一次；<code class="docutils literal notranslate"><span class="pre">Total</span> <span class="pre">LSAs</span></code> 统计 LSA，不统计它包含的前缀数。查询时应按相同作用域比较LSA身份。</p>
+<p>LSA Age 达到 3600 的记录可能正在冲刷，显示它不等于该外部前缀仍在转发表中。撤销发布后，同时检查协议路由和系统路由表。区域汇总和NSSA配置见<a class="reference internal" href="../../../examples/ospfv3/#nssa"><span class="std std-ref">多区域案例</span></a>。</p>
 <p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/ospfv3/"><span class="std std-doc">命令参数</span></a></p>
 </section>
 </section>

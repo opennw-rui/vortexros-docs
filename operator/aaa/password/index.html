@@ -59,7 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../accounts/">创建与管理</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">首次改密与恢复</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../keys/">公钥与启停</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sessions/">会话管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sessions/">管理会话</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../bash/">Bash 与 sudo</a></li>
 </ul>
 </li>
@@ -150,7 +150,7 @@ sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w">
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Password changed and saved. Reconnect using the new password.
 </pre></div>
 </div>
-<p>已有包级验收在QEMU中验证了准备文件写入失败、chpasswd 失败和部分执行后失败的恢复，以及公钥登录、保存和控制服务重启。详见<a class="reference internal" href="../../../release/vortexros/"><span class="std std-doc">发布验证</span></a>。</p>
+<p>如改密后仍无法登录，先由另一管理会话检查账号活跃状态、角色及AAA告警；账号投影未完成时先处理告警，再使用新密码重新连接。</p>
 <p><a class="reference internal" href="../"><span class="std std-doc">角色与入口</span></a> · <a class="reference internal" href="../../reference/aaa/"><span class="std std-doc">命令参考</span></a></p>
 </section>
 

@@ -3,19 +3,19 @@
 ## 拓扑
 
 ~~~text
-CE1 ─── P1 (PE) ─── P2 ─── P3 ─── P4 (PE) ─── CE4
+CE1 ─── P1 (PE) ─── P2 ─── P3 ─── P4 (PE) ─── CE2
         1.1.1.1     2.2.2.2  3.3.3.3  4.4.4.4    ← LoopBack0
 ~~~
 
 | 链路 | 左端 | 右端 |
 | --- | --- | --- |
-| CE1—P1 | ce1p1：192.0.2.2/24 | host-p1ce1：192.0.2.1/24 |
-| P1—P2 | host-p1p2：10.0.12.1/30 | host-p2p1：10.0.12.2/30 |
-| P2—P3 | host-p2p3：10.0.23.1/30 | host-p3p2：10.0.23.2/30 |
-| P3—P4 | host-p3p4：10.0.34.1/30 | host-p4p3：10.0.34.2/30 |
-| P4—CE4 | host-p4ce4：198.51.100.1/24 | ce4p4：198.51.100.2/24 |
+| CE1—P1 | Ethernet0：192.0.2.2/24 | Ethernet1：192.0.2.1/24 |
+| P1—P2 | Ethernet0：10.0.12.1/30 | Ethernet0：10.0.12.2/30 |
+| P2—P3 | Ethernet1：10.0.23.1/30 | Ethernet0：10.0.23.2/30 |
+| P3—P4 | Ethernet1：10.0.34.1/30 | Ethernet0：10.0.34.2/30 |
+| P4—CE2 | Ethernet1：198.51.100.1/24 | Ethernet0：198.51.100.2/24 |
 
-四台 VortexROS 都启用 VPP，接口名为隔离实验使用的 AF_PACKET 名称。P2/P3 只运行底层 OSPF 与 LDP。P1/P4 将客户接口放入 CUST-A，并通过 MP-BGP 发布 VPNv4 路由。两端 RD 不同，RT 均为 65000:100。下列 IPv4 配置已在独立拓扑逐行提交并验证。
+CE1、CE2、P1—P4 均运行 VortexROS。P1/P4 是 PE，将客户接口放入 CUST-A；P2/P3 只运行核心 OSPF 与 LDP，不持有客户路由。两端 RD 不同，RT 均为 65000:100。PE 与核心接口由 VPP 管理。
 
 ## 配置核心
 
@@ -32,7 +32,7 @@ mpls ldp
 interface LoopBack0
  ip address 1.1.1.1 255.255.255.255
  quit
-interface host-p1p2
+interface Ethernet0
  ip address 10.0.12.1 255.255.255.252
  mpls
  mpls ldp
@@ -43,7 +43,7 @@ ospf 1 router-id 1.1.1.1
   network 10.0.12.1 0.0.0.0 description Core
   quit
  quit
-interface host-p1p2
+interface Ethernet0
  ospf network-type p2p
  quit
 commit
@@ -60,12 +60,12 @@ mpls ldp
 interface LoopBack0
  ip address 2.2.2.2 255.255.255.255
  quit
-interface host-p2p1
+interface Ethernet0
  ip address 10.0.12.2 255.255.255.252
  mpls
  mpls ldp
  quit
-interface host-p2p3
+interface Ethernet1
  ip address 10.0.23.1 255.255.255.252
  mpls
  mpls ldp
@@ -77,10 +77,10 @@ ospf 1 router-id 2.2.2.2
   network 10.0.23.1 0.0.0.0 description Core
   quit
  quit
-interface host-p2p1
+interface Ethernet0
  ospf network-type p2p
  quit
-interface host-p2p3
+interface Ethernet1
  ospf network-type p2p
  quit
 commit
@@ -97,12 +97,12 @@ mpls ldp
 interface LoopBack0
  ip address 3.3.3.3 255.255.255.255
  quit
-interface host-p3p2
+interface Ethernet0
  ip address 10.0.23.2 255.255.255.252
  mpls
  mpls ldp
  quit
-interface host-p3p4
+interface Ethernet1
  ip address 10.0.34.1 255.255.255.252
  mpls
  mpls ldp
@@ -114,10 +114,10 @@ ospf 1 router-id 3.3.3.3
   network 10.0.34.1 0.0.0.0 description Core
   quit
  quit
-interface host-p3p2
+interface Ethernet0
  ospf network-type p2p
  quit
-interface host-p3p4
+interface Ethernet1
  ospf network-type p2p
  quit
 commit
@@ -134,7 +134,7 @@ mpls ldp
 interface LoopBack0
  ip address 4.4.4.4 255.255.255.255
  quit
-interface host-p4p3
+interface Ethernet0
  ip address 10.0.34.2 255.255.255.252
  mpls
  mpls ldp
@@ -145,7 +145,7 @@ ospf 1 router-id 4.4.4.4
   network 10.0.34.2 0.0.0.0 description Core
   quit
  quit
-interface host-p4p3
+interface Ethernet0
  ospf network-type p2p
  quit
 commit
@@ -165,7 +165,7 @@ ip vpn-instance CUST-A
   vpn-target 65000:100 both
   quit
  quit
-interface host-p1ce1
+interface Ethernet1
  ip binding vpn-instance CUST-A
  ip address 192.0.2.1 255.255.255.0
  quit
@@ -197,7 +197,7 @@ ip vpn-instance CUST-A
   vpn-target 65000:100 both
   quit
  quit
-interface host-p4ce4
+interface Ethernet1
  ip binding vpn-instance CUST-A
  ip address 198.51.100.1 255.255.255.0
  quit
@@ -221,15 +221,31 @@ commit
 
 `import-route direct` 将 CUST-A 的直连前缀导出给其他 PE。真实部署若只允许指定子网，应加[路由策略](../operator/route-policy.md)。改接口的 VPN 归属会改变其路由表，不能直接用于现有管理口。
 
-### CE1 和 CE4
+### CE 配置
 
-在独立的 Linux 实验主机上执行。CE4 把接口改为 `ce4p4`，本地地址为 `198.51.100.2/24`，网关为 `198.51.100.1`。
+CE1：
 
-~~~bash
-sudo ip link set ce1p1 up
-sudo ip addr add 192.0.2.2/24 dev ce1p1
-sudo ip route add default via 192.0.2.1
+~~~text
+system-view
+interface Ethernet0
+ ip address 192.0.2.2 255.255.255.0
+quit
+ip route-static 0.0.0.0 0.0.0.0 192.0.2.1
+commit
 ~~~
+
+CE2：
+
+~~~text
+system-view
+interface Ethernet0
+ ip address 198.51.100.2 255.255.255.0
+quit
+ip route-static 0.0.0.0 0.0.0.0 198.51.100.1
+commit
+~~~
+
+客户设备只配置接入地址和默认路由，不运行核心 OSPF、LDP 或运营商 MP-BGP。
 
 ## 验证
 
@@ -242,7 +258,7 @@ display ip routing-table vpn-instance CUST-A
 display ip fib vpn-instance CUST-A
 ~~~
 
-实际输出节选：
+示例输出：
 
 ~~~text
 Peer ID          Address-Family  Transport Address                State         Uptime
@@ -250,15 +266,15 @@ Peer ID          Address-Family  Transport Address                State         
 
 Routing Table : CUST-A
 Destination/Mask   Proto   Pre  Cost    Flags   NextHop         Interface       VPN-Instance
- 198.51.100.0/24   BGP     254  0         DT   4.4.4.4          host-p1p2       default
+ 198.51.100.0/24   BGP     254  0         DT   4.4.4.4          Ethernet0       default
 
 Destination/Mask      Type      Pre    Weight    Flags    NextHop      Interface     Lookup-Table
-198.51.100.0/24       normal    20     1         -        10.0.12.2    host-p1p2     -
+198.51.100.0/24       normal    20     1         -        10.0.12.2    Ethernet0     -
 ~~~
 
-**P2：** `display mpls forwarding-table`，核对已安装的标签动作和出接口。实验中有指向 `10.0.23.2 host-p2p3` 的 MPLS 路径。标签值由协议分配，不要求与样例相同。
+**P2：** `display mpls forwarding-table`，核对已安装的标签动作和出接口。应有指向 `10.0.23.2 Ethernet1` 的 MPLS 路径。标签值由协议分配，不要求与样例相同。
 
-**CE1：** `ping -c 3 198.51.100.2`；**CE4：** `ping -c 3 192.0.2.2`。实测双向各 3 发 3 收；CE1 对核心地址 10.0.23.1 的对照探测不可达。
+**CE1：** `ping -c 3 198.51.100.2`；**CE2：** `ping -c 3 192.0.2.2`。两端应各收到 3 个回复。客户不应通过 CUST-A 获得核心网段路由。
 
 ## 撤销
 
@@ -274,8 +290,10 @@ bgp 65000
 commit
 ~~~
 
-P1 的 CUST-A 路由表实测不再包含 198.51.100.0/24。CE1 到 CE4 变为 3 发 0 收，P1 的 LDP 邻居仍为 `OPERATIONAL`。
+P1 的 CUST-A 路由表应不再包含 198.51.100.0/24。CE1 到 CE2 应不再可达，P1 的 LDP 邻居仍为 `OPERATIONAL`。
 
-拆除整个实验时，两端都撤销客户路由发布，解除客户接口的地址与 VPN 绑定，删除专用 BGP VPN 地址族引用和 CUST-A。若底层也不再使用，先移除接口 LDP/MPLS，再关闭各台全局 LDP/MPLS。只清理本实验创建的对象。
+拆除整个示例时，两端都撤销客户路由发布，解除客户接口的地址与 VPN 绑定，删除专用 BGP VPN 地址族引用和 CUST-A。若底层也不再使用，先移除接口 LDP/MPLS，再关闭各台全局 LDP/MPLS。只清理本示例创建的对象。
 
 [MPLS L3VPN 指南](../operator/l3vpn.md) · [MPLS 与 LDP 指南](../operator/ldp.md)
+
+在 CE1 撤销 ip route-static 0.0.0.0 0.0.0.0 192.0.2.1，在 CE2 撤销相同命令但下一跳为 198.51.100.1（命令前加 undo）。两端进入 Ethernet0 执行 undo ip address，再 commit。需要保留创建或撤销结果时，在各设备执行 save。

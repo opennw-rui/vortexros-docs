@@ -32,7 +32,7 @@ bgp 64512
   undo peer 192.0.2.2 keep-all-routes
 ```
 
-本次命令覆盖审计见[《BGP命令覆盖与后端映射》](../reference/commands.md)。FRR支持但VRP没有等价公开语义、或者尚未具备Candidate、撤销、持久化与权威回读闭环的命令不会仅因后端存在而自动开放。
+可用语法见[命令参考](../reference/bgp.md)。请通过VortexROS CLI配置BGP属性，不直接修改FRR配置。
 
 
 [会话与路由查询、精确撤销](queries.md) · [完整双端案例](../../examples/bgp.md) · [策略实际结果](../../examples/bgp-policy.md)

@@ -19,5 +19,4 @@ display ipv6 fib vpn-instance BLUE
 IPv6 输出中未匹配的路径字段可以省略。
 
 
-
 [功能目录](../routing-tables.md) · [命令参数](../reference/ip-routing.md)

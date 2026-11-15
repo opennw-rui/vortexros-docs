@@ -126,25 +126,29 @@
 <span id="静态-mac"></span><h1>静态 MAC<a class="headerlink" href="#mac" title="链接到此标题。"></a></h1>
 <section id="id1">
 <span id="拓扑和作用"></span><h2>拓扑和作用<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>本例把远端MAC固定到指定桥域出口，并关闭学习和未知单播泛洪，以便用流量区分“表项实际转发”和“只是泛洪可达”。实验复用开发服务器的隔离PE3与Linux端点，不涉及真机：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PE3 Vbdif777 192.0.2.1/24
+<p>本例把 CE1 的 MAC 固定到 PE1 的桥域出口，并关闭学习和未知单播泛洪。两台设备均运行 VortexROS。静态 MAC 决定二层出口，不创建 IP 路由或 ARP。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PE1 Vbdif777 192.0.2.1/24
   BD777 / VLAN777
-  host-p3docce ───── remote0 192.0.2.3/24
+  Ethernet0 ───── CE1 Ethernet0 192.0.2.3/24
                        MAC 92:28:40:07:45:9d
 </pre></div>
 </div>
 <p>静态MAC只决定二层目的MAC的出口，不创建IP路由或ARP。实际设备必须替换端口名和对端真实MAC；不能把示例MAC用于其他主机。</p>
 </section>
-<section id="linux">
-<span id="linux端点"></span><h2>Linux端点<a class="headerlink" href="#linux" title="链接到此标题。"></a></h2>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>remote0<span class="w"> </span>up
-ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.0.2.3/24<span class="w"> </span>dev<span class="w"> </span>remote0
+<section id="ce1">
+<h2>CE1<a class="headerlink" href="#ce1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet0
+ mac-address 9228-4007-459d
+ ip address 192.0.2.3 255.255.255.0
+quit
+commit
 </pre></div>
 </div>
-<p>实验端口已在独立网络命名空间中连通，若地址已存在不重复添加。VPP基础口和LCP应已建立；PE3开启switch。</p>
+<p>MAC 地址只用于本例，请勿在同一网络重复使用。</p>
 </section>
-<section id="pe3">
-<span id="pe3完整配置"></span><h2>PE3完整配置<a class="headerlink" href="#pe3" title="链接到此标题。"></a></h2>
+<section id="pe1">
+<span id="pe1完整配置"></span><h2>PE1完整配置<a class="headerlink" href="#pe1" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 enable switch
 vlan 777
@@ -152,7 +156,7 @@ quit
 bridge-domain 777 no-learn no-uu-flood
  l2 binding vlan 777
 quit
-interface host-p3docce
+interface Ethernet0
  portswitch
  port link-type access
  port default vlan 777
@@ -160,46 +164,45 @@ quit
 interface Vbdif 777
  ip address 192.0.2.1 255.255.255.0
 quit
-mac-address static 9228-4007-459d host-p3docce bridge-domain 777
+mac-address static 9228-4007-459d Ethernet0 bridge-domain 777
 commit
 display bridge-domain 777
 display mac-address bridge-domain 777
 ping -a 192.0.2.1 -c 3 192.0.2.3
 </pre></div>
 </div>
-<p>业务桥域777由模型映射为内部VPP桥域，不应手动依赖内部编号。出口必须属于本业务，跨VLAN端口会在配置校验时拒绝。关闭学习和未知单播泛洪会影响该域所有未知目的流量；本例是独占实验域，不应直接用在承载其他客户的桥域。</p>
+<p>业务桥域777由模型映射为内部VPP桥域，不应手动依赖内部编号。出口必须属于本业务，跨VLAN端口会在配置校验时拒绝。关闭学习和未知单播泛洪会影响该域所有未知目的流量；本例是独占示例域，不应直接用在承载其他客户的桥域。</p>
 </section>
 <section id="id2">
-<span id="真实结果"></span><h2>真实结果<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 777
   flood: on  uu-flood: off  forward: on  learn: off
   bvi: Vbdif777
   ports:
     Vbdif777         shg 0
-    host-p3docce     shg 0
+    Ethernet0     shg 0
 
 MAC Address       VLAN/VSI/BD                    Learned-From        Type
-02fe-ade9-8be5    -/-/777                        host-p3docce        static
-9228-4007-459d    -/-/777                        host-p3docce        static
-Total items displayed = 2
+9228-4007-459d    -/-/777                        Ethernet0        static
+Total items displayed = 1
 
 3 packets transmitted, 3 received, 0% packet loss
 </pre></div>
 </div>
-<p>运行时自动产生的本地项不应冒充用户静态配置。上面第二条为本例目标MAC。</p>
+<p>查询时应找到本例目标 MAC；设备可能还有其他本地项。</p>
 </section>
 <section id="id3">
 <span id="撤销对照"></span><h2>撤销对照<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo mac-address static 9228-4007-459d host-p3docce bridge-domain 777
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo mac-address static 9228-4007-459d Ethernet0 bridge-domain 777
 commit
 display mac-address bridge-domain 777
 ping -a 192.0.2.1 -c 3 192.0.2.3
 </pre></div>
 </div>
-<p>真实查询只剩本地项，目标MAC不再存在；探测3发0收。由于学习和未知单播泛洪仍关闭，这次失败证明原可达性依赖该静态出口，不能将删除后的失败当作产品故障。</p>
+<p>目标 MAC 应不再存在。由于学习和未知单播泛洪仍关闭，目标单播出口消失后探测应失败。</p>
 <p>最后撤销本例独占对象：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Vbdif 777
-interface host-p3docce
+interface Ethernet0
  undo portswitch
 quit
 undo bridge-domain 777
@@ -210,7 +213,7 @@ display health
 save
 </pre></div>
 </div>
-<p>真实撤销后display bridge-domain 777显示(no bridge-domain)，健康ready、Running/Actual=6/6、零告警；save应答Y并保存成功。已有其他业务时，只撤本例新增项，保留共享接口和交换全局设置。</p>
+<p>撤销后桥域应不存在，健康应恢复 ready。CE1 在 Ethernet0 撤销本例 IP 和 MAC 配置，再提交；各设备按需 save。共享交换设置及其他业务应保留。</p>
 <p><a class="reference internal" href="../../operator/mac-table/"><span class="std std-doc">MAC功能</span></a> · <a class="reference internal" href="../../operator/reference/bridge-domains/"><span class="std std-doc">桥域参数</span></a></p>
 </section>
 </section>

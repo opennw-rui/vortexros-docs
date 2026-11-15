@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NAT 回流 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+  <title>Hairpin &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -80,7 +80,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../dnat/">DNAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../twice/">Twice NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../no-nat/">No-NAT</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">NAT 回流</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Hairpin</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../services/">网络服务</a></li>
@@ -117,7 +117,7 @@
       <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../">配置案例</a></li>
           <li class="breadcrumb-item"><a href="../">NAT</a></li>
-      <li class="breadcrumb-item active">NAT 回流</li>
+      <li class="breadcrumb-item active">Hairpin</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -126,56 +126,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="nat">
-<span id="nat-回流"></span><h1>NAT 回流<a class="headerlink" href="#nat" title="链接到此标题。"></a></h1>
+  <section id="hairpin">
+<h1>Hairpin<a class="headerlink" href="#hairpin" title="链接到此标题。"></a></h1>
 <section id="id1">
-<span id="拓扑和前置配置"></span><h2>拓扑和前置配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>沿用<a class="reference internal" href="../topology/"><span class="std std-doc">基础拓扑</span></a>，先完成<a class="reference internal" href="../twice/"><span class="std std-doc">Twice NAT</span></a>案例，包括 P1 WAN 发布规则和 LAN 的 <code class="docutils literal notranslate"><span class="pre">LAB-LAN-PASS</span></code> 入方向状态处理。P3 既是内部客户端，也是监听 8081 的内网服务。P2 的外部访问应已成功。</p>
-<p>本例只增加回流开关，不重新复制整份发布策略：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-nat-policy hairpin enable
-nat-policy name LAB-DNAT
- hairpin enable
-quit
-commit
-</pre></div>
-</div>
+<span id="用途与前提"></span><h2>用途与前提<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>内侧设备通过发布地址访问内侧服务，流量在 NAT 网关折返。先完成<a class="reference internal" href="../topology/"><span class="std std-doc">基础拓扑</span></a>及 <a class="reference internal" href="../twice/"><span class="std std-doc">Twice NAT</span></a>。Twice NAT 同时转换源地址，确保回包经过网关，不能只配置目的地址转换。</p>
 </section>
 <section id="id2">
-<span id="访问与验证"></span><h2>访问与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>在 P3 的 Linux Bash 发起新连接：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>--noproxy<span class="w"> </span><span class="s1">'*'</span><span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://198.19.80.1:18080/
-</pre></div>
-</div>
-<p>在 P1 查询：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions hairpin enable
-display nat-policy runtime
-</pre></div>
-</div>
-<p>已有真实 CLI 输出节选：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>host-p1q13/inbound  FIB:0 -&gt; FIB:0  Policy:LAB-DNAT(2572252004)/10  Action:TWICE-NAT  Mode:hairpin
-198.18.11.2:57680 -&gt; 198.19.80.1:18080  =&gt;  198.18.11.1:57680 -&gt; 198.18.11.2:8081
-</pre></div>
-</div>
-<p>实际 HTTP 200，回包通过状态恢复为客户端访问的发布地址。只有看到会话不足以证明 HTTP 成功，两项证据需要一起判断。</p>
-</section>
-<section id="id3">
-<span id="关闭对照和撤销"></span><h2>关闭对照和撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-nat-policy name LAB-DNAT
- undo hairpin enable
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>P1 在系统视图启用全局及策略 hairpin，并把策略绑定到内侧入方向：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy hairpin enable
+nat-policy name LAB-TWICE
+ hairpin enable
 quit
-undo nat-policy hairpin enable
+interface Ethernet1
+ nat-policy LAB-TWICE inbound
+quit
 commit
 </pre></div>
 </div>
-<p>再发起新的 HTTP 连接，原实验中新连接失败。已有连接可能继续工作，不能用它判断关闭无效。若要主动删除实验会话：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>clear nat-policy sessions name LAB-DNAT
-display nat-policy sessions name LAB-DNAT
+<p>若该方向已绑定 LAB-LAN-PASS，先解除原绑定。匹配条件应包括来自内侧、目的为 198.19.81.1 的报文；不要把规则源地址限定为外侧 P2。</p>
+</section>
+<section id="id3">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>P3 执行 ping -a 198.18.11.2 -c 3 198.19.81.1，P1 执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions action twice-nat
+display nat-policy statistics name LAB-TWICE
+display nat-policy interfaces
 </pre></div>
 </div>
-<p>清会话会中断对应业务，不应用于生产故障的无差别试探。最后按 Twice NAT 案例解除接口绑定、删除两份策略；需要保留修改时执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
-<p><a class="reference internal" href="../../../operator/nat/hairpin/"><span class="std std-doc">功能和范围</span></a></p>
+<p>核对目的从发布地址变为 198.18.11.2，源变为网关内侧地址，回包也经过 NAT。ICMP 仅验证折返地址转换；服务端口发布需按 DNAT 页另用相应业务检查。</p>
+</section>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>先解除 Ethernet1 的 LAB-TWICE 入方向绑定，策略下执行 undo hairpin enable；不再有其他折返业务时执行全局 undo nat-policy hairpin enable。按 Twice NAT 页撤销其余对象并提交。需要保留的其他 NAT 业务不可随本例删除；最后按需 save。</p>
 </section>
 </section>
 

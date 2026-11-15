@@ -141,7 +141,7 @@ display interface Vbdif 11
 <section id="mtu">
 <span id="控制网桥-mtu"></span><h2>控制网桥 MTU<a class="headerlink" href="#mtu" title="链接到此标题。"></a></h2>
 <p>Linux 控制网桥用于 LCP/FRR 的二层状态投影，普通业务仍由 VPP 转发。网桥 MTU 按受管端口所需的最大值设置，不因另一个成员使用较小 MTU 或变为 Down 而自动压低；这不表示小 MTU 端口能够转发超过自身能力的报文。实际业务仍受出口 MTU、封装开销与路径 MTU 限制。</p>
-<p>EVPN 的 Linux VLAN 端点与控制网桥应保持一致的 MTU。更改端口或重新应用相同配置不应短暂缩小已有端点。开发服务器已验证 9000/1500 混合成员、较大成员降至1500/Down、重复投影，以及携带既有 EVPN VNI 的真实 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">vpp</span></code>。最终网桥和 EVPN 端点均为9000；这些结果不构成满 MTU 吞吐保证。</p>
+<p>为EVPN业务规划MTU时，应同时考虑接入口、底层接口和VXLAN封装开销。控制网桥不会因较小成员的状态变化而自动压低目标MTU，但报文仍受实际出口和路径MTU限制。</p>
 </section>
 </section>
 

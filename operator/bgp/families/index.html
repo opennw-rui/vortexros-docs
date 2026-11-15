@@ -164,7 +164,7 @@
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">detail-suppressed</span></code>只发布聚合路由；<code class="docutils literal notranslate"><span class="pre">as-set</span></code>保留组成路由的AS信息。显式使用<code class="docutils literal notranslate"><span class="pre">as-set</span></code>时，系统会同步调整该BGP实例的后端AS_SET接收模式，使配置不会被FRR静默忽略。两项均未配置时，聚合路由与组成路由同时发布。</p>
 <section id="vpn-target">
-<span id="vpn-target-实测"></span><h2>VPN-Target 实测<a class="headerlink" href="#vpn-target" title="链接到此标题。"></a></h2>
+<span id="vpn-target过滤"></span><h2>VPN-Target过滤<a class="headerlink" href="#vpn-target" title="链接到此标题。"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code> 是产品默认行为，配置中省略；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">policy</span> <span class="pre">vpn-target</span></code> 保留传输地址族收到的全部 VPN 路由，适用于明确需要此行为的 RR/中转场景。它不替代业务 VPN 的 import/export RT。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
  ipv4-family vpnv4
@@ -178,7 +178,7 @@ commit
 display current-configuration configuration bgp
 </pre></div>
 </div>
-<p>本轮两族切换均由真实 CLI 提交成功。FRR 的默认值是 retain-all，因此原生配置可能连空地址族一起省略；不能仅因缺少 <code class="docutils literal notranslate"><span class="pre">bgp</span> <span class="pre">retain</span> <span class="pre">route-target</span> <span class="pre">all</span></code> 文本就判断下发失败。控制层回读仍拒绝相反的显式过滤值和缺失的 BGP 进程。恢复产品缺省值时在相应地址族执行 <code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code> 并提交；产品配置再次省略默认行。</p>
+<p>关闭VPN-Target过滤会保留更广的VPN路由，可能增加路由数量。恢复默认时，在对应地址族执行<code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code>并提交；默认行随后从当前配置省略。请结合VPN路由查询确认实际导入范围。</p>
 <p><a class="reference internal" href="../queries/"><span class="std std-doc">会话与路由查询、精确撤销</span></a> · <a class="reference internal" href="../../../examples/bgp/"><span class="std std-doc">完整双端案例</span></a> · <a class="reference internal" href="../../../examples/bgp-policy/"><span class="std std-doc">策略实际结果</span></a></p>
 </section>
 </section>

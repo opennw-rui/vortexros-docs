@@ -135,12 +135,12 @@ display current-configuration
 <strong>输出说明</strong>：<code class="docutils literal notranslate"><span class="pre">VortexROS</span></code>段用于确认产品版本、源码提交和构建时间；<code class="docutils literal notranslate"><span class="pre">System</span></code>段显示主机、内核、平台、序列号、CPU和内存；<code class="docutils literal notranslate"><span class="pre">VPP</span></code>、<code class="docutils literal notranslate"><span class="pre">DPDK</span></code>及<code class="docutils literal notranslate"><span class="pre">FRRouting</span></code>段来自当前运行组件。字段无法读取时显示<code class="docutils literal notranslate"><span class="pre">-</span></code>或<code class="docutils literal notranslate"><span class="pre">unavailable</span></code>，不以猜测值替代。
 <strong>使用建议</strong>：升级、故障上报和兼容性核对时应保存完整输出；不要只根据登录横幅判断所有后端已经收敛。</p>
 <p>命令错误只显示一次错误位置和原因，不重复回显整条命令，也不会附加与用户无关的内部读取错误。</p>
-<p>自动化安装、升级和发布验收必须使用严格健康检查，而不是把 systemd
+<p>自动化安装和升级必须使用严格健康检查，而不是把 systemd
 <code class="docutils literal notranslate"><span class="pre">READY=1</span></code> 或 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health</span></code> 的可读输出当作已经收敛：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>health check --wait --timeout 2m --json
 </pre></div>
 </div>
-<p>该命令仅在 Running/Actual generation一致、reconcile为<code class="docutils literal notranslate"><span class="pre">in-sync</span></code>、没有活动告警且所有必需VPP API组可用时返回0。<code class="docutils literal notranslate"><span class="pre">--timeout</span></code>会自动启用等待；超时或未收敛返回非零。<code class="docutils literal notranslate"><span class="pre">--json</span></code>只输出一次最终快照，适合作为安装程序的稳定接口。</p>
+<p>该命令仅在 Running/Actual generation一致、reconcile为<code class="docutils literal notranslate"><span class="pre">in-sync</span></code>、没有活动告警且所有必需VPP API组可用时返回0。<code class="docutils literal notranslate"><span class="pre">--timeout</span></code>会自动启用等待；超时或未收敛返回非零。<code class="docutils literal notranslate"><span class="pre">--json</span></code>只输出一次最终快照，可用于运维系统读取结果。</p>
 <p><a class="reference internal" href="../../09-operations/"><span class="std std-doc">目录</span></a></p>
 </section>
 </section>

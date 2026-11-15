@@ -151,7 +151,7 @@ undo ipv6 neighbor 2001:db8:10::2 02:11:22:33:44:55 interface Vlanif10
 commit
 </pre></div>
 </div>
-<p>多播、未指定IPv6地址，多播或全零MAC，以及二层或控制型接口都会在提交前被拒绝。提交后的静态项由Linux后端写入对应LCP接口，再由LCP同步至VPP；接口重建时按同一路径恢复，不再由VPP后端重复写入。动态邻居只属于运行态，不会写入配置。</p>
+<p>多播、未指定IPv6地址，多播或全零MAC，以及二层或控制型接口都会在提交前被拒绝。静态项在提交后生效，接口重建时按已保存意图恢复。动态邻居只属于运行态，不会写入配置。</p>
 <p>静态ARP只接受可用IPv4单播地址和六字节单播MAC；全零、组播或广播映射会在提交前拒绝。</p>
 <p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/neighbors/"><span class="std std-doc">命令参数</span></a></p>
 </section>

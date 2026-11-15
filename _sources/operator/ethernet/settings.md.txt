@@ -35,5 +35,4 @@ interface LoopBack 0
 | 精确undo | 删除对应叶 | 恢复默认/撤销地址 | display及转发验证 |
 
 
-
 [功能目录](../ethernet.md) · [逐条参数](../reference/interfaces.md)

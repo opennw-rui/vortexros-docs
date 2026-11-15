@@ -10,4 +10,4 @@ IPv6 源前缀，该前缀在这里对应路由目的前缀。已引用的 ACL �
 `undo offset-list in interface <接口>` 撤销，提交后在 RIPng 路由表核对度量。
 
 
-[完整双端案例与实测](../../examples/ripng.md) · [参数参考](../reference/ripng.md)
+[完整双端案例](../../examples/ripng.md) · [参数参考](../reference/ripng.md)

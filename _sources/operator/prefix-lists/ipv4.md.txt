@@ -19,7 +19,7 @@ display ip ip-prefix PL-IN verbose
 display ip ip-prefix PL-IN first-match 10.1.0.0/16
 ~~~
 
-[案例的真实 display、报文或路由结果](../../examples/bgp-policy.md)与本节功能相互对应。该功能片段是参数说明，不将这里的演示地址冒充另一组已经执行的输出。对照配置、后端实际状态和业务三者，不能只看commit返回。
+[完整配置、检查与撤销](../../examples/bgp-policy.md)；本节说明单项参数，完整组网请按案例的前置条件执行。
 
 ## 撤销
 

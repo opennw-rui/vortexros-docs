@@ -1,111 +1,132 @@
 # DHCPv6 中继
 
-本例记录开发服务器真实隔离拓扑的接口形式中继：客户端请求被转发到服务器组 `ff05::1:3`。它与同链路 `ff02::1:2` 不同；强行替换成后者会让中继接收到自己的上行请求。
-
 ## 拓扑与前提
 
-```text
-客户端 cli-r4
-  │ 客户端链路 2001:db8:11::/64
-P1 host-p1q13 2001:db8:11::1
-P1 host-p1e12 2001:db8:12::1 ─── P2 host-p2e12 2001:db8:12::2 / Kea
-P1 host-p1a12 2001:db8:80::1 ─── P2 host-p2a12 2001:db8:80::2
-                                     回程静态路由走此链路
-```
+三台设备均运行 VortexROS。CE1 是客户端，P1 是中继，P2 使用配套 DHCPv6 服务端。服务器在上行链路，分配的地址属于客户端链路。
 
-这是 VPP/LCP 拓扑。P2 是路由器及 Linux Kea 测试服务器，后者是明确的互通对端，不是另一套 VortexROS 池配置。客户端使用真实 DHCPv6 请求。测试网关的既有策略必须允许这些地址的 DHCPv6、ICMPv6 和回程报文。
+~~~text
+CE1 Ethernet0 ── Ethernet1 P1 Ethernet0 ── Ethernet0 P2
+  DHCPv6        2001:db8:11::1/64
+                             2001:db8:12::1/64  2001:db8:12::2/64
+客户端地址池: 2001:db8:11::/64
+~~~
 
-接口形式中继需要服务器实际加入并监听 `ff05::1:3`。本次配套 Kea 3.0.3 包包含上游 [b503d225](https://github.com/isc-projects/kea/commit/b503d22521864f19d72a851c58e08a1e1eba2030) 的完整修复，包括组成员和服务器监听 Socket 两部分。只加入组而未创建监听 Socket 不能接收请求。明确服务器地址的中继则不依赖该组播监听条件。
+本例使用指定服务器地址的单播中继。所有接口应有可用链路本地地址，路径须允许 DHCPv6 和 ICMPv6；不需要手工启动 Kea 或编辑其配置文件。
 
-## P1 配置
+## P1：中继
 
-```text
+~~~text
 system-view
-interface host-p1q13
+interface Ethernet1
  ipv6 address 2001:db8:11::1 64
- dhcpv6 relay interface host-p1e12
- quit
-interface host-p1e12
+ dhcpv6 relay destination 2001:db8:12::2
+quit
+interface Ethernet0
  ipv6 address 2001:db8:12::1 64
- quit
-interface host-p1a12
- ipv6 address 2001:db8:80::1 64
- quit
+quit
 commit
+~~~
+
+中继不需要 enable dhcp server；客户口与上行必须具备正确的 VPN 归属和到服务器的路由。上行直连 2001:db8:12::/64 可提供本例路径。接口形式的服务器组说明见[中继参数](../operator/dhcp/relay.md)。
+
+## P2：服务器
+
+~~~text
+system-view
+enable dhcp server
+dhcpv6 pool RELAY6
+ address prefix 2001:db8:11::/64 life-time 3600 1800
+ dns-server 2001:db8::53
+quit
+interface Ethernet0
+ ipv6 address 2001:db8:12::2 64
+ dhcpv6 server RELAY6
+quit
+ipv6 route-static 2001:db8:11:: 64 Ethernet0 2001:db8:12::1
+commit
+~~~
+
+地址池前缀必须与中继客户链路一致，不能误用服务器上行口的前缀。到客户链路的静态路由用于分配后的业务回程。
+
+## CE1：客户端
+
+~~~text
+system-view
+interface Ethernet0
+ ipv6 address auto dhcp
+quit
+commit
+~~~
+
+DHCPv6 不提供默认网关，所获地址通常为 /128。先在 P1 用 display interface Ethernet1 读取当前链路本地地址，再在 CE1 配置到网关及服务器网段的路由。以下以 fe80::fe:72ff:feac:d1ee 为例，必须替换成 P1 当前值，不能使用重建接口前的旧值：
+
+~~~text
+ipv6 route-static 2001:db8:11:: 64 Ethernet0 fe80::fe:72ff:feac:d1ee
+ipv6 route-static 2001:db8:12:: 64 Ethernet0 fe80::fe:72ff:feac:d1ee
+commit
+~~~
+
+仅地址分配成功不代表默认路由或其他业务路由已经具备。
+
+## 验证
+
+CE1：
+
+~~~text
+display dhcpv6 client interface Ethernet0
+display ipv6 interface brief
+~~~
+
+P1：
+
+~~~text
 display dhcpv6 relay
 display dhcp service verbose
-```
+~~~
 
-上行接口必须已存在且具备可用 IPv6 链路本地地址。中继无需启用全局 DHCP 服务端开关；它不为客户端自动安装默认网关，终端需要 RA 或明确路由。
+P2：
 
-## P2 与服务器
+~~~text
+display dhcpv6 pool name RELAY6 used
+display dhcpv6 pool name RELAY6 verbose
+~~~
 
-VortexROS 路由配置：
+应看到中继处于运行状态，客户端取得 2001:db8:11::/64 内的地址，服务器租约中的 DUID、IAID 和地址与客户端相符。正常空池应显示零租约，不是查询失败。
 
-```text
+客户端和服务器的对应租约示例：
+
+~~~text
+Interface  Address-Family  Role    Pool/Servers  VPN-Instance  State    Address                Delegated-Prefix
+Ethernet0  IPv6            client                default       running  2001:db8:11::16/128    -
+
+Index  Pool    IPv6 Address/Prefix   Type   Lease  Status
+0      RELAY6  2001:db8:11::16/128   IA_NA  3586s  used
+Total: 1
+~~~
+
+取得地址并完成 DAD 后，CE1 使用实际地址作为源，分别 Ping 2001:db8:11::1 与 2001:db8:12::2，确认客户链路和跨中继路由。初次探测可能等待邻居解析；持续不通时检查实际链路本地下一跳，而不是重复续租。
+
+~~~text
+ping ipv6 -a 2001:db8:11::16 -c 3 2001:db8:12::2
+~~~
+
+示例输出：
+
+~~~text
+3 packets transmitted, 3 received, 0% packet loss
+~~~
+
+## 撤销
+
+先在 CE1 Ethernet0 执行 undo ipv6 address auto dhcp，并撤销上面两条静态路由（命令前加 undo，下一跳使用自己配置的值），提交以停止申请。P1 撤销中继：
+
+~~~text
 system-view
-interface host-p2e12
- ipv6 address 2001:db8:12::2 64
- quit
-interface host-p2a12
- ipv6 address 2001:db8:80::2 64
- quit
-ipv6 route-static 2001:db8:11:: 64 host-p2a12 2001:db8:80::1
-commit
-```
-
-Linux Kea 对端使用以下配置，保存为 `/etc/kea/relay-lab6.json`。接口和地址必须与本机实际环境一致：
-
-```json
-{
-  "Dhcp6": {
-    "interfaces-config": {"interfaces": ["host-p2e12/2001:db8:12::2"]},
-    "lease-database": {"type": "memfile", "persist": false},
-    "valid-lifetime": 3600,
-    "preferred-lifetime": 1800,
-    "subnet6": [{
-      "id": 1406,
-      "subnet": "2001:db8:11::/64",
-      "pools": [{"pool": "2001:db8:11::100 - 2001:db8:11::110"}],
-      "option-data": [{"name": "dns-servers", "data": "2001:db8::53"}]
-    }]
-  }
-}
-```
-
-在该网络命名空间启动服务器：
-
-```sh
-kea-dhcp6 -t /etc/kea/relay-lab6.json
-kea-dhcp6 -c /etc/kea/relay-lab6.json
-```
-
-若在同一实验主机使用命名空间，在命令前添加实际的 `ip netns exec`。不要在已有托管 DHCPv6 服务的同一接口再启动第二个服务器；这里的独立进程仅是互通测试对端。
-
-## 实际结果
-
-本次客户端 MAC 为 `0200-0014-0401`，获得 `2001:db8:11::101`，有效期 3600 秒。抓包观察到：
-
-```text
-Relay-forward: P1 upstream -> ff05::1:3, Request
-Relay-reply: P2 -> P1 upstream, Reply
-Client address: 2001:db8:11::101
-```
-
-服务器存在 `ff05::1:3:547` 监听；没有嵌套自循环的 Relay-forward。为流量测试将客户端取得的地址应用到实验终端后，稳定拓扑的一次端到端探测为 1 sent、1 received。五个采集点记录了请求走 e12、回包走 a12 并送达客户端的完整路径。这证明该次租约及往返路径，不是吞吐或全部中继组合的保证。
-
-早期拓扑重建期间的流量失败没有被算作通过；当前记录中的 DHCP 成功、组播监听与实际转发是分别取得的证据。
-
-## 撤销与保存
-
-在 P1：
-
-```text
-interface host-p1q13
- undo dhcpv6 relay interface host-p1e12
- quit
+interface Ethernet1
+ undo dhcpv6 relay destination 2001:db8:12::2
+quit
 commit
 display dhcpv6 relay
-```
+~~~
 
-实际撤销后中继单元停止，新的客户端请求未取得租约。已取得地址的旧客户端可能继续使用剩余租期，因此仅看旧客户端保留地址不能判断撤销失败。测试结束后停止独立 Kea 服务器，删除不再使用的实验地址、路由；需要持久保留或撤销配置时执行 `save`。
+P2 先解除 Ethernet0 的 dhcpv6 server 绑定，再删除 RELAY6；用相应 undo 命令撤销专用静态路由和接口地址。P1 同样撤销本例地址。提交后检查中继和池均不再存在，各设备按需 save。客户端原地址可能在租期内保留，不能仅凭旧地址仍存在判断中继未撤销。

@@ -2,7 +2,7 @@
 
 ## 拓扑与用途
 
-服务器 P2 的 `host-p2r12` 与客户端 P1 的 `host-p1r12` 直接相连，地址段为 `172.20.15.0/24`。服务器接口属于 `DHCP-EMPTY` VPN 实例，客户端接口属于本机的 `CLI-UNDER` 实例。两个名称是各节点的本地路由域，不要求相同。本例使用开发服务器的隔离接口名，部署时换成实际接口。
+服务器 P2 的 `Ethernet0` 与客户端 P1 的 `Ethernet0` 直接相连，地址段为 `172.20.15.0/24`。服务器接口属于 `DHCP-EMPTY` VPN 实例，客户端接口属于本机的 `CLI-UNDER` 实例。两个名称是各节点的本地路由域，不要求相同。两端均使用 VortexROS 配置服务和客户端。
 
 服务器采用全局地址池，指定分配范围、排除地址、固定绑定、网关、DNS、域名和一小时租期。客户端动态安装地址；学习到的路由是否安装，由客户端路由开关控制。DNS 选项不会改写 Linux 系统解析配置。
 
@@ -26,7 +26,7 @@ ip pool CLI-LAN
  domain-name cli.example
  lease day 0 hour 1
  quit
-interface host-p2r12
+interface Ethernet0
  ip binding vpn-instance DHCP-EMPTY
  ip address 172.20.15.1 255.255.255.0
  dhcp select global
@@ -42,7 +42,7 @@ P1：
 system-view
 ip vpn-instance CLI-UNDER
  quit
-interface host-p1r12
+interface Ethernet0
  ip binding vpn-instance CLI-UNDER
  ip address dhcp-alloc
  quit
@@ -51,20 +51,20 @@ commit
 
 先绑定 VPN 实例，再配置地址或客户端。修改绑定会清除接口的原地址配置。两个 VPN 实例均使用各自默认的 IPv4 地址族；需要接入已有实例时，不重复创建。
 
-## 实际结果
+## 验证
 
 ```text
 display dhcp service verbose
 display ip pool name CLI-LAN verbose
-display ip pool interface host-p2r12 verbose
+display ip pool interface Ethernet0 verbose
 ```
 
 在空租约库时，查询成功并显示 `Used 0`；客户端获取地址后，全局池显示 `Used 1`。即使接口保留了未启用的旧接口池配置，租约仍归属当前启用的全局池，接口池查询不重复计数。
 
-客户端实际取得 `172.20.15.110/24`，服务器为 `172.20.15.1`，租期为 `3600` 秒。底层 Kea 租约列表同时有该条记录。客户端真实 CLI：
+客户端取得的地址、服务器和租期应与地址池相符。以下为客户端示例输出：
 
 ```text
-display dhcp client interface host-p1r12
+display dhcp client interface Ethernet0
 ping -vpn-instance CLI-UNDER -a 172.20.15.110 -c 3 172.20.15.1
 ```
 
@@ -75,7 +75,7 @@ ping -vpn-instance CLI-UNDER -a 172.20.15.110 -c 3 172.20.15.1
 若每个接口只需要一个地址池，可在已配置地址的接口下使用：
 
 ```text
-interface host-p2r12
+interface Ethernet0
  dhcp select interface
  dhcp server ip-range 172.20.15.100 172.20.15.120
  dhcp server gateway-list 172.20.15.1
@@ -95,7 +95,7 @@ P1 停用客户端：
 
 ```text
 system-view
-interface host-p1r12
+interface Ethernet0
  undo ip address dhcp-alloc
  quit
 commit
@@ -105,11 +105,11 @@ P2 停用服务并删除全局池：
 
 ```text
 system-view
-interface host-p2r12
+interface Ethernet0
  undo dhcp select
  quit
 undo ip pool CLI-LAN
 commit
 ```
 
-本轮实际撤销后，相关客户端和服务端进程停止，成功的池及服务查询均为空；客户端动态地址、动态路由已撤销。保留接口本身的静态地址及 VPN 配置，不将它们当作 DHCP 自动清理对象。若其他接口仍提供 DHCP，保留全局开关；全部不再使用时再 `undo enable dhcp server` 并提交、保存。
+撤销后查询客户端、池和服务状态，确认本例绑定、动态地址及动态路由已移除。静态地址和 VPN 配置是独立对象，不随 DHCP 自动删除。其他接口仍提供 DHCP 时保留全局开关，否则再 undo enable dhcp server、提交并保存。

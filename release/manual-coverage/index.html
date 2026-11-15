@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>手册覆盖 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+  <title>手册适用范围 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -23,7 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="prev" title="CLI 实测记录" href="../cli-validation/" /> 
+    <link rel="next" title="性能参考" href="../performance/" />
+    <link rel="prev" title="版本能力与限制" href="../cli-validation/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -71,9 +72,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../vortexros/">VortexROS 0.29-dev</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vpp/">配套 VPP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../frr/">配套 FRR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../performance/">性能测试</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli-validation/">CLI 实测记录</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">手册覆盖</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli-validation/">版本能力与限制</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">手册适用范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/">性能参考</a></li>
 </ul>
 </li>
 </ul>
@@ -100,8 +101,8 @@
           <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
       <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../">发布与验证</a></li>
-      <li class="breadcrumb-item active">手册覆盖</li>
+          <li class="breadcrumb-item"><a href="../">版本说明</a></li>
+      <li class="breadcrumb-item active">手册适用范围</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -111,260 +112,28 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<span id="手册覆盖"></span><h1>手册覆盖<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<span id="手册适用范围"></span><h1>手册适用范围<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>本手册适用于VortexROS 0.29-dev。软件组件及版本见<a class="reference internal" href="../../installation/02-backends/"><span class="std std-doc">软件组成</span></a>。请先核对设备的<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">version</span></code>，再使用对应版本的命令。</p>
 <section id="id2">
-<span id="对照基线"></span><h2>对照基线<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>本次文档对照v0.29-dev工作树及统一run1候选包：控制层0.29~dev+run1、VPP26.10.7、FRR1.7-dev、Kea3.0.3修复包。工作树仍有未提交改动，源码身份由完整文件清单记录，不能只用HEAD代表全部源码。最终包的新验收与沿用功能证据分别见<a class="reference internal" href="../cli-validation/"><span class="std std-doc">验证记录</span></a>。</p>
-<p>逐条命令参考覆盖 <strong>820条规范路径、953个视图注册形式</strong>，补充 <strong>2227行参数/子命令说明</strong>。这些数字统计实际 CLI Registry，运行时已有对象名称不是固定命令。</p>
-</section>
-<section id="id3">
-<span id="如何查阅"></span><h2>如何查阅<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>功能页按使用任务展开，命令参考定义语法、参数位置及可选项，案例给出具体拓扑和真实结果。功能说明与案例相互链接，避免维护两份完整命令定义。NAT 和 EVPN 的详细目录是这种组织方式的示例。</p>
-<p><a class="reference download internal" download="" href="../../_downloads/7b3a5e77d9958d440367ab8d5bc5eb9d/cli-coverage.tsv"><span class="xref download myst">下载逐条 CLI 对照表</span></a>列出每条路径对应页面、视图形式数及已有终端记录。表中“观察到命令输入”不等同于该命令全部参数组合或所有流量路径均通过。</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>功能</p></th>
-<th class="head text-right"><p>命令路径</p></th>
-<th class="head"><p>参数参考</p></th>
-<th class="head"><p>功能说明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>本地账号</p></td>
-<td class="text-right"><p>18</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/aaa/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/aaa/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>ACL</p></td>
-<td class="text-right"><p>7</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/acl/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/acl/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>AmneziaWG</p></td>
-<td class="text-right"><p>45</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/amneziawg/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/amneziawg/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>BFD</p></td>
-<td class="text-right"><p>12</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/bfd/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/bfd/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>BGP</p></td>
-<td class="text-right"><p>34</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/bgp/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/bgp/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>桥域</p></td>
-<td class="text-right"><p>13</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/bridge-domains/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/bridge-domains/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>CLI</p></td>
-<td class="text-right"><p>12</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/cli/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/01-cli/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>数据面</p></td>
-<td class="text-right"><p>29</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/dataplane/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/dataplane/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>DHCP</p></td>
-<td class="text-right"><p>88</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/dhcp/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/dhcp/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>路由通用命令</p></td>
-<td class="text-right"><p>38</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/dynamic-routing/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/01-cli/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>EVPN</p></td>
-<td class="text-right"><p>9</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/evpn/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/11-vxlan-evpn/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>GRE</p></td>
-<td class="text-right"><p>2</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/gre/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/gre/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>Ethernet 与接口</p></td>
-<td class="text-right"><p>33</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/interfaces/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/ethernet/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>路由表与 FIB</p></td>
-<td class="text-right"><p>7</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/ip-routing/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/routing-tables/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>RA 与 SLAAC</p></td>
-<td class="text-right"><p>6</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/ipv6-autoconfig/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/ipv6-autoconfig/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>IS-IS</p></td>
-<td class="text-right"><p>35</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/isis/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/isis/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>链路聚合</p></td>
-<td class="text-right"><p>5</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/link-aggregation/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/link-aggregation/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>LLDP</p></td>
-<td class="text-right"><p>7</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/lldp/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/lldp/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>MPLS 与 LDP</p></td>
-<td class="text-right"><p>14</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/mpls/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/ldp/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>MQC</p></td>
-<td class="text-right"><p>22</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/mqc/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/mqc/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>TCP MSS</p></td>
-<td class="text-right"><p>2</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/mss/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/mss/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>NAT</p></td>
-<td class="text-right"><p>66</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/nat/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/nat/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>ARP 与 ND</p></td>
-<td class="text-right"><p>19</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/neighbors/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/neighbors/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>诊断与恢复</p></td>
-<td class="text-right"><p>22</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/operations/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/09-operations/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>OSPF</p></td>
-<td class="text-right"><p>35</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/ospf/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/ospf/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>OSPFv3</p></td>
-<td class="text-right"><p>22</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/ospfv3/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/ospfv3/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>策略通用命令</p></td>
-<td class="text-right"><p>8</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/policy/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/01-cli/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>前缀列表</p></td>
-<td class="text-right"><p>7</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/prefix-lists/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/prefix-lists/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>QoS</p></td>
-<td class="text-right"><p>2</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/qos/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/qos/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>RIP</p></td>
-<td class="text-right"><p>10</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/rip/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/rip/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>RIPng</p></td>
-<td class="text-right"><p>7</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/ripng/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/ripng/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>静态路由组</p></td>
-<td class="text-right"><p>24</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/route-groups/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/route-groups/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>路由策略</p></td>
-<td class="text-right"><p>33</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/route-policy/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/route-policy/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>SNMP</p></td>
-<td class="text-right"><p>27</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/snmp/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/snmp/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>静态路由</p></td>
-<td class="text-right"><p>4</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/static-routing/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/static-routing/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>系统</p></td>
-<td class="text-right"><p>14</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/system/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/02-system-services/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>Tunnel 通用命令</p></td>
-<td class="text-right"><p>20</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/tunnels/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/tunnel-settings/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>uRPF</p></td>
-<td class="text-right"><p>6</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/urpf/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/urpf/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>VLAN</p></td>
-<td class="text-right"><p>22</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/vlan/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/vlan/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>VPN 实例</p></td>
-<td class="text-right"><p>15</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/vrf/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/vrf/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>VRRP</p></td>
-<td class="text-right"><p>6</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/vrrp/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/vrrp/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>VXLAN</p></td>
-<td class="text-right"><p>8</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/vxlan/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/vxlan/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>WireGuard</p></td>
-<td class="text-right"><p>5</p></td>
-<td><p><a class="reference internal" href="../../operator/reference/wireguard/"><span class="std std-doc">逐条参数</span></a></p></td>
-<td><p><a class="reference internal" href="../../operator/wireguard/"><span class="std std-doc">配置指南</span></a></p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="id4">
-<span id="实际证据的使用边界"></span><h2>实际证据的使用边界<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<span id="按任务查阅"></span><h2>按任务查阅<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <ul class="simple">
-<li><p>NAT：接口/池 PAT、NO-PAT、静态、DNAT、Twice NAT、No-NAT、回流均复用真实 CLI 和 HTTP 端点实验；会话、配额和撤销的证据分开写明。</p></li>
-<li><p>EVPN：L2VPN 两个 VNI 的相互隔离、双栈 Type-5、ESI 创建/撤销和单网关 Anycast 分别记录。三PE全互联All-Active另外补验了双成员下一跳组、两条接入链路分别故障、恢复、保存冷回放和撤销；四PE RR模板不冒充本轮实测。</p></li>
-<li><p>其他协议、子接口、隧道、MQC、DHCP 等复用对应案例的原始输出。本文不把静态语法覆盖扩展为全部网络组合的验证。</p></li>
-<li><p>0.29-dev 最终统一包的 RIP 端点重建、Zebra 重放、升级和回退另见<a class="reference internal" href="../cli-validation/"><span class="std std-doc">验证记录</span></a>。</p></li>
-<li><p>仅补验缺证据的All-Active、6PE及其发现的问题，并执行ACL改为纯无状态后的定向CLI；没有重新执行全量产品测试、CI、真机升级或已通过且未受影响的流量测试。</p></li>
+<li><p>首次安装：阅读<a class="reference internal" href="../../installation/"><span class="std std-doc">安装</span></a>，通过单文件安装器完成安装，再按<a class="reference internal" href="../../quickstart/"><span class="std std-doc">入门</span></a>建立基本连通。</p></li>
+<li><p>配置功能：从侧栏进入对应功能页，先看前提、默认行为和影响，再执行配置。</p></li>
+<li><p>搭建网络：使用<a class="reference internal" href="../../examples/"><span class="std std-doc">配置案例</span></a>，按角色分别配置CE、PE、P及对端。</p></li>
+<li><p>查询语法：使用<a class="reference internal" href="../../operator/reference/commands/"><span class="std std-doc">命令参考</span></a>，或在设备当前视图输入<code class="docutils literal notranslate"><span class="pre">?</span></code>。</p></li>
+<li><p>定位问题：从<a class="reference internal" href="../../troubleshooting/"><span class="std std-doc">常见故障</span></a>检查接口、邻居、路由和服务状态。</p></li>
 </ul>
 </section>
-<section id="id5">
-<span id="仍须区分的范围"></span><h2>仍须区分的范围<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
-<p>各页明示的组网模板、单节点增量操作与完整多节点验收不同；单次连通性也不是吞吐、满表容量或无损收敛保证。当前没有把缺少原始输出的高级组合填成“真实输出”。</p>
+<section id="id3">
+<span id="示例约定"></span><h2>示例约定<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>案例中的路由器均为VortexROS。<code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code>、<code class="docutils literal notranslate"><span class="pre">Ethernet1</span></code>表示各设备上的独立接口，相同名称位于不同设备时不是同一个端口。子接口使用<code class="docutils literal notranslate"><span class="pre">Ethernet0.100</span></code>形式；LoopBack、Vlanif、Vbdif、Eth-Trunk和Tunnel使用产品自身的接口名称。</p>
+<p>请将示例地址、接口编号、AS号、VPN名称和密钥替换为自己的规划值。同一案例内应同时修改拓扑、两端配置及验证命令，不能只改一侧。</p>
+<p>配置块中的命令按顺序执行；输出块用于说明应观察的状态。输出中的地址和接口与案例保持一致，计数、运行时间、动态分配地址等以设备实际结果为准。</p>
 </section>
-<section id="id6">
-<span id="功能树组织规则"></span><h2>功能树组织规则<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
-<p>复合功能按业务能力分子页：协议激活/发布/查询，SNMP协议/来源/通知，ACL两族/规则/绑定，MQC分类/动作/绑定，隧道Profile/Peer/生命周期等。MSS、uRPF、GRE、IP-in-IP、LLDP等单一功能保留独立末级页面，不为增加层级新建空目录；其参数变化仍在对应功能与逐条命令参考中展开。</p>
+<section id="id4">
+<span id="配置生命周期"></span><h2>配置生命周期<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>修改先进入当前会话的Candidate，<code class="docutils literal notranslate"><span class="pre">commit</span></code>后成为Running，<code class="docutils literal notranslate"><span class="pre">save</span></code>后写入启动配置。案例的撤销步骤只删除该案例新增内容；共用接口、底层路由和协议进程应保留。</p>
+<p>手册只介绍当前产品提供的CLI。后端软件存在某个命令，不代表可以直接在VortexROS使用；请以命令参考和当前视图帮助为准。</p>
 </section>
 </section>
 
@@ -372,7 +141,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../cli-validation/" class="btn btn-neutral float-left" title="CLI 实测记录" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../cli-validation/" class="btn btn-neutral float-left" title="版本能力与限制" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../performance/" class="btn btn-neutral float-right" title="性能参考" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

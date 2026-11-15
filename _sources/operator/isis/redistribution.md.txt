@@ -12,4 +12,4 @@ isis 10
 系统根据进程的IS-IS level生成FRR要求的`level-1`或`level-2`重分发命令；默认level-1-2会同时下发两级，避免后端接受命令时因缺少level而拒绝配置。
 
 
-[双端配置和真实路由](../../examples/isis.md) · [全部参数](../reference/isis.md)
+[双端配置和路由查询](../../examples/isis.md) · [全部参数](../reference/isis.md)

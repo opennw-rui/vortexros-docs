@@ -10,4 +10,4 @@ mqc/actions
 mqc/attachment
 ~~~
 
-[完整案例与真实输出](../examples/mqc.md) · [全部命令参数](reference/mqc.md)
+[完整案例与示例输出](../examples/mqc.md) · [全部命令参数](reference/mqc.md)

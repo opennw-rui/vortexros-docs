@@ -37,9 +37,9 @@ display nat-policy sessions hairpin enable
 
 TCP/UDP/SCTP 显示端口，ICMP 显示 identifier；无端口协议只显示地址。No-NAT、静态 NAT 不产生状态会话，所以会话数为零不代表未生效。
 
-## 默认统计与真实结果
+## 统计与会话
 
-策略/规则 `statistic enable` 缺省关闭，显式开启后才能据此检查命中。真实接口 PAT 规则命中：
+策略/规则 `statistic enable` 缺省关闭，显式开启后才能据此检查命中。接口 PAT 规则命中示例：
 
 ~~~text
 Policy      Rule  Priority  Statistics  Packets  Bytes
@@ -47,9 +47,9 @@ Policy      Rule  Priority  Statistics  Packets  Bytes
 4124874345  10    10        policy      18       1248
 ~~~
 
-逐会话包/字节统计是独立的后端开关，当前产品 CLI 不提供该开关；关闭时显示 `--`。旧记录中 `Packets:0 Bytes:0` 不能据此认定没有流量。[接口 PAT 案例](../../examples/nat-pat.md)已经验证当前显示的 enabled/disabled 与端点收发。
+逐会话包/字节统计是独立的后端开关，当前产品 CLI 不提供该开关；关闭时显示 `--`。不可用的逐会话计数不能解释为零流量。使用策略命中统计与实际往返联合检查。
 
-策略 `session-limit 2` 的真实对照中，第 3 条 UDP 新流失败，worker 的 Quota 增加 1，PAT fail/exhaust 仍为 0；`undo session-limit` 后新流成功。这是配额限制，不是 PAT 耗尽。
+配置 session-limit 2 时，已有两个有效会话后，新会话可能因配额失败。查询 worker 的 Quota 与 PAT fail/exhaust 区分配额和端口耗尽；放宽或撤销限制后用新连接检查。
 
 ## 清理与风险
 

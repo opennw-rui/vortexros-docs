@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>会话管理 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+  <title>管理会话 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -59,7 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../accounts/">创建与管理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../password/">首次改密与恢复</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../keys/">公钥与启停</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">会话管理</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">管理会话</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../bash/">Bash 与 sudo</a></li>
 </ul>
 </li>
@@ -105,7 +105,7 @@
       <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../02-system-services/">系统管理</a></li>
           <li class="breadcrumb-item"><a href="../">本地账号与 SSH</a></li>
-      <li class="breadcrumb-item active">会话管理</li>
+      <li class="breadcrumb-item active">管理会话</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -115,9 +115,18 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<span id="会话管理"></span><h1>会话管理<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>开发服务器中，公钥账号 cli-active 以 system-admin 登录，实际进入 Bash 后 exit 返回 CLI。另一 root 终端的 display users 同时显示两个会话；执行 reset aaa user cli-active sessions 并确认后，返回 Closed 1 management sessions，受管 SSH 连接实际断开，root 救援会话保留。公钥登录不等于已验证需要密码的 sudo；密码与 sudo 的既有验收另行保留。</p>
-<p><a class="reference internal" href="../"><span class="std std-doc">角色与入口</span></a> · <a class="reference internal" href="../../reference/aaa/"><span class="std std-doc">命令参考</span></a></p>
+<span id="管理会话"></span><h1>管理会话<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>使用<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">users</span></code>查看已登录用户、角色和会话状态：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display users
+</pre></div>
+</div>
+<p>需要断开某个受管账号的会话时执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset aaa user admin sessions
+</pre></div>
+</div>
+<p>按提示确认后，该账号当前的受管SSH/CLI会话关闭。此操作不删除账号或密码；账号仍为活跃状态时可重新登录。需要禁止再次登录，在账号视图配置<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">active</span></code>并提交。</p>
+<p>执行前确认目标账号，避免关闭自己的唯一管理连接。root救援入口不作为普通受管账号会话清理对象。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">账号管理</span></a> · <a class="reference internal" href="../../reference/aaa/"><span class="std std-doc">命令参数</span></a></p>
 </section>
 
 

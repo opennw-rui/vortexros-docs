@@ -145,7 +145,7 @@ commit
 </section>
 <section id="id2">
 <span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vrrp</span> <span class="pre">brief</span></code> 确认一台 Master、一台 Backup。从客户端连续探测虚拟网关和上游。断开 Master 的实验 VLAN 接口，确认 Backup 接管且上游探测恢复；重新接入后观察角色。</p>
+<p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vrrp</span> <span class="pre">brief</span></code> 确认一台 Master、一台 Backup。从客户端连续探测虚拟网关和上游。断开 Master 的示例 VLAN 接口，确认 Backup 接管且上游探测恢复；重新接入后观察角色。</p>
 </section>
 <section id="id3">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
@@ -164,7 +164,7 @@ display vrrp brief
 display vrrp6 brief
 </pre></div>
 </div>
-<p>真实显示的关键字段：</p>
+<p>示例输出：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>40    Master  Vlanif400  IPv4  198.18.104.3  100       100     1.00s
 40    Master  Vlanif400  IPv6  fe80::40    100       100     1.00s
 </pre></div>

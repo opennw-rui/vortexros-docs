@@ -196,15 +196,15 @@ display nat-policy sessions hairpin enable
 <p>TCP/UDP/SCTP 显示端口，ICMP 显示 identifier；无端口协议只显示地址。No-NAT、静态 NAT 不产生状态会话，所以会话数为零不代表未生效。</p>
 </section>
 <section id="id4">
-<span id="默认统计与真实结果"></span><h2>默认统计与真实结果<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
-<p>策略/规则 <code class="docutils literal notranslate"><span class="pre">statistic</span> <span class="pre">enable</span></code> 缺省关闭，显式开启后才能据此检查命中。真实接口 PAT 规则命中：</p>
+<span id="统计与会话"></span><h2>统计与会话<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>策略/规则 <code class="docutils literal notranslate"><span class="pre">statistic</span> <span class="pre">enable</span></code> 缺省关闭，显式开启后才能据此检查命中。接口 PAT 规则命中示例：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Policy      Rule  Priority  Statistics  Packets  Bytes
 -------------------------------------------------------------------------------
 4124874345  10    10        policy      18       1248
 </pre></div>
 </div>
-<p>逐会话包/字节统计是独立的后端开关，当前产品 CLI 不提供该开关；关闭时显示 <code class="docutils literal notranslate"><span class="pre">--</span></code>。旧记录中 <code class="docutils literal notranslate"><span class="pre">Packets:0</span> <span class="pre">Bytes:0</span></code> 不能据此认定没有流量。<a class="reference internal" href="../../../examples/nat-pat/"><span class="std std-doc">接口 PAT 案例</span></a>已经验证当前显示的 enabled/disabled 与端点收发。</p>
-<p>策略 <code class="docutils literal notranslate"><span class="pre">session-limit</span> <span class="pre">2</span></code> 的真实对照中，第 3 条 UDP 新流失败，worker 的 Quota 增加 1，PAT fail/exhaust 仍为 0；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">session-limit</span></code> 后新流成功。这是配额限制，不是 PAT 耗尽。</p>
+<p>逐会话包/字节统计是独立的后端开关，当前产品 CLI 不提供该开关；关闭时显示 <code class="docutils literal notranslate"><span class="pre">--</span></code>。不可用的逐会话计数不能解释为零流量。使用策略命中统计与实际往返联合检查。</p>
+<p>配置 session-limit 2 时，已有两个有效会话后，新会话可能因配额失败。查询 worker 的 Quota 与 PAT fail/exhaust 区分配额和端口耗尽；放宽或撤销限制后用新连接检查。</p>
 </section>
 <section id="id5">
 <span id="清理与风险"></span><h2>清理与风险<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>

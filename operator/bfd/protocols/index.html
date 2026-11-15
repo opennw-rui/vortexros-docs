@@ -154,39 +154,7 @@ commit
 <span id="共享和计时归属"></span><h2>共享和计时归属<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>在接口下启用 BFD 不会自动启用相应的路由协议。IS-IS 接口尚未启用时，设备保存 BFD 预配置；创建该电路后才向后端注册，不会伪造已建立的会话。检查 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bfd</span> <span class="pre">session</span> <span class="pre">all</span></code> 中实际会话，而不是只看 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bfd</span> <span class="pre">configuration</span></code> 的 Enabled。</p>
 <p>同一个 bfdd 会话可以被多个协议引用，它们必须使用相同的有效计时器；但 IPv4 与 IPv6 是不同的会话，允许不同计时器。当前 FRR 在双地址族 IS-IS 电路上优先使用 IPv6 BFD，不能把同端口的所有协议都无条件看成同一会话。</p>
-<p>本轮开发服务器的真实结果：</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>协议与链路</p></th>
-<th class="head"><p>实际对端族</p></th>
-<th class="head"><p>有效 Tx/Rx/次数</p></th>
-<th class="head"><p>状态</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>OSPF，CLI-UNDER b12</p></td>
-<td><p>IPv4</p></td>
-<td><p>500/500/4</p></td>
-<td><p>Up</p></td>
-</tr>
-<tr class="row-odd"><td><p>OSPFv3，同一 b12</p></td>
-<td><p>IPv6</p></td>
-<td><p>600/600/5</p></td>
-<td><p>Up</p></td>
-</tr>
-<tr class="row-even"><td><p>IS-IS，a12/e12 双族电路</p></td>
-<td><p>IPv6</p></td>
-<td><p>500/500/4</p></td>
-<td><p>Up</p></td>
-</tr>
-<tr class="row-odd"><td><p>RIP，e12</p></td>
-<td><p>IPv4</p></td>
-<td><p>700/700/5</p></td>
-<td><p>Up</p></td>
-</tr>
-</tbody>
-</table>
-<p>这些是特意配置的非默认对照；缺省仍为1000/1000/3。RIP 表格中的运行证据来自重启回放后的实际会话，不把重启前未激活接口的状态算作通过。最终包另做了定向复核：重启 RIP 后接口和实际更新源正常，接口 Down/Up 后继续正常，双端 RIP-BFD Up、原生 700/700/5；撤销后为零。0.29-dev 后续已用保留的异常进程与重复端点重建查清组播成员泄漏；修复、最终包结果及历史样本的证据边界见 <a class="reference internal" href="../../rip/"><span class="std std-doc">RIP 恢复</span></a>。</p>
+<p>协议缺省使用 1000ms 发送、1000ms 接收、检测 3 次。需要非默认参数时，两端及共享同一会话的协议引用应协调一致，并在 display bfd session 中核对有效值。</p>
 <p>配置非默认计时应先写计时器，再启用对应绑定，避免在同一会话上保留不一致的中间配置。例如：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
  ospf bfd min-tx-interval 500 min-rx-interval 500 detect-multiplier 4

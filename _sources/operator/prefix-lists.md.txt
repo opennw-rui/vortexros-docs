@@ -9,4 +9,4 @@ prefix-lists/ipv4
 prefix-lists/ipv6
 ~~~
 
-[完整案例与真实输出](../examples/bgp-policy.md) · [全部命令参数](reference/prefix-lists.md)
+[完整案例与示例输出](../examples/bgp-policy.md) · [全部命令参数](reference/prefix-lists.md)

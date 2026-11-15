@@ -24,10 +24,9 @@ user auditread
 commit
 ```
 
-在本轮开发服务器 QEMU 的真实 OpenSSH 验证中，未设置密码的公钥账号成功进入 CLI，`display users` 显示 network-operator / Read-only。提交 `undo active` 后，原 SSH 会话由服务端关闭；再次只使用该公钥连接，返回 `Permission denied (publickey,password)`。配置中显示 `undo active`，不会显示默认的 `active`。
+公钥账号按所配置角色进入CLI。执行`undo active`并提交后，账号停用，现有受管会话关闭，新的登录被拒绝。默认active不在配置中显示，只有停用时显示`undo active`。
 
 恢复时进入相同用户视图执行 `active`、提交并保存。撤销单把公钥使用 `undo ssh-public-key laptop`；如果该账号不再使用，执行 `undo user auditread` 并提交、保存。不要撤销自己唯一的管理凭据。
-
 
 
 [角色与入口](../aaa.md) · [命令参考](../reference/aaa.md)

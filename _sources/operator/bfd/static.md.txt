@@ -14,8 +14,8 @@ bfd TO-P2 bind peer-ip 10.0.12.2 source-ip 10.0.12.1 interface Vlanif 12
 
 静态会话视图中的 `passive-mode` 让本端等待对端开始发送控制报文，不能将两端都设为被动后期待它们主动建立。撤销使用 `undo passive-mode`。重新进入已有静态会话时，使用原来的完整 `bfd NAME bind ...` 入口。
 
-开发服务器实测，P1 `CLI-PASSIVE` 与 P2 `CLI-ACTIVE` 使用 198.19.80.1/2、对应 a12 接口直连：原生 FRR 确认 P1 的 `passive-mode`，两端真实 CLI 均显示 Up，有效参数 `1000/1000/3`、检测超时3000ms。通过真实 `reset service bfd` 确认重启，Running 回放与校验成功，会话恢复 Up。随后撤销被动模式，状态仍 Up；删除两端会话并提交后，成功的会话查询均为0。这是独立 BFD 的定向生命周期验证，不等同于所有协议共享会话或硬件故障收敛性能。
+默认计时为 1000/1000/3，检测超时由协商后的有效参数决定。使用 display bfd session 核对双方状态；reset service bfd 会中断检测，应在维护窗口使用，等待配置回放后重新确认会话 Up。
 
-最终 RIP 进程保持运行时，再经真实 CLI 重启 VPP、重建全部 LCP 端点，RIP 的 LoopBack97/Tunnel30/e12 接口及两条实际更新源仍保留；没有用再次重启 RIP 来掩盖这次重建结果。该项是生命周期对照；0.29-dev 最终包另验证了组播成员释放和 Zebra 重连路由重放，见 [RIP](../rip.md)。
+删除会话时先撤销引用并提交，再查询会话清单确认目标不再存在。删除检测配置不会自动撤销静态路由；需要路由联动时使用相应协议绑定。
 
 [默认计时](../bfd.md) · [双端案例](../../examples/bfd.md)

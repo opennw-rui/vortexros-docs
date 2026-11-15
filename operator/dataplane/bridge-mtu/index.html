@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>控制网桥 MTU &mdash; VortexROS 文档 v0.29-dev 文档</title>
+  <title>网桥与 MTU &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -23,7 +23,7 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
-    <link rel="next" title="激活与恢复" href="../recovery/" />
+    <link rel="next" title="数据面激活与恢复" href="../recovery/" />
     <link rel="prev" title="邻居与 MAC 容量" href="../tables/" /> 
 </head>
 
@@ -63,8 +63,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../devices/">设备与接管</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../resources/">资源与运行查询</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tables/">邻居与 MAC 容量</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">控制网桥 MTU</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../recovery/">激活与恢复</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">网桥与 MTU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recovery/">数据面激活与恢复</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
@@ -116,7 +116,7 @@
       <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
           <li class="breadcrumb-item"><a href="../">数据面</a></li>
-      <li class="breadcrumb-item active">控制网桥 MTU</li>
+      <li class="breadcrumb-item active">网桥与 MTU</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -126,12 +126,11 @@
            <div itemprop="articleBody">
              
   <section id="mtu">
-<span id="控制网桥-mtu"></span><h1>控制网桥 MTU<a class="headerlink" href="#mtu" title="链接到此标题。"></a></h1>
-<p>EVPN/L2 控制投影中的 Linux 网桥使用控制层明确设置的 MTU，不依赖内核按最小成员 MTU 自动缩小。创建、接管和更新交换投影时会固定该值；成员口 MTU 降低或链路断开，不应自行把已经固定的网桥 MTU 拉低。</p>
-<p>Linux 对“再次写入当前相同 MTU”的操作可能不调用网桥的 MTU 修改入口。本轮在实际内核上复现这一点，采用与 NetworkManager 相同原则的强制实际变化后设置目标值，避免把同值写入成功误当成自动调整已经关闭。参考 <a class="reference external" href="https://github.com/NetworkManager/NetworkManager/blob/main/src/core/devices/nm-device-bridge.c">NetworkManager 网桥实现</a>。</p>
-<p>该网桥服务于 Linux/LCP 控制面同步，不代表普通业务必须通过 Linux bridge 转发。物理端口、VPP 接口和隧道仍有各自的 MTU 及封装开销限制；把控制网桥设大不会使较小物理端口能够发送超长报文。</p>
-<p>本轮开发服务器实际内核验证覆盖：新增小 MTU 成员、同值接管、重复应用、全部成员降为 1500、关闭成员，以及实际 P2 成员 1500 → 1400 → 1500；网桥保持目标 9000。完整端口与隧道配置仍应按对应案例验证业务报文，不以网桥数值代替流量验收。</p>
-<p><a class="reference internal" href="../"><span class="std std-doc">数据面总览</span></a> · <a class="reference internal" href="../../reference/dataplane/"><span class="std std-doc">逐条命令</span></a></p>
+<span id="网桥与-mtu"></span><h1>网桥与 MTU<a class="headerlink" href="#mtu" title="链接到此标题。"></a></h1>
+<p>VortexROS管理的控制网桥不会因另一个成员接口MTU较小、链路Down或重复提交而自动压低已配置的目标MTU。EVPN端点应与其业务承载要求保持一致。</p>
+<p>这不表示小MTU出口能够转发更大的报文。实际业务仍受出口接口、隧道封装开销和路径MTU限制；配置较大MTU前应同时检查两端及中间链路。</p>
+<p>先用<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span></code>核对各业务接口的运行MTU，再通过带实际业务长度的探测检查端到端路径。网桥自身的MTU数值不能代替业务验证。</p>
+<p><a class="reference internal" href="../../ethernet/settings/"><span class="std std-doc">接口参数</span></a> · <a class="reference internal" href="../../bridge-domains/"><span class="std std-doc">桥域</span></a></p>
 </section>
 
 
@@ -139,7 +138,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../tables/" class="btn btn-neutral float-left" title="邻居与 MAC 容量" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../recovery/" class="btn btn-neutral float-right" title="激活与恢复" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../recovery/" class="btn btn-neutral float-right" title="数据面激活与恢复" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

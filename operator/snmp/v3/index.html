@@ -131,7 +131,7 @@ snmp-agent target-host trap address udp-domain 192.0.2.51 udp-port 162 params se
 commit
 </pre></div>
 </div>
-<p>设备维护engine ID和USM持久状态，普通提交和重启不会要求重新创建用户。完整查询和限制见<a class="reference internal" href="../monitoring/"><span class="std std-doc">MIB与服务检查</span></a>，<a class="reference internal" href="../../../examples/snmp/"><span class="std std-doc">真实案例</span></a>明确保留所用协议版本，不把v2c成功冒称为v3实测。</p>
+<p>设备保存 engine ID 和 USM 状态，普通提交和重启无需重建用户。按<a class="reference internal" href="../monitoring/"><span class="std std-doc">MIB 与服务检查</span></a>从平台用 authPriv 验证；SNMPv2c 与 SNMPv3 的凭据及协议检查应分别进行。</p>
 </section>
 
 

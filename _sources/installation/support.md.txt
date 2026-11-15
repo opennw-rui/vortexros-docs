@@ -12,6 +12,6 @@ VortexROS 0.29-dev 的单文件安装器适用于 **Ubuntu 26.04 amd64**。默�
 | 接口 ACL、MQC、NAT Policy | 此处列出的 VortexROS 转发策略使用 VPP | 使用配套 VPP 插件，按功能页确认接口类型和方向 |
 | WireGuard、AmneziaWG、静态 VXLAN、VXLAN EVPN、MPLS L3VPN | 本手册的实现和案例使用 VPP | 使用配套 VPP，EVPN／MPLS L3VPN 另需 FRR 控制面 |
 
-VPP 数据面是否可用与某张物理网卡是否能由 DPDK 接管分别核对。案例中的 AF_PACKET/veth、memif 证明对应实验路径；实际 PCI 网卡还需核对驱动、端口链路、MTU 和硬件卸载。具体功能的拓扑和实测结果见[配置案例](../examples/index.md)。
+VPP 数据面是否可用与某张物理网卡是否能由 DPDK 接管分别核对。虚拟接口不能代表物理网卡能力，实际 PCI 设备仍需核对驱动、链路、MTU 和硬件卸载。具体功能的拓扑和验证方法见[配置案例](../examples/index.md)。
 
 Debian、Arm64 和其他虚拟化平台的 VortexROS 安装包验收目前没有收录。现场新增硬件可沿用[硬件验收](08-hardware-acceptance.md)的检查顺序。

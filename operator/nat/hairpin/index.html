@@ -124,13 +124,9 @@
 <p>全局 <code class="docutils literal notranslate"><span class="pre">nat-policy</span> <span class="pre">hairpin</span> <span class="pre">enable</span></code> 和发布策略内的 <code class="docutils literal notranslate"><span class="pre">hairpin</span> <span class="pre">enable</span></code> 必须同时开启，缺省均关闭。显式 No-NAT 和本接口的显式转换决定优先。切换开关不会强制删除已有会话；关闭后应以新连接验证。</p>
 </section>
 <section id="id2">
-<span id="配置与真实显示"></span><h2>配置与真实显示<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p><a class="reference internal" href="../../../examples/nat/hairpin/"><span class="std std-doc">回流完整案例</span></a>从已验证的 Twice NAT 发布配置开始，包含内部客户端访问、显示与关闭对照。真实输出节选：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>host-p1q13/inbound  FIB:0 -&gt; FIB:0  Policy:LAB-DNAT(2572252004)/10  Action:TWICE-NAT  Mode:hairpin
-198.18.11.2:57680 -&gt; 198.19.80.1:18080  =&gt;  198.18.11.1:57680 -&gt; 198.18.11.2:8081
-</pre></div>
-</div>
-<p>端点实际 HTTP 200；双开关关闭后的新 HTTP 连接失败。该实验为同一内部端点访问自身发布服务，不外推为所有多客户端、端口耗尽或跨 VRF 组合均已验证。</p>
+<span id="配置与检查"></span><h2>配置与检查<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>按<a class="reference internal" href="../../../examples/nat/hairpin/"><span class="std std-doc">回流案例</span></a>配置发布规则及内侧绑定。内侧客户端访问发布地址后，查询会话中的 Mode:hairpin、原始地址与转换后地址，并验证回复。Twice NAT 可将源同时改为网关内侧地址，避免服务端绕过 NAT 直接回包。</p>
+<p>关闭开关后使用新连接检查；已有会话不一定立即消失。此功能不会自动创建路由、服务监听或防火墙放行。</p>
 </section>
 <section id="id3">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>

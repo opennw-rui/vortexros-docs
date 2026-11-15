@@ -78,7 +78,7 @@
 <li class="toctree-l3"><a class="reference internal" href="l2vpn/">L2VPN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="l3vpn/">L3VPN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="all-active/">All-Active 多归属</a></li>
-<li class="toctree-l3"><a class="reference internal" href="esi/">ESI 生命周期</a></li>
+<li class="toctree-l3"><a class="reference internal" href="esi/">ESI 配置变更</a></li>
 <li class="toctree-l3"><a class="reference internal" href="anycast/">Anycast 网关</a></li>
 </ul>
 </li>
@@ -123,7 +123,7 @@
              
   <section id="vxlan-evpn">
 <h1>VXLAN EVPN<a class="headerlink" href="#vxlan-evpn" title="链接到此标题。"></a></h1>
-<p>按业务层次选择独立案例。L2VPN 扩展二层网段，L3VPN 交换租户前缀；ESI 与 Anycast 是接入/网关能力，不混为同一个实验的结论。</p>
+<p>按业务层次选择独立案例。L2VPN 扩展二层网段，L3VPN 交换租户前缀；ESI 与 Anycast 是接入/网关能力，不混为同一个示例的结论。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l2vpn/">L2VPN</a><ul>
@@ -131,7 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="l2vpn/#p2">配置 P2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="l2vpn/#p1">配置 P1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="l2vpn/#p3">配置 P3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="l2vpn/#h1-h3">配置 H1 和 H3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="l2vpn/#ce1-ce2">配置 CE1 和 CE2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="l2vpn/#id2">验证</a></li>
 <li class="toctree-l2"><a class="reference internal" href="l2vpn/#id3">撤销</a></li>
 </ul>
@@ -140,27 +140,27 @@
 <li class="toctree-l2"><a class="reference internal" href="l3vpn/#id1">拓扑和影响</a></li>
 <li class="toctree-l2"><a class="reference internal" href="l3vpn/#p1">P1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="l3vpn/#p2">P2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="l3vpn/#id2">真实验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="l3vpn/#id2">验证</a></li>
 <li class="toctree-l2"><a class="reference internal" href="l3vpn/#id3">撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="all-active/">All-Active 多归属</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="all-active/#id1">拓扑与前提</a></li>
-<li class="toctree-l2"><a class="reference internal" href="all-active/#linux">Linux 流量端点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="all-active/#id1">拓扑与用途</a></li>
+<li class="toctree-l2"><a class="reference internal" href="all-active/#ce1">CE1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="all-active/#ce2">CE2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="all-active/#p1">P1 完整业务配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="all-active/#p2">P2 完整业务配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="all-active/#p3">P3 完整业务配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="all-active/#id2">查询与正常转发</a></li>
-<li class="toctree-l2"><a class="reference internal" href="all-active/#id3">单链路失败与恢复</a></li>
-<li class="toctree-l2"><a class="reference internal" href="all-active/#id4">保存和冷恢复</a></li>
-<li class="toctree-l2"><a class="reference internal" href="all-active/#id5">撤销和实际结果</a></li>
-<li class="toctree-l2"><a class="reference internal" href="all-active/#dev-run1">0.29-dev run1最终包核对</a></li>
+<li class="toctree-l2"><a class="reference internal" href="all-active/#id2">验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="all-active/#id3">单接入链路关闭与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="all-active/#id4">保存与重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="all-active/#id5">撤销</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="esi/">ESI 生命周期</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="esi/#id1">场景与前提</a></li>
-<li class="toctree-l2"><a class="reference internal" href="esi/#id2">创建与验证</a></li>
-<li class="toctree-l2"><a class="reference internal" href="esi/#id3">撤销</a></li>
+<li class="toctree-l1"><a class="reference internal" href="esi/">ESI 配置变更</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="esi/#id1">前提</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esi/#id2">查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esi/#id3">撤销与重新加入</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="anycast/">Anycast 网关</a><ul>

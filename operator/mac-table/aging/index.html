@@ -138,10 +138,9 @@ commit
 </div>
 <p>默认值不显示在配置中；只有非默认值才进入 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span></code>。VPP以整分钟保存该参数，因此配置值必须是60秒的整数倍。</p>
 <p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mac-address</span></code> 查看实际表项。</p>
-<p>静态 MAC 表项的出口必须实际属于该表项的桥域；trunk与业务桥域先转换为Linux控制端口和VLAN后再校验，
-普通静态项由switchd写入Linux FDB并经LCP进入对应VPP bridge-domain，不能把其他桥域的端口写入当前桥域。</p>
+<p>静态 MAC 的出口必须属于对应业务桥域；access、trunk 和 VLAN 映射应先配置正确，跨桥域出口会被拒绝。</p>
 <p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/bridge-domains/"><span class="std std-doc">命令参数</span></a></p>
-<p><a class="reference internal" href="../../../examples/static-mac/"><span class="std std-doc">静态MAC完整案例</span></a>记录关闭学习/未知单播泛洪后的真实3/3，以及删除目标项后的0/3对照。</p>
+<p><a class="reference internal" href="../../../examples/static-mac/"><span class="std std-doc">静态MAC完整案例</span></a>说明关闭学习与未知单播泛洪时，如何验证目标静态 MAC 的转发及删除效果。</p>
 </section>
 </section>
 

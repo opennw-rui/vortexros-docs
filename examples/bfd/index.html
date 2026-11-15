@@ -128,7 +128,7 @@
              
   <section id="bfd">
 <span id="bfd-故障检测"></span><h1>BFD 故障检测<a class="headerlink" href="#bfd" title="链接到此标题。"></a></h1>
-<p><strong>目标</strong>：在实验链路上建立独立 BFD 会话，观察路径失效。独立会话只提供检测状态；需要联动撤路时，应使用对应协议的 BFD 绑定。</p>
+<p><strong>目标</strong>：在示例链路上建立独立 BFD 会话，观察路径失效。独立会话只提供检测状态；需要联动撤路时，应使用对应协议的 BFD 绑定。</p>
 <p><strong>前提</strong>：两台设备的 Ethernet 1 直连，地址为 192.0.2.1/30、192.0.2.2/30，双向可达。</p>
 <section id="id1">
 <span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
@@ -144,7 +144,7 @@ commit
 </section>
 <section id="id2">
 <span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>查看 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bfd</span> <span class="pre">session</span> <span class="pre">TO-PEER</span></code>，确认状态及实际定时器。在实验链路断开、恢复后观察 Down 和 Up，区分会话检测与路由协议收敛。</p>
+<p>查看 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bfd</span> <span class="pre">session</span> <span class="pre">TO-PEER</span></code>，确认状态及实际定时器。在示例链路断开、恢复后观察 Down 和 Up，区分会话检测与路由协议收敛。</p>
 </section>
 <section id="id3">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>

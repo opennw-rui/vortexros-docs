@@ -24,7 +24,7 @@
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
     <link rel="next" title="接口" href="../../03-interfaces-l2/" />
-    <link rel="prev" title="会话管理" href="../sessions/" /> 
+    <link rel="prev" title="管理会话" href="../sessions/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -59,7 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../accounts/">创建与管理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../password/">首次改密与恢复</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../keys/">公钥与启停</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sessions/">会话管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sessions/">管理会话</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Bash 与 sudo</a></li>
 </ul>
 </li>
@@ -116,17 +116,21 @@
              
   <section id="bash-sudo">
 <span id="bash-与-sudo"></span><h1>Bash 与 sudo<a class="headerlink" href="#bash-sudo" title="链接到此标题。"></a></h1>
-<p>进入 run bash 后，空回车、Tab、方向键、退格及 Ctrl-C 由 Bash 处理；Ctrl-D 或 exit 返回 VortexROS CLI。Bash 执行期间不应穿插设备CLI提示符。非零命令状态本身不应在正常退出Bash时产生额外的 exit status127。</p>
-<p>开发服务器使用当前未发布工作树的真实 SSH 补验：连续20次空回车时同一个Bash进程保持前台，原始PTY字节中没有穿插设备提示符；路径Tab、编辑键、Ctrl-C、窗口大小变更、密码sudo及Ctrl-D均正常。该结果对应已有终端所有权修复，不代表对旧发布标签完成重新部署。</p>
-<p>管理员撤销 shell-access 后，旧会话可能提示身份已改变；重新登录仍可使用本角色允许的CLI，但 run bash 会被拒绝。需要恢复时，由管理员在对应user视图恢复 shell-access 并提交，再重新登录。不要把保留CLI登录权限与仍有Bash权限混为一谈。</p>
-<p><a class="reference internal" href="../"><span class="std std-doc">角色与入口</span></a> · <a class="reference internal" href="../../reference/aaa/"><span class="std std-doc">命令参考</span></a></p>
+<p>只有system-admin可使用<code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">bash</span></code>进入系统Shell，并可按账号策略使用sudo。network-admin负责设备配置，network-operator只读；角色权限见<a class="reference internal" href="../"><span class="std std-doc">角色与入口</span></a>。</p>
+<p>在受管SSH终端中执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>run bash
+</pre></div>
+</div>
+<p>进入后由Bash处理路径补全、编辑键和Ctrl+C。执行<code class="docutils literal notranslate"><span class="pre">exit</span></code>或按Ctrl+D返回VortexROS CLI。Bash中输入不存在的命令会由Bash报告错误，不改变CLI权限。</p>
+<p>网络接口、地址、路由和服务配置仍应通过VortexROS CLI完成，避免系统Shell中的临时修改与设备配置不一致。Bash适合系统维护和故障信息收集，不是网络配置的第二入口。</p>
+<p><a class="reference internal" href="../../reference/aaa/"><span class="std std-doc">账号命令</span></a></p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../sessions/" class="btn btn-neutral float-left" title="会话管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../sessions/" class="btn btn-neutral float-left" title="管理会话" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="../../03-interfaces-l2/" class="btn btn-neutral float-right" title="接口" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

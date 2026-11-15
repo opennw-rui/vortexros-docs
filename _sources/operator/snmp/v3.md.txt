@@ -12,4 +12,4 @@ commit
 ```
 
 
-设备维护engine ID和USM持久状态，普通提交和重启不会要求重新创建用户。完整查询和限制见[MIB与服务检查](monitoring.md)，[真实案例](../../examples/snmp.md)明确保留所用协议版本，不把v2c成功冒称为v3实测。
+设备保存 engine ID 和 USM 状态，普通提交和重启无需重建用户。按[MIB 与服务检查](monitoring.md)从平台用 authPriv 验证；SNMPv2c 与 SNMPv3 的凭据及协议检查应分别进行。

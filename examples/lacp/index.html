@@ -127,8 +127,8 @@
 <p>两根链路组成一个 LACP 聚合，承载一个无标签 VLAN 和一个带标签 VLAN。成员全部不可用时，依赖聚合的 Vlanif 自动 Down；恢复一个有效成员后自动 Up，不需要手动重建 Vlanif。</p>
 <section id="id1">
 <span id="拓扑与前提"></span><h2>拓扑与前提<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 host-p1b1 ---------------- host-p2b1 P2
-   host-p1b2 ---------------- host-p2b2
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 Ethernet0 ---------------- Ethernet0 P2
+   Ethernet1 ---------------- Ethernet1
        Eth-Trunk10               Eth-Trunk10
        native VLAN 400           native VLAN 400
        tagged VLAN 401           tagged VLAN 401
@@ -137,7 +137,7 @@ Vlanif400: 198.18.104.1/30 ---- 198.18.104.2/30
 Vlanif401: 198.18.105.1/30 ---- 198.18.105.2/30
 </pre></div>
 </div>
-<p>本例使用开发服务器隔离拓扑中实际的 AF_PACKET 接口名。物理设备应替换成对应的 Ethernet 接口。成员口必须已存在，且没有独立 IP、其他聚合归属或冲突的二层配置；两端链路与 VLAN 必须对应。</p>
+<p>两端各使用 Ethernet0、Ethernet1 作为聚合成员。成员不能有独立 IP、其他聚合归属或冲突的二层配置，链路和 VLAN 必须对应。</p>
 <p>成员只承担聚合传输，三层地址放在 Vlanif 上。此例会改变端口的转发归属，不能直接套用到当前管理链路。</p>
 </section>
 <section id="p1">
@@ -152,10 +152,10 @@ interface Eth-Trunk 10
  port trunk pvid vlan 400
  port trunk allow-pass vlan 400 401
  quit
-interface host-p1b1
+interface Ethernet0
  eth-trunk 10
  quit
-interface host-p1b2
+interface Ethernet1
  eth-trunk 10
  quit
 interface Vlanif 400
@@ -181,10 +181,10 @@ interface Eth-Trunk 10
  port trunk pvid vlan 400
  port trunk allow-pass vlan 400 401
  quit
-interface host-p2b1
+interface Ethernet0
  eth-trunk 10
  quit
-interface host-p2b2
+interface Ethernet1
  eth-trunk 10
  quit
 interface Vlanif 400
@@ -208,24 +208,24 @@ ping -c 3 198.18.104.2
 ping -c 3 198.18.105.2
 </pre></div>
 </div>
-<p>已有功能验收在 Ubuntu 26.04.1 QEMU 的两个独立 VPP 节点上通过真实交互 CLI 验证。以下摘取实际输出，省略其他接口：</p>
+<p>以下为相关接口的示例输出：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>LAG ID: 10                  WorkingMode: STATIC
 System Priority: 65535      System ID: 02fe-aa2f-6a16
 Operate status: up          Number Of Up Port In Trunk: 2
 
 ActorPortName          Status   PortPri PortNo PortKey PortState Weight
-host-p1b1              Selected 255     1      19      00111111  1
-host-p1b2              Selected 255     2      19      00111111  1
+Ethernet0              Selected 255     1      19      00111111  1
+Ethernet1              Selected 255     2      19      00111111  1
 </pre></div>
 </div>
-<p>系统 ID、端口号、Key 可能在重建后变化，应以实际输出为准。<code class="docutils literal notranslate"><span class="pre">Selected</span></code> 应与链路 Up、LACP collecting/distributing 状态一致；只看管理状态 Up 不能证明成员已参加转发。</p>
+<p>系统 ID、端口号、Key 可能在重建后变化，应以示例输出为准。<code class="docutils literal notranslate"><span class="pre">Selected</span></code> 应与链路 Up、LACP collecting/distributing 状态一致；只看管理状态 Up 不能证明成员已参加转发。</p>
 <section id="id3">
 <span id="成员全部关闭与恢复"></span><h3>成员全部关闭与恢复<a class="headerlink" href="#id3" title="链接到此标题。"></a></h3>
-<p>在 P1 的专用实验成员口上执行：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface host-p1b1
+<p>在 P1 的专用示例成员口上执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
  shutdown
  quit
-interface host-p1b2
+interface Ethernet1
  shutdown
  quit
 commit
@@ -237,12 +237,12 @@ display interface brief
 Eth-Trunk10             down   down
 Vlanif400               down   down
 Vlanif401               down   down
-host-p1b1               *down  down
-host-p1b2               *down  down
+Ethernet0               *down  down
+Ethernet1               *down  down
 </pre></div>
 </div>
 <p>恢复一个成员：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface host-p1b1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
  undo shutdown
  quit
 commit
@@ -254,18 +254,18 @@ ping -c 3 198.18.105.2
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Eth-Trunk10             up     up
 Vlanif400               up     up
 Vlanif401               up     up
-host-p1b1               up     up
-host-p1b2               *down  down
+Ethernet0               up     up
+Ethernet1               *down  down
 
 3 packets transmitted, 3 received, 0% packet loss
 </pre></div>
 </div>
-<p>随后恢复 <code class="docutils literal notranslate"><span class="pre">host-p1b2</span></code> 并提交，实际活动成员重新变为 2。这里验证的是通过真实 CLI 控制成员管理状态的依赖收敛，不能把它称作物理拔线或硬件线速测试。</p>
+<p>恢复 Ethernet1 并提交后，活动成员应回到 2。此步骤检查成员管理状态；物理断链时还应核对双方实际载波状态。</p>
 </section>
 </section>
 <section id="id4">
 <span id="调整与撤销"></span><h2>调整与撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
-<p>有成员时直接切换聚合模式会被拒绝。应在同一 Candidate 中先撤销成员归属、调整模式，再重新加入成员并提交；本轮对 manual 与 lacp-static 的同次编辑切换已做真实 CLI 验证。</p>
+<p>有成员时不能直接切换聚合模式。应在同一 Candidate 中先撤销成员归属、调整模式、重新加入成员，再统一提交。</p>
 <p>删除此专用案例前先迁移依赖 Vlanif 的路由与策略，再撤销 Vlanif、成员归属和聚合。成员撤销的入口是接口视图中的 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">eth-trunk</span></code>。删除接口的入口是系统视图中的 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span></code>，按删除提示确认。不要为了撤销本例而关闭其他业务仍在使用的全局交换功能。</p>
 <p><a class="reference internal" href="../../operator/link-aggregation/"><span class="std std-doc">链路聚合</span></a> · <a class="reference internal" href="../vlan-gateway/"><span class="std std-doc">VLAN 网关</span></a></p>
 </section>

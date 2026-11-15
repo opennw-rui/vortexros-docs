@@ -80,7 +80,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../dnat/">DNAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../twice/">Twice NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../no-nat/">No-NAT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../hairpin/">NAT 回流</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hairpin/">Hairpin</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../services/">网络服务</a></li>
@@ -147,7 +147,7 @@ nat-policy name LAB-SNAT
   action snat no-pat address-pool LAB-PUBLIC
  quit
 quit
-interface host-p1a12
+interface Ethernet0
  nat-policy LAB-SNAT outbound
 quit
 commit
@@ -155,23 +155,21 @@ commit
 </div>
 </section>
 <section id="id3">
-<span id="验证与真实结果"></span><h2>验证与真实结果<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>在 P3 访问 http://198.19.80.2:8080/。随后在 P1 查询：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy sessions action snat-no-pat name LAB-SNAT
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>P3 执行 <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-a</span> <span class="pre">198.18.11.2</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">198.19.80.2</span></code>，然后在 P1 查询：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy name LAB-SNAT
+display nat-policy statistics name LAB-SNAT
+display nat-policy sessions action snat-no-pat
 </pre></div>
 </div>
-<p>已有隔离实验真实输出节选：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>host-p1a12/outbound  FIB:0 -&gt; FIB:0  Policy:LAB-SNAT(4124874345)/10  Action:SNAT-NO-PAT
-198.18.11.2:43092 -&gt; 198.19.80.2:8080  =&gt;  198.19.81.1:43092 -&gt; 198.19.80.2:8080
-</pre></div>
-</div>
-<p>HTTP 返回 200，源端口 43092 保持不变。随后仅把 action 改成 snat no-pat interface，真实会话中源地址变为 198.19.80.1、端口 51388 仍保持 51388；接口形式同样只能出方向绑定。 该记录证明本例路径，不是地址池耗尽、满表容量或吞吐测试。运行 ID、端口和时间会随连接变化。</p>
+<p>应能往返，且源地址取自地址池，ICMP 标识符保持原值。在会话中核对原始和转换后的地址；ICMP 使用标识符而非 TCP/UDP 端口。</p>
+<p>Ping 成功只证明往返路径，应同时核对转换结果。查看状态要紧接探测执行，避免会话已老化。地址池耗尽和端口范围需要对应并发业务验证，不能从三次 Ping 推断。</p>
 </section>
 <section id="id4">
 <span id="撤销与保存"></span><h2>撤销与保存<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>P1 系统视图：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1a12
+interface Ethernet0
  undo nat-policy LAB-SNAT outbound
 quit
 undo nat-policy name LAB-SNAT

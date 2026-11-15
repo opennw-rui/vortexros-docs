@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>启停与保存 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+  <title>交换功能与保存 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -23,7 +23,7 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
-    <link rel="next" title="业务桥域绑定" href="../service-bd/" />
+    <link rel="next" title="VLAN 与业务桥域" href="../service-bd/" />
     <link rel="prev" title="成员与网关" href="../ports/" /> 
 </head>
 
@@ -64,8 +64,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../">VLAN</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../ports/">成员与网关</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">启停与保存</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../service-bd/">业务桥域绑定</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">交换功能与保存</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../service-bd/">VLAN 与业务桥域</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
@@ -114,7 +114,7 @@
       <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
           <li class="breadcrumb-item"><a href="../">VLAN</a></li>
-      <li class="breadcrumb-item active">启停与保存</li>
+      <li class="breadcrumb-item active">交换功能与保存</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -124,13 +124,16 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<span id="启停与保存"></span><h1>启停与保存<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<section id="id2">
-<span id="交换实例的撤销与保存"></span><h2>交换实例的撤销与保存<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">switch</span></code> 创建交换实例及默认 VLAN 1。关闭前需撤销成员口、Vlanif、非默认 VLAN，以及 VLAN 1 上显式配置的描述或 QoS；存在这些依赖时命令会拒绝。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">enable</span> <span class="pre">switch</span></code> 同时清除隐式 VLAN 1 和派生桥域，保存后不会留下无法回放的孤立 <code class="docutils literal notranslate"><span class="pre">vlan</span> <span class="pre">batch</span> <span class="pre">1</span></code>。</p>
-<p>本轮真实终端执行启用、提交、关闭、提交、保存，再执行 <code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">config</span></code>，回放成功；保存文件不含 <code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">switch</span></code> 或 <code class="docutils literal notranslate"><span class="pre">vlan</span> <span class="pre">batch</span></code>。原问题在同一流程的保存回放阶段实际失败，修后已复测。未撤销显式 VLAN 配置时拒绝关闭的回归也保留。</p>
-<p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/vlan/"><span class="std std-doc">命令参数</span></a></p>
-</section>
+<span id="交换功能与保存"></span><h1>交换功能与保存<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">switch</span></code>启用交换功能。关闭前先撤销显式VLAN、桥域、二层端口、网关和策略等依赖，否则提交会被拒绝。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo enable switch
+commit
+save
+</pre></div>
+</div>
+<p>关闭后，未被业务引用的隐式默认VLAN不作为独立配置保存。重新启用交换功能时，仍需按所需业务配置端口和VLAN。</p>
+<p>需要恢复启动配置时，先查看<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">startup</span></code>，再执行<code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">config</span></code>并确认。该操作会替换当前运行配置，应先保存需要保留的修改。</p>
+<p><a class="reference internal" href="../ports/"><span class="std std-doc">VLAN端口</span></a> · <a class="reference internal" href="../../cli/configuration/"><span class="std std-doc">配置管理</span></a></p>
 </section>
 
 
@@ -138,7 +141,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../ports/" class="btn btn-neutral float-left" title="成员与网关" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../service-bd/" class="btn btn-neutral float-right" title="业务桥域绑定" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../service-bd/" class="btn btn-neutral float-right" title="VLAN 与业务桥域" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

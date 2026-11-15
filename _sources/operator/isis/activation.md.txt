@@ -19,4 +19,4 @@ interface Vlanif 100
 提交后，IPv4和IPv6在同一进程中运行。接口VPN不一致、同一接口引用另一个进程或同一VPN已存在其他进程时，命令会被拒绝。
 
 
-[双端配置和真实路由](../../examples/isis.md) · [全部参数](../reference/isis.md)
+[双端配置和路由查询](../../examples/isis.md) · [全部参数](../reference/isis.md)

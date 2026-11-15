@@ -11,5 +11,4 @@ display rip 1 route
 在系统视图执行 `undo rip 1` 并提交会删除该进程学习和通告的路由。
 
 
-
 [功能目录](../rip.md) · [命令参数](../reference/rip.md)

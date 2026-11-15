@@ -118,7 +118,7 @@
   <section id="nat">
 <h1>NAT<a class="headerlink" href="#nat" title="链接到此标题。"></a></h1>
 <p>NAT 策略按接口和方向匹配 IPv4 流量，可执行源地址转换、目的地址转换、双向转换或明确不转换。规则、地址集和地址池只定义意图，绑定接口并提交后才参与转发。NAT 需要 VPP 数据面。</p>
-<p>先按转换方式选择子页；共享对象、回流、会话和容量分别维护。各子页给出适用条件、配置、真实查询结果和撤销步骤。</p>
+<p>先按转换方式选择子页；共享对象、回流、会话和容量分别维护。各子页给出适用条件、配置、示例输出结果和撤销步骤。</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>需求</p></th>
@@ -161,49 +161,49 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="interface-pat/">接口 PAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="interface-pat/#id1">参数和限制</a></li>
-<li class="toctree-l2"><a class="reference internal" href="interface-pat/#id2">完整配置与真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface-pat/#id2">配置、检查与撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pool-pat/">地址池 PAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pool-pat/#id1">行为与限制</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pool-pat/#id2">配置、显示与撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pool-pat/#id2">配置、检查与撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="no-pat/">NO-PAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="no-pat/#id1">行为与限制</a></li>
-<li class="toctree-l2"><a class="reference internal" href="no-pat/#id2">配置、显示与撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no-pat/#id2">配置、检查与撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="static/">静态 NAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="static/#id1">行为与限制</a></li>
-<li class="toctree-l2"><a class="reference internal" href="static/#id2">配置、显示与撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static/#id2">配置、检查与撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dnat/">DNAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dnat/#id1">行为与限制</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnat/#id2">配置、显示与撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnat/#id2">配置、检查与撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="twice/">Twice NAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="twice/#id1">行为与限制</a></li>
-<li class="toctree-l2"><a class="reference internal" href="twice/#id2">配置、显示与撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twice/#id2">配置、检查与撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="no-nat/">No-NAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="no-nat/#id1">行为与限制</a></li>
-<li class="toctree-l2"><a class="reference internal" href="no-nat/#id2">配置、显示与撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no-nat/#id2">配置、检查与撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="hairpin/">NAT 回流</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="hairpin/#id1">开关与影响</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hairpin/#id2">配置与真实显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hairpin/#id2">配置与检查</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hairpin/#id3">撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sessions/">会话与统计</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sessions/#id2">查看哪一层</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sessions/#id3">筛选子命令</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sessions/#id4">默认统计与真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sessions/#id4">统计与会话</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sessions/#id5">清理与风险</a></li>
 </ul>
 </li>

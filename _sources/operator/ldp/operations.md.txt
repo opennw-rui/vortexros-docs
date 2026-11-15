@@ -21,11 +21,7 @@ LDP接口、邻居、标签绑定和Zebra LSP均通过对应daemon的VTY流一�
 不会把大表完整反序列化后再排版。转发标签仍单独读取VPP LFIB，避免用控制面状态代替
 数据面验收。
 
-功能验收必须同时确认 LDP 邻居、标签绑定、Zebra/Linux netlink 状态、VPP MPLS
-FIB 和 CE 间实际流量。只看到配置存在不能证明数据面已生效。
-
-
-
+检查 LDP 邻居、标签绑定、MPLS 转发表、路由出口及业务连通性。只有邻居 Up 不足以证明标签路径已经可用；以 display mpls forwarding-table 和跨核心业务探测联合确认。
 
 
 ## 删除与恢复

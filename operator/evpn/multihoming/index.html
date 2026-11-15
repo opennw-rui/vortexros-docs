@@ -73,7 +73,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../l3vpn/">L3VPN</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">多归属</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../anycast/">Anycast 网关</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lifecycle/">变更与恢复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lifecycle/">EVPN 变更与恢复</a></li>
 </ul>
 </li>
 </ul>
@@ -184,8 +184,8 @@ display health
 业务转发均恢复，不能只以其他 PE 仍能转发作为成功依据。</p>
 <section id="id2">
 <span id="范围实际记录和撤销"></span><h2>范围、实际记录和撤销<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>配套 FRR 只支持 All-Active，不提供 Single-Active，多归属 VTEP 限定 IPv4。上面的RR组网仍是模板；本轮另有三PE全互联的<a class="reference internal" href="../../../examples/evpn/all-active/"><span class="std std-doc">完整All-Active案例</span></a>，记录真实双成员组、双接入故障、恢复、冷回放及撤销。两种组网的证据不混用。</p>
-<p><a class="reference internal" href="../../../examples/evpn/esi/"><span class="std std-doc">ESI 生命周期案例</span></a>记录真实配置、ES local/up、Type-4 通告、VLAN400 转发和撤销后的端口恢复。双归属CE的补验见All-Active案例；单ESI增删与多PE故障验证仍分别记录。</p>
+<p>当前支持 All-Active，不提供 Single-Active，多归属 VTEP 限定 IPv4。<a class="reference internal" href="../../../examples/evpn/all-active/"><span class="std std-doc">完整 All-Active 案例</span></a>给出三 PE 全互联的逐设备配置、故障检查和撤销；使用 RR 时另需正确配置路由反射。</p>
+<p><a class="reference internal" href="../../../examples/evpn/esi/"><span class="std std-doc">ESI 变更</span></a>说明同一组网中的撤销与重新加入；完整双接入检查见 All-Active 案例。</p>
 <p>撤销单个接入的多归属属性，在对应 Eth-Trunk 执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">esi</span></code> 并提交，保留普通桥接和 VLAN 成员关系。只有确认业务无引用时才删除聚合、VNI 或桥域。</p>
 <p><a class="reference internal" href="../lifecycle/"><span class="std std-doc">实际生命周期</span></a> · <a class="reference internal" href="../../reference/evpn/"><span class="std std-doc">命令参考</span></a></p>
 </section>

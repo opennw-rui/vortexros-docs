@@ -127,7 +127,7 @@
 <span id="dhcp-地址池"></span><h1>DHCP 地址池<a class="headerlink" href="#dhcp" title="链接到此标题。"></a></h1>
 <section id="id1">
 <span id="拓扑与用途"></span><h2>拓扑与用途<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>服务器 P2 的 <code class="docutils literal notranslate"><span class="pre">host-p2r12</span></code> 与客户端 P1 的 <code class="docutils literal notranslate"><span class="pre">host-p1r12</span></code> 直接相连，地址段为 <code class="docutils literal notranslate"><span class="pre">172.20.15.0/24</span></code>。服务器接口属于 <code class="docutils literal notranslate"><span class="pre">DHCP-EMPTY</span></code> VPN 实例，客户端接口属于本机的 <code class="docutils literal notranslate"><span class="pre">CLI-UNDER</span></code> 实例。两个名称是各节点的本地路由域，不要求相同。本例使用开发服务器的隔离接口名，部署时换成实际接口。</p>
+<p>服务器 P2 的 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code> 与客户端 P1 的 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code> 直接相连，地址段为 <code class="docutils literal notranslate"><span class="pre">172.20.15.0/24</span></code>。服务器接口属于 <code class="docutils literal notranslate"><span class="pre">DHCP-EMPTY</span></code> VPN 实例，客户端接口属于本机的 <code class="docutils literal notranslate"><span class="pre">CLI-UNDER</span></code> 实例。两个名称是各节点的本地路由域，不要求相同。两端均使用 VortexROS 配置服务和客户端。</p>
 <p>服务器采用全局地址池，指定分配范围、排除地址、固定绑定、网关、DNS、域名和一小时租期。客户端动态安装地址；学习到的路由是否安装，由客户端路由开关控制。DNS 选项不会改写 Linux 系统解析配置。</p>
 </section>
 <section id="id2">
@@ -148,7 +148,7 @@ ip pool CLI-LAN
  domain-name cli.example
  lease day 0 hour 1
  quit
-interface host-p2r12
+interface Ethernet0
  ip binding vpn-instance DHCP-EMPTY
  ip address 172.20.15.1 255.255.255.0
  dhcp select global
@@ -161,7 +161,7 @@ commit
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 ip vpn-instance CLI-UNDER
  quit
-interface host-p1r12
+interface Ethernet0
  ip binding vpn-instance CLI-UNDER
  ip address dhcp-alloc
  quit
@@ -171,15 +171,15 @@ commit
 <p>先绑定 VPN 实例，再配置地址或客户端。修改绑定会清除接口的原地址配置。两个 VPN 实例均使用各自默认的 IPv4 地址族；需要接入已有实例时，不重复创建。</p>
 </section>
 <section id="id3">
-<span id="实际结果"></span><h2>实际结果<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp service verbose
 display ip pool name CLI-LAN verbose
-display ip pool interface host-p2r12 verbose
+display ip pool interface Ethernet0 verbose
 </pre></div>
 </div>
 <p>在空租约库时，查询成功并显示 <code class="docutils literal notranslate"><span class="pre">Used</span> <span class="pre">0</span></code>；客户端获取地址后，全局池显示 <code class="docutils literal notranslate"><span class="pre">Used</span> <span class="pre">1</span></code>。即使接口保留了未启用的旧接口池配置，租约仍归属当前启用的全局池，接口池查询不重复计数。</p>
-<p>客户端实际取得 <code class="docutils literal notranslate"><span class="pre">172.20.15.110/24</span></code>，服务器为 <code class="docutils literal notranslate"><span class="pre">172.20.15.1</span></code>，租期为 <code class="docutils literal notranslate"><span class="pre">3600</span></code> 秒。底层 Kea 租约列表同时有该条记录。客户端真实 CLI：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp client interface host-p1r12
+<p>客户端取得的地址、服务器和租期应与地址池相符。以下为客户端示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp client interface Ethernet0
 ping -vpn-instance CLI-UNDER -a 172.20.15.110 -c 3 172.20.15.1
 </pre></div>
 </div>
@@ -188,7 +188,7 @@ ping -vpn-instance CLI-UNDER -a 172.20.15.110 -c 3 172.20.15.1
 <section id="id4">
 <span id="接口池方式"></span><h2>接口池方式<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>若每个接口只需要一个地址池，可在已配置地址的接口下使用：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface host-p2r12
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
  dhcp select interface
  dhcp server ip-range 172.20.15.100 172.20.15.120
  dhcp server gateway-list 172.20.15.1
@@ -205,7 +205,7 @@ commit
 <p>验证后执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。修改选项后，应让客户端续租再检查报文或租约，不能只看配置已提交。</p>
 <p>P1 停用客户端：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p1r12
+interface Ethernet0
  undo ip address dhcp-alloc
  quit
 commit
@@ -213,14 +213,14 @@ commit
 </div>
 <p>P2 停用服务并删除全局池：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
-interface host-p2r12
+interface Ethernet0
  undo dhcp select
  quit
 undo ip pool CLI-LAN
 commit
 </pre></div>
 </div>
-<p>本轮实际撤销后，相关客户端和服务端进程停止，成功的池及服务查询均为空；客户端动态地址、动态路由已撤销。保留接口本身的静态地址及 VPN 配置，不将它们当作 DHCP 自动清理对象。若其他接口仍提供 DHCP，保留全局开关；全部不再使用时再 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">enable</span> <span class="pre">dhcp</span> <span class="pre">server</span></code> 并提交、保存。</p>
+<p>撤销后查询客户端、池和服务状态，确认本例绑定、动态地址及动态路由已移除。静态地址和 VPN 配置是独立对象，不随 DHCP 自动删除。其他接口仍提供 DHCP 时保留全局开关，否则再 undo enable dhcp server、提交并保存。</p>
 </section>
 </section>
 

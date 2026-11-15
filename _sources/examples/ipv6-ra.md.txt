@@ -5,11 +5,11 @@
 ## 拓扑与前提
 
 ```text
-Ubuntu 测试虚拟机：Linux 数据面 eth2 ── 隔离链路 ── QEMU 网络端点
-  从 RA 学习地址和路由                           发送 PIO 与 Router Lifetime
+VortexROS Ethernet0 ── 上游 IPv6 路由器
+  接收 SLAAC/默认路由      发送自主前缀与 Router Lifetime
 ```
 
-这是开发服务器上的实际 Virtio 端口测试。QEMU 端点使用其既定实验前缀 `fec0::/64`，因此下面真实输出包含该前缀；生产网络应使用自己的正常 IPv6 地址规划，不应照搬实验前缀。设备上将 `eth2` 替换为实际三层接口名。
+本例说明 VortexROS 的 RA 接收功能。上游需已提供 2001:db8:100::/64 的自主前缀和默认路由通告；当前 VortexROS CLI 不提供 RA 发送端配置，本页不将接收能力描述成可配置 RA 服务器。
 
 上游必须发送有效的自主地址前缀选项和非零 Router Lifetime。只有前缀、没有 Router Lifetime 时，不会得到默认路由；只有默认路由、没有自主前缀时，不会得到 SLAAC 地址。
 
@@ -17,7 +17,7 @@ Ubuntu 测试虚拟机：Linux 数据面 eth2 ── 隔离链路 ── QEMU �
 
 ```text
 system-view
-interface eth2
+interface Ethernet2
  undo shutdown
  ipv6 address auto global default
  quit
@@ -26,22 +26,22 @@ commit
 
 只在指定接口开启接收。组合命令同时启用 SLAAC 和 RA 默认路由。内核仍执行 DAD；地址处于 tentative 时不能把立即发出的探测计为有效连通性测试。确认后可 `save`。
 
-## 实际查询与流量
+## 示例输出
 
 ```text
 display ipv6 interface brief
 display ipv6 routing-table
-ping ipv6 -c 3 -a fec0::5054:ff:fe11:2242 fec0::2
+ping ipv6 -c 3 -a 2001:db8:100::5054:ff:fe11:2242 2001:db8:100::2
 ```
 
-实际接口摘要节选：
+示例输出：
 
 ```text
 Interface   IPv6 Address/Mask              Physical  Protocol  VPN-Instance
-eth2        fec0::5054:ff:fe11:2242/64     up        up        default
+Ethernet2        2001:db8:100::5054:ff:fe11:2242/64     up        up        default
 ```
 
-实际默认路由节选：
+示例输出：
 
 ```text
 Destination  : ::
@@ -50,17 +50,17 @@ NextHop      : fe80::2
 Preference   : 0
 Cost         : 1024
 Protocol     : Kernel
-Interface    : eth2
+Interface    : Ethernet2
 ```
 
-路由由本实验环境的 Linux RA 学习而来，因此显示为 Kernel；这里不是静态路由或 DHCPv6 网关。探测实际为 3 packets transmitted、3 received、0% packet loss。地址后缀、有效时间和上游链路本地地址会随环境变化。
+通过 RA 学到的默认路由显示为 Kernel，不是静态路由或 DHCPv6 网关。地址后缀、有效期及上游链路本地地址会随网络变化。取得地址并完成 DAD 后，使用实际地址作为源地址 Ping 上游。
 
 ## 分别启用与撤销
 
 只保留 SLAAC，撤销默认路由：
 
 ```text
-interface eth2
+interface Ethernet2
  undo ipv6 nd ra default-route enable
  ipv6 address auto slaac
  quit
@@ -70,7 +70,7 @@ commit
 本例实际保留 SLAAC 地址，默认路由消失。再切换为仅接收默认路由：
 
 ```text
-interface eth2
+interface Ethernet2
  undo ipv6 address auto slaac
  ipv6 nd ra default-route enable
  quit
@@ -82,7 +82,7 @@ commit
 最后关闭剩余 RA 接收：
 
 ```text
-interface eth2
+interface Ethernet2
  undo ipv6 nd ra default-route enable
  quit
 commit

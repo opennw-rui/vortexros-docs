@@ -128,8 +128,8 @@
              
   <section id="bgp">
 <span id="bgp-入站策略"></span><h1>BGP 入站策略<a class="headerlink" href="#bgp" title="链接到此标题。"></a></h1>
-<p><strong>目标</strong>：只接受实验邻居发布的指定前缀，给匹配路由设置本地优先级。</p>
-<p><strong>前提</strong>：按<a class="reference internal" href="../bgp/"><span class="std std-doc">直连 eBGP</span></a>建立邻接，本端 AS 64512，对端 192.0.2.2。只在实验邻居上应用；既有不匹配路由可能撤销。</p>
+<p><strong>目标</strong>：只接受示例邻居发布的指定前缀，给匹配路由设置本地优先级。</p>
+<p><strong>前提</strong>：按<a class="reference internal" href="../bgp/"><span class="std std-doc">直连 eBGP</span></a>建立邻接，本端 AS 64512，对端 192.0.2.2。只在示例邻居上应用；既有不匹配路由可能撤销。</p>
 <section id="id1">
 <span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
@@ -150,7 +150,7 @@ commit
 </section>
 <section id="id2">
 <span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>让对端分别发布 203.0.113.0/24 与一个不匹配的实验前缀。用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-policy</span> <span class="pre">LAB-IN</span> <span class="pre">verbose</span></code> 查看调用，再查看 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">routing-table</span></code> 的前缀和属性，确认只接受预期路由。</p>
+<p>让对端分别发布 203.0.113.0/24 与一个不匹配的示例前缀。用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-policy</span> <span class="pre">LAB-IN</span> <span class="pre">verbose</span></code> 查看调用，再查看 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">routing-table</span></code> 的前缀和属性，确认只接受预期路由。</p>
 </section>
 <section id="id3">
 <span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>

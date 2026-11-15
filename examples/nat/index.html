@@ -80,7 +80,7 @@
 <li class="toctree-l3"><a class="reference internal" href="dnat/">DNAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="twice/">Twice NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="no-nat/">No-NAT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hairpin/">NAT 回流</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hairpin/">Hairpin</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
@@ -133,64 +133,66 @@
 <li class="toctree-l1"><a class="reference internal" href="topology/">基础拓扑</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="topology/#p1">P1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topology/#p2">P2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="topology/#id2">如何判定生效</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topology/#p3">P3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topology/#id2">基础验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topology/#id3">拆除基础拓扑</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../nat-pat/">接口 PAT</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#id1">拓扑</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#id2">两端地址</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#id3">策略</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#id4">实际流量与显示</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#id5">端口集合与配额</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#id6">撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#id1">拓扑与作用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#p1">P1 配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#id2">验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat-pat/#id3">撤销</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pool-pat/">地址池 PAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pool-pat/#id1">前提与参数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pool-pat/#id2">配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pool-pat/#id3">验证与真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pool-pat/#id3">验证</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pool-pat/#id4">撤销与保存</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="no-pat/">NO-PAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="no-pat/#id1">前提与参数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="no-pat/#id2">配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="no-pat/#id3">验证与真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no-pat/#id3">验证</a></li>
 <li class="toctree-l2"><a class="reference internal" href="no-pat/#id4">撤销与保存</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="static/">静态 NAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="static/#id1">前提与参数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="static/#id2">配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="static/#id3">验证与真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static/#id3">验证</a></li>
 <li class="toctree-l2"><a class="reference internal" href="static/#id4">撤销与保存</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dnat/">DNAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dnat/#id1">前提与参数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnat/#id2">配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnat/#id3">验证与真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnat/#id3">验证</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnat/#id4">撤销与保存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnat/#tcp-udp">TCP/UDP 端口发布</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="twice/">Twice NAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="twice/#id1">前提与参数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="twice/#id2">配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="twice/#id3">验证与真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twice/#id3">验证</a></li>
 <li class="toctree-l2"><a class="reference internal" href="twice/#id4">撤销与保存</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="no-nat/">No-NAT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="no-nat/#id1">前提与参数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="no-nat/#id2">配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="no-nat/#id3">验证与真实结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no-nat/#id3">验证</a></li>
 <li class="toctree-l2"><a class="reference internal" href="no-nat/#id4">撤销与保存</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="hairpin/">NAT 回流</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="hairpin/#id1">拓扑和前置配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hairpin/#id2">访问与验证</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hairpin/#id3">关闭对照和撤销</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hairpin/">Hairpin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hairpin/#id1">用途与前提</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hairpin/#id2">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hairpin/#id3">验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hairpin/#id4">撤销</a></li>
 </ul>
 </li>
 </ul>

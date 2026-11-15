@@ -128,7 +128,7 @@
 <section id="id1">
 <span id="只获取-ipv6-信息"></span><h2>只获取 IPv6 信息<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <p>接口下的 <code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">information-request</span></code> 只请求 DNS 等非地址信息，不应期待 IA_NA 地址或委派前缀。<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcpv6</span> <span class="pre">client</span></code> 显示运行状态而地址列为 <code class="docutils literal notranslate"><span class="pre">-</span></code>，不等于请求失败。可在接口下执行 <code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">renew</span></code>，结合 DHCPv6 抓包确认 Reply；系统 DNS 仍由 Linux 管理，不自动改写。</p>
-<p>开发拓扑中，P1 的 <code class="docutils literal notranslate"><span class="pre">host-p1r12</span></code> 属于 CLI-UNDER，仅有链路本地 IPv6 地址；对端 P2 的 <code class="docutils literal notranslate"><span class="pre">host-p2r12</span></code> 属于本机 DHCP-EMPTY，服务地址为 <code class="docutils literal notranslate"><span class="pre">2001:db8:150::1/64</span></code>。在已启用 DHCP 服务的 P2 配置：</p>
+<p>本例中，P1 的 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code> 属于 CLI-UNDER，仅有链路本地 IPv6 地址；对端 P2 的 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code> 属于本机 DHCP-EMPTY，服务地址为 <code class="docutils literal notranslate"><span class="pre">2001:db8:150::1/64</span></code>。在已启用 DHCP 服务的 P2 配置：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dhcpv6 pool CLI6-U
  vpn-instance DHCP-EMPTY
  address prefix 2001:db8:150::/64 life-time 3600 1800
@@ -137,23 +137,23 @@
  information-refresh 600
  quit
 dhcpv6 duid llt
-interface host-p2r12
+interface Ethernet0
  dhcpv6 server CLI6-U
  quit
 commit
 </pre></div>
 </div>
 <p>P1：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface host-p1r12
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
  dhcpv6 client information-request
  quit
 commit
-interface host-p1r12
+interface Ethernet0
  dhcpv6 client renew
  quit
 </pre></div>
 </div>
-<p>真实报文节选，同一事务号配对：</p>
+<p>示例输出，同一事务号配对：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>fe80::c0a6:56ff:fe77:567c.546 &gt; ff02::1:2.547:
   dhcp6 inf-req (xid=74ec4e) (option-request DNS-server DNS-search-list)
 fe80::24a2:e1ff:fefc:8ec.547 &gt; fe80::c0a6:56ff:fe77:567c.546:
@@ -163,9 +163,9 @@ fe80::24a2:e1ff:fefc:8ec.547 &gt; fe80::c0a6:56ff:fe77:567c.546:
   DNS-search-list cli.example.
 </pre></div>
 </div>
-<p>DUID LLT 已通过服务端报文验证；恢复默认 LL 后，Reply 使用 hwaddr 形式。<code class="docutils literal notranslate"><span class="pre">information-refresh</span> <span class="pre">600</span></code> 已核对 Kea 实际配置；该客户端未请求对应选项，因此不将上述报文作为该选项返回值的证据。</p>
-<p>VPP 数据面中，只有链路本地地址的接口也必须在当前 VPN 实例的组播表上接收邻居发现。本次验收发现并修复了启用 IPv6 后切换接口表时，原生 VPP 未迁移这一成员关系的问题；否则 Kea 可接收请求并成功发出 Reply，但回程邻居发现会失败。这里不需要修改 Kea，也不需要放宽组播入口校验。</p>
-<p>撤销时，P1 执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">information-request</span></code>；P2 先在接口下 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">server</span></code>，再删除不再使用的池，必要时 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">duid</span></code> 恢复默认。提交后，客户端及服务器进程均已实际停止，成功的服务和池查询均为空。地址、接口、VPN 实例属于独立配置，按各自依赖处理。若要持久保留撤销结果，再执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
+<p>DUID用于服务器识别，修改后客户端可能将其视为不同服务器。<code class="docutils literal notranslate"><span class="pre">information-refresh</span></code>控制服务端信息刷新选项；客户端是否采用该值取决于其请求和实现。</p>
+<p>接口绑定VPN后，确认该VPN中的IPv6邻居发现和回程路径正常；只有服务端发出Reply还不足以说明客户端已收到。使用本节查询确认客户端状态和收到的选项。</p>
+<p>撤销时，P1 执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">information-request</span></code>；P2 先在接口下 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">server</span></code>，再删除不再使用的池，必要时 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">duid</span></code> 恢复默认。提交后检查客户端、服务和池查询，确认目标绑定不再存在。地址、接口、VPN 实例属于独立配置，按各自依赖处理。若要持久保留撤销结果，再执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
 <p><a class="reference internal" href="../"><span class="std std-doc">DHCP 功能与开关</span></a> · <a class="reference internal" href="../../reference/dhcp/"><span class="std std-doc">逐条命令参数</span></a></p>
 </section>
 </section>

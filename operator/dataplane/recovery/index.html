@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>激活与恢复 &mdash; VortexROS 文档 v0.29-dev 文档</title>
+  <title>数据面激活与恢复 &mdash; VortexROS 文档 v0.29-dev 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -24,7 +24,7 @@
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
     <link rel="next" title="链路聚合" href="../../link-aggregation/" />
-    <link rel="prev" title="控制网桥 MTU" href="../bridge-mtu/" /> 
+    <link rel="prev" title="网桥与 MTU" href="../bridge-mtu/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -63,8 +63,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../devices/">设备与接管</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../resources/">资源与运行查询</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tables/">邻居与 MAC 容量</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bridge-mtu/">控制网桥 MTU</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">激活与恢复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bridge-mtu/">网桥与 MTU</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">数据面激活与恢复</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
@@ -116,7 +116,7 @@
       <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
           <li class="breadcrumb-item"><a href="../">数据面</a></li>
-      <li class="breadcrumb-item active">激活与恢复</li>
+      <li class="breadcrumb-item active">数据面激活与恢复</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -126,17 +126,30 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<span id="激活与恢复"></span><h1>激活与恢复<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<section id="pci">
-<span id="pci-激活与撤销的实际结果"></span><h2>PCI 激活与撤销的实际结果<a class="headerlink" href="#pci" title="链接到此标题。"></a></h2>
-<p>Ubuntu 26.04.1 QEMU 的独立 virtio PCI 设备 <code class="docutils literal notranslate"><span class="pre">0000:00:02.0</span></code> 被命名为 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code>，另一个物理接口 <code class="docutils literal notranslate"><span class="pre">eth2</span></code> 保持 Linux 模式。真实 CLI 配置主核 0、worker 1、RX/TX 各 1 队列、RX/TX 各 512 描述符，保存后激活成功。VPP 原生查询确认线程 CPU 0/1 及对应队列、描述符；接口地址恢复为 <code class="docutils literal notranslate"><span class="pre">192.0.2.65/30</span></code>，到独立虚拟对端 <code class="docutils literal notranslate"><span class="pre">192.0.2.66</span></code> 的两次探测均成功。</p>
-<p>在同一接口在线关闭、开启 software GSO 后，能力查询的 Active 状态相应变化，恢复开启后两次探测均成功。这只证明该驱动、该参数的生效及连通性，不代表所有驱动 offload 都可在线切换，也不是吞吐测量。</p>
-<p>撤销上述队列、描述符和 worker 设置，保存并再次激活后，原生查询只剩 main CPU 0；virtio 的 RX/TX 描述符均回到驱动默认 256，队列仍为该设备支持的 1。相同地址和对端探测继续 2/2。该 256 是本次 virtio 运行值，不是所有网卡的统一默认值。</p>
-</section>
+<span id="数据面激活与恢复"></span><h1>数据面激活与恢复<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>修改设备模式、CPU、队列、描述符或大页等参数后，先提交、保存，再按提示激活：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+save
+reset dataplane
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code>需要交互确认，可能中断由数据面承载的业务。影响管理链路时，应使用可恢复的管理连接。</p>
 <section id="id2">
-<span id="冷启动端点"></span><h2>冷启动端点<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>重启后，VPP/LCP 逻辑端点可能晚于控制服务出现。普通交换投影遇到尚未重建的端点时会记录等待，随后使用已有链路事件和已接受配置恢复；服务启动成功本身不代表对象已经全部恢复，仍需以 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health</span></code>、接口和实际业务验证为准。存在未完成静态 MAC 补偿记录时，原恢复检查仍保留，不能把它与普通端点等待混为一谈。</p>
-<p><a class="reference internal" href="../"><span class="std std-doc">数据面总览</span></a> · <a class="reference internal" href="../../reference/dataplane/"><span class="std std-doc">逐条命令</span></a></p>
+<span id="激活后检查"></span><h2>激活后检查<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dataplane
+display dataplane interfaces
+display interface brief
+display ip interface brief
+display health
+</pre></div>
+</div>
+<p>核对设备的期望模式与活动模式、接口名称、IP和路由，再从实际业务源地址执行ping。需要CPU或驱动初始化才能生效的参数，不能只根据配置显示判断已经应用。</p>
+</section>
+<section id="id3">
+<span id="恢复默认参数"></span><h2>恢复默认参数<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在对应视图撤销显式的worker、队列或描述符设置，提交、保存后再次激活。撤销后采用设备或驱动默认值；不同网卡的默认队列及描述符数可能不同，不应统一认定为256或1024。</p>
+<p>切回kernel模式时保留接口的产品名称，已提交的地址和路由按新的接口归属恢复。若激活失败，先查看数据面阶段和告警，再按<a class="reference internal" href="../../../troubleshooting/dpdk-management/"><span class="std std-doc">管理连接恢复</span></a>处理。</p>
+<p><a class="reference internal" href="../devices/"><span class="std std-doc">设备配置</span></a> · <a class="reference internal" href="../resources/"><span class="std std-doc">资源查询</span></a></p>
 </section>
 </section>
 
@@ -144,7 +157,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../bridge-mtu/" class="btn btn-neutral float-left" title="控制网桥 MTU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../bridge-mtu/" class="btn btn-neutral float-left" title="网桥与 MTU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="../../link-aggregation/" class="btn btn-neutral float-right" title="链路聚合" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

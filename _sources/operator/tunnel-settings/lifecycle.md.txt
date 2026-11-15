@@ -7,14 +7,12 @@ Tunnel配置可以在Candidate中分步编辑；协议、源和目的等必需�
 underlay源接口变更IP或VPN时，隧道可以暂时down；恢复依赖后应自动收敛，不应阻止underlay配置进入Candidate。
 
 
-
 ## `undo interface Tunnel`
 
 **功能**：删除Tunnel逻辑接口及其隧道、地址、LCP和相关接口配置。
 **命令格式**：`undo interface Tunnel INSTANCE`
 **视图**：系统视图。
 **注意事项**：命令进入Candidate，执行`commit`后才从控制面与数据面删除；删除前应确认路由和协议不再引用该接口。
-
 
 
 ## 功能范围

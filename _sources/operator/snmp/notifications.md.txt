@@ -1,13 +1,22 @@
 # 计数与通知
 
-## 实际计数与链路通知
+## 接口计数
 
-本轮隔离环境以 VPP virtio `Ethernet0` 的实际 IF-MIB 行查询 64 位计数。发送两个 ICMP 探测且全部收到应答后，`ifHCInOctets` 从 630 增至 826，`ifHCOutOctets` 从 1412 增至 1608，各增加 196 字节。该结果是实际流量的采样差，不是配置中的计数。
+使用监控平台连续采样 ifHCInOctets / ifHCOutOctets，发送业务后检查累计值增加，再按采样间隔计算速率。包长、封装和后台协议会影响字节增量，不应把固定字节差作为所有接口的期望值。
 
-接口描述、管理状态及与 SNMP 监听源无关的地址变更不重启 SNMP 服务；AgentX 会继续更新接口行。修改实际监听接口或 trap 源接口的主 IPv4 地址则会重新生成相关服务配置。标准链路通知由 Net-SNMP 的状态监视周期发送，因此查询已显示 Down 时，通知可能尚未到达，不应把它等同于即时链路事件接口。
+计数器清零、接口重建或数据面重启后，结合 ifCounterDiscontinuityTime 重建采样基线。接口 description、管理状态与监听地址分别核对，不要仅根据平台历史曲线推断当前状态。
 
-真实 CLI 对 `Ethernet0` 执行 `shutdown`、提交，再撤销关闭并提交，抓包分别收到源地址 `192.0.2.65` 发出的标准 linkDown（OID `1.3.6.1.6.3.1.1.5.3`）和 linkUp（末尾 `.4`）。两次通知的接口索引均为 2047694891；服务 PID 始终为 4106。此结果覆盖单接口管理状态变化，不作为其他硬件故障通知时延的保证。
+## 标准链路通知
 
-VPN 监听对照使用 Linux 接口 `eth2`，地址 `198.51.100.1/30`，归属 `CLI-POOL`。在真实 CLI 撤销旧 trap 源、将监听切到 `vpn-instance CLI-POOL eth2` 并重新指定 trap 源后，CLI 健康为 ready；从同一 VRF 执行标准 `sysName.0` 查询返回 `VortexROS`，独立对端 `198.51.100.2` 的两次探测均成功。监听源和 trap 源必须满足同一 VPN 的现有约束，切换时先撤销旧 trap 源，避免中间配置跨实例。完成后已撤销实验 VPN 并恢复 public 监听。
+按[SNMP 参数](../reference/snmp.md)配置 target-host，指定 trap source，并启用 snmp-agent trap enable standard。通知源接口与监听 VPN 应满足同一实例约束；切换 VPN 时先解除旧 Trap 源，再配置新源。
+
+| 通知 | OID |
+| --- | --- |
+| linkDown | 1.3.6.1.6.3.1.1.5.3 |
+| linkUp | 1.3.6.1.6.3.1.1.5.4 |
+
+在非管理业务口执行 shutdown、commit，平台应收到对应接口的 linkDown；undo shutdown 并提交后应收到 linkUp。核对通知源 IP、接口索引和状态。通知按状态监视周期发送，可能晚于 display 中的变化，不是即时故障收敛时延保证。
+
+检查完成后恢复接口，撤销本例通知目标、Trap 源和 standard 开关，保留其他监控使用的对象；提交并按需 save。
 
 [功能目录](../snmp.md) · [命令参数](../reference/snmp.md)
