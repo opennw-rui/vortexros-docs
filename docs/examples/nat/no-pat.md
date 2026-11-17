@@ -12,29 +12,38 @@ P1 从用户视图开始；接口与基础路由由前置拓扑提供：
 
 ~~~text
 system-view
-nat-policy address-pool name LAB-PUBLIC
- address 198.19.81.1/32
-quit
-nat-policy name LAB-SNAT
+~~~
+
+配置清单：
+
+~~~text
+nat-policy address-pool name D1-NOPAT-P
+ address 198.51.100.11/32
+#
+nat-policy name D1-NOPAT
  statistic enable
  rule 10
-  source address 198.18.11.2/32
-  action snat no-pat address-pool LAB-PUBLIC
- quit
-quit
+  source address 203.0.113.2/32
+  action snat no-pat address-pool D1-NOPAT-P
+#
 interface Ethernet0
- nat-policy LAB-SNAT outbound
-quit
+ nat-policy D1-NOPAT outbound
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
 ## 验证
 
-P3 执行 `ping -a 198.18.11.2 -c 3 198.19.80.2`，然后在 P1 查询：
+P3 执行 `ping -a 203.0.113.2 -c 3 198.51.100.2`，然后在 P1 查询：
 
 ~~~text
-display nat-policy name LAB-SNAT
-display nat-policy statistics name LAB-SNAT
+display nat-policy name D1-NOPAT
+display nat-policy statistics name D1-NOPAT
 display nat-policy sessions action snat-no-pat
 ~~~
 
@@ -48,11 +57,21 @@ P1 系统视图：
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
- undo nat-policy LAB-SNAT outbound
-quit
-undo nat-policy name LAB-SNAT
-undo nat-policy address-pool name LAB-PUBLIC
+ undo nat-policy D1-NOPAT outbound
+#
+undo nat-policy name D1-NOPAT
+undo nat-policy address-pool name D1-NOPAT-P
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display nat-policy runtime
 display nat-policy interfaces
@@ -61,3 +80,7 @@ display nat-policy interfaces
 解除绑定后再发起新连接，确认不再采用该策略。基础拓扑的普通路由仍在，撤销 NAT 不一定使业务断开，应比较转换结果而非只看 ping。需要重启保留配置时，在提交并验证后执行 `save`；撤销后也再次保存。
 
 [功能说明](../../operator/nat/no-pat.md) · [命令参数](../../operator/reference/nat.md)
+
+## 实际检查结果
+
+使用 ICMP 标识符 29123 的探测收到 3/3 回复，实际会话源地址转换为 198.51.100.11，标识符仍为 29123。该结果验证地址转换和标识符保留，不代表整个地址池的并发容量。

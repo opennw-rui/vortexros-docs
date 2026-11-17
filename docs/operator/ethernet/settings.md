@@ -18,6 +18,7 @@ IPv4继续使用主地址与`sub`从地址语义；IPv6地址为累加列表，�
 
 ```text
 interface LoopBack 0
+ ipv6 enable
  ipv6 address 2001:db8:100::1 64
  ipv6 address 2001:db8:200::1 64
 ```

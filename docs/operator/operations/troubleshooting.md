@@ -24,3 +24,18 @@ journalctl -u vortexrosd -u vortexros-vpp -u vortexros-frr -u vortexros-route-za
 不要直接删除 `/var/lib/vortexros`、`/run/vortexros` 或服务运行目录来“清错”，否则可能破坏自动恢复所需的信息。无法恢复时先保存display和日志信息，再按安装手册中的恢复流程处理。
 
 [目录](../09-operations.md)
+
+## 服务状态与健康
+
+服务显示区分 Running、Ready 和 Converged。进程运行不等于控制连接就绪，已提交配置代号相同也不等于所有依赖服务可用。一次路由服务停止时，display health 为 not-ready，health check 返回失败；服务恢复后重新为 ready，配置代号保持不变。
+
+进程与版本信息按服务监视周期更新；控制连接的就绪状态更新更频繁。因此短暂故障中 Running/PID 与 Ready 的更新时间可能不同，应以严格健康结果及实际业务综合判断。
+
+历史告警的实际示例：
+
+```text
+Severity  Subsystem  Code              Resource  Count
+major     reconcile  RECONCILE_FAILED  running   4
+```
+
+故障恢复后，该记录仍可在 display alarm history last 10 中查看，而 display alarm active 返回 No alarms。Count 是同类故障累计次数，不是丢包数。

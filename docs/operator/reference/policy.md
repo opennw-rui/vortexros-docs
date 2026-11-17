@@ -6,7 +6,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：restart VPP and apply the saved config.cfg configuration
+- CLI 帮助：restart VPP and apply the saved config.cfg configuration
 - 合法语法：
 
   ```text
@@ -24,8 +24,9 @@
 ## `deny`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：deny matching packets
+- CLI 帮助：deny matching packets
 - 合法语法：
 
   ```text
@@ -43,14 +44,14 @@
 ## `permit`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：permit matching packets
+- CLI 帮助：permit matching packets
 - 合法语法：
 
   ```text
   permit
   ```
-
 
 <!-- registry-parameters -->
 
@@ -64,8 +65,9 @@
 ## `rule`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`ACL视图`、`NAT策略视图`、`acl6`
-- 用途（设备帮助）：configure an ACL rule；create/enter a NAT rule
+- CLI 帮助：configure an ACL rule；create/enter a NAT rule
 - 合法语法：
 
   ```text
@@ -223,8 +225,9 @@
 ## `undo deny`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：undo deny
+- CLI 帮助：undo deny
 - 合法语法：
 
   ```text
@@ -242,8 +245,9 @@
 ## `undo permit`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：undo permit
+- CLI 帮助：undo permit
 - 合法语法：
 
   ```text
@@ -261,14 +265,14 @@
 ## `undo precedence`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`流策略视图`
-- 用途（设备帮助）：remove classifier precedence from the policy
+- CLI 帮助：remove classifier precedence from the policy
 - 合法语法：
 
   ```text
   undo precedence
   ```
-
 
 <!-- registry-parameters -->
 
@@ -282,8 +286,9 @@
 ## `undo rule`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`ACL视图`、`NAT策略视图`、`acl6`
-- 用途（设备帮助）：delete a NAT rule；delete an ACL rule
+- CLI 帮助：delete a NAT rule；delete an ACL rule
 - 合法语法：
 
   ```text

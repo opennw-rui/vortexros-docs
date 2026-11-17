@@ -5,8 +5,9 @@
 ## `bfd`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：enable BFD or configure a static session
+- CLI 帮助：enable BFD or configure a static session
 - 合法语法：
 
   ```text
@@ -36,8 +37,9 @@
 ## `detect-multiplier`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`
-- 用途（设备帮助）：Detect multiplier
+- CLI 帮助：Detect multiplier
 - 合法语法：
 
   ```text
@@ -57,8 +59,9 @@
 ## `display bfd`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display BFD information
+- CLI 帮助：display BFD information
 - 合法语法：
 
   ```text
@@ -82,8 +85,9 @@
 ## `log-session-changes`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`
-- 用途（设备帮助）：log-session-changes
+- CLI 帮助：log-session-changes
 - 合法语法：
 
   ```text
@@ -101,8 +105,9 @@
 ## `min-rx-interval`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`
-- 用途（设备帮助）：Minimum receive interval in milliseconds
+- CLI 帮助：Minimum receive interval in milliseconds
 - 合法语法：
 
   ```text
@@ -122,8 +127,9 @@
 ## `min-tx-interval`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`
-- 用途（设备帮助）：Minimum transmit interval in milliseconds
+- CLI 帮助：Minimum transmit interval in milliseconds
 - 合法语法：
 
   ```text
@@ -145,7 +151,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed bfd routing service
+- CLI 帮助：restart the managed bfd routing service
 - 合法语法：
 
   ```text
@@ -163,8 +169,9 @@
 ## `undo bfd`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：delete a BFD session or disable BFD
+- CLI 帮助：delete a BFD session or disable BFD
 - 合法语法：
 
   ```text
@@ -184,8 +191,9 @@
 ## `undo detect-multiplier`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`
-- 用途（设备帮助）：restore the default Detect multiplier
+- CLI 帮助：restore the default Detect multiplier
 - 合法语法：
 
   ```text
@@ -203,8 +211,9 @@
 ## `undo log-session-changes`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`
-- 用途（设备帮助）：undo log-session-changes
+- CLI 帮助：undo log-session-changes
 - 合法语法：
 
   ```text
@@ -222,8 +231,9 @@
 ## `undo min-rx-interval`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`
-- 用途（设备帮助）：restore the default Minimum receive interval in milliseconds
+- CLI 帮助：restore the default Minimum receive interval in milliseconds
 - 合法语法：
 
   ```text
@@ -241,8 +251,9 @@
 ## `undo min-tx-interval`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`
-- 用途（设备帮助）：restore the default Minimum transmit interval in milliseconds
+- CLI 帮助：restore the default Minimum transmit interval in milliseconds
 - 合法语法：
 
   ```text

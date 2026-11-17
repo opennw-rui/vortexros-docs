@@ -6,7 +6,7 @@ L3 子接口按 VLAN 标签区分独立三层链路，可在本接口配置 IPv4
 
 使用 `interface PARENT.NUMBER` 创建，配置 `vlan-type dot1q VLAN` 后设置地址。双标签使用案例中对应形式。父端口须存在，不能与同一父口其他分类规则抢占相同标签；无需将 L3 子接口加入 bridge-domain。
 
-L3 子接口有自己的 LCP 端点，Linux/FRR 使用同一三层身份。父口关闭会影响子口实际状态；恢复不能把显式 shutdown 的子口强制拉起。
+父接口关闭或链路断开时，L3 子接口随之 Down；父接口恢复后，未被 shutdown 的子接口自动恢复。子接口有有效 IP 地址时，三层 Protocol 才能 Up；仅配置封装不能作为三层网关。
 
 ## 配置、示例输出和撤销
 

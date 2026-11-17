@@ -5,8 +5,9 @@
 ## `bridge-domain`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：add the interface to a bridge-domain；create a bridge-domain and enter its view
+- CLI 帮助：add the interface to a bridge-domain；create a bridge-domain and enter its view
 - 合法语法：
 
   ```text
@@ -54,8 +55,9 @@
 ## `display bridge-domain`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display bridge-domains (service BD + VLAN domains)
+- CLI 帮助：display bridge-domains (service BD + VLAN domains)
 - 合法语法：
 
   ```text
@@ -75,8 +77,9 @@
 ## `display mac-address`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display the MAC address table
+- CLI 帮助：display the MAC address table
 - 合法语法：
 
   ```text
@@ -104,8 +107,9 @@
 ## `l2 binding vlan`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BD视图`
-- 用途（设备帮助）：bind a local VLAN into this bridge-domain
+- CLI 帮助：bind a local VLAN into this bridge-domain
 - 合法语法：
 
   ```text
@@ -125,8 +129,9 @@
 ## `mac-address`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set the interface MAC address
+- CLI 帮助：set the interface MAC address
 - 合法语法：
 
   ```text
@@ -147,8 +152,9 @@
 ## `mac-address aging-time`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：set the dynamic MAC address aging time
+- CLI 帮助：set the dynamic MAC address aging time
 - 合法语法：
 
   ```text
@@ -168,8 +174,9 @@
 ## `mac-address static`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：configure a static MAC address
+- CLI 帮助：configure a static MAC address
 - 合法语法：
 
   ```text
@@ -194,7 +201,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：reset dynamically learned MAC addresses
+- CLI 帮助：reset dynamically learned MAC addresses
 - 合法语法：
 
   ```text
@@ -218,8 +225,9 @@
 ## `undo bridge-domain`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`、`系统视图`
-- 用途（设备帮助）：delete a bridge-domain；remove the interface from a bridge-domain
+- CLI 帮助：delete a bridge-domain；remove the interface from a bridge-domain
 - 合法语法：
 
   ```text
@@ -250,8 +258,9 @@
 ## `undo l2 binding vlan`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BD视图`
-- 用途（设备帮助）：remove VLAN binding from this bridge-domain
+- CLI 帮助：remove VLAN binding from this bridge-domain
 - 合法语法：
 
   ```text
@@ -269,8 +278,9 @@
 ## `undo mac-address`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the default interface MAC address
+- CLI 帮助：restore the default interface MAC address
 - 合法语法：
 
   ```text
@@ -289,8 +299,9 @@
 ## `undo mac-address aging-time`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：restore the default dynamic MAC address aging time
+- CLI 帮助：restore the default dynamic MAC address aging time
 - 合法语法：
 
   ```text
@@ -308,8 +319,9 @@
 ## `undo mac-address static`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a static MAC address
+- CLI 帮助：delete a static MAC address
 - 合法语法：
 
   ```text

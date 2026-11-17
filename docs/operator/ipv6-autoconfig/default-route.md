@@ -1,6 +1,6 @@
 # RA 默认路由
 
-只接受RA默认路由时，不必同时生成SLAAC地址。可与有状态DHCPv6地址客户端组合；Router Lifetime和接口状态决定路由是否仍有效。
+只接受RA默认路由时，不必同时生成SLAAC地址。可与有状态DHCPv6地址客户端组合；Router Lifetime、上游路由器的邻居状态和接口状态决定路由是否仍有效。上游必须在邻居通告中保持路由器身份（Router 标志）；收到一次 RA 并不代表此后的默认路由一定有效。
 
 ## 配置
 
@@ -8,9 +8,20 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet 1
+ ipv6 enable
  ipv6 nd ra default-route enable
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -28,9 +39,19 @@ display ipv6 routing-table
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet 1
  undo ipv6 nd ra default-route enable
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

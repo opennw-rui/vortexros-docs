@@ -5,8 +5,9 @@
 ## `display ip ip-prefix`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display IP prefix lists
+- CLI 帮助：display IP prefix lists
 - 合法语法：
 
   ```text
@@ -29,8 +30,9 @@
 ## `display ip ipv6-prefix`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display IPv6 prefix lists
+- CLI 帮助：display IPv6 prefix lists
 - 合法语法：
 
   ```text
@@ -53,8 +55,9 @@
 ## `display ipv6 prefix`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display IPv6 prefix-list information
+- CLI 帮助：display IPv6 prefix-list information
 - 合法语法：
 
   ```text
@@ -77,8 +80,9 @@
 ## `ip ip-prefix`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：configure an IP prefix list entry
+- CLI 帮助：configure an IP prefix list entry
 - 合法语法：
 
   ```text
@@ -108,8 +112,9 @@
 ## `ip ipv6-prefix`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：configure an IPv6 prefix list entry
+- CLI 帮助：configure an IPv6 prefix list entry
 - 合法语法：
 
   ```text
@@ -139,8 +144,9 @@
 ## `undo ip ip-prefix`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete an IP prefix list entry or list
+- CLI 帮助：delete an IP prefix list entry or list
 - 合法语法：
 
   ```text
@@ -162,8 +168,9 @@
 ## `undo ip ipv6-prefix`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete an IPv6 prefix list entry or list
+- CLI 帮助：delete an IPv6 prefix list entry or list
 - 合法语法：
 
   ```text

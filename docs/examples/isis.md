@@ -21,18 +21,29 @@ P1 Ethernet0 ---------------- Ethernet0 P2
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 isis 1
  network-entity 49.0001.0000.0000.0001.00
  is-level level-2
  cost-style wide
- quit
+#
 interface Ethernet0
+ ipv6 enable
  ip address 198.19.80.1 255.255.255.252
  ipv6 address 2001:db8:80::1 64
  isis enable 1
  isis ipv6-enable 1
  isis circuit-type p2p
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 save
 ```
@@ -41,24 +52,36 @@ save
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 isis 1
  network-entity 49.0001.0000.0000.0002.00
  is-level level-2
  cost-style wide
- quit
+#
 interface Ethernet0
+ ipv6 enable
  ip address 198.19.80.2 255.255.255.252
  ipv6 address 2001:db8:80::2 64
  isis enable 1
  isis ipv6-enable 1
  isis circuit-type p2p
- quit
+#
 interface LoopBack 98
+ ipv6 enable
  ip address 172.66.98.2 255.255.255.255
  ipv6 address 2001:db8:98::2 128
  isis enable 1
  isis ipv6-enable 1
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 save
 ```
@@ -109,11 +132,21 @@ Destination/Mask   Proto   Pre  Cost  Flags NextHop         Interface
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 interface Ethernet0
  undo isis ipv6-enable 1
  undo isis enable
- quit
+#
 undo isis 1
+```
+
+CLI 操作：
+
+```text
 commit
 save
 ```

@@ -1,6 +1,6 @@
 # 配套 VPP
 
-VPP负责DPDK接口和需要VPP的数据面功能。当前配套版本为26.10.7+vortexros-vpp；五个运行包应来自同一配套版本，统一安装器会完成组件匹配。
+VPP负责DPDK接口和需要VPP的数据面功能。当前配套版本为26.10.8+vortexros-vpp；五个运行包应来自同一配套版本，统一安装器会完成组件匹配。
 
 ## 对用户可见的行为
 
@@ -17,3 +17,15 @@ VPP负责DPDK接口和需要VPP的数据面功能。当前配套版本为26.10.7
 恢复后检查接口、协议邻居、FIB和业务地址。若某个业务仍未恢复，按该功能的[故障排查](../troubleshooting/index.md)定位，避免反复重启设备。
 
 VPP上游资料见[FD.io发布说明](https://raw.githubusercontent.com/FDio/vpp/v26.10/docs/aboutvpp/releasenotes/v26.10.rst)，性能资料见[性能参考](performance.md)。上游软件能力不等于VortexROS已开放的CLI，以本手册为准。
+
+## 26.10.8 的主要变化
+
+- 接口 ICMPv4 发送控制作用于本机生成的对应消息，不给普通转发增加 ICMP 策略检查；支持范围及封装限制见 [ICMP 发送控制](../operator/icmp-send.md)。
+- Access、Trunk、Hybrid 的 PVID、VLAN 准入和标签转换统一处理；保留业务接口统计以及 QinQ 支持，见 [VLAN](../operator/vlan.md)。
+- LLDP 在端口删除后清理邻居发送配置；Linux 接口错误通知不再因等待读取而阻塞数据面恢复。
+- IPv6 同接口允许 SLAAC 前缀与 DHCPv6 主机地址共存；接口重建后按配置重新请求通告。
+- 完善 Linux 广播路由、本机 EVPN 路由和 Path MTU 对象的创建、删除及恢复。
+- 纳入流量分发、MQC、MSS 和 NAT Policy 的已验证批处理与解析优化；不以关闭 VLAN 准入或统计换取性能。
+- 新生成的启动文件使用明确的插件加载列表，详见 [插件加载](../operator/dataplane/plugins.md)。
+
+性能数字的条件、波动和适用范围见 [性能参考](performance.md)，不能将单个节点的收益当成整机吞吐提升。

@@ -24,9 +24,19 @@ CE1 认为 198.18.11.150 与自己同网段，会直接请求它的 MAC；P1 代
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 198.18.11.100 255.255.255.0
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -34,14 +44,24 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet1
  ip address 198.18.11.1 255.255.255.0
-quit
+#
 interface Ethernet0
  ip address 198.19.80.1 255.255.255.252
-quit
+#
 ip route-static 198.18.11.150 255.255.255.255 198.19.80.2
 arp proxy 198.18.11.150 198.18.11.150 interface Ethernet1
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -51,14 +71,24 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 198.19.80.2 255.255.255.252
-quit
+#
 interface Ethernet1
  ip address 198.19.23.2 255.255.255.0
-quit
+#
 ip route-static 198.18.11.150 255.255.255.255 198.19.23.3
 ip route-static 198.18.11.0 255.255.255.0 198.19.80.1
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -66,13 +96,23 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 198.19.23.3 255.255.255.0
-quit
+#
 interface LoopBack0
  ip address 198.18.11.150 255.255.255.255
-quit
+#
 ip route-static 198.18.11.0 255.255.255.0 198.19.23.2
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -105,3 +145,24 @@ display arp proxy
 代理清单应为空。CE1 的旧 ARP 在老化前可能仍可使用，验证撤销时应考虑缓存。拆除拓扑时在 P2/CE2 撤销本例静态路由、各接口地址以及 CE2 LoopBack0，提交并按需 save。共享的其他业务应保留。
 
 [命令参考](reference/neighbors.md)
+
+
+## 在 Vlanif 上代理连续地址
+
+代理范围也可绑定在具有三层地址的 Vlanif。先按 VLAN 章节建立有效成员和 Vlanif，再配置范围：
+
+~~~text
+arp proxy 198.18.101.10 198.18.101.11 interface Vlanif 100
+commit
+display arp proxy
+~~~
+
+在 Vlanif100 已有有效 MAC 的实际验证中，范围内 .10 和 .11 均得到该接口 MAC 的 ARP 应答，范围外 .12 不应答。此结果证明地址解析策略，不代表目标业务已有可用路由。
+
+~~~text
+undo arp proxy 198.18.101.10 198.18.101.11 interface Vlanif 100
+commit
+display arp proxy
+~~~
+
+撤销后清单显示 `Total items displayed = 0`，重新发送针对 .10、.11 的 ARP 请求不再得到代理应答。

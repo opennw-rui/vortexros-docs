@@ -17,10 +17,20 @@ PE1 Vbdif777 192.0.2.1/24
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  mac-address 9228-4007-459d
  ip address 192.0.2.3 255.255.255.0
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -30,28 +40,38 @@ MAC 地址只用于本例，请勿在同一网络重复使用。
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable switch
 vlan 777
-quit
+#
 bridge-domain 777 no-learn no-uu-flood
  l2 binding vlan 777
-quit
+#
 interface Ethernet0
  portswitch
  port link-type access
  port default vlan 777
-quit
+#
 interface Vbdif 777
  ip address 192.0.2.1 255.255.255.0
-quit
+#
 mac-address static 9228-4007-459d Ethernet0 bridge-domain 777
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display bridge-domain 777
 display mac-address bridge-domain 777
 ping -a 192.0.2.1 -c 3 192.0.2.3
 ~~~
 
-业务桥域777由模型映射为内部VPP桥域，不应手动依赖内部编号。出口必须属于本业务，跨VLAN端口会在配置校验时拒绝。关闭学习和未知单播泛洪会影响该域所有未知目的流量；本例是独占示例域，不应直接用在承载其他客户的桥域。
+配置和查询时使用业务桥域编号 777。静态 MAC 的出口必须属于该业务，跨 VLAN 端口不能作为出口。关闭学习和未知单播泛洪会影响该桥域内所有未知目的流量；请使用专用业务桥域，避免影响其他客户。
 
 ## 验证
 
@@ -89,9 +109,14 @@ ping -a 192.0.2.1 -c 3 192.0.2.3
 undo interface Vbdif 777
 interface Ethernet0
  undo portswitch
-quit
+#
 undo bridge-domain 777
 undo vlan 777
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display bridge-domain 777
 display health

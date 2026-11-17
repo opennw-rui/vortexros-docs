@@ -6,12 +6,22 @@
 
 ## 配置与验证
 
-当网卡不能按PPPoE、MPLS、L2TP、GRE、VXLAN或IP-in-IP内层流进行硬件RSS时，可以在物理入口启用flow steering。功能按接口生效，使用一套固定的产品参数，不创建或绑定profile，也不向用户暴露VPP内部调试开关：
+当网卡无法按 PPPoE、MPLS、L2TP、GRE、VXLAN 或 IP-in-IP 的内层流进行硬件 RSS 时，可以在物理入口启用 flow steering，将不同业务流分配给工作线程。此功能按接口配置，无需创建 profile：
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
  interface Ethernet 1
   flow-steering enable
+```
+
+CLI 操作：
+
+```text
  commit
 display flow-steering interface Ethernet 1
 ```
@@ -21,6 +31,11 @@ display flow-steering interface Ethernet 1
 ```text
 interface Ethernet 1
  undo flow-steering enable
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 

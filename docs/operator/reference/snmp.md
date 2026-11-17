@@ -5,8 +5,9 @@
 ## `display snmp-agent community`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display SNMPv2c read communities
+- CLI 帮助：display SNMPv2c read communities
 - 合法语法：
 
   ```text
@@ -24,8 +25,9 @@
 ## `display snmp-agent sys-info`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display SNMP system information
+- CLI 帮助：display SNMP system information
 - 合法语法：
 
   ```text
@@ -43,8 +45,9 @@
 ## `display snmp-agent target-host`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display SNMP trap receivers
+- CLI 帮助：display SNMP trap receivers
 - 合法语法：
 
   ```text
@@ -62,8 +65,9 @@
 ## `display snmp-agent usm-user`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display SNMPv3 users
+- CLI 帮助：display SNMPv3 users
 - 合法语法：
 
   ```text
@@ -81,8 +85,9 @@
 ## `snmp-agent`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：enable the SNMP agent
+- CLI 帮助：enable the SNMP agent
 - 合法语法：
 
   ```text
@@ -102,8 +107,9 @@
 ## `snmp-agent community read`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：configure an SNMPv2c read community
+- CLI 帮助：configure an SNMPv2c read community
 - 合法语法：
 
   ```text
@@ -123,8 +129,9 @@
 ## `snmp-agent protocol source-interface`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：bind the SNMP agent to an interface address
+- CLI 帮助：bind the SNMP agent to an interface address
 - 合法语法：
 
   ```text
@@ -148,8 +155,9 @@
 ## `snmp-agent protocol source-status all-interface`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：listen on all IPv4 interfaces in public and VPN instances
+- CLI 帮助：listen on all IPv4 interfaces in public and VPN instances
 - 合法语法：
 
   ```text
@@ -167,8 +175,9 @@
 ## `snmp-agent sys-info contact`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：set SNMP system contact
+- CLI 帮助：set SNMP system contact
 - 合法语法：
 
   ```text
@@ -188,8 +197,9 @@
 ## `snmp-agent sys-info location`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：set SNMP system location
+- CLI 帮助：set SNMP system location
 - 合法语法：
 
   ```text
@@ -209,8 +219,9 @@
 ## `snmp-agent sys-info version v2c`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：enable SNMP v2c
+- CLI 帮助：enable SNMP v2c
 - 合法语法：
 
   ```text
@@ -228,8 +239,9 @@
 ## `snmp-agent sys-info version v3`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：enable SNMP v3
+- CLI 帮助：enable SNMP v3
 - 合法语法：
 
   ```text
@@ -247,8 +259,9 @@
 ## `snmp-agent target-host trap address udp-domain`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：configure an SNMP trap receiver
+- CLI 帮助：configure an SNMP trap receiver
 - 合法语法：
 
   ```text
@@ -268,8 +281,9 @@
 ## `snmp-agent trap enable standard`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：enable standard startup and interface traps
+- CLI 帮助：enable standard startup and interface traps
 - 合法语法：
 
   ```text
@@ -287,8 +301,9 @@
 ## `snmp-agent trap source`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：select the trap source interface
+- CLI 帮助：select the trap source interface
 - 合法语法：
 
   ```text
@@ -308,8 +323,9 @@
 ## `snmp-agent usm-user v3`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：configure an SNMPv3 authPriv user
+- CLI 帮助：configure an SNMPv3 authPriv user
 - 合法语法：
 
   ```text
@@ -329,8 +345,9 @@
 ## `undo snmp-agent`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：remove all SNMP configuration and stop the agent
+- CLI 帮助：remove all SNMP configuration and stop the agent
 - 合法语法：
 
   ```text
@@ -348,8 +365,9 @@
 ## `undo snmp-agent community read`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete an SNMPv2c read community
+- CLI 帮助：delete an SNMPv2c read community
 - 合法语法：
 
   ```text
@@ -369,8 +387,9 @@
 ## `undo snmp-agent protocol source-interface`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：remove the SNMP source interface
+- CLI 帮助：remove the SNMP source interface
 - 合法语法：
 
   ```text
@@ -388,8 +407,9 @@
 ## `undo snmp-agent sys-info contact`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：clear SNMP system contact
+- CLI 帮助：clear SNMP system contact
 - 合法语法：
 
   ```text
@@ -407,8 +427,9 @@
 ## `undo snmp-agent sys-info location`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：clear SNMP system location
+- CLI 帮助：clear SNMP system location
 - 合法语法：
 
   ```text
@@ -426,8 +447,9 @@
 ## `undo snmp-agent sys-info version v2c`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：disable SNMP v2c
+- CLI 帮助：disable SNMP v2c
 - 合法语法：
 
   ```text
@@ -445,8 +467,9 @@
 ## `undo snmp-agent sys-info version v3`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：disable SNMP v3
+- CLI 帮助：disable SNMP v3
 - 合法语法：
 
   ```text
@@ -464,8 +487,9 @@
 ## `undo snmp-agent target-host trap address udp-domain`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete all trap targets at an address
+- CLI 帮助：delete all trap targets at an address
 - 合法语法：
 
   ```text
@@ -485,8 +509,9 @@
 ## `undo snmp-agent trap enable standard`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：disable standard traps
+- CLI 帮助：disable standard traps
 - 合法语法：
 
   ```text
@@ -504,8 +529,9 @@
 ## `undo snmp-agent trap source`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：remove the trap source interface
+- CLI 帮助：remove the trap source interface
 - 合法语法：
 
   ```text
@@ -523,8 +549,9 @@
 ## `undo snmp-agent usm-user v3`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete an SNMPv3 user
+- CLI 帮助：delete an SNMPv3 user
 - 合法语法：
 
   ```text

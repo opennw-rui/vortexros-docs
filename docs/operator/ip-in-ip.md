@@ -21,13 +21,23 @@ IPv4 over IPv4示例：
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 interface Tunnel 10
  description SITE-A-SITE-B-IPIP
  tunnel-protocol ipv4-ipv4
  source 192.0.2.1
  destination 198.51.100.2
  ip address 10.10.10.1 255.255.255.252
-quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 display interface Tunnel 10
 ping 10.10.10.2
@@ -37,14 +47,26 @@ IPv6 over IPv4示例：
 
 ```text
 interface Tunnel 11
+ ipv6 enable
  tunnel-protocol ipv6-ipv4
  source 192.0.2.1
  destination 198.51.100.2
  ipv6 address 2001:db8:10::1 64
-quit
-commit
-display interface Tunnel 11
-ping 2001:db8:10::2
+#
 ```
 
-当未显式配置MTU时，系统根据外层IP头自动使用1476字节（GRE over IPv4）、1456字节（GRE over IPv6）、1480字节（IP-in-IP over IPv4）或1460字节（IP-in-IP over IPv6）的有效三层MTU；显式`mtu`始终优先。修改`tunnel-protocol`会清除旧协议的源、目的、underlay及协议专用参数，避免把旧封装参数误用于新协议。
+CLI 操作：
+
+```text
+commit
+display interface Tunnel 11
+ping ipv6 2001:db8:10::2
+```
+
+当未显式配置MTU时，系统根据外层IP头自动使用1476字节（GRE over IPv4）、1456字节（GRE over IPv6）、1480字节（IP-in-IP over IPv4）或1460字节（IP-in-IP over IPv6）的有效三层MTU；显式`mtu`始终优先。修改 `tunnel-protocol` 会清除旧协议的源、目的、底层 VPN 和协议专用参数。切换时需重新填写新协议的两端地址，移除不符合新内层地址族的 Tunnel 地址，然后一起提交；提交会重建隧道并短暂中断业务。
+
+## 激活条件
+
+四种 IP-in-IP 均要求接口未 shutdown、封装类型和两端地址完整，外层地址族与所选协议一致。本机须在指定底层 VPN 拥有源地址，该 VPN 须有覆盖远端地址的有效路由。Tunnel 配置相应内层 IP 地址后，才能显示三层 Protocol Up。
+
+接口 Up 不检测远端隧道是否存在，也不保证 ARP/ND、路径过滤或 MTU 已满足。先检查底层路由，再检查两端协议和内层地址，最后测试业务；底层源地址或路由恢复后会自动重新激活。

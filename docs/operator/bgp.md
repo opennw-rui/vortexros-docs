@@ -9,7 +9,9 @@ BGP 以邻居交换路由，各地址族控制发布和接收的前缀。全系�
 
 bgp/peers
 bgp/groups
+bgp/reflection
 bgp/attributes
+bgp/multipath
 bgp/families
 bgp/queries
 ~~~

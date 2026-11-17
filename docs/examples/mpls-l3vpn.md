@@ -25,27 +25,36 @@ CE1、CE2、P1—P4 均运行 VortexROS。P1/P4 是 PE，将客户接口放入 C
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 mpls lsr-id 1.1.1.1
 mpls
-quit
+#
 mpls ldp
 interface LoopBack0
  ip address 1.1.1.1 255.255.255.255
- quit
+#
 interface Ethernet0
  ip address 10.0.12.1 255.255.255.252
  mpls
  mpls ldp
- quit
+#
 ospf 1 router-id 1.1.1.1
  area 0.0.0.0
   network 1.1.1.1 0.0.0.0 description LSR-ID
   network 10.0.12.1 0.0.0.0 description Core
-  quit
- quit
+#
 interface Ethernet0
  ospf network-type p2p
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -53,36 +62,45 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 mpls lsr-id 2.2.2.2
 mpls
-quit
+#
 mpls ldp
 interface LoopBack0
  ip address 2.2.2.2 255.255.255.255
- quit
+#
 interface Ethernet0
  ip address 10.0.12.2 255.255.255.252
  mpls
  mpls ldp
- quit
+#
 interface Ethernet1
  ip address 10.0.23.1 255.255.255.252
  mpls
  mpls ldp
- quit
+#
 ospf 1 router-id 2.2.2.2
  area 0.0.0.0
   network 2.2.2.2 0.0.0.0 description LSR-ID
   network 10.0.12.2 0.0.0.0 description Core
   network 10.0.23.1 0.0.0.0 description Core
-  quit
- quit
+#
 interface Ethernet0
  ospf network-type p2p
- quit
+#
 interface Ethernet1
  ospf network-type p2p
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -90,36 +108,45 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 mpls lsr-id 3.3.3.3
 mpls
-quit
+#
 mpls ldp
 interface LoopBack0
  ip address 3.3.3.3 255.255.255.255
- quit
+#
 interface Ethernet0
  ip address 10.0.23.2 255.255.255.252
  mpls
  mpls ldp
- quit
+#
 interface Ethernet1
  ip address 10.0.34.1 255.255.255.252
  mpls
  mpls ldp
- quit
+#
 ospf 1 router-id 3.3.3.3
  area 0.0.0.0
   network 3.3.3.3 0.0.0.0 description LSR-ID
   network 10.0.23.2 0.0.0.0 description Core
   network 10.0.34.1 0.0.0.0 description Core
-  quit
- quit
+#
 interface Ethernet0
  ospf network-type p2p
- quit
+#
 interface Ethernet1
  ospf network-type p2p
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -127,27 +154,36 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 mpls lsr-id 4.4.4.4
 mpls
-quit
+#
 mpls ldp
 interface LoopBack0
  ip address 4.4.4.4 255.255.255.255
- quit
+#
 interface Ethernet0
  ip address 10.0.34.2 255.255.255.252
  mpls
  mpls ldp
- quit
+#
 ospf 1 router-id 4.4.4.4
  area 0.0.0.0
   network 4.4.4.4 0.0.0.0 description LSR-ID
   network 10.0.34.2 0.0.0.0 description Core
-  quit
- quit
+#
 interface Ethernet0
  ospf network-type p2p
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -159,16 +195,20 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 ip vpn-instance CUST-A
  ipv4-family
   route-distinguisher 65000:101
   vpn-target 65000:100 both
-  quit
- quit
+#
 interface Ethernet1
  ip binding vpn-instance CUST-A
  ip address 192.0.2.1 255.255.255.0
- quit
+#
 bgp 65000
  router-id 1.1.1.1
  peer 4.4.4.4 as-number 65000
@@ -176,14 +216,18 @@ bgp 65000
  peer 4.4.4.4 timer connect-retry 3
  ipv4-family unicast
   undo peer 4.4.4.4 enable
-  quit
+ #
  ipv4-family vpnv4
   peer 4.4.4.4 enable
-  quit
+ #
  ipv4-family vpn-instance CUST-A
   import-route direct
-  quit
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -191,16 +235,20 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 ip vpn-instance CUST-A
  ipv4-family
   route-distinguisher 65000:104
   vpn-target 65000:100 both
-  quit
- quit
+#
 interface Ethernet1
  ip binding vpn-instance CUST-A
  ip address 198.51.100.1 255.255.255.0
- quit
+#
 bgp 65000
  router-id 4.4.4.4
  peer 1.1.1.1 as-number 65000
@@ -208,14 +256,18 @@ bgp 65000
  peer 1.1.1.1 timer connect-retry 3
  ipv4-family unicast
   undo peer 1.1.1.1 enable
-  quit
+ #
  ipv4-family vpnv4
   peer 1.1.1.1 enable
-  quit
+ #
  ipv4-family vpn-instance CUST-A
   import-route direct
-  quit
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -227,10 +279,20 @@ CE1：
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 192.0.2.2 255.255.255.0
-quit
+#
 ip route-static 0.0.0.0 0.0.0.0 192.0.2.1
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -238,10 +300,20 @@ CE2：
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 198.51.100.2 255.255.255.0
-quit
+#
 ip route-static 0.0.0.0 0.0.0.0 198.51.100.1
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -282,11 +354,20 @@ Destination/Mask      Type      Pre    Weight    Flags    NextHop      Interface
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 bgp 65000
  ipv4-family vpn-instance CUST-A
   undo import-route direct
-  quit
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

@@ -20,13 +20,7 @@ ipv6 route-static 2001:db8:dead:: 48 NULL 0 preference 80 tag 900 description DI
 
 多条静态路由在配置中连续显示，不用无意义的`#`逐条分隔。跨VPN下一跳要同时显示目标VPN和下一跳VPN。
 
-不指定下一跳和出接口、只指定不同下一跳VPN实例的形式表示“在目标VPP FIB中继续查表”。VPP仍是
-这类路由唯一的数据面所有者，路由不会写入Linux路由表。控制层同时通过route-zapi向Zebra发布一条
-不写内核的控制面影子，使BGP `network`、`redistribute static`、路由策略和递归下一跳能够观察该路由；
-带下一跳、出接口或`NULL 0`的普通静态路由由统一静态路由后端发布，不再触发协议配置全树提交；
-CLI、保存配置及显示语义保持不变。相同目的VPN和前缀不能同时配置继续查表路径与
-普通路径，也不能配置多个查表目标。运行显示以精确VPP读回作为安装状态，不重复显示控制面影子，因此
-少量此类路由不会触发对大型FIB的全表扫描。
+不指定下一跳和出接口、只指定另一 VPN 实例时，表示到目标表中继续查表。该路径可供 BGP network、静态路由引入和路由策略使用。相同目的 VPN 和前缀不能同时配置继续查表路径与普通下一跳路径，也不能配置多个查表目标。用 display ip fib 或 display ipv6 fib 核对实际安装及 Lookup-Table，再检查目标 VPN 的后续路由和双向业务。
 
 [查询 RIB 与 FIB](../routing-tables.md)。
 
@@ -40,3 +34,69 @@ CLI、保存配置及显示语义保持不变。相同目的VPN和前缀不能�
 | 跨VPN | 目标VPN+下一跳VPN | 在目标表安装、去指定表解析下一跳 | 两个VPN路由表 |
 | 默认路由 | `/0` | 无更长匹配时使用 | 特定目的ping/tracert |
 | 精确undo | 完整路径参数 | 只删除一个所有者/路径 | 其他所有者仍保留 |
+
+
+## 指定出接口
+
+出接口可以使用分离式名称，例如 `Ethernet 1`，也可以使用完整名称 `Ethernet1`。
+系统会按实际接口身份保存和显示，不会因为使用了缩写而创建另一条接口路径。
+IPv6 路由使用的三层接口须先配置 `ipv6 enable`。
+
+以下两种参数顺序表达同一条路径，不需要同时配置：
+
+```text
+ip route-static 198.19.201.0 24 Ethernet 1 198.18.31.2 preference 75 tag 201 description TO-UPLINK
+ip route-static 198.19.201.0 24 198.18.31.2 Ethernet 1 preference 75 tag 201 description TO-UPLINK
+```
+
+仅指定接口、不指定下一跳时，设备直接在该接口上解析目的地址的 ARP 或 ND。
+以太网上的远端网段通常应同时指定下一跳；只有接口或配置存在，不能证明远端已经可达。
+
+```text
+ip route-static 198.18.31.2 32 Ethernet 1 preference 80 tag 220
+display ip routing-table 198.18.31.2 32 verbose
+display ip fib | include 198.18.31.2
+```
+
+检查详细路由中的 `State: Active Adv Relied`、`Interface: Ethernet1`，
+再检查来自其他接口的业务能否到达目的端。设备自身发起的 Ping 不代替转发业务检查。
+
+精确撤销时保留路径定位参数。同一前缀还存在其他下一跳或其他接口路径时，
+它们继续参与选路；省略路径参数则撤销该目的表中该前缀的所有静态路径：
+
+```text
+undo ip route-static 198.19.201.0 24 Ethernet 1 198.18.31.2
+commit
+display ip routing-table 198.19.201.0 24 verbose
+```
+
+## 继续查表与跨表下一跳
+
+两者的使用目的不同：
+
+| 配置方式 | 含义 | FIB 的 Lookup-Table |
+|---|---|---|
+| 只指定下一跳 VPN，不指定下一跳和接口 | 报文到另一张表继续查找目的地址 | 显示目标表号 |
+| 指定下一跳 VPN 和下一跳地址，可带接口 | 在指定 VPN 解析下一跳，再使用实际出口 | 已解析为普通出口时显示 `-` |
+
+例如默认表到 SHOW201 的继续查表路径：
+
+```text
+ip route-static 198.19.203.0 24 vpn-instance SHOW201
+ipv6 route-static 2001:db8:213:: 64 vpn-instance SHOW201
+commit
+display ip fib | include 198.19.203
+display ipv6 fib | begin 2001:db8:213
+```
+
+当 SHOW201 的实际表号为 1024 时，这两条路径显示 `Lookup-Table: 1024`。
+表号以本机运行结果为准，不应硬编码到配置中。目标表还须具备后续可用路由和回程路径。
+撤销继续查表路径时使用同一目标 VPN；成功查询后相应前缀应消失：
+
+```text
+undo ip route-static 198.19.203.0 24 vpn-instance SHOW201
+undo ipv6 route-static 2001:db8:213:: 64 vpn-instance SHOW201
+commit
+display ip fib | include 198.19.203
+display ipv6 fib | include 2001:db8:213
+```

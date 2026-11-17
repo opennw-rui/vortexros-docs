@@ -1,7 +1,7 @@
 project = "VortexROS 文档"
 copyright = "VortexROS 项目"
-version = "0.29"
-release = "v0.29-dev"
+version = "0.30"
+release = "v0.30-dev"
 language = "zh_CN"
 extensions = ["myst_parser"]
 source_suffix = {".md": "markdown"}

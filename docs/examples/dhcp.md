@@ -12,8 +12,13 @@ P2：
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 ip vpn-instance DHCP-EMPTY
- quit
+#
 enable dhcp server
 ip pool CLI-LAN
  vpn-instance DHCP-EMPTY
@@ -25,12 +30,17 @@ ip pool CLI-LAN
  dns-list 8.8.8.8 1.1.1.1
  domain-name cli.example
  lease day 0 hour 1
- quit
+#
 interface Ethernet0
  ip binding vpn-instance DHCP-EMPTY
  ip address 172.20.15.1 255.255.255.0
  dhcp select global
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -40,12 +50,22 @@ P1：
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 ip vpn-instance CLI-UNDER
- quit
+#
 interface Ethernet0
  ip binding vpn-instance CLI-UNDER
  ip address dhcp-alloc
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -59,7 +79,7 @@ display ip pool name CLI-LAN verbose
 display ip pool interface Ethernet0 verbose
 ```
 
-在空租约库时，查询成功并显示 `Used 0`；客户端获取地址后，全局池显示 `Used 1`。即使接口保留了未启用的旧接口池配置，租约仍归属当前启用的全局池，接口池查询不重复计数。
+在空租约库时，查询成功并显示 `Used 0`；客户端获取地址后，全局池显示 `Used 1`。租约按服务器返回的子网编号归属地址池，不能仅凭地址所在网段判断。即使接口保留了旧接口池配置，新全局池租约也不会计入接口池。
 
 客户端取得的地址、服务器和租期应与地址池相符。以下为客户端示例输出：
 
@@ -81,11 +101,16 @@ interface Ethernet0
  dhcp server gateway-list 172.20.15.1
  dhcp server dns-list 1.1.1.1
  dhcp server lease day 0 hour 1
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
-这会切换接口的服务模式。全局池与接口池的配置可以保留，只有当前选中的模式参与此接口的服务和显示。配置本身存在，不表示该模式正在运行。接口池扩展参数及撤销语法见[命令参考](../operator/reference/dhcp.md)。
+这会切换接口的服务模式。全局池与接口池的配置可以保留，只有当前选中的模式在此接口提供服务。模式切换不删除已有租约：在原池配置仍保留时，历史租约继续归属原池，当前接口池不会重复计数。配置或未到期租约的存在，都不表示客户端此刻在线。接口池扩展参数及撤销语法见[命令参考](../operator/reference/dhcp.md)。
 
 ## 保存、修改与撤销
 
@@ -95,9 +120,19 @@ P1 停用客户端：
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 interface Ethernet0
  undo ip address dhcp-alloc
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -105,11 +140,32 @@ P2 停用服务并删除全局池：
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 interface Ethernet0
  undo dhcp select
- quit
+#
 undo ip pool CLI-LAN
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
 撤销后查询客户端、池和服务状态，确认本例绑定、动态地址及动态路由已移除。静态地址和 VPN 配置是独立对象，不随 DHCP 自动删除。其他接口仍提供 DHCP 时保留全局开关，否则再 undo enable dhcp server、提交并保存。
+
+## 切换模式后的租约核对
+
+同一网段从全局池切换到接口池后，分别查询，确认租约没有被混算：
+
+```text
+<VortexROS> display ip pool interface Ethernet 1 verbose
+<VortexROS> display ip pool name LAN used
+```
+
+一次实际切换中，接口池子网编号为 892164763，只统计新分配的一个租约；原全局池子网编号为 331230444，保留两个尚未过期的历史租约。两份查询分别显示 `Used 1`、`Used 2`。子网编号由池名、地址族和 VPN 实例确定，实际数值随配置不同；同网段不等于同一个地址池。

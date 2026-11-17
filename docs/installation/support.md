@@ -1,6 +1,6 @@
 # 支持矩阵
 
-VortexROS 0.29-dev 的单文件安装器适用于 **Ubuntu 26.04 amd64**。默认从 Linux 数据面启动。配套 VPP、FRR 版本见[软件组成](02-backends.md)，CPU、网卡和虚拟机路径见[支持的硬件](hardware.md)。
+VortexROS 0.30-dev 的单文件安装器适用于 **Ubuntu 26.04 amd64**。默认从 Linux 数据面启动。配套 VPP、FRR 版本见[软件组成](02-backends.md)，CPU、网卡和虚拟机路径见[支持的硬件](hardware.md)。
 
 | 使用目标 | Linux 数据面 | VPP 数据面 |
 | --- | --- | --- |

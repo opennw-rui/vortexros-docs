@@ -5,8 +5,9 @@
 ## `auto-refresh enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：enable automatic remote-list refresh
+- CLI 帮助：enable automatic remote-list refresh
 - 合法语法：
 
   ```text
@@ -24,8 +25,9 @@
 ## `auto-refresh interval`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：set the remote-list refresh interval
+- CLI 帮助：set the remote-list refresh interval
 - 合法语法：
 
   ```text
@@ -45,8 +47,9 @@
 ## `display ip routing-table-group`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display IPv4 static route group applications
+- CLI 帮助：display IPv4 static route group applications
 - 合法语法：
 
   ```text
@@ -68,8 +71,9 @@
 ## `display ipv6 route-static group`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display IPv6 static route groups
+- CLI 帮助：display IPv6 static route groups
 - 合法语法：
 
   ```text
@@ -91,8 +95,9 @@
 ## `display ipv6 routing-table-group`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display IPv6 static route group applications
+- CLI 帮助：display IPv6 static route group applications
 - 合法语法：
 
   ```text
@@ -114,8 +119,9 @@
 ## `display route-static group`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display IPv4 static route groups
+- CLI 帮助：display IPv4 static route groups
 - 合法语法：
 
   ```text
@@ -137,8 +143,9 @@
 ## `ip route-static-group`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：apply a static route group
+- CLI 帮助：apply a static route group
 - 合法语法：
 
   ```text
@@ -186,8 +193,9 @@
 ## `ipv6 route-static group`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：enter an IPv6 static route group
+- CLI 帮助：enter an IPv6 static route group
 - 合法语法：
 
   ```text
@@ -208,8 +216,9 @@
 ## `ipv6 route-static-group`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：apply a static route group
+- CLI 帮助：apply a static route group
 - 合法语法：
 
   ```text
@@ -259,7 +268,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：reload an IPv6 route-static group external list
+- CLI 帮助：reload an IPv6 route-static group external list
 - 合法语法：
 
   ```text
@@ -283,7 +292,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：reload an IPv4 route-static group external list
+- CLI 帮助：reload an IPv4 route-static group external list
 - 合法语法：
 
   ```text
@@ -305,8 +314,9 @@
 ## `route`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：add a route prefix
+- CLI 帮助：add a route prefix
 - 合法语法：
 
   ```text
@@ -327,8 +337,9 @@
 ## `route-static group`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：enter an IPv4 static route group
+- CLI 帮助：enter an IPv4 static route group
 - 合法语法：
 
   ```text
@@ -349,8 +360,9 @@
 ## `source file`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：use a CIDR-list file from /VortexROS/route-static-groupd
+- CLI 帮助：use a CIDR-list file from /VortexROS/route-static-groupd
 - 合法语法：
 
   ```text
@@ -370,8 +382,9 @@
 ## `source url`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：set the remote CIDR-list source
+- CLI 帮助：set the remote CIDR-list source
 - 合法语法：
 
   ```text
@@ -396,8 +409,9 @@
 ## `undo auto-refresh enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：disable automatic remote-list refresh
+- CLI 帮助：disable automatic remote-list refresh
 - 合法语法：
 
   ```text
@@ -415,8 +429,9 @@
 ## `undo auto-refresh interval`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：restore the 4320-minute refresh interval
+- CLI 帮助：restore the 4320-minute refresh interval
 - 合法语法：
 
   ```text
@@ -434,8 +449,9 @@
 ## `undo ip route-static-group`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：apply a static route group
+- CLI 帮助：apply a static route group
 - 合法语法：
 
   ```text
@@ -483,8 +499,9 @@
 ## `undo ipv6 route-static group`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：delete an IPv6 static route group
+- CLI 帮助：delete an IPv6 static route group
 - 合法语法：
 
   ```text
@@ -505,8 +522,9 @@
 ## `undo ipv6 route-static-group`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：apply a static route group
+- CLI 帮助：apply a static route group
 - 合法语法：
 
   ```text
@@ -554,8 +572,9 @@
 ## `undo route`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：delete a route prefix
+- CLI 帮助：delete a route prefix
 - 合法语法：
 
   ```text
@@ -576,8 +595,9 @@
 ## `undo route-static group`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：delete an IPv4 static route group
+- CLI 帮助：delete an IPv4 static route group
 - 合法语法：
 
   ```text
@@ -598,8 +618,9 @@
 ## `undo source file`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：remove the local CIDR-list source
+- CLI 帮助：remove the local CIDR-list source
 - 合法语法：
 
   ```text
@@ -617,8 +638,9 @@
 ## `undo source url`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`静态路由组视图`
-- 用途（设备帮助）：remove the remote CIDR-list source
+- CLI 帮助：remove the remote CIDR-list source
 - 合法语法：
 
   ```text

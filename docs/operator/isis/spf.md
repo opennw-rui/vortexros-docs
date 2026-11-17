@@ -6,3 +6,10 @@
 
 
 [双端配置和路由查询](../../examples/isis.md) · [全部参数](../reference/isis.md)
+
+
+## 查询示例
+
+以下参数对应一次实际配置：Init 50 ms、Short 200 ms、Long 1000 ms、Holddown 5000 ms、TimeToLearn 2000 ms。display isis 1 spf-delay 显示相应值和 QUIET 等调度状态；撤销后显示 Using legacy backoff algo。
+
+SPF 定时器调节路由计算的退避节奏，不直接改变报文的转发时延。修改前应考虑拓扑变化频率和收敛要求，不能把较小参数等同于任何规模下都收敛更快。

@@ -4,13 +4,28 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable switch
 vlan 666
-quit
+#
 bridge-domain 666
  l2 binding vlan 666
- display this
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
+display this
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display bridge-domain 666
 ~~~
@@ -20,7 +35,12 @@ display bridge-domain 666
 ~~~text
 bridge-domain 666
  undo l2 binding vlan
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

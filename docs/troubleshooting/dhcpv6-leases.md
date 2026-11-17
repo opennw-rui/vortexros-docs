@@ -16,4 +16,4 @@ display ipv6 pool name LAB-V6 verbose
 - 同地址族多实例：一个实例为空时，其他实例的租约及池名筛选仍应正常。
 - socket、服务命令或回复格式错误：保留错误并检查服务日志，不能按零租约处理。
 
-支持 IA_NA、IA_TA、IA_PD、正常空结果和多实例汇总，见[完整案例](../examples/dhcpv6.md)。
+租约查询区分 IA_NA 地址、IA_TA 临时地址和 IA_PD 委派前缀；没有租约时正常显示空表，一个空池不影响其他池的查询。当前配套 Kea 服务端分配 IA_NA/IA_PD，不分配 IA_TA。完整操作见[DHCPv6 案例](../examples/dhcpv6.md)。

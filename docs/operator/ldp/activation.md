@@ -14,20 +14,31 @@ MPLS 只能用于三层接口。配置了 `portswitch` 的二层接口不能启�
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 mpls lsr-id 10.0.0.1
 mpls
- quit
+#
 mpls ldp
 
 interface LoopBack 0
  ip address 10.0.0.1 255.255.255.255
- quit
+#
 
+#
 interface Ethernet 1
  ip address 192.0.2.1 255.255.255.252
  mpls
  mpls ldp
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 save
 ```

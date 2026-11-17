@@ -10,8 +10,7 @@ commit
 ```
 
 全局开关只控制 IPv4 和 IPv6 服务端。Client、Relay 和 DHCPv6-PD 按接口配置运行。
-旧配置里已有 Client 或 Relay 但全局 DHCP 关闭时，加载后会在该接口保留
-`dhcp client-relay shutdown`。用 `undo dhcp client-relay shutdown` 恢复该接口的已有配置。
+暂停某个接口上的客户端或中继可用 `dhcp client-relay shutdown`；`undo dhcp client-relay shutdown` 恢复该接口原有角色，不影响服务器角色。
 
 
 使用全局地址池时，创建地址池并在三层接口启用：
@@ -51,8 +50,7 @@ section，编号范围为0至255。未配置section时使用network中的全部�
 接口本机地址和静态绑定仍会从section中扣除。`gateway-list`与`dns-list`保持录入顺序，第一项是
 客户端收到的首选地址，保存和重载不会按数值重新排序。
 全局池应用到接口时，该接口在此子网内的全部本地IPv4地址都会自动从动态分配范围排除。
-同一VPN实例内，一个IPv4或IPv6地址池只能绑定一个接口；当前版本不提供跨接口共享子网模型，
-重复绑定会在进入Candidate时给出明确错误。
+本地 IPv4 子网的池不能同时映射到两个接入口，当前不支持跨接口共享同一子网；IPv6 池的显式服务器绑定也只能使用一个接口。全局 IPv4 池属于 VPN 实例，远端客户链路由中继的 giaddr 选择地址池，不要求服务器接口位于客户子网。
 
 也可以直接使用接口主地址所在网段生成接口地址池。未配置`gateway-list`时，接口主IPv4地址自动作为客户端网关：
 
@@ -64,6 +62,11 @@ interface Vlanif 20
  dhcp server dns-list 1.1.1.1 8.8.8.8
  dhcp server lease day 1
 #
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -82,13 +85,33 @@ display ip pool
 display current-configuration
 ```
 
-`Ready`只有在Kea控制接口正常、主进程拥有正确的UDP监听、每个已配置LCP接口保持admin UP且目标地址仍可用时才显示为`true`；监听数量相同但绑定到无关地址，或服务启动后接口关闭、地址消失，都会判定为未就绪。一个服务器接口配置多个本地地址时，Kea会监听该接口的全部可用地址，因此中继可以把请求发往其中任一明确配置的服务地址。IPv6允许Kea使用能够覆盖已配置接口的UDP/547通配监听，但接口与地址可服务条件仍须满足。后台审计会持续执行这组检查，并在接口恢复后重新收敛。可用Linux的`ss -lunp`作辅助诊断，但产品状态以`display dhcp service verbose`的权威回读为准。
+`Ready=true` 表示服务器已在配置的接口和地址上就绪。接口关闭、地址消失或服务无法查询时，不应把已有租约记录当成服务器仍可服务的证明。恢复接口后再次检查服务状态，并让客户端重新申请或续租。
+
+实际全局池验证中，配置 `lease day 0 hour 2`、两台 DNS、域名和 MAC 静态绑定后，客户端收到：
+
+```text
+Your-IP 198.18.11.111
+Subnet-Mask: 255.255.255.0
+Default-Gateway: 198.18.11.1
+Domain-Name-Server: 192.0.2.53, 192.0.2.54
+Domain-Name: global.example
+Lease-Time: 7200
+```
+
+`display ip pool name LAN4 verbose` 可同时检查实际 IP、MAC、客户端标识、网关、DNS、域名、剩余租期及 VPN。接口池验证中，显式租期 5400 秒在 `undo dhcp server lease` 后恢复为 86400 秒；撤销 DNS 和域名后，新回复不再通告这些选项，而撤销显式网关仍保留接口主地址作为默认网关。
+
+修改分配范围或撤销静态绑定不会立即强制客户端放弃其已有租约。更换池身份、从接口池改用全局池时，也应检查旧租约是否仍占用目标地址；不能仅根据静态配置存在就判断该地址已成功分配。
 
 关闭接口上的服务器角色：
 
 ```text
 interface Vlanif 100
  undo dhcp select
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -101,3 +124,9 @@ commit
 
 
 [DHCP 功能与开关](../dhcp.md) · [逐条命令参数](../reference/dhcp.md)
+
+## 服务异常与恢复
+
+DHCP 服务不可用时，`display health` 会显示未就绪，租约查询也可能返回真实的服务错误。不要把已有租约或能正常转发的静态业务等同于 DHCP 已恢复。排除服务故障后，系统会继续完成配置和实际状态核对；通过 `display health`、`display ip pool` 以及客户端续租确认恢复。
+
+DHCP 启动失败不会要求重启已正常工作的整个数据面。已有接口及路由的实际转发与 DHCP 分配能力应分别检查。一次服务启动故障验证中，健康状态保持未就绪、原业务探测2/2；排除故障后自动恢复就绪，业务探测仍为2/2。这不是对所有故障或吞吐能力的保证。

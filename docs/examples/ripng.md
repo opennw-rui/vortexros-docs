@@ -14,18 +14,40 @@ LoopBack20：2001:db8:20::1 → 2001:db8:20::2
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
+ ipv6 enable
  ipv6 address 2001:db8:12::1 64
- quit
+#
 interface LoopBack 20
+ ipv6 enable
  ipv6 address 2001:db8:20::1 128
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
+~~~
+
+配置清单：
+
+~~~text
 ripng 11
  network 2001:db8:12::/64
  import-route direct
  timers rip 10 30 20
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

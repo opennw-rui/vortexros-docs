@@ -17,13 +17,25 @@ CE1 Ethernet0 ── Ethernet1 P1 Ethernet0 ── Ethernet0 P2
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet1
+ ipv6 enable
  ipv6 address 2001:db8:11::1 64
  dhcpv6 relay interface Ethernet0
-quit
+#
 interface Ethernet0
+ ipv6 enable
  ipv6 address 2001:db8:12::1 64
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -33,17 +45,28 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable dhcp server
 dhcpv6 pool RELAY6
  address prefix 2001:db8:11::/64 life-time 3600 1800
  excluded-address 2001:db8:11::1 2001:db8:11::ff
  dns-server 2001:db8::53
-quit
+#
 interface Ethernet0
+ ipv6 enable
  ipv6 address 2001:db8:12::2 64
  dhcpv6 server RELAY6
-quit
+#
 ipv6 route-static 2001:db8:11:: 64 Ethernet0 2001:db8:12::1
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -53,9 +76,20 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
+ ipv6 enable
  ipv6 address auto dhcp
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -133,9 +167,19 @@ ping ipv6 -a 2001:db8:11::101 -c 3 2001:db8:12::2
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet1
  undo dhcpv6 relay interface Ethernet0
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display dhcpv6 relay
 ~~~

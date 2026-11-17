@@ -12,26 +12,35 @@ P1 从用户视图开始；接口与基础路由由前置拓扑提供：
 
 ~~~text
 system-view
-nat-policy name LAB-SNAT
+~~~
+
+配置清单：
+
+~~~text
+nat-policy name D1-STATIC
  statistic enable
  rule 10
-  source address 198.18.11.2/32
-  action static-nat 198.19.81.2/32
- quit
-quit
+  source address 203.0.113.2/32
+  action static-nat 198.51.100.10/32
+#
 interface Ethernet0
- nat-policy LAB-SNAT outbound
-quit
+ nat-policy D1-STATIC outbound
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
 ## 验证
 
-P3 执行 `ping -a 198.18.11.2 -c 3 198.19.80.2`，然后在 P1 查询：
+P3 执行 `ping -a 203.0.113.2 -c 3 198.51.100.2`，然后在 P1 查询：
 
 ~~~text
-display nat-policy name LAB-SNAT
-display nat-policy statistics name LAB-SNAT
+display nat-policy name D1-STATIC
+display nat-policy statistics name D1-STATIC
 display nat-policy sessions action static-nat
 ~~~
 
@@ -45,10 +54,20 @@ P1 系统视图：
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
- undo nat-policy LAB-SNAT outbound
-quit
-undo nat-policy name LAB-SNAT
+ undo nat-policy D1-STATIC outbound
+#
+undo nat-policy name D1-STATIC
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display nat-policy runtime
 display nat-policy interfaces
@@ -57,3 +76,7 @@ display nat-policy interfaces
 解除绑定后再发起新连接，确认不再采用该策略。基础拓扑的普通路由仍在，撤销 NAT 不一定使业务断开，应比较转换结果而非只看 ping。需要重启保留配置时，在提交并验证后执行 `save`；撤销后也再次保存。
 
 [功能说明](../../operator/nat/static.md) · [命令参数](../../operator/reference/nat.md)
+
+## 实际检查结果
+
+策略命中统计为 6 packets、504 bytes，对端实际收到的源地址为 198.51.100.10。该动作的会话数为 0；无状态映射不能用会话数判定成败。撤销绑定和策略后，普通路由探测仍可达，源地址恢复为 203.0.113.2。

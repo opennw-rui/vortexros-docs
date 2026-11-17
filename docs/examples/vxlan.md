@@ -16,17 +16,27 @@ P1（VTEP 10.201.12.1）────── P2 ──────（VTEP 10.201.2
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 vlan batch 404
 bridge-domain 404
  l2 binding vlan 404
  vxlan vni 4404
-quit
+#
 interface Nve1
  vni 4404 head-end peer-list 10.201.23.3
-quit
+#
 interface Vbdif 404
  ip address 192.0.2.9 255.255.255.252
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -34,17 +44,27 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 vlan batch 404
 bridge-domain 404
  l2 binding vlan 404
  vxlan vni 4404
-quit
+#
 interface Nve1
  vni 4404 head-end peer-list 10.201.12.1
-quit
+#
 interface Vbdif 404
  ip address 192.0.2.10 255.255.255.252
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -84,9 +104,19 @@ bridge-domain 404
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Nve1
  undo vni 4404 head-end peer-list 10.201.23.3
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ping -n -c 3 -t 1000 192.0.2.10
 ~~~
@@ -97,6 +127,11 @@ ping -n -c 3 -t 1000 192.0.2.10
 undo interface Vbdif 404
 undo bridge-domain 404
 undo vlan 404
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display bridge-domain 404
 ~~~

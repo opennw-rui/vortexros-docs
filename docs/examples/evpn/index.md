@@ -8,6 +8,7 @@
 L2VPN <l2vpn>
 L3VPN <l3vpn>
 all-active
+all-active-multiple-vni
 esi
 anycast
 ~~~

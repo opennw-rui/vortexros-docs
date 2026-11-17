@@ -1,80 +1,28 @@
 # 多归属
 
+All-Active 使用相同 ESI 将 CE 双接入两台 PE。远端 PE 根据 EVPN Type-1/Type-4 与 MAC 路由建立以太网段下一跳组；单播可以使用两个接入 PE。DF 选举控制发往该以太网段的广播与组播，split-horizon 防止业务返回原以太网段。
 
-All-Active 多归属使用同一 ESI 把 CE 同时接入 P1、P2，P3 作为远端 PE，P4 作为
-Route Reflector。FRR 负责 Type-1/Type-4、DF 选举和 EVPN 路径选择；switchd 维护
-Linux 控制对象；LCP 只负责在 Linux/FRR 与 VPP 之间传递多归属状态；VPP 执行
-MAC ECMP、非 DF BUM 过滤、local-bias、split-horizon 和故障切换。
+当前公开 CLI 支持 All-Active 接入及多 VNI 共用同一 ESI。不支持在 EVPN 地址族下配置 reflect-client，因此以下案例采用三台 PE 全互联，不要求额外 RR。
 
-```text
-                  P4 (RR)
-                 /       \
-CE1 == Eth-Trunk1 == P1   P2 == Eth-Trunk1 == CE1
-                         \
-                          P3 -- CE2
-```
+~~~{toctree}
+:maxdepth: 1
 
-P1、P2 的 CE 侧 Eth-Trunk 使用相同 ESI。以下为 P1 示例；P2 使用相同 ESI、VLAN、
-VNI 和 RT，但使用自己的 RD、VTEP 地址及物理成员：
+../../examples/evpn/all-active
+../../examples/evpn/all-active-multiple-vni
+~~~
 
-```text
-system-view
-enable switch
-evpn-overlay enable
-vlan 101
-bridge-domain 101
- l2 binding vlan 101
- vxlan vni 5010
- evpn
-  route-distinguisher 65000:101
-  vpn-target 65000:5010 both
- quit
-quit
-interface Eth-Trunk 1
- mode manual
- trunkport Ethernet 2
- portswitch
- port link-type trunk
- port trunk allow-pass vlan 101
- port trunk pvid vlan 101
- esi 0000.0000.0000.0000.0001
-quit
-interface Nve 1
- source 10.255.0.1
- vni 5010 head-end peer-list protocol bgp
-quit
-bgp 65000
- peer 10.255.0.4 as-number 65000
- peer 10.255.0.4 connect-interface LoopBack 0
- l2vpn-family evpn
-  peer 10.255.0.4 enable
- quit
-quit
-commit
-```
+## 已验证的组合与限制
 
-Underlay 必须能分别到达 P1、P2、P3 的 VTEP；多归属 VTEP 当前使用 IPv4。P4
-按普通 EVPN RR 配置，对 P1、P2、P3 启用 `l2vpn-family evpn` 并配置反射客户端。
+|组合|实际验证|
+|---|---|
+|双接入单播|远端 MAC 指向包含两台接入 PE 的 ES 下一跳组；单链路关闭后使用另一台 PE，链路恢复后重新可用|
+|广播、组播|远端各发送5帧，DF侧各收到5帧，非DF侧为0；未观察到重复交付|
+|接入故障后的广播|关闭原DF接入口后，另一侧成为DF，5帧广播全部交付|
+|分割水平|CE发送5帧广播，远端收到5帧，未收到回到原CE段的反射副本|
+|同一ESI、两个VNI|两个业务分别可达，撤销一个VNI后该业务不通，另一个仍可达|
+|未知单播|EVPN业务桥域配置为UU-Flood drop，未学习目的MAC时不泛洪；先通过正常源MAC学习或控制面通告建立目的项|
+|Single-Active、EVPN RR|当前公开CLI未提供，不支持|
 
-使用以下命令确认 Type-1/Type-4、DF、远端 MAC ECMP 和设备健康：
+本表是功能验证，不是负载分担比例、吞吐或所有厂商互通认证。多归属路由正常也不能替代实际业务报文检查。
 
-```text
-display bgp evpn all routing-table
-display mac-address
-display interface Eth-Trunk 1
-display health
-```
-
-链路故障验收必须同时确认：故障成员退出本地 ES、远端 NHG 缩减为单成员、业务仍然
-连通；链路恢复后 NHG 恢复双成员。VPP 冷重启验收必须确认本地 ES、远端 NHG 和
-业务转发均恢复，不能只以其他 PE 仍能转发作为成功依据。
-
-## 范围、实际记录和撤销
-
-当前支持 All-Active，不提供 Single-Active，多归属 VTEP 限定 IPv4。[完整 All-Active 案例](../../examples/evpn/all-active.md)给出三 PE 全互联的逐设备配置、故障检查和撤销；使用 RR 时另需正确配置路由反射。
-
-[ESI 变更](../../examples/evpn/esi.md)说明同一组网中的撤销与重新加入；完整双接入检查见 All-Active 案例。
-
-撤销单个接入的多归属属性，在对应 Eth-Trunk 执行 `undo esi` 并提交，保留普通桥接和 VLAN 成员关系。只有确认业务无引用时才删除聚合、VNI 或桥域。
-
-[实际生命周期](lifecycle.md) · [命令参考](../reference/evpn.md)
+[EVPN参数](../reference/evpn.md) · [完整All-Active案例](../../examples/evpn/all-active.md)

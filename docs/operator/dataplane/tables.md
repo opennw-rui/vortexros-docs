@@ -6,7 +6,12 @@ dataplane
  neighbor ipv4 limit 102400
  neighbor ipv6 limit 102400
  mac-address learn-limit 102400
-quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 save
 display current-configuration configuration dataplane
@@ -33,3 +38,8 @@ MAC 配置变更后，保存并执行 `reset dataplane` 才生效。该参数不
 
 
 [数据面总览](../dataplane.md) · [逐条命令](../reference/dataplane.md)
+
+
+## 在线修改的实际对照
+
+在 dataplane 视图将 IPv4、IPv6 上限都设为110000并提交后，display dataplane tables 的两族活动容量均为110000，Linux回收阈值均为27500/55000/110000。对应 undo 并提交后，两族活动容量恢复102400，阈值恢复25600/51200/102400。该过程未重启VPP；MAC学习容量保持102400。

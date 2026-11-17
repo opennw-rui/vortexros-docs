@@ -5,8 +5,9 @@
 ## `display ipv6 urpf`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display IPv6 URPF information
+- CLI 帮助：display IPv6 URPF information
 - 合法语法：
 
   ```text
@@ -24,8 +25,9 @@
 ## `display urpf`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：show per-interface uRPF mode
+- CLI 帮助：show per-interface uRPF mode
 - 合法语法：
 
   ```text
@@ -43,8 +45,9 @@
 ## `ip urpf`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：configure ip uRPF on the interface
+- CLI 帮助：configure ip uRPF on the interface
 - 合法语法：
 
   ```text
@@ -67,8 +70,9 @@
 ## `ipv6 urpf`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：configure ipv6 uRPF on the interface
+- CLI 帮助：configure ipv6 uRPF on the interface
 - 合法语法：
 
   ```text
@@ -91,8 +95,9 @@
 ## `undo ip urpf`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable ip uRPF on the interface
+- CLI 帮助：disable ip uRPF on the interface
 - 合法语法：
 
   ```text
@@ -111,8 +116,9 @@
 ## `undo ipv6 urpf`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable ipv6 uRPF on the interface
+- CLI 帮助：disable ipv6 uRPF on the interface
 - 合法语法：
 
   ```text

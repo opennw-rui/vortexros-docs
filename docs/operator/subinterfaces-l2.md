@@ -4,9 +4,13 @@ L2 子接口按 VLAN 标签识别报文，加入 bridge-domain 后转发。它�
 
 ## 创建与约束
 
-使用 `interface PARENT.NUMBER mode l2` 创建，`encapsulation dot1q vid VLAN` 指定单标签；双层标签、802.1ad 与 QinQ 见案例。子接口编号和 VLAN ID 不要求相同，父端口必须存在。父端口的 trunk 派生成员不能抢占相同标签分类。
+使用 `interface PARENT.NUMBER mode l2` 创建，`encapsulation dot1q vid VLAN` 指定单标签；双层标签、802.1ad 与 QinQ 见案例。子接口编号和 VLAN ID 不要求相同，父端口必须存在。父端口的 Access、Trunk 或 Hybrid 成员不能与显式子接口复用相同的外层业务 VLAN；其他业务 VLAN 可以共存。
 
 创建后补齐封装并绑定桥域；不能在已有接口上通过重复进入时改写 mode 完成二三层转换。应先解除业务引用、删除接口，再创建目标模式。
+
+## 激活条件
+
+父接口与子接口均未 shutdown、父接口链路 Up 时，子接口才有可用链路。Protocol Up 还要求封装完整并已加入正确的桥域。L2 子接口不配置 IP，也不以 IP 地址作为 Up 条件。父链路恢复后自动恢复；显式 shutdown 的子接口需执行 undo shutdown。
 
 ## 配置、示例输出和撤销
 

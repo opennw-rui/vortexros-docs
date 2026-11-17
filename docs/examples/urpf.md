@@ -16,13 +16,23 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 192.0.2.81 255.255.255.252
-quit
+#
 interface Ethernet1
  ip address 10.201.12.1 255.255.255.0
-quit
+#
 ip route-static 203.0.113.82 255.255.255.255 10.201.12.2
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -30,16 +40,26 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 192.0.2.82 255.255.255.252
-quit
+#
 interface Ethernet1
  ip address 10.201.12.2 255.255.255.0
-quit
+#
 interface LoopBack0
  ip address 203.0.113.82 255.255.255.255
-quit
+#
 ip route-static 192.0.2.81 255.255.255.255 192.0.2.81
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -57,9 +77,19 @@ P1 检查回程并启用严格模式：
 ~~~text
 display ip routing-table 203.0.113.82
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip urpf strict
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display current-configuration interface Ethernet0
 ~~~

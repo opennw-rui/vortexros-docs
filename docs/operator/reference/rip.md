@@ -7,8 +7,9 @@
 ## `display rip`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display RIP information
+- CLI 帮助：display RIP information
 - 合法语法：
 
   ```text
@@ -36,7 +37,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed rip routing service
+- CLI 帮助：restart the managed rip routing service
 - 合法语法：
 
   ```text
@@ -58,8 +59,9 @@
 ## `rip`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create a RIP process and enter process view
+- CLI 帮助：create a RIP process and enter process view
 - 合法语法：
 
   ```text
@@ -81,8 +83,9 @@
 ## `rip bfd`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：configure RIP BFD timers
+- CLI 帮助：configure RIP BFD timers
 - 合法语法：
 
   ```text
@@ -111,8 +114,9 @@
 ## `rip bfd enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：enable RIP BFD on this interface
+- CLI 帮助：enable RIP BFD on this interface
 - 合法语法：
 
   ```text
@@ -131,8 +135,9 @@
 ## `timers rip`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`RIPng视图`、`RIP视图`
-- 用途（设备帮助）：set RIP update, timeout and garbage timers
+- CLI 帮助：set RIP update, timeout and garbage timers
 - 合法语法：
 
   ```text
@@ -154,8 +159,9 @@
 ## `undo rip`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a RIP process
+- CLI 帮助：delete a RIP process
 - 合法语法：
 
   ```text
@@ -175,8 +181,9 @@
 ## `undo rip bfd`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore RIP BFD timers
+- CLI 帮助：restore RIP BFD timers
 - 合法语法：
 
   ```text
@@ -202,8 +209,9 @@
 ## `undo rip bfd enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable RIP BFD on this interface
+- CLI 帮助：disable RIP BFD on this interface
 - 合法语法：
 
   ```text
@@ -222,8 +230,9 @@
 ## `undo timers rip`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`RIPng视图`、`RIP视图`
-- 用途（设备帮助）：restore RIP timers
+- CLI 帮助：restore RIP timers
 - 合法语法：
 
   ```text

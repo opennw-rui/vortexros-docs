@@ -1,58 +1,78 @@
-# 成员与网关
+# 交换端口
 
-## 配置与验证
+Ethernet 和 Eth-Trunk 可按业务需要配置为 Access、Trunk 或 Hybrid。端口模式、VLAN 成员和 PVID 决定报文准入与出方向标签，不需要额外配置 Linux 网桥。
 
-显式二层子接口未配置 `mtu` 时使用父端口的硬件 MTU 能力，三层子接口缺省使用 1500。父接口 MTU 下发后，VortexROS 恢复各子接口的目标值，可用 `display interface` 检查。
+~~~{toctree}
+:maxdepth: 1
 
-```text
-vlan batch 100 200
-interface Ethernet 1
- portswitch
- port link-type trunk
- port trunk allow-pass vlan 100 200
-interface Vlanif 100
- ip address 10.100.0.1 255.255.255.0
-```
+access
+trunk
+hybrid
+~~~
 
-配置在二层物理接口或VLAN上的策略会作用于对应的trunk业务流量。Vlanif只有在VLAN中至少存在一个可用成员端口时才能正常up；没有可用成员时显示普通down，并撤销相关直连路由。
+| 模式 | VLAN 成员 | 无标签报文 | 出方向标签 |
+|---|---|---|---|
+| Access | 一个默认 VLAN | 归入默认 VLAN | 不带该 VLAN 标签 |
+| Trunk | 允许列表 | 归入已允许的 PVID | PVID 不带标签，其余 VLAN 带标签 |
+| Hybrid | tagged / untagged 列表 | 归入已加入成员列表的 PVID | 按各 VLAN 的 tagged / untagged 设置 |
+| dot1q-tunnel | 简单 QinQ 服务 VLAN | 作为客户侧报文承载 | 见[QinQ](../qinq.md) |
 
-策略投影遵循实际承载对象：access和`dot1q-tunnel`的VLAN QoS/MQC绑定在整个父
-接口，trunk的VLAN策略绑定在对应隐式业务子接口。简单QinQ不再生成客户侧
-`父接口.VLAN`对象，因此不会把策略下发到不存在的接口；VLAN classifier中的匹配
-条件仍保留。
+所有交换模式都必须先启用交换功能，并创建所需 VLAN。Vlanif、Vbdif 和三层端口不作为普通交换成员。
 
-`display vlan`使用一张表同时显示状态、MAC学习、描述和端口成员，端口状态中的`U/D`表示up/down，`TG/UT`表示tagged/untagged。表格宽度根据实际内容调整；端口之间间隔两个字符，每行最多显示四个端口，更多端口在下一行按首个接口位置继续显示：
+## 查询
 
 ```text
------------------------------------------------------------------
-U: Up;         D: Down;         TG: Tagged;         UT: Untagged;
------------------------------------------------------------------
-
-VID  Type    Status  MAC-LRN  Description    Ports
------------------------------------------------------------------
-1    common  enable  enable   VLAN 1         UT:Ethernet2(D)  Ethernet3(D)
-10   common  enable  enable   To_CTC_ISP     UT:Ethernet0(U)
-20   common  enable  enable   To_LAN_Client  UT:Ethernet1(U)
------------------------------------------------------------------
-```
-
-`display ip interface brief`和`display ipv6 interface brief`保持相同的状态列布局，便于同时核对Physical、Protocol和VPN-Instance。
-
-隐式默认MAC不进入 `display current-configuration` 或 `display this`。
-
-enable switch 后，portswitch 将接口作为二层业务口。缺省 VLAN、trunk 允许列表和 PVID 分别控制其业务成员关系。Vlanif、Vbdif 及路由口保持三层角色，不作为普通交换成员。
-
-`switch`自身不承载业务IP，其MTU自动设置为当前L2控制端口的最大MTU。switchd创建或重新校准bridge时会直接查询Linux bridge能力；若内核支持`fdb_local_vlan_0`则自动开启，不支持时不设置。接口从L3切换为switchport或从switchport切回L3时，只更新既有LCP对的角色和bridge成员关系，不删除重建TAP。
-
-普通业务由 VPP 学习、泛洪并转发；控制面同步 MAC、邻居及路由状态。用户只需通过 VortexROS 配置业务，不需要创建额外 Linux bridge、TAP 或逐 VLAN 的控制接口。
-
-```text
-display lcp
 display vlan
-display mac-address
+display vlan 100
+display mac-address vlan 100
+display interface brief
 ```
 
-display lcp 用于诊断控制通道和接口配对。静态 VXLAN 在 NVE 配置显式对端，动态 EVPN 由 BGP 学习，见[VXLAN EVPN](../11-vxlan-evpn.md)。
+`display vlan` 中，U/D 表示成员接口 Up/Down，TG/UT 表示带标签/不带标签。MAC 显示使用用户配置的父接口名称，便于定位接入端口。
+
+以下为 VLAN 100 的实际查询输出节选，两端都设置为该 VLAN 的无标签成员：
+
+```text
+VID  Type    Status  MAC-LRN  Description      Ports
+----------------------------------------------------------------------------
+100  common  enable  enable   VLAN 100         UT:Ethernet0(U)  Ethernet1(U)
+
+MAC Address       VLAN/VSI/BD                    Learned-From        Type
+-------------------------------------------------------------------------------
+0200-00a1-0001    100/-/-                        Ethernet0           dynamic
+```
+
+## 网关与 MTU
+
+Vlanif 需要所属 VLAN 至少有一个有效成员端口 Up，且接口没有 shutdown；三层 Protocol Up 还需要有效 IP 地址。成员全部不可用时自动 Down，恢复后自动 Up，见[Vlanif 网关](gateway.md)。
+
+显式二层子接口未配置 MTU 时使用父端口的硬件 MTU 能力，三层子接口缺省为 1500。通过 `display interface` 核对 MTU。物理接口从三层切换为交换端口，会改变现有业务的接口归属，提交前应撤销冲突的三层配置。
+
+[功能目录](../vlan.md) · [命令参考](../reference/vlan.md)
 
 
-[功能目录](../vlan.md) · [命令参数](../reference/vlan.md)
+## 切换端口类型
+
+先撤销原类型的非默认 VLAN 和 PVID 配置，再执行新的 `port link-type`。清空允许列表与恢复默认列表不同：Trunk 默认允许 VLAN 1，Hybrid 默认将 VLAN 1 作为 untagged 成员；空列表不会自动恢复这些默认项。
+
+例如，将只允许 VLAN 100、PVID 为 100 的 Trunk 改为 Access：
+
+```text
+system-view
+interface Ethernet 0
+ undo port trunk pvid vlan
+ port trunk allow-pass vlan 1
+ undo port trunk allow-pass vlan 100
+ port link-type access
+ port default vlan 100
+#
+commit
+```
+
+应根据当前允许列表撤销其他业务 VLAN。Access 恢复默认 VLAN 使用 `undo port default vlan`；Hybrid 应撤销原 tagged/untagged 业务成员、恢复 untagged VLAN 1 并撤销自定义 PVID 后再切换。切换会重新建立对应的二层业务，期间可能短暂中断。
+
+## 与其他功能组合
+
+Ethernet 和 Eth-Trunk 均可使用交换端口配置。聚合成员本身不承担独立三层接口配置；VLAN 配置放在 Eth-Trunk 上，Vlanif 是对应 VLAN 的三层网关。保存后，数据面重置及系统启动会恢复成员、VLAN 和网关配置。
+
+本页对应的报文验证中，Access 的无标签、VID 0、同 PVID 单标签报文均能通过；VID 111 和叠加标签作为拒绝对照未通过。Hybrid 的 VLAN 100 无标签、VLAN 200 带标签业务均完成双向 3/3 转发；将 PVID 配成 tagged 后，优先级标签的 PCP/DEI 能保留到输出标签。移除 VLAN 100 后，该业务停止，VLAN 200 继续转发。独立的 L2/L3 子接口、简单 QinQ、Eth-Trunk 及接口 ACL/MQC 对照均有实际报文验证，不代表任意组合和所有负载已穷举。

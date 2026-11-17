@@ -2,7 +2,7 @@
 
 ## 拓扑与用途
 
-CE1 通过静态 Eth-Trunk 双接入 PE1/P1 与 PE2/P2；PE3/P3 连接 CE2。五台设备均运行 VortexROS。PE1、PE2 使用同一个 ESI，PE 间通过 IBGP EVPN 通告以太网段及 MAC。
+CE1 通过静态 Eth-Trunk 双接入 PE1/P1 与 PE2/P2；PE3/P3 连接 CE2。以下给出各台 VortexROS 设备的配置。PE1、PE2 使用同一个 ESI，PE 间通过 IBGP EVPN 通告以太网段及 MAC。
 
 ~~~text
 CE1 Ethernet0 ── P1 Ethernet1
@@ -21,13 +21,23 @@ PE 的承载接口应已完成数据面配置，互联 MTU 足以容纳 VXLAN �
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Eth-Trunk 1
  mode manual
  trunkport Ethernet0
  trunkport Ethernet1
  mac-address 0200-0000-1212
  ip address 192.0.2.12 255.255.255.0
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -35,9 +45,19 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 192.0.2.3 255.255.255.0
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -47,11 +67,16 @@ CE 接口不带 VLAN 标签，由 PE 接入口的 PVID 460 归入业务。CE1 �
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable switch
 evpn-overlay enable
 interface Ethernet0
  ip address 198.19.80.1 255.255.255.252
-quit
+#
 ip route-static 198.19.23.0 255.255.255.0 198.19.80.2
 vlan 460
 bridge-domain 460
@@ -61,8 +86,7 @@ bridge-domain 460
   route-distinguisher 65000:1460
   vpn-target 65000:50460 export-extcommunity
   vpn-target 65000:50460 import-extcommunity
- quit
-quit
+#
 interface Eth-Trunk 11
  mode manual
  trunkport Ethernet1
@@ -71,11 +95,11 @@ interface Eth-Trunk 11
  port trunk allow-pass vlan 460
  port trunk pvid vlan 460
  esi 0000.1111.2222.1111.1111
-quit
+#
 interface Nve1
  source 198.19.80.1
  vni 50460 head-end peer-list protocol bgp
-quit
+#
 bgp 65000
  router-id 1.1.1.1
  peer 198.19.80.2 as-number 65000
@@ -84,8 +108,12 @@ bgp 65000
  l2vpn-family evpn
   peer 198.19.80.2 enable
   peer 198.19.23.3 enable
- quit
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -93,14 +121,19 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable switch
 evpn-overlay enable
 interface Ethernet0
 ip address 198.19.80.2 255.255.255.252
-quit
+#
 interface Ethernet1
 ip address 198.19.23.2 255.255.255.0
-quit
+#
 vlan 460
 bridge-domain 460
  l2 binding vlan 460
@@ -109,8 +142,7 @@ bridge-domain 460
   route-distinguisher 65000:2460
   vpn-target 65000:50460 export-extcommunity
   vpn-target 65000:50460 import-extcommunity
- quit
-quit
+#
 interface Eth-Trunk 11
  mode manual
  trunkport Ethernet2
@@ -119,11 +151,11 @@ interface Eth-Trunk 11
  port trunk allow-pass vlan 460
  port trunk pvid vlan 460
  esi 0000.1111.2222.1111.1111
-quit
+#
 interface Nve1
  source 198.19.80.2
  vni 50460 head-end peer-list protocol bgp
-quit
+#
 bgp 65000
  router-id 2.2.2.2
  peer 198.19.80.1 as-number 65000
@@ -132,8 +164,12 @@ bgp 65000
  l2vpn-family evpn
   peer 198.19.80.1 enable
   peer 198.19.23.3 enable
- quit
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -141,11 +177,16 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable switch
 evpn-overlay enable
 interface Ethernet0
  ip address 198.19.23.3 255.255.255.0
-quit
+#
 ip route-static 198.19.80.0 255.255.255.252 198.19.23.2
 vlan 460
 bridge-domain 460
@@ -155,17 +196,16 @@ bridge-domain 460
   route-distinguisher 65000:3460
   vpn-target 65000:50460 export-extcommunity
   vpn-target 65000:50460 import-extcommunity
- quit
-quit
+#
 interface Ethernet1
  portswitch
  port link-type access
  port default vlan 460
-quit
+#
 interface Nve1
  source 198.19.23.3
  vni 50460 head-end peer-list protocol bgp
-quit
+#
 bgp 65000
  router-id 3.3.3.3
  peer 198.19.80.1 as-number 65000
@@ -173,8 +213,12 @@ bgp 65000
  l2vpn-family evpn
   peer 198.19.80.1 enable
   peer 198.19.80.2 enable
- quit
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -219,16 +263,21 @@ P1、P2分别执行以下配置（PE2把端口名换为Ethernet2）：
 ~~~text
 interface Eth-Trunk 11
  undo esi
-quit
+#
 interface Ethernet1
  undo eth-trunk
-quit
+#
 undo interface Eth-Trunk 11
 interface Nve 1
  undo vni 50460
-quit
+#
 undo bridge-domain 460
 undo vlan 460
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -237,12 +286,17 @@ P3执行：
 ~~~text
 interface Ethernet1
  undo portswitch
-quit
+#
 interface Nve 1
  undo vni 50460
-quit
+#
 undo bridge-domain 460
 undo vlan 460
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display mac-address bridge-domain 460
 display vxlan tunnel
@@ -256,16 +310,32 @@ CE1 解除两条成员口的聚合归属，再删除专用 Eth-Trunk1；CE2 撤�
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  undo eth-trunk
-quit
+#
 interface Ethernet1
  undo eth-trunk
-quit
+#
 undo interface Eth-Trunk 1
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
 CE2 进入 Ethernet0 执行 undo ip address 并提交。各节点核对后执行 save。若底层及 BGP 也为本业务独占，再撤销专用邻居、静态路由和接口地址。
 
 [多归属功能](../../operator/evpn/multihoming.md) · [EVPN 参数](../../operator/reference/evpn.md)
+
+## 广播、组播与未知单播
+
+双接入的实测中，远端各发送5帧广播、组播，只有DF一侧向CE交付各5帧，非DF侧为0。关闭原DF接入后，另一侧当选DF，广播仍交付5/5。CE发出的5帧广播在远端收到5帧，未回送原以太网段。当前EVPN业务桥域的未知单播策略为丢弃；不要用未学习目的MAC的任意单播作为广播泛洪验收。
+
+[同一ESI承载多个VNI](all-active-multiple-vni.md)给出新增业务和独立撤销的完整增量配置。EVPN地址族的RR客户端配置尚未提供，本例使用PE全互联。

@@ -5,6 +5,11 @@
 ```text
 interface Ethernet 1
  ip address dhcp-alloc
+```
+
+CLI 操作：
+
+```text
 commit
 display dhcp client
 ```
@@ -14,10 +19,15 @@ display dhcp client
 ```text
 interface Ethernet 1
  undo ip address dhcp-alloc
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
-VPP启用时，DHCP客户端运行在VPP为业务接口建立的LCP host接口上。报文仍通过对应VPP物理接口收发，客户端不会重新绑定、独占或接管物理网卡。这样IPv4与IPv6租约采用同一套生命周期、VRF、撤销和重启恢复逻辑，并且可以完整处理默认路由和classless route。租约中的DNS选项不写入Linux系统解析配置。
+接口使用 DHCP 时，业务报文仍通过该接口收发；不需要另外接管网卡或手工创建客户端进程。客户端可按配置安装默认路由和无类别静态路由。租约中的 DNS 选项不会修改设备的系统解析设置。
 
 接口`shutdown`只暂停对应的DHCP client、relay和PD运行单元，配置意图仍保留。子接口还继承父接口的有效管理状态：父接口关闭时子接口单元同时暂停；父接口恢复后，只有自身未配置`shutdown`的子接口才按原配置恢复。该行为不删除租约配置，也不会把显式关闭的子接口强制拉起。
 
@@ -50,7 +60,12 @@ display ip fib | include 0.0.0.0/0
 ~~~text
 interface Ethernet0
  undo ip address dhcp-alloc
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display dhcp client interface Ethernet0
 display interface Ethernet0
@@ -61,3 +76,40 @@ display ip fib
 
 
 [DHCP 功能与开关](../dhcp.md) · [逐条命令参数](../reference/dhcp.md)
+
+
+## 无类别路由
+
+```text
+interface Ethernet0
+ dhcp client classless-route enable
+ dhcp client default-route enable
+#
+```
+
+开启无类别路由接收后，客户端向服务器请求 DHCP Option 121，并按服务器回复安装路由。例如服务器通告 `203.0.113.0/24` 经 `198.19.229.1`，实际路由查询为：
+
+```text
+Destination/Mask   Proto    NextHop         Interface
+203.0.113.0/24     Kernel   198.19.229.1     Ethernet0
+```
+
+客户端使用实际租约地址 `198.19.229.200` 探测该前缀内的服务器地址 `203.0.113.121`，实测 3 发 3 收。这里是客户端接收能力；服务器是否提供该选项取决于其配置，不能据此假定所有 DHCP 服务端都会通告无类别路由。
+
+按 RFC 3442，收到 Option 121 时使用其中的路由，不再同时采用 Router Option 3。若 Option 121 没有默认路由，单独开启默认路由接收也不会把 Option 3 重新当成默认网关。服务器若需要提供默认路径，应在 Option 121 中同时提供 `0.0.0.0/0`。
+
+`undo dhcp client classless-route enable` 撤销本接口已学习的无类别路由，重新按 Router Option 3 和默认路由开关处理；`undo dhcp client default-route enable` 只禁止默认路径，不删除正常租约地址。本次实际撤销验证中，前缀路由删除、Router Option 默认路由恢复；再关闭默认路由后，地址仍为 `198.19.229.200/24`，客户端安装的路由为空。
+
+## 数据面重置后的恢复
+
+重置数据面会中断该接口上的当前租约使用，客户端随后重新申请，地址可能改变。不要把重置前的动态地址作为永久管理地址或固定对端地址使用。
+
+~~~text
+display dhcp client
+display ip interface brief
+display ip routing-table
+~~~
+
+客户端服务运行但 Address 为 `-` 时，表示尚无已取得的地址；这与成功取得租约是不同状态。重置完成后，应核对新的地址、默认或无类别路由，并探测实际对端。不能只用服务运行状态判断已经恢复连通。
+
+实测数据面重置后，IPv4 客户端重新取得地址和默认路由，对端探测3发3收。撤销 IPv4 客户端时，应同时移除其租约地址、临时地址及所安装路由；另行配置的 IPv6 自动配置意图仍保留，IPv6 地址是否已取得应独立查询。

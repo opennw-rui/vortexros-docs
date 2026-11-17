@@ -30,8 +30,13 @@ bfd TO-P2 bind peer-ip 10.0.12.2 source-ip 10.0.12.1 interface Vlanif 12
  undo min-tx-interval
  undo min-rx-interval
  undo detect-multiplier
- quit
+ #
 undo bfd TO-P2
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -48,11 +53,17 @@ commit
 
 ```text
 interface Ethernet 1
+ ipv6 enable
  ospf bfd min-tx-interval 500 min-rx-interval 500 detect-multiplier 4
  ospf bfd enable
  ospfv3 bfd min-tx-interval 600 min-rx-interval 600 detect-multiplier 5
  ospfv3 bfd enable
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -64,11 +75,41 @@ interface Ethernet 1
  undo ospf bfd min-tx-interval min-rx-interval detect-multiplier
  undo ospfv3 bfd enable
  undo ospfv3 bfd min-tx-interval min-rx-interval detect-multiplier
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
-提交后应检查会话引用是否撤销，配置中默认参数是否省略。后端内部生成的 `auto-bfd-*` profile 用于落实产品计时，不需要用户在 CLI 单独创建 profile。
+提交后应检查会话引用是否撤销，配置中默认参数是否省略。动态协议会话直接使用上述计时参数，无需另外创建 BFD profile。
 
 
 [默认计时](../bfd.md) · [命令参数](../reference/bfd.md)
+
+
+## RIP 撤路与等价路径
+
+RIP 的 BFD 检测到邻居故障后，撤销该邻居贡献的转发路径。只有一条路径时，该前缀不应继续出现在活跃 IP 路由表中；协议表可能暂时保留 metric 16 的不可达记录，等待正常回收。存在等价路径时，仅撤销故障邻居，其他路径继续转发。
+
+检查时同时使用以下命令：
+
+~~~text
+display bfd session all
+display bfd statistics
+display rip 96 route
+display ip routing-table vpn-instance BLUE protocol rip
+~~~
+
+动态会话与 RIP 邻居生命周期联动；邻居被删除时，对应的动态 BFD 会话也可能消失。不要把会话不再列出误当成仍处于 Up。解除故障后，重新收到路由通告并建立会话，才能确认恢复。
+
+
+## 故障检测与重新建邻
+
+当前协议联动不提供 BFD strict-mode。BFD 从 Up 转为 Down 会通知使用它的路由协议，但若协议 Hello 仍能到达，邻接随后可能重新建立，而 BFD 会话尚未恢复。因此，不能将单独屏蔽 BFD 报文的实验理解为“只要 BFD 显示 Down，协议路由就永久禁止安装”。需要同时查询邻居、路由及实际业务流量。关于 OSPF strict-mode 对建邻条件的额外要求，参见 [RFC 9355](https://www.rfc-editor.org/rfc/rfc9355.html)。
+
+一组同接口 OSPFv3 与双栈 IS-IS 的运行结果中，共享会话使用 IPv6 链路本地地址，配置发送 200 ms、接收 300 ms、检测倍数 4，正常为 Up。单独丢弃该链路的 BFD 控制报文后，会话 Down，IS-IS 两族目标路由一度撤销；由于 IS-IS Hello 仍正常，邻接和路由随后恢复。解除屏蔽后，BFD 恢复 Up。该行为与接口物理断链或业务路径整体中断应区分。
+
+共享会话的本端配置恢复 1000/1000/3 后，对端仍使用检测倍数 4 时，运行显示的检测超时可以为 4000 ms。配置值与协商结果不是同一项，不能仅用本端的 1000×3 推断所有显示值。

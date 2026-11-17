@@ -7,8 +7,9 @@
 ## `action dnat`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：set DNAT action
+- CLI 帮助：set DNAT action
 - 合法语法：
 
   ```text
@@ -30,8 +31,9 @@
 ## `action no-nat`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：permit matching flows without translation
+- CLI 帮助：permit matching flows without translation
 - 合法语法：
 
   ```text
@@ -49,8 +51,9 @@
 ## `action snat`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：set SNAT action
+- CLI 帮助：set SNAT action
 - 合法语法：
 
   ```text
@@ -74,8 +77,9 @@
 ## `action static-nat`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：set static prefix translation
+- CLI 帮助：set static prefix translation
 - 合法语法：
 
   ```text
@@ -95,8 +99,9 @@
 ## `action twice-nat`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：translate both source and destination
+- CLI 帮助：translate both source and destination
 - 合法语法：
 
   ```text
@@ -123,8 +128,9 @@
 ## `address`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT地址池视图`、`NAT地址集视图`
-- 用途（设备帮助）：add an IPv4 prefix to this NAT address-pool；add an IPv4 prefix to this NAT address-set
+- CLI 帮助：add an IPv4 prefix to this NAT address-pool；add an IPv4 prefix to this NAT address-set
 - 合法语法：
 
   ```text
@@ -156,7 +162,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：clear nat-policy runtime counters without removing sessions
+- CLI 帮助：clear nat-policy runtime counters without removing sessions
 - 合法语法：
 
   ```text
@@ -176,7 +182,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：clear nat-policy sessions
+- CLI 帮助：clear nat-policy sessions
 - 合法语法：
 
   ```text
@@ -199,8 +205,9 @@
 ## `destination address`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match destination address
+- CLI 帮助：match destination address
 - 合法语法：
 
   ```text
@@ -221,8 +228,9 @@
 ## `destination address-set name`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match a reusable NAT address-set
+- CLI 帮助：match a reusable NAT address-set
 - 合法语法：
 
   ```text
@@ -242,8 +250,9 @@
 ## `destination port`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match a transport port or range
+- CLI 帮助：match a transport port or range
 - 合法语法：
 
   ```text
@@ -263,8 +272,9 @@
 ## `destination port-set name`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match a reusable NAT port-set
+- CLI 帮助：match a reusable NAT port-set
 - 合法语法：
 
   ```text
@@ -284,8 +294,9 @@
 ## `destination vpn-instance`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match an exact source/destination VPN instance
+- CLI 帮助：match an exact source/destination VPN instance
 - 合法语法：
 
   ```text
@@ -305,8 +316,9 @@
 ## `display nat-policy`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display NAT policy configuration and runtime state
+- CLI 帮助：display NAT policy configuration and runtime state
 - 合法语法：
 
   ```text
@@ -362,8 +374,9 @@
 ## `hairpin enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT策略视图`
-- 用途（设备帮助）：allow this policy's published mappings to be used for NAT hairpin
+- CLI 帮助：allow this policy's published mappings to be used for NAT hairpin
 - 合法语法：
 
   ```text
@@ -381,8 +394,9 @@
 ## `nat-policy`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：bind a NAT policy to this interface
+- CLI 帮助：bind a NAT policy to this interface
 - 合法语法：
 
   ```text
@@ -405,8 +419,9 @@
 ## `nat-policy address-pool name`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create/enter a NAT address-pool
+- CLI 帮助：create/enter a NAT address-pool
 - 合法语法：
 
   ```text
@@ -426,8 +441,9 @@
 ## `nat-policy address-set name`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create/enter a NAT address-set
+- CLI 帮助：create/enter a NAT address-set
 - 合法语法：
 
   ```text
@@ -447,8 +463,9 @@
 ## `nat-policy hairpin enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：enable NAT hairpin translations
+- CLI 帮助：enable NAT hairpin translations
 - 合法语法：
 
   ```text
@@ -466,8 +483,9 @@
 ## `nat-policy interface-pat-range`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：set the interface-source PAT port range
+- CLI 帮助：set the interface-source PAT port range
 - 合法语法：
 
   ```text
@@ -487,8 +505,9 @@
 ## `nat-policy name`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create/enter a NAT policy
+- CLI 帮助：create/enter a NAT policy
 - 合法语法：
 
   ```text
@@ -508,8 +527,9 @@
 ## `nat-policy port-set name`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create/enter a NAT port-set
+- CLI 帮助：create/enter a NAT port-set
 - 合法语法：
 
   ```text
@@ -529,8 +549,9 @@
 ## `nat-policy sessions-per-worker`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：set the per-worker session capacity
+- CLI 帮助：set the per-worker session capacity
 - 合法语法：
 
   ```text
@@ -550,8 +571,9 @@
 ## `nat-policy timeout`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：set a nat-policy session timeout
+- CLI 帮助：set a nat-policy session timeout
 - 合法语法：
 
   ```text
@@ -577,8 +599,9 @@
 ## `nat-policy x86-tune expire-check-ms`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：set nat-policy maintenance interval
+- CLI 帮助：set nat-policy maintenance interval
 - 合法语法：
 
   ```text
@@ -598,8 +621,9 @@
 ## `nat-policy x86-tune lru-refresh-ms`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：set nat-policy maintenance interval
+- CLI 帮助：set nat-policy maintenance interval
 - 合法语法：
 
   ```text
@@ -619,8 +643,9 @@
 ## `pat-port-range`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT地址池视图`
-- 用途（设备帮助）：set the address-pool PAT allocation range
+- CLI 帮助：set the address-pool PAT allocation range
 - 合法语法：
 
   ```text
@@ -640,8 +665,9 @@
 ## `port`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT端口集视图`
-- 用途（设备帮助）：add a port or inclusive range to this NAT port-set
+- CLI 帮助：add a port or inclusive range to this NAT port-set
 - 合法语法：
 
   ```text
@@ -661,8 +687,9 @@
 ## `priority`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：set rule priority; lower values run first
+- CLI 帮助：set rule priority; lower values run first
 - 合法语法：
 
   ```text
@@ -682,8 +709,9 @@
 ## `protocol`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match an IP protocol
+- CLI 帮助：match an IP protocol
 - 合法语法：
 
   ```text
@@ -707,8 +735,9 @@
 ## `session-limit`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT策略视图`
-- 用途（设备帮助）：set this policy's session quota
+- CLI 帮助：set this policy's session quota
 - 合法语法：
 
   ```text
@@ -729,8 +758,9 @@
 ## `source address`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match source address
+- CLI 帮助：match source address
 - 合法语法：
 
   ```text
@@ -751,8 +781,9 @@
 ## `source address-set name`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match a reusable NAT address-set
+- CLI 帮助：match a reusable NAT address-set
 - 合法语法：
 
   ```text
@@ -772,8 +803,9 @@
 ## `source port`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match a transport port or range
+- CLI 帮助：match a transport port or range
 - 合法语法：
 
   ```text
@@ -793,8 +825,9 @@
 ## `source port-set name`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match a reusable NAT port-set
+- CLI 帮助：match a reusable NAT port-set
 - 合法语法：
 
   ```text
@@ -814,8 +847,9 @@
 ## `source vpn-instance`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：match an exact source/destination VPN instance
+- CLI 帮助：match an exact source/destination VPN instance
 - 合法语法：
 
   ```text
@@ -835,8 +869,9 @@
 ## `undo action`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：remove the translation action
+- CLI 帮助：remove the translation action
 - 合法语法：
 
   ```text
@@ -854,8 +889,9 @@
 ## `undo action snat`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：remove SNAT action
+- CLI 帮助：remove SNAT action
 - 合法语法：
 
   ```text
@@ -873,8 +909,9 @@
 ## `undo address`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT地址池视图`、`NAT地址集视图`
-- 用途（设备帮助）：remove an IPv4 prefix from this NAT address-pool；remove an IPv4 prefix from this NAT address-set
+- CLI 帮助：remove an IPv4 prefix from this NAT address-pool；remove an IPv4 prefix from this NAT address-set
 - 合法语法：
 
   ```text
@@ -904,8 +941,9 @@
 ## `undo destination address`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：clear destination address match
+- CLI 帮助：clear destination address match
 - 合法语法：
 
   ```text
@@ -923,8 +961,9 @@
 ## `undo destination address-set name`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：clear the reusable NAT address-set match
+- CLI 帮助：clear the reusable NAT address-set match
 - 合法语法：
 
   ```text
@@ -942,8 +981,9 @@
 ## `undo destination port`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：clear the transport port match
+- CLI 帮助：clear the transport port match
 - 合法语法：
 
   ```text
@@ -961,8 +1001,9 @@
 ## `undo destination port-set name`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：clear the reusable NAT port-set match
+- CLI 帮助：clear the reusable NAT port-set match
 - 合法语法：
 
   ```text
@@ -980,8 +1021,9 @@
 ## `undo destination vpn-instance`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：restore ANY VPN match
+- CLI 帮助：restore ANY VPN match
 - 合法语法：
 
   ```text
@@ -999,8 +1041,9 @@
 ## `undo hairpin enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT策略视图`
-- 用途（设备帮助）：prevent this policy's mappings from being used for NAT hairpin
+- CLI 帮助：prevent this policy's mappings from being used for NAT hairpin
 - 合法语法：
 
   ```text
@@ -1018,8 +1061,9 @@
 ## `undo nat-policy`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：unbind a NAT policy from this interface
+- CLI 帮助：unbind a NAT policy from this interface
 - 合法语法：
 
   ```text
@@ -1040,8 +1084,9 @@
 ## `undo nat-policy address-pool name`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a NAT address-pool
+- CLI 帮助：delete a NAT address-pool
 - 合法语法：
 
   ```text
@@ -1061,8 +1106,9 @@
 ## `undo nat-policy address-set name`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a NAT address-set
+- CLI 帮助：delete a NAT address-set
 - 合法语法：
 
   ```text
@@ -1082,8 +1128,9 @@
 ## `undo nat-policy hairpin enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：disable NAT hairpin translations
+- CLI 帮助：disable NAT hairpin translations
 - 合法语法：
 
   ```text
@@ -1101,8 +1148,9 @@
 ## `undo nat-policy interface-pat-range`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：restore the default interface PAT range
+- CLI 帮助：restore the default interface PAT range
 - 合法语法：
 
   ```text
@@ -1120,8 +1168,9 @@
 ## `undo nat-policy name`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a NAT policy
+- CLI 帮助：delete a NAT policy
 - 合法语法：
 
   ```text
@@ -1141,8 +1190,9 @@
 ## `undo nat-policy port-set name`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a NAT port-set
+- CLI 帮助：delete a NAT port-set
 - 合法语法：
 
   ```text
@@ -1162,8 +1212,9 @@
 ## `undo nat-policy sessions-per-worker`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：restore the default per-worker session capacity
+- CLI 帮助：restore the default per-worker session capacity
 - 合法语法：
 
   ```text
@@ -1181,8 +1232,9 @@
 ## `undo nat-policy timeout`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：restore one nat-policy session timeout
+- CLI 帮助：restore one nat-policy session timeout
 - 合法语法：
 
   ```text
@@ -1207,8 +1259,9 @@
 ## `undo nat-policy x86-tune expire-check-ms`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：restore the default maintenance interval
+- CLI 帮助：restore the default maintenance interval
 - 合法语法：
 
   ```text
@@ -1226,8 +1279,9 @@
 ## `undo nat-policy x86-tune lru-refresh-ms`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：restore the default maintenance interval
+- CLI 帮助：restore the default maintenance interval
 - 合法语法：
 
   ```text
@@ -1245,8 +1299,9 @@
 ## `undo pat-port-range`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT地址池视图`
-- 用途（设备帮助）：restore the default address-pool PAT range
+- CLI 帮助：restore the default address-pool PAT range
 - 合法语法：
 
   ```text
@@ -1264,8 +1319,9 @@
 ## `undo port`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT端口集视图`
-- 用途（设备帮助）：remove a port or range from this NAT port-set
+- CLI 帮助：remove a port or range from this NAT port-set
 - 合法语法：
 
   ```text
@@ -1285,8 +1341,9 @@
 ## `undo priority`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：derive priority from rule ID
+- CLI 帮助：derive priority from rule ID
 - 合法语法：
 
   ```text
@@ -1304,8 +1361,9 @@
 ## `undo protocol`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：restore ANY protocol match
+- CLI 帮助：restore ANY protocol match
 - 合法语法：
 
   ```text
@@ -1323,8 +1381,9 @@
 ## `undo session-limit`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT策略视图`
-- 用途（设备帮助）：remove this policy's session quota
+- CLI 帮助：remove this policy's session quota
 - 合法语法：
 
   ```text
@@ -1342,8 +1401,9 @@
 ## `undo source address`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：clear source address match
+- CLI 帮助：clear source address match
 - 合法语法：
 
   ```text
@@ -1361,8 +1421,9 @@
 ## `undo source address-set name`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：clear the reusable NAT address-set match
+- CLI 帮助：clear the reusable NAT address-set match
 - 合法语法：
 
   ```text
@@ -1380,8 +1441,9 @@
 ## `undo source port`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：clear the transport port match
+- CLI 帮助：clear the transport port match
 - 合法语法：
 
   ```text
@@ -1399,8 +1461,9 @@
 ## `undo source port-set name`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：clear the reusable NAT port-set match
+- CLI 帮助：clear the reusable NAT port-set match
 - 合法语法：
 
   ```text
@@ -1418,8 +1481,9 @@
 ## `undo source vpn-instance`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT规则视图`
-- 用途（设备帮助）：restore ANY VPN match
+- CLI 帮助：restore ANY VPN match
 - 合法语法：
 
   ```text

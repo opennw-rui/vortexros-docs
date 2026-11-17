@@ -17,7 +17,7 @@ interface Tunnel 1
  ip address 10.0.12.1 255.255.255.252
 ```
 
-source和destination必须按同一underlay VPN解析；GRE key可以与VPN绑定并存。修改/undo key后应重建所需参数且保持正确外层源地址，不能出现0.0.0.0。
+source 和 destination 使用同一底层 VPN 实例，GRE key 可以与 VPN 绑定同时配置。修改或撤销 GRE key 并执行 commit 后，系统会重新提交隧道配置并重建隧道，接口会短暂 Down 后恢复 Up，经过该隧道的业务可能瞬时中断。缺省未配置 MTU 时，IPv4 底层的 GRE 三层 MTU 为 1476；配置非零 key 后为 1472。IPv6 底层对应为 1456 和 1452。显式 mtu 覆盖这些默认值，两端应选择适合底层路径的值。两端的 key 应保持一致；无需重新输入未修改的源、目的和 VPN 参数。
 
 ```text
 display interface Tunnel 1
@@ -27,5 +27,16 @@ display interface Tunnel 1
 
 ```text
 undo interface Tunnel 1
+```
+
+CLI 操作：
+
+```text
 commit
 ```
+
+## 激活条件
+
+GRE 接口未 shutdown，已配置 tunnel-protocol gre、source 和 destination，且本机在所选底层 VPN 拥有 source 地址、该 VPN 有到 destination 的有效路由后，隧道才能激活。三层 Protocol Up 还需 Tunnel 上有有效 IP 地址。
+
+远端未启动 GRE 或 key 不匹配，不一定使本机接口 Down；Up 不代表端到端业务已通。请结合底层可达性、两端参数、隧道地址探测和业务路由检查。源地址或底层路由失效时，接口会 Down，条件恢复后自动激活。状态标记见[隧道状态](tunnel-settings/lifecycle.md)。

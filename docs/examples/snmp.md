@@ -10,16 +10,26 @@ VortexROS Ethernet0 使用 192.0.2.65/30，连接地址为 192.0.2.66/30 的监�
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 sysname SNMP-LAB
 interface Ethernet0
  ip address 192.0.2.65 255.255.255.252
-quit
+#
 snmp-agent
 snmp-agent sys-info version v2c
 snmp-agent sys-info contact Network Operations
 snmp-agent sys-info location Site-A
 snmp-agent protocol source-interface Ethernet0
 snmp-agent community read lab-read
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display snmp-agent sys-info
 ~~~

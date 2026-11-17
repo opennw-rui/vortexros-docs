@@ -5,6 +5,7 @@
 ~~~{toctree}
 :maxdepth: 1
 
+routing-preference
 prefix-lists
 route-policy
 ospf

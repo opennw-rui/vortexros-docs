@@ -5,8 +5,9 @@
 ## `display lldp local`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display local LLDP information
+- CLI 帮助：display local LLDP information
 - 合法语法：
 
   ```text
@@ -24,8 +25,9 @@
 ## `display lldp neighbor brief`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display LLDP neighbor brief information
+- CLI 帮助：display LLDP neighbor brief information
 - 合法语法：
 
   ```text
@@ -43,8 +45,9 @@
 ## `display lldp neighbor interface`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display LLDP neighbor information on an interface
+- CLI 帮助：display LLDP neighbor information on an interface
 - 合法语法：
 
   ```text
@@ -64,8 +67,9 @@
 ## `enable lldp`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：enable LLDP globally and on all physical interfaces
+- CLI 帮助：enable LLDP globally and on all physical interfaces
 - 合法语法：
 
   ```text
@@ -83,8 +87,9 @@
 ## `lldp enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：enable LLDP on this physical interface
+- CLI 帮助：enable LLDP on this physical interface
 - 合法语法：
 
   ```text
@@ -104,8 +109,9 @@
 ## `undo enable lldp`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：disable LLDP globally
+- CLI 帮助：disable LLDP globally
 - 合法语法：
 
   ```text
@@ -123,8 +129,9 @@
 ## `undo lldp enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable LLDP on this physical interface
+- CLI 帮助：disable LLDP on this physical interface
 - 合法语法：
 
   ```text

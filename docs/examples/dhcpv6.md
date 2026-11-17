@@ -21,6 +21,11 @@ DHCPv6 不提供默认网关。本例显式配置到服务端网段的路由，�
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable dhcp server
 dhcpv6 pool CLI6
  address prefix 2001:db8:14::/64 life-time 3600 1800
@@ -29,11 +34,17 @@ dhcpv6 pool CLI6
  dns-domain-name cli6.example
  information-refresh 900
  excluded-address 2001:db8:14::100 2001:db8:14::110
- quit
+#
 interface Ethernet0
+ ipv6 enable
  ipv6 address 2001:db8:14::1 64
  dhcpv6 server CLI6
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -46,13 +57,25 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
+ ipv6 enable
  ipv6 address auto dhcp hint 2001:db8:14::14
  dhcpv6 client pd PD14
- quit
+#
 interface LoopBack96
+ ipv6 enable
  ipv6 address dhcpv6-prefix PD14 ::1/64
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -148,15 +171,21 @@ Info: DHCPv6 renewal requested on Ethernet0.
 只获取 DNS 等选项时，先撤销下游引用和有状态请求，再改成信息请求：
 
 ~~~text
-quit
+#
 interface LoopBack96
  undo ipv6 address dhcpv6-prefix PD14
- quit
+#
 interface Ethernet0
+ ipv6 enable
  undo dhcpv6 client pd
  undo ipv6 address auto dhcp
  dhcpv6 client information-request
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display dhcpv6 client interface Ethernet0
 ~~~
@@ -190,8 +219,13 @@ P1 撤销信息请求和本例路由：
 ~~~text
 interface Ethernet0
  undo dhcpv6 client information-request
- quit
+#
 undo ipv6 route-static 2001:db8:14:: 64 Ethernet0 fe80::f08f:7cff:fe2a:2ab8
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display dhcpv6 client interface Ethernet0
 ~~~
@@ -205,9 +239,14 @@ P2 撤销接口绑定、地址、回程路由和池：
 interface Ethernet0
  undo dhcpv6 server
  undo ipv6 address 2001:db8:14::1 64
- quit
+#
 undo ipv6 route-static 2001:db8:114:1:: 64 Ethernet0 2001:db8:14::14
 undo dhcpv6 pool CLI6
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display dhcp service verbose
 ~~~
@@ -219,3 +258,9 @@ display dhcp service verbose
 动态地址和委派前缀需要客户端重新取得，不能当作固定地址写入启动配置。
 
 [DHCP 配置指南](../operator/dhcp.md) · [RA 与 SLAAC](../operator/ipv6-autoconfig.md)
+
+## 保存恢复与动态前缀
+
+执行 save 后，恢复配置会重新申请地址和委派前缀，动态租约本身不会保存为静态地址。本例同时取得 IA_NA 和 IA_PD，并由 PD 生成下游 /64 地址；双向 IPv6 探测各 3/3，主动续租更新剩余寿命，控制服务重启后重新取得租约和下游地址。服务器可能在重新申请时选择不同地址或前缀，应相应核对回程路由。
+
+IA_TA 分配不受当前 Kea 支持；详见[租约能力边界](../operator/dhcp/leases.md)。

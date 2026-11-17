@@ -23,6 +23,11 @@ Vlanif401: 198.18.105.1/30 ---- 198.18.105.2/30
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 enable switch
 vlan batch 400 401
 interface Eth-Trunk 10
@@ -31,19 +36,24 @@ interface Eth-Trunk 10
  port link-type trunk
  port trunk pvid vlan 400
  port trunk allow-pass vlan 400 401
- quit
+#
 interface Ethernet0
  eth-trunk 10
- quit
+#
 interface Ethernet1
  eth-trunk 10
- quit
+#
 interface Vlanif 400
  ip address 198.18.104.1 255.255.255.252
- quit
+#
 interface Vlanif 401
  ip address 198.18.105.1 255.255.255.252
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 save
 ```
@@ -52,6 +62,11 @@ save
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 enable switch
 vlan batch 400 401
 interface Eth-Trunk 10
@@ -60,19 +75,24 @@ interface Eth-Trunk 10
  port link-type trunk
  port trunk pvid vlan 400
  port trunk allow-pass vlan 400 401
- quit
+#
 interface Ethernet0
  eth-trunk 10
- quit
+#
 interface Ethernet1
  eth-trunk 10
- quit
+#
 interface Vlanif 400
  ip address 198.18.104.2 255.255.255.252
- quit
+#
 interface Vlanif 401
  ip address 198.18.105.2 255.255.255.252
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 save
 ```
@@ -111,10 +131,15 @@ Ethernet1              Selected 255     2      19      00111111  1
 ```text
 interface Ethernet0
  shutdown
- quit
+#
 interface Ethernet1
  shutdown
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 display interface brief
 ```
@@ -135,7 +160,12 @@ Ethernet1               *down  down
 ```text
 interface Ethernet0
  undo shutdown
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 display interface brief
 ping -c 3 198.18.105.2

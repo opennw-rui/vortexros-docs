@@ -56,3 +56,7 @@ replication。未列出的 EVPN 扩展不能由近似命令静默下发。
   All-Active ES 与 DF 选举；
 - VPP：原生 VXLAN、bridge-domain、L2 FIB、租户 IP FIB，以及 LCP 传入的多归属
   转发状态。
+
+## 业务激活条件
+
+先满足[VXLAN 的激活条件](vxlan.md#激活条件)，再检查 BGP EVPN 邻居、VNI 对应的 RD/RT 及远端路由导入。二层业务还需接入口及 MAC 可达；三层业务需租户 VPN、L3VNI、相应 Type-5 路由和回程路径。NVE Up 或 BGP Established 均不能单独证明所有租户业务可用。Vbdif 网关的状态还取决于其[桥域成员](bridge-domains.md#vbdif-激活条件)。

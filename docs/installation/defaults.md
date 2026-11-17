@@ -1,6 +1,6 @@
 # 默认行为
 
-以下为 0.29-dev 空白 Ubuntu 首装时的产品默认行为。已有设备的 Running、启动配置及 Ubuntu 管理策略以当前设备查询为准。
+以下为 0.30-dev 空白 Ubuntu 首装时的产品默认行为。已有设备的 Running、启动配置及 Ubuntu 管理策略以当前设备查询为准。
 
 | 项目 | 默认行为 | 核对位置 |
 | --- | --- | --- |
@@ -9,6 +9,7 @@
 | 服务 | 安装器启动 VortexROS 管理的服务，屏蔽发行版独立的 `vpp.service` 和 `frr.service`。VPP 是否运行取决于实际数据面配置 | `display service verbose` |
 | 远程管理 | 没有预置受管用户和密码。Linux 救援账号使用 `sudo vortexros`；创建的受管账号通过 OpenSSH 直接进入 CLI，按 AAA 角色授权 | [本地账号与 SSH](../operator/aaa.md) |
 | 网络服务 | DHCP 服务端、SNMP 按配置启用。DHCP 客户端和中继按接口配置 | [DHCP](../operator/dhcp.md) · [SNMP](../operator/snmp.md) |
+| IPv6 | 全局能力常开，三层接口默认关闭，先配置 `ipv6 enable`；默认不发送/学习 RA，不生成临时隐私地址 | [IPv6 与 RA](../operator/ipv6-autoconfig.md) |
 | 默认路由域 | 未绑定 VPN 实例的接口和路由使用默认实例。Linux main 表号 254，VPP 默认表号 0 | [VPN 实例](../operator/vrf.md) |
 | 邻居和 MAC 容量 | IPv4 邻居、IPv6 邻居和 VPP 全局 MAC 学习上限各为 102400。VPP MAC 启动容量在保存并重置后应用 | `display dataplane tables` |
 

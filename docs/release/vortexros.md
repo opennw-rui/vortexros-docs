@@ -1,28 +1,50 @@
-# VortexROS 0.29-dev
+# VortexROS 0.30-dev
 
-0.29-dev使用统一CLI管理接口、路由、隧道、流量策略和网络服务。首次安装从Linux数据面启动，业务网卡可随后通过CLI配置为DPDK模式。当前配套版本见[软件组成](../installation/02-backends.md)。
+0.30-dev 汇集上一版之后的接口、路由、隧道、网络服务和查询修复。统一安装包包含配套 VPP 26.10.8、FRR 1.8-dev 和 Kea；首次安装仍使用 Linux 数据面，DPDK 设备继续通过 CLI 配置。
 
-## 配置和操作
+## 数据面与接口
 
-- 每个管理会话拥有独立的待提交配置。通过`display configuration changes`检查修改，`commit`提交，`save`持久保存。
-- 接口名称统一使用Ethernet编号；二层子接口、三层子接口、VLAN网关及聚合接口按用途配置。
-- 本地账号支持network-operator、network-admin和system-admin。首次改密、SSH公钥、会话管理和Bash/sudo分别见[账号管理](../operator/aaa.md)。
-- 首次安装、升级、检查、模拟和失败回退共用一个.run，安装器只更新版本发生变化的组件。
+- 大页可按 NUMA 节点预留：`memory hugepages size 2M count 1024 numa 0`。省略节点号表示节点 0。查询增加逐节点内存、配置页数和实际大页池。
+- `display dataplane cpu topological` 显示全部逻辑 CPU、NUMA、Socket、物理核心及在线状态，便于手工选择核心。
+- 新启动配置采用产品所需的插件列表；未配置 DPDK 设备时不加载 DPDK。详见[插件加载](../operator/dataplane/plugins.md)。
+- Access、Trunk、Hybrid 的 PVID、允许 VLAN 和标签转换保持一致，非允许标签会被拒绝；VLAN 统计保持可用。
+- 改进聚合成员、静态 MAC、ARP 应答、二层子接口、QinQ 和逻辑接口在创建、修改、删除及重建时的恢复。
+- 接口原生 MAC 撤销、Linux 接口到达后的配置恢复，以及接口和 SNMP 运行查询保持一致。
+
+## IPv6 与 ICMP
+
+新建接口默认关闭 IPv6；全局 IPv6 能力始终可用。在三层接口执行 `ipv6 enable` 后，再选择静态地址、SLAAC、DHCPv6 或链路本地地址。普通 IPv6 单播地址及 IPv6 服务会准备其所需的链路本地地址；不自动开启其他地址获取方式。临时隐私地址默认关闭。
+
+旧配置中已明确使用 IPv6 的接口保留原启用意图；保存后显式显示 enable。仍需核对所选启动文件及数据面归属，见[升级注意](../operator/ipv6-autoconfig/interface.md#升级注意)。
+
+IPv6 的 VPN 诊断使用 `ping ipv6 vpn-instance NAME` 等形式。接口详细查询列出实际地址；SLAAC 与 DHCPv6 地址可以共存，接口重建后恢复其请求及路由。
+
+新增接口级 [IPv4 ICMP 发送控制](../operator/icmp-send.md)：按名称或 Type/Code 禁止本机消息。规则不是转发 ACL，不过滤经过设备转发的普通报文。禁止路径 MTU 反馈可能间接影响大包通信。
 
 ## 路由与网络服务
 
-支持静态路由、路由组、OSPF/OSPFv3、BGP、IS-IS、RIP/RIPng、BFD和VRRP。IS-IS默认路由优先级15，RIP/RIPng100；显式配置可调整优先级。
+- OSPF/OSPFv3 的区域变更、邻居筛选、路由引入、撤销及默认值回读保持一致。
+- BGP 按正确地址族显示邻居和汇总；6PE 与普通 IPv6 模式切换时正确撤销旧地址族。
+- IS-IS 默认 Level、动态主机名和 DIS/优先级显示修正；L1/L2 路由撤销和 Level 切换使用配套路由组件修复。
+- RIP+BFD 撤销系统路由，RIPng 区分相同链路本地地址的不同接口；接口重建后恢复协议状态。
+- EVPN 同一 L3VNI 的双栈地址族共用 RD 和导入/导出 RT 集合，RT 支持多个。普通 MPLS VPN 的地址族仍独立。
+- DHCP 客户端请求无类路由选项，服务器可为中继后的远端池服务；租约、接口重建和撤销保持一致。
+- NAT 撤销只清理被删除策略的会话；其他策略的既有连接保留。Twice NAT 和 MQC 的命令接续及显示修正。
 
-支持VXLAN EVPN二层/三层业务、All-Active多归属、MPLS L3VPN和6PE。不同业务的RD、RT、VNI、地址族和底层可达性应分别规划。
+IS-IS 默认路由优先级为 15，RIP/RIPng 为 100；BFD 默认发送、接收间隔为 1000ms，检测倍数为 3。完整默认值、影响和调整方法见各功能页面。
 
-DHCP客户端、服务端、中继及IPv6自动配置独立管理。空租约池显示零租约；其他健康实例的租约仍可查询。
+## 配置与运维
 
-## 本版行为调整
+配置查询读取已提交的配置；候选修改使用 `display configuration candidate` 查看。保存配置和选择下次启动文件是两个独立操作。
 
-- ACL仅做无状态permit/deny过滤；TCP established是标志位匹配，不是会话跟踪。
-- EVPN配置在保存恢复和业务撤销时保持一致；撤销接口最后一项二层配置后恢复三层接口角色。
-- 6PE使用IPv6显式空标签承载IPv6报文，不需要用户手工修改FRR配置。
-- 撤销MPLS标签路由后正常释放相关状态，不要求重启数据面。
-- RIP在接口重建和路由服务恢复后重新参与协议并恢复已有路由。
+修正接口 MTU 恢复、资源进程归属、启动文件路径提交、路由组定时刷新以及服务恢复时的不必要重申。运行中的控制层不再维护旧 VPN 开关对应的 socket sysctl，安装时只设置需要的系统默认策略。
 
-完整配置、查询及撤销见[配置案例](../examples/index.md)。使用限制见[版本能力与限制](cli-validation.md)。
+配置和数据面重置会影响承载业务；操作前保存需要保留的配置，恢复后检查接口、邻居、FIB 及业务探测。统一安装器只更新版本变化的组件，并保留精确回退材料。软件兼容范围见[配套组件](../installation/02-backends.md)。
+
+本版增加独立功能页面、分层案例以及实际查询与撤销输出。能力和限制见[版本能力与限制](cli-validation.md)，性能条件和对照见[性能参考](performance.md)。
+
+## 启动与接口恢复
+
+冷启动会等待驱动、插件和协议接入准备完成。数据面需要退回 Linux 时，先恢复接口所属 VPN，再恢复物理接口、地址和路由；失败会明确报告，不把接口重新出现当作恢复完成。正在使用的外部网络管理器若同时管理这些端口，仍可能覆盖地址或 VPN 归属，应让业务端口只由一方维护。
+
+新生成的插件列表包含 IS-IS 所需的 OSI 接入依赖，具体名称见[插件加载](../operator/dataplane/plugins.md)。

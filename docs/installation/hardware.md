@@ -1,6 +1,6 @@
 # 支持的硬件
 
-本页对应 **VortexROS 0.29-dev**、配套 **VPP 26.10.7** 和 **DPDK 26.07**。选型时先看本版安装范围，再按 PCI ID、驱动和实际用途确认网卡。内核驱动、PCI 绑定驱动和 DPDK PMD 是三项独立信息。
+本页对应 **VortexROS 0.30-dev**、配套 **VPP 26.10.8** 和 **DPDK 26.07**。选型时先看本版安装范围，再按 PCI ID、驱动和实际用途确认网卡。内核驱动、PCI 绑定驱动和 DPDK PMD 是三项独立信息。
 
 ## VortexROS 验证记录
 
@@ -16,6 +16,12 @@
 ## 在 Proxmox VE 中选择 VirtIO
 
 在虚拟机的 **硬件 → 网络设备** 中选择 VirtIO，并将设备接到所需的 PVE bridge。按 Linux 模式首装后，在虚拟机内运行 `ethtool -i`，确认驱动为 `virtio_net`，再通过 `display interface brief` 核对接口。虚拟机中的 DPDK 仍须独立验证 PCI 设备识别、IOMMU／VFIO 条件及管理路径。
+
+## 虚拟机 CPU 分配
+
+为数据面使用的 vCPU 保留独立的宿主 CPU，避免多个轮询 worker 或不同虚拟机竞争同一个宿主 CPU。虚拟机内配置 `cpu worker-cores` 只选择虚拟 CPU，不能替代宿主侧的 vCPU 绑定；只给整个虚拟机一个 CPU 集合也不保证每个 vCPU 分配到不同 CPU。I/O 与宿主管理任务应保留各自的运行资源。
+
+严重的调度延迟会阻止 worker 及时参与控制面同步，可能表现为 VPP worker-barrier 超时并退出；增加 VPP 超时时限不能消除这类资源竞争。参见 [VPP 多线程说明](https://docs.fd.io/vpp/25.10/developer/corearchitecture/multi_thread.html)。
 
 ## FD.io VPP 支持范围
 

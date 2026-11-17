@@ -14,6 +14,41 @@ Relay 把客户端广播/组播转发到另一个 DHCP 服务端，自己不分�
 
 更换上游目标前先检查路由和 VPN 归属。接口形式撤销 `dhcpv6 relay interface 上行接口`，指定地址形式撤销 `dhcpv6 relay destination 服务器地址`，提交后再撤销不再需要的上游地址与路由。接口 shutdown 暂停相应运行单元，保留配置；恢复后按原意图运行。
 
-IPv4 中继的目标、接口和撤销语法见[逐条命令参数](../reference/dhcp.md)，不要照搬 IPv6 的组播地址或命令。需要 IPv4 完整组网时，配合[DHCPv4 案例](../../examples/dhcp.md)中的服务器和客户端。
+## DHCPv4
+
+中继客户口在三层网段内配置网关地址，并指定服务器：
+
+```text
+interface Ethernet1
+ ip address 198.18.11.1 24
+ dhcp select relay
+ dhcp relay server-ip 198.19.229.1
+#
+interface Ethernet0
+ ip address 198.19.229.2 24
+#
+```
+
+服务器使用同一 VPN 中的全局池，池网段属于远端客户链路，无需给服务器伪造该网段接口：
+
+```text
+enable dhcp server
+ip pool REMOTE4
+ network 198.18.11.0 mask 24
+ section 0 198.18.11.100 198.18.11.120
+ gateway-list 198.18.11.1
+ dns-list 192.0.2.53
+ lease day 0 hour 1
+#
+interface Ethernet0
+ ip address 198.19.229.1 24
+ dhcp select global
+#
+ip route-static 198.18.11.0 24 Ethernet0 198.19.229.2
+```
+
+客户端在连接中继的接口配置 `ip address dhcp-alloc`。分别提交后，检查 `display dhcp relay interface Ethernet1`、`display dhcp client` 与服务器的 `display ip pool name REMOTE4 verbose`。中继应显示服务器地址和 `running`；客户机实际取得 `198.18.11.100/24`、网关 `198.18.11.1`，服务器显示同一 MAC、地址、DNS `192.0.2.53` 及 3600 秒租期。仅中继进程运行不能代替租约和实际路由验证。
+
+撤销时依次执行 `undo dhcp relay server-ip 198.19.229.1`、`undo dhcp select` 并提交，查询应不再列出目标中继；这不会强制客户端立即丢弃此前获得的租约。完整命令参数见[参考](../reference/dhcp.md)，服务器和客户端配置见[DHCPv4 案例](../../examples/dhcp.md)。
 
 [DHCP 功能总览](../dhcp.md)

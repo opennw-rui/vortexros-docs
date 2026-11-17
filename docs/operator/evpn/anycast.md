@@ -10,7 +10,12 @@ interface Vbdif 101
  mac-address 0200-0000-0101
  ip address 192.0.2.254 255.255.255.0
  vxlan anycast-gateway enable
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 display interface Vbdif101
 display bgp evpn all routing-table
@@ -20,6 +25,12 @@ display bgp evpn all routing-table
 
 执行 undo vxlan anycast-gateway enable 并提交后，网关通告应撤销。显式 MAC 和接口 IP 属于独立配置，不随该开关删除；双网关部署还需协调两端 MAC、IP 和接入策略。
 
+
+## 多归属与路由条件
+
+Anycast 网关所在的 Vbdif 必须已配置地址、正确绑定租户 VPN，且对应桥域有可用的本地接入或 VXLAN 路径。仅创建 Vbdif 或启用 Anycast 开关不代表租户路由已经可达；还应确认 EVPN 邻居、远端前缀、VTEP 下一跳及路由器 MAC。
+
+使用对称 IRB 并让客户通过多归属 Ethernet Segment 接入时，同一客户的所有三层转发 PE 都应具备相同租户的 L3VNI 和一致的网关 IP/MAC。不能只在部分 PE 配置三层租户、却让所有 PE 都成为该客户的等价路由下一跳；否则可能出现二层互通、部分三层路径无法转发的情况。先检查每条实际下一跳，再做客户到远端租户前缀及反向流量验证。
 
 ## 使用顺序
 

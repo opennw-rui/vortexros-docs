@@ -7,8 +7,9 @@
 ## `bandwidth-reference`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`ospfv3`
-- 用途（设备帮助）：set the OSPFv3 reference bandwidth
+- CLI 帮助：set the OSPFv3 reference bandwidth
 - 合法语法：
 
   ```text
@@ -27,11 +28,10 @@
 
 ## `display ospf`
 
-peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据库。
-
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display OSPF information
+- CLI 帮助：display OSPF information
 - 合法语法：
 
   ```text
@@ -92,8 +92,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `nssa`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`OSPF Area视图`、`ospfv3-area`
-- 用途（设备帮助）：configure a not-so-stubby area；configure an OSPFv3 nssa area
+- CLI 帮助：configure a not-so-stubby area；configure an OSPFv3 nssa area
 - 合法语法：
 
   ```text
@@ -121,8 +122,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `opaque-capability enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`OSPF视图`
-- 用途（设备帮助）：enable OSPF opaque LSA capability
+- CLI 帮助：enable OSPF opaque LSA capability
 - 合法语法：
 
   ```text
@@ -140,8 +142,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create an OSPF process and enter OSPF view
+- CLI 帮助：create an OSPF process and enter OSPF view
 - 合法语法：
 
   ```text
@@ -165,8 +168,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf bfd`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：configure OSPF BFD timers
+- CLI 帮助：configure OSPF BFD timers
 - 合法语法：
 
   ```text
@@ -195,8 +199,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf bfd enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：enable OSPF BFD on this interface
+- CLI 帮助：enable OSPF BFD on this interface
 - 合法语法：
 
   ```text
@@ -215,8 +220,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf cost`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set OSPF interface cost
+- CLI 帮助：set OSPF interface cost
 - 合法语法：
 
   ```text
@@ -237,8 +243,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf dr-priority`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set OSPF interface router priority
+- CLI 帮助：set OSPF interface router priority
 - 合法语法：
 
   ```text
@@ -258,11 +265,10 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 
 ## `ospf enable`
 
-在接口激活进程和区域，提交后发送 Hello。见[OSPF 案例](../../examples/ospf.md)。
-
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：enable OSPF on an interface
+- CLI 帮助：enable OSPF on an interface
 - 合法语法：
 
   ```text
@@ -285,8 +291,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf network-type`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set OSPF interface network type
+- CLI 帮助：set OSPF interface network type
 - 合法语法：
 
   ```text
@@ -310,8 +317,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf passive`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：suppress OSPF Hellos on this interface
+- CLI 帮助：suppress OSPF Hellos on this interface
 - 合法语法：
 
   ```text
@@ -330,8 +338,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf timer dead`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set OSPF interface dead
+- CLI 帮助：set OSPF interface dead
 - 合法语法：
 
   ```text
@@ -352,8 +361,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf timer hello`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set OSPF interface hello
+- CLI 帮助：set OSPF interface hello
 - 合法语法：
 
   ```text
@@ -374,8 +384,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf timer retransmit`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set OSPF interface retransmit
+- CLI 帮助：set OSPF interface retransmit
 - 合法语法：
 
   ```text
@@ -396,8 +407,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `ospf timer transmit-delay`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set OSPF interface transmit-delay
+- CLI 帮助：set OSPF interface transmit-delay
 - 合法语法：
 
   ```text
@@ -420,7 +432,7 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：reset one ospf process so pending runtime settings take effect
+- CLI 帮助：reset one ospf process so pending runtime settings take effect
 - 合法语法：
 
   ```text
@@ -443,7 +455,7 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed ospf routing service
+- CLI 帮助：restart the managed ospf routing service
 - 合法语法：
 
   ```text
@@ -465,8 +477,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `stub`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`OSPF Area视图`、`ospfv3-area`
-- 用途（设备帮助）：configure a stub area；configure an OSPFv3 stub area
+- CLI 帮助：configure a stub area；configure an OSPFv3 stub area
 - 合法语法：
 
   ```text
@@ -494,8 +507,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo bandwidth-reference`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`ospfv3`
-- 用途（设备帮助）：restore the OSPFv3 reference bandwidth
+- CLI 帮助：restore the OSPFv3 reference bandwidth
 - 合法语法：
 
   ```text
@@ -513,8 +527,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo nssa`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`OSPF Area视图`、`ospfv3-area`
-- 用途（设备帮助）：restore a normal OSPF area；restore a normal OSPFv3 area
+- CLI 帮助：restore a normal OSPF area；restore a normal OSPFv3 area
 - 合法语法：
 
   ```text
@@ -538,8 +553,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo opaque-capability enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`OSPF视图`
-- 用途（设备帮助）：disable OSPF opaque LSA capability
+- CLI 帮助：disable OSPF opaque LSA capability
 - 合法语法：
 
   ```text
@@ -557,8 +573,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete an OSPF process
+- CLI 帮助：delete an OSPF process
 - 合法语法：
 
   ```text
@@ -578,8 +595,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf bfd`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore OSPF BFD timers
+- CLI 帮助：restore OSPF BFD timers
 - 合法语法：
 
   ```text
@@ -605,8 +623,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf bfd enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable OSPF BFD on this interface
+- CLI 帮助：disable OSPF BFD on this interface
 - 合法语法：
 
   ```text
@@ -625,8 +644,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf cost`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore OSPF interface cost
+- CLI 帮助：restore OSPF interface cost
 - 合法语法：
 
   ```text
@@ -645,8 +665,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf dr-priority`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the default OSPF interface router priority
+- CLI 帮助：restore the default OSPF interface router priority
 - 合法语法：
 
   ```text
@@ -665,8 +686,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable OSPF on an interface
+- CLI 帮助：disable OSPF on an interface
 - 合法语法：
 
   ```text
@@ -687,8 +709,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf network-type`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the default OSPF interface network type
+- CLI 帮助：restore the default OSPF interface network type
 - 合法语法：
 
   ```text
@@ -707,8 +730,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf passive`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore OSPF Hellos on this interface
+- CLI 帮助：restore OSPF Hellos on this interface
 - 合法语法：
 
   ```text
@@ -727,8 +751,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf timer dead`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the default OSPF interface dead
+- CLI 帮助：restore the default OSPF interface dead
 - 合法语法：
 
   ```text
@@ -747,8 +772,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf timer hello`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the default OSPF interface hello
+- CLI 帮助：restore the default OSPF interface hello
 - 合法语法：
 
   ```text
@@ -767,8 +793,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf timer retransmit`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the default OSPF interface retransmit
+- CLI 帮助：restore the default OSPF interface retransmit
 - 合法语法：
 
   ```text
@@ -787,8 +814,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo ospf timer transmit-delay`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the default OSPF interface transmit-delay
+- CLI 帮助：restore the default OSPF interface transmit-delay
 - 合法语法：
 
   ```text
@@ -807,8 +835,9 @@ peer 查询邻接，routing 查询协议路由，lsdb 查询链路状态数据�
 ## `undo stub`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`OSPF Area视图`、`ospfv3-area`
-- 用途（设备帮助）：restore a normal OSPF area；restore a normal OSPFv3 area
+- CLI 帮助：restore a normal OSPF area；restore a normal OSPFv3 area
 - 合法语法：
 
   ```text

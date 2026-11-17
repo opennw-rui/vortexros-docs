@@ -7,8 +7,9 @@
 ## `amneziawg profile`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：enter an AmneziaWG profile
+- CLI 帮助：enter an AmneziaWG profile
 - 合法语法：
 
   ```text
@@ -28,8 +29,9 @@
 ## `amneziawg-profile`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：bind an AmneziaWG profile
+- CLI 帮助：bind an AmneziaWG profile
 - 合法语法：
 
   ```text
@@ -52,8 +54,9 @@
 ## `disable-cookies enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：enable cookie replies disabled
+- CLI 帮助：enable cookie replies disabled
 - 合法语法：
 
   ```text
@@ -71,8 +74,9 @@
 ## `display amneziawg`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display AmneziaWG configuration and runtime
+- CLI 帮助：display AmneziaWG configuration and runtime
 - 合法语法：
 
   ```text
@@ -97,8 +101,9 @@
 ## `header cookie`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set cookie message header range
+- CLI 帮助：set cookie message header range
 - 合法语法：
 
   ```text
@@ -119,8 +124,9 @@
 ## `header init`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set init message header range
+- CLI 帮助：set init message header range
 - 合法语法：
 
   ```text
@@ -141,8 +147,9 @@
 ## `header response`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set response message header range
+- CLI 帮助：set response message header range
 - 合法语法：
 
   ```text
@@ -163,8 +170,9 @@
 ## `header transport`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set transport message header range
+- CLI 帮助：set transport message header range
 - 合法语法：
 
   ```text
@@ -185,8 +193,9 @@
 ## `header-protection`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：enable ChaCha20 message header protection
+- CLI 帮助：enable ChaCha20 message header protection
 - 合法语法：
 
   ```text
@@ -208,8 +217,9 @@
 ## `junk count`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set random junk packet count
+- CLI 帮助：set random junk packet count
 - 合法语法：
 
   ```text
@@ -229,8 +239,9 @@
 ## `junk size`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set random junk packet size range
+- CLI 帮助：set random junk packet size range
 - 合法语法：
 
   ```text
@@ -251,8 +262,9 @@
 ## `junk-packet`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set a raw or dynamic handshake signature packet
+- CLI 帮助：set a raw or dynamic handshake signature packet
 - 合法语法：
 
   ```text
@@ -275,8 +287,9 @@
 ## `padding content`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set decrypted content padding range
+- CLI 帮助：set decrypted content padding range
 - 合法语法：
 
   ```text
@@ -297,8 +310,9 @@
 ## `padding cookie`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set cookie reply fixed padding
+- CLI 帮助：set cookie reply fixed padding
 - 合法语法：
 
   ```text
@@ -318,8 +332,9 @@
 ## `padding init`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set handshake initiation fixed padding
+- CLI 帮助：set handshake initiation fixed padding
 - 合法语法：
 
   ```text
@@ -339,8 +354,9 @@
 ## `padding response`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set handshake response fixed padding
+- CLI 帮助：set handshake response fixed padding
 - 合法语法：
 
   ```text
@@ -360,8 +376,9 @@
 ## `padding transport`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set transport packet fixed padding
+- CLI 帮助：set transport packet fixed padding
 - 合法语法：
 
   ```text
@@ -381,8 +398,9 @@
 ## `random-trailers enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：enable random packet trailers
+- CLI 帮助：enable random packet trailers
 - 合法语法：
 
   ```text
@@ -400,8 +418,9 @@
 ## `timing keepalive`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set keepalive random range
+- CLI 帮助：set keepalive random range
 - 合法语法：
 
   ```text
@@ -422,8 +441,9 @@
 ## `timing max-handshakes`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set max-handshakes random range
+- CLI 帮助：set max-handshakes random range
 - 合法语法：
 
   ```text
@@ -444,8 +464,9 @@
 ## `timing reject-after`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set reject-after random range
+- CLI 帮助：set reject-after random range
 - 合法语法：
 
   ```text
@@ -466,8 +487,9 @@
 ## `timing rekey-after`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set rekey-after random range
+- CLI 帮助：set rekey-after random range
 - 合法语法：
 
   ```text
@@ -488,8 +510,9 @@
 ## `timing rekey-timeout`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：set rekey-timeout random range
+- CLI 帮助：set rekey-timeout random range
 - 合法语法：
 
   ```text
@@ -510,8 +533,9 @@
 ## `undo amneziawg profile`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete an AmneziaWG profile
+- CLI 帮助：delete an AmneziaWG profile
 - 合法语法：
 
   ```text
@@ -531,8 +555,9 @@
 ## `undo amneziawg-profile`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：unbind an AmneziaWG profile
+- CLI 帮助：unbind an AmneziaWG profile
 - 合法语法：
 
   ```text
@@ -553,8 +578,9 @@
 ## `undo disable-cookies enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：disable cookie replies disabled
+- CLI 帮助：disable cookie replies disabled
 - 合法语法：
 
   ```text
@@ -572,8 +598,9 @@
 ## `undo header cookie`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default cookie message header
+- CLI 帮助：restore the default cookie message header
 - 合法语法：
 
   ```text
@@ -591,8 +618,9 @@
 ## `undo header init`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default init message header
+- CLI 帮助：restore the default init message header
 - 合法语法：
 
   ```text
@@ -610,8 +638,9 @@
 ## `undo header response`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default response message header
+- CLI 帮助：restore the default response message header
 - 合法语法：
 
   ```text
@@ -629,8 +658,9 @@
 ## `undo header transport`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default transport message header
+- CLI 帮助：restore the default transport message header
 - 合法语法：
 
   ```text
@@ -648,8 +678,9 @@
 ## `undo header-protection`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：disable message header protection
+- CLI 帮助：disable message header protection
 - 合法语法：
 
   ```text
@@ -667,8 +698,9 @@
 ## `undo junk count`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default junk packet count
+- CLI 帮助：restore the default junk packet count
 - 合法语法：
 
   ```text
@@ -686,8 +718,9 @@
 ## `undo junk size`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default junk packet size
+- CLI 帮助：restore the default junk packet size
 - 合法语法：
 
   ```text
@@ -705,8 +738,9 @@
 ## `undo junk-packet`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：delete a raw junk UDP payload slot
+- CLI 帮助：delete a raw junk UDP payload slot
 - 合法语法：
 
   ```text
@@ -726,8 +760,9 @@
 ## `undo padding content`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default content padding
+- CLI 帮助：restore the default content padding
 - 合法语法：
 
   ```text
@@ -745,8 +780,9 @@
 ## `undo padding cookie`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default cookie reply padding
+- CLI 帮助：restore the default cookie reply padding
 - 合法语法：
 
   ```text
@@ -764,8 +800,9 @@
 ## `undo padding init`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default handshake initiation padding
+- CLI 帮助：restore the default handshake initiation padding
 - 合法语法：
 
   ```text
@@ -783,8 +820,9 @@
 ## `undo padding response`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default handshake response padding
+- CLI 帮助：restore the default handshake response padding
 - 合法语法：
 
   ```text
@@ -802,8 +840,9 @@
 ## `undo padding transport`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default transport packet padding
+- CLI 帮助：restore the default transport packet padding
 - 合法语法：
 
   ```text
@@ -821,8 +860,9 @@
 ## `undo random-trailers enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：disable random packet trailers
+- CLI 帮助：disable random packet trailers
 - 合法语法：
 
   ```text
@@ -840,8 +880,9 @@
 ## `undo timing keepalive`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default keepalive timing
+- CLI 帮助：restore the default keepalive timing
 - 合法语法：
 
   ```text
@@ -859,8 +900,9 @@
 ## `undo timing max-handshakes`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default max-handshakes timing
+- CLI 帮助：restore the default max-handshakes timing
 - 合法语法：
 
   ```text
@@ -878,8 +920,9 @@
 ## `undo timing reject-after`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default reject-after timing
+- CLI 帮助：restore the default reject-after timing
 - 合法语法：
 
   ```text
@@ -897,8 +940,9 @@
 ## `undo timing rekey-after`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default rekey-after timing
+- CLI 帮助：restore the default rekey-after timing
 - 合法语法：
 
   ```text
@@ -916,8 +960,9 @@
 ## `undo timing rekey-timeout`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`amneziawg-profile`
-- 用途（设备帮助）：restore the default rekey-timeout timing
+- CLI 帮助：restore the default rekey-timeout timing
 - 合法语法：
 
   ```text

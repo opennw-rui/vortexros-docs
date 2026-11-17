@@ -6,10 +6,10 @@
 
 ## 下载并运行
 
-从[0.29-dev Release](https://github.com/opennw-rui/VortexROS/releases/tag/v0.29-dev)下载单文件安装包及校验文件，在Ubuntu终端执行：
+从[0.30-dev Release](https://github.com/opennw-rui/VortexROS/releases/tag/v0.30-dev)下载单文件安装包及校验文件，在Ubuntu终端执行：
 
 ~~~bash
-sudo sh ./vortexros-0.29-dev-amd64.run
+sudo sh ./vortexros-0.30-dev-amd64.run
 ~~~
 
 安装器需要访问已配置的 Ubuntu APT 软件源。它更新软件包索引，安装必要依赖和内嵌的 VortexROS、VPP、FRR，启动受 VortexROS 管理的服务，并屏蔽发行版提供的独立 VPP 和 FRR 服务。首装使用 **Linux 数据面**。业务口改用 DPDK 是后续独立操作，会改变对应网卡的驱动归属。

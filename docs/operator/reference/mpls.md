@@ -5,8 +5,9 @@
 ## `display mpls forwarding-table`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display the VPP MPLS forwarding table
+- CLI 帮助：display the VPP MPLS forwarding table
 - 合法语法：
 
   ```text
@@ -24,8 +25,9 @@
 ## `display mpls interface`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display MPLS-enabled interfaces
+- CLI 帮助：display MPLS-enabled interfaces
 - 合法语法：
 
   ```text
@@ -43,8 +45,9 @@
 ## `display mpls ldp binding`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display LDP label bindings
+- CLI 帮助：display LDP label bindings
 - 合法语法：
 
   ```text
@@ -62,8 +65,9 @@
 ## `display mpls ldp interface`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display LDP interface state
+- CLI 帮助：display LDP interface state
 - 合法语法：
 
   ```text
@@ -81,8 +85,9 @@
 ## `display mpls ldp peer`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display LDP peers
+- CLI 帮助：display LDP peers
 - 合法语法：
 
   ```text
@@ -100,8 +105,9 @@
 ## `display mpls lsp`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display the Zebra MPLS forwarding table
+- CLI 帮助：display the Zebra MPLS forwarding table
 - 合法语法：
 
   ```text
@@ -119,8 +125,9 @@
 ## `mpls`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`、`系统视图`
-- 用途（设备帮助）：enable MPLS and enter the MPLS view；enable MPLS forwarding on the interface
+- CLI 帮助：enable MPLS and enter the MPLS view；enable MPLS forwarding on the interface
 - 合法语法：
 
   ```text
@@ -144,8 +151,9 @@
 ## `mpls ldp`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`、`系统视图`
-- 用途（设备帮助）：enable LDP discovery on the interface；enable MPLS LDP globally
+- CLI 帮助：enable LDP discovery on the interface；enable MPLS LDP globally
 - 合法语法：
 
   ```text
@@ -169,8 +177,9 @@
 ## `mpls lsr-id`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：configure the MPLS label switching router ID
+- CLI 帮助：configure the MPLS label switching router ID
 - 合法语法：
 
   ```text
@@ -190,8 +199,9 @@
 ## `ttl propagate`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`mpls`
-- 用途（设备帮助）：use uniform MPLS TTL propagation
+- CLI 帮助：use uniform MPLS TTL propagation
 - 合法语法：
 
   ```text
@@ -209,8 +219,9 @@
 ## `undo mpls`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`、`系统视图`
-- 用途（设备帮助）：disable MPLS forwarding on the interface；disable MPLS globally
+- CLI 帮助：disable MPLS forwarding on the interface；disable MPLS globally
 - 合法语法：
 
   ```text
@@ -234,8 +245,9 @@
 ## `undo mpls ldp`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`、`系统视图`
-- 用途（设备帮助）：disable LDP discovery on the interface；disable MPLS LDP globally
+- CLI 帮助：disable LDP discovery on the interface；disable MPLS LDP globally
 - 合法语法：
 
   ```text
@@ -259,8 +271,9 @@
 ## `undo mpls lsr-id`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：remove the MPLS label switching router ID
+- CLI 帮助：remove the MPLS label switching router ID
 - 合法语法：
 
   ```text
@@ -278,8 +291,9 @@
 ## `undo ttl propagate`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`mpls`
-- 用途（设备帮助）：use pipe mode and hide MPLS transit hops
+- CLI 帮助：use pipe mode and hide MPLS transit hops
 - 合法语法：
 
   ```text

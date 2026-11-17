@@ -4,24 +4,28 @@ IPv4 ACL 以规则号顺序检查 IPv4 报文，首条命中决定放行/拒绝�
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 acl name WEB-IN advance
- rule 10 permit tcp source 10.0.0.0 0.0.0.255 destination-port eq 443 tcp-flag syn
+ rule 10 permit tcp source 10.0.0.0 0.0.0.255 destination-port eq 443
  rule 20 permit icmp icmp-type echo
  rule 100 deny ip
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display acl name WEB-IN
 ~~~
 
-source 的最后一项是通配掩码，不是子网掩码。只允许 SYN 不会自动放行后续 TCP 报文；Web 访问策略需按完整双向业务设计，不应将此字段演示直接当作可用的有状态防火墙。
+source 的最后一项是通配掩码，例如 0.0.0.255 匹配 /24 网段。上例允许该网段到 TCP/443 的报文，但返回方向仍需单独满足沿途 ACL。若另加 tcp-flag syn，则只匹配 SYN 条件，不会自动放行后续数据报文。
 
-ACL动作只有permit和deny。完整绑定及流量检查见[过滤案例](../../examples/acl.md)。例如：
-
-~~~text
-acl name DOC-STATELESS advance
- rule 10 permit ip
- rule 20 deny ip
-~~~
+接口绑定、双向连接检查和撤销步骤见[过滤案例](../../examples/acl.md)。
 
 先解除所有 traffic-filter/MQC/SSH 保护引用，再执行 undo acl name NAME，提交后核对 ACL 和原业务。名称区分大小写。需要保留时 save。
 

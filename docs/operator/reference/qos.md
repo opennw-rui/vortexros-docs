@@ -5,8 +5,9 @@
 ## `qos lr`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`VLAN视图`、`接口视图`
-- 用途（设备帮助）：configure interface or VLAN rate limit (2-rate 3-color)
+- CLI 帮助：configure interface or VLAN rate limit (2-rate 3-color)
 - 合法语法：
 
   ```text
@@ -64,8 +65,9 @@
 ## `undo qos lr`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`VLAN视图`、`接口视图`
-- 用途（设备帮助）：remove interface or VLAN rate limit
+- CLI 帮助：remove interface or VLAN rate limit
 - 合法语法：
 
   ```text

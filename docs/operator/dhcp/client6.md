@@ -6,11 +6,23 @@
 
 ```text
 interface Ethernet 1
+ ipv6 enable
  ipv6 address auto dhcp
  dhcpv6 client pd CPE-PREFIX
+```
+
+CLI 操作：
+
+```text
 commit
 display dhcpv6 client interface Ethernet 1
 display dhcpv6 client prefix name CPE-PREFIX
+```
+
+配置清单：
+
+```text
+#
 # 在接口视图立即请求续租：
 interface Ethernet 1
  dhcpv6 client renew

@@ -8,13 +8,22 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 bgp 64512
  router-id 192.0.2.1
  peer 192.0.2.2 as-number 64513
  ipv4-family unicast
   network 203.0.113.0 255.255.255.0
-  quit
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -40,12 +49,16 @@ bgp 65000
  ipv4-family vpn-instance CLI-UNDER
   peer 198.18.180.2 as-number 65000
   peer 198.18.180.2 enable
-  quit
+ #
  ipv6-family vpn-instance CLI-UNDER
   peer 2001:db8:180::2 as-number 65000
   peer 2001:db8:180::2 enable
-  quit
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -57,13 +70,17 @@ bgp 65000
   peer 198.18.180.1 as-number 65000
   peer 198.18.180.1 enable
   import-route static
-  quit
+ #
  ipv6-family vpn-instance CLI-UNDER
   peer 2001:db8:180::1 as-number 65000
   peer 2001:db8:180::1 enable
   import-route static
-  quit
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -75,7 +92,7 @@ display bgp vpnv6 vpn-instance CLI-UNDER peer
 display ip routing-table vpn-instance CLI-UNDER 198.18.181.2 verbose
 display ipv6 routing-table vpn-instance CLI-UNDER 2001:db8:181::2 verbose
 ping -vpn-instance CLI-UNDER -c 3 -a 198.18.180.1 198.18.181.2
-ping ipv6 -vpn-instance CLI-UNDER -c 3 -a 2001:db8:180::1 2001:db8:181::2
+ping ipv6 vpn-instance CLI-UNDER -c 3 -a 2001:db8:180::1 2001:db8:181::2
 ```
 
 邻居应 Established；选中的两族路由来源应为 BGP，下一跳为对端接口。iBGP 默认 Preference 为 254。IPv6 邻居可能同时启用 IPv4 地址族，路径条数不一定等于不同前缀数。

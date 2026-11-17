@@ -22,6 +22,8 @@ display health verbose
 | IF-MIB::ifTable / ifXTable | 接口描述、管理/链路状态、64 位计数 |
 | ifCounterDiscontinuityTime | 计数清零或重建后的速率基线 |
 
+Linux 数据面支持物理接口的 IF-MIB 状态、描述和内核收发字节计数；VPP 数据面使用对应的数据面计数来源。Linux 驱动未提供的单播/广播分类和可靠链路速率显示为不可用。
+
 IF-MIB 以产品接口为主；lcp- 前缀的行属于控制面配对诊断接口，不应与业务接口相加。ifAlias 对应接口 description。接口名称与身份不变时，数据面重建后监控索引保持稳定。
 
 流量速率使用 ifHCInOctets / ifHCOutOctets 的相邻采样差。发现计数不连续时重建基线；不要用 32 位计数计算高速接口速率。隧道统计内层流量，物理口还包含封装开销，两者不要求相等。缺少可靠来源的分类或错误计数不可用，不应解释成零。
@@ -39,3 +41,16 @@ IF-MIB 以产品接口为主；lcp- 前缀的行属于控制面配对诊断接�
 按对象解除引用，或在不再需要 SNMP 时整体执行 undo snmp-agent、commit、save。再从原平台确认轮询不再返回。
 
 [功能目录](../snmp.md) · [命令参数](../reference/snmp.md)
+
+## 实际查询示例
+
+以 Ethernet0 为例，先读取 ifDescr 找到索引，再查询同一索引的状态、描述和64位字节计数。索引由接口身份决定，不要把示例数字固定在监控模板中。
+
+~~~text
+IF-MIB::ifDescr.2047694891 = STRING: Ethernet0
+IF-MIB::ifAlias.2047694891 = STRING: SNMP counter and trap validation
+IF-MIB::ifHCInOctets.2047694891 = Counter64: 23540
+IF-MIB::ifHCOutOctets.2047694891 = Counter64: 6342
+~~~
+
+在该接口完成六次1000字节 ping 后，输入计数增加至29856，输出计数增加至12636；SNMPv2c和SNMPv3均可读取。关闭接口后的标准 linkDown 通知携带同一索引及管理/运行状态2；恢复接口后 linkUp 携带状态1。通知依赖监控采样周期，不承诺与配置提交同时到达。

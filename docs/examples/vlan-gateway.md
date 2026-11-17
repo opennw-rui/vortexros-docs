@@ -4,20 +4,34 @@
 
 **前提**。VPP 正常运行，Ethernet 1 是专用测试口，对端允许 VLAN 100。端口转换为二层前，先处理原有三层地址及依赖。
 
+## 网关激活条件
+
+Vlanif 100 未 shutdown、VLAN 100 至少有一个实际成员端口处于管理 Up 且链路 Up，网关 PHY 才能 Up；配置有效 IP 地址后三层 Protocol 才能 Up。trunk 接口必须允许 VLAN 100，仅设置 PVID 不足以加入该业务。所有成员不可用时网关自动 Down，成员恢复后自动 Up。详细状态说明见[Vlanif 网关](../operator/vlan/gateway.md)。
+
 ## 配置
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable switch
 vlan batch 100
 interface Ethernet 1
  portswitch
  port link-type trunk
  port trunk allow-pass vlan 100
- quit
+#
 interface Vlanif 100
  ip address 192.0.2.1 255.255.255.0
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

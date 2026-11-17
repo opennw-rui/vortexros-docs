@@ -32,7 +32,7 @@ display memory-usage
 
 Heap 分区显示 VPP 各堆的容量、已用量和空闲量。Process RSS 是进程常驻内存，Process VSZ 是虚拟地址空间大小，二者分别读取 Linux 进程状态。
 
-Buffer pools 的 Available、Used、Cached 以缓冲区个数计量，分别表示池内可分配、已使用及线程缓存的缓冲区。三项之和等于该池的缓冲区总数。查询通过 VPP Binary API 的只读命令取得实时池状态，配套 VPP 的 gauge 计数不会被转换为虚构的零值。后端不可用时显示采集失败原因。
+Buffer pools 的 Available、Used、Cached 均以缓冲区个数计量，分别表示池内可分配、已使用及线程缓存的缓冲区，三项之和为该池总数。无法取得实时池状态时，查询会显示具体失败原因。
 
 ## 日志
 

@@ -8,13 +8,23 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 acl name BLOCK-TELNET advance
  rule 10 deny tcp destination-port eq 23
  rule 100 permit ip
- quit
+#
 interface Vlanif 100
  traffic-filter inbound acl BLOCK-TELNET
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

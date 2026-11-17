@@ -16,23 +16,39 @@ LoopBack62 10.255.62.2/32          10.255.62.3/32
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet1
  ip address 198.19.23.2 255.255.255.0
-quit
+#
 interface LoopBack 62
+ ipv6 enable
  ip address 10.255.62.2 255.255.255.255
  ipv6 address 2001:db8:620::2 128
-quit
+#
 ip route-static 10.255.62.3 255.255.255.255 198.19.23.3
 mpls lsr-id 10.255.62.2
 mpls
-quit
+#
 mpls ldp
 interface Ethernet1
  mpls
  mpls ldp
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
+~~~
+
+配置清单：
+
+~~~text
 bgp 65000
  router-id 2.2.2.2
  peer 10.255.62.3 as-number 65000
@@ -41,8 +57,12 @@ bgp 65000
   peer 10.255.62.3 enable
   peer 10.255.62.3 label-route-capability
   network 2001:db8:620::2 128
- quit
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -50,23 +70,39 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 198.19.23.3 255.255.255.0
-quit
+#
 interface LoopBack 62
+ ipv6 enable
  ip address 10.255.62.3 255.255.255.255
  ipv6 address 2001:db8:620::3 128
-quit
+#
 ip route-static 10.255.62.2 255.255.255.255 198.19.23.2
 mpls lsr-id 10.255.62.3
 mpls
-quit
+#
 mpls ldp
 interface Ethernet0
  mpls
  mpls ldp
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
+~~~
+
+配置清单：
+
+~~~text
 bgp 65000
  router-id 3.3.3.3
  peer 10.255.62.2 as-number 65000
@@ -75,8 +111,12 @@ bgp 65000
   peer 10.255.62.2 enable
   peer 10.255.62.2 label-route-capability
   network 2001:db8:620::3 128
- quit
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -89,14 +129,14 @@ display mpls interface
 display mpls ldp interface
 display mpls ldp peer
 display mpls ldp binding
-display bgp peer
+display bgp ipv6 peer
 display ipv6 routing-table 2001:db8:620::3 128 verbose
 display ipv6 fib
 display mpls forwarding-table
 display health
 ~~~
 
-PE3把目标替换为::2。先确认协议会话和前缀，再发起流量；系统ready不表示BGP邻居已经建立。当前display bgp ipv6 peer查看IPv6 unicast地址族，6PE的IPv4承载会话使用display bgp peer；辅助核对LU标签时可由运维读取FRR对应labeled-unicast状态，不能把原生查询冒称产品另有一条CLI。
+PE3把目标替换为::2。先确认协议会话和前缀，再发起流量；系统ready不表示BGP邻居已经建立。display bgp ipv6 peer汇总IPv6 unicast与6PE labeled-unicast会话，同一邻居只列一行；使用display bgp ipv6 peer对端IPv4地址 verbose可核对6PE会话和地址族计数。默认display bgp peer仅查询IPv4 unicast，不能用于替代6PE状态查询。
 
 示例输出：
 
@@ -142,8 +182,12 @@ bgp 65000
  undo peer 10.255.62.3
  ipv6-family unicast
   undo network 2001:db8:620::2 128
- quit
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display ipv6 routing-table 2001:db8:620::3 128
 ~~~
@@ -154,12 +198,17 @@ PE3反向撤销。两端示例输出均变为Destinations : 0、Routes : 0。再
 interface Ethernet1
  undo mpls ldp
  undo mpls
-quit
+#
 undo mpls ldp
 undo mpls
 undo mpls lsr-id
 undo interface LoopBack 62
 undo ip route-static 10.255.62.3 255.255.255.255 198.19.23.3
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display mpls ldp peer
 display mpls interface

@@ -18,9 +18,19 @@ display interface hardware offload Ethernet 1
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet 1
  undo hardware offload gso
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display interface hardware offload Ethernet 1
 ~~~

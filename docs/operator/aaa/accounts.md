@@ -6,11 +6,21 @@
 
 ```text
 system-view
+```
+
+配置清单：
+
+```text
 user opsadmin
  role system-admin
  password TEMPORARY-PASSWORD
  password change-required
-quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 return
 save

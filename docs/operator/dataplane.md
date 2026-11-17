@@ -9,6 +9,7 @@
 
 dataplane/devices
 dataplane/resources
+dataplane/plugins
 dataplane/tables
 dataplane/bridge-mtu
 dataplane/recovery

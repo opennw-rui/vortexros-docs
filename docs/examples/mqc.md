@@ -13,9 +13,19 @@ P1 Ethernet0 192.0.2.81/30 ─── 192.0.2.82/30 Ethernet0 P2
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 192.0.2.82 255.255.255.252
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -25,9 +35,19 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 192.0.2.81 255.255.255.252
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ping -n -c 3 -t 1000 192.0.2.82
 ~~~
@@ -35,16 +55,21 @@ ping -n -c 3 -t 1000 192.0.2.82
 ~~~text
 traffic classifier LAB-DST operator or
  if-match destination-ip 192.0.2.82/32
- quit
+#
 traffic behavior LAB-MARK
  remark dscp 10
- quit
+#
 traffic policy LAB-POLICY
  classifier LAB-DST behavior LAB-MARK precedence 10
- quit
+#
 interface Ethernet0
  traffic-policy LAB-POLICY outbound
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -71,12 +96,22 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  undo traffic-policy outbound
- quit
+#
 undo traffic policy LAB-POLICY
 undo traffic behavior LAB-MARK
 undo traffic classifier LAB-DST
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -93,16 +128,21 @@ P2：
 ```text
 traffic classifier CLI-ANY operator or
  if-match any
- quit
+#
 traffic behavior CLI-REMARK
  remark dscp 20
- quit
+#
 traffic policy CLI-MARK
  classifier CLI-ANY behavior CLI-REMARK precedence 7
- quit
+#
 interface Ethernet0
  traffic-policy CLI-MARK outbound
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ping -c 3 -a 192.0.2.82 192.0.2.81
 display traffic policy user-defined CLI-MARK
@@ -116,10 +156,15 @@ DSCP 20 对应 ECN 为 0 时的 ToS 0x50。any 会匹配该方向所有报文，
 traffic behavior CLI-REMARK
  undo remark dscp
  permit
- quit
+#
 traffic policy CLI-MARK
  undo precedence
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ping -c 1 -a 192.0.2.82 192.0.2.81
 ```
@@ -129,9 +174,28 @@ ping -c 1 -a 192.0.2.82 192.0.2.81
 ```text
 interface Ethernet0
  undo traffic-policy outbound
- quit
+#
 undo traffic policy CLI-MARK
 undo traffic behavior CLI-REMARK
 undo traffic classifier CLI-ANY
+```
+
+CLI 操作：
+
+```text
 commit
 ```
+
+## 入方向、出方向与 ACL 的组合
+
+可在同一台路由器两侧接口分别标记同一类转发流量：入方向行为设 DSCP20，出方向行为设 DSCP10。实际报文验证中，只有入方向时接收端 ToS 为0x50，增加出方向后为0x28；撤销两侧策略后恢复0。后一次标记覆盖前一次，但不会覆盖 DSCP以外的匹配字段。
+
+入方向 ACL 在 MQC之前过滤。在同类 UDP验证中，未绑定 ACL时接收端能收到报文；绑定拒绝规则后报文被丢弃；将同一条已绑定规则改为 permit并提交后，接收恢复。不能用“未收到报文”单独证明 ACL生效，还要确认接口和数据面健康，并保留放行对照。
+
+撤销时先解除 ACL和流策略绑定，再删除不再使用的 ACL、策略、行为和分类器。撤销后的新报文已确认可以正常转发，DSCP回到原值；当前配置不再保留这些示例对象。
+
+## CAR、拒绝和空分类器
+
+同一条出方向策略使用 `if-match any`，行为配置 100kbps CAR 后，超过限额的 UDP 业务出现实际丢弃；撤销 CAR 后，约 1Mbps 的同一负载收到 251/251 个报文。短窗口含突发量，这里用于检查规则是否执行，不是稳态吞吐或设备性能结论。
+
+将行为改为 `deny`，IPv4 和 IPv6 对照探测均无回复；`undo deny` 后恢复普通放行。在拒绝行为仍存在的情况下，从分类器撤销 `if-match any` 后，查询显示无匹配规则、运行匹配计数为 0，原业务恢复。没有匹配条件的分类器不等于显式匹配全部；只有需要覆盖全部报文时才使用 `if-match any`。

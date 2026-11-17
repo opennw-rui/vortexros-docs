@@ -8,10 +8,20 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface LoopBack 100
  ip binding vpn-instance BLUE
  ip address 10.100.0.1 255.255.255.255
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -30,7 +40,17 @@ display ip routing-table vpn-instance BLUE
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 undo interface LoopBack 100
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

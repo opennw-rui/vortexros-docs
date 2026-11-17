@@ -1,5 +1,7 @@
 # AmneziaWG 互连
 
+配置前先核对[协议版本与参数对应关系](../operator/amneziawg/versions.md)。
+
 ## 拓扑
 
 | 位置 | P1 | P2 |
@@ -8,14 +10,19 @@
 | UDP 监听 | 51920 | 51920 |
 | Tunnel20 | 198.51.100.41/30 | 198.51.100.42/30 |
 
-两端运行 VortexROS 与配套 VPP。各自 Ethernet0 配置底层地址，双向可达并允许 UDP 51920。先在 Tunnel20 视图配置 tunnel-protocol amneziawg、privatekey auto，再用 display this 取得本端公钥并交换；完成下列 Profile 后一起提交。私钥进入配置和备份，应限制其访问。
+两端运行 VortexROS 与配套 VPP。各自 Ethernet0 配置底层地址，双向可达并允许 UDP 51920。先在 Tunnel20 视图配置 tunnel-protocol amneziawg、privatekey auto，再用 display configuration candidate 取得本端公钥并交换；完成下列 Profile 后一起提交。私钥进入配置和备份，应限制其访问。
 
-两端的填充和消息头范围要相同。示例只允许对端隧道地址进入各自 peer，不通告其他业务网段。
+两端的填充和消息头范围要兼容，头保护密钥必须相同；本端垃圾包、签名包和计时参数不要求逐项相同。示例只允许对端隧道地址进入各自 peer，不通告其他业务网段。
 
 ## P1 配置
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 amneziawg profile AWG-P2
  junk size 16 48
  junk count 3
@@ -35,15 +42,19 @@ amneziawg profile AWG-P2
   source 10.201.12.1
   destination vpn-instance default 10.201.12.2 port 51920
   keepalive 5
- quit
-quit
+#
 interface Tunnel 20
  tunnel-protocol amneziawg
  source vpn-instance default
  source-port 51920
  amneziawg-profile AWG-P2
  ip address 198.51.100.41 255.255.255.252
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -51,6 +62,11 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 amneziawg profile AWG-P1
  junk size 16 48
  junk count 3
@@ -70,15 +86,19 @@ amneziawg profile AWG-P1
   source 10.201.12.2
   destination vpn-instance default 10.201.12.1 port 51920
   keepalive 5
- quit
-quit
+#
 interface Tunnel 20
  tunnel-protocol amneziawg
  source vpn-instance default
  source-port 51920
  amneziawg-profile AWG-P1
  ip address 198.51.100.42 255.255.255.252
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -122,8 +142,18 @@ AmneziaWG Profile : AWG-P2
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 undo interface Tunnel 20
 undo amneziawg profile AWG-P2
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display amneziawg interface
 ~~~
@@ -181,16 +211,21 @@ amneziawg profile AWG-P2
   source 198.19.80.1
   destination vpn-instance default 198.19.80.2 port 51920
   keepalive 5
-  quit
- quit
+#
 interface Tunnel 20
+ ipv6 enable
  tunnel-protocol amneziawg
  source vpn-instance default
  source-port 51920
  amneziawg-profile AWG-P2
  ip address 10.240.20.1 255.255.255.252
  ipv6 address 2001:db8:240:20::1 64
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 save
 ```
@@ -228,16 +263,21 @@ amneziawg profile AWG-P1
   source 198.19.80.2
   destination vpn-instance default 198.19.80.1 port 51920
   keepalive 5
-  quit
- quit
+#
 interface Tunnel 20
+ ipv6 enable
  tunnel-protocol amneziawg
  source vpn-instance default
  source-port 51920
  amneziawg-profile AWG-P1
  ip address 10.240.20.2 255.255.255.252
  ipv6 address 2001:db8:240:20::2 64
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 save
 ```
@@ -314,7 +354,12 @@ amneziawg profile AWG-P2
  undo header response
  undo header cookie
  undo header transport
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -335,11 +380,15 @@ amneziawg profile AWG-P2
   undo source
   destination vpn-instance CLI-UNDER 2001:db8:180::2 port 51920
   source 2001:db8:180::1
-  quit
- quit
+#
 interface Tunnel20
  source-port 51920
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -351,11 +400,15 @@ amneziawg profile AWG-P1
   undo source
   destination vpn-instance CLI-UNDER 2001:db8:180::1 port 51920
   source 2001:db8:180::2
-  quit
- quit
+#
 interface Tunnel20
  source-port 51920
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 

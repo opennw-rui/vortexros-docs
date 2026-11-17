@@ -4,21 +4,31 @@
 
 ~~~text
 P3 Ethernet0 ── Ethernet1 P1 Ethernet0 ── Ethernet0 P2
-198.18.11.2/24    198.18.11.1/24
-                             198.19.80.1/30    198.19.80.2/30
-映射地址: 198.19.81.1、198.19.81.2，经 P1 返回
+203.0.113.2/30    203.0.113.1/30
+                             198.51.100.1/30    198.51.100.2/30
+映射地址: 198.51.100.10、198.51.100.11，经 P1 返回
 ~~~
 
 ## P1
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet1
- ip address 198.18.11.1 255.255.255.0
-quit
+ ip address 203.0.113.1 255.255.255.252
+#
 interface Ethernet0
- ip address 198.19.80.1 255.255.255.252
-quit
+ ip address 198.51.100.1 255.255.255.252
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -26,11 +36,21 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
- ip address 198.19.80.2 255.255.255.252
-quit
-ip route-static 198.19.81.0 255.255.255.0 198.19.80.1
-ip route-static 198.18.11.0 255.255.255.0 198.19.80.1
+ ip address 198.51.100.2 255.255.255.252
+#
+ip route-static 198.51.100.0 255.255.255.0 198.51.100.1
+ip route-static 203.0.113.0 255.255.255.252 198.51.100.1
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -38,16 +58,26 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
- ip address 198.18.11.2 255.255.255.0
-quit
-ip route-static 0.0.0.0 0.0.0.0 198.18.11.1
+ ip address 203.0.113.2 255.255.255.252
+#
+ip route-static 0.0.0.0 0.0.0.0 203.0.113.1
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
 ## 基础验证
 
-在 P3 执行 ping -a 198.18.11.2 -c 3 198.19.80.2，P2 反向 Ping 198.18.11.2。启用 NAT 前先确认普通路由可达，再按案例查询转换后的会话和策略统计。
+在 P3 执行 ping -a 203.0.113.2 -c 3 198.51.100.2，P2 反向 Ping 203.0.113.2。启用 NAT 前先确认普通路由可达，再按案例查询转换后的会话和策略统计。
 
 ICMP 探测用于检查地址转换及往返路径；不能证明 TCP/UDP 端口映射、会话上限或吞吐。需要发布 UDP 服务时，可使用 [WireGuard](../wireguard.md) 中由 VortexROS 承载的 UDP 服务，再按 DNAT 页配置端口映射，无需在网络设备上手工运行服务脚本。
 

@@ -13,27 +13,50 @@ P1 Ethernet0 2001:db8:12::1/64 ─── 2001:db8:12::2/64 Ethernet0 P2
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
+ ipv6 enable
  ipv6 address 2001:db8:12::1 64
- quit
+#
 interface LoopBack 20
+ ipv6 enable
  ip address 10.255.20.1 255.255.255.255
  ipv6 address 2001:db8:20::1 128
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
+~~~
+
+配置清单：
+
+~~~text
 ospfv3 1 router-id 10.255.20.1
  area 0.0.0.0
-  quit
- quit
+#
 interface Ethernet0
+ ipv6 enable
  ospfv3 1 area 0.0.0.0
  ospfv3 network-type p2p
  ospfv3 timer hello 3
  ospfv3 timer dead 12
- quit
+#
 interface LoopBack 20
+ ipv6 enable
  ospfv3 1 area 0.0.0.0
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -71,13 +94,23 @@ Neighbor ID     Pri  State          Dead Time  Interface
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface LoopBack 20
  undo ospfv3 1 area 0.0.0.0
- quit
+#
 interface Ethernet0
  undo ospfv3 1 area 0.0.0.0
- quit
+#
 undo ospfv3 1
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display ipv6 routing-table
 ~~~
@@ -103,13 +136,18 @@ P1：
 ospfv3 1 router-id 1.1.1.1
  bandwidth-reference 10000
  area 0.0.0.0
-  quit
- quit
+#
 interface Ethernet0
+ ipv6 enable
  ipv6 address 2001:db8:80::1 64
  ospfv3 1 area 0.0.0.0
  ospfv3 network-type p2p
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -117,22 +155,29 @@ P2：
 
 ```text
 interface Ethernet0
+ ipv6 enable
  ipv6 address 2001:db8:80::2 64
- quit
+#
 interface LoopBack 98
+ ipv6 enable
  ipv6 address 2001:db8:99::2 128
- quit
+#
 ipv6 route-static 2001:db8:99:: 64 NULL 0
 ospfv3 1 router-id 2.2.2.2
  bandwidth-reference 10000
  import-route static cost 37 type 2
  area 0.0.0.0
-  quit
- quit
+#
 interface Ethernet0
+ ipv6 enable
  ospfv3 1 area 0.0.0.0
  ospfv3 network-type p2p
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -164,7 +209,12 @@ P2 撤销引入：
 ```text
 ospfv3 1
  undo import-route static
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -179,11 +229,17 @@ P1：
 
 ```text
 ospfv3 80 router-id 10.255.80.1 vpn-instance CLI-UNDER
- quit
+#
 interface Ethernet0
+ ipv6 enable
  ipv6 address 2001:db8:180::1 64
  ospfv3 80 area 0
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -192,15 +248,22 @@ P2：
 ```text
 ospfv3 80 router-id 10.255.80.2 vpn-instance CLI-UNDER
  import-route static cost 38 type 2
- quit
+#
 interface Ethernet0
+ ipv6 enable
  ipv6 address 2001:db8:180::2 64
  ospfv3 80 area 0
- quit
+#
 interface LoopBack80
+ ipv6 enable
  ipv6 address 2001:db8:181::2 128
- quit
+#
 ipv6 route-static vpn-instance CLI-UNDER 2001:db8:181:: 64 NULL 0
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -211,7 +274,7 @@ P1 示例中：
 ```text
 display ospfv3 vpn-instance CLI-UNDER peer
 display ipv6 routing-table vpn-instance CLI-UNDER 2001:db8:181::2 verbose
-ping ipv6 -vpn-instance CLI-UNDER -c 3 -a 2001:db8:180::1 2001:db8:181::2
+ping ipv6 vpn-instance CLI-UNDER -c 3 -a 2001:db8:180::1 2001:db8:181::2
 ```
 
 选中路由应为 2001:db8:181::/64、OSPF、Preference 150、Cost 38，下一跳是对端链路本地地址。撤销 import-route static 后，没有其他来源时该路径应消失。reset ospfv3 80 process 会中断目标进程邻接，只有维护时才使用；应答 Y 后等待邻居和路由恢复。
@@ -234,16 +297,21 @@ P1：
 ```text
 ospfv3 80 vpn-instance CLI-UNDER
  area 0.0.0.1
-  quit
- quit
+#
 interface Ethernet1
+ ipv6 enable
  ip binding vpn-instance CLI-UNDER
  ipv6 address 2001:db8:182::1 64
  ospfv3 80 area 0.0.0.1
  ospfv3 network-type p2p
  ospfv3 timer hello 1
  ospfv3 timer dead 4
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -251,20 +319,26 @@ P2 使用相同进程、区域和计时器，接口改为 `Ethernet0`，地址�
 
 ```text
 interface LoopBack 81
+ ipv6 enable
  ip binding vpn-instance CLI-UNDER
  ipv6 address 2001:db8:184::2 128
  ospfv3 80 area 0.0.0.1
- quit
+#
 interface LoopBack 82
+ ipv6 enable
  ip binding vpn-instance CLI-UNDER
  ipv6 address 2001:db8:185::2 128
  ospfv3 80 area 0.0.0.1
- quit
+#
 ospfv3 80 vpn-instance CLI-UNDER
  area 0.0.0.1
   abr-summary 2001:db8:184:: 47
-  quit
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -277,8 +351,12 @@ ospfv3 80 vpn-instance CLI-UNDER
  area 0.0.0.1
   undo abr-summary 2001:db8:184:: 47
   nssa no-summary
-  quit
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 display ospfv3 vpn-instance CLI-UNDER peer
 display ospfv3 vpn-instance CLI-UNDER lsdb

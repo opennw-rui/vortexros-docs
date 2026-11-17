@@ -8,9 +8,19 @@ TCP MSS 只调整带 MSS 选项的 TCP SYN，包括请求和应答。它将过�
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  tcp mss clamp
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -19,7 +29,12 @@ commit
 ~~~text
 interface Ethernet0
  tcp mss 1200
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -48,9 +63,19 @@ display bgp peer
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  undo tcp mss
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

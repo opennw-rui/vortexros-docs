@@ -8,12 +8,22 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 ospf 1 router-id 192.0.2.11
- quit
+#
 interface Ethernet 1
  ospf enable 1 area 0.0.0.0
  ospf network-type p2p
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -38,8 +48,12 @@ P1：
 ospf 80 router-id 10.255.80.1 vpn-instance CLI-UNDER
  area 0
   network 198.18.180.0 0.0.0.3
-  quit
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -49,14 +63,19 @@ P2：
 interface LoopBack80
  ip binding vpn-instance CLI-UNDER
  ip address 198.18.181.2 255.255.255.255
- quit
+#
 ip route-static vpn-instance CLI-UNDER 198.18.181.0 24 NULL 0
 ospf 80 router-id 10.255.80.2 vpn-instance CLI-UNDER
  area 0
   network 198.18.180.0 0.0.0.3
-  quit
+ #
  import-route static cost 37 type 2
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -104,15 +123,19 @@ P1 在已创建的 OSPF80 中增加区域；P2 使用相同配置，将本端接
 ospf 80
  area 0.0.0.1
   network 198.18.182.0 0.0.0.3
-  quit
- quit
+#
 interface Ethernet1
  ip binding vpn-instance CLI-UNDER
  ip address 198.18.182.1 255.255.255.252
  ospf network-type p2p
  ospf timer hello 1
  ospf timer dead 4
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -122,17 +145,21 @@ P2 另外增加两个三层接口并将它们发布到区域 1：
 interface LoopBack 81
  ip binding vpn-instance CLI-UNDER
  ip address 198.18.184.2 255.255.255.255
- quit
+#
 interface LoopBack 82
  ip binding vpn-instance CLI-UNDER
  ip address 198.18.185.2 255.255.255.255
- quit
+#
 ospf 80
  area 0.0.0.1
   network 198.18.184.0 0.0.1.255
   abr-summary 198.18.184.0 255.255.254.0
-  quit
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -145,8 +172,12 @@ ospf 80
  area 0.0.0.1
   undo abr-summary 198.18.184.0 255.255.254.0
   nssa no-summary
-  quit
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 display ospf vpn-instance CLI-UNDER peer
 display ospf vpn-instance CLI-UNDER lsdb nssa
@@ -161,8 +192,12 @@ ospf 80
  area 0.0.0.1
   undo nssa
   stub no-summary
-  quit
- quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 

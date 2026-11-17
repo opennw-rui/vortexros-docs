@@ -8,13 +8,23 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Tunnel 1
  tunnel-protocol gre
  source 192.0.2.1
  destination 192.0.2.2 vpn-instance default
  gre key 100
  ip address 198.51.100.1 255.255.255.252
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

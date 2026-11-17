@@ -6,6 +6,7 @@
 :maxdepth: 1
 
 ethernet
+interface-processing
 offload
 flow-steering
 dataplane

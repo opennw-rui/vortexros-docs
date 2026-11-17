@@ -24,9 +24,23 @@ display ipv6 pool name V6-POOL all
 display ipv6 pool name V6-POOL verbose
 ```
 
-IPv6输出区分IA_NA、IA_TA和IA_PD，并显示DUID、IAID、地址或委派前缀、Subnet ID、客户端事务时间、到期时间、剩余租期和状态。租约属于运行数据，不进入Candidate、CFG或SQLite配置投影。
+IPv6 租约显示 IA_NA、IA_TA 或 IA_PD 类型，以及 DUID、IAID、地址或委派前缀、Subnet ID、客户端事务时间、到期时间、剩余租期和状态。租约是动态运行信息，不作为静态地址保存；恢复配置后，客户端按协议重新申请或续租。
 
 Classless Static Route Option存在并启用解析时，按标准优先使用该选项，不再同时采用Router Option。无论默认路由来自哪个DHCP选项，`undo dhcp client default-route enable`都会阻止其中的`/0`，普通明细路由仍可安装。
 
 
 [DHCP 功能与开关](../dhcp.md) · [逐条命令参数](../reference/dhcp.md)
+
+## IA_TA 能力边界
+
+查询器识别 IA_TA 类型不代表服务器能够分配 IA_TA。配套 Kea 3.0.3 不支持已弃用的 IA_TA。实际发送同时含 IA_NA、IA_TA 的 Solicit 和 Request 后，Advertise 和 Reply 均仅分配 IA_NA；服务器租约查询也没有对应 IA_TA 记录。SLAAC 临时隐私地址也不是 IA_TA。需要临时 IPv6 地址时，应分别核对 SLAAC 隐私地址和客户端支持范围；不能依赖服务器分配 IA_TA。见[Kea 官方限制](https://kea.readthedocs.io/en/kea-3.0.3/arm/dhcp6-srv.html#dhcpv6-server-limitations)。
+
+`display ipv6 pool` 是 DHCPv6 池查询的另一入口，支持相同的池名、`all`、`used` 和 `verbose` 参数。例如：
+
+```text
+display ipv6 pool
+display ipv6 pool name D1-PD used verbose
+display ipv6 pool all
+```
+
+实际非空查询同时列出 IA_NA 地址与 IA_PD 委派前缀；`used` 只列有效租约，`all` 还可能包含已过期历史记录。已删除旧池的历史租约可显示池名 `-`，不表示该地址仍被分配。

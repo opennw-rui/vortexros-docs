@@ -2,15 +2,30 @@
 
 启用后自动接收上游自主前缀，执行重复地址检测（DAD）并维护有效期。动态地址属于接口所选 VPN，不写成静态启动配置；重启后重新学习。
 
+## 接口恢复
+
+接口或数据面重建后，系统会重新发现上游路由器，恢复 SLAAC 地址；配置了默认路由学习时也会恢复 RA 默认路由，无需手动关闭、再打开接口。上游必须持续提供有效 RA，前缀需允许自主配置，地址通过 DAD 后才能使用。动态地址及默认路由不作为静态配置保存。
+
 ## 配置
 
 以下为功能片段，接口、引用对象及对端须先按[完整案例](../../examples/ipv6-ra.md)准备。未创建的依赖会被拒绝。
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet 1
- ipv6 address auto slaac
-quit
+ ipv6 enable
+ ipv6 address auto global
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -28,9 +43,19 @@ display ipv6 interface brief
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet 1
- undo ipv6 address auto slaac
-quit
+ undo ipv6 address auto global
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

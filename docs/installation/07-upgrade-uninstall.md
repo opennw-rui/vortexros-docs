@@ -4,13 +4,13 @@
 
 ## 使用单文件安装包
 
-从[项目Release](https://github.com/opennw-rui/VortexROS/releases)或已提供的0.29-dev候选包位置取得 `.run` 和 `SHA256SUMS`，核对校验值。更新前在 CLI 执行 `save`，确认当前配置和服务收敛，然后运行：
+从[项目Release](https://github.com/opennw-rui/VortexROS/releases)或已提供的0.30-dev安装包位置取得 `.run` 和 `SHA256SUMS`，核对校验值。更新前在 CLI 执行 `save`，确认当前配置和服务收敛，然后运行：
 
 ~~~bash
 sha256sum -c SHA256SUMS
-sudo sh ./vortexros-0.29-dev-amd64.run --check-only
-sudo sh ./vortexros-0.29-dev-amd64.run --simulate
-sudo sh ./vortexros-0.29-dev-amd64.run
+sudo sh ./vortexros-0.30-dev-amd64.run --check-only
+sudo sh ./vortexros-0.30-dev-amd64.run --simulate
+sudo sh ./vortexros-0.30-dev-amd64.run
 ~~~
 
 检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。后端版本相同则保留对应包和进程；后端版本变化时安装器重启受影响的服务，需预留相应的业务中断窗口。

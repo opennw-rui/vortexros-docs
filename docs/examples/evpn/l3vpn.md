@@ -15,41 +15,45 @@ enable switch
 evpn-overlay enable
 interface Ethernet0
  ip address 198.19.80.1 255.255.255.252
-quit
+#
 ip vpn-instance CLI-TYPE5
  vxlan vni 50081
  ipv4-family
   route-distinguisher 65000:1801
   vpn-target 65000:50081 both
- quit
+ #
  ipv6-family
   route-distinguisher 65000:1801
   vpn-target 65000:50081 both
- quit
-quit
+#
 interface LoopBack 181
+ ipv6 enable
  ip binding vpn-instance CLI-TYPE5
  ip address 198.18.196.1 255.255.255.255
  ipv6 address 2001:db8:196::1 128
-quit
+#
 interface Nve 1
  source 198.19.80.1
-quit
+#
 bgp 65000
  router-id 1.1.1.1
  peer 198.19.80.2 as-number 65000
  l2vpn-family evpn
   peer 198.19.80.2 enable
- quit
+ #
  ipv4-family vpn-instance CLI-TYPE5
   import-route direct
   advertise l2vpn evpn
- quit
+ #
  ipv6-family vpn-instance CLI-TYPE5
   import-route direct
   advertise l2vpn evpn
- quit
-quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -60,41 +64,45 @@ enable switch
 evpn-overlay enable
 interface Ethernet0
  ip address 198.19.80.2 255.255.255.252
-quit
+#
 ip vpn-instance CLI-TYPE5
  vxlan vni 50081
  ipv4-family
   route-distinguisher 65000:1802
   vpn-target 65000:50081 both
- quit
+ #
  ipv6-family
   route-distinguisher 65000:1802
   vpn-target 65000:50081 both
- quit
-quit
+#
 interface LoopBack 182
+ ipv6 enable
  ip binding vpn-instance CLI-TYPE5
  ip address 198.18.196.2 255.255.255.255
  ipv6 address 2001:db8:196::2 128
-quit
+#
 interface Nve 1
  source 198.19.80.2
-quit
+#
 bgp 65000
  router-id 2.2.2.2
  peer 198.19.80.1 as-number 65000
  l2vpn-family evpn
   peer 198.19.80.1 enable
- quit
+ #
  ipv4-family vpn-instance CLI-TYPE5
   import-route direct
   advertise l2vpn evpn
- quit
+ #
  ipv6-family vpn-instance CLI-TYPE5
   import-route direct
   advertise l2vpn evpn
- quit
-quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -107,7 +115,7 @@ display bgp evpn all routing-table
 display ip routing-table vpn-instance CLI-TYPE5 198.18.196.2 32
 display ipv6 routing-table vpn-instance CLI-TYPE5 2001:db8:196::2 128
 ping -vpn-instance CLI-TYPE5 -c 2 -a 198.18.196.1 198.18.196.2
-ping ipv6 -vpn-instance CLI-TYPE5 -c 2 -a 2001:db8:196::1 2001:db8:196::2
+ping ipv6 vpn-instance CLI-TYPE5 -c 2 -a 2001:db8:196::1 2001:db8:196::2
 display health
 ```
 
@@ -127,11 +135,15 @@ display health
 bgp 65000
  ipv4-family vpn-instance CLI-TYPE5
   undo advertise l2vpn evpn
- quit
+ #
  ipv6-family vpn-instance CLI-TYPE5
   undo advertise l2vpn evpn
- quit
-quit
+#
+```
+
+CLI 操作：
+
+```text
 commit
 display bgp evpn all routing-table
 display ip routing-table vpn-instance CLI-TYPE5 198.18.196.2 32
@@ -146,10 +158,15 @@ bgp 65000
  Y
  undo ipv6-family vpn-instance CLI-TYPE5
  Y
-quit
+#
 undo interface LoopBack181
 undo ip vpn-instance CLI-TYPE5
 Y
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 

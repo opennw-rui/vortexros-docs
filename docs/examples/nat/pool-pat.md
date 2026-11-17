@@ -12,26 +12,35 @@ P1 从用户视图开始；接口与基础路由由前置拓扑提供：
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 nat-policy address-pool name LAB-PUBLIC
- address 198.19.81.1/32
+ address 198.51.100.10/32
  pat-port-range 20000-20063
-quit
+#
 nat-policy name LAB-SNAT
  statistic enable
  rule 10
-  source address 198.18.11.2/32
+  source address 203.0.113.2/32
   action snat pat address-pool LAB-PUBLIC
- quit
-quit
+#
 interface Ethernet0
  nat-policy LAB-SNAT outbound
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
 ## 验证
 
-P3 执行 `ping -a 198.18.11.2 -c 3 198.19.80.2`，然后在 P1 查询：
+P3 执行 `ping -a 203.0.113.2 -c 3 198.51.100.2`，然后在 P1 查询：
 
 ~~~text
 display nat-policy name LAB-SNAT
@@ -39,7 +48,7 @@ display nat-policy statistics name LAB-SNAT
 display nat-policy sessions action snat-pat
 ~~~
 
-应能往返，且源地址变为 198.19.81.1，目的地址仍为 198.19.80.2。在会话中核对原始和转换后的地址；ICMP 使用标识符而非 TCP/UDP 端口。
+应能往返，且源地址变为 198.51.100.10，目的地址仍为 198.51.100.2。在会话中核对原始和转换后的地址；ICMP 使用标识符而非 TCP/UDP 端口。
 
 Ping 成功只证明往返路径，应同时核对转换结果。查看状态要紧接探测执行，避免会话已老化。地址池耗尽和端口范围需要对应并发业务验证，不能从三次 Ping 推断。
 
@@ -49,11 +58,21 @@ P1 系统视图：
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  undo nat-policy LAB-SNAT outbound
-quit
+#
 undo nat-policy name LAB-SNAT
 undo nat-policy address-pool name LAB-PUBLIC
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display nat-policy runtime
 display nat-policy interfaces

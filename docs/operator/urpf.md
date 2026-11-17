@@ -10,6 +10,7 @@
 
 ```text
 interface Vlanif 100
+ ipv6 enable
  ip urpf strict
  ipv6 urpf strict
 ```

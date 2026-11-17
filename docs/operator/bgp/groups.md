@@ -32,6 +32,11 @@ bgp 64512
  undo peer 192.0.2.2
  undo peer TRANSIT password
  undo group TRANSIT
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 

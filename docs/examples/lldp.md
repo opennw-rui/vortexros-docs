@@ -8,10 +8,20 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable lldp
 interface Ethernet 1
  lldp enable
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

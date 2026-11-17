@@ -17,16 +17,51 @@ display interface Eth-Trunk 11
 
 ## 撤销与重新加入
 
-在其中一台接入 PE 执行：
+以下操作会改变多归属关系。先协调两台接入 PE 与 CE 的接入方式，再进入维护步骤。仅在一台撤销 ESI，而另一台仍发布原 ESI、CE 继续双链路发送，可能触发 MAC 移动保护，导致部分 VLAN 中断。
+
+在选定接入 PE 执行：
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Eth-Trunk 11
  undo esi
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
 该设备不再以此 ESI 参与多归属，普通聚合及 VLAN 配置仍保留。先协调另一台 PE 与 CE 的接入，避免在同一个无环保护的二层网络中无计划地撤销 ESI。
 
 需要恢复时，在同一聚合视图重新配置原 ESI 0000.1111.2222.1111.1111 并提交，重新检查通告、MAC 和双向探测。确认后 save 保存当前选择；改变 ESI 会影响分流、DF 与远端下一跳，不属于无中断操作。
+
+
+## 实际变更结果
+
+单台 PE 撤销后，本机的 Type-1/Type-4 通告消失，另一台 PE 的同段通告保留；Eth-Trunk11 仍为 Up，原 VLAN460/461 配置保留。本次单台撤销试验中，普通帧探测 1/1，带 VLAN461 标记的探测 0/1；这是两端 ESI 不一致时不能承诺无损变更的实际影响。
+
+恢复同一 ESI：
+
+```text
+interface Eth-Trunk 11
+ esi 0000.1111.2222.1111.1111
+#
+```
+
+```text
+commit
+display current-configuration interface Eth-Trunk11
+display bgp evpn all routing-table | include 00:00:11:11:22:22:11:11:11:11
+display eth-trunk 11
+save
+```
+
+实际恢复后，本机 Type-1/Type-4 通告重新出现，普通帧和 VLAN461 客户探测均为 1/1；健康状态 ready、无活动告警。变更方案应协调两台 PE 与 CE，并按业务 VLAN 分别验证。

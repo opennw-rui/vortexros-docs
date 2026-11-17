@@ -5,8 +5,9 @@
 ## `description`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`ACL视图`、`BD视图`、`NAT策略视图`、`NAT规则视图`、`VLAN视图`、`VPN实例视图`、`acl6`、`接口视图`、`静态路由组视图`
-- 用途（设备帮助）：NVE interface description；bridge-domain description；configure ACL description；configure group description；configure the VLAN description；configure the VPN instance description；configure the interface description；set NAT policy description；set NAT rule description
+- CLI 帮助：NVE interface description；bridge-domain description；configure ACL description；configure group description；configure the VLAN description；configure the VPN instance description；configure the interface description；set NAT policy description；set NAT rule description
 - 合法语法：
 
   ```text
@@ -79,8 +80,9 @@
 ## `display flow-steering`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display interface flow-steering configuration and runtime
+- CLI 帮助：display interface flow-steering configuration and runtime
 - 合法语法：
 
   ```text
@@ -101,8 +103,9 @@
 ## `display interface`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display interface information
+- CLI 帮助：display interface information
 - 合法语法：
 
   ```text
@@ -123,8 +126,9 @@
 ## `display interface brief`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display brief interface list
+- CLI 帮助：display brief interface list
 - 合法语法：
 
   ```text
@@ -142,8 +146,9 @@
 ## `display interface description`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display interface descriptions
+- CLI 帮助：display interface descriptions
 - 合法语法：
 
   ```text
@@ -164,8 +169,9 @@
 ## `display interface hardware offload`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display physical interface hardware offload capabilities and state
+- CLI 帮助：display physical interface hardware offload capabilities and state
 - 合法语法：
 
   ```text
@@ -185,8 +191,9 @@
 ## `display interface statistics`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：per-interface counters
+- CLI 帮助：per-interface counters
 - 合法语法：
 
   ```text
@@ -207,8 +214,9 @@
 ## `display lcp`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：show Linux Control Plane interface pairs
+- CLI 帮助：show Linux Control Plane interface pairs
 - 合法语法：
 
   ```text
@@ -226,8 +234,9 @@
 ## `encapsulation`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：configure sub-interface encapsulation
+- CLI 帮助：configure sub-interface encapsulation
 - 合法语法：
 
   ```text
@@ -258,14 +267,14 @@
 ## `flow-steering enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：enable tunnel-aware ingress worker steering
+- CLI 帮助：enable tunnel-aware ingress worker steering
 - 合法语法：
 
   ```text
   flow-steering enable
   ```
-
 
 <!-- registry-parameters -->
 
@@ -280,8 +289,9 @@
 ## `hardware offload`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`dataplane-if`、`接口视图`
-- 用途（设备帮助）：restore default hardware offload use
+- CLI 帮助：restore default hardware offload use
 - 合法语法：
 
   ```text
@@ -311,8 +321,9 @@
 ## `interface`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：enter the interface view
+- CLI 帮助：enter the interface view
 - 合法语法：
 
   ```text
@@ -348,8 +359,9 @@
 ## `interface range`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：enter a batch interface view
+- CLI 帮助：enter a batch interface view
 - 合法语法：
 
   ```text
@@ -371,8 +383,9 @@
 ## `interface user-defined`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：Preconfigure an interface before it is present
+- CLI 帮助：Preconfigure an interface before it is present
 - 合法语法：
 
   ```text
@@ -391,11 +404,10 @@
 
 ## `ip address`
 
-为三层接口设置地址。提交后形成直连网段，修改已有地址可能影响 SSH、邻居和路由。见[静态路由案例](../../examples/static-route.md)。
-
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：configure an IPv4 address
+- CLI 帮助：configure an IPv4 address
 - 合法语法：
 
   ```text
@@ -418,8 +430,9 @@
 ## `ipv6 address`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：configure an IPv6 address
+- CLI 帮助：configure an IPv6 address
 - 合法语法：
 
   ```text
@@ -441,14 +454,14 @@
 ## `lcp host`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：create a same-name Linux control-plane interface mapping
+- CLI 帮助：create a same-name Linux control-plane interface mapping
 - 合法语法：
 
   ```text
   lcp host HOST-IF [tap|tun]
   ```
-
 
 <!-- registry-parameters -->
 
@@ -467,8 +480,9 @@
 ## `mode`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`dataplane-if`、`接口视图`
-- 用途（设备帮助）：Select the physical port driver；set the aggregate working mode
+- CLI 帮助：Select the physical port driver；set the aggregate working mode
 - 合法语法：
 
   ```text
@@ -503,8 +517,9 @@
 ## `mtu`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set the interface MTU
+- CLI 帮助：set the interface MTU
 - 合法语法：
 
   ```text
@@ -525,8 +540,9 @@
 ## `shutdown`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`、`接口视图`
-- 用途（设备帮助）：shut down the interface；shutdown
+- CLI 帮助：shut down the interface；shutdown
 - 合法语法：
 
   ```text
@@ -551,8 +567,9 @@
 ## `statistic enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`NAT策略视图`、`NAT规则视图`、`接口视图`
-- 用途（设备帮助）：enable counters for this NAT policy；enable counters for this NAT rule；enable detailed interface packet statistics
+- CLI 帮助：enable counters for this NAT policy；enable counters for this NAT rule；enable detailed interface packet statistics
 - 合法语法：
 
   ```text
@@ -581,8 +598,9 @@
 ## `undo description`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`ACL视图`、`BD视图`、`NAT策略视图`、`NAT规则视图`、`VLAN视图`、`VPN实例视图`、`acl6`、`接口视图`、`静态路由组视图`
-- 用途（设备帮助）：clear ACL description；clear NAT policy description；clear NAT rule description；clear NVE description；clear bridge-domain description；delete group description；delete the VLAN description；delete the VPN instance description；delete the interface description
+- CLI 帮助：clear ACL description；clear NAT policy description；clear NAT rule description；clear NVE description；clear bridge-domain description；delete group description；delete the VLAN description；delete the VPN instance description；delete the interface description
 - 合法语法：
 
   ```text
@@ -637,8 +655,9 @@
 ## `undo encapsulation`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：remove the sub-interface encapsulation
+- CLI 帮助：remove the sub-interface encapsulation
 - 合法语法：
 
   ```text
@@ -659,8 +678,9 @@
 ## `undo flow-steering enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable ingress worker steering on the interface
+- CLI 帮助：disable ingress worker steering on the interface
 - 合法语法：
 
   ```text
@@ -679,8 +699,9 @@
 ## `undo hardware offload`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`dataplane-if`、`接口视图`
-- 用途（设备帮助）：disable hardware offload use
+- CLI 帮助：disable hardware offload use
 - 合法语法：
 
   ```text
@@ -710,8 +731,9 @@
 ## `undo interface`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete an interface
+- CLI 帮助：delete an interface
 - 合法语法：
 
   ```text
@@ -731,8 +753,9 @@
 ## `undo ip address`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：delete an IPv4 address
+- CLI 帮助：delete an IPv4 address
 - 合法语法：
 
   ```text
@@ -754,8 +777,9 @@
 ## `undo ipv6 address`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：delete an IPv6 address
+- CLI 帮助：delete an IPv6 address
 - 合法语法：
 
   ```text
@@ -777,8 +801,9 @@
 ## `undo lcp host`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：delete the Linux control-plane interface mapping
+- CLI 帮助：delete the Linux control-plane interface mapping
 - 合法语法：
 
   ```text
@@ -797,8 +822,9 @@
 ## `undo mode`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`dataplane-if`、`接口视图`
-- 用途（设备帮助）：Restore Linux kernel mode；restore manual aggregate mode
+- CLI 帮助：Restore Linux kernel mode；restore manual aggregate mode
 - 合法语法：
 
   ```text
@@ -824,8 +850,9 @@
 ## `undo mtu`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the default interface MTU
+- CLI 帮助：restore the default interface MTU
 - 合法语法：
 
   ```text
@@ -844,8 +871,9 @@
 ## `undo shutdown`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BFD会话视图`、`接口视图`
-- 用途（设备帮助）：bring the interface up；undo shutdown
+- CLI 帮助：bring the interface up；undo shutdown
 - 合法语法：
 
   ```text
@@ -870,8 +898,9 @@
 ## `undo statistic enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`NAT策略视图`、`NAT规则视图`、`接口视图`
-- 用途（设备帮助）：disable counters for this NAT policy；disable counters for this NAT rule；disable detailed interface packet statistics
+- CLI 帮助：disable counters for this NAT policy；disable counters for this NAT rule；disable detailed interface packet statistics
 - 合法语法：
 
   ```text
@@ -896,3 +925,26 @@
 **适用视图：`nat-rule`**
 
 此形式没有额外参数。
+
+## 批量接口编辑
+
+interface range Ethernet 97 to Ethernet 98 进入连续接口视图。description、mtu、shutdown 等支持的接口命令作用于整个范围，commit 后统一生效。例如：
+
+```text
+interface range Ethernet 97 to Ethernet 98
+ description RANGE-TEST
+ mtu 1400
+ shutdown
+#
+commit
+```
+
+两接口的实测结果均为管理 Down、MTU 1400，描述均为 RANGE-TEST。使用同一范围的 undo description、undo mtu、undo shutdown 并提交后，描述清空、MTU 恢复 1500、管理状态恢复 Up。实际链路与协议状态仍取决于各接口本身。
+
+不能向多个接口批量配置同一个本机 IP 地址：命令会因地址冲突拒绝整个地址编辑，不会只为第一个接口写入。此前已暂存的其他编辑继续保留。用 display configuration candidate 检查待提交配置；display this 显示该范围已经提交的配置。
+
+
+显式 lcp host 配置撤销后，物理接口以及 LoopBack、Vlanif、Vbdif 等由功能管理的逻辑接口恢复自动同名控制端点，原接口地址和 VPN 绑定保留。显式参数与默认相同时，撤销不会重建端点；需要替换端点时可能短暂丢包。提交完成后检查 display lcp、接口地址及连通性。display current-configuration configuration lcp 只列显式声明，不把自动端点显示为额外配置。
+
+
+VPP数据面中，同一VPN内不同三层接口的IPv4子网不能相互覆盖，LoopBack的/32也受此限制。例如，Ethernet0配置198.19.196.2/24后，不能在同VPN的LoopBack上配置198.19.196.33/32。不同VPN相互独立；同一接口上相同掩码的不同主、从地址仍可使用。选择LoopBack地址时，应使用独立主机前缀，避免落入其他接口已配置的子网。

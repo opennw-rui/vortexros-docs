@@ -8,9 +8,19 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 traffic behavior LAB-MARK
  remark dscp 10
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 

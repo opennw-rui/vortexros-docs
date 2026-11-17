@@ -1,10 +1,10 @@
 # 软件组成与兼容性
 
-| 组件 | 职责 | 0.29-dev配套包 |
+| 组件 | 职责 | 0.30-dev配套包 |
 |---|---|---|
-| VortexROS | CLI、配置提交和后端收敛 | 0.29~dev+run2 |
-| VortexROS-VPP | DPDK、转发及LCP | 26.10.7，五个运行包使用同一构建 |
-| FRR | 动态路由协议和Zebra | 10.7.1-vortexros-1.7-dev |
+| VortexROS | CLI、配置提交和后端收敛 | 0.30~dev |
+| VortexROS-VPP | DPDK、转发及LCP | 26.10.8，五个运行包使用同一构建 |
+| FRR | 动态路由协议和Zebra | 10.7.1-vortexros-1.8-dev |
 | Kea | DHCPv4/DHCPv6服务 | 3.0.3-1+vortexros1 |
 
 单文件.run包含上述组件，并从Ubuntu软件源补齐必要依赖。安装器比较组件包版本，仅安装发生变化的组件。候选软件是否已公开发布，见[发布记录](../release/index.md)。

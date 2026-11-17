@@ -5,8 +5,9 @@
 ## `display vxlan statistics`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display VXLAN tunnel traffic statistics
+- CLI 帮助：display VXLAN tunnel traffic statistics
 - 合法语法：
 
   ```text
@@ -31,8 +32,9 @@
 ## `display vxlan tunnel`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display static VXLAN tunnels (from NVE peer-list)
+- CLI 帮助：display static VXLAN tunnels (from NVE peer-list)
 - 合法语法：
 
   ```text
@@ -52,8 +54,9 @@
 ## `undo vni`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：remove head-end peer(s) for a VNI
+- CLI 帮助：remove a VNI or selected head-end peers
 - 合法语法：
 
   ```text
@@ -80,8 +83,9 @@
 ## `undo vxlan anycast-gateway enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable the distributed VXLAN anycast gateway
+- CLI 帮助：disable the distributed VXLAN anycast gateway
 - 合法语法：
 
   ```text
@@ -101,8 +105,9 @@
 ## `undo vxlan vni`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BD视图`、`VPN实例视图`
-- 用途（设备帮助）：clear the VXLAN VNI；remove the L3VNI from the VPN instance
+- CLI 帮助：clear the VXLAN VNI；remove the L3VNI from the VPN instance
 - 合法语法：
 
   ```text
@@ -126,8 +131,9 @@
 ## `vni`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：add a head-end peer for a VNI
+- CLI 帮助：add a head-end peer for a VNI
 - 合法语法：
 
   ```text
@@ -154,8 +160,9 @@
 ## `vxlan anycast-gateway enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：enable the distributed VXLAN anycast gateway
+- CLI 帮助：enable the distributed VXLAN anycast gateway
 - 合法语法：
 
   ```text
@@ -175,8 +182,9 @@
 ## `vxlan vni`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BD视图`、`VPN实例视图`
-- 用途（设备帮助）：bind an L3VNI to the VPN instance；set the VXLAN VNI for this bridge-domain
+- CLI 帮助：bind an L3VNI to the VPN instance；set the VXLAN VNI for this bridge-domain
 - 合法语法：
 
   ```text

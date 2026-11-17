@@ -6,11 +6,16 @@
 :maxdepth: 2
 
 ../ospf
+../ospf-multiarea
 ../ospfv3
 ../bgp
 ../bgp-policy
+../bgp-ipv6-policy
+../bgp-redistribution
 ../isis
 ../rip
+../rip-v1
+../rip-bfd-ecmp
 ../ripng
 ../bfd
 ../vrrp

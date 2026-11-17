@@ -26,12 +26,22 @@ sudo vortexros
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet 1
  description LAB-UPLINK
  ip address 192.0.2.2 255.255.255.0
  undo shutdown
- quit
+#
 ip route-static 203.0.113.0 255.255.255.0 192.0.2.1
+~~~
+
+CLI 操作：
+
+~~~text
 display configuration candidate
 commit
 ~~~

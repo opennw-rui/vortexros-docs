@@ -9,6 +9,12 @@
 - 视图：`local-user`
 - CLI 帮助：enable SSH login
 
+- 合法语法：
+
+  ```text
+  active
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -22,6 +28,12 @@
 - 视图：`任意允许视图`
 - CLI 帮助：display the local login authentication policy
 
+- 合法语法：
+
+  ```text
+  display aaa authentication
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -34,6 +46,12 @@
 - 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
 - CLI 帮助：display details for a local AAA account
+
+- 合法语法：
+
+  ```text
+  display aaa user NAME [verbose]
+  ```
 
 <!-- registry-parameters -->
 
@@ -53,6 +71,12 @@
 - 视图：`任意允许视图`
 - CLI 帮助：display local AAA accounts
 
+- 合法语法：
+
+  ```text
+  display aaa users
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -66,6 +90,12 @@
 - 视图：`任意允许视图`
 - CLI 帮助：display active management sessions
 
+- 合法语法：
+
+  ```text
+  display users
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -78,6 +108,12 @@
 - 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`local-user`
 - CLI 帮助：set local password
+
+- 合法语法：
+
+  ```text
+  password [PASSWORD]
+  ```
 
 <!-- registry-parameters -->
 
@@ -96,6 +132,12 @@
 - 视图：`local-user`
 - CLI 帮助：require a password change on the next login
 
+- 合法语法：
+
+  ```text
+  password change-required
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -108,6 +150,12 @@
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`
 - CLI 帮助：disconnect sessions for a managed user
+
+- 合法语法：
+
+  ```text
+  reset aaa user NAME sessions
+  ```
 
 <!-- registry-parameters -->
 
@@ -126,6 +174,12 @@
 - 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`local-user`
 - CLI 帮助：set local user role
+
+- 合法语法：
+
+  ```text
+  role {network-operator|network-admin|system-admin}
+  ```
 
 <!-- registry-parameters -->
 
@@ -146,6 +200,12 @@
 - 视图：`用户视图`
 - CLI 帮助：open the managed administrator's Linux shell
 
+- 合法语法：
+
+  ```text
+  run bash
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -159,6 +219,12 @@
 - 视图：`local-user`
 - CLI 帮助：allow system-admin to enter Bash
 
+- 合法语法：
+
+  ```text
+  shell-access enable
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -171,6 +237,12 @@
 - 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`local-user`
 - CLI 帮助：set an Ed25519 SSH public key
+
+- 合法语法：
+
+  ```text
+  ssh-public-key KEY-NAME ssh-ed25519 KEY
+  ```
 
 <!-- registry-parameters -->
 
@@ -191,6 +263,12 @@
 - 视图：`local-user`
 - CLI 帮助：disable SSH login
 
+- 合法语法：
+
+  ```text
+  undo active
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -203,6 +281,12 @@
 - 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`local-user`
 - CLI 帮助：remove local password
+
+- 合法语法：
+
+  ```text
+  undo password
+  ```
 
 <!-- registry-parameters -->
 
@@ -217,6 +301,12 @@
 - 视图：`local-user`
 - CLI 帮助：revoke Bash access
 
+- 合法语法：
+
+  ```text
+  undo shell-access
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -229,6 +319,12 @@
 - 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`local-user`
 - CLI 帮助：remove an SSH public key
+
+- 合法语法：
+
+  ```text
+  undo ssh-public-key KEY-NAME
+  ```
 
 <!-- registry-parameters -->
 
@@ -247,6 +343,12 @@
 - 视图：`系统视图`
 - CLI 帮助：remove local user
 
+- 合法语法：
+
+  ```text
+  undo user NAME
+  ```
+
 <!-- registry-parameters -->
 
 **参数与子命令**
@@ -263,6 +365,12 @@
 - 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
 - CLI 帮助：enter local user view
+
+- 合法语法：
+
+  ```text
+  user NAME
+  ```
 
 <!-- registry-parameters -->
 

@@ -5,8 +5,9 @@
 ## `tcp mss`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：clamp TCP SYN MSS on this L3 interface
+- CLI 帮助：clamp TCP SYN MSS on this L3 interface
 - 合法语法：
 
   ```text
@@ -28,8 +29,9 @@
 ## `undo tcp mss`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：remove TCP MSS clamping from the interface
+- CLI 帮助：remove TCP MSS clamping from the interface
 - 合法语法：
 
   ```text

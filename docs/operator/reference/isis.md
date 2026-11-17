@@ -7,8 +7,9 @@
 ## `cost-style`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：set IS-IS metric style
+- CLI 帮助：set IS-IS metric style
 - 合法语法：
 
   ```text
@@ -30,8 +31,9 @@
 ## `display isis`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display IS-IS information
+- CLI 帮助：display IS-IS information
 - 合法语法：
 
   ```text
@@ -63,8 +65,9 @@
 ## `hostname dynamic`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：enable the IS-IS dynamic hostname
+- CLI 帮助：enable the IS-IS dynamic hostname
 - 合法语法：
 
   ```text
@@ -82,8 +85,9 @@
 ## `ipv6 import-route`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：redistribute IPv6 routes into IS-IS
+- CLI 帮助：redistribute IPv6 routes into IS-IS
 - 合法语法：
 
   ```text
@@ -106,8 +110,9 @@
 ## `is-level`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：set IS-IS level
+- CLI 帮助：set IS-IS level
 - 合法语法：
 
   ```text
@@ -129,8 +134,9 @@
 ## `isis`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create an IS-IS process and enter process view
+- CLI 帮助：create an IS-IS process and enter process view
 - 合法语法：
 
   ```text
@@ -152,8 +158,9 @@
 ## `isis bfd`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：configure ISIS BFD timers
+- CLI 帮助：configure ISIS BFD timers
 - 合法语法：
 
   ```text
@@ -182,8 +189,9 @@
 ## `isis bfd enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：enable ISIS BFD on this interface
+- CLI 帮助：enable ISIS BFD on this interface
 - 合法语法：
 
   ```text
@@ -202,8 +210,9 @@
 ## `isis circuit-level`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set the IS-IS circuit level
+- CLI 帮助：set the IS-IS circuit level
 - 合法语法：
 
   ```text
@@ -226,8 +235,9 @@
 ## `isis circuit-type p2p`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set the IS-IS link to point-to-point
+- CLI 帮助：set the IS-IS link to point-to-point
 - 合法语法：
 
   ```text
@@ -246,8 +256,9 @@
 ## `isis cost`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set IS-IS interface metric
+- CLI 帮助：set IS-IS interface metric
 - 合法语法：
 
   ```text
@@ -268,8 +279,9 @@
 ## `isis enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：enable IS-IS on an interface
+- CLI 帮助：enable IS-IS on an interface
 - 合法语法：
 
   ```text
@@ -290,8 +302,9 @@
 ## `isis ipv6-enable`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：enable IPv6 IS-IS on an interface
+- CLI 帮助：enable IPv6 IS-IS on an interface
 - 合法语法：
 
   ```text
@@ -312,8 +325,9 @@
 ## `isis passive`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：make IS-IS interface passive
+- CLI 帮助：make IS-IS interface passive
 - 合法语法：
 
   ```text
@@ -332,8 +346,9 @@
 ## `isis priority`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：set IS-IS interface priority
+- CLI 帮助：set IS-IS interface priority
 - 合法语法：
 
   ```text
@@ -354,8 +369,9 @@
 ## `network-entity`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：set an IS-IS network entity title
+- CLI 帮助：set an IS-IS network entity title
 - 合法语法：
 
   ```text
@@ -377,7 +393,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed isis routing service
+- CLI 帮助：restart the managed isis routing service
 - 合法语法：
 
   ```text
@@ -395,8 +411,9 @@
 ## `set-overload-bit`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：set the IS-IS overload bit
+- CLI 帮助：set the IS-IS overload bit
 - 合法语法：
 
   ```text
@@ -414,8 +431,9 @@
 ## `spf-delay-ietf`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：configure IETF SPF backoff timers
+- CLI 帮助：configure IETF SPF backoff timers
 - 合法语法：
 
   ```text
@@ -440,8 +458,9 @@
 ## `undo hostname`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：restore the default IS-IS hostname
+- CLI 帮助：restore the default IS-IS hostname
 - 合法语法：
 
   ```text
@@ -459,8 +478,9 @@
 ## `undo ipv6 import-route`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：stop redistributing IPv6 routes into IS-IS
+- CLI 帮助：stop redistributing IPv6 routes into IS-IS
 - 合法语法：
 
   ```text
@@ -483,8 +503,9 @@
 ## `undo is-level`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：restore IS-IS level
+- CLI 帮助：restore IS-IS level
 - 合法语法：
 
   ```text
@@ -502,8 +523,9 @@
 ## `undo isis`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete an IS-IS process
+- CLI 帮助：delete an IS-IS process
 - 合法语法：
 
   ```text
@@ -523,8 +545,9 @@
 ## `undo isis bfd`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore ISIS BFD timers
+- CLI 帮助：restore ISIS BFD timers
 - 合法语法：
 
   ```text
@@ -550,8 +573,9 @@
 ## `undo isis bfd enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable ISIS BFD on this interface
+- CLI 帮助：disable ISIS BFD on this interface
 - 合法语法：
 
   ```text
@@ -570,8 +594,9 @@
 ## `undo isis circuit-level`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the IS-IS circuit level
+- CLI 帮助：restore the IS-IS circuit level
 - 合法语法：
 
   ```text
@@ -590,8 +615,9 @@
 ## `undo isis circuit-type`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore the IS-IS link type
+- CLI 帮助：restore the IS-IS link type
 - 合法语法：
 
   ```text
@@ -610,8 +636,9 @@
 ## `undo isis cost`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore IS-IS interface metric
+- CLI 帮助：restore IS-IS interface metric
 - 合法语法：
 
   ```text
@@ -630,8 +657,9 @@
 ## `undo isis enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable IS-IS on an interface
+- CLI 帮助：disable IS-IS on an interface
 - 合法语法：
 
   ```text
@@ -650,8 +678,9 @@
 ## `undo isis ipv6-enable`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：disable IPv6 IS-IS on an interface
+- CLI 帮助：disable IPv6 IS-IS on an interface
 - 合法语法：
 
   ```text
@@ -672,8 +701,9 @@
 ## `undo isis passive`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore IS-IS interface
+- CLI 帮助：restore IS-IS interface
 - 合法语法：
 
   ```text
@@ -692,8 +722,9 @@
 ## `undo isis priority`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：restore IS-IS interface priority
+- CLI 帮助：restore IS-IS interface priority
 - 合法语法：
 
   ```text
@@ -712,8 +743,9 @@
 ## `undo network-entity`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：remove an IS-IS network entity title
+- CLI 帮助：remove an IS-IS network entity title
 - 合法语法：
 
   ```text
@@ -733,8 +765,9 @@
 ## `undo set-overload-bit`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：clear the IS-IS overload bit
+- CLI 帮助：clear the IS-IS overload bit
 - 合法语法：
 
   ```text
@@ -752,8 +785,9 @@
 ## `undo spf-delay-ietf`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`IS-IS视图`
-- 用途（设备帮助）：disable IETF SPF backoff timers
+- CLI 帮助：disable IETF SPF backoff timers
 - 合法语法：
 
   ```text

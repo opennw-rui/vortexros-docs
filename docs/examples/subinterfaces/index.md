@@ -7,4 +7,5 @@
 
 l2
 l3
+vlan-binding
 ~~~

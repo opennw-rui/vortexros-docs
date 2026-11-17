@@ -8,12 +8,22 @@ policy 关联 classifier 和 behavior，precedence 控制顺序；同一接口�
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 traffic policy LAB-POLICY
  classifier LAB-DST behavior LAB-MARK precedence 10
-quit
+#
 interface Ethernet0
  traffic-policy LAB-POLICY outbound
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -31,13 +41,25 @@ display traffic policy user-defined LAB-POLICY
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
- undo traffic-policy LAB-POLICY outbound
-quit
+ undo traffic-policy outbound
+#
 undo traffic policy LAB-POLICY
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
 再次查询实际状态和新业务，确认后执行save。只提交未保存的变化不会在重启后作为启动配置恢复。
 
 [逐条参数和限制](../reference/mqc.md) · [功能目录](../mqc.md)
+
+撤销命令不带策略名：接口下使用`undo traffic-policy inbound`或`undo traffic-policy outbound`解除一个方向；不写方向会解除该接口两个方向的绑定。随后才可删除不再引用的策略、分类器和行为。

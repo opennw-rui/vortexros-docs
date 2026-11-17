@@ -7,8 +7,9 @@
 ## `car`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：configure traffic policing (CAR)
+- CLI 帮助：configure traffic policing (CAR)
 - 合法语法：
 
   ```text
@@ -63,8 +64,9 @@
 ## `classifier`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`流策略视图`
-- 用途（设备帮助）：bind a classifier to a behavior
+- CLI 帮助：bind a classifier to a behavior
 - 合法语法：
 
   ```text
@@ -88,8 +90,9 @@
 ## `display traffic behavior`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display MQC traffic behaviors
+- CLI 帮助：display MQC traffic behaviors
 - 合法语法：
 
   ```text
@@ -110,8 +113,9 @@
 ## `display traffic classifier`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display MQC traffic classifiers
+- CLI 帮助：display MQC traffic classifiers
 - 合法语法：
 
   ```text
@@ -132,8 +136,9 @@
 ## `display traffic policy`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display MQC traffic policies
+- CLI 帮助：display MQC traffic policies
 - 合法语法：
 
   ```text
@@ -154,8 +159,9 @@
 ## `if-match`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`流分类器视图`
-- 用途（设备帮助）：configure a classifier match rule
+- CLI 帮助：configure a classifier match rule
 - 合法语法：
 
   ```text
@@ -230,8 +236,9 @@
 ## `if-match any`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`流分类器视图`
-- 用途（设备帮助）：match any packet
+- CLI 帮助：match any packet
 - 合法语法：
 
   ```text
@@ -249,8 +256,9 @@
 ## `redirect`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：configure PBR redirect
+- CLI 帮助：configure PBR redirect
 - 合法语法：
 
   ```text
@@ -279,8 +287,9 @@
 ## `remark dscp`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：remark packet DSCP
+- CLI 帮助：remark packet DSCP
 - 合法语法：
 
   ```text
@@ -321,8 +330,9 @@
 ## `traffic behavior`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create a traffic behavior and enter its view
+- CLI 帮助：create a traffic behavior and enter its view
 - 合法语法：
 
   ```text
@@ -342,8 +352,9 @@
 ## `traffic classifier`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create a traffic classifier and enter its view
+- CLI 帮助：create a traffic classifier and enter its view
 - 合法语法：
 
   ```text
@@ -366,8 +377,9 @@
 ## `traffic policy`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create a traffic policy and enter its view
+- CLI 帮助：create a traffic policy and enter its view
 - 合法语法：
 
   ```text
@@ -387,8 +399,9 @@
 ## `traffic-policy`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`VLAN视图`、`接口视图`
-- 用途（设备帮助）：apply an MQC policy to traffic in this VLAN；apply an MQC traffic policy
+- CLI 帮助：apply an MQC policy to traffic in this VLAN；apply an MQC traffic policy
 - 合法语法：
 
   ```text
@@ -424,8 +437,9 @@
 ## `undo car`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：remove traffic policing (CAR)
+- CLI 帮助：remove traffic policing (CAR)
 - 合法语法：
 
   ```text
@@ -443,8 +457,9 @@
 ## `undo classifier`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`流策略视图`
-- 用途（设备帮助）：unbind a classifier from the policy
+- CLI 帮助：unbind a classifier from the policy
 - 合法语法：
 
   ```text
@@ -464,8 +479,9 @@
 ## `undo if-match`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`流分类器视图`
-- 用途（设备帮助）：remove the classifier match rule
+- CLI 帮助：remove the classifier match rule
 - 合法语法：
 
   ```text
@@ -500,8 +516,9 @@
 ## `undo redirect`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：remove PBR redirect
+- CLI 帮助：remove PBR redirect
 - 合法语法：
 
   ```text
@@ -519,8 +536,9 @@
 ## `undo remark dscp`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`流行为视图`
-- 用途（设备帮助）：remove DSCP remarking
+- CLI 帮助：remove DSCP remarking
 - 合法语法：
 
   ```text
@@ -538,8 +556,9 @@
 ## `undo traffic behavior`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a traffic behavior
+- CLI 帮助：delete a traffic behavior
 - 合法语法：
 
   ```text
@@ -559,8 +578,9 @@
 ## `undo traffic classifier`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a traffic classifier
+- CLI 帮助：delete a traffic classifier
 - 合法语法：
 
   ```text
@@ -580,8 +600,9 @@
 ## `undo traffic policy`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a traffic policy
+- CLI 帮助：delete a traffic policy
 - 合法语法：
 
   ```text
@@ -601,8 +622,9 @@
 ## `undo traffic-policy`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`VLAN视图`、`接口视图`
-- 用途（设备帮助）：remove an MQC traffic policy from the interface；remove the shared MQC policy from this VLAN
+- CLI 帮助：remove an MQC traffic policy from the interface；remove the shared MQC policy from this VLAN
 - 合法语法：
 
   ```text

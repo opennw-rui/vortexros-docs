@@ -8,16 +8,25 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 nat-policy name CLI-PAT
  statistic enable
  rule 10
   source address 198.18.11.2/32
   action snat pat interface
- quit
-quit
+#
 interface Ethernet0
  nat-policy CLI-PAT outbound
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -37,10 +46,20 @@ display nat-policy statistics name CLI-PAT
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  undo nat-policy CLI-PAT outbound
-quit
+#
 undo nat-policy name CLI-PAT
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display nat-policy interfaces
 ~~~

@@ -11,3 +11,7 @@
 
 
 [功能目录](../tunnel-settings.md) · [命令参数](../reference/tunnels.md)
+
+## 修改影响
+
+修改 key 或执行 undo gre key 后，只有 commit 才会生效。提交时会重建相应 GRE 隧道，接口可能短暂 Up → Down → Up，经过该隧道的业务会受到影响。请协调两端修改；未修改的端点、VPN 和接口配置由系统保留，无需重新输入。

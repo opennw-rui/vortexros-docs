@@ -21,14 +21,24 @@ CE1 ── P1 ── P2 ── P3 ── CE2
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 10.201.12.2 255.255.255.0
-quit
+#
 interface Ethernet1
  ip address 10.201.23.2 255.255.255.0
-quit
+#
 ip route-static 10.255.0.1 255.255.255.255 10.201.12.1
 ip route-static 10.255.0.3 255.255.255.255 10.201.23.3
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -36,6 +46,11 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable switch
 evpn-overlay enable
 vlan batch 101 102
@@ -46,8 +61,7 @@ bridge-domain 101
   route-distinguisher 65000:101
   vpn-target 65000:5010 export-extcommunity
   vpn-target 65000:5010 import-extcommunity
- quit
-quit
+#
 bridge-domain 102
  l2 binding vlan 102
  vxlan vni 5020
@@ -55,25 +69,24 @@ bridge-domain 102
   route-distinguisher 65000:102
   vpn-target 65000:5020 export-extcommunity
   vpn-target 65000:5020 import-extcommunity
- quit
-quit
+#
 interface Ethernet0
  ip address 10.201.12.1 255.255.255.0
-quit
+#
 interface Ethernet1
  switchport
  port link-type trunk
  port trunk allow-pass vlan 101 102
  port trunk pvid vlan 101
-quit
+#
 interface LoopBack0
  ip address 10.255.0.1 255.255.255.255
-quit
+#
 interface Nve1
  source 10.255.0.1
  vni 5010 head-end peer-list protocol bgp
  vni 5020 head-end peer-list protocol bgp
-quit
+#
 ip route-static 10.255.0.3 255.255.255.255 10.201.12.2
 bgp 65000
  router-id 10.255.0.1
@@ -81,8 +94,12 @@ bgp 65000
  peer 10.255.0.3 connect-interface LoopBack0
  l2vpn-family evpn
   peer 10.255.0.3 enable
- quit
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -90,6 +107,11 @@ commit
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 enable switch
 evpn-overlay enable
 vlan batch 101 102
@@ -100,8 +122,7 @@ bridge-domain 101
   route-distinguisher 65000:301
   vpn-target 65000:5010 export-extcommunity
   vpn-target 65000:5010 import-extcommunity
- quit
-quit
+#
 bridge-domain 102
  l2 binding vlan 102
  vxlan vni 5020
@@ -109,25 +130,24 @@ bridge-domain 102
   route-distinguisher 65000:302
   vpn-target 65000:5020 export-extcommunity
   vpn-target 65000:5020 import-extcommunity
- quit
-quit
+#
 interface Ethernet0
  ip address 10.201.23.3 255.255.255.0
-quit
+#
 interface Ethernet1
  switchport
  port link-type trunk
  port trunk allow-pass vlan 101 102
  port trunk pvid vlan 101
-quit
+#
 interface LoopBack0
  ip address 10.255.0.3 255.255.255.255
-quit
+#
 interface Nve1
  source 10.255.0.3
  vni 5010 head-end peer-list protocol bgp
  vni 5020 head-end peer-list protocol bgp
-quit
+#
 ip route-static 10.255.0.1 255.255.255.255 10.201.23.2
 bgp 65000
  router-id 10.255.0.3
@@ -135,8 +155,12 @@ bgp 65000
  peer 10.255.0.1 connect-interface LoopBack0
  l2vpn-family evpn
   peer 10.255.0.1 enable
- quit
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -148,13 +172,23 @@ CE1：
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 192.0.2.1 255.255.255.0
-quit
+#
 interface Ethernet0.102
  vlan-type dot1q 102
  ip address 198.18.2.1 255.255.255.0
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -162,13 +196,23 @@ CE2：
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Ethernet0
  ip address 192.0.2.3 255.255.255.0
-quit
+#
 interface Ethernet0.102
  vlan-type dot1q 102
  ip address 198.18.2.3 255.255.255.0
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -215,9 +259,19 @@ ping -n -a 198.18.2.1 -c 3 -t 1000 198.18.2.3
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 interface Nve1
  undo vni 5010 head-end peer-list protocol bgp
- quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 display vxlan tunnel
 ~~~
@@ -232,9 +286,19 @@ CE1/CE2 最后执行以下撤销。
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 undo interface Ethernet0.102
 interface Ethernet0
  undo ip address
-quit
+#
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~

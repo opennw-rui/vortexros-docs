@@ -1,6 +1,6 @@
 # 手册适用范围
 
-本手册适用于VortexROS 0.29-dev。软件组件及版本见[软件组成](../installation/02-backends.md)。请先核对设备的`display version`，再使用对应版本的命令。
+本手册适用于VortexROS 0.30-dev。软件组件及版本见[软件组成](../installation/02-backends.md)。请先核对设备的`display version`，再使用对应版本的命令。
 
 ## 按任务查阅
 

@@ -17,9 +17,7 @@ display ip routing-table vpn-instance CUST-A
 - `display mpls lsp` 显示 Zebra 的 MPLS 表；
 - `display mpls forwarding-table` 显示 VPP 实际 MPLS FIB。
 
-LDP接口、邻居、标签绑定和Zebra LSP均通过对应daemon的VTY流一次解析并直接输出，
-不会把大表完整反序列化后再排版。转发标签仍单独读取VPP LFIB，避免用控制面状态代替
-数据面验收。
+大型标签表逐项显示，总数见表尾。需要确认标签已用于转发时，查询 display mpls forwarding-table，并检查相应业务是否连通。
 
 检查 LDP 邻居、标签绑定、MPLS 转发表、路由出口及业务连通性。只有邻居 Up 不足以证明标签路径已经可用；以 display mpls forwarding-table 和跨核心业务探测联合确认。
 
@@ -32,14 +30,18 @@ LDP接口、邻居、标签绑定和Zebra LSP均通过对应daemon的VTY流一�
 interface Ethernet 1
  undo mpls ldp
  undo mpls
- quit
+#
 undo mpls ldp
 undo mpls
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
-VPP 或 LCP 重启后，LCP 从当前 Linux netlink 状态恢复 MPLS 对象；FRR 保持协议和
-标签的唯一权威来源。系统不会从旧 VPP 索引或控制层缓存重建另一份标签状态。
+数据面重启后，设备会根据当前 MPLS/LDP 配置和协议状态恢复标签转发。等待 LDP 邻居及标签恢复后，再核对 MPLS 转发表和业务连通性；不需要手工恢复上次运行分配的标签编号。
 
 
 ## 排障
@@ -53,3 +55,17 @@ VPP 或 LCP 重启后，LCP 从当前 Linux netlink 状态恢复 MPLS 对象；F
    CE 到 CE 流量验证。
 
 [功能目录](../ldp.md) · [命令参数](../reference/mpls.md)
+
+## 标签路径查询示例
+
+三台设备通过OSPF与LDP建立核心后，首台设备到远端LoopBack192.0.2.252/32的绑定与LSP为：
+
+~~~text
+AF    Prefix             Local Label  Remote Label  Peer ID        In-Use
+ipv4  192.0.2.252/32     30           19            198.19.80.2   yes
+
+In Label  Out Label  Type  Next Hop       Interface  State
+30        19         LDP   198.19.80.2    Ethernet0  installed
+~~~
+
+以上仅摘取相关条目，接口按业务连接编号为Ethernet0。查询VPP转发表也存在对应路径；发往192.0.2.252的实际三次探测均成功，核心侧捕获到三份标签19报文。设备分配的标签可能不同，应比较本机出标签与下一跳入标签，不要照抄表内数字。

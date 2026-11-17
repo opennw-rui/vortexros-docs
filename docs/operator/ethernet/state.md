@@ -35,6 +35,11 @@ InUti/OutUti 使用最近 300 秒的完整窗口，按链路速率计算利用�
 ```text
 interface Ethernet 1
  statistic enable
+```
+
+CLI 操作：
+
+```text
 commit
 display interface Ethernet 1
 ```
@@ -51,3 +56,54 @@ IP简表合并VPP与LCP地址。LCP接口正在删除或重建而无法完成地
 `display interface`中的最近up/down时间来自接口实际状态变化，不会因为执行display而重置。控制服务重启后无法确认的历史时间显示 `-`；修改时区只会改变时间的显示方式。
 
 [功能目录](../ethernet.md) · [逐条参数](../reference/interfaces.md)
+
+
+## 管理关闭与查询
+
+~~~text
+interface Ethernet 0
+ description UPLINK
+ shutdown
+#
+commit
+display interface brief
+display interface description Ethernet 0
+~~~
+
+`shutdown` 后接口显示 `*down/down`，经过该口的业务停止。实际验证中，同 VLAN 另一成员仍为 Up 时，Vlanif 保持 Up；不能把关闭一个成员等同于整个 VLAN 失效。
+
+在同一接口执行 `undo shutdown` 并提交后，接口恢复，探测 2/2；该操作没有重启整个数据面。描述使用 `undo description` 撤销。查看真实收发增长可用：
+
+~~~text
+display interface statistics
+display interface statistics Ethernet 0
+display interface statistics Vlanif 100
+display lcp
+~~~
+
+接口统计应随实际业务增长。`display lcp` 可核对二层物理口及三层 Vlanif 的控制接口角色，不能只根据名称推断其二、三层归属。
+
+
+## 按业务核对状态和计数
+
+~~~text
+display interface brief
+display interface description
+display interface statistics
+display interface statistics Ethernet 0
+display lcp
+~~~
+
+`display lcp` 用于核对数据接口与控制接口的关联及其二层、三层角色。一次双成员 VLAN100 的实际查询有两条二层物理关联和一条 Vlanif100 三层关联；二层物理口 MTU9706，Vlanif100 MTU1500。
+
+在接口视图配置 `shutdown` 并提交后，该接口显示 `*down/down`，通过它的业务停止。若同一 VLAN 仍有另一有效成员，Vlanif 可以继续 Up；这不表示已关闭接口仍在转发。`undo shutdown` 并提交后，物理口恢复，双端业务探测恢复。只有全部有效成员失效时，Vlanif 才应随之 Down。
+
+计数查询应在确有业务时观察增量。可以先查询指定接口，再产生业务、重新查询，最后按维护需要清零：
+
+~~~text
+clear interface Ethernet 0 counter
+display interface statistics Ethernet 0
+display interface Ethernet 0
+~~~
+
+清零后使用新的累计基线，不会重置硬件原始计数。协议和业务报文仍可立即增加计数，因此再次查询不一定恰好为零。接口重命名后仍按同一运行接口正确关联计数；详情、统计和速率使用相同的清零基线。

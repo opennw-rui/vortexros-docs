@@ -7,8 +7,9 @@
 ## `aggregate-address`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`RIPng视图`
-- 用途（设备帮助）：advertise a RIPng aggregate
+- CLI 帮助：advertise a RIPng aggregate
 - 合法语法：
 
   ```text
@@ -28,8 +29,9 @@
 ## `display ripng`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display RIPng information
+- CLI 帮助：display RIPng information
 - 合法语法：
 
   ```text
@@ -55,8 +57,9 @@
 ## `offset-list`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`RIPng视图`
-- 用途（设备帮助）：adjust RIPng route metrics selected by an IPv6 ACL
+- CLI 帮助：adjust RIPng route metrics selected by an IPv6 ACL
 - 合法语法：
 
   ```text
@@ -81,8 +84,9 @@
 ## `ripng`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create a RIP process and enter process view
+- CLI 帮助：create a RIP process and enter process view
 - 合法语法：
 
   ```text
@@ -104,8 +108,9 @@
 ## `undo aggregate-address`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`RIPng视图`
-- 用途（设备帮助）：withdraw a RIPng aggregate
+- CLI 帮助：withdraw a RIPng aggregate
 - 合法语法：
 
   ```text
@@ -125,8 +130,9 @@
 ## `undo offset-list`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`RIPng视图`
-- 用途（设备帮助）：remove a RIPng metric offset
+- CLI 帮助：remove a RIPng metric offset
 - 合法语法：
 
   ```text
@@ -149,8 +155,9 @@
 ## `undo ripng`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a RIP process
+- CLI 帮助：delete a RIP process
 - 合法语法：
 
   ```text

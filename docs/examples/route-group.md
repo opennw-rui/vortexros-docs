@@ -8,11 +8,21 @@
 
 ~~~text
 system-view
+~~~
+
+配置清单：
+
+~~~text
 route-static group name LAB
  route 198.51.100.0/25
  route 203.0.113.0/25
- quit
+ #
 ip route-static-group LAB 192.0.2.1 preference 60
+~~~
+
+CLI 操作：
+
+~~~text
 commit
 ~~~
 
@@ -35,14 +45,19 @@ route-static group name CLI-FINAL4
  source url https://lists.example.net/routes/v4.txt
  auto-refresh interval 5
  auto-refresh enable
- quit
+ #
 ipv6 route-static group name CLI-FINAL6
  source url https://lists.example.net/routes/v6.txt
  auto-refresh interval 5
  auto-refresh enable
- quit
+ #
 ip route-static-group CLI-FINAL4 198.19.80.2
 ipv6 route-static-group CLI-FINAL6 2001:db8:80::2
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 
@@ -56,7 +71,12 @@ route-static group name CLI-FINAL4
  undo auto-refresh interval
  undo source url
  route 198.18.199.2/32
- quit
+ #
+```
+
+CLI 操作：
+
+```text
 commit
 ```
 

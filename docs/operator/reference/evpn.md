@@ -5,8 +5,9 @@
 ## `advertise l2vpn evpn`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP地址族视图`
-- 用途（设备帮助）：export VPN routes to the EVPN address family
+- CLI 帮助：export VPN routes to the EVPN address family
 - 合法语法：
 
   ```text
@@ -24,8 +25,9 @@
 ## `esi`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：configure the Ethernet segment identifier
+- CLI 帮助：configure the Ethernet segment identifier
 - 合法语法：
 
   ```text
@@ -47,8 +49,9 @@
 ## `evpn`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BD视图`
-- 用途（设备帮助）：enter the EVPN view for this bridge-domain
+- CLI 帮助：enter the EVPN view for this bridge-domain
 - 合法语法：
 
   ```text
@@ -66,8 +69,9 @@
 ## `evpn-overlay`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：enable EVPN as the VXLAN overlay control plane
+- CLI 帮助：enable EVPN as the VXLAN overlay control plane
 - 合法语法：
 
   ```text
@@ -87,8 +91,9 @@
 ## `l2vpn-family evpn`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：enter the BGP EVPN address family
+- CLI 帮助：enter the BGP EVPN address family
 - 合法语法：
 
   ```text
@@ -106,8 +111,9 @@
 ## `undo advertise l2vpn evpn`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP地址族视图`
-- 用途（设备帮助）：export VPN routes to the EVPN address family
+- CLI 帮助：export VPN routes to the EVPN address family
 - 合法语法：
 
   ```text
@@ -125,8 +131,9 @@
 ## `undo esi`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`接口视图`
-- 用途（设备帮助）：remove the Ethernet segment identifier
+- CLI 帮助：remove the Ethernet segment identifier
 - 合法语法：
 
   ```text
@@ -146,8 +153,9 @@
 ## `undo evpn-overlay`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：disable EVPN as the VXLAN overlay control plane
+- CLI 帮助：disable EVPN as the VXLAN overlay control plane
 - 合法语法：
 
   ```text
@@ -167,8 +175,9 @@
 ## `undo l2vpn-family evpn`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：remove the BGP EVPN address family
+- CLI 帮助：remove the BGP EVPN address family
 - 合法语法：
 
   ```text

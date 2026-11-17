@@ -23,5 +23,10 @@ display interface Ethernet 1
 ```text
 interface Ethernet 1
  undo qos lr outbound
+```
+
+CLI 操作：
+
+```text
 commit
 ```

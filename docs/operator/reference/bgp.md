@@ -7,8 +7,9 @@
 ## `bgp`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`（也可从其他配置视图直接调用）
-- 用途（设备帮助）：create a BGP instance and enter BGP view
+- CLI 帮助：create a BGP instance and enter BGP view
 - 合法语法：
 
   ```text
@@ -29,8 +30,9 @@
 ## `default ipv4-unicast`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：activate IPv4 unicast by default
+- CLI 帮助：activate IPv4 unicast by default
 - 合法语法：
 
   ```text
@@ -48,8 +50,9 @@
 ## `default tcp-protected`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：protect the BGP TCP listener with configured peers
+- CLI 帮助：protect the BGP TCP listener with configured peers
 - 合法语法：
 
   ```text
@@ -66,11 +69,10 @@
 
 ## `display bgp`
 
-peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族。见[BGP 案例](../../examples/bgp.md)。
-
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display BGP information
+- CLI 帮助：display BGP information
 - 合法语法：
 
   ```text
@@ -130,8 +132,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `display bgp tcp-protection`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display BGP TCP listener source protection
+- CLI 帮助：display BGP TCP listener source protection
 - 合法语法：
 
   ```text
@@ -151,8 +154,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `group`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP地址族视图`、`BGP视图`
-- 用途（设备帮助）：create a case-sensitive BGP peer-group
+- CLI 帮助：create a case-sensitive BGP peer-group
 - 合法语法：
 
   ```text
@@ -174,8 +178,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `ipv4-family unicast`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：enter the IPv4 unicast address family
+- CLI 帮助：enter the IPv4 unicast address family
 - 合法语法：
 
   ```text
@@ -193,8 +198,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `ipv4-family vpn-instance`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：enter the IPv4 VPN address family
+- CLI 帮助：enter the IPv4 VPN address family
 - 合法语法：
 
   ```text
@@ -214,8 +220,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `ipv4-family vpnv4`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：enter the VPNv4 address family
+- CLI 帮助：enter the VPNv4 address family
 - 合法语法：
 
   ```text
@@ -233,8 +240,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `ipv6-family unicast`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：enter the IPv6 unicast address family
+- CLI 帮助：enter the IPv6 unicast address family
 - 合法语法：
 
   ```text
@@ -252,8 +260,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `ipv6-family vpn-instance`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：enter the IPv6 VPN address family
+- CLI 帮助：enter the IPv6 VPN address family
 - 合法语法：
 
   ```text
@@ -273,8 +282,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `ipv6-family vpnv6`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：enter the VPNv6 address family
+- CLI 帮助：enter the VPNv6 address family
 - 合法语法：
 
   ```text
@@ -292,8 +302,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `load-balancing as-path-ignore`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：allow equal-length different AS paths in BGP ECMP
+- CLI 帮助：allow equal-length different AS paths in BGP ECMP
 - 合法语法：
 
   ```text
@@ -311,8 +322,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `maximum-paths`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`OSPF视图`
-- 用途（设备帮助）：set the maximum OSPF ECMP paths
+- CLI 帮助：set the maximum OSPF ECMP paths
 - 合法语法：
 
   ```text
@@ -332,8 +344,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `policy vpn-target`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP地址族视图`
-- 用途（设备帮助）：control VPN route-target filtering
+- CLI 帮助：control VPN route-target filtering
 - 合法语法：
 
   ```text
@@ -351,8 +364,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `reflect between-clients`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：allow route reflection between clients
+- CLI 帮助：allow route reflection between clients
 - 合法语法：
 
   ```text
@@ -370,8 +384,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `reflector cluster-id`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：set the route-reflector cluster ID
+- CLI 帮助：set the route-reflector cluster ID
 - 合法语法：
 
   ```text
@@ -393,7 +408,7 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`用户视图`、`系统视图`
-- 用途（设备帮助）：restart the managed bgp routing service
+- CLI 帮助：restart the managed bgp routing service
 - 合法语法：
 
   ```text
@@ -411,8 +426,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `timer keepalive`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：set BGP keepalive and hold timers
+- CLI 帮助：set BGP keepalive and hold timers
 - 合法语法：
 
   ```text
@@ -434,8 +450,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo bgp`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：delete a BGP instance
+- CLI 帮助：delete a BGP instance
 - 合法语法：
 
   ```text
@@ -456,8 +473,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo default ipv4-unicast`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP地址族视图`、`BGP视图`
-- 用途（设备帮助）：disable automatic IPv4-unicast peer activation
+- CLI 帮助：disable automatic IPv4-unicast peer activation
 - 合法语法：
 
   ```text
@@ -475,8 +493,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo default tcp-protected`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：disable BGP TCP listener peer protection
+- CLI 帮助：disable BGP TCP listener peer protection
 - 合法语法：
 
   ```text
@@ -494,8 +513,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo group`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP地址族视图`、`BGP视图`
-- 用途（设备帮助）：delete an unused BGP peer-group
+- CLI 帮助：delete an unused BGP peer-group
 - 合法语法：
 
   ```text
@@ -515,8 +535,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo ipv4-family vpn-instance`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：remove an IPv4 VPN address family
+- CLI 帮助：remove an IPv4 VPN address family
 - 合法语法：
 
   ```text
@@ -536,8 +557,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo ipv4-family vpnv4`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：remove the VPNv4 address family
+- CLI 帮助：remove the VPNv4 address family
 - 合法语法：
 
   ```text
@@ -555,8 +577,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo ipv6-family unicast`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：remove the IPv6 unicast address family
+- CLI 帮助：remove the IPv6 unicast address family
 - 合法语法：
 
   ```text
@@ -574,8 +597,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo ipv6-family vpn-instance`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：remove an IPv6 VPN address family
+- CLI 帮助：remove an IPv6 VPN address family
 - 合法语法：
 
   ```text
@@ -595,8 +619,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo ipv6-family vpnv6`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：remove the VPNv6 address family
+- CLI 帮助：remove the VPNv6 address family
 - 合法语法：
 
   ```text
@@ -614,8 +639,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo load-balancing as-path-ignore`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：require identical AS paths for BGP ECMP
+- CLI 帮助：require identical AS paths for BGP ECMP
 - 合法语法：
 
   ```text
@@ -633,8 +659,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo maximum-paths`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`OSPF视图`
-- 用途（设备帮助）：restore the default OSPF ECMP path count
+- CLI 帮助：restore the default OSPF ECMP path count
 - 合法语法：
 
   ```text
@@ -652,8 +679,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo policy vpn-target`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP地址族视图`
-- 用途（设备帮助）：control VPN route-target filtering
+- CLI 帮助：control VPN route-target filtering
 - 合法语法：
 
   ```text
@@ -671,8 +699,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo reflect between-clients`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：disable route reflection between clients
+- CLI 帮助：disable route reflection between clients
 - 合法语法：
 
   ```text
@@ -690,8 +719,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo reflector cluster-id`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：restore the router ID as the cluster ID
+- CLI 帮助：restore the router ID as the cluster ID
 - 合法语法：
 
   ```text
@@ -709,8 +739,9 @@ peer 查询会话，routing-table 查询前缀，vpnv4 和 vpnv6 切换地址族
 ## `undo timer keepalive`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`BGP视图`
-- 用途（设备帮助）：restore BGP keepalive and hold timers
+- CLI 帮助：restore BGP keepalive and hold timers
 - 合法语法：
 
   ```text

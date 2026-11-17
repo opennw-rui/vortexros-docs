@@ -34,3 +34,30 @@ commit
 再次查询实际状态和新业务，确认后执行save。只提交未保存的变化不会在重启后作为启动配置恢复。
 
 [逐条参数和限制](../reference/prefix-lists.md) · [功能目录](../prefix-lists.md)
+
+
+## 掩码范围的实际匹配
+
+```text
+ip ip-prefix RANGE4 index 10 permit 10.0.0.0 8 greater-equal 24 less-equal 28
+ip ip-prefix RANGE4 index 20 permit 172.16.0.0 12 greater-equal 24
+ip ip-prefix RANGE4 index 30 permit 192.168.0.0 16 less-equal 24
+commit
+display ip ip-prefix RANGE4 verbose
+display ip ip-prefix RANGE4 first-match 10.1.0.0/24
+```
+
+实测后端匹配结果：
+
+| 查询前缀 | 结果 |
+|---|---|
+| 10.1.0.0/24 | index10 |
+| 10.1.0.1/32 | No matching rule |
+| 172.16.1.1/32 | index20 |
+| 172.16.0.0/12 | No matching rule |
+| 192.168.0.0/16 | index30 |
+| 192.168.1.0/25 | No matching rule |
+
+`greater-equal`与`less-equal`是被匹配前缀的掩码范围，不改变基础地址范围。只有greater-equal时上界为32；只有less-equal时下界为基础前缀长度。不写两者则只匹配精确长度。
+
+精确删除`undo ip ip-prefix RANGE4 index 10`只移除该条，实测20/30仍在。整个列表不再引用时使用`undo ip ip-prefix RANGE4`并提交。first-match查询验证匹配规则，不代表列表已经被协议消费。

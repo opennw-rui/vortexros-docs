@@ -5,8 +5,9 @@
 ## `display alarm active`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display active alarms
+- CLI 帮助：display active alarms
 - 合法语法：
 
   ```text
@@ -24,8 +25,9 @@
 ## `display alarm history`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display cleared alarm history
+- CLI 帮助：display cleared alarm history
 - 合法语法：
 
   ```text
@@ -46,8 +48,9 @@
 ## `display configuration candidate`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display uncommitted candidate configuration
+- CLI 帮助：display uncommitted candidate configuration
 - 合法语法：
 
   ```text
@@ -68,8 +71,9 @@
 ## `display configuration storage`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display running and saved configuration storage status
+- CLI 帮助：display running and saved configuration storage status
 - 合法语法：
 
   ```text
@@ -87,8 +91,9 @@
 ## `display cpu-usage`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display CPU usage
+- CLI 帮助：display CPU usage
 - 合法语法：
 
   ```text
@@ -108,8 +113,9 @@
 ## `display current-configuration`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display the current configuration
+- CLI 帮助：display the current configuration
 - 合法语法：
 
   ```text
@@ -170,11 +176,10 @@
 
 ## `display health`
 
-检查 Running、Actual、Saved 的代号及告警。verbose 用于查看未就绪原因。
-
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display control-plane health
+- CLI 帮助：display control-plane health
 - 合法语法：
 
   ```text
@@ -194,8 +199,9 @@
 ## `display history`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display command history for this connection
+- CLI 帮助：display command history for this connection
 - 合法语法：
 
   ```text
@@ -213,8 +219,9 @@
 ## `display memory-usage`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display memory usage
+- CLI 帮助：display memory usage
 - 合法语法：
 
   ```text
@@ -232,8 +239,9 @@
 ## `display service`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display network service status
+- CLI 帮助：display network service status
 - 合法语法：
 
   ```text
@@ -253,8 +261,9 @@
 ## `display vpp interface-ownership`
 
 - 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：display physical-interface dataplane ownership and recovery state
+- CLI 帮助：display physical-interface dataplane ownership and recovery state
 - 合法语法：
 
   ```text
@@ -276,7 +285,7 @@
 - 类别：即时运维命令
 - 执行效果：立即执行受权限控制的运维动作，不写入配置。
 - 视图：`任意允许视图`
-- 用途（设备帮助）：strict machine-readable control-plane readiness gate
+- CLI 帮助：strict machine-readable control-plane readiness gate
 - 合法语法：
 
   ```text
@@ -300,8 +309,9 @@
 ## `sysname`
 
 - 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：set the device name
+- CLI 帮助：set the device name
 - 合法语法：
 
   ```text
@@ -321,8 +331,9 @@
 ## `undo sysname`
 
 - 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
 - 视图：`系统视图`
-- 用途（设备帮助）：restore the default device name
+- CLI 帮助：restore the default device name
 - 合法语法：
 
   ```text
