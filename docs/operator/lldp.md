@@ -22,6 +22,10 @@ commit
 
 LLDP未收敛或后端不可用时会在`display health`和告警中显示，但不会触发VPP物理接口所有权回滚。
 
+`display lldp local` 的 `Device system MAC` 是设备系统 MAC。线上通告的
+Chassis ID 使用各物理接口的 MAC，按对端 `display lldp neighbor interface`
+及实际 LLDP 报文逐口核对。设备系统 MAC 与这些接口 MAC 可以不同。
+
 ## 单端口控制与邻居老化
 
 开启全局 LLDP 后，物理接口默认发送并接收通告。只需关闭某个端口时，不要关闭全局开关：
