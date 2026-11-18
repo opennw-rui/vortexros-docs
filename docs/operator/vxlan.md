@@ -84,6 +84,27 @@ Inbound              4                            340
 Outbound             2                            212
 ```
 
+## QinQ 业务的 VXLAN 载荷
+
+显式 QinQ 子接口采用 `rewrite pop single` 时，入方向移除固定外层标签，VXLAN 载荷保留内层客户标签。回程经过该子接口时恢复固定外层标签。采用 `rewrite pop none` 时保留原有标签。[二层子接口标签处理](subinterfaces-l2.md#标签处理)
+
+例如在本端设置外层 200、内层 10 或 12–13，并接入使用 VNI 5310 的 BD 310。对端将同一 VNI 接入其 BD 310，由客户接入口转发。以下为本端业务接入配置，底层链路与 NVE 使用前面的配置方式。
+
+```text
+bridge-domain 310 uu-flood
+ vxlan vni 5310
+#
+interface Ethernet 1.17 mode l2
+ encapsulation qinq vid 200 ce-vid 10 12 to 13
+ rewrite pop single
+ bridge-domain 310
+#
+```
+
+用 `display bridge-domain 310` 和 `display vxlan statistics source 198.18.250.1 peer 198.18.250.2 vni 5310` 检查成员和收发。实测内层 VID 13 的接入帧带 200/13 两层标签，VNI 5310 线上载荷和对端接入口均只带内层 13，回程恢复 200/13。改用 `encapsulation dot1ad vid 200 ce-vid 10 12 to 13` 后，实测出口恢复 0x88a8 外层，内层 12 和 13 均通过。处在范围空洞的内层 11 不进入该隧道。
+
+撤销接入时在系统视图执行 `undo interface Ethernet 1.17`，提交后用 `display bridge-domain 310` 复查剩余成员。若同时撤销 VXLAN 业务，再移除对应远端和 VNI。
+
 ## 激活条件
 
 NVE 必须未 shutdown，本机须在所选底层 VPN 拥有 VTEP 源地址。VNI 须绑定业务桥域，并存在远端 VTEP 和到该地址的有效底层路由。至少一个 peer 满足这些条件时，NVE 可显示 Up；这不表示其余 peer 或所有 VNI 均可用。
