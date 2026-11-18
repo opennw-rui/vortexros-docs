@@ -4,7 +4,7 @@
 
 | 组件 | 配套版本 |
 |---|---|
-| VortexROS | 0.30-dev，Debian 包 0.30~dev+run3 |
+| VortexROS | 0.30-dev，Debian 包 0.30~dev+run13 |
 | VPP | 26.10.8+vortexros-vpp |
 | FRR | 10.7.1-vortexros-1.8-dev |
 | Kea | 3.0.3-1+vortexros1 |

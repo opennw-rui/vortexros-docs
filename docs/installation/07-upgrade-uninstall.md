@@ -7,10 +7,15 @@
 从[项目Release](https://github.com/opennw-rui/VortexROS/releases)或已提供的0.30-dev安装包位置取得 `.run` 和 `SHA256SUMS`，核对校验值。更新前在 CLI 执行 `save`，确认当前配置和服务收敛，然后运行：
 
 ~~~bash
+sudo sh ./vortexros-0.30-dev-amd64.run
+~~~
+
+安装器自动执行必要的兼容、回退材料和健康检查。需要提前核对下载或查看执行计划时，可选择以下操作：
+
+~~~bash
 sha256sum -c SHA256SUMS
 sudo sh ./vortexros-0.30-dev-amd64.run --check-only
 sudo sh ./vortexros-0.30-dev-amd64.run --simulate
-sudo sh ./vortexros-0.30-dev-amd64.run
 ~~~
 
 检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。后端版本相同则保留对应包和进程；后端版本变化时安装器重启受影响的服务，需预留相应的业务中断窗口。
@@ -21,19 +26,34 @@ sudo sh ./vortexros-0.30-dev-amd64.run
 
 安装器从上次保留的系统包、本地软件包目录或 APT 缓存取得待更新组件的精确旧版本包。统一 `.run` 入口不要求预先创建 `/VortexROS/install`。缺少回退材料时，预检会报告实际缺少的包名和版本。
 
-安装器在预检中逐项检查 `vortexros.target`、FRR、route-zapi、switchd 和 vortexrosd；观察期间逐项检查四个关键服务，并验证配置、数据面和严格健康状态。最后一次严格健康采样后，还会再次核对服务与数据面不变量。服务刚停时，daemon 的健康快照可能尚未刷新，不能只看一个 ready 结果。
+恢复按实际依赖推进，每个阶段完成下发与回读后再继续：
 
-默认目标版本稳定观察为 **180 秒**，回退版本稳定观察为 **90 秒**。目标失败时自动尝试回退。用 CLI 查看事务：
+| 阶段 | 主要内容 |
+| --- | --- |
+| 基础层 | 控制进程、接口归属、适用的 Linux 或 VPP/LCP、VRF 和接口配置 |
+| 路由层 | FRR、route-zapi、静态与动态路由配置及下发 |
+| 业务层 | 当前配置启用的 DHCP、SNMP 等服务 |
+
+FRR 同时负责部分接口地址，进程启动依赖与上述配置恢复阶段不同，不能简单把它延迟到所有接口恢复之后。未启用的业务不要求运行；宿主 SSH、独立管理地址和外部协议邻居上线不属于安装器的稳定判据。
+
+默认基础层稳定观察为 **180 秒**，回退后观察为 **90 秒**。异常首先交给对应服务恢复；安装器每个阶段只允许一次对停止服务的定点启动，不反复重启整个系统。基础层无法恢复时，自动安装准确旧包并重新检查。只有路由或业务服务未恢复时，保留正常的基础系统，明确报告未恢复项目；不能把这种结果当作全部业务正常。
 
 ~~~text
+display health
+display alarm active
+display service
 display system-software verbose
 ~~~
 
-| 状态 | 含义 |
+`display health`分别显示基础、路由和业务状态。全局 Running/Actual 不一致仍如实保留，不会因为基础层可用就抹掉业务故障。DHCP 恢复只处理实际偏离配置的实例，其他实例保持运行。
+
+| 事务状态 | 含义 |
 | --- | --- |
-| `committed` | 目标版本完成连续健康观察 |
-| `rolled-back` | 目标失败，原版本已恢复并通过观察 |
-| `rollback-failed` | 原版本未能恢复健康，需使用救援入口检查失败原因 |
+| `committed` | 软件事务已提交；仍需核对是否有业务未恢复提示 |
+| `rolled-back` | 目标基础层恢复失败，原版本已恢复并通过观察 |
+| `rollback-failed` | 原版本仍未恢复，需检查记录的具体失败原因 |
+
+业务未恢复时，安装器打印 `Software installed; configured services are not fully restored` 警告。通过上面的健康、告警和服务查询定位具体对象，解除实际故障后由对应服务继续恢复。不要用反复执行 `reset dataplane` 代替单个业务服务的修复。
 
 外部故障仍持续时，须先解除故障才能恢复健康；回退旧软件不能代替修复持续不可用的依赖。
 

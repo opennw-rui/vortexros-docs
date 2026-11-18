@@ -163,3 +163,9 @@ reset dataplane
 先撤销 worker 再撤销主核。仍有设备依赖特定启动条件时，不能靠撤销资源参数强制实现可用的 DPDK；应按激活提示处理，检查[恢复结果](recovery.md)。生产变更前确保可恢复管理路径。
 
 [完整参数](../reference/dataplane.md)
+
+## DMA 地址模式
+
+自动生成的 VFIO/DPDK 启动配置使用 PA 地址模式，避免虚拟地址超出设备可接受的 DMA 地址范围。这不会关闭 IOMMU，设备隔离仍由已配置的 IOMMU 提供；不需要另配 CLI 参数。修改启动配置后按数据面激活提示操作，不能仅根据大页有剩余判断 DPDK 一定能够启动。
+
+地址模式原理见 [DPDK IOVA 说明](https://www.dpdk.org/memory-in-dpdk-part-2-deep-dive-into-iova/)。
