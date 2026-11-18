@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVPN 变更与恢复 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/evpn/lifecycle/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="MPLS" href="../../10-mpls-l3vpn/" />
+    <link rel="prev" title="Anycast 网关" href="../anycast/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../06-tunnels/">隧道</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../tunnel-settings/">Tunnel 接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ip-in-ip/">IP-in-IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vxlan/">VXLAN</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../11-vxlan-evpn/">EVPN</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../l2vpn/">L2VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../l3vpn/">L3VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multihoming/">多归属</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../anycast/">Anycast 网关</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">EVPN 变更与恢复</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../06-tunnels/">隧道</a></li>
+          <li class="breadcrumb-item"><a href="../../11-vxlan-evpn/">EVPN</a></li>
+      <li class="breadcrumb-item active">EVPN 变更与恢复</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="evpn">
+<span id="evpn-变更与恢复"></span><h1>EVPN 变更与恢复<a class="headerlink" href="#evpn" title="链接到此标题。"></a></h1>
+<section id="esi">
+<span id="撤销-esi"></span><h2>撤销 ESI<a class="headerlink" href="#esi" title="链接到此标题。"></a></h2>
+<p>改变或撤销 ESI 会重建多归属通告及远端下一跳，应先协调同一客户的两台接入 PE 和 CE。仅在一台 PE 撤销 ESI、另一台仍按原 ESI 发布同一双归属客户时，可能触发 MAC 移动保护并使部分 VLAN 不通，不能把“聚合仍 Up”当作业务无影响。</p>
+<p>在聚合接口视图执行<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">esi</span></code>并提交。聚合恢复为普通桥接成员，原有 VLAN、成员接口及管理状态保留：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Eth-Trunk 11
+ undo esi
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display interface Eth-Trunk 11
+display bgp evpn all routing-table
+</pre></div>
+</div>
+<p>多归属业务的远端下一跳组会随ES通告变化。变更期间检查剩余路径和客户业务，不能只查看本地聚合是否Up。</p>
+</section>
+<section id="vni">
+<span id="删除-vni"></span><h2>删除 VNI<a class="headerlink" href="#vni" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">vni</span> <span class="pre">VNI</span></code>删除选定VNI的整个head-end绑定；带静态peer后缀时只删除该对端，带<code class="docutils literal notranslate"><span class="pre">protocol</span> <span class="pre">bgp</span></code>时只撤销动态发现。其他VNI保留。</p>
+<p>先在NVE视图撤销绑定，提交后核对隧道、MAC及对应业务路由。删除BGP EVPN地址族前，必须先解除使用它的NVE依赖。</p>
+</section>
+<section id="id1">
+<span id="保存与重建"></span><h2>保存与重建<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>完成变更并确认业务正常后执行<code class="docutils literal notranslate"><span class="pre">save</span></code>。重建数据面后检查BGP邻居、EVPN路由、VXLAN隧道、业务FIB和客户连通性。</p>
+<p>共用的NVE、BGP进程和底层路由不应随单个业务一起删除。完整操作见<a class="reference internal" href="../../../examples/evpn/l2vpn/"><span class="std std-doc">二层业务</span></a>、<a class="reference internal" href="../../../examples/evpn/l3vpn/"><span class="std std-doc">三层业务</span></a>和<a class="reference internal" href="../../../examples/evpn/all-active/"><span class="std std-doc">多归属</span></a>。</p>
+</section>
+<section id="id2">
+<span id="完整停用并恢复-evpn"></span><h2>完整停用并恢复 EVPN<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>本例为未承担客户多归属 ESI 的 PE，原有 VNI 为 50460、50461，租户 D1-TYPE5 使用 L3VNI50081。承担多归属接入的 PE 还需先按客户迁移方案处理 ESI，不能直接中断该接入。</p>
+<p>先撤销租户 Type-5 通告和全部 VNI 依赖：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
+ ipv4-family vpn-instance D1-TYPE5
+  undo advertise l2vpn evpn
+ #
+ ipv6-family vpn-instance D1-TYPE5
+  undo advertise l2vpn evpn
+ #
+#
+ip vpn-instance D1-TYPE5
+ undo vxlan vni
+#
+interface Nve 1
+ undo vni 50460
+ undo vni 50461
+#
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display interface Nve1
+display vxlan tunnel
+</pre></div>
+</div>
+<p>实际查询为 Nve1 Down/Down、VXLAN 成员 0；远端租户 IPv4/IPv6 测试前缀均撤销。此时才删除 BGP EVPN 地址族和全局开关：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
+ undo l2vpn-family evpn
+#
+undo evpn-overlay enable
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display bgp evpn all routing-table
+display bgp peer
+</pre></div>
+</div>
+<p>实际 EVPN 路由为 0，原有两个 IPv4 单播邻居仍为 Established。关闭一个地址族不会删除这些独立的单播会话。</p>
+<p>恢复顺序如下；使用本设备实际的邻居和 VNI：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>evpn-overlay enable
+bgp 65000
+ l2vpn-family evpn
+  peer 198.19.80.1 enable
+  peer 198.19.80.2 enable
+ #
+ ipv4-family vpn-instance D1-TYPE5
+  advertise l2vpn evpn
+ #
+ ipv6-family vpn-instance D1-TYPE5
+  advertise l2vpn evpn
+ #
+#
+ip vpn-instance D1-TYPE5
+ vxlan vni 50081
+#
+interface Nve 1
+ vni 50460 head-end peer-list protocol bgp
+ vni 50461 head-end peer-list protocol bgp
+#
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display interface Nve1
+display vxlan tunnel
+display bgp evpn all routing-table
+display health
+save
+</pre></div>
+</div>
+<p>实际恢复 4 个 L2 dynamic 和 1 个 L3 dynamic 成员，Nve1 Up/Up；租户双栈及两个 VNI 的客户探测均成功，健康状态 ready、无活动告警。该过程保留 NVE 源地址、租户、桥域和底层路由，只撤销和恢复本例明确列出的 EVPN 依赖。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../anycast/" class="btn btn-neutral float-left" title="Anycast 网关" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../10-mpls-l3vpn/" class="btn btn-neutral float-right" title="MPLS" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

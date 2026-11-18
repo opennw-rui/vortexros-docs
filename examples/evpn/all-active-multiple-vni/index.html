@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>多 VNI 多归属 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/evpn/all-active-multiple-vni/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="Anycast 网关" href="../../../operator/evpn/anycast/" />
+    <link rel="prev" title="All-Active 多归属" href="../all-active/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../operator/06-tunnels/">隧道</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../operator/tunnel-settings/">Tunnel 接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../operator/gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../operator/ip-in-ip/">IP-in-IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../operator/wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../operator/amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../operator/vxlan/">VXLAN</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../operator/11-vxlan-evpn/">EVPN</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../../operator/evpn/l2vpn/">L2VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../operator/evpn/l3vpn/">L3VPN</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../../operator/evpn/multihoming/">多归属</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../all-active/">All-Active 多归属</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">多 VNI 多归属</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../operator/evpn/anycast/">Anycast 网关</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../operator/evpn/lifecycle/">EVPN 变更与恢复</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../operator/06-tunnels/">隧道</a></li>
+          <li class="breadcrumb-item"><a href="../../../operator/11-vxlan-evpn/">EVPN</a></li>
+          <li class="breadcrumb-item"><a href="../../../operator/evpn/multihoming/">多归属</a></li>
+      <li class="breadcrumb-item active">多 VNI 多归属</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vni">
+<span id="多-vni-多归属"></span><h1>多 VNI 多归属<a class="headerlink" href="#vni" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑与前提"></span><h2>拓扑与前提<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>先完成 <a class="reference internal" href="../all-active/"><span class="std std-doc">All-Active 案例</span></a>：CE1 双接入 P1/P2，P3 接 CE2，VLAN/BD460、VNI50460 承载未打标签的第一项业务。本页在同一 ESI 上增加带 VLAN461 标签的第二项业务。两项业务使用独立 VNI 与 RT，保留原有 underlay 和 BGP EVPN 邻居。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 Eth-Trunk1       P1/P2 Eth-Trunk11       P3 Ethernet1       CE2 Ethernet0
+未打标签 192.0.2.12   VLAN460 / VNI50460     PVID460            192.0.2.3
+VLAN461  192.0.3.12   VLAN461 / VNI50461     VLAN461            192.0.3.3
+同一 ESI：0000.1111.2222.1111.1111
+</pre></div>
+</div>
+<p>本页给出对已完成基础案例的完整增量配置；不是跳过 underlay、RT 或 EVPN 邻居准备的独立空白设备配置。</p>
+</section>
+<section id="ce1-ce2">
+<span id="ce1-与-ce2"></span><h2>CE1 与 CE2<a class="headerlink" href="#ce1-ce2" title="链接到此标题。"></a></h2>
+<p>CE1 新增三层聚合子接口：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Eth-Trunk1.461
+ vlan-type dot1q 461
+ ip address 192.0.3.12 255.255.255.0
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>CE2 新增对应的三层子接口：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.461
+ vlan-type dot1q 461
+ ip address 192.0.3.3 255.255.255.0
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>原父接口上的192.0.2.0/24业务继续不带标签。不要给同一个子接口再配置二层交换成员关系。</p>
+</section>
+<section id="p1">
+<h2>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vlan batch 461
+bridge-domain 461
+ l2 binding vlan 461
+ vxlan vni 50461
+ evpn
+  route-distinguisher 65000:1461
+  vpn-target 65000:50461 export-extcommunity
+  vpn-target 65000:50461 import-extcommunity
+#
+interface Eth-Trunk 11
+ port trunk allow-pass vlan 461
+#
+interface Nve1
+ vni 50461 head-end peer-list protocol bgp
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="p2">
+<h2>P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vlan batch 461
+bridge-domain 461
+ l2 binding vlan 461
+ vxlan vni 50461
+ evpn
+  route-distinguisher 65000:2461
+  vpn-target 65000:50461 export-extcommunity
+  vpn-target 65000:50461 import-extcommunity
+#
+interface Eth-Trunk 11
+ port trunk allow-pass vlan 461
+#
+interface Nve1
+ vni 50461 head-end peer-list protocol bgp
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="p3">
+<h2>P3<a class="headerlink" href="#p3" title="链接到此标题。"></a></h2>
+<p>把原接入口改为trunk，保留PVID460：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vlan batch 461
+bridge-domain 461
+ l2 binding vlan 461
+ vxlan vni 50461
+ evpn
+  route-distinguisher 65000:3461
+  vpn-target 65000:50461 export-extcommunity
+  vpn-target 65000:50461 import-extcommunity
+#
+interface Ethernet1
+ port link-type trunk
+ port trunk allow-pass vlan 460 461
+ port trunk pvid vlan 460
+#
+interface Nve1
+ vni 50461 head-end peer-list protocol bgp
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>allow-pass 在现有列表上增加VLAN；不得用清空列表操作代替新增。三个PE的VNI、RT相同，RD各不相同。</p>
+</section>
+<section id="id2">
+<span id="查询与业务"></span><h2>查询与业务<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp evpn all routing-table
+display mac-address bridge-domain 460
+display mac-address bridge-domain 461
+display vxlan tunnel
+display health
+</pre></div>
+</div>
+<p>P3的实际MAC显示摘录，接口按拓扑编号整理，下一跳组编号随运行变化：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MAC Address       VLAN/VSI/BD       Learned-From                    Type
+0200-0000-1212    -/-/461           evpn-nhg-50461-536870913        static
+</pre></div>
+</div>
+<p>第二业务的客户MAC通过VNI50461指向ES下一跳组；第一业务仍通过VNI50460。两项业务的实际探测分别为：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping -a 192.0.3.12 -c 3 192.0.3.3
+3 packets transmitted, 3 received, 0% packet loss
+
+ping -a 192.0.2.12 -c 3 192.0.2.3
+3 packets transmitted, 3 received, 0% packet loss
+</pre></div>
+</div>
+<p>这些结果验证两个VNI在同一ESI上共同运行，不是带宽、负载分担比例或任意多租户规模保证。</p>
+</section>
+<section id="id3">
+<span id="独立撤销"></span><h2>独立撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>先在P3停止第二VNI：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Nve1
+ undo vni 50461
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>实际探测第二业务0/2，第一业务2/2，确认不会顺带撤销VNI50460。之后在P1/P2也撤销Nve1的VNI50461。若需要恢复第二业务，重新配置该VNI并提交。</p>
+<p>完整移除第二业务时，再在三台PE删除bridge-domain461及允许VLAN461，并删除VLAN461；按CLI确认提示确认删除：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo bridge-domain 461
+interface Eth-Trunk 11
+ undo port trunk allow-pass vlan 461
+#
+undo vlan 461
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>P3对应接口为Ethernet1，不是Eth-Trunk11。最后在CE1/CE2删除各自的.461子接口。保留VLAN460、VNI50460及共用的Nve1和BGP邻居。验证剩余业务后保存各设备配置。</p>
+<p><a class="reference internal" href="../../../operator/evpn/multihoming/"><span class="std std-doc">广播和分割水平验证</span></a> · <a class="reference internal" href="../../../operator/subinterfaces-l3/"><span class="std std-doc">三层子接口</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../all-active/" class="btn btn-neutral float-left" title="All-Active 多归属" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../operator/evpn/anycast/" class="btn btn-neutral float-right" title="Anycast 网关" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

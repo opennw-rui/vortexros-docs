@@ -1,0 +1,1115 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>诊断与恢复 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/operations/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="Ethernet 与接口" href="../interfaces/" />
+    <link rel="prev" title="系统" href="../system/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../aaa/">本地账号</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../icmp/">ICMP 发送控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">诊断与恢复</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="诊断与恢复"></span><h1>诊断与恢复<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../09-operations/"><span class="std std-doc">配置指南</span></a></p>
+<section id="check-system-software-package">
+<h2><code class="docutils literal notranslate"><span class="pre">check</span> <span class="pre">system-software</span> <span class="pre">package</span></code><a class="headerlink" href="#check-system-software-package" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code></p></li>
+<li><p>CLI 帮助：check a VortexROS system package</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>check system-software package TARGET.tar
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TARGET</span></code></p></td>
+<td><p>VortexROS system package</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clear-configuration-candidate">
+<h2><code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">configuration</span> <span class="pre">candidate</span></code><a class="headerlink" href="#clear-configuration-candidate" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：Candidate管理命令</p></li>
+<li><p>执行效果：仅丢弃当前会话尚未提交的修改。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>CLI 帮助：clear uncommitted configuration (two-stage)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>clear configuration candidate
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="clear-interface">
+<h2><code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">interface</span></code><a class="headerlink" href="#clear-interface" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：clear interface traffic and error counters</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>clear interface TYPE N counter
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IF</span></code></p></td>
+<td><p>interface name or TYPE N</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>IF</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">counter</span></code></p></td>
+<td><p>clear traffic and error counters</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clear-system-software-info">
+<h2><code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">system-software</span> <span class="pre">info</span></code><a class="headerlink" href="#clear-system-software-info" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code></p></li>
+<li><p>CLI 帮助：Clear completed software transaction history</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>clear system-software info
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="display-resource-mapping">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">resource-mapping</span></code><a class="headerlink" href="#display-resource-mapping" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code>
+显示当前记录的有效运行资源映射，不修改配置：</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display resource-mapping [vpp|linux|frr]
+</pre></div>
+</div>
+</li>
+</ul>
+<p>省略参数时列出所有后端的记录；指定后端时只显示相应记录。Runtime ID 是当前运行编号，数据面重建后可能改变。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;VortexROS&gt; display resource-mapping vpp
+Backend  Resource                   Logical key                      Runtime ID
+vpp      loopback                   LoopBack201                      7
+vpp      vrf-table                  SHOW201                          1024
+Total mappings: 2
+</pre></div>
+</div>
+<p>映射随对应对象撤销而清理。例如删除 LoopBack201 和 SHOW201 后，以上两行应消失；其他仍在使用的接口和桥域映射继续保留。零条记录表示当前没有已登记的映射，不能据此推断设备没有接口或 VPN 实例。接口清单使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span></code>；VPN 表号使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">vpn-instance</span> <span class="pre">verbose</span></code>。本命令不代替后端健康与业务流量检查。</p>
+</section>
+<section id="display-saved-configuration">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">saved-configuration</span></code><a class="headerlink" href="#display-saved-configuration" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：display the active startup CFG or a named CFG</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display saved-configuration [FILE.cfg]
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">FILE</span></code></p></td>
+<td><p>configuration file name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="display-startup">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">startup</span></code><a class="headerlink" href="#display-startup" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：display the configuration file selected for the next start</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display startup
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="display-system-mac-address">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">system</span> <span class="pre">mac-address</span></code><a class="headerlink" href="#display-system-mac-address" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：display the system MAC address</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display system mac-address
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Running（已接受配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="display-system-software">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">system-software</span></code><a class="headerlink" href="#display-system-software" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：display installed software and upgrade or rollback transactions</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display system-software [verbose]
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p>include recorded failure evidence</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="display-this">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code><a class="headerlink" href="#display-this" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：display committed configuration of the current view</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display this
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Running（已接受配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="display-version">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">version</span></code><a class="headerlink" href="#display-version" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：display vortexros, system, VPP, DPDK and FRRouting version information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display version
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="mtr">
+<h2><code class="docutils literal notranslate"><span class="pre">mtr</span></code><a class="headerlink" href="#mtr" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：run mtr with numeric output (default -n)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mtr [OPTIONS] HOST
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">IP</span></code></p></td>
+<td><p>Source address；Source address</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Report cycles；Report cycles</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>First TTL；First TTL</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">MILLISECONDS</span></code></p></td>
+<td><p>Probe interval in milliseconds；Probe interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Maximum TTL；Maximum TTL</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-n</span></code></p></td>
+<td><p>Numeric output (default)</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-name</span></code></p></td>
+<td><p>Resolve hop names</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-r</span></code></p></td>
+<td><p>Report mode</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Packet size；Packet size</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-vpn-instance</span> <span class="pre">VRF</span></code></p></td>
+<td><p>Run in a Linux VRF；Run in a Linux VRF</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-w</span></code></p></td>
+<td><p>Wide report</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ip</span></code></p></td>
+<td><p>IPv4 protocol (default)</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span></code></p></td>
+<td><p>IPv6 protocol</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">HOST</span></code></p></td>
+<td><p>IP address or hostname of a remote system</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ping">
+<h2><code class="docutils literal notranslate"><span class="pre">ping</span></code><a class="headerlink" href="#ping" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：send ICMP echo requests (default 5 packets)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping [OPTIONS] HOST
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">IP</span></code></p></td>
+<td><p>Select source IPv4/IPv6 address；Select source IPv4/IPv6 address</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Number of echo requests (default 5)；Number of echo requests (default 5)</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-d</span></code></p></td>
+<td><p>Set SO_DEBUG</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-f</span></code></p></td>
+<td><p>Set Don't Fragment (IPv4)</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-h</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>TTL / hop limit；TTL / hop limit</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">IF</span></code></p></td>
+<td><p>Sending interface；Sending interface</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">MILLISECONDS</span></code></p></td>
+<td><p>Interval in milliseconds；Interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-n</span></code></p></td>
+<td><p>Numeric output</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-name</span></code></p></td>
+<td><p>Resolve destination names</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-nexthop</span></code></p></td>
+<td><p>Display nexthop information (no Linux ping equivalent)</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">HEX</span></code></p></td>
+<td><p>Payload pattern；Payload pattern</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-q</span></code></p></td>
+<td><p>Quiet output</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-r</span></code></p></td>
+<td><p>Record route</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-range</span> <span class="pre">VALUE</span></code></p></td>
+<td><p>Payload length range (multi-run operation)；Payload length range (multi-run operation)</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Payload size；Payload size</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-system-time</span></code></p></td>
+<td><p>Display send/receive timestamps</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">MILLISECONDS</span></code></p></td>
+<td><p>Reply timeout in milliseconds；Reply timeout in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-tos</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>IPv4 TOS；IPv4 TOS</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-v</span></code></p></td>
+<td><p>Verbose output</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-vpn-instance</span> <span class="pre">VRF</span></code></p></td>
+<td><p>Run in a Linux VRF；Run in a Linux VRF</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ignore-mtu</span></code></p></td>
+<td><p>Do not perform PMTU discovery</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ip</span></code></p></td>
+<td><p>IPv4 protocol (default)</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span></code></p></td>
+<td><p>IPv6 protocol</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">HOST</span></code></p></td>
+<td><p>IP address or hostname of a remote system</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reset-running-configuration">
+<h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">running-configuration</span></code><a class="headerlink" href="#reset-running-configuration" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>CLI 帮助：clear running configuration and restart enabled VPP; keep the saved CFG</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset running-configuration
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="reset-saved-configuration">
+<h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">saved-configuration</span></code><a class="headerlink" href="#reset-saved-configuration" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>CLI 帮助：replace the active startup CFG or a named CFG with factory configuration</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset saved-configuration [FILE.cfg]
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">FILE</span></code></p></td>
+<td><p>configuration file name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reset-service-frr">
+<h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">frr</span></code><a class="headerlink" href="#reset-service-frr" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>CLI 帮助：restart a network service</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset service frr
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="reset-service-vpp">
+<h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">vpp</span></code><a class="headerlink" href="#reset-service-vpp" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>CLI 帮助：restart a network service</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset service vpp
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="rollback-system-software-package">
+<h2><code class="docutils literal notranslate"><span class="pre">rollback</span> <span class="pre">system-software</span> <span class="pre">package</span></code><a class="headerlink" href="#rollback-system-software-package" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code></p></li>
+<li><p>CLI 帮助：rollback a VortexROS system package</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rollback system-software package TARGET.tar
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TARGET</span></code></p></td>
+<td><p>VortexROS system package</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="simulate-system-software-package">
+<h2><code class="docutils literal notranslate"><span class="pre">simulate</span> <span class="pre">system-software</span> <span class="pre">package</span></code><a class="headerlink" href="#simulate-system-software-package" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code></p></li>
+<li><p>CLI 帮助：simulate a VortexROS system package</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>simulate system-software package TARGET.tar
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TARGET</span></code></p></td>
+<td><p>VortexROS system package</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="traceroute">
+<h2><code class="docutils literal notranslate"><span class="pre">traceroute</span></code><a class="headerlink" href="#traceroute" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：alias of tracert</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>traceroute [OPTIONS] HOST
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">IP</span></code></p></td>
+<td><p>Source address；Source address</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>First TTL；First TTL</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Maximum TTL；Maximum TTL</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-name</span></code></p></td>
+<td><p>Resolve hop names</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Destination UDP port；Destination UDP port</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-q</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Probes per hop；Probes per hop</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Probe packet length；Probe packet length</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-v</span></code></p></td>
+<td><p>Verbose output</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-vpn-instance</span> <span class="pre">VRF</span></code></p></td>
+<td><p>Run in a Linux VRF；Run in a Linux VRF</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-w</span> <span class="pre">MILLISECONDS</span></code></p></td>
+<td><p>Reply timeout in milliseconds；Reply timeout in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ip</span></code></p></td>
+<td><p>IPv4 protocol (default)</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span></code></p></td>
+<td><p>IPv6 protocol</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">HOST</span></code></p></td>
+<td><p>IP address or hostname of a remote system</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tracert">
+<h2><code class="docutils literal notranslate"><span class="pre">tracert</span></code><a class="headerlink" href="#tracert" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：trace the path with ICMP numeric probes (default -In)</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>tracert [OPTIONS] HOST
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">IP</span></code></p></td>
+<td><p>Source address；Source address</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>First TTL；First TTL</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Maximum TTL；Maximum TTL</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-name</span></code></p></td>
+<td><p>Resolve hop names</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Destination UDP port；Destination UDP port</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-q</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Probes per hop；Probes per hop</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">INTEGER</span></code></p></td>
+<td><p>Probe packet length；Probe packet length</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-v</span></code></p></td>
+<td><p>Verbose output</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-vpn-instance</span> <span class="pre">VRF</span></code></p></td>
+<td><p>Run in a Linux VRF；Run in a Linux VRF</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-w</span> <span class="pre">MILLISECONDS</span></code></p></td>
+<td><p>Reply timeout in milliseconds；Reply timeout in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ip</span></code></p></td>
+<td><p>IPv4 protocol (default)</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span></code></p></td>
+<td><p>IPv6 protocol</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">HOST</span></code></p></td>
+<td><p>IP address or hostname of a remote system</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="upgrade-system-software-package">
+<h2><code class="docutils literal notranslate"><span class="pre">upgrade</span> <span class="pre">system-software</span> <span class="pre">package</span></code><a class="headerlink" href="#upgrade-system-software-package" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code></p></li>
+<li><p>CLI 帮助：upgrade a VortexROS system package</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>upgrade system-software package TARGET.tar
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TARGET</span></code></p></td>
+<td><p>VortexROS system package</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../system/" class="btn btn-neutral float-left" title="系统" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../interfaces/" class="btn btn-neutral float-right" title="Ethernet 与接口" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

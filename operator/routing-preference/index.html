@@ -1,0 +1,215 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>路由优先级 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/routing-preference/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="前缀列表" href="../prefix-lists/" />
+    <link rel="prev" title="路由协议" href="../05-dynamic-routing/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../05-dynamic-routing/">路由协议</a></li>
+      <li class="breadcrumb-item active">路由优先级</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="路由优先级"></span><h1>路由优先级<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>同一目标前缀存在多条路由时，先比较前缀长度，再在可用的同前缀候选中比较路由优先级；数值越小越优先。同一协议的 Cost、RIP 跳数和 BGP 选路属性参与各自协议的路径选择，不能与系统优先级混为一个数值。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>来源</p></th>
+<th class="head text-right"><p>默认 Preference</p></th>
+<th class="head"><p>配置入口</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>直连</p></td>
+<td class="text-right"><p>0</p></td>
+<td><p>由接口地址和实际状态产生</p></td>
+</tr>
+<tr class="row-odd"><td><p>OSPF / OSPFv3 内部路由</p></td>
+<td class="text-right"><p>10</p></td>
+<td><p>当前固定默认值</p></td>
+</tr>
+<tr class="row-even"><td><p>IS-IS Level-1 / Level-2</p></td>
+<td class="text-right"><p>15 / 15</p></td>
+<td><p>当前固定默认值</p></td>
+</tr>
+<tr class="row-odd"><td><p>静态路由</p></td>
+<td class="text-right"><p>60</p></td>
+<td><p>静态路由命令的 preference 参数</p></td>
+</tr>
+<tr class="row-even"><td><p>DHCP 获取的默认路由</p></td>
+<td class="text-right"><p>60</p></td>
+<td><p>接口的 DHCP 客户端参数</p></td>
+</tr>
+<tr class="row-odd"><td><p>RIP / RIPng</p></td>
+<td class="text-right"><p>100 / 100</p></td>
+<td><p>RIP 可配置 preference；RIPng 当前使用固定默认值</p></td>
+</tr>
+<tr class="row-even"><td><p>OSPF / OSPFv3 外部路由</p></td>
+<td class="text-right"><p>150</p></td>
+<td><p>当前固定默认值</p></td>
+</tr>
+<tr class="row-odd"><td><p>BGP（外部、内部及本地产生）</p></td>
+<td class="text-right"><p>254</p></td>
+<td><p>当前固定默认值</p></td>
+</tr>
+</tbody>
+</table>
+<p>这是当前 VortexROS 的产品默认值。默认项省略于配置显示；明确修改后才显示相应配置。BGP 默认值为 254，不应根据其他系统的默认值推断为 255。</p>
+<section id="id2">
+<span id="如何核对"></span><h2>如何核对<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip routing-table 172.29.251.2 32
+display ipv6 routing-table 2001:db8:251::2 128
+display ip fib
+display ipv6 fib
+</pre></div>
+</div>
+<p>真实同前缀对照中，RIP 路由显示 Preference 100、Cost 2；启用 OSPF 并学到相同前缀后，选中路由显示 OSPF、Preference 10、Cost 20。撤销 OSPF 后，应再次检查候选路由、FIB 和连通性，而不只检查 OSPF 配置已经删除。</p>
+<p>另一次外部路由验证中，OSPF 导入静态路由时指定 cost 37、type 2，LSDB 明细显示 E type 2、Metric 37、Len 36；路由表显示 Preference 150、Cost 37。</p>
+<p>协议数据库出现路由不代表该路由最终胜出或已安装。FIB 显示中的路径优先级属于转发表的路径选择字段，与本页的路由管理优先级不同；最终以路由表的 Pre/Preference 和 FIB 的实际出口分别核对。</p>
+</section>
+<section id="id3">
+<span id="修改影响"></span><h2>修改影响<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>调整优先级可能让相同前缀切换到另一协议及出口。先核对备选路由及回程，再提交。RIP 修改后，已有学习路由可在后续协议更新中重新参与选路，提交成功不等于全部前缀已立即完成切换。检查实际路由状态后再保存。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../05-dynamic-routing/" class="btn btn-neutral float-left" title="路由协议" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../prefix-lists/" class="btn btn-neutral float-right" title="前缀列表" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

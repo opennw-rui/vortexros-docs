@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>重启 OSPF 进程 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ospf/reset/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="OSPFv3" href="../../ospfv3/" />
+    <link rel="prev" title="邻居、LSDB 与路由" href="../queries/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">OSPF</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../activation/">进程与接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../areas/">Stub、NSSA 与汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../redistribution/">路由引入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../queries/">邻居、LSDB 与路由</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">重启 OSPF 进程</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">OSPF</a></li>
+      <li class="breadcrumb-item active">重启 OSPF 进程</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ospf">
+<span id="重启-ospf-进程"></span><h1>重启 OSPF 进程<a class="headerlink" href="#ospf" title="链接到此标题。"></a></h1>
+<p>需要重新建立指定OSPF进程的运行状态时执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset ospf 1 process
+</pre></div>
+</div>
+<p>按提示确认后，指定进程的运行状态按已提交配置重新建立。该命令会中断目标进程的邻接，可能导致路由撤销和重新收敛；它不是无影响的查询命令。</p>
+<p>完成后检查：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospf 1 peer
+display ospf 1 lsdb
+display ospf 1 routing
+display ip routing-table protocol ospf
+</pre></div>
+</div>
+<p>确认邻居恢复Full、所需路由重新进入FIB，再检查业务连通性。配置修改尚未提交时，应先决定提交或放弃，避免把候选配置误认为重启后生效的配置。</p>
+<p><a class="reference internal" href="../../../examples/ospf/"><span class="std std-doc">OSPF案例</span></a> · <a class="reference internal" href="../../reference/ospf/"><span class="std std-doc">命令参考</span></a></p>
+<section id="router-id">
+<span id="router-id-修改与自动选择"></span><h2>Router ID 修改与自动选择<a class="headerlink" href="#router-id" title="链接到此标题。"></a></h2>
+<p>在 OSPF 进程视图使用 <code class="docutils literal notranslate"><span class="pre">router-id</span> <span class="pre">10.0.0.1</span></code> 显式指定标识；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">router-id</span></code> 恢复自动选择。自动选择优先使用同 VPN 的 LoopBack IPv4 地址，没有时使用其他合适的 IPv4 接口地址。配置改变不会无提示地重建既有邻接；如果当前运行的 Router ID 尚未切换，提交会明确提示需要重置。</p>
+<p>单个 OSPFv2 进程可以使用上面的定向命令。设备同时配置多个 OSPFv2 进程时，当前实现不能隔离重置其中一个，必须使用服务级操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset service ospf
+</pre></div>
+</div>
+<p>该操作重启本机 OSPFv2 和 OSPFv3 服务，并回放已提交配置，所有相关邻接都会重新建立。不要在需要保留其他邻接的业务窗口执行。OSPFv3 可使用 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">ospfv3</span> <span class="pre">2</span> <span class="pre">process</span></code> 重置指定 VPN 中的进程，不需要重启整个服务。</p>
+<p>一次自动选择的实际结果是：同 VPN 环回地址为 203.0.113.104，撤销显式 Router ID 并完成所需重置后，OSPFv2 与 OSPFv3 均显示 Router ID 203.0.113.104，邻居 Full；OSPF 学习的 203.0.113.102/32 为 Preference10、Cost20，指定源探测2/2。该数值来自本例接口地址，不是固定默认值。</p>
+<p>恢复显式 Router ID 时，在对应进程重新执行 <code class="docutils literal notranslate"><span class="pre">router-id</span> <span class="pre">地址</span></code>、提交并按同样原则重置；随后确认邻接、路由和业务均恢复，再保存配置。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../queries/" class="btn btn-neutral float-left" title="邻居、LSDB 与路由" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../ospfv3/" class="btn btn-neutral float-right" title="OSPFv3" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

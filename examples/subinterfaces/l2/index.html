@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L2 子接口 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/subinterfaces/l2/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="L3 子接口" href="../l3/" />
+    <link rel="prev" title="子接口" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../">配置案例</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../interfaces/">接口与交换</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lacp/">LACP 聚合</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../">子接口</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">L2 子接口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../l3/">L3 子接口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../vlan-binding/">VLAN 接入与业务桥域</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../static-mac/">静态 MAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../qinq/">QinQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../../interfaces/">接口与交换</a></li>
+          <li class="breadcrumb-item"><a href="../">子接口</a></li>
+      <li class="breadcrumb-item active">L2 子接口</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="l2">
+<span id="l2-子接口"></span><h1>L2 子接口<a class="headerlink" href="#l2" title="链接到此标题。"></a></h1>
+<p>L2 子接口按 VLAN 标签识别报文，再加入桥域转发。它自身不配置 IP；需要三层网关时，在对应 <code class="docutils literal notranslate"><span class="pre">Vbdif</span></code> 上配置地址。L3 子接口使用不同的封装命令，见 <a class="reference internal" href="../l3/"><span class="std std-doc">L3 子接口</span></a>。</p>
+<section id="id1">
+<span id="完整案例"></span><h2>完整案例<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>P1/P2 的 Ethernet0 直连。P1 以 VLAN 701 的 L2 子接口接入桥域 701，由 Vbdif701 提供网关；P2 使用相同 VLAN 的 L3 子接口。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 Vbdif701 198.18.171.1/30
+  │ bridge-domain 701
+  └─ Ethernet0.701 mode l2 ── VLAN 701 ── Ethernet0.701
+                                            198.18.171.2/30
+</pre></div>
+</div>
+<p>P1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+bridge-domain 701
+#
+interface Ethernet0.701 mode l2
+ encapsulation dot1q vid 701
+ bridge-domain 701
+#
+interface Vbdif 701
+ ip address 198.18.171.1 255.255.255.252
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>P2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.701
+ vlan-type dot1q 701
+ ip address 198.18.171.2 255.255.255.252
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>子接口编号与 VLAN 标签是两项设置，示例恰好使用相同数字。父端口上不能同时存在抢占相同标签分类的 trunk 派生成员。L2 子接口不建立独立的三层 LCP 端点，三层地址及路由属于 Vbdif；不能在这个 L2 子接口上照搬 L3 地址配置。</p>
+</section>
+<section id="id2">
+<span id="实际验证"></span><h2>实际验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Ethernet0.701
+display bridge-domain 701
+display mac-address bridge-domain 701
+ping -c 3 -a 198.18.171.1 198.18.171.2
+</pre></div>
+</div>
+<p>示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Ethernet0.701 current state : UP
+Line protocol current state : UP
+Layer 2 Sub-interface, The Maximum Frame Length is 1500
+Physical is 802.1Q sub-interface
+Encapsulation is dot1q, VLAN 701
+Bridge-domain: 701 (member)
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 701
+  bvi: Vbdif701
+  ports:
+    Vbdif701         shg 0
+    Ethernet0.701   shg 0
+</pre></div>
+</div>
+<p>实际 MAC 表学习到对端 <code class="docutils literal notranslate"><span class="pre">02fe-5aef-0658</span></code>，位置为 <code class="docutils literal notranslate"><span class="pre">-/-/701</span></code>、接口为 <code class="docutils literal notranslate"><span class="pre">Ethernet0.701</span></code>、类型为 <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>。MAC 随设备和测试环境而变。探测结果为 3 packets transmitted、3 received、0% packet loss。上述是功能及转发验证，不是性能结果。</p>
+</section>
+<section id="id3">
+<span id="修改保存与撤销"></span><h2>修改、保存与撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>确认生效后执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。修改桥域时先解除原绑定，再绑定目标桥域，并在提交后核对 MAC 学习位置及流量。</p>
+<p>撤销本例时，两端分别删除子接口；P1 同时删除不再使用的网关和桥域：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Ethernet0.701
+undo interface Vbdif 701
+undo bridge-domain 701
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>P2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Ethernet0.701
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>删除前先解除其他路由、策略或协议引用。撤销后用接口、桥域及 MAC 表查询确认对象消失；如果要在重启后保持撤销结果，再执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
+</section>
+<section id="ad-qinq">
+<span id="8021ad-与-qinq"></span><h2>802.1ad 与 QinQ<a class="headerlink" href="#ad-qinq" title="链接到此标题。"></a></h2>
+<p>两种封装应分别配置两端并检查双向业务；L2 与 L3 子接口的封装入口不同，不要混用。</p>
+<section id="ad">
+<span id="8021ad"></span><h3>802.1ad<a class="headerlink" href="#ad" title="链接到此标题。"></a></h3>
+<p>P1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 703
+#
+interface Ethernet0.703 mode l2
+ encapsulation dot1ad vid 703
+ bridge-domain 703
+#
+interface Vbdif 703
+ ip address 198.18.173.1 255.255.255.252
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>P2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 703
+#
+interface Ethernet0.703 mode l2
+ encapsulation dot1ad vid 703
+ bridge-domain 703
+#
+interface Vbdif 703
+ ip address 198.18.173.2 255.255.255.252
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>外层标签类型为 0x88a8，不是 dot1q 的 0x8100，两端必须一致。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Ethernet0.703
+display bridge-domain 703
+ping -c 3 -a 198.18.173.1 198.18.173.2
+</pre></div>
+</div>
+<p>接口应显示 Encapsulation is dot1ad, VLAN 703。两端 TPID、VLAN ID 和封装必须对应；提交后检查接口状态及双向探测。</p>
+</section>
+<section id="qinq">
+<h3>QinQ<a class="headerlink" href="#qinq" title="链接到此标题。"></a></h3>
+<p>P1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 704
+#
+interface Ethernet0.704 mode l2
+ encapsulation qinq vid 704 ce-vid 70
+ bridge-domain 704
+#
+interface Vbdif 704
+ ip address 198.18.174.1 255.255.255.252
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>P2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 704
+#
+interface Ethernet0.704 mode l2
+ encapsulation qinq vid 704 ce-vid 70
+ bridge-domain 704
+#
+interface Vbdif 704
+ ip address 198.18.174.2 255.255.255.252
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>此形式匹配外层 dot1q 704 与内层 dot1q 70；它与客户侧端口的<a class="reference internal" href="../../../operator/qinq/"><span class="std std-doc">简单 QinQ</span></a>是不同配置入口。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Ethernet0.704
+display bridge-domain 704
+ping -c 3 -a 198.18.174.1 198.18.174.2
+</pre></div>
+</div>
+<p>实际桥域成员为 Vbdif704、Ethernet0.704；正向与父端口停启恢复后的探测均为 3 sent、3 received、0% packet loss。桥域入方向移除两层标签，出方向对称恢复，因此网关和其他桥域成员接收普通二层帧。</p>
+</section>
+<section id="id4">
+<span id="父接口与撤销"></span><h3>父接口与撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h3>
+<p>父接口 <code class="docutils literal notranslate"><span class="pre">shutdown</span></code> 时，单标签、802.1ad 和 QinQ 子接口及只依赖这些成员的 Vbdif 均显示 Down；保留配置。父接口 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">shutdown</span></code> 后恢复，未将子接口自己的显式关闭配置改为开启。</p>
+<p>撤销 703/704 案例时，P1 删除相应子接口、Vbdif 和桥域，P2 同样处理本地对象。仅删除封装会留下不完整子接口，提交校验会拒绝；要停用业务，可先 <code class="docutils literal notranslate"><span class="pre">shutdown</span></code>，要删除业务则使用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span></code>，不要把不完整封装当作已提交的有效配置。</p>
+<p>两端撤销本例子接口、对应 Vbdif 和专用桥域并提交，查询接口、桥域及直连路由，确认均不再包含本例对象。其他 EVPN 业务及共享父口应保留。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="子接口" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../l3/" class="btn btn-neutral float-right" title="L3 子接口" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理会话 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/aaa/sessions/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="Bash 与 sudo" href="../bash/" />
+    <link rel="prev" title="公钥与启停" href="../keys/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../02-system-services/">系统管理</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../">本地账号与 SSH</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../accounts/">创建与管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../password/">首次改密与恢复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../keys/">公钥与启停</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">管理会话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bash/">Bash 与 sudo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../02-system-services/">系统管理</a></li>
+          <li class="breadcrumb-item"><a href="../">本地账号与 SSH</a></li>
+      <li class="breadcrumb-item active">管理会话</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="管理会话"></span><h1>管理会话<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>使用<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">users</span></code>查看已登录用户、角色和会话状态：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display users
+</pre></div>
+</div>
+<p>需要断开某个受管账号的会话时执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset aaa user admin sessions
+</pre></div>
+</div>
+<p>按提示确认后，该账号当前的受管SSH/CLI会话关闭。此操作不删除账号或密码；账号仍为活跃状态时可重新登录。需要禁止再次登录，在账号视图配置<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">active</span></code>并提交。</p>
+<p>执行前确认目标账号，避免关闭自己的唯一管理连接。root救援入口不作为普通受管账号会话清理对象。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">账号管理</span></a> · <a class="reference internal" href="../../reference/aaa/"><span class="std std-doc">命令参数</span></a></p>
+<section id="id2">
+<span id="断开后重新登录"></span><h2>断开后重新登录<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>一次只读账号的实际 SSH 验证中，重置命令关闭了该账号的一个现有会话，管理员连接保持。账号仍为 active，随后重新登录成功；删除账号并提交后，后续受管会话也被关闭。验证断开会话时，应同时核对账号是否仍存在，避免把“会话已关闭”误认为“账号已禁用”。</p>
+<p>一次实际 SSH 会话验证中，目标 operator 的当前会话被关闭，root 管理连接保留；账号仍为活跃状态，随后可以重新认证登录。若目标是禁止账号继续使用，应修改账号状态或删除账号并提交，而不是仅清会话。用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">users</span></code> 区分账号是否活跃和当前是否在线。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../keys/" class="btn btn-neutral float-left" title="公钥与启停" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../bash/" class="btn btn-neutral float-right" title="Bash 与 sudo" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

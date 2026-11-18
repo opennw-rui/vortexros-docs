@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vlanif 网关 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vlan/gateway/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="交换功能与保存" href="../lifecycle/" />
+    <link rel="prev" title="Hybrid" href="../hybrid/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">VLAN</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ports/">交换端口</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Vlanif 网关</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lifecycle/">交换功能与保存</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../service-bd/">VLAN 与业务桥域</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../">VLAN</a></li>
+      <li class="breadcrumb-item active">Vlanif 网关</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vlanif">
+<span id="vlanif-网关"></span><h1>Vlanif 网关<a class="headerlink" href="#vlanif" title="链接到此标题。"></a></h1>
+<p>Vlanif 为同编号 VLAN 提供三层网关。先启用交换功能、创建 VLAN 并配置接入端口，再创建 Vlanif 和网关地址；完整双端配置见<a class="reference internal" href="../../../examples/vlan-gateway/"><span class="std std-doc">VLAN 网关案例</span></a>。</p>
+<section id="id1">
+<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>状态</p></th>
+<th class="head"><p>必要条件</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PHY Up</p></td>
+<td><p>Vlanif 未 shutdown、已成功创建，所属 VLAN 至少有一个实际转发成员处于管理 Up 且链路 Up</p></td>
+</tr>
+<tr class="row-odd"><td><p>Protocol Up</p></td>
+<td><p>PHY Up，且 Vlanif 已配置有效 IPv4 或 IPv6 地址</p></td>
+</tr>
+<tr class="row-even"><td><p>自动 Down</p></td>
+<td><p>所有 VLAN 成员链路断开、成员全部退出该 VLAN，或 Vlanif 被 shutdown</p></td>
+</tr>
+<tr class="row-odd"><td><p>自动恢复</p></td>
+<td><p>成员重新满足条件，且 Vlanif 没有被显式 shutdown</p></td>
+</tr>
+</tbody>
+</table>
+<p>access 端口须属于该 VLAN；trunk 端口须允许该 VLAN。只创建 VLAN、只设置 PVID 或只有网关自身，不足以使 Vlanif Up。ipv6 enable 不等于已配置 IPv6 地址。二层端口无需配置 IP，网关地址应放在 Vlanif 上。</p>
+</section>
+<section id="id2">
+<span id="检查"></span><h2>检查<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vlan 100
+display interface Vlanif 100
+display ip interface brief
+display ip routing-table protocol direct
+</pre></div>
+</div>
+<p>先检查 VLAN 的实际端口及链路，再检查网关地址、直连路由和客户到网关的探测。Up 不代表客户地址、VLAN 标签或业务回程路由已经正确。</p>
+</section>
+<section id="id3">
+<span id="停用与删除"></span><h2>停用与删除<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>临时停用在 Vlanif 视图执行 shutdown；恢复使用 undo shutdown。删除前解除路由协议、策略及其他引用，再执行 undo interface Vlanif 100 并 commit。删除网关不会自动表示二层 VLAN 业务也应删除；仍共用的 VLAN 和成员端口应保留。需要启动后保持当前配置时执行 save。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../hybrid/" class="btn btn-neutral float-left" title="Hybrid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../lifecycle/" class="btn btn-neutral float-right" title="交换功能与保存" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

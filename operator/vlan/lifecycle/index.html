@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>交换功能与保存 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vlan/lifecycle/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="VLAN 与业务桥域" href="../service-bd/" />
+    <link rel="prev" title="Vlanif 网关" href="../gateway/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">VLAN</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ports/">交换端口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gateway/">Vlanif 网关</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">交换功能与保存</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../service-bd/">VLAN 与业务桥域</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../">VLAN</a></li>
+      <li class="breadcrumb-item active">交换功能与保存</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="交换功能与保存"></span><h1>交换功能与保存<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>enable switch 启用交换功能并建立默认 VLAN1。重新启用后仍需恢复业务 VLAN、二层端口及网关。
+关闭交换功能不会替代业务依赖的撤销：仍有 switchport、显式 VLAN、Vlanif 或其他关联对象时，
+命令会明确拒绝，原业务保持不变。</p>
+<section id="id2">
+<span id="关闭交换功能"></span><h2>关闭交换功能<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>以下示例原先由 Ethernet0 承载 access VLAN110，Vlanif110 是该网段的三层网关。
+执行后该 VLAN 的交换和网关转发停止；先确认不会撤销当前唯一的管理链路。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vlan
+system-view
+interface Ethernet0
+ undo portswitch
+#
+undo interface Vlanif110
+undo vlan 110
+undo enable switch
+commit
+display vlan
+display interface Ethernet0
+display health
+</pre></div>
+</div>
+<p>示例的实际结果：</p>
+<ul class="simple">
+<li><p>存在 switchport 时直接关闭被拒绝，同一业务仍通过3/3。</p></li>
+<li><p>撤销依赖并关闭后，display vlan 返回0个VLAN，原双栈业务均收到0/3。</p></li>
+<li><p>Ethernet0 回到三层端口；未显式指定MTU时，VPP及Linux端点均恢复默认1500。
+显式配置的接口MTU仍以配置为准，不应把本例的1500用于覆盖业务要求。</p></li>
+<li><p>本例健康状态为ready、Running/Actual为4/4，数据面进程保持运行。</p></li>
+</ul>
+<p>确认需要将此作为启动配置后，再执行 save。</p>
+</section>
+<section id="id3">
+<span id="重新启用并恢复业务"></span><h2>重新启用并恢复业务<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+commit
+display vlan
+</pre></div>
+</div>
+<p>实际此时只有默认 VLAN1，不会自动恢复已撤销的 VLAN110。
+下面恢复原端口和网关，Ethernet1 的服务器侧三层配置应保持存在：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vlan 110
+#
+interface Ethernet0
+ portswitch
+ port link-type access
+ port default vlan 110
+#
+interface Vlanif110
+ ipv6 enable
+ ip address 198.18.30.15 255.255.255.0
+ ipv6 address 2001:db8:30::1 64
+#
+commit
+display vlan
+display interface brief
+display ip interface brief
+display ipv6 interface brief
+display health
+</pre></div>
+</div>
+<p>实际恢复后，VLAN110列出UT:Ethernet0(U)，Vlanif110双栈地址恢复，
+健康状态为ready、Running/Actual为6/6。
+客户端到服务器侧的IPv4、IPv6实际流量均恢复3/3。
+本例整个关闭、重新启用及恢复过程没有重启数据面进程。</p>
+<p>端口重新成为二层业务口后，未指定MTU时按设备二层能力使用相应帧长；
+本例物理口恢复为9706，Vlanif网关仍为1500。
+检查业务后执行 save，确保重启后恢复的是所需配置。</p>
+</section>
+<section id="id4">
+<span id="使用已保存配置恢复"></span><h2>使用已保存配置恢复<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>需要直接恢复启动配置时，先查看 display startup，再执行 apply config 并确认。
+该命令会替换当前 Running，并按其规定重建数据面，业务可能中断；
+不要把它用于只恢复某一个 VLAN。
+需要保留当前修改时先保存或另存命名备份。</p>
+<p><a class="reference internal" href="../ports/"><span class="std std-doc">VLAN端口</span></a> · <a class="reference internal" href="../../cli/configuration/"><span class="std std-doc">配置管理</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../gateway/" class="btn btn-neutral float-left" title="Vlanif 网关" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../service-bd/" class="btn btn-neutral float-right" title="VLAN 与业务桥域" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

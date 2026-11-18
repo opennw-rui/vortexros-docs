@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OSPF 跨区域 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/ospf-multiarea/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="OSPFv3 邻接" href="../ospfv3/" />
+    <link rel="prev" title="OSPF 单区域" href="../ospf/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../protocols/">路由协议</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">OSPF 跨区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-policy/">BGP IPv4 策略</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-ipv6-policy/">BGP IPv6 策略</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-redistribution/">静态路由引入BGP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../isis/">IS-IS 双栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip-v1/">RIPv1 聚合链路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip-bfd-ecmp/">RIP 与 BFD 多路径</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bfd/">静态 BFD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../protocols/">路由协议</a></li>
+      <li class="breadcrumb-item active">OSPF 跨区域</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ospf">
+<span id="ospf-跨区域"></span><h1>OSPF 跨区域<a class="headerlink" href="#ospf" title="链接到此标题。"></a></h1>
+<p>本例在 O101 VPN 实例中，经区域边界路由器 R2，将 R3 的外部路由发布给 R1。三台路由器均运行 VortexROS。R2 在 Area0 与 Area101 之间转发；R3 是引入直连路由的 ASBR。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R1 Ethernet0 ── Ethernet0 R2 Ethernet1 ── Ethernet1 R3
+   198.18.101.1/30   .2        198.18.201.2/30   .1
+        Area101                       Area0
+                                      R3 LoopBack248:203.0.113.104/32
+</pre></div>
+</div>
+<section id="id1">
+<span id="三端配置"></span><h2>三端配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>在三台设备上先进入系统视图。绑定 VPN 会清除接口原有地址，请在绑定后配置地址。</p>
+<p>R1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip vpn-instance O101
+#
+ospf 101 router-id 1.1.1.101 vpn-instance O101
+#
+interface Ethernet0
+ ip binding vpn-instance O101
+ ip address 198.18.101.1 30
+ ospf enable 101 area 0.0.0.101
+#
+</pre></div>
+</div>
+<p>R2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip vpn-instance O101
+#
+ospf 101 router-id 2.2.2.101 vpn-instance O101
+#
+interface Ethernet0
+ ip binding vpn-instance O101
+ ip address 198.18.101.2 30
+ ospf enable 101 area 0.0.0.101
+#
+interface Ethernet1
+ ip binding vpn-instance O101
+ ip address 198.18.201.2 30
+ ospf enable 101 area 0.0.0.0
+#
+</pre></div>
+</div>
+<p>R3：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip vpn-instance O101
+#
+ospf 101 vpn-instance O101
+ router-id 3.3.3.101
+ import-route direct cost 37 type 2
+#
+interface Ethernet1
+ ip binding vpn-instance O101
+ ip address 198.18.201.1 30
+ ospf enable 101 area 0.0.0.0
+#
+interface LoopBack248
+ ip binding vpn-instance O101
+ ip address 203.0.113.104 32
+#
+</pre></div>
+</div>
+<p>每端执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code>。LoopBack248 不直接激活 OSPF；它通过 <code class="docutils literal notranslate"><span class="pre">import-route</span> <span class="pre">direct</span></code> 成为外部路由。该命令会引入同一 VPN 中符合条件的其他直连前缀，应确认这是所需的发布范围。广播网络的 DR/BDR 选举和 SPF 需要收敛时间，不能只看到2-Way就判断配置失败。</p>
+</section>
+<section id="id2">
+<span id="查询和流量"></span><h2>查询和流量<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospf vpn-instance O101 peer
+display ospf vpn-instance O101 abr-asbr
+display ospf vpn-instance O101 lsdb asbr
+display ospf 101 lsdb 4
+display ospf vpn-instance O101 lsdb ase 203.0.113.104
+display ip routing-table vpn-instance O101 203.0.113.104 32
+ping -vpn-instance O101 -a 198.18.101.1 -c 2 203.0.113.104
+</pre></div>
+</div>
+<p>实际收敛后，两段邻接均为 Full。R1 收到四类 LSA：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Type      : Sum-Asbr
+Ls id     : 3.3.3.101
+Adv rtr   : 2.2.2.101
+Len       : 28
+Net mask  : 0.0.0.0
+TOS 0  Metric: 10
+</pre></div>
+</div>
+<p>四类 LSA 描述到 ASBR 的区域间可达性；它不是203.0.113.104的外部前缀。该前缀位于五类 LSA 中，R1 实际选中 OSPF Preference150、Cost37，经198.18.101.2转发；指定源地址的双跳探测2/2成功。E2 的外部度量37与到 ASBR 的内部代价分别表达，不应把四类 LSA 的10直接加到显示的E2 Cost37上。<code class="docutils literal notranslate"><span class="pre">lsdb</span> <span class="pre">asbr</span></code> 和数字类型4返回同一类结果。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>R3 停止外部引入：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf 101 vpn-instance O101
+ undo import-route direct
+#
+commit
+</pre></div>
+</div>
+<p>在 R1 核对203.0.113.104/32退出路由表、对应五类 LSA被撤销，以及不再需要的四类 ASBR 可达信息退出。Age3600的冲洗条目可能短暂保留，应同时检查路由表。撤销引入不删除 R3 的 LoopBack 地址，也不关闭两段邻接。</p>
+<p>完全拆除此案例时，先撤销各接口的 <code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">enable</span> <span class="pre">101</span></code>，再删除只供案例使用的进程、地址与 VPN；不要删除还承载其他业务的接口或实例。需要保存结果时，每端执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../ospf/" class="btn btn-neutral float-left" title="OSPF 单区域" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ospfv3/" class="btn btn-neutral float-right" title="OSPFv3 邻接" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

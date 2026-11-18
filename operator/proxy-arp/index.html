@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>代理 ARP &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/proxy-arp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="IP 路由" href="../04-ip-routing/" />
+    <link rel="prev" title="IPv6 邻居查询" href="../neighbors/ipv6-query/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../03-interfaces-l2/">接口</a></li>
+      <li class="breadcrumb-item active">代理 ARP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="arp">
+<span id="代理-arp"></span><h1>代理 ARP<a class="headerlink" href="#arp" title="链接到此标题。"></a></h1>
+<p>代理 ARP 在指定三层接口上，为配置范围内的 IPv4 地址回答 ARP，适用于客户认为目标直连、目标实际位于路由网络另一端的情况。它不执行 NAT，也不代替路由。</p>
+<section id="id1">
+<span id="使用条件"></span><h2>使用条件<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>入口应是具有 MAC 的三层接口，如物理口、聚合口、Vlanif 或 Vbdif；二层成员口、LoopBack 和 NVE 不能作为代理入口。接口所属 VPN 决定路由域。设备必须有到目标的路由，目标必须有回程。</p>
+</section>
+<section id="id2">
+<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>CE1、P1、P2、CE2 均运行 VortexROS：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 Ethernet0 ── Ethernet1 P1 Ethernet0 ── Ethernet0 P2 Ethernet1 ── Ethernet0 CE2
+198.18.11.100/24  198.18.11.1/24
+                            198.19.80.1/30   198.19.80.2/30
+                                                    198.19.23.2/24  198.19.23.3/24
+                                                    CE2 LoopBack0: 198.18.11.150/32
+</pre></div>
+</div>
+<p>CE1 认为 198.18.11.150 与自己同网段，会直接请求它的 MAC；P1 代理应答后，把数据按路由转发到 CE2。</p>
+</section>
+<section id="ce1">
+<h2>CE1<a class="headerlink" href="#ce1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ ip address 198.18.11.100 255.255.255.0
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="p1">
+<h2>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet1
+ ip address 198.18.11.1 255.255.255.0
+#
+interface Ethernet0
+ ip address 198.19.80.1 255.255.255.252
+#
+ip route-static 198.18.11.150 255.255.255.255 198.19.80.2
+arp proxy 198.18.11.150 198.18.11.150 interface Ethernet1
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>起止相同表示代理单个地址；扩大范围会使更多地址的 ARP 被本设备接收，应与路由规划一致。</p>
+</section>
+<section id="p2">
+<h2>P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ ip address 198.19.80.2 255.255.255.252
+#
+interface Ethernet1
+ ip address 198.19.23.2 255.255.255.0
+#
+ip route-static 198.18.11.150 255.255.255.255 198.19.23.3
+ip route-static 198.18.11.0 255.255.255.0 198.19.80.1
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="ce2">
+<h2>CE2<a class="headerlink" href="#ce2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ ip address 198.19.23.3 255.255.255.0
+#
+interface LoopBack0
+ ip address 198.18.11.150 255.255.255.255
+#
+ip route-static 198.18.11.0 255.255.255.0 198.19.23.2
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>P1 执行 display arp proxy；示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Start Address    End Address      Interface            State
+198.18.11.150    198.18.11.150    Ethernet1            active
+Total items displayed = 1
+</pre></div>
+</div>
+<p>CE1 执行 ping -a 198.18.11.100 -c 3 198.18.11.150，应收到回复。用 display arp 查看目标邻居，其 MAC 应为 P1 接入口的 MAC。P1/P2 用 display ip routing-table 检查目标与回程。</p>
+<p>范围外的地址不会自动获得代理应答。若持续不通，应分别检查代理入口、目标主机路由及回程，而不是只检查配置是否存在。</p>
+</section>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>P1 执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+undo arp proxy 198.18.11.150 198.18.11.150 interface Ethernet1
+undo ip route-static 198.18.11.150 255.255.255.255 198.19.80.2
+commit
+display arp proxy
+</pre></div>
+</div>
+<p>代理清单应为空。CE1 的旧 ARP 在老化前可能仍可使用，验证撤销时应考虑缓存。拆除拓扑时在 P2/CE2 撤销本例静态路由、各接口地址以及 CE2 LoopBack0，提交并按需 save。共享的其他业务应保留。</p>
+<p><a class="reference internal" href="../reference/neighbors/"><span class="std std-doc">命令参考</span></a></p>
+</section>
+<section id="vlanif">
+<span id="在-vlanif-上代理连续地址"></span><h2>在 Vlanif 上代理连续地址<a class="headerlink" href="#vlanif" title="链接到此标题。"></a></h2>
+<p>代理范围也可绑定在具有三层地址的 Vlanif。先按 VLAN 章节建立有效成员和 Vlanif，再配置范围：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>arp proxy 198.18.101.10 198.18.101.11 interface Vlanif 100
+commit
+display arp proxy
+</pre></div>
+</div>
+<p>在 Vlanif100 已有有效 MAC 的实际验证中，范围内 .10 和 .11 均得到该接口 MAC 的 ARP 应答，范围外 .12 不应答。此结果证明地址解析策略，不代表目标业务已有可用路由。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo arp proxy 198.18.101.10 198.18.101.11 interface Vlanif 100
+commit
+display arp proxy
+</pre></div>
+</div>
+<p>撤销后清单显示 <code class="docutils literal notranslate"><span class="pre">Total</span> <span class="pre">items</span> <span class="pre">displayed</span> <span class="pre">=</span> <span class="pre">0</span></code>，重新发送针对 .10、.11 的 ARP 请求不再得到代理应答。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../neighbors/ipv6-query/" class="btn btn-neutral float-left" title="IPv6 邻居查询" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../04-ip-routing/" class="btn btn-neutral float-right" title="IP 路由" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

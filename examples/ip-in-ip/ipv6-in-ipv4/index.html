@@ -1,0 +1,241 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPv6 over IPv4 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/ip-in-ip/ipv6-in-ipv4/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="IPv4 over IPv6" href="../ipv4-in-ipv6/" />
+    <link rel="prev" title="IPv4 over IPv4" href="../ipv4-in-ipv4/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../services/">网络服务</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../tunnels/">IP 隧道</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../gre/">GRE 互连</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../">IP-in-IP</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../ipv4-in-ipv4/">IPv4 over IPv4</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">IPv6 over IPv4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ipv4-in-ipv6/">IPv4 over IPv6</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ipv6-in-ipv6/">IPv6 over IPv6</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../wireguard/">WireGuard 互连</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../amneziawg/">AmneziaWG 互连</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../vxlan/">静态 VXLAN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../../tunnels/">IP 隧道</a></li>
+          <li class="breadcrumb-item"><a href="../">IP-in-IP</a></li>
+      <li class="breadcrumb-item active">IPv6 over IPv4</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ipv6-over-ipv4">
+<h1>IPv6 over IPv4<a class="headerlink" href="#ipv6-over-ipv4" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑与影响"></span><h2>拓扑与影响<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>两端均需启用 VPP 数据面。</p>
+<p>两台 VortexROS 的 Ethernet0 相连。R1/R2 的底层地址分别为 198.19.23.2、198.19.23.3；Tunnel93 分别使用 2001:db8:93::2、2001:db8:93::1。先确保底层 IPv4 双向可达；中间设备须允许 IP 协议号 41。</p>
+<p>隧道仅承载指定内层地址族。配置 Tunnel 地址会建立直连路由；其他站点网段仍需单独配置路由。源地址须属于本机选定底层 VPN，目的地址须在该 VPN 内可达。两端须未 shutdown，并配置完整的封装、源和目的地址；Protocol Up 还要求有效的 Tunnel 三层地址。</p>
+</section>
+<section id="r1">
+<span id="r1-配置"></span><h2>R1 配置<a class="headerlink" href="#r1" title="链接到此标题。"></a></h2>
+<p>进入系统视图后配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ip address 198.19.23.2 255.255.255.0
+#
+interface Tunnel 93
+ tunnel-protocol ipv6-ipv4
+ source 198.19.23.2
+ destination 198.19.23.3
+ ipv6 enable
+ ipv6 address 2001:db8:93::2 64
+#
+</pre></div>
+</div>
+<p>回到系统视图，执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code>。</p>
+</section>
+<section id="r2">
+<span id="r2-配置"></span><h2>R2 配置<a class="headerlink" href="#r2" title="链接到此标题。"></a></h2>
+<p>进入系统视图后配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ip address 198.19.23.3 255.255.255.0
+#
+interface Tunnel 93
+ tunnel-protocol ipv6-ipv4
+ source 198.19.23.3
+ destination 198.19.23.2
+ ipv6 enable
+ ipv6 address 2001:db8:93::1 64
+#
+</pre></div>
+</div>
+<p>回到系统视图，执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code>。</p>
+</section>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>R1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Tunnel 93
+ping ipv6 -c 2 -a 2001:db8:93::2 2001:db8:93::1
+</pre></div>
+</div>
+<p>R2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping ipv6 -c 2 -a 2001:db8:93::1 2001:db8:93::2
+</pre></div>
+</div>
+<p>验证结果摘要：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Tunnel93 current state : UP
+Line protocol current state : UP
+Tunnel protocol: ipv6-ipv4
+Source: 198.19.23.2
+Destination: 198.19.23.3
+
+2 packets transmitted, 2 received, 0% packet loss
+</pre></div>
+</div>
+<p>反向探测同为 2 发 2 收。接口 Up 只表示本机激活条件满足，仍需用双向业务探测判断远端是否可用。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>先解除引用 Tunnel93 的业务路由，再在两端的系统视图执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Tunnel 93
+commit
+display interface brief
+</pre></div>
+</div>
+<p>Tunnel93 和对应直连路由消失，底层 Ethernet0 地址保持。若需要跨重启保留修改，再执行 <code class="docutils literal notranslate"><span class="pre">save</span></code> 并确认。</p>
+<p><a class="reference internal" href="../../../operator/ip-in-ip/"><span class="std std-doc">IP-in-IP 配置指南</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../ipv4-in-ipv4/" class="btn btn-neutral float-left" title="IPv4 over IPv4" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ipv4-in-ipv6/" class="btn btn-neutral float-right" title="IPv4 over IPv6" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

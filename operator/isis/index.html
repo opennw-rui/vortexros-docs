@@ -1,0 +1,190 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IS-IS &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/isis/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="进程、Level 与接口" href="activation/" />
+    <link rel="prev" title="状态与撤销" href="../bgp/queries/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IS-IS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="activation/">进程、Level 与接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="redistribution/">IPv4/IPv6 路由引入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spf/">SPF 调度</a></li>
+<li class="toctree-l3"><a class="reference internal" href="operations/">查询、撤销与迁移</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../05-dynamic-routing/">路由协议</a></li>
+      <li class="breadcrumb-item active">IS-IS</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="is-is">
+<h1>IS-IS<a class="headerlink" href="#is-is" title="链接到此标题。"></a></h1>
+<p>IPv4/IPv6 共用同一个 IS-IS 进程；Level-1、Level-2 缺省路由优先级均为15。Level与Preference是不同概念，切换Level后需检查各级邻接、LSDB和实际路由。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="activation/">进程、Level 与接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="activation/#net">NET 与激活条件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation/#id1">开销与静默接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation/#dis">电路级别、网络类型与 DIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation/#id2">度量编码</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="redistribution/">IPv4/IPv6 路由引入</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="redistribution/#id1">直连前缀的实际效果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redistribution/#id2">撤销与其他协议接替</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redistribution/#l1-l2">L1/L2 同时运行时的撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spf/">SPF 调度</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spf/#id1">查询示例</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operations/">查询、撤销与迁移</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operations/#id2">双栈撤销与过载位</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations/#dis">DIS 和邻居优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations/#is-is">重启 IS-IS 服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations/#te">TE 运行状态查询</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../bgp/queries/" class="btn btn-neutral float-left" title="状态与撤销" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="activation/" class="btn btn-neutral float-right" title="进程、Level 与接口" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

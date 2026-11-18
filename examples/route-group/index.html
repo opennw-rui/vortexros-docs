@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>路由组 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/route-group/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="uRPF" href="../urpf/" />
+    <link rel="prev" title="静态路由" href="../static-route/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../routing/">IP 路由</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../static-route/">静态路由</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">路由组</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../urpf/">uRPF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../routing/">IP 路由</a></li>
+      <li class="breadcrumb-item active">路由组</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="路由组"></span><h1>路由组<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p><strong>目标</strong>：让两个目的前缀共用一个网关，后续增删成员时无需重复写下一跳。</p>
+<p><strong>前提</strong>：示例设备能直接到达 192.0.2.1，且目标前缀没有与本例冲突的同路径配置。</p>
+<section id="id2">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-static group name LAB
+ route 198.51.100.0/25
+ route 203.0.113.0/25
+ #
+ip route-static-group LAB 192.0.2.1 preference 60
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>组定义管理成员；绑定决定下一跳。未绑定的组不会单独安装路由。参见<a class="reference internal" href="../../operator/route-groups/"><span class="std std-doc">静态路由组</span></a>。</p>
+</section>
+<section id="id3">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">route-static</span> <span class="pre">group</span> <span class="pre">name</span> <span class="pre">LAB</span> <span class="pre">verbose</span></code> 检查成员，用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">routing-table-group</span> <span class="pre">name</span> <span class="pre">LAB</span> <span class="pre">verbose</span></code> 检查应用结果。再查询目标前缀和下一跳，并从示例网发起探测。</p>
+</section>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>先用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">route-static-group</span> <span class="pre">LAB</span> <span class="pre">192.0.2.1</span></code> 去掉该绑定，再用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route-static</span> <span class="pre">group</span> <span class="pre">name</span> <span class="pre">LAB</span></code> 删除已无引用的组，最后提交。确认仅该组路径被撤销。</p>
+</section>
+<section id="id5">
+<span id="双栈外部列表与撤销"></span><h2>双栈外部列表与撤销<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>两台 VortexROS 的 Ethernet0 直连，分别配置 198.19.80.1/30、.2/30 与 2001:db8:80::1/64、::2/64。P2 LoopBack199 配置 198.18.199.2/32、2001:db8:199::2/128。外部列表由独立的列表发布服务提供，分别包含这两个前缀；发布服务是数据来源，不是路由设备或本机手工启动的网络服务。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-static group name CLI-FINAL4
+ source url https://lists.example.net/routes/v4.txt
+ auto-refresh interval 5
+ auto-refresh enable
+ #
+ipv6 route-static group name CLI-FINAL6
+ source url https://lists.example.net/routes/v6.txt
+ auto-refresh interval 5
+ auto-refresh enable
+ #
+ip route-static-group CLI-FINAL4 198.19.80.2
+ipv6 route-static-group CLI-FINAL6 2001:db8:80::2
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>将 URL 替换为实际可访问的列表地址，证书应有效。下载完成后，两组 verbose 应各有一个 external 成员，刷新周期为 5 分钟，应用状态为 applied；检查两族路由和到 LoopBack199 的探测。</p>
+<p>将来源改为手工维护时，在各组中撤销自动刷新和 URL，再加入同一前缀并提交：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>route-static group name CLI-FINAL4
+ undo auto-refresh enable
+ undo auto-refresh interval
+ undo source url
+ route 198.18.199.2/32
+ #
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>IPv6 使用对应 IPv6 组及前缀。实际两组均变为 <code class="docutils literal notranslate"><span class="pre">manual</span> <span class="pre">1</span> <span class="pre">external</span> <span class="pre">0</span> <span class="pre">effective</span> <span class="pre">1</span></code>，来源 URL 和刷新计划不再显示。之后 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">route</span></code> 删除最后一个成员，提交后 IPv4/IPv6 的精确路由查询都成功返回0条。最后撤销两条绑定并删除两组，成功的两族组清单均为空。删除单个成员、删除绑定和删除组是不同操作，不能用一次查询错误代替这些结果。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../static-route/" class="btn btn-neutral float-left" title="静态路由" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../urpf/" class="btn btn-neutral float-right" title="uRPF" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

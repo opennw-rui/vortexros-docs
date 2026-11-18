@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>查询来源 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/snmp/source/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="MIB 与服务检查" href="../monitoring/" />
+    <link rel="prev" title="SNMPv3 authPriv" href="../v3/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../08-network-services/">网络服务</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ipv6-autoconfig/">IPv6 与 RA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lldp/">LLDP</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">SNMP</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../configuration/">SNMP 配置</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../v2c/">SNMPv2c</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../v3/">SNMPv3 authPriv</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">查询来源</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../monitoring/">MIB 与服务检查</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../notifications/">计数与通知</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../08-network-services/">网络服务</a></li>
+          <li class="breadcrumb-item"><a href="../">SNMP</a></li>
+          <li class="breadcrumb-item"><a href="../configuration/">SNMP 配置</a></li>
+      <li class="breadcrumb-item active">查询来源</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="查询来源"></span><h1>查询来源<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="id2">
+<span id="全接口监听"></span><h2>全接口监听<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>默认接收公网和 VPN 实例内的 IPv4 SNMP 查询。下面两条命令作用相同，选择一种即可：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent protocol source-interface all-interface
+</pre></div>
+</div>
+<p>或：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent protocol source-status all-interface
+</pre></div>
+</div>
+<p>监听范围不代替认证。还需启用对应协议版本，并配置只读 community 或 SNMPv3 用户。</p>
+</section>
+<section id="id3">
+<span id="限定公网接口"></span><h2>限定公网接口<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snmp-agent protocol source-interface Ethernet0
+</pre></div>
+</div>
+<p>Ethernet0 应已配置可用的 IPv4 地址。提交后，监控平台使用该接口地址查询。</p>
+</section>
+<section id="vpn">
+<span id="限定-vpn-接口"></span><h2>限定 VPN 接口<a class="headerlink" href="#vpn" title="链接到此标题。"></a></h2>
+<p>示例中，设备与监控平台直连，监控平台位于 MONITOR 实例，地址为 198.18.249.2/30。设备配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip vpn-instance MONITOR
+#
+interface Ethernet 99
+ ip binding vpn-instance MONITOR
+ ip address 198.18.249.1 255.255.255.252
+#
+snmp-agent
+snmp-agent sys-info version v3
+snmp-agent usm-user v3 monitor authentication-mode sha2-256 AuthPass123 privacy-mode aes128 PrivPass123
+snmp-agent protocol source-interface vpn-instance MONITOR Ethernet99
+</pre></div>
+</div>
+<p>返回系统视图提交，监控平台使用 198.18.249.1 和上述 authPriv 凭据查询。若同时配置 Trap 源，它必须符合所选监听 VPN 的约束。</p>
+</section>
+<section id="id4">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display snmp-agent sys-info
+display snmp-agent usm-user
+display interface Ethernet99
+ping -vpn-instance MONITOR -c 2 198.18.249.2
+</pre></div>
+</div>
+<p>实际 VPN 内查询已返回设备 sysName 为 VortexROS，IF-MIB 对应接口描述为 Ethernet99；VRF 内连通性探测为 2/2。接口索引由设备分配，应从本机 IF-MIB 读取，不要复制其他设备的数值。</p>
+<p>接口查询应同时显示实际地址、VPN 归属和计数。对尚未出现的预配置接口，配置存在不表示查询地址已经可达。</p>
+</section>
+<section id="id5">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>恢复默认的全接口监听：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo snmp-agent protocol source-interface
+commit
+</pre></div>
+</div>
+<p>切换监听范围后重新核对 display 和监控平台查询；设备自动应用相关设置，无需手工修改 Linux 内核参数。不再使用 SNMP 时，执行 undo snmp-agent 并提交；只删除本例的接口或 VPN 时，先解除对应的 SNMP 引用。</p>
+<p><a class="reference internal" href="../notifications/"><span class="std std-doc">通知源与 Trap</span></a> · <a class="reference internal" href="../../reference/snmp/"><span class="std std-doc">参数</span></a> · <a class="reference internal" href="../../../examples/snmp/"><span class="std std-doc">完整案例</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../v3/" class="btn btn-neutral float-left" title="SNMPv3 authPriv" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../monitoring/" class="btn btn-neutral float-right" title="MIB 与服务检查" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>静态项与老化 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/neighbors/configuration/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="IPv6 邻居查询" href="../ipv6-query/" />
+    <link rel="prev" title="ARP 与 ND" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">ARP 与 ND</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">静态项与老化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ipv6-query/">IPv6 邻居查询</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../">ARP 与 ND</a></li>
+      <li class="breadcrumb-item active">静态项与老化</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="静态项与老化"></span><h1>静态项与老化<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="id2">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>IPv4 ARP和IPv6 ND邻居老化是VPP进程级参数，不依赖VLAN或bridge-domain。纯三层接口同样使用这些参数。默认值均为1200秒，并在VPP每次启动或重新连接后优先恢复，再下发接口、地址和业务配置。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>arp timeout 900
+ipv6 nd stale-timeout 1800
+ipv6 nd max-number 65536
+ipv6 nd recycle enable
+commit
+</pre></div>
+</div>
+<p>恢复默认值：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo arp timeout
+undo ipv6 nd stale-timeout
+undo ipv6 nd max-number
+undo ipv6 nd recycle
+commit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">max-number</span></code>限制VPP IPv6邻居表容量；<code class="docutils literal notranslate"><span class="pre">recycle</span> <span class="pre">enable</span></code>在容量已满时回收最老的动态条目，静态邻居不参与动态回收。回收策略必须显式配置，<code class="docutils literal notranslate"><span class="pre">undo</span></code>恢复VPP启动时的默认策略。容量同步到 Linux ND 回收阈值。老化时间和回收开关作用于 VPP 邻居表。默认值不显示在配置中，非默认值通过 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span></code> 和 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">nd</span></code> 回读验证。</p>
+<p>静态 IPv6 邻居绑定在三层数据面接口上。MAC 支持三段式和冒号分隔形式，保存时统一为冒号分隔形式。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 neighbor 2001:db8:10::2 0211-2233-4455 interface Vlanif10
+commit
+display ipv6 neighbors static
+undo ipv6 neighbor 2001:db8:10::2 02:11:22:33:44:55 interface Vlanif10
+commit
+</pre></div>
+</div>
+<p>多播、未指定IPv6地址，多播或全零MAC，以及二层或控制型接口都会在提交前被拒绝。静态项在提交后生效，接口重建时按已保存意图恢复。动态邻居只属于运行态，不会写入配置。</p>
+<p>静态ARP只接受可用IPv4单播地址和六字节单播MAC；全零、组播或广播映射会在提交前拒绝。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/neighbors/"><span class="std std-doc">命令参数</span></a></p>
+</section>
+<section id="ipv6">
+<span id="ipv6-容量和实际查询"></span><h2>IPv6 容量和实际查询<a class="headerlink" href="#ipv6" title="链接到此标题。"></a></h2>
+<p>全局 ipv6 nd max-number 与 dataplane 下的 neighbor ipv6 limit 共用容量值；更改后提交，Linux 邻居表与 VPP 使用同一生效上限。以下配置的实际内核上限及 Linux 模式查询均为102600；撤销恢复102400：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 nd max-number 102600
+#
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display ipv6 nd
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>IPv6 Neighbor Discovery
+-------------------------------------------------------------------------------
+Active backend    : Linux
+Maximum neighbors : 102600
+Stale timeout     : - (kernel managed)
+Entry recycling   : - (kernel managed)
+</pre></div>
+</div>
+<p>Linux 与 VPP 的老化机制不同：Linux 显示不将 VPP stale-timeout 或 recycle 当作内核实际状态。VPP 模式下，stale-timeout150和recycle enable的查询分别显示150秒、enabled，撤销后恢复1200秒和disabled。上限表示容量策略，并非已经验证的满表承载量。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 nd max-number
+commit
+display ipv6 nd
+</pre></div>
+</div>
+</section>
+<section id="linux">
+<span id="linux-数据面的邻居显示"></span><h2>Linux 数据面的邻居显示<a class="headerlink" href="#linux" title="链接到此标题。"></a></h2>
+<p>Linux 数据面直接读取实际 ARP/ND 表，使用与 VPP 模式相同的查询形式：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display arp all
+display arp dynamic
+display arp interface Ethernet0
+display ipv6 neighbors
+display ipv6 neighbors dynamic
+display ipv6 neighbors static
+display ipv6 neighbors interface Ethernet0
+</pre></div>
+</div>
+<p>一次直接连接配置中，IPv4动态条目198.19.194.1和本地接口地址198.19.194.2均显示在Ethernet0上；动态筛选只保留前者，接口筛选保留两者。IPv6动态条目为2001:db8:194::1，配置对应静态邻居后显示Static1、Dynamic0；撤销静态配置后，静态查询为0条。内核为组播维护的NOARP映射不作为动态邻居显示。</p>
+<p>IPv6静态配置与撤销示例，MAC须替换为对端实际地址：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 neighbor 2001:db8:194::1 02fe-0273-0c16 interface Ethernet0
+#
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display ipv6 neighbors static
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ipv6 neighbor 2001:db8:194::1 02fe-0273-0c16 interface Ethernet0
+commit
+display ipv6 neighbors static
+</pre></div>
+</div>
+<p>查询不从配置推测邻居是否存在；读取失败会报告错误。Linux不提供此查询所用的条目年龄，Age显示“-”。静态筛选、动态筛选、接口筛选和VPN实例筛选是独立形式，不能任意拼接多个筛选关键字。</p>
+</section>
+<section id="arp">
+<span id="桥域静态-arp"></span><h2>桥域静态 ARP<a class="headerlink" href="#arp" title="链接到此标题。"></a></h2>
+<p>桥域静态 ARP 用固定映射回答该桥域内的 ARP 请求。它不创建远端主机，也不创建到该主机的 IP 路由；主机的实际地址、MAC、二层出口和回程仍需正确。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>arp static 198.19.196.33 02fe-4e89-b4b0 bridge-domain 961
+#
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display arp static
+display bridge-domain 961
+</pre></div>
+</div>
+<p>实际查询中静态项为：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>198.19.196.33   02fe-4e89-b4b0        S/961          Vlanif961        default
+Total:1         Dynamic:0        Static:1     Interface:0
+</pre></div>
+</div>
+<p>桥域静态映射显示为 <code class="docutils literal notranslate"><span class="pre">S/桥域编号</span></code>，用于 ARP 应答；三层接口学习的动态邻居显示为 <code class="docutils literal notranslate"><span class="pre">D</span></code>。同一 IP 可以分别出现在这两类对象中，不能仅凭静态行就认定三层邻居已经变成永久项。用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">arp</span> <span class="pre">static</span></code> 和桥域查询核对前者，用动态筛选及接口查询核对后者。</p>
+<p>桥域显示 arp-term:on，并列出该IP/MAC映射。一次对照中，对端端口关闭时，桥域仍回应198.19.196.33的ARP请求，接收端解析为上述MAC；此时IP探测仍为2发0收，因为对端链路尚未恢复。因此，ARP解析成功不能代替端到端连通性检查。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo arp static 198.19.196.33 02fe-4e89-b4b0 bridge-domain 961
+commit
+display arp static
+display bridge-domain 961
+</pre></div>
+</div>
+<p>撤销后静态查询为0条。最后一条静态映射撤销后，自动启用的ARP应答关闭；EVPN或其他仍要求ARP应答的功能可继续保持它开启。</p>
+</section>
+<section id="ipv4">
+<span id="清除动态-ipv4-邻居"></span><h2>清除动态 IPv4 邻居<a class="headerlink" href="#ipv4" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">arp</span></code> 区分接口自身地址、静态配置和动态学习项。只清动态项可执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset ip arp interface Vlanif 100 ip 198.18.100.2
+reset ip arp 198.18.100.3
+reset ip arp
+display arp
+</pre></div>
+</div>
+<p>分别按接口与地址、仅地址、全局范围选择，按提示确认。静态配置和接口自身地址保留；重新产生业务后，动态项可以再次学习。实际验证覆盖了三种选择方式，清除后的动态项消失，静态项保留，重新学习后探测恢复。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="ARP 与 ND" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ipv6-query/" class="btn btn-neutral float-right" title="IPv6 邻居查询" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

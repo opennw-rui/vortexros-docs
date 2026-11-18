@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>运行配置重置 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/operations/configuration/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="数据面恢复" href="../dataplane/" />
+    <link rel="prev" title="状态与版本" href="../display/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../09-operations/">诊断与恢复</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../probes/">Ping、tracert 与 mtr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../display/">状态与版本</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">运行配置重置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">路由服务恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/">故障定位</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../09-operations/">诊断与恢复</a></li>
+      <li class="breadcrumb-item active">运行配置重置</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="运行配置重置"></span><h1>运行配置重置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>已提交且没有待提交 Candidate 时，数据面异常或接口恢复不会阻止保存当前 Running。save 只写入启动配置，成功保存不表示业务已经恢复；核对保存结果后，再按提示执行 reset dataplane。若仍有未提交 Candidate，应先提交或撤销。</p>
+<section id="clearreset">
+<span id="clear与reset"></span><h2>Clear与Reset<a class="headerlink" href="#clearreset" title="链接到此标题。"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">clear</span></code>清理计数或当前Candidate；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reset</span></code>清理动态ARP/MAC表项，或执行服务重启、远端列表刷新和协议会话重置；</p></li>
+<li><p>二者都是即时运维命令，不进入配置；</p></li>
+<li><p>对外部连接、路由邻居或转发有影响的操作需要管理员权限和明确确认。</p></li>
+</ul>
+<p>示例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset ip arp
+reset ip arp interface Vlanif 20 ip 192.0.2.10
+reset mac-address
+reset mac-address interface Ethernet 1 mac-address 00-11-22-33-44-55
+clear interface Ethernet 1 counter
+clear nat-policy counters
+reset service vpp
+reset service bgp
+reset route-static group name CDN
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">ip</span> <span class="pre">arp</span></code>只删除Linux LCP接口上的动态IPv4邻居，可按三层接口、IPv4地址或两者同时过滤；不指定接口时使用当前VPP LCP清单，覆盖自动物理LCP和配置型LCP。删除事件由LCP同步至VPP，在二层接口上执行会明确报错。<code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">mac-address</span></code>由switchd删除Linux控制FDB中的动态外部学习项，再由LCP同步至VPP；可按二层接口、MAC地址或两者同时过滤，在三层接口上执行会明确报错。两条命令都保留静态配置，并由vortexrosd与commit串行执行。</p>
+<p>clear interface &lt;接口&gt; counter 将接口详情、速率窗口及标准 SNMP 接口计数重新从零累计；可用的 CRC/FCS 计数同时清零。它只影响查询计数，不改变接口状态、配置或转发表，也不清除网卡自身计数。VPP 或控制服务重启后重新开始计数，SNMP 采集端应识别计数不连续。</p>
+</section>
+<section id="running">
+<span id="清除-running-并恢复已保存配置"></span><h2>清除 Running 并恢复已保存配置<a class="headerlink" href="#running" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">running-configuration</span></code> 经确认后立即清除 Running 中的业务配置。启用 VPP 时，设备重启 VPP 并按清除后的 Running 重建转发状态，业务会中断。VPP 启用状态、VPP 启动文件设置和已保存的启动 CFG 均保留。</p>
+<p>清除前用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">startup</span></code> 确认所选 CFG。恢复同一份已保存业务配置时，在系统视图将该文件载入 Candidate，然后提交：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display startup
+system-view
+load configuration config.cfg
+commit
+display health
+display interface brief
+</pre></div>
+</div>
+<p>将 <code class="docutils literal notranslate"><span class="pre">config.cfg</span></code> 换成实际选中的文件名。此恢复方法适用于数据面归属未改变的情形；从 Linux 模式重新接管 DPDK 接口，应按<a class="reference internal" href="../dataplane/"><span class="std std-doc">数据面切换流程</span></a>操作，不能用普通 commit 跨过接管步骤。</p>
+<p>一次双端二层验证中，两端接口 MTU 均为 9706。清空 Running 后接口回到三层默认 MTU 1500、原二层业务停止，Saved 文件保持不变；重新载入并提交后，MTU 恢复为 9706，端到端探测 3/3。重建仅发生在命令要求的阶段，不应在命令完成后持续重复重启。</p>
+</section>
+<section id="id2">
+<span id="清除启动配置"></span><h2>清除启动配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset saved-configuration backup.cfg
+reset saved-configuration
+display saved-configuration
+</pre></div>
+</div>
+<p>第一条只清除指定的命名 CFG；不带文件名时清除当前选中的启动 CFG。两者都要求确认，不立即清除 Running，也不应重启数据面。清除后，后续启动使用该空配置；不要在唯一管理配置没有备份时执行。</p>
+<p>实际验证中，命名 CFG 和选中 CFG 分别清空后，当前 VLAN、静态 MAC 与 BFD 业务继续运行，二层探测 2/2，数据面进程保持不变。需要重新保存当前业务时执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">saved-configuration</span></code> 展示所选 CFG 解析后的规范配置，并非原文件的逐字节内容。系统生成的格式说明和分隔符可能重新显示；删除文件里的说明行不等于修改业务配置。查询路径可用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">startup</span></code> 核对。</p>
+</section>
+<section id="id3">
+<span id="恢复出厂配置"></span><h2>恢复出厂配置<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">restore</span> <span class="pre">factory-configuration</span></code> 清除 Running 和所选 Saved，并恢复受管服务。它与只清除 Saved 的命令不同：原接口地址、路由、二层表项及受管账号等业务会被撤销，数据面回到出厂归属，远程管理可能中断。执行前保留可用的独立管理入口。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>restore factory-configuration
+display health
+display current-configuration
+display saved-configuration
+</pre></div>
+</div>
+<p>按提示确认后检查配置及实际接口。不能只凭命令返回成功就认为业务配置已经撤销；还应确认原邻居、动态路由和转发表项已消失。</p>
+<p>恢复出厂前，可把当前已提交配置另存为一个命名备份。恢复出厂会清除当前选中的启动文件；
+命名备份不要使用该文件名：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display startup
+save backup.cfg
+</pre></div>
+</div>
+<p>恢复备份时，导入和提交先恢复配置，数据面归属保持当前状态。若备份使用 DPDK，
+再通过 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code> 明确执行网卡接管；不能把备份中的启动归属标记当作普通提交的接管命令：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+load configuration backup.cfg
+display configuration candidate
+commit
+save
+display dataplane
+reset dataplane
+display health
+display interface brief
+display dataplane verbose
+</pre></div>
+</div>
+<p>按提示确认数据面切换，核对接口、地址、路由及实际业务恢复情况，再检查当前配置和启动配置。
+从 Linux 切换到 DPDK 会改变网卡驱动并重建接口，业务与通过这些网卡建立的管理连接可能短暂中断；
+应使用独立管理入口完成恢复。</p>
+<p><a class="reference internal" href="../../09-operations/"><span class="std std-doc">目录</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../display/" class="btn btn-neutral float-left" title="状态与版本" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../dataplane/" class="btn btn-neutral float-right" title="数据面恢复" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

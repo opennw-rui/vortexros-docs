@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BGP IPv4 策略 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/bgp-policy/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="BGP IPv6 策略" href="../bgp-ipv6-policy/" />
+    <link rel="prev" title="直连 eBGP" href="../bgp/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../protocols/">路由协议</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ospf-multiarea/">OSPF 跨区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">BGP IPv4 策略</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-ipv6-policy/">BGP IPv6 策略</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-redistribution/">静态路由引入BGP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../isis/">IS-IS 双栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip-v1/">RIPv1 聚合链路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip-bfd-ecmp/">RIP 与 BFD 多路径</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bfd/">静态 BFD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../protocols/">路由协议</a></li>
+      <li class="breadcrumb-item active">BGP IPv4 策略</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bgp-ipv4">
+<span id="bgp-ipv4-策略"></span><h1>BGP IPv4 策略<a class="headerlink" href="#bgp-ipv4" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="目标与拓扑"></span><h2>目标与拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>P2发布环回地址，P1只接收指定前缀，并修改本地选路属性。所有网络设备都使用VortexROS；以下接口编号可按设备替换。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 Ethernet0 ---------------- Ethernet0 P2
+198.19.80.1/30                198.19.80.2/30
+AS 65000                     AS 65000
+                             LoopBack253: 10.253.29.2/32
+</pre></div>
+</div>
+<p>此例使用私有地址和AS号。策略只挂载到示例邻居的IPv4入方向，不应直接用于正在承载其他前缀的生产邻居。未匹配的路由隐式拒绝。</p>
+</section>
+<section id="p2">
+<span id="p2配置"></span><h2>P2配置<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ip address 198.19.80.2 30
+#
+interface LoopBack 253
+ ip address 10.253.29.2 32
+#
+bgp 65000
+ router-id 2.2.2.2
+ peer 198.19.80.1 as-number 65000
+ ipv4-family unicast
+  peer 198.19.80.1 enable
+  network 10.253.29.2 32
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">network</span></code>要求该精确前缀已经存在于本机路由表。本例由LoopBack253提供直连路由。</p>
+</section>
+<section id="p1">
+<span id="p1配置"></span><h2>P1配置<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<p>先建立继续节点，再引用它。两个节点都匹配同一前缀列表，避免未命中第10节点的路由落入无条件许可的第20节点。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ip address 198.19.80.1 30
+#
+ip ip-prefix D1-BGP4 index 10 permit 10.253.29.2 32
+route-policy D1-BGP4 permit node 20
+ if-match ip-prefix D1-BGP4
+ apply tag 253
+#
+route-policy D1-BGP4 permit node 10
+ if-match ip-prefix D1-BGP4
+ apply cost 37
+ apply local-preference 220
+ apply origin egp
+ apply ip-address next-hop 198.19.80.2
+ apply as-path 65123 65124
+ apply community 65000:253 additive
+ apply large-community 65000:1:253 additive
+ continue node 20
+#
+bgp 65000
+ router-id 1.1.1.1
+ peer 198.19.80.2 as-number 65000
+ ipv4-family unicast
+  peer 198.19.80.2 enable
+  peer 198.19.80.2 route-policy D1-BGP4 import
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<span id="参数与影响"></span><h2>参数与影响<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>配置</p></th>
+<th class="head"><p>作用与影响</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>前缀列表的32</p></td>
+<td><p>只匹配该主机路由；不是匹配整个10/8</p></td>
+</tr>
+<tr class="row-odd"><td><p>local-preference 220</p></td>
+<td><p>高于普通接收路径的100，参与本AS内选路</p></td>
+</tr>
+<tr class="row-even"><td><p>cost 37</p></td>
+<td><p>此BGP消费者中设置MED，不改变接口开销</p></td>
+</tr>
+<tr class="row-odd"><td><p>origin egp</p></td>
+<td><p>将Origin改为EGP，表中显示e</p></td>
+</tr>
+<tr class="row-even"><td><p>AS_PATH 65123 65124</p></td>
+<td><p>在接收路径前添加AS序列；错误添加本AS可能触发环路检查</p></td>
+</tr>
+<tr class="row-odd"><td><p>next-hop</p></td>
+<td><p>保持为可达的P2；设置成不可达地址会使路径不能用于转发</p></td>
+</tr>
+<tr class="row-even"><td><p>community / large-community</p></td>
+<td><p>给本地路径增加属性；向其他邻居传播还受该邻居的通告设置约束</p></td>
+</tr>
+<tr class="row-odd"><td><p>continue node 20</p></td>
+<td><p>命中第10节点后继续执行第20节点，最终增加Tag253</p></td>
+</tr>
+</tbody>
+</table>
+<p>不能只增加一个末尾无条件permit节点来“完成continue”：那也会接受未匹配前置节点的路由。</p>
+</section>
+<section id="id3">
+<span id="实际验证"></span><h2>实际验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp peer
+display bgp routing-table 10.253.29.2
+display route-policy D1-BGP4
+display route-policy D1-BGP4 verbose
+display ip ip-prefix D1-BGP4 verbose
+display ip ip-prefix D1-BGP4 first-match 10.253.29.2/32
+display ip routing-table 10.253.29.2
+ping -c 3 10.253.29.2
+</pre></div>
+</div>
+<p>示例输出节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>     Network            NextHop             MED     LocPrf Path/Ogn
+ *&gt;  10.253.29.2/32     198.19.80.2          37        220 65123 65124 e
+
+Total Number of Routes: 1
+</pre></div>
+</div>
+<p>策略明细中的第10、20节点实际均被调用；前缀列表命中计数为2。路径回读同时确认Tag253、Community65000:253及Large Community65000:1:253。实际探测为3发3收。</p>
+<p>这是属性与连通性结果，不是吞吐性能保证。BGP的协议优先级仍为254；Local Preference与协议优先级含义不同。</p>
+</section>
+<section id="id4">
+<span id="拒绝和恢复"></span><h2>拒绝和恢复<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>把匹配项改为deny并提交：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip ip-prefix D1-BGP4 index 10 deny 10.253.29.2 32
+commit
+display bgp routing-table
+</pre></div>
+</div>
+<p>受测邻居没有其他允许路径时，该前缀退出BGP表，实测显示<code class="docutils literal notranslate"><span class="pre">Total</span> <span class="pre">Number</span> <span class="pre">of</span> <span class="pre">Routes:</span> <span class="pre">0</span></code>。如果另一个邻居仍在发布，路由可以正常保留，应按邻居和路径核对，不能把其他路径误认为过滤失效。</p>
+<p>恢复permit：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip ip-prefix D1-BGP4 index 10 permit 10.253.29.2 32
+commit
+</pre></div>
+</div>
+<p>实测原MED37、Local Preference220、AS_PATH及Origin恢复。</p>
+</section>
+<section id="id5">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>只撤销属性时，在对应策略节点使用<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">apply</span> <span class="pre">...</span></code>及<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">continue</span></code>并提交。实测撤销这些动作后，路由仍被允许，恢复MED0、Local Preference100、空AS_PATH和Origin IGP。</p>
+<p>完全撤销策略时先解除消费者引用：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
+ ipv4-family unicast
+  undo peer 198.19.80.2 route-policy D1-BGP4 import
+#
+undo route-policy D1-BGP4 permit node 10
+undo route-policy D1-BGP4 permit node 20
+undo ip ip-prefix D1-BGP4
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display route-policy
+display ip ip-prefix
+</pre></div>
+</div>
+<p>实测对象从配置和后端均移除，原BGP邻居及network路由保留。仍被引用时直接删除前缀列表会被Candidate拒绝，不会破坏已提交配置。</p>
+<p>业务无需继续时，在P2的IPv4地址族撤销<code class="docutils literal notranslate"><span class="pre">network</span> <span class="pre">10.253.29.2</span> <span class="pre">32</span></code>，再移除专用环回接口。验证后按需执行<code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
+<p><a class="reference internal" href="../bgp-ipv6-policy/"><span class="std std-doc">IPv6策略案例</span></a> · <a class="reference internal" href="../../operator/route-policy/matching/"><span class="std std-doc">策略匹配</span></a> · <a class="reference internal" href="../../operator/reference/route-policy/"><span class="std std-doc">命令参数</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../bgp/" class="btn btn-neutral float-left" title="直连 eBGP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../bgp-ipv6-policy/" class="btn btn-neutral float-right" title="BGP IPv6 策略" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

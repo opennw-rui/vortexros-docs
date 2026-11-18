@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>查询、撤销与迁移 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/isis/operations/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="RIP" href="../../rip/" />
+    <link rel="prev" title="SPF 调度" href="../spf/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bgp/">BGP</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">IS-IS</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../activation/">进程、Level 与接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../redistribution/">IPv4/IPv6 路由引入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spf/">SPF 调度</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">查询、撤销与迁移</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">IS-IS</a></li>
+      <li class="breadcrumb-item active">查询、撤销与迁移</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="查询撤销与迁移"></span><h1>查询、撤销与迁移<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display isis 10 brief
+display isis 10 peer
+display isis 10 interface
+display isis 10 lsdb
+display isis 10 route
+display isis 10 spf-delay
+</pre></div>
+</div>
+<p>撤销示例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
+ undo isis ipv6-enable 10
+ undo isis enable
+#
+undo isis 10
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>如果需要把进程迁移到另一个VPN，应先删除进程，再使用新VPN重新创建。当前配套FRR 对 Level-1、Level-2 均使用缺省路由优先级 15。这对应路由表的 <code class="docutils literal notranslate"><span class="pre">Pre</span></code>，不是协议内部的 Level 选路顺序。切换 Level 会重新建立对应级别的链路状态并计算路由；应同时检查邻居、LSDB、路由表和连通性，不能仅以邻居 Up 判断恢复。</p>
+<p><a class="reference internal" href="../../../examples/isis/"><span class="std std-doc">双端配置和路由查询</span></a> · <a class="reference internal" href="../../reference/isis/"><span class="std std-doc">全部参数</span></a></p>
+<section id="id2">
+<span id="双栈撤销与过载位"></span><h2>双栈撤销与过载位<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>IPv4 与 IPv6 的接口绑定可以分别撤销。一次双端配置中，两族前缀均显示 ISIS、Preference 15、Cost 20；仅重新启用 IPv4 时，IPv4 路由恢复，IPv6 前缀仍无路由，随后启用 IPv6 才恢复该族。删除专用环回接口后，两族对应前缀均撤销。</p>
+<p>set-overload-bit 设置本机 LSP 的过载位；对端 LSDB 的 ATT/P/OL 从 0/0/0 变为 0/0/1，undo set-overload-bit 后恢复。过载位主要影响其他设备是否将本机作为中转，不能据仍可访问本机所连网段判断它无效。</p>
+</section>
+<section id="dis">
+<span id="dis-和邻居优先级"></span><h2>DIS 和邻居优先级<a class="headerlink" href="#dis" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">isis</span> <span class="pre">进程号</span> <span class="pre">interface</span></code> 的 DIS 列显示本机当选 DIS 的级别：<code class="docutils literal notranslate"><span class="pre">L1</span></code>、<code class="docutils literal notranslate"><span class="pre">L2</span></code> 或 <code class="docutils literal notranslate"><span class="pre">L1/L2</span></code>；LAN 上未当选时显示 <code class="docutils literal notranslate"><span class="pre">No</span></code>，点到点链路没有 DIS 选举，显示 <code class="docutils literal notranslate"><span class="pre">--</span></code>。<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">isis</span> <span class="pre">进程号</span> <span class="pre">peer</span></code> 的 PRI 列显示对端通告的 LAN 优先级，点到点邻居显示 <code class="docutils literal notranslate"><span class="pre">-</span></code>。</p>
+<p>例如，两端的 LAN 优先级分别设置为 127 与 1，在 Level-1 邻接 Up 后，优先级 127 的设备显示 DIS <code class="docutils literal notranslate"><span class="pre">L1</span></code>，其邻居 PRI 为 <code class="docutils literal notranslate"><span class="pre">1</span></code>；另一端显示 DIS <code class="docutils literal notranslate"><span class="pre">No</span></code>，其邻居 PRI 为 <code class="docutils literal notranslate"><span class="pre">127</span></code>。路由表仍使用 IS-IS 缺省 Preference 15；DIS 优先级不会变成 IP 路由优先级。</p>
+</section>
+<section id="is-is">
+<span id="重启-is-is-服务"></span><h2>重启 IS-IS 服务<a class="headerlink" href="#is-is" title="链接到此标题。"></a></h2>
+<p>需要重启协议服务时，在用户视图执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset service isis
+</pre></div>
+</div>
+<p>确认提示输入 <code class="docutils literal notranslate"><span class="pre">Y</span></code> 后，设备重启 IS-IS 进程，按当前 Running 重新下发并回读配置。该操作会短暂中断 IS-IS 邻接与相关路由，不会保存尚未保存的配置，也不会重启其他路由协议或数据面。恢复后检查邻居、目标路由和实际业务：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display health
+display isis 1 peer
+display ip routing-table 198.18.246.3
+ping -a 198.19.23.2 -c 1 198.18.246.3
+</pre></div>
+</div>
+<p>一次正常恢复结果为邻居 Up、目标路由 ISIS/Preference 15/Cost 20，探测 1/1；健康状态为 ready。仅收到“服务已重启”消息不足以证明远端路由和流量已经恢复。</p>
+</section>
+<section id="te">
+<span id="te-运行状态查询"></span><h2>TE 运行状态查询<a class="headerlink" href="#te" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display isis 2 traffic-eng router
+display isis 2 traffic-eng interface
+display isis 2 traffic-eng database
+</pre></div>
+</div>
+<p>查询按所选 IS-IS 进程显示数据，也可以使用 <code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code> 选择实例。接口查询只显示该进程对应的接口参数，不混入其他 VPN 实例。实际有数据的查询可显示 <code class="docutils literal notranslate"><span class="pre">MPLS-TE</span> <span class="pre">IPv4</span> <span class="pre">Router-Address</span> <span class="pre">:</span> <span class="pre">1.1.1.1</span></code>、<code class="docutils literal notranslate"><span class="pre">Traffic</span> <span class="pre">Engineering</span> <span class="pre">Metric</span> <span class="pre">:</span> <span class="pre">123</span></code>，数据库汇总为 <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">Vertices,</span> <span class="pre">2</span> <span class="pre">Edges,</span> <span class="pre">6</span> <span class="pre">Subnets</span></code>；另一个 VPN 内的接口参数可独立显示 Metric <code class="docutils literal notranslate"><span class="pre">234</span></code>。</p>
+<p>这些命令读取已有 TE 状态，不启用 TE、Segment Routing 或 MPLS 转发，也不创建隧道。当前版本未提供 IS-IS TE 发布配置入口。未启用时没有 TE 参数或显示禁用状态，不应据此判断普通 IS-IS 邻接和路由故障；普通路由仍通过 <code class="docutils literal notranslate"><span class="pre">peer</span></code>、<code class="docutils literal notranslate"><span class="pre">lsdb</span></code> 和 <code class="docutils literal notranslate"><span class="pre">route</span></code> 查询。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../spf/" class="btn btn-neutral float-left" title="SPF 调度" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../rip/" class="btn btn-neutral float-right" title="RIP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

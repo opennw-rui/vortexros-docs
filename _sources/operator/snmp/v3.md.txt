@@ -1,0 +1,37 @@
+# SNMPv3 authPriv
+
+使用 SHA2-256 认证和 AES128 隐私保护，认证密码和隐私密码均至少 8 个字符。两者是 SNMP 凭据，与 SSH 用户密码分别管理。
+
+## 配置用户
+
+```text
+snmp-agent
+snmp-agent sys-info version v3
+snmp-agent usm-user v3 monitor authentication-mode sha2-256 AuthPass123 privacy-mode aes128 PrivPass123
+```
+
+提交后，在监控平台选择 authPriv、SHA-256、AES128，并使用同名用户及对应密码查询。监听地址见[查询来源](source.md)。
+
+```text
+commit
+display snmp-agent usm-user
+display snmp-agent sys-info
+```
+
+## 保存与恢复
+
+需要重启后保留时执行 save。设备保存 engine ID 和 USM 状态；正常提交、保存恢复及进程重启不要求更换用户或密码。实际公网及 VPN 内 authPriv 查询均已取得 sysName 和接口结果。
+
+## 删除用户
+
+```text
+undo snmp-agent usm-user v3 monitor
+commit
+display snmp-agent usm-user
+```
+
+保留其他监控使用的有效用户和协议版本。若同时停用 SNMPv3，可配置 undo snmp-agent sys-info version v3；不再使用任何 SNMP 服务时使用 undo snmp-agent。
+
+实际删除测试用户后，用户查询为 Total: 0，原凭据请求返回 Unknown user name。配置中不再出现该用户，不能仅以监控平台暂时没有刷新判断撤销是否完成。
+
+[通知配置](notifications.md) · [MIB 查询](monitoring.md)

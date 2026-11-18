@@ -1,0 +1,1569 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OSPF &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/ospf/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="OSPFv3" href="../ospfv3/" />
+    <link rel="prev" title="路由策略" href="../route-policy/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../reading/">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../aaa/">本地账号</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../icmp/">ICMP 发送控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">OSPF</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ospf">
+<h1>OSPF<a class="headerlink" href="#ospf" title="链接到此标题。"></a></h1>
+<p><a class="reference internal" href="../../ospf/"><span class="std std-doc">配置指南</span></a></p>
+<p>共用命令：<a class="reference internal" href="../dynamic-routing/#cmd-abr-summary"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">abr-summary</span></code></span></a>、<a class="reference internal" href="../dynamic-routing/#cmd-area"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">area</span></code></span></a>、<a class="reference internal" href="../dynamic-routing/#cmd-import-route"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">import-route</span></code></span></a>、<a class="reference internal" href="../dynamic-routing/#cmd-network"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">network</span></code></span></a>、<a class="reference internal" href="../dynamic-routing/#cmd-router-id"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">router-id</span></code></span></a>。</p>
+<section id="bandwidth-reference">
+<h2><code class="docutils literal notranslate"><span class="pre">bandwidth-reference</span></code><a class="headerlink" href="#bandwidth-reference" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></li>
+<li><p>CLI 帮助：set the OSPFv3 reference bandwidth</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bandwidth-reference INTEGER&lt;1-4294967&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-4294967&gt;</span></code></p></td>
+<td><p>reference bandwidth in Mbit/s</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="display-ospf">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ospf</span></code><a class="headerlink" href="#display-ospf" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：display OSPF information</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospf [process-id] lsdb [{router|network|summary|asbr|ase|nssa|opaque-*} [link-state-id]] [originate-router router-id|self-originate] [age {min-value|max-value} seconds]
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>Process ID</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">abr-asbr</span></code></p></td>
+<td><p>Information of the OSPF ABR and ASBR</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">asbr-summary</span></code></p></td>
+<td><p>Information of aggregate addresses for OSPF</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">brief</span></code></p></td>
+<td><p>Brief information of OSPF processes</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">graceful-restart</span></code></p></td>
+<td><p>Display GR information</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>graceful-restart</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">helper</span></code></p></td>
+<td><p>Helper details in the router</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>Interface information</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">traffic</span></code></p></td>
+<td><p>OSPF interface packet counters</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>interface / peer / traffic</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTERFACE</span></code></p></td>
+<td><p>Interface name</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lsdb</span></code></p></td>
+<td><p>Link state database</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">router</span></code></p></td>
+<td><p>Router link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>asbr / ase / lsdb / network / nssa / opaque-area / opaque-as / opaque-link / router / summary</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>Link state ID</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-even"><td><p>X.X.X.X / asbr / ase / lsdb / network / nssa / opaque-area / opaque-as / opaque-link / router / summary</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">originate-router</span></code></p></td>
+<td><p>Advertising router link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>originate-router</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>Advertising router ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>X.X.X.X / asbr / ase / lsdb / network / nssa / opaque-area / opaque-as / opaque-link / router / summary</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">self-originate</span></code></p></td>
+<td><p>Self-originated link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>X.X.X.X / asbr / ase / lsdb / network / nssa / opaque-area / opaque-as / opaque-link / router / summary</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">age</span></code></p></td>
+<td><p>Only display LSAs in the age scope</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>age</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-value</span></code></p></td>
+<td><p>Minimum LSA age</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>max-value / min-value</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-3600&gt;</span></code></p></td>
+<td><p>LSA age in seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;0-3600&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max-value</span></code></p></td>
+<td><p>Maximum LSA age</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>age</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max-value</span></code></p></td>
+<td><p>Maximum LSA age</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">network</span></code></p></td>
+<td><p>Network link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ase</span></code></p></td>
+<td><p>AS external link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">asbr</span></code></p></td>
+<td><p>ASBR summary link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">summary</span></code></p></td>
+<td><p>Network summary link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nssa</span></code></p></td>
+<td><p>NSSA external link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">opaque-area</span></code></p></td>
+<td><p>Opaque area link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">opaque-as</span></code></p></td>
+<td><p>Opaque AS link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">opaque-link</span></code></p></td>
+<td><p>Opaque link-local link states</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">brief</span></code></p></td>
+<td><p>Database summary</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detail</span></code></p></td>
+<td><p>Detailed database information</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>lsdb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-5&gt;</span></code></p></td>
+<td><p>LSA type</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mpls-te</span></code></p></td>
+<td><p>MPLS-TE information</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>mpls-te</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">database</span></code></p></td>
+<td><p>MPLS-TE database</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>mpls-te</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">interface</span></code></p></td>
+<td><p>Interface information</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>mpls-te</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">router</span></code></p></td>
+<td><p>MPLS-TE router parameters</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">peer</span></code></p></td>
+<td><p>A neighbor router</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>peer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>Neighbor router ID</p></td>
+<td><p>输入值、可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTERFACE / X.X.X.X / peer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">brief</span></code></p></td>
+<td><p>Brief OSPF peer information</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>peer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">last-nbr-down</span></code></p></td>
+<td><p>Information of last down peer</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>DISPLAY-VRF / INTEGER&lt;1-65535&gt; / 命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">routing</span></code></p></td>
+<td><p>OSPF route table</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></p></td>
+<td><p>VPN instance</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>vpn-instance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DISPLAY-VRF</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="nssa">
+<h2><code class="docutils literal notranslate"><span class="pre">nssa</span></code><a class="headerlink" href="#nssa" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></p></li>
+<li><p>CLI 帮助：configure a not-so-stubby area；configure an OSPFv3 nssa area</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nssa [no-summary]
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">ospf-area</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-summary</span></code></p></td>
+<td><p>do not advertise inter-area summaries</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-summary</span></code></p></td>
+<td><p>suppress inter-area summaries</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="opaque-capability-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">opaque-capability</span> <span class="pre">enable</span></code><a class="headerlink" href="#opaque-capability-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
+<li><p>CLI 帮助：enable OSPF opaque LSA capability</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>opaque-capability enable
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="id1">
+<span id="ospf-1"></span><h2><code class="docutils literal notranslate"><span class="pre">ospf</span></code><a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code>（也可从其他配置视图直接调用）</p></li>
+<li><p>CLI 帮助：create an OSPF process and enter OSPF view</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf INTEGER&lt;1-65535&gt; [router-id X.X.X.X] [vpn-instance NAME]
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>OSPF process 1-65535</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">router-id</span></code></p></td>
+<td><p>OSPF private router ID value</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>router-id</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>OSPF Private router ID value</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vpn-instance</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>vpn-instance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VPN</span></code></p></td>
+<td><p>VPN instance name</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ospf-bfd">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">bfd</span></code><a class="headerlink" href="#ospf-bfd" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：configure OSPF BFD timers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf bfd {min-tx-interval INTEGER&lt;100-1000&gt; | min-rx-interval INTEGER&lt;100-1000&gt; | detect-multiplier INTEGER&lt;3-50&gt;} ...
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>min-tx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;100-1000&gt;</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;100-1000&gt; / INTEGER&lt;3-50&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>min-rx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;100-1000&gt;</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEGER&lt;100-1000&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code></p></td>
+<td><p>BFD detection multiplier</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>detect-multiplier</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;3-50&gt;</span></code></p></td>
+<td><p>Detection multiplier</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;100-1000&gt; / INTEGER&lt;3-50&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code></p></td>
+<td><p>BFD detection multiplier</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ospf-bfd-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">bfd</span> <span class="pre">enable</span></code><a class="headerlink" href="#ospf-bfd-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：enable OSPF BFD on this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf bfd enable
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="ospf-cost">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">cost</span></code><a class="headerlink" href="#ospf-cost" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：set OSPF interface cost</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf cost INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>OSPF cost 1-65535</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ospf-dr-priority">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">dr-priority</span></code><a class="headerlink" href="#ospf-dr-priority" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：set OSPF interface router priority</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf dr-priority INTEGER&lt;0-255&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;0-255&gt;</span></code></p></td>
+<td><p>Router priority value</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ospf-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">enable</span></code><a class="headerlink" href="#ospf-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：enable OSPF on an interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf enable INTEGER&lt;1-65535&gt; area X.X.X.X
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>OSPF process ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">area</span></code></p></td>
+<td><p>OSPF area</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>area</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">X.X.X.X</span></code></p></td>
+<td><p>area ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ospf-network-type">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">network-type</span></code><a class="headerlink" href="#ospf-network-type" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：set OSPF interface network type</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf network-type {broadcast|nbma|p2p|p2mp}
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">broadcast</span></code></p></td>
+<td><p>broadcast network</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nbma</span></code></p></td>
+<td><p>non-broadcast multi-access network</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p2p</span></code></p></td>
+<td><p>point-to-point network</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p2mp</span></code></p></td>
+<td><p>point-to-multipoint network</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ospf-passive">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">passive</span></code><a class="headerlink" href="#ospf-passive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：suppress OSPF Hellos on this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf passive
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="ospf-timer-dead">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">timer</span> <span class="pre">dead</span></code><a class="headerlink" href="#ospf-timer-dead" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：set OSPF interface dead</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf timer dead INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>dead seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ospf-timer-hello">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">timer</span> <span class="pre">hello</span></code><a class="headerlink" href="#ospf-timer-hello" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：set OSPF interface hello</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf timer hello INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>hello seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ospf-timer-retransmit">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">timer</span> <span class="pre">retransmit</span></code><a class="headerlink" href="#ospf-timer-retransmit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：set OSPF interface retransmit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf timer retransmit INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>retransmit seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ospf-timer-transmit-delay">
+<h2><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">timer</span> <span class="pre">transmit-delay</span></code><a class="headerlink" href="#ospf-timer-transmit-delay" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：set OSPF interface transmit-delay</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf timer transmit-delay INTEGER&lt;1-3600&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-3600&gt;</span></code></p></td>
+<td><p>transmit-delay seconds</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reset-ospf">
+<h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">ospf</span></code><a class="headerlink" href="#reset-ospf" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>CLI 帮助：reset one ospf process so pending runtime settings take effect</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset ospf INTEGER&lt;1-65535&gt; process
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>ospf process ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGER&lt;1-65535&gt;</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">process</span></code></p></td>
+<td><p>reset this routing process</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reset-service-ospf">
+<h2><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">ospf</span></code><a class="headerlink" href="#reset-service-ospf" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：即时运维命令</p></li>
+<li><p>执行效果：立即执行受权限控制的运维动作，不写入配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">用户视图</span></code>、<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>CLI 帮助：restart the managed ospf routing service</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset service ospf [ipv4|ipv6|all]
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：后端运行态。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv4</span></code></p></td>
+<td><p>restart the IPv4 protocol daemon</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span></code></p></td>
+<td><p>restart the IPv6 protocol daemon</p></td>
+<td><p>可选</p></td>
+</tr>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">all</span></code></p></td>
+<td><p>restart both address-family daemons</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="stub">
+<h2><code class="docutils literal notranslate"><span class="pre">stub</span></code><a class="headerlink" href="#stub" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></p></li>
+<li><p>CLI 帮助：configure a stub area；configure an OSPFv3 stub area</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stub [no-summary]
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">ospf-area</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-summary</span></code></p></td>
+<td><p>do not advertise inter-area summaries</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no-summary</span></code></p></td>
+<td><p>suppress inter-area summaries</p></td>
+<td><p>可选</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="undo-bandwidth-reference">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bandwidth-reference</span></code><a class="headerlink" href="#undo-bandwidth-reference" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">ospfv3</span></code></p></li>
+<li><p>CLI 帮助：restore the OSPFv3 reference bandwidth</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo bandwidth-reference
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-nssa">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nssa</span></code><a class="headerlink" href="#undo-nssa" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></p></li>
+<li><p>CLI 帮助：restore a normal OSPF area；restore a normal OSPFv3 area</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo nssa
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">ospf-area</span></code></strong></p>
+<p>此形式没有额外参数。</p>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></strong></p>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-opaque-capability-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">opaque-capability</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-opaque-capability-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF视图</span></code></p></li>
+<li><p>CLI 帮助：disable OSPF opaque LSA capability</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo opaque-capability enable
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-ospf">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span></code><a class="headerlink" href="#undo-ospf" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">系统视图</span></code></p></li>
+<li><p>CLI 帮助：delete an OSPF process</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>OSPF process ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="undo-ospf-bfd">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">bfd</span></code><a class="headerlink" href="#undo-ospf-bfd" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore OSPF BFD timers</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf bfd {min-tx-interval | min-rx-interval | detect-multiplier} ...
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-odd"><td><p>detect-multiplier / min-tx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-even"><td><p>min-rx-interval / min-tx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code></p></td>
+<td><p>BFD detection multiplier</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-rx-interval</span></code></p></td>
+<td><p>Minimum receive interval in milliseconds</p></td>
+<td><p>关键字</p></td>
+</tr>
+<tr class="row-even"><td><p>detect-multiplier / min-rx-interval</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min-tx-interval</span></code></p></td>
+<td><p>Minimum transmit interval in milliseconds</p></td>
+<td><p>可选、可组合</p></td>
+</tr>
+<tr class="row-odd"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detect-multiplier</span></code></p></td>
+<td><p>BFD detection multiplier</p></td>
+<td><p>关键字</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="undo-ospf-bfd-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">bfd</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-ospf-bfd-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：disable OSPF BFD on this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf bfd enable
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-ospf-cost">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">cost</span></code><a class="headerlink" href="#undo-ospf-cost" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore OSPF interface cost</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf cost
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-ospf-dr-priority">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">dr-priority</span></code><a class="headerlink" href="#undo-ospf-dr-priority" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore the default OSPF interface router priority</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf dr-priority
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-ospf-enable">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">enable</span></code><a class="headerlink" href="#undo-ospf-enable" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：disable OSPF on an interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf enable INTEGER&lt;1-65535&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数位置</p></th>
+<th class="head"><p>关键字 / 参数</p></th>
+<th class="head"><p>CLI 帮助含义</p></th>
+<th class="head"><p>输入方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>命令后</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER&lt;1-65535&gt;</span></code></p></td>
+<td><p>OSPF process ID</p></td>
+<td><p>输入值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="undo-ospf-network-type">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">network-type</span></code><a class="headerlink" href="#undo-ospf-network-type" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore the default OSPF interface network type</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf network-type
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-ospf-passive">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">passive</span></code><a class="headerlink" href="#undo-ospf-passive" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore OSPF Hellos on this interface</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf passive
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-ospf-timer-dead">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">timer</span> <span class="pre">dead</span></code><a class="headerlink" href="#undo-ospf-timer-dead" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore the default OSPF interface dead</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf timer dead
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-ospf-timer-hello">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">timer</span> <span class="pre">hello</span></code><a class="headerlink" href="#undo-ospf-timer-hello" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore the default OSPF interface hello</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf timer hello
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-ospf-timer-retransmit">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">timer</span> <span class="pre">retransmit</span></code><a class="headerlink" href="#undo-ospf-timer-retransmit" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore the default OSPF interface retransmit</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf timer retransmit
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-ospf-timer-transmit-delay">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">timer</span> <span class="pre">transmit-delay</span></code><a class="headerlink" href="#undo-ospf-timer-transmit-delay" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore the default OSPF interface transmit-delay</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ospf timer transmit-delay
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。
+接口类别：Ethernet（未选择二/三层）、三层 Ethernet、三层子接口、Eth-Trunk（未选择二/三层）、三层 Eth-Trunk、尚未选择协议的隧道、GRE 隧道、WireGuard 隧道、AmneziaWG 隧道、LoopBack、Vlanif、Vbdif</p></li>
+</ul>
+<p>此形式没有额外参数。</p>
+</section>
+<section id="undo-stub">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">stub</span></code><a class="headerlink" href="#undo-stub" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">OSPF</span> <span class="pre">Area视图</span></code>、<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></p></li>
+<li><p>CLI 帮助：restore a normal OSPF area；restore a normal OSPFv3 area</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo stub
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- registry-parameters -->
+<p><strong>参数与子命令</strong></p>
+<ul class="simple">
+<li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
+</ul>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">ospf-area</span></code></strong></p>
+<p>此形式没有额外参数。</p>
+<p><strong>适用视图：<code class="docutils literal notranslate"><span class="pre">ospfv3-area</span></code></strong></p>
+<p>此形式没有额外参数。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../route-policy/" class="btn btn-neutral float-left" title="路由策略" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ospfv3/" class="btn btn-neutral float-right" title="OSPFv3" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

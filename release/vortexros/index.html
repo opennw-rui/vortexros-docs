@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VortexROS 0.30-dev &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/vortexros/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="配套 VPP" href="../vpp/" />
+    <link rel="prev" title="版本说明" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">发布记录</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VortexROS 0.30-dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vpp/">配套 VPP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frr/">配套 FRR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli-validation/">版本能力与限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manual-coverage/">手册适用范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/">性能参考</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">版本说明</a></li>
+      <li class="breadcrumb-item active">VortexROS 0.30-dev</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vortexros-0-30-dev">
+<span id="vortexros-030-dev"></span><h1>VortexROS 0.30-dev<a class="headerlink" href="#vortexros-0-30-dev" title="链接到此标题。"></a></h1>
+<p>0.30-dev 汇集上一版之后的接口、路由、隧道、网络服务和查询修复。统一安装包包含配套 VPP 26.10.8、FRR 1.8-dev 和 Kea；首次安装仍使用 Linux 数据面，DPDK 设备继续通过 CLI 配置。</p>
+<section id="id1">
+<span id="数据面与接口"></span><h2>数据面与接口<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<ul class="simple">
+<li><p>大页可按 NUMA 节点预留：<code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">hugepages</span> <span class="pre">size</span> <span class="pre">2M</span> <span class="pre">count</span> <span class="pre">1024</span> <span class="pre">numa</span> <span class="pre">0</span></code>。省略节点号表示节点 0。查询增加逐节点内存、配置页数和实际大页池。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">cpu</span> <span class="pre">topological</span></code> 显示全部逻辑 CPU、NUMA、Socket、物理核心及在线状态，便于手工选择核心。</p></li>
+<li><p>新启动配置采用产品所需的插件列表；未配置 DPDK 设备时不加载 DPDK。详见<a class="reference internal" href="../../operator/dataplane/plugins/"><span class="std std-doc">插件加载</span></a>。</p></li>
+<li><p>Access、Trunk、Hybrid 的 PVID、允许 VLAN 和标签转换保持一致，非允许标签会被拒绝；VLAN 统计保持可用。</p></li>
+<li><p>改进聚合成员、静态 MAC、ARP 应答、二层子接口、QinQ 和逻辑接口在创建、修改、删除及重建时的恢复。</p></li>
+<li><p>接口原生 MAC 撤销、Linux 接口到达后的配置恢复，以及接口和 SNMP 运行查询保持一致。</p></li>
+</ul>
+</section>
+<section id="ipv6-icmp">
+<span id="ipv6-与-icmp"></span><h2>IPv6 与 ICMP<a class="headerlink" href="#ipv6-icmp" title="链接到此标题。"></a></h2>
+<p>新建接口默认关闭 IPv6；全局 IPv6 能力始终可用。在三层接口执行 <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">enable</span></code> 后，再选择静态地址、SLAAC、DHCPv6 或链路本地地址。普通 IPv6 单播地址及 IPv6 服务会准备其所需的链路本地地址；不自动开启其他地址获取方式。临时隐私地址默认关闭。</p>
+<p>旧配置中已明确使用 IPv6 的接口保留原启用意图；保存后显式显示 enable。仍需核对所选启动文件及数据面归属，见<a class="reference internal" href="../../operator/ipv6-autoconfig/interface/#id5"><span class="std std-ref">升级注意</span></a>。</p>
+<p>IPv6 的 VPN 诊断使用 <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">ipv6</span> <span class="pre">vpn-instance</span> <span class="pre">NAME</span></code> 等形式。接口详细查询列出实际地址；SLAAC 与 DHCPv6 地址可以共存，接口重建后恢复其请求及路由。</p>
+<p>新增接口级 <a class="reference internal" href="../../operator/icmp-send/"><span class="std std-doc">IPv4 ICMP 发送控制</span></a>：按名称或 Type/Code 禁止本机消息。规则不是转发 ACL，不过滤经过设备转发的普通报文。禁止路径 MTU 反馈可能间接影响大包通信。</p>
+</section>
+<section id="id2">
+<span id="路由与网络服务"></span><h2>路由与网络服务<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<ul class="simple">
+<li><p>OSPF/OSPFv3 的区域变更、邻居筛选、路由引入、撤销及默认值回读保持一致。</p></li>
+<li><p>BGP 按正确地址族显示邻居和汇总；6PE 与普通 IPv6 模式切换时正确撤销旧地址族。</p></li>
+<li><p>IS-IS 默认 Level、动态主机名和 DIS/优先级显示修正；L1/L2 路由撤销和 Level 切换使用配套路由组件修复。</p></li>
+<li><p>RIP+BFD 撤销系统路由，RIPng 区分相同链路本地地址的不同接口；接口重建后恢复协议状态。</p></li>
+<li><p>EVPN 同一 L3VNI 的双栈地址族共用 RD 和导入/导出 RT 集合，RT 支持多个。普通 MPLS VPN 的地址族仍独立。</p></li>
+<li><p>DHCP 客户端请求无类路由选项，服务器可为中继后的远端池服务；租约、接口重建和撤销保持一致。</p></li>
+<li><p>NAT 撤销只清理被删除策略的会话；其他策略的既有连接保留。Twice NAT 和 MQC 的命令接续及显示修正。</p></li>
+</ul>
+<p>IS-IS 默认路由优先级为 15，RIP/RIPng 为 100；BFD 默认发送、接收间隔为 1000ms，检测倍数为 3。完整默认值、影响和调整方法见各功能页面。</p>
+</section>
+<section id="id3">
+<span id="配置与运维"></span><h2>配置与运维<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>配置查询读取已提交的配置；候选修改使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">configuration</span> <span class="pre">candidate</span></code> 查看。保存配置和选择下次启动文件是两个独立操作。</p>
+<p>修正接口 MTU 恢复、资源进程归属、启动文件路径提交、路由组定时刷新以及服务恢复时的不必要重申。运行中的控制层不再维护旧 VPN 开关对应的 socket sysctl，安装时只设置需要的系统默认策略。</p>
+<p>配置和数据面重置会影响承载业务；操作前保存需要保留的配置，恢复后检查接口、邻居、FIB 及业务探测。统一安装器只更新版本变化的组件，并保留精确回退材料。软件兼容范围见<a class="reference internal" href="../../installation/02-backends/"><span class="std std-doc">配套组件</span></a>。</p>
+<p>本版增加独立功能页面、分层案例以及实际查询与撤销输出。能力和限制见<a class="reference internal" href="../cli-validation/"><span class="std std-doc">版本能力与限制</span></a>，性能条件和对照见<a class="reference internal" href="../performance/"><span class="std std-doc">性能参考</span></a>。</p>
+</section>
+<section id="id4">
+<span id="启动与接口恢复"></span><h2>启动与接口恢复<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>冷启动会等待驱动、插件和协议接入准备完成。数据面需要退回 Linux 时，先恢复接口所属 VPN，再恢复物理接口、地址和路由；失败会明确报告，不把接口重新出现当作恢复完成。正在使用的外部网络管理器若同时管理这些端口，仍可能覆盖地址或 VPN 归属，应让业务端口只由一方维护。</p>
+<p>新生成的插件列表包含 IS-IS 所需的 OSI 接入依赖，具体名称见<a class="reference internal" href="../../operator/dataplane/plugins/"><span class="std std-doc">插件加载</span></a>。</p>
+</section>
+<section id="id5">
+<span id="服务恢复边界"></span><h2>服务恢复边界<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>接口、路由和业务沿现有依赖顺序恢复。DHCP 等业务故障不再反向阻止接口恢复；正常实例通过实际状态和期望配置核对后保留，不因另一个实例故障被一并重启。一个实例失败会继续处理其他独立实例，并汇总具体错误。</p>
+<p>安装器分别观察基础、路由和业务状态。关键基础无法恢复时自动回退；仅后续服务未恢复时明确报告业务未恢复，保留正常的数据面。数据面是否正确恢复以当前版本、API、配置投影与实际业务结果判断，旧 PID 不作为必须恢复的条件。正常升级仍不主动重启未变化的后端。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="版本说明" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../vpp/" class="btn btn-neutral float-right" title="配套 VPP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

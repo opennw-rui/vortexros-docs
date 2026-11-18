@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>对象与规则 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/nat/objects/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="接口 PAT" href="../interface-pat/" />
+    <link rel="prev" title="NAT" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">NAT</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">对象与规则</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interface-pat/">接口 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pool-pat/">地址池 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../no-pat/">NO-PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static/">静态 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dnat/">DNAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../twice/">Twice NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../no-nat/">No-NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hairpin/">NAT 回流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sessions/">会话与统计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capacity/">容量与计时</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">NAT</a></li>
+      <li class="breadcrumb-item active">对象与规则</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="对象与规则"></span><h1>对象与规则<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>地址集和端口集复用匹配条件；地址池提供转换后的源地址。地址池不是匹配地址集，二者不能互换。名称区分大小写，引用对象必须存在。</p>
+<section id="id2">
+<span id="创建和绑定"></span><h2>创建和绑定<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>在系统视图输入；本例定义内部网段、Web 端口和公网源地址池：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy address-set name LAB-LAN
+ address 198.18.11.0/24
+#
+nat-policy port-set name LAB-WEB
+ port 80
+ port 443
+#
+nat-policy address-pool name LAB-PUBLIC
+ address 198.19.81.1/32
+ pat-port-range 20000-20063
+#
+nat-policy name LAB-SNAT
+ statistic enable
+ rule 10
+  source address-set name LAB-LAN
+  destination port-set name LAB-WEB
+  protocol tcp
+  action snat pat address-pool LAB-PUBLIC
+#
+interface Ethernet0
+ nat-policy LAB-SNAT outbound
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>地址接受单个 IPv4、前缀或地址加掩码。端口接受单值或闭区间，例如 <code class="docutils literal notranslate"><span class="pre">20000-20063</span></code>，不能写成两个空格分开的数。规则优先级数值越小越先匹配；未显式设置时由规则 ID 派生。不要把本例的 TCP Web 条件用于需要 UDP/ICMP 的完整出口策略。</p>
+</section>
+<section id="id3">
+<span id="查询"></span><h2>查询<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display nat-policy address-set LAB-LAN
+display nat-policy port-set LAB-WEB
+display nat-policy address-pool LAB-PUBLIC
+display nat-policy objects
+display nat-policy interfaces
+display nat-policy name LAB-SNAT
+</pre></div>
+</div>
+<p>旧示例的示例输出（地址池尚未缩小 PAT 范围时）：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Name        Address         PAT range
+-------------------------------------------------------------------------------
+LAB-PUBLIC  198.19.81.1/32  10000-65535
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">objects</span></code> 查看运行对象、成员和引用数；<code class="docutils literal notranslate"><span class="pre">interfaces</span></code> 查看实际方向绑定；<code class="docutils literal notranslate"><span class="pre">name</span></code> 查看规则。配置存在不能替代运行对象及业务验证。</p>
+</section>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>先解除绑定，再删除策略，最后删除不再被使用的对象：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ undo nat-policy LAB-SNAT outbound
+#
+undo nat-policy name LAB-SNAT
+undo nat-policy address-pool name LAB-PUBLIC
+undo nat-policy port-set name LAB-WEB
+undo nat-policy address-set name LAB-LAN
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display nat-policy runtime
+display nat-policy objects
+</pre></div>
+</div>
+<p>只移除一个成员时，在相应对象视图执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">address</span> <span class="pre">PREFIX</span></code> 或 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">port</span> <span class="pre">PORT</span></code>；只清除一个匹配条件时，在规则视图执行对应 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">source/destination</span> <span class="pre">...</span></code>。删除仍被引用的对象会被拒绝。</p>
+<p><a class="reference internal" href="../../reference/nat/"><span class="std std-doc">全部参数</span></a> · <a class="reference internal" href="../../01-cli/"><span class="std std-doc">保存与恢复</span></a></p>
+</section>
+<section id="id5">
+<span id="用协议号选择流量"></span><h2>用协议号选择流量<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>规则内的 <code class="docutils literal notranslate"><span class="pre">protocol</span></code> 支持 any、tcp、udp、icmp 和0–255的IP协议号。
+例如 <code class="docutils literal notranslate"><span class="pre">protocol</span> <span class="pre">17</span></code> 与 UDP 对应；它控制这条转换规则的匹配范围，不会禁止其他协议转发。
+省略或执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">protocol</span></code> 表示匹配任意协议，缺省值不显示在配置中。</p>
+<p>以下示例的 Ethernet1 已配置地址198.18.31.15，客户端通过另一接口进入：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy name NUMPROTO
+ statistic enable
+ rule 10
+  source address 198.18.30.99/32
+  protocol 17
+  action snat no-pat interface
+#
+interface Ethernet1
+ nat-policy NUMPROTO outbound
+#
+commit
+display current-configuration configuration nat-policy NUMPROTO
+display nat-policy sessions name NUMPROTO
+</pre></div>
+</div>
+<p>实际UDP源198.18.30.99:42035转换为198.18.31.15:42035，出口收到3/3。
+同源ICMP不匹配这条UDP规则，仍以原地址发出。规则内执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">protocol</span></code> 并提交后，
+新的ICMP会话转换为198.18.31.15，标识符保持42030；实际回复成功反向转换并返回客户端。</p>
+<p>删除时先在Ethernet1执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">NUMPROTO</span> <span class="pre">outbound</span></code>，
+再执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">nat-policy</span> <span class="pre">name</span> <span class="pre">NUMPROTO</span></code> 和 <code class="docutils literal notranslate"><span class="pre">commit</span></code>。
+示例撤销后会话归零，新的UDP流量以原地址转发3/3。</p>
+</section>
+<section id="ip">
+<span id="按-ip-协议号匹配"></span><h2>按 IP 协议号匹配<a class="headerlink" href="#ip" title="链接到此标题。"></a></h2>
+<p>规则中的 protocol 支持 tcp、udp、icmp、any，也可以直接填写0–255的IP协议号。
+例如17为UDP，1为ICMP。undo protocol 恢复为任意协议，默认项不显示在配置中。
+不要把IP协议号与TCP/UDP端口号混淆。</p>
+<p>以下只转换 Ethernet1 发出的指定客户端UDP流量；其他协议保持原源地址：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy name NUMPROTO
+ statistic enable
+ rule 10
+  source address 198.18.30.99/32
+  protocol 17
+  action snat no-pat interface
+#
+interface Ethernet1
+ nat-policy NUMPROTO outbound
+#
+commit
+display current-configuration configuration nat-policy NUMPROTO
+display nat-policy sessions name NUMPROTO
+</pre></div>
+</div>
+<p>在 Ethernet1 地址为198.18.31.15的实例中，实际UDP报文由198.18.30.99:42035
+转换为198.18.31.15:42035，出口收到3/3；同一客户端的ICMP报文仍保留原源地址。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nat-policy name NUMPROTO
+ rule 10
+  undo protocol
+#
+commit
+</pre></div>
+</div>
+<p>撤销协议条件后，新ICMP请求也被转换为198.18.31.15，identifier42030保持不变；
+实际回复经反向转换返回198.18.30.99。只修改条件不会改写已有会话的映射，使用新流验证。
+完全撤销时解除Ethernet1上的绑定，再执行undo nat-policy name NUMPROTO和commit。
+此例实际撤销后会话数为0，UDP恢复原源地址，出口收到3/3。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="NAT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../interface-pat/" class="btn btn-neutral float-right" title="接口 PAT" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

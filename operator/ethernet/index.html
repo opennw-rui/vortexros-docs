@@ -1,0 +1,230 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ethernet &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ethernet/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="状态与链路" href="state/" />
+    <link rel="prev" title="接口" href="../03-interfaces-l2/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ethernet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="state/">状态与链路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="settings/">地址、MTU 与统计</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../03-interfaces-l2/">接口</a></li>
+      <li class="breadcrumb-item active">Ethernet</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ethernet">
+<h1>Ethernet<a class="headerlink" href="#ethernet" title="链接到此标题。"></a></h1>
+<p>配置物理接口、地址和 MTU，查看链路及流量统计。</p>
+<p><a class="reference internal" href="../reference/interfaces/"><span class="std std-doc">命令参考</span></a></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="state/">状态与链路</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="state/#id2">接口状态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="state/#id3">接口状态时间</a></li>
+<li class="toctree-l2"><a class="reference internal" href="state/#id4">管理关闭与查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="state/#id5">按业务核对状态和计数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings/">地址、MTU 与统计</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="settings/#id1">基本配置</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="mac">
+<span id="接口-mac-地址"></span><h2>接口 MAC 地址<a class="headerlink" href="#mac" title="链接到此标题。"></a></h2>
+<p>物理接口默认沿用接口本身的 MAC。没有原生 MAC 的逻辑接口使用系统规定的默认地址；无须为已有 MAC 的接口另行生成地址。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ mac-address 0200-aabb-2960
+#
+commit
+display interface Ethernet0
+</pre></div>
+</div>
+<p>覆盖地址同时用于数据面接口与其控制面端点。撤销恢复该接口的原生地址：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ undo mac-address
+#
+commit
+display interface Ethernet0
+</pre></div>
+</div>
+<p>MAC 变化会使对端的 ARP/ND 缓存需要重新解析，切换期间可能短暂丢包。验证时检查显示的硬件地址及双向连通性；不要只检查配置行是否消失。</p>
+</section>
+<section id="id1">
+<span id="详细报文统计"></span><h2>详细报文统计<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ statistic enable
+#
+commit
+display interface Ethernet0
+</pre></div>
+</div>
+<p>默认关闭详细分类计数。开启后可查看单播、组播和广播分类；总包数、总字节数与错误计数仍分别展示。网卡提供硬件分类计数时优先显示硬件值。</p>
+<p>父接口存在 VLAN 子接口时，软件出口分类计数不能覆盖全部子接口流量。此时没有硬件来源的出口分类显示 <code class="docutils literal notranslate"><span class="pre">-</span></code>，总出口包数和字节数照常显示；<code class="docutils literal notranslate"><span class="pre">-</span></code> 不表示零流量。输出会提示该限制。不要将软件分类值相加后当作该物理端口的完整出口统计。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ undo statistic enable
+#
+commit
+</pre></div>
+</div>
+<p>MAC 撤销后的显示应恢复接口原生地址。例如：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Ethernet0 current state : UP
+Line protocol current state : UP
+Internet Address is 198.19.202.2/24
+IPv6 Address is 2001:db8:202::2/64
+IP Sending Frames' Format is PKTFMT_ETHNT_2, Hardware address is 02fe-4e89-b4b0
+</pre></div>
+</div>
+<p>详细统计中，以下结果表示出口总流量存在，但父接口的软件分类无法完整覆盖子接口：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Output: 131 packets, 10420 bytes
+  Unicast:                        -    Multicast:                      -
+  Broadcast:                      -    Total Error:                    -
+</pre></div>
+</div>
+<p>删除最后一个子接口后，若使用软件分类，分类数值可继续显示；关闭详细统计后分类恢复为 <code class="docutils literal notranslate"><span class="pre">-</span></code>，总包数仍然可见。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../03-interfaces-l2/" class="btn btn-neutral float-left" title="接口" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="state/" class="btn btn-neutral float-right" title="状态与链路" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

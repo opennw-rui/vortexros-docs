@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QinQ &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/qinq/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="IP 路由" href="../routing/" />
+    <link rel="prev" title="静态 MAC" href="../static-mac/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../interfaces/">接口与交换</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lacp/">LACP 聚合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../static-mac/">静态 MAC</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">QinQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../interfaces/">接口与交换</a></li>
+      <li class="breadcrumb-item active">QinQ</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qinq">
+<h1>QinQ<a class="headerlink" href="#qinq" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑与作用"></span><h2>拓扑与作用<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>CE1、PE1、CE2 均运行 VortexROS。PE1 的客户口为 dot1q-tunnel，核心口为 trunk。客户未打标签的业务增加服务标签 964；客户 VLAN 65 的业务保留原标签，在外面再增加服务标签 964。CE2 分别用单标签和双标签三层子接口终结这两项业务。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 Ethernet0 ── Ethernet0 PE1 Ethernet1 ── Ethernet0 CE2
+未打标签 .200.2         服务 VLAN 964          Ethernet0.965 .200.3
+客户 VLAN65 .199.1                          Ethernet0.964 .199.2
+</pre></div>
+</div>
+<p>IPv4 子网分别为 198.19.200.0/24、198.19.199.0/30；IPv6 子网为 2001:db8:200::/64、2001:db8:199::/64。本例端口专用，核心链路应容纳额外 VLAN 标签。此案例证明二层传送和三层终结，不提供两个客户子网之间的额外路由策略。</p>
+</section>
+<section id="ce1">
+<h2>CE1<a class="headerlink" href="#ce1" title="链接到此标题。"></a></h2>
+<p>进入系统视图后配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ mtu 1600
+ ip address 198.19.200.2 255.255.255.0
+ ipv6 enable
+ ipv6 address 2001:db8:200::2 64
+#
+interface Ethernet0.65
+ vlan-type dot1q 65
+ ip address 198.19.199.1 255.255.255.252
+ ipv6 enable
+ ipv6 address 2001:db8:199::1 64
+#
+</pre></div>
+</div>
+<p>执行 commit。</p>
+</section>
+<section id="pe1">
+<h2>PE1<a class="headerlink" href="#pe1" title="链接到此标题。"></a></h2>
+<p>客户口不能保留三层地址或其他 VLAN 子接口。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+vlan 964
+#
+interface Ethernet0
+ mtu 1600
+ portswitch
+ port link-type dot1q-tunnel
+ port default vlan 964
+#
+interface Ethernet1
+ mtu 1600
+ portswitch
+ port link-type trunk
+ port trunk allow-pass vlan 964
+#
+</pre></div>
+</div>
+<p>执行 commit。客户侧的全部帧进入服务 VLAN 964，不在客户口另建隐藏业务子接口。核心口按外层标签分类，出方向恢复服务标签。</p>
+</section>
+<section id="ce2">
+<h2>CE2<a class="headerlink" href="#ce2" title="链接到此标题。"></a></h2>
+<p>子接口编号不是线上 VLAN 标签。编号 965 的子接口终结单层 VLAN 964；编号 964 的子接口终结外标签 964、内标签 65。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ mtu 1600
+#
+interface Ethernet0.965
+ vlan-type dot1q 964
+ ip address 198.19.200.3 255.255.255.0
+ ipv6 enable
+ ipv6 address 2001:db8:200::3 64
+#
+interface Ethernet0.964
+ vlan-type dot1q 964 inner 65
+ ip address 198.19.199.2 255.255.255.252
+ ipv6 enable
+ ipv6 address 2001:db8:199::2 64
+#
+</pre></div>
+</div>
+<p>执行 commit。两种业务可共用外标签；修改或撤销其中一个接口后，仍应检查另一业务的接口、地址和连通性。</p>
+</section>
+<section id="id2">
+<span id="查询与真实结果"></span><h2>查询与真实结果<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>PE1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vlan 964
+display mac-address vlan 964
+display current-configuration interface Ethernet0
+display current-configuration interface Ethernet1
+health check
+</pre></div>
+</div>
+<p>实际 VLAN 成员按本例接口名表示为：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VID  Type    Status  MAC-LRN  Description  Ports
+964  common  enable  enable   VLAN 964     UT:Ethernet0(U)
+                                         TG:Ethernet1(U)
+</pre></div>
+</div>
+<p>UT 表示客户侧接入，不表示客户帧一定没有内标签。MAC 查询应使用 vlan 964；bridge-domain 选择器用于独立业务桥域。</p>
+<p>CE2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Ethernet0.965
+display interface Ethernet0.964
+display ip routing-table 198.19.199.0 30
+</pre></div>
+</div>
+<p>实测显示两个子接口均为 Up，封装分别为：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Encapsulation is dot1q, VLAN 964
+Encapsulation is QinQ, Outer VLAN 964, Inner VLAN 65
+</pre></div>
+</div>
+<p>CE1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping -c 3 198.19.200.3
+ping -a 198.19.199.1 -c 3 198.19.199.2
+ping ipv6 -c 3 2001:db8:200::3
+ping ipv6 -a 2001:db8:199::1 -c 3 2001:db8:199::2
+</pre></div>
+</div>
+<p>实测结果：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>业务</p></th>
+<th class="head"><p>IPv4</p></th>
+<th class="head"><p>IPv6</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>客户未打标签，核心单层服务标签</p></td>
+<td><p>3 发 3 收</p></td>
+<td><p>3 发 3 收</p></td>
+</tr>
+<tr class="row-odd"><td><p>客户 VLAN65，核心双层标签，首次邻居解析</p></td>
+<td><p>3 发 2 收</p></td>
+<td><p>3 发 2 收</p></td>
+</tr>
+<tr class="row-even"><td><p>客户 VLAN65，父口恢复并完成邻居解析后</p></td>
+<td><p>2 发 2 收</p></td>
+<td><p>2 发 2 收</p></td>
+</tr>
+</tbody>
+</table>
+<p>本例物理口设置 MTU 1600，为客户的 1500 字节 IP 报文及 VLAN 标签留出空间；客户子接口仍采用 1500。只用小 Ping 不能检查这项要求。实测 TCP 接收端完整收到 131072 字节，作为大报文传送的功能验证，不代表吞吐性能。</p>
+<p>核心链路实际报文包含单层 0x8100/VLAN964，以及双层 0x8100/VLAN964 + 0x8100/VLAN65 的请求和回复。首次地址解析期间的丢包如实保留；持续丢包时应检查客户标签、核心放行、接口地址、邻居及回程。</p>
+</section>
+<section id="id3">
+<span id="状态转换与独立撤销"></span><h2>状态转换与独立撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>客户父口 shutdown 后，其三层子接口自动 Down，地址配置保留；undo shutdown 后恢复。</p>
+<p>在 CE2 只删除 Ethernet0.965 并提交后，单标签业务停止，CE1 到 198.19.200.3 的探测为 1 发 0 收；双标签接口 Ethernet0.964 保留地址、恢复 Up，IPv4 和 IPv6 均能收到回复。新增或删除共享外标签的单标签接口时，相关双标签接口可能短暂重建，应在链路和邻居恢复后再检查业务。</p>
+<p>不要通过仅执行 undo vlan-type 来删除业务：它会留下不完整子接口，严格提交校验会拒绝。</p>
+</section>
+<section id="id4">
+<span id="完整撤销"></span><h2>完整撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>PE1 专用端口：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ undo portswitch
+#
+interface Ethernet1
+ undo portswitch
+#
+undo vlan 964
+</pre></div>
+</div>
+<p>CE1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Ethernet0.65
+interface Ethernet0
+ undo ip address
+ undo ipv6 address 2001:db8:200::2 64
+ undo ipv6 enable
+#
+</pre></div>
+</div>
+<p>CE2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Ethernet0.964
+undo interface Ethernet0.965
+</pre></div>
+</div>
+<p>各设备撤销本例额外设置的 mtu 1600（接口视图 undo mtu），再 commit，确认本例子接口、VLAN 成员、直连路由和 MAC 条目消失，再按需 save。共享核心口只撤销本例 VLAN 的放行与引用，不能清空其他业务。</p>
+<p><a class="reference internal" href="../../operator/qinq/"><span class="std std-doc">QinQ 功能</span></a> · <a class="reference internal" href="../subinterfaces/l2/"><span class="std std-doc">L2 子接口</span></a> · <a class="reference internal" href="../subinterfaces/l3/"><span class="std std-doc">L3 子接口</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../static-mac/" class="btn btn-neutral float-left" title="静态 MAC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../routing/" class="btn btn-neutral float-right" title="IP 路由" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

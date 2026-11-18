@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RIP 与 BFD 多路径 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/rip-bfd-ecmp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="RIPng 路由" href="../ripng/" />
+    <link rel="prev" title="RIPv1 聚合链路" href="../rip-v1/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../protocols/">路由协议</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ospf-multiarea/">OSPF 跨区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-policy/">BGP IPv4 策略</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-ipv6-policy/">BGP IPv6 策略</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-redistribution/">静态路由引入BGP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../isis/">IS-IS 双栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip-v1/">RIPv1 聚合链路</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">RIP 与 BFD 多路径</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bfd/">静态 BFD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../protocols/">路由协议</a></li>
+      <li class="breadcrumb-item active">RIP 与 BFD 多路径</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rip-bfd">
+<span id="rip-与-bfd-多路径"></span><h1>RIP 与 BFD 多路径<a class="headerlink" href="#rip-bfd" title="链接到此标题。"></a></h1>
+<p>本例在两台 VortexROS 间建立两条独立三层链路，在 VPN 实例 BLUE 中通过 RIP 学习 LoopBack 前缀。BFD 默认以 1000ms 发送、1000ms 接收、检测3次；一条邻居失效后，另一路径继续转发。两端以 Ethernet0、Ethernet1 组成三层 Eth-Trunk12，另以独立 Ethernet2 连接第二条三层链路。成员口不能配置独立地址。</p>
+<section id="id1">
+<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 Ethernet0/1 === Eth-Trunk12 === Ethernet0/1 P2
+       198.19.198.1/24 ---- 198.19.198.2/24
+P1 Ethernet2 198.19.197.1/24 ---- 198.19.197.2/24 Ethernet2 P2
+P1 LoopBack246 172.30.0.1/16      172.31.0.2/16 LoopBack247 P2
+</pre></div>
+</div>
+</section>
+<section id="p1">
+<span id="p1-配置"></span><h2>P1 配置<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bfd
+ip vpn-instance BLUE
+ ipv4-family
+#
+interface Ethernet 2
+ ip binding vpn-instance BLUE
+ ip address 198.19.197.1 24
+ rip bfd enable
+#
+interface Eth-Trunk 12
+ mode lacp-static
+ trunkport Ethernet 0 to Ethernet 1
+ ip binding vpn-instance BLUE
+ ip address 198.19.198.1 24
+ rip bfd enable
+#
+interface LoopBack 246
+ ip binding vpn-instance BLUE
+ ip address 172.30.0.1 16
+#
+rip 96 vpn-instance BLUE
+ version 1
+ network 198.19.197.0
+ network 198.19.198.0
+ network 172.30.0.0
+ maximum load-balancing 2
+#
+commit
+save
+</pre></div>
+</div>
+</section>
+<section id="p2">
+<span id="p2-配置"></span><h2>P2 配置<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bfd
+ip vpn-instance BLUE
+ ipv4-family
+#
+interface Ethernet 2
+ ip binding vpn-instance BLUE
+ ip address 198.19.197.2 24
+ rip bfd enable
+#
+interface Eth-Trunk 12
+ mode lacp-static
+ trunkport Ethernet 0 to Ethernet 1
+ ip binding vpn-instance BLUE
+ ip address 198.19.198.2 24
+ rip bfd enable
+#
+interface LoopBack 247
+ ip binding vpn-instance BLUE
+ ip address 172.31.0.2 16
+#
+rip 96 vpn-instance BLUE
+ version 1
+ network 198.19.197.0
+ network 198.19.198.0
+ network 172.31.0.0
+ maximum load-balancing 2
+#
+commit
+save
+</pre></div>
+</div>
+<p>本例使用 RIPv1 有类网络以便同时演示版本1互通；新部署若不需要兼容 RIPv1，可在两端使用版本2。不要把上述 /16 换为有类网络内不连续的子网后仍照用版本1。</p>
+</section>
+<section id="id2">
+<span id="正常状态"></span><h2>正常状态<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bfd session all
+display bfd statistics
+display rip 96 route
+display ip routing-table vpn-instance BLUE protocol rip
+ping -vpn-instance BLUE -a 172.30.0.1 -c 3 172.31.0.2
+</pre></div>
+</div>
+<p>实测两个邻居都为 Up，路由表为1个目的、2条路径，优先级100、Cost2；下一跳分别为198.19.197.2和198.19.198.2。</p>
+</section>
+<section id="id3">
+<span id="单链路协议故障"></span><h2>单链路协议故障<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在 P1 的198.19.198.0/24链路入口暂时拒绝 BFD 和 RIP，普通 IP 数据仍允许。下面的规则只用于演示检测与撤路，测试结束必须撤销。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>acl name BFD-TEST advance
+ rule 5 deny udp destination-port eq 3784
+ rule 6 deny udp destination-port eq 520
+ rule 100 permit ip
+#
+interface Eth-Trunk 12
+ traffic-filter inbound acl BFD-TEST
+#
+commit
+</pre></div>
+</div>
+<p>检测超时后，实测故障邻居路径被撤销，另一邻居仍为 Up：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Routing Table : BLUE
+         Destinations : 1        Routes : 1
+
+Destination/Mask   Proto   Pre  Cost    NextHop
+172.31.0.0/16       Rip     100  2       198.19.197.2
+</pre></div>
+</div>
+<p>故障期间从 P1 的 LoopBack 发往 P2 LoopBack，实际3发3收。若业务只剩一条路径，再使该邻居失效，活跃 IP 路由表应没有该 RIP 前缀；RIP 协议表可暂时保留 Cost16 的不可达记录，等待正常回收，这不代表仍可转发。</p>
+<p>解除测试限制：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Eth-Trunk 12
+ undo traffic-filter inbound
+#
+commit
+</pre></div>
+</div>
+<p>重新收到通告、建立 BFD 会话后，实测路由恢复为2条。接口保持 Up 不能替代上述路由和连通性检查。</p>
+</section>
+<section id="id4">
+<span id="恢复默认与撤销"></span><h2>恢复默认与撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>以下操作在两端分别执行。撤销 BFD 绑定只删除本例引用，不会停止其他协议仍使用的会话：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 2
+ undo rip bfd enable
+#
+interface Eth-Trunk 12
+ undo rip bfd enable
+#
+rip 96 vpn-instance BLUE
+ undo maximum load-balancing
+#
+commit
+display bfd session all
+display ip routing-table vpn-instance BLUE protocol rip
+</pre></div>
+</div>
+<p>实测本例两个动态会话消失，其他协议会话仍保留；恢复缺省 ECMP 后，同一目的仅保留1条 RIP 路径。</p>
+<p>完全撤销专用案例时，先移除本例 ACL 和 RIP 进程，再撤销接口地址、VPN 绑定及 LoopBack，最后删除专用 VPN 实例。不要删除其他业务仍在使用的全局 BFD 或 VPN 实例。</p>
+<p><a class="reference internal" href="../../operator/bfd/protocols/"><span class="std std-doc">协议绑定</span></a> · <a class="reference internal" href="../rip-v1/"><span class="std std-doc">RIPv1</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../rip-v1/" class="btn btn-neutral float-left" title="RIPv1 聚合链路" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ripng/" class="btn btn-neutral float-right" title="RIPng 路由" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

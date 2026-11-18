@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>uRPF &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/urpf/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="路由协议" href="../protocols/" />
+    <link rel="prev" title="路由组" href="../route-group/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../routing/">IP 路由</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../static-route/">静态路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../route-group/">路由组</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">uRPF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../routing/">IP 路由</a></li>
+      <li class="breadcrumb-item active">uRPF</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="urpf">
+<h1>uRPF<a class="headerlink" href="#urpf" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑与作用"></span><h2>拓扑与作用<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>两台 VortexROS 通过两条三层链路连接。P2 从 Ethernet0 发包，但 P1 到其 LoopBack0 的最佳回程经 Ethernet1，以此区分严格和宽松源地址检查。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>链路</p></th>
+<th class="head"><p>P1</p></th>
+<th class="head"><p>P2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ethernet0—Ethernet0</p></td>
+<td><p>192.0.2.81/30</p></td>
+<td><p>192.0.2.82/30</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ethernet1—Ethernet1</p></td>
+<td><p>10.201.12.1/24</p></td>
+<td><p>10.201.12.2/24</p></td>
+</tr>
+<tr class="row-even"><td><p>P2 LoopBack0</p></td>
+<td><p>—</p></td>
+<td><p>203.0.113.82/32</p></td>
+</tr>
+</tbody>
+</table>
+<p>严格模式要求源地址的最佳回程接口等于入接口，会拒绝合法的非对称路由；宽松模式只要求存在符合条件的源地址路由。</p>
+</section>
+<section id="p1">
+<h2>P1<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ ip address 192.0.2.81 255.255.255.252
+#
+interface Ethernet1
+ ip address 10.201.12.1 255.255.255.0
+#
+ip route-static 203.0.113.82 255.255.255.255 10.201.12.2
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="p2">
+<h2>P2<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ ip address 192.0.2.82 255.255.255.252
+#
+interface Ethernet1
+ ip address 10.201.12.2 255.255.255.0
+#
+interface LoopBack0
+ ip address 203.0.113.82 255.255.255.255
+#
+ip route-static 192.0.2.81 255.255.255.255 192.0.2.81
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<span id="检查与启用"></span><h2>检查与启用<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>P2 先分别以链路地址和 LoopBack 地址 Ping P1；未启用检查时均应可达：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping -a 192.0.2.82 -c 3 192.0.2.81
+ping -a 203.0.113.82 -c 3 192.0.2.81
+</pre></div>
+</div>
+<p>P1 检查回程并启用严格模式：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ip routing-table 203.0.113.82
+system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ ip urpf strict
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display current-configuration interface Ethernet0
+</pre></div>
+</div>
+<p>重复两条 Ping：192.0.2.82 的回程仍在 Ethernet0，应成功；203.0.113.82 的回程在 Ethernet1，应被拒绝。切换成 ip urpf loose 并提交后，LoopBack 源探测应恢复。不能仅用一条直接连接的源地址探测来区分 strict 与 loose。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>P1 在 Ethernet0 执行 undo ip urpf 并提交，再检查双向可达性。若拆除本例，在两端撤销专用静态路由、接口地址，并删除 P2 的 LoopBack0；每项使用对应的 undo 命令。提交后按需 save。</p>
+<p><a class="reference internal" href="../../operator/urpf/"><span class="std std-doc">uRPF 功能</span></a> · <a class="reference internal" href="../../operator/reference/interfaces/"><span class="std std-doc">接口参数</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../route-group/" class="btn btn-neutral float-left" title="路由组" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../protocols/" class="btn btn-neutral float-right" title="路由协议" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

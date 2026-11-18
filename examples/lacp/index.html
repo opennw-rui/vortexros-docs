@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LACP 聚合 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/lacp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="子接口" href="../subinterfaces/" />
+    <link rel="prev" title="VLAN 网关" href="../vlan-gateway/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../interfaces/">接口与交换</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../vlan-gateway/">VLAN 网关</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">LACP 聚合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../static-mac/">静态 MAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qinq/">QinQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../interfaces/">接口与交换</a></li>
+      <li class="breadcrumb-item active">LACP 聚合</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lacp">
+<span id="lacp-聚合"></span><h1>LACP 聚合<a class="headerlink" href="#lacp" title="链接到此标题。"></a></h1>
+<p>两根链路组成一个 LACP 聚合，承载一个无标签 VLAN 和一个带标签 VLAN。成员全部不可用时，依赖聚合的 Vlanif 自动 Down；恢复一个有效成员后自动 Up，不需要手动重建 Vlanif。</p>
+<section id="id1">
+<span id="拓扑与前提"></span><h2>拓扑与前提<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 Ethernet0 ---------------- Ethernet0 P2
+   Ethernet1 ---------------- Ethernet1
+       Eth-Trunk10               Eth-Trunk10
+       native VLAN 400           native VLAN 400
+       tagged VLAN 401           tagged VLAN 401
+
+Vlanif400: 198.18.104.1/30 ---- 198.18.104.2/30
+Vlanif401: 198.18.105.1/30 ---- 198.18.105.2/30
+</pre></div>
+</div>
+<p>两端各使用 Ethernet0、Ethernet1 作为聚合成员。成员不能有独立 IP、其他聚合归属或冲突的二层配置，链路和 VLAN 必须对应。</p>
+<p>成员只承担聚合传输，三层地址放在 Vlanif 上。此例会改变端口的转发归属，不能直接套用到当前管理链路。</p>
+</section>
+<section id="p1">
+<span id="p1-配置"></span><h2>P1 配置<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+vlan batch 400 401
+interface Eth-Trunk 10
+ mode lacp-static
+ portswitch
+ port link-type trunk
+ port trunk pvid vlan 400
+ port trunk allow-pass vlan 400 401
+#
+interface Ethernet0
+ eth-trunk 10
+#
+interface Ethernet1
+ eth-trunk 10
+#
+interface Vlanif 400
+ ip address 198.18.104.1 255.255.255.252
+#
+interface Vlanif 401
+ ip address 198.18.105.1 255.255.255.252
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+save
+</pre></div>
+</div>
+</section>
+<section id="p2">
+<span id="p2-配置"></span><h2>P2 配置<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+vlan batch 400 401
+interface Eth-Trunk 10
+ mode lacp-static
+ portswitch
+ port link-type trunk
+ port trunk pvid vlan 400
+ port trunk allow-pass vlan 400 401
+#
+interface Ethernet0
+ eth-trunk 10
+#
+interface Ethernet1
+ eth-trunk 10
+#
+interface Vlanif 400
+ ip address 198.18.104.2 255.255.255.252
+#
+interface Vlanif 401
+ ip address 198.18.105.2 255.255.255.252
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+save
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">save</span></code> 按提示确认。PVID 400 选择无标签流量所属 VLAN；允许列表决定哪些 VLAN 可以通过。缺省允许的 VLAN 1 若不需要，应显式撤销其允许关系。</p>
+</section>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>在 P1 执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display eth-trunk 10
+display interface brief
+ping -c 3 198.18.104.2
+ping -c 3 198.18.105.2
+</pre></div>
+</div>
+<p>以下为相关接口的示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>LAG ID: 10                  WorkingMode: STATIC
+System Priority: 65535      System ID: 02fe-aa2f-6a16
+Operate status: up          Number Of Up Port In Trunk: 2
+
+ActorPortName          Status   PortPri PortNo PortKey PortState Weight
+Ethernet0              Selected 255     1      19      00111111  1
+Ethernet1              Selected 255     2      19      00111111  1
+</pre></div>
+</div>
+<p>系统 ID、端口号、Key 可能在重建后变化，应以示例输出为准。<code class="docutils literal notranslate"><span class="pre">Selected</span></code> 应与链路 Up、LACP collecting/distributing 状态一致；只看管理状态 Up 不能证明成员已参加转发。</p>
+<section id="id3">
+<span id="成员全部关闭与恢复"></span><h3>成员全部关闭与恢复<a class="headerlink" href="#id3" title="链接到此标题。"></a></h3>
+<p>在 P1 的专用示例成员口上执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ shutdown
+#
+interface Ethernet1
+ shutdown
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display interface brief
+</pre></div>
+</div>
+<p>实际状态：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Interface               PHY    Protocol
+Eth-Trunk10             down   down
+Vlanif400               down   down
+Vlanif401               down   down
+Ethernet0               *down  down
+Ethernet1               *down  down
+</pre></div>
+</div>
+<p>恢复一个成员：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ undo shutdown
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display interface brief
+ping -c 3 198.18.105.2
+</pre></div>
+</div>
+<p>实际结果：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Eth-Trunk10             up     up
+Vlanif400               up     up
+Vlanif401               up     up
+Ethernet0               up     up
+Ethernet1               *down  down
+
+3 packets transmitted, 3 received, 0% packet loss
+</pre></div>
+</div>
+<p>恢复 Ethernet1 并提交后，活动成员应回到 2。此步骤检查成员管理状态；物理断链时还应核对双方实际载波状态。</p>
+</section>
+</section>
+<section id="id4">
+<span id="调整与撤销"></span><h2>调整与撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>有成员时不能直接切换聚合模式。应在同一 Candidate 中先撤销成员归属、调整模式、重新加入成员，再统一提交。</p>
+<p>删除此专用案例前先迁移依赖 Vlanif 的路由与策略，再撤销 Vlanif、成员归属和聚合。成员撤销的入口是接口视图中的 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">eth-trunk</span></code>。删除接口的入口是系统视图中的 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span></code>，按删除提示确认。不要为了撤销本例而关闭其他业务仍在使用的全局交换功能。</p>
+<p><a class="reference internal" href="../../operator/link-aggregation/"><span class="std std-doc">链路聚合</span></a> · <a class="reference internal" href="../vlan-gateway/"><span class="std std-doc">VLAN 网关</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../vlan-gateway/" class="btn btn-neutral float-left" title="VLAN 网关" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../subinterfaces/" class="btn btn-neutral float-right" title="子接口" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

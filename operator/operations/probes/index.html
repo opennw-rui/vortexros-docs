@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ping、tracert 与 mtr &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/operations/probes/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="状态与版本" href="../display/" />
+    <link rel="prev" title="诊断与恢复" href="../../09-operations/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../09-operations/">诊断与恢复</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ping、tracert 与 mtr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../display/">状态与版本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/">运行配置重置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">路由服务恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/">故障定位</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../09-operations/">诊断与恢复</a></li>
+      <li class="breadcrumb-item active">Ping、tracert 与 mtr</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pingtracert-mtr">
+<span id="pingtracert-与-mtr"></span><h1>Ping、tracert 与 mtr<a class="headerlink" href="#pingtracert-mtr" title="链接到此标题。"></a></h1>
+<section id="pingtracertmtr">
+<span id="pingtracert与mtr"></span><h2>Ping、tracert与mtr<a class="headerlink" href="#pingtracertmtr" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping 192.0.2.1
+ping -vpn-instance BLUE 10.0.0.1
+tracert 198.51.100.1
+mtr -vpn-instance BLUE 10.0.0.1
+</pre></div>
+</div>
+<p>普通和带VPN的命令都会边执行边显示结果。Ctrl+C只中止当前诊断命令，并尽量显示已经产生的统计信息，不会关闭SSH会话。错误消息保留诊断含义，但不会暴露系统中的程序路径。</p>
+<p><code class="docutils literal notranslate"><span class="pre">mtr</span></code>在CLI中保持交互式刷新和按键控制，但用户不能借此进入Linux shell。</p>
+<p><a class="reference internal" href="../../09-operations/"><span class="std std-doc">目录</span></a></p>
+</section>
+<section id="ping">
+<span id="ping-参数与组合"></span><h2>Ping 参数与组合<a class="headerlink" href="#ping" title="链接到此标题。"></a></h2>
+<p>省略 <code class="docutils literal notranslate"><span class="pre">-c</span></code> 时发送 5 次；不写地址族时使用 IPv4。<code class="docutils literal notranslate"><span class="pre">-t</span></code> 是等待回复的毫秒数，<code class="docutils literal notranslate"><span class="pre">-h</span></code> 才是 TTL 或 IPv6 Hop Limit。常用参数可组合：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping ip -c 2 -t 1000 -m 20 -h 17 -s 64 -tos 32 -p a1b2 -f -n -v -system-time 198.19.80.2
+ping ipv6 -c 2 -t 1000 -m 20 -h 17 -s 64 -p a1b2 -n -system-time 2001:db8:80::2
+</pre></div>
+</div>
+<p>在两端已有地址、路由和接口连通的情况下，上述参数组合的实际结果为各 2 发 2 收。报文的 IPv4 TTL 和 IPv6 Hop Limit 为 17，64 字节数据加上 8 字节 ICMP 头；两次请求相隔约 20 毫秒。IPv4 TOS 为 32，<code class="docutils literal notranslate"><span class="pre">-f</span></code> 设置 DF 位，<strong>不是高速发送模式</strong>。<code class="docutils literal notranslate"><span class="pre">-p</span></code> 以十六进制图案填充数据，诊断程序自身需要的时间戳字段仍可能占用载荷的开头部分。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>作用与注意事项</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">地址</span></code></p></td>
+<td><p>选择已配置的本机源地址；VPN 内的源地址应与所选 VPN 对应。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">Ethernet0</span></code></p></td>
+<td><p>选择发送接口；使用设备中实际存在的接口名。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">次数</span></code></p></td>
+<td><p>发送次数，范围 1–1000，默认 5。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">毫秒</span></code></p></td>
+<td><p>等待回复的超时时间，范围 1–60000。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">毫秒</span></code></p></td>
+<td><p>请求间隔，范围 10–60000。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-h</span> <span class="pre">数值</span></code></p></td>
+<td><p>TTL／Hop Limit，范围 1–255。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">字节数</span></code></p></td>
+<td><p>ICMP 数据长度，范围 0–65507；不包括 IP 和 ICMP 头。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-tos</span> <span class="pre">数值</span></code></p></td>
+<td><p>IPv4 TOS，范围 0–255；对应 IPv6 请求时为 Traffic Class。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">十六进制</span></code></p></td>
+<td><p>1–16 个十六进制字符组成的填充图案。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-n</span></code></p></td>
+<td><p>使用数字地址显示结果。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-name</span></code></p></td>
+<td><p>允许使用主机名；名称必须能解析为所选地址族。只有 IPv4 记录的名称不能用于 <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">ipv6</span></code>。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-q</span></code></p></td>
+<td><p>只保留摘要，减少逐包输出。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-system-time</span></code></p></td>
+<td><p>在回复前显示时间戳。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-v</span></code></p></td>
+<td><p>显示地址族、套接字和其他详细信息。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-d</span></code></p></td>
+<td><p>请求启用套接字调试标志；不保证产生额外的逐包调试信息。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-r</span></code></p></td>
+<td><p>IPv4 Record Route，显示沿途设备填写的选项；设备可能不处理该选项，不能代替 <code class="docutils literal notranslate"><span class="pre">tracert</span></code>。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-f</span></code></p></td>
+<td><p>IPv4 设置禁止分片位；超过路径 MTU 时可能失败。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ignore-mtu</span></code></p></td>
+<td><p>关闭路径 MTU 探测约束，允许 IPv4 分片；不应与 <code class="docutils literal notranslate"><span class="pre">-f</span></code> 同时用于同一次诊断。</p></td>
+</tr>
+</tbody>
+</table>
+<p>例如，在 MTU 1500 的路径上，<code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">ignore-mtu</span> <span class="pre">-c</span> <span class="pre">1</span> <span class="pre">-s</span> <span class="pre">1800</span> <span class="pre">198.19.80.2</span></code> 的实际请求被分为 1500 和 348 字节的 IP 分片，回复 1/1。这表示该路径能够完成本次分片与重组，不是提高接口 MTU，也不保证所有网络都允许分片。</p>
+<p><code class="docutils literal notranslate"><span class="pre">-nexthop</span></code> 和 <code class="docutils literal notranslate"><span class="pre">-range</span></code> 当前会明确返回不支持，不会发送对应的探测。不能把帮助中识别这些关键字理解为已支持下一跳查询或按长度范围自动发送。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../../09-operations/" class="btn btn-neutral float-left" title="诊断与恢复" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../display/" class="btn btn-neutral float-right" title="状态与版本" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>静态路由引入BGP &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/bgp-redistribution/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="IS-IS 双栈" href="../isis/" />
+    <link rel="prev" title="BGP IPv6 策略" href="../bgp-ipv6-policy/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../protocols/">路由协议</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ospf-multiarea/">OSPF 跨区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-policy/">BGP IPv4 策略</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-ipv6-policy/">BGP IPv6 策略</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">静态路由引入BGP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../isis/">IS-IS 双栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip-v1/">RIPv1 聚合链路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip-bfd-ecmp/">RIP 与 BFD 多路径</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bfd/">静态 BFD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vrrp/">VRRP 网关</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../protocols/">路由协议</a></li>
+      <li class="breadcrumb-item active">静态路由引入BGP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bgp">
+<span id="静态路由引入bgp"></span><h1>静态路由引入BGP<a class="headerlink" href="#bgp" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="目标与拓扑"></span><h2>目标与拓扑<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>P2把一条带Tag的静态路由分别引入BGP和OSPF，验证两个消费者的Cost互不覆盖。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>P1 Ethernet0 ---------------- Ethernet0 P2
+198.19.80.1/30                198.19.80.2/30
+BGP AS65000 / OSPF1           BGP AS65000 / OSPF1
+                             172.29.200.0/24 -&gt; NULL0
+</pre></div>
+</div>
+<p>NULL0用于明确丢弃目标前缀，不代表可用业务主机。本例检查路由发布、属性和选路，不应对该前缀宣称业务连通。</p>
+</section>
+<section id="p1">
+<span id="p1配置"></span><h2>P1配置<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ip address 198.19.80.1 30
+#
+ospf 1 router-id 1.1.1.1
+ area 0.0.0.0
+  network 198.19.80.1 0.0.0.0
+#
+bgp 65000
+ router-id 1.1.1.1
+ peer 198.19.80.2 as-number 65000
+ ipv4-family unicast
+  peer 198.19.80.2 enable
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="p2">
+<span id="p2配置"></span><h2>P2配置<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ip address 198.19.80.2 30
+#
+ip route-static 172.29.200.0 24 NULL 0 tag 55
+route-policy D1-REDIST permit node 10
+ if-match protocol static
+ if-match tag 55
+ if-match cost 0
+ apply cost 64
+#
+ospf 1 router-id 2.2.2.2
+ import-route static cost 37 type 2
+ area 0.0.0.0
+  network 198.19.80.2 0.0.0.0
+#
+bgp 65000
+ router-id 2.2.2.2
+ peer 198.19.80.1 as-number 65000
+ ipv4-family unicast
+  peer 198.19.80.1 enable
+  import-route static route-policy D1-REDIST
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>三个if-match条件共同约束来源：static、Tag55、原Cost0。BGP策略设置MED64；OSPF消费者单独设置E2 Cost37。不要将带<code class="docutils literal notranslate"><span class="pre">if-match</span> <span class="pre">protocol</span></code>的策略直接用于当前不支持此条件的OSPF引入入口；设备会在提交前拒绝。</p>
+</section>
+<section id="id2">
+<span id="实际验证"></span><h2>实际验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>P2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display route-policy D1-REDIST verbose
+display bgp routing-table
+display ip routing-table 172.29.200.1
+</pre></div>
+</div>
+<p>实测策略节点被调用，条件包含source-protocol static、tag55及metric0；BGP本地表中该前缀的MED为64，静态路由仍是Pre60、Cost0、NULL0。</p>
+<p>P1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp routing-table
+display ospf 1 lsdb ase 172.29.200.0
+display ip routing-table 172.29.200.1
+</pre></div>
+</div>
+<p>示例BGP表项：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Network            NextHop             MED     LocPrf Path/Ogn
+172.29.200.0/24    198.19.80.2          64        100 ?
+</pre></div>
+</div>
+<p>同一前缀的OSPF明细：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Type      : External
+Ls id     : 172.29.200.0
+Adv rtr   : 2.2.2.2
+Len       : 36
+Net mask  : 255.255.255.0
+TOS 0  Metric: 37
+E type    : 2
+Tag       : 55
+</pre></div>
+</div>
+<p>OSPF外部优先级150优于BGP254，所以路由表选中OSPF，而BGP表仍可以存在有效路径。这不是BGP策略失效，协议优先级与MED不是同一个比较层次。</p>
+</section>
+<section id="id3">
+<span id="修改与撤销"></span><h2>修改与撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在BGP策略节点撤销匹配条件和<code class="docutils literal notranslate"><span class="pre">apply</span> <span class="pre">cost</span></code>后，实测该BGP路由恢复MED0，静态路由本身不变。撤销所有匹配条件会扩大策略许可范围，生产配置应按需保留。</p>
+<p>完全撤销BGP引入：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
+ ipv4-family unicast
+  undo import-route static
+#
+undo route-policy D1-REDIST permit node 10
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>实测BGP表不再有该引入前缀，OSPF E2仍为Cost37。若仍需静态路由但不再需要Tag，可重配同一条静态路由而不附加tag：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip route-static 172.29.200.0 24 NULL 0
+commit
+display ospf 1 lsdb ase 172.29.200.0
+</pre></div>
+</div>
+<p>实测OSPF中Tag恢复0。业务确实不再需要该静态前缀时，再撤销静态路由；确认其他OSPF静态引入需求后，才考虑<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">import-route</span> <span class="pre">static</span></code>。最后按需<code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
+<p><a class="reference internal" href="../../operator/routing-preference/"><span class="std std-doc">路由优先级</span></a> · <a class="reference internal" href="../../operator/reference/route-policy/"><span class="std std-doc">策略参数</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../bgp-ipv6-policy/" class="btn btn-neutral float-left" title="BGP IPv6 策略" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../isis/" class="btn btn-neutral float-right" title="IS-IS 双栈" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

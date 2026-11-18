@@ -1,0 +1,182 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRE &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/gre/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="IP-in-IP" href="../ip-in-ip/" />
+    <link rel="prev" title="状态与撤销" href="../tunnel-settings/lifecycle/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../06-tunnels/">隧道</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../tunnel-settings/">Tunnel 接口</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-in-ip/">IP-in-IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../11-vxlan-evpn/">EVPN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../06-tunnels/">隧道</a></li>
+      <li class="breadcrumb-item active">GRE</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gre">
+<h1>GRE<a class="headerlink" href="#gre" title="链接到此标题。"></a></h1>
+<p>使用 GRE 在 IP 网络上建立三层点到点隧道。</p>
+<p><a class="reference internal" href="../reference/gre/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/gre/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 1
+ description P1-P2-GRE
+ tunnel-protocol gre
+ source 192.0.2.1
+ destination 192.0.2.2 vpn-instance default
+ gre key 100
+ mtu 1476
+ ip address 10.0.12.1 255.255.255.252
+</pre></div>
+</div>
+<p>source 和 destination 使用同一底层 VPN 实例，GRE key 可以与 VPN 绑定同时配置。修改或撤销 GRE key 并执行 commit 后，系统会重新提交隧道配置并重建隧道，接口会短暂 Down 后恢复 Up，经过该隧道的业务可能瞬时中断。缺省未配置 MTU 时，IPv4 底层的 GRE 三层 MTU 为 1476；配置非零 key 后为 1472。IPv6 底层对应为 1456 和 1452。显式 mtu 覆盖这些默认值，两端应选择适合底层路径的值。两端的 key 应保持一致；无需重新输入未修改的源、目的和 VPN 参数。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Tunnel 1
+</pre></div>
+</div>
+<p>提交后，Tunnel源地址必须能在指定underlay VPN中找到，目的地址也必须通过该VPN可达。隧道up后，Tunnel上的直连路由才应进入路由表。删除GRE隧道：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo interface Tunnel 1
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>GRE 接口未 shutdown，已配置 tunnel-protocol gre、source 和 destination，且本机在所选底层 VPN 拥有 source 地址、该 VPN 有到 destination 的有效路由后，隧道才能激活。三层 Protocol Up 还需 Tunnel 上有有效 IP 地址。</p>
+<p>远端未启动 GRE 或 key 不匹配，不一定使本机接口 Down；Up 不代表端到端业务已通。请结合底层可达性、两端参数、隧道地址探测和业务路由检查。源地址或底层路由失效时，接口会 Down，条件恢复后自动激活。状态标记见<a class="reference internal" href="../tunnel-settings/lifecycle/"><span class="std std-doc">隧道状态</span></a>。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../tunnel-settings/lifecycle/" class="btn btn-neutral float-left" title="状态与撤销" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ip-in-ip/" class="btn btn-neutral float-right" title="IP-in-IP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L3 子接口 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/subinterfaces-l3/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="L2 子接口" href="../subinterfaces-l2/" />
+    <link rel="prev" title="子接口" href="../subinterfaces/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../subinterfaces/">子接口</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">L3 子接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../subinterfaces-l2/">L2 子接口</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../subinterfaces/">子接口</a></li>
+      <li class="breadcrumb-item active">L3 子接口</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="l3">
+<span id="l3-子接口"></span><h1>L3 子接口<a class="headerlink" href="#l3" title="链接到此标题。"></a></h1>
+<p>L3 子接口按 VLAN 标签区分独立三层链路，可在本接口配置 IPv4/IPv6 和路由协议。它使用 <code class="docutils literal notranslate"><span class="pre">vlan-type</span></code>，L2 的 <code class="docutils literal notranslate"><span class="pre">encapsulation</span></code> 不是相同命令。</p>
+<section id="id1">
+<span id="创建与约束"></span><h2>创建与约束<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">PARENT.NUMBER</span></code> 创建，配置 <code class="docutils literal notranslate"><span class="pre">vlan-type</span> <span class="pre">dot1q</span> <span class="pre">VLAN</span></code> 后设置地址。双标签使用案例中对应形式。父端口须存在，不能与同一父口其他分类规则抢占相同标签；无需将 L3 子接口加入 bridge-domain。</p>
+<p>父接口关闭或链路断开时，L3 子接口随之 Down；父接口恢复后，未被 shutdown 的子接口自动恢复。子接口有有效 IP 地址时，三层 Protocol 才能 Up；仅配置封装不能作为三层网关。</p>
+</section>
+<section id="id2">
+<span id="配置示例输出和撤销"></span><h2>配置、示例输出和撤销<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p><a class="reference internal" href="../../examples/subinterfaces/l3/"><span class="std std-doc">完整双端案例</span></a>包含 VLAN700 地址、接口及直连路由查询、稳定探测3/3，双标签及保存/恢复和父接口删除约束。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Ethernet0.700
+display ip interface brief
+display ip routing-table protocol direct
+</pre></div>
+</div>
+<p>先撤销协议、策略等引用，再删除子接口。真实删除结果、保存回放和对照业务见案例；父口可能还承载其他子接口，不应为删除单一业务而删除父口。</p>
+<p><a class="reference internal" href="../subinterfaces-l2/"><span class="std std-doc">L2 子接口</span></a> · <a class="reference internal" href="../reference/interfaces/"><span class="std std-doc">接口参数</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../subinterfaces/" class="btn btn-neutral float-left" title="子接口" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../subinterfaces-l2/" class="btn btn-neutral float-right" title="L2 子接口" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

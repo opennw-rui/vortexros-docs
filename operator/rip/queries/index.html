@@ -1,0 +1,186 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>查询与撤销 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/rip/queries/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="RIP 故障排查" href="../recovery/" />
+    <link rel="prev" title="RIPv1" href="../version1/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../isis/">IS-IS</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">RIP</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../configuration/">进程与发布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../version1/">RIPv1</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">查询与撤销</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recovery/">RIP 故障排查</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">RIP</a></li>
+      <li class="breadcrumb-item active">查询与撤销</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="查询与撤销"></span><h1>查询与撤销<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="id2">
+<span id="验证与撤销"></span><h2>验证与撤销<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display rip 1 interface
+display rip 1 database
+display rip 1 route
+</pre></div>
+</div>
+<p>在系统视图执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">rip</span> <span class="pre">1</span></code> 并提交会删除该进程学习和通告的路由。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/rip/"><span class="std std-doc">命令参数</span></a></p>
+</section>
+<section id="id3">
+<span id="邻居统计与优先级"></span><h2>邻居统计与优先级<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">rip</span> <span class="pre">1</span> <span class="pre">interface</span></code> 显示实际运行的接口及发送、接收版本；接收列的 <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">2</span></code> 表示接受两个版本，不是两个接口。<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">rip</span> <span class="pre">1</span> <span class="pre">statistics</span></code> 显示已经收到更新的邻居及坏报文、坏路由计数：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Gateway                                 BadPackets BadRoutes Distance Last Update
+198.19.80.2                                      0         0      100 00:00:05
+Distance: (default is 100)
+</pre></div>
+</div>
+<p>一次双设备验证中，学习的主机路由 Cost 为 2、Preference 为 100，IPv4 ping 为 5/5。协议数据库有路由，还应核对 IP 路由表是否选中及 FIB 是否安装；更高优先级协议可以使 RIP 路由成为备选。</p>
+</section>
+<section id="id4">
+<span id="计时列"></span><h2>计时列<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>路由表的 TimeLeft 表示当前老化或垃圾回收计时器的剩余时间，格式为分:秒；本地条目显示 -。它不是路由已存在的时长。配置定时器后，用实际更新和路由变化核对，不能只依据当前配置判定旧条目的计时器已经重新开始。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../version1/" class="btn btn-neutral float-left" title="RIPv1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../recovery/" class="btn btn-neutral float-right" title="RIP 故障排查" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

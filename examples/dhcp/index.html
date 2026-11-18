@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DHCP 地址池 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/dhcp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="DHCPv6 地址与前缀" href="../dhcpv6/" />
+    <link rel="prev" title="网络服务" href="../services/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../services/">网络服务</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">DHCP 地址池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dhcpv6/">DHCPv6 地址与前缀</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dhcpv6-relay/">DHCPv6 中继</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ipv6-ra/">IPv6 自动配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lldp/">发现直连邻居</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../snmp/">SNMP 轮询</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../services/">网络服务</a></li>
+      <li class="breadcrumb-item active">DHCP 地址池</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dhcp">
+<span id="dhcp-地址池"></span><h1>DHCP 地址池<a class="headerlink" href="#dhcp" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑与用途"></span><h2>拓扑与用途<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>服务器 P2 的 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code> 与客户端 P1 的 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code> 直接相连，地址段为 <code class="docutils literal notranslate"><span class="pre">172.20.15.0/24</span></code>。服务器接口属于 <code class="docutils literal notranslate"><span class="pre">DHCP-EMPTY</span></code> VPN 实例，客户端接口属于本机的 <code class="docutils literal notranslate"><span class="pre">CLI-UNDER</span></code> 实例。两个名称是各节点的本地路由域，不要求相同。两端均使用 VortexROS 配置服务和客户端。</p>
+<p>服务器采用全局地址池，指定分配范围、排除地址、固定绑定、网关、DNS、域名和一小时租期。客户端动态安装地址；学习到的路由是否安装，由客户端路由开关控制。DNS 选项不会改写 Linux 系统解析配置。</p>
+</section>
+<section id="id2">
+<span id="两端配置"></span><h2>两端配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>P2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip vpn-instance DHCP-EMPTY
+#
+enable dhcp server
+ip pool CLI-LAN
+ vpn-instance DHCP-EMPTY
+ network 172.20.15.0 mask 255.255.255.0
+ section 0 172.20.15.100 172.20.15.120
+ excluded-ip-address 172.20.15.105 172.20.15.106
+ static-bind ip-address 172.20.15.110 mac-address c2a6-5677-567c
+ gateway-list 172.20.15.1
+ dns-list 8.8.8.8 1.1.1.1
+ domain-name cli.example
+ lease day 0 hour 1
+#
+interface Ethernet0
+ ip binding vpn-instance DHCP-EMPTY
+ ip address 172.20.15.1 255.255.255.0
+ dhcp select global
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>固定绑定的 MAC 必须替换为客户端实际 MAC。不要在仍由其他 DHCP 服务器管理的同一广播域直接复制本例。</p>
+<p>P1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip vpn-instance CLI-UNDER
+#
+interface Ethernet0
+ ip binding vpn-instance CLI-UNDER
+ ip address dhcp-alloc
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>先绑定 VPN 实例，再配置地址或客户端。修改绑定会清除接口的原地址配置。两个 VPN 实例均使用各自默认的 IPv4 地址族；需要接入已有实例时，不重复创建。</p>
+</section>
+<section id="id3">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp service verbose
+display ip pool name CLI-LAN verbose
+display ip pool interface Ethernet0 verbose
+</pre></div>
+</div>
+<p>在空租约库时，查询成功并显示 <code class="docutils literal notranslate"><span class="pre">Used</span> <span class="pre">0</span></code>；客户端获取地址后，全局池显示 <code class="docutils literal notranslate"><span class="pre">Used</span> <span class="pre">1</span></code>。租约按服务器返回的子网编号归属地址池，不能仅凭地址所在网段判断。即使接口保留了旧接口池配置，新全局池租约也不会计入接口池。</p>
+<p>客户端取得的地址、服务器和租期应与地址池相符。以下为客户端示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcp client interface Ethernet0
+ping -vpn-instance CLI-UNDER -a 172.20.15.110 -c 3 172.20.15.1
+</pre></div>
+</div>
+<p>实际探测：<code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">packets</span> <span class="pre">transmitted,</span> <span class="pre">3</span> <span class="pre">received,</span> <span class="pre">0%</span> <span class="pre">packet</span> <span class="pre">loss</span></code>。后续将 DNS 改为 <code class="docutils literal notranslate"><span class="pre">1.1.1.1</span></code>，池详情也显示该值。撤销显式租期后再次续租，实际租期为默认 <code class="docutils literal notranslate"><span class="pre">86400</span></code> 秒；这与修改前的 <code class="docutils literal notranslate"><span class="pre">3600</span></code> 是不同阶段的结果。</p>
+</section>
+<section id="id4">
+<span id="接口池方式"></span><h2>接口池方式<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>若每个接口只需要一个地址池，可在已配置地址的接口下使用：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ dhcp select interface
+ dhcp server ip-range 172.20.15.100 172.20.15.120
+ dhcp server gateway-list 172.20.15.1
+ dhcp server dns-list 1.1.1.1
+ dhcp server lease day 0 hour 1
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>这会切换接口的服务模式。全局池与接口池的配置可以保留，只有当前选中的模式在此接口提供服务。模式切换不删除已有租约：在原池配置仍保留时，历史租约继续归属原池，当前接口池不会重复计数。配置或未到期租约的存在，都不表示客户端此刻在线。接口池扩展参数及撤销语法见<a class="reference internal" href="../../operator/reference/dhcp/"><span class="std std-doc">命令参考</span></a>。</p>
+</section>
+<section id="id5">
+<span id="保存修改与撤销"></span><h2>保存、修改与撤销<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>验证后执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。修改选项后，应让客户端续租再检查报文或租约，不能只看配置已提交。</p>
+<p>P1 停用客户端：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ undo ip address dhcp-alloc
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>P2 停用服务并删除全局池：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ undo dhcp select
+#
+undo ip pool CLI-LAN
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>撤销后查询客户端、池和服务状态，确认本例绑定、动态地址及动态路由已移除。静态地址和 VPN 配置是独立对象，不随 DHCP 自动删除。其他接口仍提供 DHCP 时保留全局开关，否则再 undo enable dhcp server、提交并保存。</p>
+</section>
+<section id="id6">
+<span id="切换模式后的租约核对"></span><h2>切换模式后的租约核对<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
+<p>同一网段从全局池切换到接口池后，分别查询，确认租约没有被混算：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;VortexROS&gt; display ip pool interface Ethernet 1 verbose
+&lt;VortexROS&gt; display ip pool name LAN used
+</pre></div>
+</div>
+<p>一次实际切换中，接口池子网编号为 892164763，只统计新分配的一个租约；原全局池子网编号为 331230444，保留两个尚未过期的历史租约。两份查询分别显示 <code class="docutils literal notranslate"><span class="pre">Used</span> <span class="pre">1</span></code>、<code class="docutils literal notranslate"><span class="pre">Used</span> <span class="pre">2</span></code>。子网编号由池名、地址族和 VPN 实例确定，实际数值随配置不同；同网段不等于同一个地址池。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../services/" class="btn btn-neutral float-left" title="网络服务" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../dhcpv6/" class="btn btn-neutral float-right" title="DHCPv6 地址与前缀" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

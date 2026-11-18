@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>接口处理顺序 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/interface-processing/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="硬件卸载" href="../offload/" />
+    <link rel="prev" title="地址、MTU 与统计" href="../ethernet/settings/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ethernet/">Ethernet</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../03-interfaces-l2/">接口</a></li>
+      <li class="breadcrumb-item active">接口处理顺序</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="接口处理顺序"></span><h1>接口处理顺序<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>策略的 inbound、outbound 相对于绑定接口，不按配置输入的先后排序。物理二层端口、Vlanif三层网关和隧道内层接口处在不同路径，不能把它们视为同一个绑定点。</p>
+<section id="id2">
+<span id="已绑定功能的相对顺序"></span><h2>已绑定功能的相对顺序<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>下表列出产品功能之间明确规定的先后关系；只有已经配置并启用的功能才参与处理。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>路径</p></th>
+<th class="head"><p>相对顺序</p></th>
+<th class="head"><p>配置影响</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IPv4三层入方向</p></td>
+<td><p>ACL → MQC → TCP MSS → NAT Policy → 路由查找</p></td>
+<td><p>入方向 ACL与分类器看到入方向转换前的地址；MQC重定向使用此时匹配到的流量</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPv4三层出方向</p></td>
+<td><p>NAT Policy → ACL → MQC → TCP MSS → 接口限速</p></td>
+<td><p>出方向 ACL与MQC可能看到转换后的地址；前面的丢弃不会进入后面的统计</p></td>
+</tr>
+<tr class="row-even"><td><p>IPv6三层入方向</p></td>
+<td><p>ACL → MQC → TCP MSS → 路由查找</p></td>
+<td><p>不能套用IPv4 NAT的地址匹配预期</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPv6三层出方向</p></td>
+<td><p>ACL → MQC → TCP MSS → 接口限速</p></td>
+<td><p>IPv6业务还需允许必要的邻居发现和路径MTU反馈</p></td>
+</tr>
+<tr class="row-even"><td><p>二层IPv4/IPv6入、出方向</p></td>
+<td><p>对应方向的ACL → MQC</p></td>
+<td><p>作用于桥接端口的报文，不等同于在Vlanif上配置三层策略</p></td>
+</tr>
+</tbody>
+</table>
+<p>uRPF用于源地址路径核对；隧道封装、分片重组、GSO、网卡卸载等还可能参与处理。它们不是本表中省略后就不存在的固定步骤。不同接口与功能组合不能用一条简化的总流水线代替；尤其不要根据GSO或分片报文的计数推断应用层连接数。</p>
+</section>
+<section id="id3">
+<span id="真实组合结果"></span><h2>真实组合结果<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>同一类转发UDP在入方向被标记DSCP20，随后出方向被标记DSCP10，接收端看到最终ToS0x28。只启用入方向时为0x50，撤销后为0。入方向ACL改为拒绝后，流量在MQC前停止；将同一条规则改回permit后恢复。完整配置与撤销见<a class="reference internal" href="../../examples/mqc/"><span class="std std-doc">MQC案例</span></a>。</p>
+<p>ACL是无状态过滤。TCP established只匹配ACK/RST等控制位，不为反向流量创建状态。NAT会话与ACL许可也不是同一件事：已有NAT会话不保证报文能通过后面的ACL。</p>
+</section>
+<section id="id4">
+<span id="配置与排障"></span><h2>配置与排障<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<ol class="arabic simple">
+<li><p>先用接口、路由和健康查询确认基础路径可用。</p></li>
+<li><p>核对策略绑定的接口、地址族及方向。涉及NAT时，分别写清转换前后的地址与端口。</p></li>
+<li><p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">acl</span></code>、<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">traffic</span> <span class="pre">classifier</span></code>、<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">traffic</span> <span class="pre">behavior</span></code>、<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">traffic</span> <span class="pre">policy</span></code> 和 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">nat-policy</span></code> 核对对象；配置存在不等于报文命中。</p></li>
+<li><p>保留一条应放行的对照流量，再验证拒绝、限速或改写。没有收到报文时，同时检查数据面健康，避免把接口或服务中断误判为策略生效。</p></li>
+<li><p>撤销时先解除引用，再删除对象，提交后再次验证新流量。</p></li>
+</ol>
+<p>ICMP发送禁止只作用于本机生成的指定消息，不能替代转发ACL。其实际接口语义、对路径MTU发现的影响与MPLS回程说明见<a class="reference internal" href="../icmp-send/"><span class="std std-doc">ICMP发送控制</span></a>。</p>
+</section>
+<section id="natmqcmss">
+<span id="natmqc与mss组合"></span><h2>NAT、MQC与MSS组合<a class="headerlink" href="#natmqcmss" title="链接到此标题。"></a></h2>
+<p>实际组合验证中，出口接口PAT先将内部源203.0.113.2转换为198.51.100.1；同一出口的MQC按转换后的198.51.100.1/32匹配并设置DSCP30，TCP MSS设置1200。接收侧SYN中源地址已转换、ToS为0x78、MSS为1200，TCP数据160768字节完整送达。</p>
+<p>只撤销NAT绑定后，再次传输4096字节完整送达；源地址恢复203.0.113.2，MQC的转换后源地址条件不再命中，ToS恢复0，而尚未撤销的MSS仍为1200。最后分别撤销MQC与MSS。该结果验证这些功能的相对处理关系，不代表任意插件组合的吞吐或绝对节点顺序。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../ethernet/settings/" class="btn btn-neutral float-left" title="地址、MTU 与统计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../offload/" class="btn btn-neutral float-right" title="硬件卸载" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

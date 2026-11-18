@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candidate、提交与保存 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/cli/configuration/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="帮助、补全与过滤" href="../help/" />
+    <link rel="prev" title="命令行" href="../../01-cli/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../01-cli/">命令行</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Candidate、提交与保存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../help/">帮助、补全与过滤</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../startup/">启动配置格式</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../01-cli/">命令行</a></li>
+      <li class="breadcrumb-item active">Candidate、提交与保存</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="candidate">
+<span id="candidate提交与保存"></span><h1>Candidate、提交与保存<a class="headerlink" href="#candidate" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="从编辑到生效"></span><h2>从编辑到生效<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>命令</p></th>
+<th class="head"><p>作用和影响</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>display configuration candidate</p></td>
+<td><p>查看本会话待提交的变更</p></td>
+</tr>
+<tr class="row-odd"><td><p>refresh configuration candidate</p></td>
+<td><p>将本会话变更合并到最新 Running；若有冲突，按提示检查具体对象</p></td>
+</tr>
+<tr class="row-even"><td><p>commit</p></td>
+<td><p>检查依赖并接受配置，可能改变接口、路由或转发策略</p></td>
+</tr>
+<tr class="row-odd"><td><p>display current-configuration</p></td>
+<td><p>查看已提交的 Running；接口视图可用 display this 查看对应范围</p></td>
+</tr>
+<tr class="row-even"><td><p>display health</p></td>
+<td><p>查看后端收敛状态</p></td>
+</tr>
+<tr class="row-odd"><td><p>save</p></td>
+<td><p>把 Running 保存为启动配置，按提示确认</p></td>
+</tr>
+<tr class="row-even"><td><p>clear configuration candidate</p></td>
+<td><p>只清除本会话未提交的修改，按提示确认</p></td>
+</tr>
+</tbody>
+</table>
+<p>交互式 CLI 需要先建立管理会话；控制服务尚未就绪时会提示退出，待服务恢复后重新进入。服务重启后，已有会话若提示令牌失效，也需要重新进入，不会自动重发未完成的配置命令。</p>
+<p>每个会话有独立的 Candidate。提交失败时先读返回信息。若配置校验被拒绝，修正 Candidate。若提示配置已接受但运行状态未收敛，用 display health verbose 和 display alarm active 查原因，再根据实际业务状态决定是否保存。</p>
+</section>
+<section id="id2">
+<span id="试用一次编辑"></span><h2>试用一次编辑<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>在示例接口上暂存描述，查看差异后清除：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
+ description LAB-UPLINK
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display configuration candidate
+clear configuration candidate
+</pre></div>
+</div>
+<p>按提示确认清除。description 只修改接口说明文本，本例没有执行 commit。实际配置地址和转发见<a class="reference internal" href="../../../examples/static-route/"><span class="std std-doc">静态路由案例</span></a>。</p>
+</section>
+<section id="id3">
+<span id="提交等待提示"></span><h2>提交等待提示<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>普通交互式 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 等待约 1 秒后显示 <code class="docutils literal notranslate"><span class="pre">Committing.</span></code>，随后每秒追加一点，单行最多 12 点。完成后换行显示原有结果。Ctrl+C 停止进度显示，已经发出的提交请求继续执行；重新查询 Candidate、Running 和健康状态确认结果。快速提交和脚本调用不显示通用进度，数据面接管和远程路由列表保留各自阶段提示。</p>
+<p><a class="reference internal" href="../../01-cli/"><span class="std std-doc">目录</span></a></p>
+</section>
+<section id="id4">
+<span id="导出与重新导入"></span><h2>导出与重新导入<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>export configuration backup.cfg
+load configuration backup.cfg
+display configuration candidate
+commit
+save
+</pre></div>
+</div>
+<p>导出的是受保护的已提交配置。相对文件名在当前实例的配置目录中解析，重新导入相同文件名也使用该目录；使用自定义配置位置时，不会转向默认目录或另一实例寻找同名文件。越出配置目录的相对路径会被拒绝，显式绝对路径导入仍可用。导入只替换本会话的Candidate，检查差异后再提交、保存；不要在没有确认差异时用备份覆盖其他会话的新配置。</p>
+<p>实际导出后重新导入未变化的配置，差异查询显示 <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">unmatched</span> <span class="pre">configurations.</span></code>。接口视图的 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code> 查看Running，未提交的内容使用Candidate查询。</p>
+</section>
+<section id="running">
+<span id="running-与启动配置"></span><h2>Running 与启动配置<a class="headerlink" href="#running" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span></code>（可缩写为 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">cu</span></code>）读取最新已提交的 Running；其他会话的提交也应在下一次查询中可见。它不显示本会话尚未提交的 Candidate。</p>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">saved-configuration</span></code>（可缩写为 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">saved</span></code>）每次读取当前选定的启动文件；追加文件名时读取指定 CFG。磁盘文件被修改后，下次查询读取新配置，不沿用之前的显示缓存。手工编辑启动文件不会直接修改 Running；需要按导入、检查差异和提交的流程使配置生效。文件缺失或不能解析时报告错误。</p>
+<p>配置显示只列出配置命令及 <code class="docutils literal notranslate"><span class="pre">#</span></code> 层级分隔符，不额外插入文件路径、格式版本或内部运行状态的注释说明。复制显示内容重新导入时，DHCP 客户端和中继保持其显式配置；角色的显式暂停由 <code class="docutils literal notranslate"><span class="pre">dhcp</span> <span class="pre">client-relay</span> <span class="pre">shutdown</span></code> 控制，不能因为没有版本注释或未启用 DHCP Server 而被停用。</p>
+</section>
+<section id="id5">
+<span id="按功能和视图查看配置"></span><h2>按功能和视图查看配置<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span> <span class="pre">configuration</span></code> 后选择功能名称。它只显示所选功能，便于检查和备份；不代表后端已收敛。接口参数使用类型加编号：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display current-configuration configuration vpn-instance
+display current-configuration configuration bridge-domain 460
+display current-configuration configuration bgp
+display current-configuration interface Ethernet 1
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code> 查看所在视图的已提交配置。例如进入 VPN 的 IPv6 地址族后，只显示该地址族；返回 VPN 视图则可查看两族和共享属性。以下为已配置 RD、RT 的 IPv6 地址族输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#
+ ipv6-family
+  route-distinguisher 65000:1803
+  vpn-target 65000:50081 export-extcommunity
+  vpn-target 65000:50081 import-extcommunity
+#
+return
+</pre></div>
+</div>
+<p>需要查看未提交编辑时使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">configuration</span> <span class="pre">candidate</span></code>。输出中的 <code class="docutils literal notranslate"><span class="pre">#</span></code> 是配置层级分隔符；<code class="docutils literal notranslate"><span class="pre">return</span></code> 结束配置清单。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../../01-cli/" class="btn btn-neutral float-left" title="命令行" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../help/" class="btn btn-neutral float-right" title="帮助、补全与过滤" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

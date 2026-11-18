@@ -1,0 +1,242 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RA 通告 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ipv6-autoconfig/advertisements/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="地址选择" href="../address-selection/" />
+    <link rel="prev" title="RA 默认路由" href="../default-route/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../08-network-services/">网络服务</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../dhcp/">DHCP</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">IPv6 与 RA</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../interface/">接口启用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../slaac/">SLAAC 地址</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../default-route/">RA 默认路由</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">RA 通告</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../address-selection/">地址选择</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../combined/">组合与清理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../prefix-delegation/">前缀委派</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../08-network-services/">网络服务</a></li>
+          <li class="breadcrumb-item"><a href="../">IPv6 与 RA</a></li>
+      <li class="breadcrumb-item active">RA 通告</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ra">
+<span id="ra-通告"></span><h1>RA 通告<a class="headerlink" href="#ra" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="用途与默认值"></span><h2>用途与默认值<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>RA 告诉同链路设备默认路由器、IPv6 前缀及地址获取方式。发送 RA 与接收 RA 是独立配置：作为下游网关时配置发送；向上游获取地址时配置 SLAAC/默认路由接收。</p>
+<p>默认抑制发送，M/O 标志关闭，路由器生存期 1800 秒。使用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">ra</span> <span class="pre">halt</span></code> 开启发送；正向 <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">ra</span> <span class="pre">halt</span></code> 恢复默认抑制。默认项不会出现在保存配置中。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>命令/参数</p></th>
+<th class="head"><p>作用与影响</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">autoconfig</span> <span class="pre">managed-address-flag</span></code></p></td>
+<td><p>设置 M 标志，告知终端可通过 DHCPv6 获取地址；不会自动替终端创建 DHCPv6 客户端</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">autoconfig</span> <span class="pre">other-flag</span></code></p></td>
+<td><p>设置 O 标志，告知终端可通过 DHCPv6 获取 DNS 等其他信息</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">ra</span> <span class="pre">lifetime</span> <span class="pre">SECONDS</span></code></p></td>
+<td><p>0 表示不作为默认路由器；非零值 4–9000，启用发送时须至少为默认最大通告间隔 600 秒</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">ra</span> <span class="pre">prefix</span> <span class="pre">ADDRESS</span> <span class="pre">LENGTH</span> <span class="pre">VALID</span> <span class="pre">PREFERRED</span></code></p></td>
+<td><p>指定通告前缀及有效/首选寿命，单位秒；PREFERRED 不得大于 VALID</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">no-autoconfig</span></code></p></td>
+<td><p>清除该前缀的 A 标志，不允许终端用它生成 SLAAC 地址</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">off-link</span></code></p></td>
+<td><p>清除该前缀的 L 标志，不把该前缀声明为链路直连</p></td>
+</tr>
+</tbody>
+</table>
+<p>寿命是无符号 32 位秒数；配置 4294967295 表示协议规定的无限寿命。普通 SLAAC 使用 /64；其他长度不能假定终端会生成地址。前缀的 A/L 标志与 RA 的 M/O 标志相互独立。</p>
+</section>
+<section id="id2">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ipv6 enable
+ ipv6 address 2001:db8:229::1 64
+ ipv6 nd ra prefix 2001:db8:229:: 64 3600 1800
+ ipv6 nd autoconfig managed-address-flag
+ ipv6 nd autoconfig other-flag
+ undo ipv6 nd ra halt
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>需要 DHCPv6 地址而不要同前缀的 SLAAC 地址时，在前缀命令末尾添加 <code class="docutils literal notranslate"><span class="pre">no-autoconfig</span></code>。需要继续提供地址前缀但不提供默认路由时，把 router lifetime 设为 0。</p>
+</section>
+<section id="id3">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ipv6 interface Ethernet 0
+display current-configuration interface Ethernet 0
+</pre></div>
+</div>
+<p>在对端执行 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">interface</span></code>、<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">routing-table</span></code>，并进行实际 IPv6 Ping。详细显示中的配置字段不替代对端回读。实际报文验证已取得 M/O 标志、300/150 秒前缀寿命和 1800 秒路由器寿命；完整步骤见<a class="reference internal" href="../../../examples/ipv6-ra/"><span class="std std-doc">RA 案例</span></a>。</p>
+</section>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ipv6 nd ra halt
+ undo ipv6 nd autoconfig managed-address-flag
+ undo ipv6 nd autoconfig other-flag
+ undo ipv6 nd ra prefix
+ undo ipv6 nd ra lifetime
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>带 ADDRESS、LENGTH 的 undo prefix 只删除指定前缀；不带参数删除所有显式 RA 前缀。停止发送或删除前缀不等于远端立即遗忘历史地址；终端还会遵守此前收到的有效期。确认对端结果后再保存。</p>
+<p>默认参数参照<a class="reference external" href="https://www.netconfcentral.org/modules/huawei-ipv6-nd/2021-07-16/source/raw/">华为 ND 数据模型</a>；实际支持的参数以本页和当前 CLI 为准。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../default-route/" class="btn btn-neutral float-left" title="RA 默认路由" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../address-selection/" class="btn btn-neutral float-right" title="地址选择" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

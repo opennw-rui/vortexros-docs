@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>路由反射 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bgp/reflection/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="AS 与路由属性" href="../attributes/" />
+    <link rel="prev" title="邻居组与认证" href="../groups/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">BGP</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../peers/">邻居与会话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../groups/">邻居组与认证</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">路由反射</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../attributes/">AS 与路由属性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multipath/">等价路径</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../families/">地址族与聚合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../queries/">状态与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">BGP</a></li>
+      <li class="breadcrumb-item active">路由反射</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="路由反射"></span><h1>路由反射<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>同一 AS 内，路由反射器可以把一个 iBGP 客户端学到的路由通告给其他客户端，减少全互联会话。路由反射不代替下一跳可达性；应先由静态路由或 IGP 保证各端下一跳互通。</p>
+<section id="id2">
+<span id="两个客户端和一个反射器"></span><h2>两个客户端和一个反射器<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>三台设备依次连接：CE1 — RR — CE2，同属 AS 65000。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>设备</p></th>
+<th class="head"><p>Ethernet0</p></th>
+<th class="head"><p>Ethernet1</p></th>
+<th class="head"><p>LoopBack255</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CE1</p></td>
+<td><p>2001:db8:80::1/64</p></td>
+<td><p>—</p></td>
+<td><p>2001:db8:255::1/128</p></td>
+</tr>
+<tr class="row-odd"><td><p>RR</p></td>
+<td><p>2001:db8:80::2/64</p></td>
+<td><p>2001:db8:23::2/64</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>CE2</p></td>
+<td><p>2001:db8:23::3/64</p></td>
+<td><p>—</p></td>
+<td><p>2001:db8:256::3/128</p></td>
+</tr>
+</tbody>
+</table>
+<p>下列为系统视图配置清单。接口须先物理连通。配置后返回系统视图执行 commit；检查实际结果后 save。# 是配置分隔符，不是需要在终端执行的命令。</p>
+<p>CE1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ipv6 enable
+ ipv6 address 2001:db8:80::1 64
+#
+interface LoopBack 255
+ ipv6 enable
+ ipv6 address 2001:db8:255::1 128
+#
+ipv6 route-static 2001:db8:23:: 64 2001:db8:80::2
+bgp 65000
+ router-id 1.1.1.1
+ peer 2001:db8:80::2 as-number 65000
+ ipv6-family unicast
+  peer 2001:db8:80::2 enable
+  network 2001:db8:255::1 128
+ #
+#
+</pre></div>
+</div>
+<p>RR：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ipv6 enable
+ ipv6 address 2001:db8:80::2 64
+#
+interface Ethernet 1
+ ipv6 enable
+ ipv6 address 2001:db8:23::2 64
+#
+bgp 65000
+ router-id 2.2.2.2
+ reflector cluster-id 2.2.2.22
+ peer 2001:db8:80::1 as-number 65000
+ peer 2001:db8:23::3 as-number 65000
+ ipv6-family unicast
+  peer 2001:db8:80::1 enable
+  peer 2001:db8:80::1 reflect-client
+  peer 2001:db8:23::3 enable
+  peer 2001:db8:23::3 reflect-client
+ #
+#
+</pre></div>
+</div>
+<p>CE2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ipv6 enable
+ ipv6 address 2001:db8:23::3 64
+#
+interface LoopBack 255
+ ipv6 enable
+ ipv6 address 2001:db8:256::3 128
+#
+ipv6 route-static 2001:db8:80:: 64 2001:db8:23::2
+bgp 65000
+ router-id 3.3.3.3
+ peer 2001:db8:23::2 as-number 65000
+ ipv6-family unicast
+  peer 2001:db8:23::2 enable
+  network 2001:db8:256::3 128
+ #
+#
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<span id="查询路由和业务"></span><h2>查询路由和业务<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在 CE2 查询：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp ipv6 peer
+display bgp ipv6 routing-table 2001:db8:255::1 128
+display ipv6 routing-table 2001:db8:255::1
+ping ipv6 -c 2 -a 2001:db8:256::3 2001:db8:255::1
+</pre></div>
+</div>
+<p>实际查询关键结果：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Network: 2001:db8:255::1/128
+NextHop: 2001:db8:80::1
+LocPrf: 100
+Total Number of Routes: 1
+
+2 packets transmitted, 2 received, 0% packet loss
+</pre></div>
+</div>
+<p>上面的路由字段是查询结果摘录，不是整张原始表。路由保留 CE1 的下一跳，因此 CE2 必须能够经 RR 到达 2001:db8:80::1。普通 next-hop-local 不保证改写反射的 iBGP 路由。改变反射或 GR 参数可能重新协商会话，配置提交完成后仍需等待邻居和路由恢复。</p>
+</section>
+<section id="id4">
+<span id="禁止客户端间反射"></span><h2>禁止客户端间反射<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>默认允许客户端间反射。RR 的 BGP 进程视图执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo reflect between-clients
+commit
+</pre></div>
+</div>
+<p>没有其他可用通告路径时，CE2 对上述 CE1 前缀的实际查询变为 Total Number of Routes: 0。若同一前缀同时从非客户端会话学习，仍可能通告给客户端；不能用这种替代路径判断开关无效。</p>
+<p>恢复：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reflect between-clients
+commit
+</pre></div>
+</div>
+<p>实际路由恢复为 1 条。undo reflector cluster-id 恢复以 Router ID 为 Cluster ID，不会撤销客户端绑定。</p>
+</section>
+<section id="id5">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>先在 CE1 和 CE2 的 IPv6 地址族撤销各自的 network，再提交，确认对端不再收到对应前缀。随后在 RR 的 IPv6 地址族撤销客户端绑定：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo peer 2001:db8:80::1 reflect-client
+undo peer 2001:db8:23::3 reflect-client
+</pre></div>
+</div>
+<p>如果这些会话只用于本例，再在 BGP 进程视图删除相应 peer；最后删除测试 LoopBack、静态路由及接口地址。不要删除承载其他业务的 BGP 进程或共享链路。完整命令参数见<a class="reference internal" href="../peers/"><span class="std std-doc">邻居与会话</span></a>。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../groups/" class="btn btn-neutral float-left" title="邻居组与认证" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../attributes/" class="btn btn-neutral float-right" title="AS 与路由属性" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

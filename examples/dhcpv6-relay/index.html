@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DHCPv6 中继 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/dhcpv6-relay/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="IPv6 自动配置" href="../ipv6-ra/" />
+    <link rel="prev" title="DHCPv6 地址与前缀" href="../dhcpv6/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/">路由协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../services/">网络服务</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../dhcp/">DHCP 地址池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dhcpv6/">DHCPv6 地址与前缀</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">DHCPv6 中继</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ipv6-ra/">IPv6 自动配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lldp/">发现直连邻居</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../snmp/">SNMP 轮询</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../services/">网络服务</a></li>
+      <li class="breadcrumb-item active">DHCPv6 中继</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dhcpv6">
+<span id="dhcpv6-中继"></span><h1>DHCPv6 中继<a class="headerlink" href="#dhcpv6" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="拓扑与前提"></span><h2>拓扑与前提<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>三台设备均运行 VortexROS。CE1 是客户端，P1 是中继，P2 使用配套 DHCPv6 服务端。服务器在上行链路，分配的地址属于客户端链路。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 Ethernet0 ── Ethernet1 P1 Ethernet0 ── Ethernet0 P2
+  DHCPv6        2001:db8:11::1/64
+                             2001:db8:12::1/64  2001:db8:12::2/64
+客户端地址池: 2001:db8:11::/64
+</pre></div>
+</div>
+<p>本例使用上行接口形式，将请求发送到服务器组 ff05::1:3。所有接口应有可用链路本地地址，路径须允许 DHCPv6 和 ICMPv6；不需要手工启动 Kea 或编辑其配置文件。不要把服务器组改为客户端/中继组 ff02::1:2。</p>
+</section>
+<section id="p1">
+<span id="p1中继"></span><h2>P1：中继<a class="headerlink" href="#p1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet1
+ ipv6 enable
+ ipv6 address 2001:db8:11::1 64
+ dhcpv6 relay interface Ethernet0
+#
+interface Ethernet0
+ ipv6 enable
+ ipv6 address 2001:db8:12::1 64
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>中继不需要 enable dhcp server。客户口和上行口应属于同一 VPN，且不能是同一个接口。本例服务器上行口只使用 2001:db8:12::2/64；若已有其他 IPv6 地址，先按实际地址规划核对中继到服务器所有可能回复源地址的路由。</p>
+</section>
+<section id="p2">
+<span id="p2服务器"></span><h2>P2：服务器<a class="headerlink" href="#p2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable dhcp server
+dhcpv6 pool RELAY6
+ address prefix 2001:db8:11::/64 life-time 3600 1800
+ excluded-address 2001:db8:11::1 2001:db8:11::ff
+ dns-server 2001:db8::53
+#
+interface Ethernet0
+ ipv6 enable
+ ipv6 address 2001:db8:12::2 64
+ dhcpv6 server RELAY6
+#
+ipv6 route-static 2001:db8:11:: 64 Ethernet0 2001:db8:12::1
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>地址池前缀必须与中继客户链路一致，不能误用服务器上行口的前缀。排除范围保留中继网关及其他静态地址，避免将 2001:db8:11::1 分配给客户端；服务器不会自动知道远端链路的全部静态地址。到客户链路的静态路由用于分配后的业务回程。</p>
+</section>
+<section id="ce1">
+<span id="ce1客户端"></span><h2>CE1：客户端<a class="headerlink" href="#ce1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ ipv6 enable
+ ipv6 address auto dhcp
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>DHCPv6 不提供默认网关，所获地址通常为 /128。先在 P1 用 display interface Ethernet1 读取当前链路本地地址，再在 CE1 配置到网关及服务器网段的路由。以下以 fe80::fe:5ff:fefe:d57c 为例，必须替换成 P1 当前值，不能使用重建接口前的旧值：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ipv6 route-static 2001:db8:11:: 64 Ethernet0 fe80::fe:5ff:fefe:d57c
+ipv6 route-static 2001:db8:12:: 64 Ethernet0 fe80::fe:5ff:fefe:d57c
+commit
+</pre></div>
+</div>
+<p>仅地址分配成功不代表默认路由或其他业务路由已经具备。</p>
+</section>
+<section id="id2">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>CE1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 client interface Ethernet0
+display ipv6 interface brief
+</pre></div>
+</div>
+<p>P1：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 relay
+display dhcp service verbose
+</pre></div>
+</div>
+<p>P2：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dhcpv6 pool name RELAY6 used
+display dhcpv6 pool name RELAY6 verbose
+</pre></div>
+</div>
+<p>应看到中继处于运行状态，客户端取得 2001:db8:11::/64 内的地址，服务器租约中的 DUID、IAID 和地址与客户端相符。正常空池应显示零租约，不是查询失败。</p>
+<p>客户端和服务器对应租约的示例节选（完整清单可能包含历史租约）：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Interface  Address-Family  Role    Pool/Servers  VPN-Instance  State    Address                Delegated-Prefix
+Ethernet0  IPv6            client                default       running  2001:db8:11::101/128    -
+
+Index  Pool    IPv6 Address/Prefix   Type   Lease  Status
+0      RELAY6  2001:db8:11::101/128   IA_NA  3589s  used
+</pre></div>
+</div>
+<p>取得地址并完成 DAD 后，CE1 使用实际地址作为源，分别 Ping 2001:db8:11::1 与 2001:db8:12::2，确认客户链路和跨中继路由。初次探测可能等待邻居解析；持续不通时检查实际链路本地下一跳，而不是重复续租。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping ipv6 -a 2001:db8:11::101 -c 3 2001:db8:12::2
+</pre></div>
+</div>
+<p>示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>3 packets transmitted, 3 received, 0% packet loss
+</pre></div>
+</div>
+<p>在 P2 用源地址 2001:db8:12::2 反向 Ping 客户端当前地址，检查服务器到客户端的路由。不要用中继进程 running 或池内有历史租约代替当前客户端的双向检查。</p>
+</section>
+<section id="id3">
+<span id="无法取得租约时"></span><h2>无法取得租约时<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<ol class="arabic simple">
+<li><p>确认客户端有 Solicit，中继上行发送到 ff05::1:3，服务器返回 Relay-reply；单播目标的成功不能代替这条组播路径。</p></li>
+<li><p>服务器接口有多个 IPv6 地址时，组播请求的回复源可能不是示例地址。核对实际回复源，再在中继查询其路由；缺少可达路径时先补齐实际网络规划，不能靠关闭源地址检查处理。</p></li>
+<li><p>请求已发出但没有租约时，分别检查服务器监听、回复回程和中继接收；短时间内没有抓到报文不能证明服务器没有收到。</p></li>
+<li><p>地址已取得但无法通信时，检查 /128 客户端路由、当前链路本地下一跳、DAD 及重复地址。排除地址不会自动收回已发放的旧租约，修改后仍须核对客户端当前地址。</p></li>
+</ol>
+<p>组播组含义见 <a class="reference external" href="https://www.rfc-editor.org/rfc/rfc9915.html#section-7.1">RFC 9915 第 7.1 节</a>。</p>
+</section>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>先在 P1 只撤销中继，保留服务器用于对照：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet1
+ undo dhcpv6 relay interface Ethernet0
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display dhcpv6 relay
+</pre></div>
+</div>
+<p>此时 CE1 停止并重新申请地址，应不能获得新租约；旧地址或服务器历史租约不代表中继仍在工作。随后在 CE1 Ethernet0 执行 undo ipv6 address auto dhcp，并撤销前述两条静态路由，提交清理。</p>
+<p>P2 先解除 Ethernet0 的 dhcpv6 server 绑定，再删除 RELAY6；用相应 undo 命令撤销专用静态路由和接口地址。P1 同样撤销本例地址。提交后检查中继和池均不再存在，各设备按需 save。客户端原地址可能在租期内保留，不能仅凭旧地址仍存在判断中继未撤销。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../dhcpv6/" class="btn btn-neutral float-left" title="DHCPv6 地址与前缀" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../ipv6-ra/" class="btn btn-neutral float-right" title="IPv6 自动配置" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

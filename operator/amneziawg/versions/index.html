@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>版本与兼容 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/amneziawg/versions/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="配置与混淆" href="../profile/" />
+    <link rel="prev" title="AmneziaWG" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../06-tunnels/">隧道</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../tunnel-settings/">Tunnel 接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ip-in-ip/">IP-in-IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../wireguard/">WireGuard</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">AmneziaWG</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">版本与兼容</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../profile/">配置与混淆</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../timers/">计时与预共享密钥</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../11-vxlan-evpn/">EVPN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../06-tunnels/">隧道</a></li>
+          <li class="breadcrumb-item"><a href="../">AmneziaWG</a></li>
+      <li class="breadcrumb-item active">版本与兼容</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="版本与兼容"></span><h1>版本与兼容<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>本页对应 0.29-dev-debug1 的配套 AmneziaWG 插件。协议版本、客户端应用版本与 VPP 软件版本是不同编号，不能互相替代。设备实际版本以 display version 为准；开发版本新增参数不应推定旧安装包也已支持。</p>
+<section id="id2">
+<span id="当前支持范围"></span><h2>当前支持范围<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>VortexROS 没有单独的 AmneziaWG version 命令，按 Profile 的参数选择报文格式，也不会自动协商或降级格式。当前具备基础混淆、S1–S4、消息头范围、签名包，以及 Header Protection、内容填充和时序等参数。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>协议参数集合</p></th>
+<th class="head"><p>配置选择</p></th>
+<th class="head"><p>当前证据</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>WireGuard 兼容格式</p></td>
+<td><p>不启用混淆，H1–H4 使用默认 1、2、3、4</p></td>
+<td><p>已验证 VortexROS 的 AmneziaWG 与独立 WireGuard 隧道双栈互通；第三方客户端兼容性尚未确认</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.0 / Legacy 基础格式</p></td>
+<td><p>Jc/Jmin/Jmax、S1/S2、四个固定 H 值；其余机制关闭</p></td>
+<td><p>固定头值与 S1/S2 模式已取得本机双端双栈 1/1；第三方 Legacy 客户端兼容性尚未确认</p></td>
+</tr>
+<tr class="row-even"><td><p>1.5 签名格式</p></td>
+<td><p>基础格式加 I1–I5 对应的签名槽位</p></td>
+<td><p>静态和动态签名包已实测；第三方 1.5 客户端需按具体参数核对兼容性</p></td>
+</tr>
+<tr class="row-odd"><td><p>2.0 参数集合</p></td>
+<td><p>S1–S4，加 H1–H4 非重叠范围</p></td>
+<td><p>四类填充和随机头值已抓包，本机双栈各 1/1；第三方客户端兼容性尚未确认</p></td>
+</tr>
+<tr class="row-even"><td><p>3.1 参数集合</p></td>
+<td><p>按需加入头保护、内容填充、随机尾部、时序和 Cookie 发送控制</p></td>
+<td><p>VortexROS 双端组合已取得 IPv4/IPv6 各方向 2/2；未认证全部官方客户端</p></td>
+</tr>
+</tbody>
+</table>
+<p>版本差异按<a class="reference external" href="https://docs.amnezia.org/documentation/amnezia-wg/">官方协议说明</a>核对。官方应用的自动部署、配置文件导入能力还取决于应用版本；例如其 3.1 部署指南使用 AmneziaVPN 5.0.2.1 或更高版本。这是官方部署流程的要求，不是已在 VortexROS 上逐一验证的客户端清单。<a class="reference external" href="https://docs.amnezia.org/documentation/instructions/new-amneziawg-selfhosted/">官方迁移指南</a></p>
+</section>
+<section id="id3">
+<span id="参数对照"></span><h2>参数对照<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>下表用于将对端的协议参数换成 VortexROS 配置，不是把整份客户端文件直接粘贴进 CLI。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>对端参数</p></th>
+<th class="head"><p>VortexROS Profile 命令</p></th>
+<th class="head"><p>配置关系</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jc</p></td>
+<td><p>junk count N</p></td>
+<td><p>本端发送数量，可与对端不同</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jmin、Jmax</p></td>
+<td><p>junk size LOW HIGH</p></td>
+<td><p>本端垃圾包长度，可与对端不同</p></td>
+</tr>
+<tr class="row-even"><td><p>S1、S2、S3、S4</p></td>
+<td><p>padding init / response / cookie / transport N</p></td>
+<td><p>对应报文格式须匹配</p></td>
+</tr>
+<tr class="row-odd"><td><p>H1、H2、H3、H4</p></td>
+<td><p>header init / response / cookie / transport LOW HIGH</p></td>
+<td><p>四类范围不重叠；双方收发范围须兼容</p></td>
+</tr>
+<tr class="row-even"><td><p>I1–I5</p></td>
+<td><p>junk-packet SLOT expression EXPRESSION</p></td>
+<td><p>本端签名包模板，不要求对端配置相同模板</p></td>
+</tr>
+<tr class="row-odd"><td><p>HeaderProtectionKey</p></td>
+<td><p>header-protection KEY</p></td>
+<td><p>双方一致的独立 32 字节密钥</p></td>
+</tr>
+<tr class="row-even"><td><p>ContentPaddingAddition</p></td>
+<td><p>padding content LOW HIGH</p></td>
+<td><p>本端内容填充范围</p></td>
+</tr>
+<tr class="row-odd"><td><p>RekeyAfterTime</p></td>
+<td><p>timing rekey-after LOW HIGH</p></td>
+<td><p>本端重协商时序</p></td>
+</tr>
+<tr class="row-even"><td><p>RekeyTimeout</p></td>
+<td><p>timing rekey-timeout LOW HIGH</p></td>
+<td><p>本端握手重试间隔</p></td>
+</tr>
+<tr class="row-odd"><td><p>RejectAfterTime</p></td>
+<td><p>timing reject-after LOW HIGH</p></td>
+<td><p>本端过期密钥拒绝时序</p></td>
+</tr>
+<tr class="row-even"><td><p>KeepaliveTimeout</p></td>
+<td><p>timing keepalive LOW HIGH</p></td>
+<td><p>协议保活时序，与 peer keepalive 区分</p></td>
+</tr>
+<tr class="row-odd"><td><p>MaxHandshakeAttempts</p></td>
+<td><p>timing max-handshakes LOW HIGH</p></td>
+<td><p>握手重试预算阈值，见计时说明</p></td>
+</tr>
+<tr class="row-even"><td><p>RandomTrailers</p></td>
+<td><p>random-trailers enable</p></td>
+<td><p>变长尾部，双方须能识别相应格式</p></td>
+</tr>
+<tr class="row-odd"><td><p>DisableCookies</p></td>
+<td><p>disable-cookies enable</p></td>
+<td><p>只控制本端 Cookie Reply 发送</p></td>
+</tr>
+</tbody>
+</table>
+<p>peer keepalive 设置持续保活的秒数；目前不接受官方部分实现提供的持续保活随机范围。presharedkey 与 HeaderProtectionKey 不同：前者参与 peer 密钥协商，后者用于消息头保护，应使用不同密钥。<a class="reference external" href="https://github.com/amnezia-vpn/amneziawg-go#configuration">官方参数定义</a></p>
+</section>
+<section id="legacy">
+<span id="legacy-配置方式"></span><h2>Legacy 配置方式<a class="headerlink" href="#legacy" title="链接到此标题。"></a></h2>
+<p>在基础互连案例的两端，为相应 Profile 选择固定消息头值，S3/S4 和新增机制保持默认。下列清单用于新建独立 Profile，不要直接叠加到已有的高级 Profile：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>amneziawg profile AWG-LEGACY
+ junk count 3
+ junk size 16 48
+ padding init 24
+ padding response 28
+ header init 100 100
+ header response 200 200
+ header cookie 300 300
+ header transport 400 400
+#
+</pre></div>
+</div>
+<p>peer、公钥、地址、端口及 Tunnel 绑定按<a class="reference internal" href="../../../examples/amneziawg/"><span class="std std-doc">完整互连案例</span></a>补齐。固定值在 CLI 中用相同的 LOW、HIGH 表示。对端不支持的字段不要加入其配置文件。</p>
+</section>
+<section id="id4">
+<span id="15-签名配置方式"></span><h2>1.5 签名配置方式<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>在固定头值的 Profile 中按需要增加签名槽位：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>amneziawg profile AWG-LEGACY
+ junk-packet 1 expression "&lt;b 0x160301&gt;&lt;t&gt;&lt;r 32&gt;"
+#
+</pre></div>
+</div>
+<p>此字节串只示范语法，不代表任何实际业务协议，也不保证与某种流量外观相同。VortexROS 的原始 Base64 槽位和动态表达式会在本机生成 UDP 报文。通用表达式标签包括 b、t、r、rc、rd；c 计数标签是本实现额外接受的模板语法，不能据此认定外部客户端也接受 c。</p>
+</section>
+<section id="id5">
+<span id="20-配置方式"></span><h2>2.0 配置方式<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>在新的 Profile 中使用四类前置填充和随机头范围，不配置 3.1 机制：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>amneziawg profile AWG-V2
+ junk count 3
+ junk size 16 48
+ padding init 24
+ padding response 28
+ padding cookie 20
+ padding transport 16
+ header init 100 110
+ header response 200 210
+ header cookie 300 310
+ header transport 400 410
+#
+</pre></div>
+</div>
+<p>四类消息头范围互不重叠，接收方必须使用兼容范围和对应的填充长度。只修改一端可能使握手或数据报文无法识别。</p>
+</section>
+<section id="id6">
+<span id="31-配置方式"></span><h2>3.1 配置方式<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
+<p>以下是使用头保护的新 Profile。SHARED_HEADER_KEY 需要替换成双方一致的独立密钥：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>amneziawg profile AWG-V31
+ padding init 24
+ padding response 24
+ padding cookie 24
+ padding transport 24
+ header-protection SHARED_HEADER_KEY
+ padding content 4 16
+ random-trailers enable
+ timing rekey-after 90 120
+ timing rekey-timeout 4 6
+ timing reject-after 170 190
+ timing keepalive 8 10
+ timing max-handshakes 14 18
+#
+</pre></div>
+</div>
+<p>H1–H4 保持默认 1、2、3、4，遵循官方对头保护模式的建议。头保护要求四类前置填充均不少于 12 字节。Cookie Reply 默认仍开启；只有明确需要改变本端 Cookie 发送行为时才加入 disable-cookies enable。完整双端参数、真实显示与业务验证见<a class="reference internal" href="../../../examples/amneziawg/#id4"><span class="std std-ref">高级参数案例</span></a>。</p>
+</section>
+<section id="id7">
+<span id="版本切换和检查"></span><h2>版本切换和检查<a class="headerlink" href="#id7" title="链接到此标题。"></a></h2>
+<p>修改协议字段可能重建相关 peer，并使旧会话短暂中断。先确认对端支持哪些参数，再协调两端修改、提交、验证及保存。旧 Profile 中已启用的头保护、内容填充、随机尾部、时序及 S3/S4 不会因为改了 Profile 名称自动清除；切换到 Legacy 格式时必须显式撤销这些字段，或建立新的独立 Profile。撤销头保护时，应先执行 undo header-protection，再将任一前置填充降到 12 字节以下；相反顺序会被依赖校验拒绝，原字段保留。</p>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display amneziawg profile
+display amneziawg peer
+display amneziawg interface
+display interface Tunnel 20
+ping -c 3 -t 1500 198.51.100.42
+</pre></div>
+</div>
+<p>Profile 查询是已提交参数，不是外部客户端版本检测。握手成功也不能替代业务流量验证；两端均应检查实际地址、路由、Allowed IP、接口计数和双向通信。不得仅按客户端显示的版本名称判断报文格式兼容。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="AmneziaWG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../profile/" class="btn btn-neutral float-right" title="配置与混淆" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

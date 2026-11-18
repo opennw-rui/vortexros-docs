@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>交换端口 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vlan/ports/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="Access" href="../access/" />
+    <link rel="prev" title="VLAN" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">VLAN</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">交换端口</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../access/">Access</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../trunk/">Trunk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hybrid/">Hybrid</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../gateway/">Vlanif 网关</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lifecycle/">交换功能与保存</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../service-bd/">VLAN 与业务桥域</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../">VLAN</a></li>
+      <li class="breadcrumb-item active">交换端口</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="交换端口"></span><h1>交换端口<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>Ethernet 和 Eth-Trunk 可按业务需要配置为 Access、Trunk 或 Hybrid。端口模式、VLAN 成员和 PVID 决定报文准入与出方向标签，不需要额外配置 Linux 网桥。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../access/">Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trunk/">Trunk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hybrid/">Hybrid</a></li>
+</ul>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>模式</p></th>
+<th class="head"><p>VLAN 成员</p></th>
+<th class="head"><p>无标签报文</p></th>
+<th class="head"><p>出方向标签</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Access</p></td>
+<td><p>一个默认 VLAN</p></td>
+<td><p>归入默认 VLAN</p></td>
+<td><p>不带该 VLAN 标签</p></td>
+</tr>
+<tr class="row-odd"><td><p>Trunk</p></td>
+<td><p>允许列表</p></td>
+<td><p>归入已允许的 PVID</p></td>
+<td><p>PVID 不带标签，其余 VLAN 带标签</p></td>
+</tr>
+<tr class="row-even"><td><p>Hybrid</p></td>
+<td><p>tagged / untagged 列表</p></td>
+<td><p>归入已加入成员列表的 PVID</p></td>
+<td><p>按各 VLAN 的 tagged / untagged 设置</p></td>
+</tr>
+<tr class="row-odd"><td><p>dot1q-tunnel</p></td>
+<td><p>简单 QinQ 服务 VLAN</p></td>
+<td><p>作为客户侧报文承载</p></td>
+<td><p>见<a class="reference internal" href="../../qinq/"><span class="std std-doc">QinQ</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<p>所有交换模式都必须先启用交换功能，并创建所需 VLAN。Vlanif、Vbdif 和三层端口不作为普通交换成员。</p>
+<section id="id2">
+<span id="查询"></span><h2>查询<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vlan
+display vlan 100
+display mac-address vlan 100
+display interface brief
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vlan</span></code> 中，U/D 表示成员接口 Up/Down，TG/UT 表示带标签/不带标签。MAC 显示使用用户配置的父接口名称，便于定位接入端口。</p>
+<p>以下为 VLAN 100 的实际查询输出节选，两端都设置为该 VLAN 的无标签成员：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VID  Type    Status  MAC-LRN  Description      Ports
+----------------------------------------------------------------------------
+100  common  enable  enable   VLAN 100         UT:Ethernet0(U)  Ethernet1(U)
+
+MAC Address       VLAN/VSI/BD                    Learned-From        Type
+-------------------------------------------------------------------------------
+0200-00a1-0001    100/-/-                        Ethernet0           dynamic
+</pre></div>
+</div>
+</section>
+<section id="mtu">
+<span id="网关与-mtu"></span><h2>网关与 MTU<a class="headerlink" href="#mtu" title="链接到此标题。"></a></h2>
+<p>Vlanif 需要所属 VLAN 至少有一个有效成员端口 Up，且接口没有 shutdown；三层 Protocol Up 还需要有效 IP 地址。成员全部不可用时自动 Down，恢复后自动 Up，见<a class="reference internal" href="../gateway/"><span class="std std-doc">Vlanif 网关</span></a>。</p>
+<p>显式二层子接口未配置 MTU 时使用父端口的硬件 MTU 能力，三层子接口缺省为 1500。通过 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span></code> 核对 MTU。物理接口从三层切换为交换端口，会改变现有业务的接口归属，提交前应撤销冲突的三层配置。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/vlan/"><span class="std std-doc">命令参考</span></a></p>
+</section>
+<section id="id3">
+<span id="切换端口类型"></span><h2>切换端口类型<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>先撤销原类型的非默认 VLAN 和 PVID 配置，再执行新的 <code class="docutils literal notranslate"><span class="pre">port</span> <span class="pre">link-type</span></code>。清空允许列表与恢复默认列表不同：Trunk 默认允许 VLAN 1，Hybrid 默认将 VLAN 1 作为 untagged 成员；空列表不会自动恢复这些默认项。</p>
+<p>例如，将只允许 VLAN 100、PVID 为 100 的 Trunk 改为 Access：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet 0
+ undo port trunk pvid vlan
+ port trunk allow-pass vlan 1
+ undo port trunk allow-pass vlan 100
+ port link-type access
+ port default vlan 100
+#
+commit
+</pre></div>
+</div>
+<p>应根据当前允许列表撤销其他业务 VLAN。Access 恢复默认 VLAN 使用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">port</span> <span class="pre">default</span> <span class="pre">vlan</span></code>；Hybrid 应撤销原 tagged/untagged 业务成员、恢复 untagged VLAN 1 并撤销自定义 PVID 后再切换。切换会重新建立对应的二层业务，期间可能短暂中断。</p>
+</section>
+<section id="id4">
+<span id="与其他功能组合"></span><h2>与其他功能组合<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>Ethernet 和 Eth-Trunk 均可使用交换端口配置。聚合成员本身不承担独立三层接口配置；VLAN 配置放在 Eth-Trunk 上，Vlanif 是对应 VLAN 的三层网关。保存后，数据面重置及系统启动会恢复成员、VLAN 和网关配置。</p>
+<p>本页对应的报文验证中，Access 的无标签、VID 0、同 PVID 单标签报文均能通过；VID 111 和叠加标签作为拒绝对照未通过。Hybrid 的 VLAN 100 无标签、VLAN 200 带标签业务均完成双向 3/3 转发；将 PVID 配成 tagged 后，优先级标签的 PCP/DEI 能保留到输出标签。移除 VLAN 100 后，该业务停止，VLAN 200 继续转发。独立的 L2/L3 子接口、简单 QinQ、Eth-Trunk 及接口 ACL/MQC 对照均有实际报文验证，不代表任意组合和所有负载已穷举。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="VLAN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../access/" class="btn btn-neutral float-right" title="Access" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

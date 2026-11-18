@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VRRP 网关 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/vrrp/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="流量策略" href="../policy/" />
+    <link rel="prev" title="静态 BFD" href="../bfd/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">配置案例</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">接口与交换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">IP 路由</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../protocols/">路由协议</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ospf/">OSPF 单区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ospf-multiarea/">OSPF 跨区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ospfv3/">OSPFv3 邻接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp/">直连 eBGP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-policy/">BGP IPv4 策略</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-ipv6-policy/">BGP IPv6 策略</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bgp-redistribution/">静态路由引入BGP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../isis/">IS-IS 双栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip/">RIP 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip-v1/">RIPv1 聚合链路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rip-bfd-ecmp/">RIP 与 BFD 多路径</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ripng/">RIPng 路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bfd/">静态 BFD</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">VRRP 网关</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">流量策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services/">网络服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">IP 隧道</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">VXLAN EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">配置案例</a></li>
+          <li class="breadcrumb-item"><a href="../protocols/">路由协议</a></li>
+      <li class="breadcrumb-item active">VRRP 网关</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vrrp">
+<span id="vrrp-网关"></span><h1>VRRP 网关<a class="headerlink" href="#vrrp" title="链接到此标题。"></a></h1>
+<p>本例配置双栈冗余网关。R1、R2 和客户端路由器 C 的 Ethernet0 接入同一二层网络；R1 与 R2 另用 Ethernet1 互联。R1 的 LoopBack244 提供业务验证地址。R1 优先级 120，R2 保持默认 100。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>设备</p></th>
+<th class="head"><p>Ethernet0</p></th>
+<th class="head"><p>Ethernet1</p></th>
+<th class="head"><p>业务地址</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R1</p></td>
+<td><p>198.18.243.1/24、fd00:243::1/64</p></td>
+<td><p>198.19.80.1/30、2001:db8:80::1/64</p></td>
+<td><p>198.18.244.1/32、fd00:244::1/128</p></td>
+</tr>
+<tr class="row-odd"><td><p>R2</p></td>
+<td><p>198.18.243.2/24、fd00:243::2/64</p></td>
+<td><p>198.19.80.2/30、2001:db8:80::2/64</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>198.18.243.3/24、fd00:243::3/64</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+</tr>
+</tbody>
+</table>
+<p>虚拟地址为 198.18.243.254、fe80::fe 和 fd00:243::fe。三台设备均使用 VortexROS，Ethernet 编号可按实际接线替换。</p>
+<section id="r1">
+<span id="r1-配置"></span><h2>R1 配置<a class="headerlink" href="#r1" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ip address 198.18.243.1 24
+ ipv6 enable
+ ipv6 address fd00:243::1 64
+ vrrp vrid 43 version-3 send-packet-mode v3-only
+ vrrp vrid 43 virtual-ip 198.18.243.254
+ vrrp vrid 43 priority 120
+ vrrp vrid 43 accept-mode enable
+ vrrp6 vrid 44 virtual-ip fe80::fe
+ vrrp6 vrid 44 virtual-ip fd00:243::fe
+ vrrp6 vrid 44 priority 120
+ vrrp6 vrid 44 accept-mode enable
+#
+interface Ethernet 1
+ ip address 198.19.80.1 30
+ ipv6 enable
+ ipv6 address 2001:db8:80::1 64
+#
+interface LoopBack 244
+ ip address 198.18.244.1 32
+ ipv6 enable
+ ipv6 address fd00:244::1 128
+#
+ip route-static 198.18.243.3 32 198.19.80.2
+ipv6 route-static fd00:243::3 128 2001:db8:80::2
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>两条主机路由使业务回程经过 R2。这样关闭 R1 的网关接口时，R1 的业务地址仍可通过独立互联返回客户端。</p>
+</section>
+<section id="r2">
+<span id="r2-配置"></span><h2>R2 配置<a class="headerlink" href="#r2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ip address 198.18.243.2 24
+ ipv6 enable
+ ipv6 address fd00:243::2 64
+ vrrp vrid 43 version-3 send-packet-mode v3-only
+ vrrp vrid 43 virtual-ip 198.18.243.254
+ vrrp vrid 43 accept-mode enable
+ vrrp6 vrid 44 virtual-ip fe80::fe
+ vrrp6 vrid 44 virtual-ip fd00:243::fe
+ vrrp6 vrid 44 accept-mode enable
+#
+interface Ethernet 1
+ ip address 198.19.80.2 30
+ ipv6 enable
+ ipv6 address 2001:db8:80::2 64
+#
+ip route-static 198.18.244.1 32 198.19.80.1
+ipv6 route-static fd00:244::1 128 2001:db8:80::1
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="c">
+<span id="客户端-c-配置"></span><h2>客户端 C 配置<a class="headerlink" href="#c" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ ip address 198.18.243.3 24
+ ipv6 enable
+ ipv6 address fd00:243::3 64
+#
+ip route-static 198.18.244.1 32 198.18.243.254
+ipv6 route-static fd00:244::1 128 fd00:243::fe
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<span id="检查角色与连通性"></span><h2>检查角色与连通性<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>在 R1、R2 查看：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vrrp brief
+display vrrp6 brief
+display vrrp interface Ethernet 0
+display vrrp6 44
+display vrrp statistics
+</pre></div>
+</div>
+<p>实际验证取得的角色、优先级和间隔如下，接口编号按本例统一表示：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># R1
+43  Master  Ethernet0  IPv4  198.18.243.254        120  120  1.00s
+44  Master  Ethernet0  IPv6  fe80::fe,fd00:243::fe 120  120  1.00s
+# R2
+43  Backup  Ethernet0  IPv4  198.18.243.254        100  100  1.00s
+44  Backup  Ethernet0  IPv6  fe80::fe,fd00:243::fe 100  100  1.00s
+</pre></div>
+</div>
+<p>在 C 查看实际业务效果：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping -c 2 -a 198.18.243.3 198.18.244.1
+ping ipv6 -c 2 -a fd00:243::3 fd00:244::1
+ping -c 1 -t 1000 -a 198.18.243.3 198.18.243.254
+ping ipv6 -c 1 -t 1000 -a fd00:243::3 fd00:243::fe
+</pre></div>
+</div>
+<p>已取得 IPv4、IPv6 业务地址各 2/2 回复，以及虚拟地址各 1/1 回复。切换过程中可能丢包，应在角色稳定后区分业务恢复结果；这些结果不代表无损切换或硬件吞吐保证。</p>
+</section>
+<section id="id2">
+<span id="跟踪抢占与接收模式"></span><h2>跟踪、抢占与接收模式<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>对已经配置且具备相应地址族能力的上联，可配置优先级降低：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ vrrp vrid 43 track interface Ethernet 2 reduced 50
+ vrrp6 vrid 44 track interface Ethernet 2 reduced 50
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>Ethernet2 必须是另一条实际接口，不能是本组的 Ethernet0。跟踪接口须同时满足管理 Up、物理链路 Up 和相应地址族的 IP 能力；没有 IPv4 地址的空接口不满足 IPv4 跟踪条件。它只判断接口可用性，不探测远端服务。省略 reduced 时降低 10。</p>
+<p>已验证被跟踪口关闭后，R1 双栈运行优先级均由 120 降到 70，R2 以 100 接管；独立回程仍可用时，C 的双栈业务探测各 2/2。恢复接口后默认允许抢占。若在 R1 配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ vrrp vrid 43 preempt-mode disable
+ vrrp6 vrid 44 preempt-mode disable
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<p>R1 即使恢复到 120，也保持 Backup，当前 R2 Master 不被抢占。执行对应的 undo preempt-mode 并提交后，已验证 R1 重新成为 Master。</p>
+<p>默认 accept-mode 关闭。对本例非地址拥有者的 Master，关闭它后，发给虚拟 IP 本身的 ping 不再回复；经虚拟网关访问其他地址仍正常。实际对照取得 VIP 双栈各 0/1、业务地址双栈各 1/1。需要通过虚拟 IP 访问设备本机服务时恢复 accept-mode enable。</p>
+</section>
+<section id="id3">
+<span id="修改计时器与保存"></span><h2>修改计时器与保存<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>两端同时改为 <code class="docutils literal notranslate"><span class="pre">vrrp</span> <span class="pre">vrid</span> <span class="pre">43</span> <span class="pre">timer</span> <span class="pre">advertise</span> <span class="pre">2</span></code> 和 <code class="docutils literal notranslate"><span class="pre">vrrp6</span> <span class="pre">vrid</span> <span class="pre">44</span> <span class="pre">timer</span> <span class="pre">advertise</span> <span class="pre">2</span></code> 后，实际通告间隔为 200 厘秒。两端执行对应的 undo timer advertise 后恢复 100 厘秒，默认值不写入配置。</p>
+<p>确认两端角色和路由符合预期后执行 save，并确认提示。IPv6 虚拟地址列表会将链路本地地址放在首位；只有全局虚拟地址的组不能提交。</p>
+</section>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>先迁移客户端路由或网关，再在 R1、R2 删除组：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ undo vrrp vrid 43
+ undo vrrp6 vrid 44
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display vrrp brief
+display vrrp6 brief
+</pre></div>
+</div>
+<p>删除最后一条 virtual-ip 会停止对应组的数据面实例，但可保留一个待配置的空组；删除整个组则清除该组意图。撤销前先核对接口原有地址和其他业务，避免一并删除。</p>
+<p>单独清除本例路由时，在 C 撤销两条指向 VIP 的主机路由，在 R2 撤销指向 R1 LoopBack244 的两条路由，在 R1 撤销指向 C 的两条回程路由；不再使用的测试地址最后从各接口删除并提交。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../bfd/" class="btn btn-neutral float-left" title="静态 BFD" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../policy/" class="btn btn-neutral float-right" title="流量策略" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

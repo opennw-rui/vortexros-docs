@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>进程与发布 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/rip/configuration/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="RIPv1" href="../version1/" />
+    <link rel="prev" title="RIP" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../isis/">IS-IS</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">RIP</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">进程与发布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../version1/">RIPv1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../queries/">查询与撤销</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recovery/">RIP 故障排查</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">RIP</a></li>
+      <li class="breadcrumb-item active">进程与发布</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="进程与发布"></span><h1>进程与发布<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="id2">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rip 1
+ version 2
+ network 10.0.0.0
+ default-metric 2
+ maximum load-balancing 4
+ timers rip 30 180 120
+ silent-interface LoopBack 0
+#
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">network</span></code>使用IPv4主类网络地址。提交后匹配接口参加RIP，silent-interface仍发布该接口网络，但不从该接口发送更新。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/rip/"><span class="std std-doc">命令参数</span></a></p>
+</section>
+<section id="metric">
+<span id="缺省版本与-metric"></span><h2>缺省版本与 metric<a class="headerlink" href="#metric" title="链接到此标题。"></a></h2>
+<p>未配置 <code class="docutils literal notranslate"><span class="pre">version</span></code> 时，进程发送 RIPv2，并接受 RIPv1 与 RIPv2。显式 <code class="docutils literal notranslate"><span class="pre">version</span> <span class="pre">2</span></code> 同时将接收限制为 RIPv2，因此不等同于“只把默认发送版本写一遍”。每个实际运行接口的发送、接收版本以 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">rip</span> <span class="pre">1</span> <span class="pre">interface</span></code> 为准。</p>
+<p>默认重分发 metric 为 1；它不是把每条已学习路由的跳数固定为 1。默认不启用 ECMP，相同前缀只保留一条转发路径；需要多路径时配置进程的 <code class="docutils literal notranslate"><span class="pre">maximum</span> <span class="pre">load-balancing</span></code> 并核对实际路由。摘要使用生效默认值，不用配置模型中的 0 代表协议运行值。</p>
+</section>
+<section id="id3">
+<span id="重分发开销和默认路由"></span><h2>重分发开销和默认路由<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在 RIP 进程中配置 import-route static 后，default-metric 决定引入静态前缀的通告开销。对端通常在接收时增加一跳：本例使用 4 时，对端 Cost 为 5；改为 6 后为 7，undo default-metric 恢复默认值 1 后为 2。应以对端显示的实际跳数验证效果。</p>
+<p>default-route originate 发布默认路由；undo default-route originate 停止发布。接收端已有更优默认路由时，RIP 默认路由可能只保留在协议数据库中，因此应同时检查 display rip 1 database 和 IP 路由表。撤销后，其他来源的默认路由可以继续存在。</p>
+</section>
+<section id="id4">
+<span id="定时器与静默接口"></span><h2>定时器与静默接口<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>默认 Update/Timeout/Garbage 为 30/180/120 秒。timers rip 5 15 10 可缩短实验中的更新和失效等待；两端应协调设置，避免对端仍每 30 秒更新、本端却每 15 秒超时。undo timers rip 恢复默认。</p>
+<p>silent-interface 不从指定接口发送更新，但该接口的网段仍可经其他接口发布。使用全局静默时，可显式开放需要交换路由的接口。已学习路由按老化计时器到期，不保证执行静默命令后立即撤销。一次双端配置中，停止更新后 IPv4 选路回退到 OSPF，IPv6 RIPng 选中路由归零；恢复发送后，RIP 与 RIPng 重新学到 Cost 2 的主机路由，双栈探测各 2/2。恢复定时器后，对端新收到的 RIP 路由 TimeLeft 为 02:55，符合 180 秒超时设置。</p>
+</section>
+<section id="id5">
+<span id="全局静默与例外"></span><h2>全局静默与例外<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">passive-interface</span> <span class="pre">default</span></code> 停止从本进程的接口发送更新。需要保留邻接的接口可用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">silent-interface</span> <span class="pre">Ethernet0</span></code> 作为活跃例外；再次执行 <code class="docutils literal notranslate"><span class="pre">silent-interface</span> <span class="pre">Ethernet0</span></code> 撤销该例外。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">passive-interface</span> <span class="pre">default</span></code> 恢复普通模式，同时清除静默列表和活跃例外。RIPng 采用相同的命令行为。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rip 1
+ passive-interface default
+ undo silent-interface Ethernet0
+#
+commit
+display rip 1 interface
+display rip 1 route
+</pre></div>
+</div>
+<p>恢复全部接口正常发送：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rip 1
+ undo passive-interface default
+#
+commit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">preference</span> <span class="pre">137</span></code> 修改 RIP 路由优先级，值越小越优；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">preference</span></code> 恢复默认100。实际学习路由由100变为137，撤销后回到100。协议数据库中存在路由不保证该路由胜出，还应核对 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">routing-table</span> <span class="pre">protocol</span> <span class="pre">rip</span></code>。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="RIP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../version1/" class="btn btn-neutral float-right" title="RIPv1" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>设备与接管 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dataplane/devices/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="资源与运行查询" href="../resources/" />
+    <link rel="prev" title="数据面" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">数据面</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">设备与接管</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/">资源与运行查询</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plugins/">插件加载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tables/">邻居与 MAC 容量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bridge-mtu/">网桥与 MTU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recovery/">数据面激活与恢复</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../">数据面</a></li>
+      <li class="breadcrumb-item active">设备与接管</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="设备与接管"></span><h1>设备与接管<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
+ device 0000:03:00.0 name Ethernet 0
+  mode dpdk
+  queues rx 2 tx 2
+  descriptors rx 1024 tx 1024
+  undo hardware offload tso
+ #
+ cpu main-core 2
+ cpu worker-cores 3-5
+#
+interface user-defined Ethernet0
+ ip address 192.0.2.10 255.255.255.0
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+save
+display dataplane verbose
+reset dataplane
+</pre></div>
+</div>
+<p>PCI 地址用于定位硬件，<code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">Ethernet</span> <span class="pre">0</span></code> 将接口命名为 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code>。物理口默认为
+<code class="docutils literal notranslate"><span class="pre">kernel</span></code>。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mode</span></code> 恢复 Linux 驱动。按 <code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">user-defined</span></code> 预配置的接口
+以普通 <code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">Ethernet0</span></code> 视图保存，地址和静态路由在设备就绪后下发。</p>
+<p>CPU 编号从 0 开始，<code class="docutils literal notranslate"><span class="pre">cpu</span> <span class="pre">main-core</span> <span class="pre">0</span></code> 是有效的显式配置，会保留到保存文件和 daemon 通信中。指定 <code class="docutils literal notranslate"><span class="pre">cpu</span> <span class="pre">worker-cores</span></code> 时必须同时指定主核；先撤销 worker，再撤销主核。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">queues</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">descriptors</span></code> 和 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">cpu</span> <span class="pre">worker-cores</span></code> 清除显式设置，实际线程与硬件参数在保存并执行 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code> 后更新。配置查询显示已提交值，不能替代运行状态查询。</p>
+<p>队列和描述符是交给驱动的启动请求，实际能力由网卡和驱动决定。使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">interfaces</span></code> 查看当前/最大 RX 队列；例如 <code class="docutils literal notranslate"><span class="pre">1/1</span></code> 表示当前 1 队列、最多 1 队列，不代表已启用多队列。配置文件中的请求值不能代替实际值，规划 worker 时应以运行查询为准。</p>
+<p>未加入 <code class="docutils literal notranslate"><span class="pre">device</span></code> 清单的物理接口继续由 Linux 管理。启用一个 DPDK 设备不会要求其他 Linux 物理口也出现在 VPP 中；混合部署下，接口详情、描述、统计和简表同时显示两类接口，分别读取对应后端。</p>
+<p>CPU 隔离、大页和 IOMMU 的引导参数由数据面激活流程生成到受管 GRUB 片段。安装包包含提供 <code class="docutils literal notranslate"><span class="pre">update-grub</span></code> 的必要依赖。需要重启主机的参数会给出提示；配置和片段已经生成不代表当前内核已使用这些参数。使用自定义引导方式时，应确认该方式实际加载了所需内核参数。</p>
+<p><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code> 确认后生成 udev 规则、变更物理网卡名称并核对 Linux 配置。
+之后为选择 DPDK 的设备生成 VPP 启动配置并接管。接管失败时恢复 Linux 驱动和回放地址、
+路由，保留已经验证的 Ethernet 名称。外部网络管理器由用户维护。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">数据面总览</span></a> · <a class="reference internal" href="../../reference/dataplane/"><span class="std std-doc">逐条命令</span></a></p>
+<section id="id2">
+<span id="先配置后出现的接口"></span><h2>先配置、后出现的接口<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>在接口暂时不存在时，可以先建立普通三层配置。示例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface user-defined Ethernet97
+ ip address 198.18.247.1 255.255.255.252
+ ipv6 enable
+ ipv6 address 2001:db8:247:97::1 64
+#
+ip route-static 198.18.246.97 255.255.255.255 198.18.247.2
+ipv6 route-static 2001:db8:246:97::2 128 2001:db8:247:97::2
+</pre></div>
+</div>
+<p>提交后，配置保存在接口的普通配置段中，user-defined 不写入保存配置。该命令不会创建网卡。Linux 数据面下，接口出现后自动下发地址及依赖路由，不需要再执行一次 commit；VPP 数据面仍要求相应 VPP 接口实际存在。</p>
+<p>接口就绪后查询：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface Ethernet97
+display ip routing-table 198.18.246.97
+display ipv6 routing-table 2001:db8:246:97::2
+ping -c 2 198.18.246.97
+ping ipv6 -c 2 2001:db8:246:97::2
+</pre></div>
+</div>
+<p>实际验证中，预配置接口出现后，IPv4、IPv6 地址及两条静态路由自动安装；两条路由的 Preference 均为 60，双栈探测各为 2/2。应以接口实际地址和路由查询为准，不以首次提交成功作为接口已经存在的证明。</p>
+<p>撤销依赖路由后再删除接口配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ip route-static 198.18.246.97 255.255.255.255 198.18.247.2
+undo ipv6 route-static 2001:db8:246:97::2 128 2001:db8:247:97::2
+undo interface Ethernet97
+</pre></div>
+</div>
+<p>提交后核对路由和接口配置已移除，按需 save。删除配置不等于删除 Linux 中由其他方式创建的网卡。</p>
+</section>
+<section id="id3">
+<span id="预配置接口的再次进入"></span><h2>预配置接口的再次进入<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>用 interface user-defined 声明的接口可以继续使用普通接口命令进入，例如 interface Ethernet 98 或 interface Ethernet98。接口尚未出现时，配置仍保留；问号帮助和按编号补全也包含这些已声明的接口。未声明、设备中也不存在的普通物理接口仍不能直接进入，避免误拼名称生成配置。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="数据面" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../resources/" class="btn btn-neutral float-right" title="资源与运行查询" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

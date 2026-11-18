@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>进程与接口 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ospf/activation/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="Stub、NSSA 与汇总" href="../areas/" />
+    <link rel="prev" title="OSPF" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">OSPF</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">进程与接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../areas/">Stub、NSSA 与汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../redistribution/">路由引入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../queries/">邻居、LSDB 与路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reset/">重启 OSPF 进程</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">OSPF</a></li>
+      <li class="breadcrumb-item active">进程与接口</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="进程与接口"></span><h1>进程与接口<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="network">
+<span id="区域-network-激活"></span><h2>区域 network 激活<a class="headerlink" href="#network" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf 1 router-id 10.0.0.1
+ opaque-capability enable
+ area 0.0.0.0
+  network 10.0.12.1 0.0.0.0 description P1-P2
+</pre></div>
+</div>
+<p>opaque-capability enable 仅支持默认 VPN 实例，命名 VPN 不支持此开关。开启后允许交换 Opaque LSA。本版本未提供 MPLS-TE 等扩展应用的本地发布配置；该开关本身不会产生一条 TE 通告。</p>
+<p><code class="docutils literal notranslate"><span class="pre">network</span></code>只能在area视图中输入。提交后，地址匹配的接口开始发送Hello报文；只有两端area、网络类型、认证和计时等条件兼容时才会建立邻居。</p>
+</section>
+<section id="id2">
+<span id="接口激活"></span><h2>接口激活<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf 1 router-id 10.0.0.1
+#
+interface Vlanif 12
+ ospf enable 1 area 0.0.0.0
+ ospf network-type p2p
+ ospf cost 10
+ ospf dr-priority 100
+ ospf timer hello 3
+ ospf timer dead 12
+ ospf timer retransmit 4
+ ospf timer transmit-delay 2
+</pre></div>
+</div>
+<p>同一进程只能选择 <code class="docutils literal notranslate"><span class="pre">network</span></code> 或接口 <code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">enable</span></code> 一种激活方式；混用会在命令进入待提交配置前报错。广播网络上的DR优先级范围为0至255，0表示不参与DR/BDR选举。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">OSPF 总览</span></a> · <a class="reference internal" href="../../../examples/ospf/"><span class="std std-doc">完整案例</span></a> · <a class="reference internal" href="../../reference/ospf/"><span class="std std-doc">命令参数</span></a></p>
+</section>
+<section id="id3">
+<span id="进程参数与实际结果"></span><h2>进程参数与实际结果<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf 1
+ auto-cost reference-bandwidth 50000
+ maximum-paths 2
+ log-adjacency-changes detail
+ opaque-capability enable
+#
+</pre></div>
+</div>
+<p>参考带宽单位为 Mbit/s，同一 OSPF 域应一致配置。显式接口 ospf cost 优先于自动计算。maximum-paths 限制可安装的等价路径数量；它不保证拓扑中一定存在对应数量的等价路径。日志开关记录邻接变化，不改变邻居建立条件。</p>
+<p>实际接口原 Cost 为 10，配置上面的参考带宽后变为 5；display ospf 显示 Maximum paths: 2。撤销相应参数并提交后，接口 Cost 恢复为 10，到 OSPF 学习目标的探测为 2/2。该 Cost 对应具体接口带宽，不能作为其他型号或链路的固定值。</p>
+<p>查询与撤销：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospf
+display ospf interface Ethernet0
+display ospf routing
+</pre></div>
+</div>
+<p>在 OSPF 进程视图撤销，再提交：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo auto-cost reference-bandwidth
+undo maximum-paths
+undo log-adjacency-changes
+undo opaque-capability enable
+commit
+</pre></div>
+</div>
+<p>撤销恢复产品所用后端的默认行为。Opaque 开关不会代替 Opaque LSA 应用配置，不能仅因当前数据库没有该类 LSA 就认定开关未生效。</p>
+</section>
+<section id="id4">
+<span id="接口定时器"></span><h2>接口定时器<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>在两端相连的接口使用一致的 Hello/Dead 值。以下将 Hello/Dead 改为 2/8 秒，LSA 重传间隔改为 3 秒，传输延迟设为 2 秒：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ ospf timer hello 2
+ ospf timer dead 8
+ ospf timer retransmit 3
+ ospf timer transmit-delay 2
+#
+</pre></div>
+</div>
+<p>commit 后通过 display ospf 1 interface 检查 Hello、Dead 和 Retransmit，通过 display ospf 1 peer 检查 Full 和剩余 Dead 时间。本例接口显示 Hello 2s、Dead 8s、Retransmit 3s，邻居为 Full，目标探测 2/2。transmit-delay 是通告 LSA 时计入的估计传输延迟，不是延迟普通业务报文的排队定时器。</p>
+<p>恢复时在同一接口执行四条对应的 undo ospf timer 命令并提交；默认值为 Hello 10 秒、Dead 40 秒、Retransmit 5 秒和 Transmit-delay 1 秒。两端协调修改，避免暂时不匹配使邻居中断。</p>
+</section>
+<section id="id5">
+<span id="接口属性与静默"></span><h2>接口属性与静默<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">cost</span></code> 是本端接口的出方向开销。一次实际验证中，接口 Cost 从 10 改为 37，对端另一条开销为 10 的路由总开销相应从 20 变为 47；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">cost</span></code> 后恢复为 20。显式开销不等同于接口带宽。</p>
+<p><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">network-type</span></code> 支持 <code class="docutils literal notranslate"><span class="pre">broadcast</span></code>、<code class="docutils literal notranslate"><span class="pre">p2p</span></code>、<code class="docutils literal notranslate"><span class="pre">p2mp</span></code> 和 <code class="docutils literal notranslate"><span class="pre">nbma</span></code>。网络类型决定邻居发现和 DR/BDR 行为，不改变业务接口的三层地址。修改可能使邻居重新建立，应核对两端类型及 Hello/Dead 条件。实际验证分别显示 <code class="docutils literal notranslate"><span class="pre">POINTOPOINT</span></code>、<code class="docutils literal notranslate"><span class="pre">POINTOMULTIPOINT</span></code>、<code class="docutils literal notranslate"><span class="pre">BROADCAST</span></code> 和 <code class="docutils literal notranslate"><span class="pre">NBMA</span></code>；广播网络中 Priority 0 的设备为 DROther，对端为 DR。恢复类型和优先级分别使用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">network-type</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">dr-priority</span></code>。</p>
+<p>NBMA 不等同于广播自动发现。当前接口类型配置不提供静态 OSPF 邻居命令；若网络需要两端均以纯 NBMA 静态邻居建立，应先确认支持范围，不能只设置类型就期待自动发现。本次 NBMA 验证使用仍能发起邻居发现的广播对端，邻居 Full、路由存在且目标探测成功；不能据此外推任意 NBMA 拓扑都能建立。</p>
+<p>接口下的 <code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">passive</span></code> 与进程下的 <code class="docutils literal notranslate"><span class="pre">silent-interface</span> <span class="pre">Ethernet0</span></code> 操作同一静默属性。静默停止 OSPF Hello，不关闭业务接口，也不立即删除所有已学习路由；已有邻居可保留到 Dead 定时器到期。实际默认 40 秒的验证中，静默生效后邻居最终消失，相关 OSPF 路由和动态 BFD 会话撤销，直连路由保留；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">passive</span></code> 或 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">silent-interface</span> <span class="pre">Ethernet0</span></code> 后重新建立 Full 并恢复路由。提交后瞬间仍看到旧邻居不等于配置未生效。</p>
+</section>
+<section id="bfd-ospf">
+<span id="bfd-与-ospf"></span><h2>BFD 与 OSPF<a class="headerlink" href="#bfd-ospf" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
+ ospf bfd enable
+ ospf bfd min-tx-interval 200 min-rx-interval 300 detect-multiplier 4
+#
+</pre></div>
+</div>
+<p>BFD 参数单位为毫秒。两端按各自接收、发送要求协商，实际发送间隔可能有协议允许的抖动，不能把要求间隔当成每一包的精确定时。上述实际会话为 Up，配置接收 300、发送 200、检测倍数 4。分别撤销三个定时参数并保持 BFD 开启后，恢复产品默认的接收/发送 1000 毫秒、检测 3 次。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">bfd</span> <span class="pre">enable</span></code> 取消 OSPF 的 BFD 绑定，已有 OSPF Hello 机制继续工作；动态会话在不再被协议使用后撤销。</p>
+<p>验证命令：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospf interface Ethernet0
+display ospf peer
+display ospf routing
+display bfd session all
+</pre></div>
+</div>
+<p>VPN 实例中使用对应的 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ospf</span> <span class="pre">vpn-instance</span> <span class="pre">名称</span> <span class="pre">...</span></code> 形式，BFD 表中的 VPN 和接口应与目标邻居一致。停止某个邻居或撤销 BFD 绑定，不应误把其他 VPN 仍在使用的会话当成残留。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="OSPF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../areas/" class="btn btn-neutral float-right" title="Stub、NSSA 与汇总" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

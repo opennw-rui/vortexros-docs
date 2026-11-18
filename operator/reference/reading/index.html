@@ -1,0 +1,201 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>阅读说明 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/reading/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="CLI" href="../cli/" />
+    <link rel="prev" title="命令参考" href="../commands/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands/">命令参考</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">阅读说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/">CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../aaa/">本地账号</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/">系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../operations/">诊断与恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces/">Ethernet 与接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrf/">VPN 实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static-routing/">静态路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-groups/">静态路由组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ip-routing/">路由表与 FIB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../icmp/">ICMP 发送控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../urpf/">uRPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dynamic-routing/">路由通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mpls/">MPLS 与 LDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qos/">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mqc/">MQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mss/">TCP MSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/">策略通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnels/">Tunnel 通用命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gre/">GRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vxlan/">VXLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evpn/">EVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wireguard/">WireGuard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../amneziawg/">AmneziaWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dhcp/">DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipv6-autoconfig/">RA 与 SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../commands/">命令参考</a></li>
+      <li class="breadcrumb-item active">阅读说明</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="阅读说明"></span><h1>阅读说明<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">视图</span></code>表示命令可以在哪些 CLI 视图中使用；<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code>表示命令可在多个合法视图中使用。</p></li>
+<li><p>受管 SSH 用户按本地 AAA 角色访问 CLI；Linux 凭据尚未完整投影时拒绝受管 CLI 授权。独立 Linux 救援入口使用 UID 0，见<a class="reference internal" href="../../aaa/"><span class="std std-doc">账号管理</span></a>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLI</span> <span class="pre">帮助</span></code>保留设备实际的 <code class="docutils literal notranslate"><span class="pre">?</span></code> 提示文字。</p></li>
+<li><p>完整配置步骤、输出样例和故障处理请进入对应配置指南章节。</p></li>
+</ul>
+<p>配置命令先写入本会话 Candidate，提交后才影响 Running。即时运维命令可直接改变运行状态。用 ? 查看当前视图合法参数。</p>
+<section id="id2">
+<span id="参数表"></span><h2>参数表<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>命令参考按当前 0.29-dev Registry 的实际参数树列出子命令、位置、可选性、组合标记和设备帮助。相同命令在不同视图有不同参数时分别列出，不把 BGP、WireGuard、NAT 的同名 peer/rule 等语义混在一起。</p>
+<p>参数表的帮助文字保留设备原文；配置影响、有效默认值、依赖、流量结果和撤销步骤由各功能指南说明。参数表不是新的产品命令，也不代表每种组合均完成独立动态验收。</p>
+<p>表中“可组合/可重复”来自 CLI 提示树，不改变上方完整语法或处理器校验。运行库存（已有接口、策略名等）不是固定的合法范围，需在实际设备输入 <code class="docutils literal notranslate"><span class="pre">?</span></code> 查看。未配置的默认项通常不显示在 config 中；<code class="docutils literal notranslate"><span class="pre">undo</span></code> 的删除对象与恢复缺省两类行为以具体命令/功能说明为准。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../commands/" class="btn btn-neutral float-left" title="命令参考" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../cli/" class="btn btn-neutral float-right" title="CLI" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

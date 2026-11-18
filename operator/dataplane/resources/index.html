@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>资源与运行查询 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dataplane/resources/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="插件加载" href="../plugins/" />
+    <link rel="prev" title="设备与接管" href="../devices/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">数据面</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../devices/">设备与接管</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">资源与运行查询</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plugins/">插件加载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tables/">邻居与 MAC 容量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bridge-mtu/">网桥与 MTU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recovery/">数据面激活与恢复</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../">数据面</a></li>
+      <li class="breadcrumb-item active">资源与运行查询</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="资源与运行查询"></span><h1>资源与运行查询<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="id2">
+<span id="查询实际状态"></span><h2>查询实际状态<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span> <span class="pre">configuration</span> <span class="pre">dataplane</span></code> 和 dataplane 视图中的 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code> 显示配置；它们不证明当前 Linux 或 VPP 已应用参数。进入设备子视图后，<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code> 只显示选中的 PCI 设备。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>命令</p></th>
+<th class="head"><p>实际状态和用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span></code></p></td>
+<td><p>活动后端和 PCI 接管阶段</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">interfaces</span></code></p></td>
+<td><p>期望/活动模式、PCI 驱动、VPP 当前和最大 RX 队列</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">cpu</span></code></p></td>
+<td><p>Linux 隔离 CPU、VPP 线程及 CPU</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">cpu</span> <span class="pre">topological</span></code></p></td>
+<td><p>全部 CPU 的 NUMA、Socket、物理核心对应关系和在线状态</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">memory</span></code></p></td>
+<td><p>各 NUMA 节点内存、大页配置与实际页数，以及整机保留量</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">iommu</span></code></p></td>
+<td><p>IOMMU 组和受管设备所属组</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">tables</span></code></p></td>
+<td><p>期望容量、VPP 实际容量、Linux 邻居 GC 阈值</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">verbose</span></code></p></td>
+<td><p>汇总上述运行信息</p></td>
+</tr>
+</tbody>
+</table>
+<p>L2FIB 为空时不能凭空读出实时容量，查询单独标记显式 MAC 启动值。大页总量是单页大小乘页数，例如 2M ×1024 为2GiB，不能用进程 VSZ 替代。</p>
+</section>
+<section id="cpu">
+<span id="按拓扑选择-cpu"></span><h2>按拓扑选择 CPU<a class="headerlink" href="#cpu" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dataplane cpu topological
+</pre></div>
+</div>
+<p>下面为双 NUMA、8 个逻辑 CPU、每物理核两个 SMT 线程的实际查询输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CPU NODE SOCKET CORE ONLINE
+  0    0      0    0    yes
+  1    0      0    0    yes
+  2    0      0    1    yes
+  3    0      0    1    yes
+  4    1      1    2    yes
+  5    1      1    2    yes
+  6    1      1    3    yes
+  7    1      1    3    yes
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>CPU：配置main-core和worker-cores时使用的逻辑CPU编号。</p></li>
+<li><p>NODE：该CPU的NUMA节点。</p></li>
+<li><p>SOCKET、CORE：拓扑中的插槽和核心编号。相同且已知的Socket/Core表示同一物理核，例如CPU0/1为同胞线程，不能当作两个独立物理核。</p></li>
+<li><p>ONLINE：当前能否被调度。查询包含离线CPU；内核没有报告的拓扑显示为“-”，不推断其归属。</p></li>
+</ul>
+<p>优先让同一业务的主线程、worker和网卡位于合适的同一NUMA节点。上面拓扑中的CPU4和6属于同一节点的不同物理核。现有隔离配置只针对指定的逻辑CPU，不会自动选择核心、离线SMT或隔离未指定的同胞线程；不同Core只能避免VPP线程彼此共享物理核，不代表系统任务不会使用同胞线程。</p>
+<p>该查询在Linux数据面或VPP停止时也可使用。只读取信息，不改变CPU配置。</p>
+</section>
+<section id="numa">
+<span id="numa与内存"></span><h2>NUMA与内存<a class="headerlink" href="#numa" title="链接到此标题。"></a></h2>
+<p>内存和大页也有NUMA归属。CPU可以访问其他节点的内存，但会发生跨节点访问；应结合CPU和网卡所在节点安排数据面资源。</p>
+<p>大页按 NUMA 节点预留，命令末尾使用 <code class="docutils literal notranslate"><span class="pre">numa</span> <span class="pre">NODE</span></code> 指定节点。省略时只为节点 0 预留，不会平均分配到其他节点。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
+ memory hugepages size 2M count 1024
+ memory hugepages size 2M count 512 numa 1
+#
+</pre></div>
+</div>
+<p>以上分别为节点 0 预留 2GiB、节点 1 预留 1GiB。同一节点再次配置会替换该节点页数，不累加；其他节点保持原值。各节点共用所选页大小（2M 或 1G），修改页大小前需先撤销其他节点的预留。</p>
+<p>执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code>、<code class="docutils literal notranslate"><span class="pre">save</span></code> 后，使用 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code> 应用启动设置；需要主机重启时，CLI 会给出提示。按提示重启后，再检查：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display dataplane memory
+display current-configuration configuration dataplane
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">NUMA</span> <span class="pre">memory</span></code> 显示每个节点的总内存和空闲内存（KiB）；<code class="docutils literal notranslate"><span class="pre">Hugepages</span> <span class="pre">by</span> <span class="pre">NUMA</span> <span class="pre">node</span></code> 中 Configured 为配置页数，Total/Free 为内核实际总页数和空闲页数。Configured 为 <code class="docutils literal notranslate"><span class="pre">-</span></code> 表示该节点和页大小没有显式预留。整机 Reserved 在 Global hugepage pools 中显示，不将它错误分摊到各节点。</p>
+<p>以下查询对应节点 0 配置 1024 页、节点 1 配置 512 页并重启后的实际结果：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Hugepages by NUMA node
+  Node     Page size      Configured        Total         Free
+  0        1048576kB               -            0            0
+  0        2048kB               1024         1024         1024
+  1        1048576kB               -            0            0
+  1        2048kB                512          512          512
+
+Global hugepage pools
+  Page size             Total       Free   Reserved
+  1048576kB                 0          0          0
+  2048kB                 1536       1536          0
+</pre></div>
+</div>
+<p>预留成功不代表全部大页仍然空闲；VPP 和其他使用者会消耗大页。实际总页数不足时，应检查该节点可用内存和启动结果。大页预留不会自动修改 CPU、迁移既有内存，也不等于强制将 VPP 所有内存绑定到该节点。</p>
+<p>撤销节点 1，保留节点 0：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
+ undo memory hugepages numa 1
+#
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">memory</span> <span class="pre">hugepages</span></code> 只撤销节点 0。撤销后同样需要提交、保存，并按重置数据面的提示完成重启。</p>
+</section>
+<section id="cpu-iommu">
+<span id="cpu大页与-iommu"></span><h2>CPU、大页与 IOMMU<a class="headerlink" href="#cpu-iommu" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
+ cpu main-core 4
+ cpu worker-cores 6
+ cpu isolation enable
+ memory hugepages size 2M count 1024
+ iommu enable
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+save
+display dataplane cpu
+display dataplane memory
+display dataplane iommu
+reset dataplane
+</pre></div>
+</div>
+<p>CPU4/6对应上面的拓扑示例，其他设备必须按本机查询结果选择；CPU/NUMA/PCI 条件按本机调整，不能覆盖唯一管理路径。主核和 worker 不重叠，CPU 编号从0开始。配置 worker 时必须同时指定主核。引导参数需要主机重启时会提示；只生成 GRUB 片段不代表当前内核已生效。</p>
+<p>激活后核对线程、队列和描述符的运行值。撤销显式设置后采用设备或驱动默认值；默认值并非所有网卡相同。</p>
+</section>
+<section id="id3">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>先按<a class="reference internal" href="../devices/"><span class="std std-doc">设备接管</span></a>确认是否需保留 DPDK。单独撤销 worker 时：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
+ undo cpu worker-cores
+ undo cpu main-core
+ undo cpu isolation enable
+ undo memory hugepages
+ undo iommu enable
+#
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+save
+reset dataplane
+</pre></div>
+</div>
+<p>先撤销 worker 再撤销主核。仍有设备依赖特定启动条件时，不能靠撤销资源参数强制实现可用的 DPDK；应按激活提示处理，检查<a class="reference internal" href="../recovery/"><span class="std std-doc">恢复结果</span></a>。生产变更前确保可恢复管理路径。</p>
+<p><a class="reference internal" href="../../reference/dataplane/"><span class="std std-doc">完整参数</span></a></p>
+</section>
+<section id="dma">
+<span id="dma-地址模式"></span><h2>DMA 地址模式<a class="headerlink" href="#dma" title="链接到此标题。"></a></h2>
+<p>自动生成的 VFIO/DPDK 启动配置使用 PA 地址模式，避免虚拟地址超出设备可接受的 DMA 地址范围。这不会关闭 IOMMU，设备隔离仍由已配置的 IOMMU 提供；不需要另配 CLI 参数。修改启动配置后按数据面激活提示操作，不能仅根据大页有剩余判断 DPDK 一定能够启动。</p>
+<p>地址模式原理见 <a class="reference external" href="https://www.dpdk.org/memory-in-dpdk-part-2-deep-dive-into-iova/">DPDK IOVA 说明</a>。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../devices/" class="btn btn-neutral float-left" title="设备与接管" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../plugins/" class="btn btn-neutral float-right" title="插件加载" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

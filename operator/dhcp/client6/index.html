@@ -1,0 +1,190 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPv6 客户端与 PD &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dhcp/client6/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="IPv6 信息请求" href="../information/" />
+    <link rel="prev" title="IPv6 服务端" href="../server6/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../08-network-services/">网络服务</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../">DHCP</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../server4/">IPv4 服务端</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../client4/">IPv4 客户端</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../ipv6/">DHCPv6</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../server6/">IPv6 服务端</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">IPv6 客户端与 PD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../information/">IPv6 信息请求</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../relay/">中继</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../leases/">租约查询</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ipv6-autoconfig/">IPv6 与 RA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lldp/">LLDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../snmp/">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../08-network-services/">网络服务</a></li>
+          <li class="breadcrumb-item"><a href="../">DHCP</a></li>
+          <li class="breadcrumb-item"><a href="../ipv6/">DHCPv6</a></li>
+      <li class="breadcrumb-item active">IPv6 客户端与 PD</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ipv6-pd">
+<span id="ipv6-客户端与-pd"></span><h1>IPv6 客户端与 PD<a class="headerlink" href="#ipv6-pd" title="链接到此标题。"></a></h1>
+<p>地址请求和前缀委派是不同用途。IA_NA 为本接口取得地址，IA_PD 为下游取得可分配前缀；二者可同时存在，但不是互相替代。</p>
+<p>有状态地址、前缀委派以及立即续租的示例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
+ ipv6 enable
+ ipv6 address auto dhcp
+ dhcpv6 client pd CPE-PREFIX
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display dhcpv6 client interface Ethernet 1
+display dhcpv6 client prefix name CPE-PREFIX
+</pre></div>
+</div>
+<p>配置清单：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#
+# 在接口视图立即请求续租：
+interface Ethernet 1
+ dhcpv6 client renew
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dhcpv6</span> <span class="pre">client</span></code>分别显示IA_NA地址和IA_PD委派前缀，不会用其中一个字段遮盖另一个字段。<code class="docutils literal notranslate"><span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">renew</span></code>是立即执行的运行命令，不进入Candidate或保存配置。</p>
+<p>IPv6 默认网关来自 <a class="reference internal" href="../../ipv6-autoconfig/"><span class="std std-doc">RA 与 SLAAC</span></a>。</p>
+<section id="id1">
+<span id="实际效果与撤销"></span><h2>实际效果与撤销<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p><a class="reference internal" href="../../../examples/dhcpv6/"><span class="std std-doc">完整双端案例</span></a>有真实地址/委派前缀和续租结果。只需要 DNS 等信息时选择<a class="reference internal" href="../information/"><span class="std std-doc">Information-Request</span></a>，不应期待它分配地址。</p>
+<p>在接口下 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">auto</span> <span class="pre">dhcp</span></code> 撤销地址客户端；委派客户端用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">dhcpv6</span> <span class="pre">client</span> <span class="pre">pd</span></code> 撤销，不需要追加前缀名。两者的配置及清理分别核对；接口手工静态地址不应被当作租约一起删除。提交并确认运行单元、租约地址和路由清理后保存。</p>
+<p><a class="reference internal" href="../ipv6/"><span class="std std-doc">DHCPv6 总览</span></a> · <a class="reference internal" href="../../ipv6-autoconfig/"><span class="std std-doc">RA 与 SLAAC</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../server6/" class="btn btn-neutral float-left" title="IPv6 服务端" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../information/" class="btn btn-neutral float-right" title="IPv6 信息请求" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

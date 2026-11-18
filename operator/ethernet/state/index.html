@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>状态与链路 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ethernet/state/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="地址、MTU 与统计" href="../settings/" />
+    <link rel="prev" title="Ethernet" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../">Ethernet</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">状态与链路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../settings/">地址、MTU 与统计</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../subinterfaces/">子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vlan/">VLAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qinq/">QinQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../">Ethernet</a></li>
+      <li class="breadcrumb-item active">状态与链路</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="状态与链路"></span><h1>状态与链路<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="id2">
+<span id="接口状态"></span><h2>接口状态<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>设备只允许一个转发平面管理物理接口。VPP未启用时，可在CLI中配置Linux能够识别的物理口；VPP接管完成后，只允许配置设备已经识别的业务接口。接管过程中接口配置暂时只读，避免同一接口同时由两套转发平面管理。</p>
+<p>数据面接口与同名控制接口使用一致身份。接口名称最多 15 字节，首字符为字母或数字，其余允许字母、数字、下划线、连字符及点；不允许空格、斜杠或冒号。物理口通过 dataplane device 名称配置，逻辑接口使用对应的 interface 入口。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display vpp interface-ownership verbose
+display interface brief
+display ip interface brief
+display ipv6 interface brief
+</pre></div>
+</div>
+<p>状态含义：<code class="docutils literal notranslate"><span class="pre">^down</span></code>表示配置对象已创建但尚不满足底层数据面创建条件；普通<code class="docutils literal notranslate"><span class="pre">down</span></code>表示底层对象存在但链路或协议条件未满足。接口无IP不应因此down。</p>
+<p>物理口按实际链路状态更新。Vlanif 所属 VLAN 至少需要一个管理启用、链路正常的有效成员；成员全部失效时 Down，恢复后自动 Up。shutdown 优先限制管理状态。接口没有 IP 不会因此 Down。</p>
+<p>父口和显式子接口 MTU 分别管理，业务报文仍受实际出口及路径 MTU 限制。</p>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span> <span class="pre">brief</span></code>中的<code class="docutils literal notranslate"><span class="pre">CRC</span></code>只显示网卡驱动提供的硬件CRC/FCS坏帧计数；驱动或虚拟接口不支持该计数时显示<code class="docutils literal notranslate"><span class="pre">--</span></code>。CRC 为接收坏帧计数。发送方向显示 NIC/PMD 提供的总错误；目前没有独立的硬件发送 CRC 计数。物理口详情中的<code class="docutils literal notranslate"><span class="pre">Total</span> <span class="pre">Error</span></code>来自NIC/PMD的<code class="docutils literal notranslate"><span class="pre">rx_errors</span></code>和<code class="docutils literal notranslate"><span class="pre">tx_errors</span></code>；驱动没有提供时显示<code class="docutils literal notranslate"><span class="pre">-</span></code>。输入<code class="docutils literal notranslate"><span class="pre">Discard</span></code>只统计NIC接收队列无可用缓冲和VPP接收mbuf分配失败导致的资源丢弃，并映射到标准IF-MIB <code class="docutils literal notranslate"><span class="pre">ifInDiscards</span></code>；没有可靠输出丢弃来源时不显示输出<code class="docutils literal notranslate"><span class="pre">Discard</span></code>字段。VPP graph drop、punt及收发graph error在<code class="docutils literal notranslate"><span class="pre">VortexROS-VPP</span> <span class="pre">interface</span> <span class="pre">information</span></code>中分别显示，供转发路径诊断使用，不混入物理端口错误或标准丢弃计数。</p>
+<p>接口详情不显示当前无法从VPP或NIC可靠取得的协商、MDI、流控、Pause、Giants、Runts、Fragments、Alignments、Symbols及输出Discard字段。Vlanif、Vbdif、LoopBack、Tunnel及其他虚拟接口的通用收发区只显示包数和字节数；VPP <code class="docutils literal notranslate"><span class="pre">/if/drops</span></code>可能包含策略、路由和协议处理丢弃，只在<code class="docutils literal notranslate"><span class="pre">VortexROS-VPP</span> <span class="pre">interface</span> <span class="pre">information</span></code>中以<code class="docutils literal notranslate"><span class="pre">Graph</span> <span class="pre">drop</span> <span class="pre">packets</span></code>显示一次。标准SNMP中没有可靠逻辑接口丢弃来源的实例保持不可用。</p>
+<p>InUti/OutUti 使用最近 300 秒的完整窗口，按链路速率计算利用率。daemon启动、VPP重连、同名接口重建、计数器清零或尚未形成完整300秒窗口时显示<code class="docutils literal notranslate"><span class="pre">0.0%</span></code>；执行display命令本身不会临时采样或等待。统计读取连续超过3秒未成功时旧速率立即失效，不会把故障前的数值继续显示成当前状态。NVE和尚未创建数据面对象的隧道没有独立计数器，显示<code class="docutils literal notranslate"><span class="pre">--</span></code>而不是虚构零流量。CRC/FCS属于低频诊断计数，不进入每秒采样。</p>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span> <span class="pre">&lt;接口&gt;</span></code>同时显示当前1秒速率和最近300秒平均速率。daemon启动或VPP重连后的前两个有效样本之间，当前速率显示<code class="docutils literal notranslate"><span class="pre">--</span></code>；连续采样尚未达到300秒时，300秒平均值显示<code class="docutils literal notranslate"><span class="pre">--</span></code>，完整窗口形成后自动显示数值。详情中的输入、输出带宽利用率使用同一300秒平均值除以VPP报告的实际链路速率；窗口或速率不可用时显示<code class="docutils literal notranslate"><span class="pre">--</span></code>。计数器清零、接口运行索引变化或VPP会话变化会废弃该接口的旧窗口，不会把两个对象的累计计数相减。</p>
+<p>速率、双工和介质按当前运行信息显示。电口为 COMMON COPPER，光口为 COMMON FIBER，未识别为 COMMON UNKNOWN。没有可读来源的自协商、MDI 和流控显示 -，不能据此认为该功能已关闭。</p>
+<p>物理接口的单播、组播和广播分类计数默认关闭，未开启时在接口详情中显示<code class="docutils literal notranslate"><span class="pre">-</span></code>，对应IF-MIB分类计数实例不可用。需要观察时在物理接口视图开启：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 1
+ statistic enable
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+display interface Ethernet 1
+</pre></div>
+</div>
+<p>VortexROS优先使用网卡驱动提供的分类计数；某一分类没有硬件计数时，才使用VPP详细统计节点的同类计数。该功能只允许配置在物理接口，不允许配置在子接口、Vlanif、LoopBack、隧道或聚合接口。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">statistic</span> <span class="pre">enable</span></code>关闭分类采集。<code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">interface</span> <span class="pre">Ethernet</span> <span class="pre">1</span> <span class="pre">counter</span></code>在当前vortexrosd/VPP运行代次内建立新的计数基线；接口详情、速率和SNMP随后都从零开始，但不改写NIC或VPP的原始计数。VPP或vortexrosd重启属于新的计数不连续代次，旧基线不再使用。</p>
+<p>display interface description 的 *down 表示管理关闭，^down 表示尚未满足创建条件，(l) 为 LoopBack，(s) 为 spoofing。其他状态标记按设备实际运行情况显示，表头提供相应说明。</p>
+<p>IP简表合并VPP与LCP地址。LCP接口正在删除或重建而无法完成地址观察时，该行地址与协议状态显示<code class="docutils literal notranslate"><span class="pre">unavailable</span></code>/<code class="docutils literal notranslate"><span class="pre">unknown</span></code>，且不计入协议UP或DOWN数量；这表示当前证据不足，不表示接口已经确认协议Down。其他接口仍正常显示。</p>
+</section>
+<section id="id3">
+<span id="接口状态时间"></span><h2>接口状态时间<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span></code>中的最近up/down时间来自接口实际状态变化，不会因为执行display而重置。控制服务重启后无法确认的历史时间显示 <code class="docutils literal notranslate"><span class="pre">-</span></code>；修改时区只会改变时间的显示方式。</p>
+<p><a class="reference internal" href="../"><span class="std std-doc">功能目录</span></a> · <a class="reference internal" href="../../reference/interfaces/"><span class="std std-doc">逐条参数</span></a></p>
+</section>
+<section id="id4">
+<span id="管理关闭与查询"></span><h2>管理关闭与查询<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet 0
+ description UPLINK
+ shutdown
+#
+commit
+display interface brief
+display interface description Ethernet 0
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">shutdown</span></code> 后接口显示 <code class="docutils literal notranslate"><span class="pre">*down/down</span></code>，经过该口的业务停止。实际验证中，同 VLAN 另一成员仍为 Up 时，Vlanif 保持 Up；不能把关闭一个成员等同于整个 VLAN 失效。</p>
+<p>在同一接口执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">shutdown</span></code> 并提交后，接口恢复，探测 2/2；该操作没有重启整个数据面。描述使用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">description</span></code> 撤销。查看真实收发增长可用：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface statistics
+display interface statistics Ethernet 0
+display interface statistics Vlanif 100
+display lcp
+</pre></div>
+</div>
+<p>接口统计应随实际业务增长。<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">lcp</span></code> 可核对二层物理口及三层 Vlanif 的控制接口角色，不能只根据名称推断其二、三层归属。</p>
+</section>
+<section id="id5">
+<span id="按业务核对状态和计数"></span><h2>按业务核对状态和计数<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface brief
+display interface description
+display interface statistics
+display interface statistics Ethernet 0
+display lcp
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">lcp</span></code> 用于核对数据接口与控制接口的关联及其二层、三层角色。一次双成员 VLAN100 的实际查询有两条二层物理关联和一条 Vlanif100 三层关联；二层物理口 MTU9706，Vlanif100 MTU1500。</p>
+<p>在接口视图配置 <code class="docutils literal notranslate"><span class="pre">shutdown</span></code> 并提交后，该接口显示 <code class="docutils literal notranslate"><span class="pre">*down/down</span></code>，通过它的业务停止。若同一 VLAN 仍有另一有效成员，Vlanif 可以继续 Up；这不表示已关闭接口仍在转发。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">shutdown</span></code> 并提交后，物理口恢复，双端业务探测恢复。只有全部有效成员失效时，Vlanif 才应随之 Down。</p>
+<p>计数查询应在确有业务时观察增量。可以先查询指定接口，再产生业务、重新查询，最后按维护需要清零：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>clear interface Ethernet 0 counter
+display interface statistics Ethernet 0
+display interface Ethernet 0
+</pre></div>
+</div>
+<p>清零后使用新的累计基线，不会重置硬件原始计数。协议和业务报文仍可立即增加计数，因此再次查询不一定恰好为零。接口重命名后仍按同一运行接口正确关联计数；详情、统计和速率使用相同的清零基线。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../" class="btn btn-neutral float-left" title="Ethernet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../settings/" class="btn btn-neutral float-right" title="地址、MTU 与统计" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

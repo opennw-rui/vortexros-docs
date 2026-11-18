@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>等价路径 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bgp/multipath/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="地址族与聚合" href="../families/" />
+    <link rel="prev" title="AS 与路由属性" href="../attributes/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">BGP</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../peers/">邻居与会话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../groups/">邻居组与认证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reflection/">路由反射</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../attributes/">AS 与路由属性</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">等价路径</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../families/">地址族与聚合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../queries/">状态与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">BGP</a></li>
+      <li class="breadcrumb-item active">等价路径</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="等价路径"></span><h1>等价路径<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>BGP 默认要求参与等价转发的 AS_PATH 一致。BGP 视图中的 <code class="docutils literal notranslate"><span class="pre">load-balancing</span> <span class="pre">as-path-ignore</span></code> 放宽为允许长度相同、内容不同的 AS_PATH；它不忽略 AS_PATH 长度，也不跳过本地优先级、MED、下一跳可达性等其他选路条件。地址族中的 <code class="docutils literal notranslate"><span class="pre">maximum</span> <span class="pre">load-balancing</span></code> 另行控制最大路径数，单独启用放宽规则不会自动增加该数量。</p>
+<section id="id2">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>以下操作承接<a class="reference internal" href="../../../examples/bgp/"><span class="std std-doc">双端 BGP 配置</span></a>。接收端需已与两个路由源建立邻居，两条下一跳的 IGP 距离相同。示例中两条可达下一跳为198.19.80.1、198.19.80.2，IGP 距离均为20。</p>
+<p>路由源 P1、P2 都用一个空闲的环回接口提供198.18.250.0/24。P1 为该网络指定 AS_PATH65111，P2 指定65112。以下为 P1 的增量配置；P2 将65111改为65112。若所选环回接口已有地址，应选择另一个空闲编号，避免替换已有业务地址。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface LoopBack 250
+ ip address 198.18.250.1 255.255.255.0
+#
+route-policy MPATH permit node 10
+ apply as-path 65111
+#
+bgp 65000
+ ipv4-family unicast
+  network 198.18.250.0 255.255.255.0 route-policy MPATH
+#
+commit
+</pre></div>
+</div>
+<p>在接收端 P3 配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
+ load-balancing as-path-ignore
+ ipv4-family unicast
+  maximum load-balancing ibgp 2
+#
+commit
+</pre></div>
+</div>
+<p>EBGP 对应使用 <code class="docutils literal notranslate"><span class="pre">maximum</span> <span class="pre">load-balancing</span> <span class="pre">ebgp</span> <span class="pre">N</span></code>。命令放在需要等价转发的地址族内；其他地址族的上限独立配置。</p>
+</section>
+<section id="id3">
+<span id="查询与影响"></span><h2>查询与影响<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp routing-table 198.18.250.0 24
+display ip routing-table 198.18.250.0 24
+ping -c 2 198.18.250.1
+</pre></div>
+</div>
+<p>实际路由查询包含以下两条路径，业务探测成功：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Network            NextHop             MED     LocPrf Path/Ogn
+198.18.250.0/24     198.19.80.1           0        100 65111 i
+198.18.250.0/24     198.19.80.2           0        100 65112 i
+
+Total Number of Routes: 2
+2 packets transmitted, 2 received, 0% packet loss
+</pre></div>
+</div>
+<p>两条已学习路径不一定都能参与等价转发；必须同时满足上限及其他选路条件。若两个 BGP 下一跳递归到同一个实际出接口、同一个下一跳，转发表会合并相同的实际出口，不能把两条 BGP 路径理解为两条独立物理链路或两倍带宽。</p>
+</section>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>恢复相同 AS_PATH 约束：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
+ undo load-balancing as-path-ignore
+ ipv4-family unicast
+  undo maximum load-balancing ibgp
+#
+commit
+</pre></div>
+</div>
+<p>实际撤销后，两条 BGP 路径仍然可见，但只保留一个最佳候选参与本例的转发选择。删除练习配置时，先撤销两端的网络声明，再删除未被引用的策略及本例新建的环回接口；保留原有接口上的其他地址。前缀在接收端消失后再保存，不要只删除策略而留下引用。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../attributes/" class="btn btn-neutral float-left" title="AS 与路由属性" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../families/" class="btn btn-neutral float-right" title="地址族与聚合" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

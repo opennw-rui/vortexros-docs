@@ -1,0 +1,43 @@
+.wy-nav-content { max-width: 980px; }
+.rst-content pre { padding-right: 4.4rem; }
+.rst-content div.highlight { position: relative; }
+.manual-copy {
+  position: absolute;
+  right: .45rem;
+  top: .45rem;
+  background: #fff;
+  border: 1px solid #adc0cc;
+  border-radius: .25rem;
+  padding: .25rem .5rem;
+  color: #154963;
+  cursor: pointer;
+}
+.manual-copy:focus-visible { outline: 2px solid #165677; }
+.rst-content table.docutils { width: 100%; }
+.rst-content table.docutils td, .rst-content table.docutils th { white-space: normal; }
+.wy-side-nav-search, .wy-nav-top { background: #1769a7; }
+.wy-nav-side { padding-bottom: 3rem; }
+.manual-version {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  z-index: 2;
+  background: #262424;
+  color: #75d394;
+  font-size: .88rem;
+}
+.manual-version summary { padding: .8rem 1rem; cursor: pointer; }
+.manual-version-menu {
+  position: absolute;
+  bottom: 100%;
+  width: 100%;
+  background: #262424;
+  border-bottom: 1px solid #595959;
+}
+.manual-version a { display: block; padding: .65rem 1rem; color: #fff; }
+.manual-version a:hover { background: #3c3a3a; }
+@media (max-width: 768px) {
+  .manual-version { display: none; }
+  .wy-nav-side.shift .manual-version { display: block; width: 85%; }
+}

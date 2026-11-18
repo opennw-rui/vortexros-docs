@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>容量与计时 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/nat/capacity/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="流量策略" href="../../07-policy/" />
+    <link rel="prev" title="会话与统计" href="../sessions/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">NAT</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../objects/">对象与规则</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interface-pat/">接口 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pool-pat/">地址池 PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../no-pat/">NO-PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../static/">静态 NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dnat/">DNAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../twice/">Twice NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../no-nat/">No-NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hairpin/">NAT 回流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sessions/">会话与统计</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">容量与计时</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">NAT</a></li>
+      <li class="breadcrumb-item active">容量与计时</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="容量与计时"></span><h1>容量与计时<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="id2">
+<span id="缺省值"></span><h2>缺省值<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>以下是 0.29-dev 的资源和老化参数，可用 display nat-policy configuration 查询。默认项在配置中省略，容量设置不等同于满表性能保证。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head text-right"><p>缺省</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>UDP timeout</p></td>
+<td class="text-right"><p>300 秒</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCP established</p></td>
+<td class="text-right"><p>7440 秒</p></td>
+</tr>
+<tr class="row-even"><td><p>TCP transitory</p></td>
+<td class="text-right"><p>240 秒</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICMP timeout</p></td>
+<td class="text-right"><p>60 秒</p></td>
+</tr>
+<tr class="row-even"><td><p>Other timeout</p></td>
+<td class="text-right"><p>120 秒</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCP close</p></td>
+<td class="text-right"><p>5 秒</p></td>
+</tr>
+<tr class="row-even"><td><p>Sessions per worker</p></td>
+<td class="text-right"><p>100000</p></td>
+</tr>
+<tr class="row-odd"><td><p>Interface PAT range</p></td>
+<td class="text-right"><p>10000–65535</p></td>
+</tr>
+<tr class="row-even"><td><p>LRU refresh</p></td>
+<td class="text-right"><p>250 毫秒</p></td>
+</tr>
+<tr class="row-odd"><td><p>Expire check</p></td>
+<td class="text-right"><p>50 毫秒</p></td>
+</tr>
+</tbody>
+</table>
+<p>会话配额在策略视图配置，缺省 unlimited；它与每 worker 的总容量不同。地址池有自己的 <code class="docutils literal notranslate"><span class="pre">pat-port-range</span></code>，不能通过修改接口 PAT 范围替代。</p>
+</section>
+<section id="id3">
+<span id="调整与影响"></span><h2>调整与影响<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+nat-policy timeout udp 45
+nat-policy timeout tcp-established 900
+nat-policy timeout tcp-transitory 45
+nat-policy timeout icmp 15
+nat-policy timeout other 60
+nat-policy timeout tcp-close 3
+nat-policy sessions-per-worker 1024
+nat-policy interface-pat-range 22000-22063
+nat-policy x86-tune lru-refresh-ms 100
+nat-policy x86-tune expire-check-ms 25
+commit
+display nat-policy configuration
+display nat-policy workers
+</pre></div>
+</div>
+<p>增大超时会延长空闲状态占用，缩小 PAT 范围或容量会使新建连接更早失败；维护间隔影响状态维护频率，不是业务限速。</p>
+<p>有活动会话时，修改分配参数曾实际收到 <code class="docutils literal notranslate"><span class="pre">Instance</span> <span class="pre">in</span> <span class="pre">use</span></code>，Running 已接受意图而后端未完成。应先查询健康与会话，安排维护后清理所需会话，再确认实际值和健康恢复；不要把 commit 返回和实际生效混为一谈。</p>
+</section>
+<section id="id4">
+<span id="恢复默认"></span><h2>恢复默认<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+undo nat-policy timeout udp
+undo nat-policy timeout tcp-established
+undo nat-policy timeout tcp-transitory
+undo nat-policy timeout icmp
+undo nat-policy timeout other
+undo nat-policy timeout tcp-close
+undo nat-policy sessions-per-worker
+undo nat-policy interface-pat-range
+undo nat-policy x86-tune lru-refresh-ms
+undo nat-policy x86-tune expire-check-ms
+commit
+display nat-policy configuration
+</pre></div>
+</div>
+<p>恢复默认后的示例输出：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Hairpin NAT              disabled
+UDP timeout              300s
+TCP established timeout  7440s
+TCP transitory timeout   240s
+ICMP timeout             60s
+Other timeout            120s
+TCP close timeout        5s
+Sessions per worker      100000
+Interface PAT range      10000-65535
+LRU refresh              250ms
+Expire check             50ms
+</pre></div>
+</div>
+<p>确认实际值后再 <code class="docutils literal notranslate"><span class="pre">save</span></code>。规则、会话配额和绑定不会随着全局超时撤销而自动删除。</p>
+<p><a class="reference internal" href="../sessions/"><span class="std std-doc">会话故障分类</span></a> · <a class="reference internal" href="../../reference/nat/"><span class="std std-doc">命令参数</span></a></p>
+</section>
+<section id="id5">
+<span id="配额与分配范围检查"></span><h2>配额与分配范围检查<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>将一个策略的 <code class="docutils literal notranslate"><span class="pre">session-limit</span></code> 设为 1，地址池 PAT 范围设为 <code class="docutils literal notranslate"><span class="pre">40000-40002</span></code>：第一个 ICMP 标识符建立转换并收到回复，第二个新标识符未获回复，运行摘要为 <code class="docutils literal notranslate"><span class="pre">Session</span> <span class="pre">limit</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">Active</span> <span class="pre">sessions</span> <span class="pre">1</span></code>。把限制改为 2 后，第二个标识符成功，实际会话使用范围内的 40000 和 40002。</p>
+<p>撤销策略限制后，运行值显示 <code class="docutils literal notranslate"><span class="pre">unlimited</span></code>；撤销池范围后恢复 <code class="docutils literal notranslate"><span class="pre">10000-65535</span></code>。已存在的转换会话可以保留原映射，不会因为扩大范围就改写正在使用的端口。这个小规模检查验证配置效果，不代表满表容量或吞吐保证。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../sessions/" class="btn btn-neutral float-left" title="会话与统计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../07-policy/" class="btn btn-neutral float-right" title="流量策略" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

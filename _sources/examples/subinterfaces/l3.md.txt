@@ -1,0 +1,171 @@
+# L3 子接口
+
+L3 子接口按 VLAN 标签区分独立三层链路，可在接口本身配置 IPv4/IPv6 地址和路由协议。它使用 `vlan-type`；`encapsulation` 属于 [L2 子接口](l2.md)。
+
+## 完整案例
+
+P1/P2 的 Ethernet0 直连，两端用 VLAN 700 建立点到点 IP 子网。父口需已由数据面识别，且没有冲突的标签分类。
+
+```text
+P1 Ethernet0.700 ── VLAN 700 ── P2 Ethernet0.700
+  198.18.170.1/30                  198.18.170.2/30
+```
+
+P1：
+
+```text
+system-view
+```
+
+配置清单：
+
+```text
+interface Ethernet0.700
+ vlan-type dot1q 700
+ ip address 198.18.170.1 255.255.255.252
+#
+```
+
+CLI 操作：
+
+```text
+commit
+```
+
+P2：
+
+```text
+system-view
+```
+
+配置清单：
+
+```text
+interface Ethernet0.700
+ vlan-type dot1q 700
+ ip address 198.18.170.2 255.255.255.252
+#
+```
+
+CLI 操作：
+
+```text
+commit
+```
+
+只接收符合该 VLAN 封装的报文。父端口仍可承载其他不冲突的子接口；不要同时创建会匹配相同标签的 trunk 隐式成员。L3 子接口建立对应 LCP 端点，使 Linux/FRR 使用同一三层接口；不需要加入桥域。
+
+## 查询与流量
+
+```text
+display interface Ethernet0.700
+display ip interface brief
+display ip routing-table protocol direct
+ping -c 3 -a 198.18.170.1 198.18.170.2
+```
+
+示例输出：
+
+```text
+Ethernet0.700 current state : UP
+Line protocol current state : UP
+Route Port,The Maximum Transmit Unit is 1500
+Internet Address is 198.18.170.1/30
+Physical is 802.1Q sub-interface
+Encapsulation is dot1q, VLAN 700
+```
+
+本例首次探测收到 2/3 个回复，地址解析完成后的连续探测为 3 packets transmitted、3 received、0% packet loss。首次访问可能等待地址解析；若持续丢包，检查父口、VLAN 标签、接口地址及回程路由。
+
+## 保存与撤销
+
+确认双向路由及流量后执行 `save`。两端分别撤销：
+
+```text
+system-view
+```
+
+配置清单：
+
+```text
+undo interface Ethernet0.700
+```
+
+CLI 操作：
+
+```text
+commit
+```
+
+P2 将接口名替换为 `Ethernet0.700`。删除后核对接口和直连路由消失；需要持久撤销时再 `save`。
+
+## 双层标签
+
+两端仍使用同一物理链路，以外标签 702、内标签 70 建立独立三层子网。无需额外配置一个外层 L3 子接口；系统负责 Linux 侧所需的标签层级。
+
+P1：
+
+```text
+interface Ethernet0.702
+ vlan-type dot1q 702 inner 70
+ ip address 198.18.172.1 255.255.255.252
+#
+```
+
+CLI 操作：
+
+```text
+commit
+```
+
+P2：
+
+```text
+interface Ethernet0.702
+ vlan-type dot1q 702 inner 70
+ ip address 198.18.172.2 255.255.255.252
+#
+```
+
+CLI 操作：
+
+```text
+commit
+```
+
+示例输出：
+
+```text
+display interface Ethernet0.702
+ping -c 3 -a 198.18.172.1 198.18.172.2
+```
+
+示例输出：
+
+```text
+Ethernet0.702 current state : UP
+Line protocol current state : UP
+Internet Address is 198.18.172.1/30
+Encapsulation is QinQ, Outer VLAN 702, Inner VLAN 70
+
+3 packets transmitted, 3 received, 0% packet loss
+```
+
+两端必须匹配外、内两层标签。接口编号 702 只标识子接口；标签由 `vlan-type` 指定。三层视图目前提供上述 dot1q 与 dot1q 内层组合，不应套用 L2 的 `encapsulation dot1ad` 语法。
+
+删除时分别执行 `undo interface Ethernet0.702`、`undo interface Ethernet0.702` 并提交。共享同一外标签的其他内层仍存在时，系统保留所需的 Linux 外层；删除最后一个内层时清理该辅助对象。它不是独立用户配置，不应手工配置 IP 或加入桥域。
+
+
+## 父接口生命周期与删除结果
+
+关闭父口并提交后，其 dot1q/QinQ 子接口应 Down；恢复父口后自动 Up，地址配置保留。等待邻居与链路恢复后再检查双向探测。
+
+仅执行 `undo vlan-type` 而保留子接口，会在提交时得到实际错误：
+
+```text
+Error: validate candidate: validate canonical configuration: sub-interface Ethernet0.700 has incomplete VLAN encapsulation
+```
+
+封装修改被拒绝时，Running 保留原配置；先解除冲突再提交。完整删除使用 undo interface，随后检查接口和直连路由均消失；最后一个 QinQ 内层删除后，不应留下本例辅助对象。
+
+同一外标签可同时承载单标签和双标签三层接口，见[完整 QinQ 案例](../qinq.md)。新增、修改或删除单标签接口时，共享该外标签的双标签接口可能短暂重建，地址配置保留；提交后核对接口状态、地址及实际业务。不同外标签的接口不受这项依赖重建影响。

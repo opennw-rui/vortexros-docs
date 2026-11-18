@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>状态与撤销 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bgp/queries/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="IS-IS" href="../../isis/" />
+    <link rel="prev" title="地址族与聚合" href="../families/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../route-policy/">路由策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospf/">OSPF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">BGP</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../peers/">邻居与会话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../groups/">邻居组与认证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reflection/">路由反射</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../attributes/">AS 与路由属性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multipath/">等价路径</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../families/">地址族与聚合</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">状态与撤销</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../05-dynamic-routing/">路由协议</a></li>
+          <li class="breadcrumb-item"><a href="../">BGP</a></li>
+      <li class="breadcrumb-item active">状态与撤销</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="状态与撤销"></span><h1>状态与撤销<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp peer
+display bgp peer 10.0.0.2 verbose
+display bgp vpnv4 vpn-instance BLUE peer 10.0.0.2 verbose
+display bgp vpnv4 vpn-instance BLUE peer 10.0.0.2 log-info
+display bgp vpnv6 all peer verbose
+display bgp routing-table
+display bgp routing-table peer 10.0.0.2 received-routes
+display bgp vpnv4 vpn-instance BLUE routing-table
+display bgp vpnv4 vpn-instance BLUE routing-table statistics
+display bgp tcp-protection verbose
+</pre></div>
+</div>
+<p>BGP 大型路由表逐项显示，总数位于表尾。Path/Ogn 与 AS Path 列表使用十进制 AS 号；routing-table statistics 显示前缀、通告和重分发数量。邻居 verbose 用于检查会话、协商能力及计时器，log-info 显示当前状态、可用的建立时间，以及最近重置和 Notification 原因。指定 all 时按 VPN 实例列出结果。</p>
+<p>默认TCP保护只接受已经配置的BGP邻居源地址。需要关闭时：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ undo default tcp-protected
+</pre></div>
+</div>
+<p>精确删除邻居或单项参数：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 64512
+ undo peer 10.0.0.2 route-policy RP-IN import
+ undo peer 10.0.0.2 description
+ undo peer 10.0.0.2
+#
+undo bgp 64512
+</pre></div>
+</div>
+<p>CLI 操作：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+</pre></div>
+</div>
+<section id="id2">
+<span id="接收原始路由的前提"></span><h2>接收原始路由的前提<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">received-routes</span></code>读取保留的原始入站更新，需要先在对应单播地址族为邻居配置<code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">keep-all-routes</span></code>并提交。未启用时，实际查询会明确报<code class="docutils literal notranslate"><span class="pre">Inbound</span> <span class="pre">soft</span> <span class="pre">reconfiguration</span> <span class="pre">not</span> <span class="pre">enabled</span></code>，不能据此认定邻居没有路由。启用后，VPN实例中的IPv4/IPv6查询已实际读到发布的前缀。</p>
+<p>保留被策略拒绝的路由会增加内存占用。不再需要原始更新时用<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">peer</span> <span class="pre">ADDRESS</span> <span class="pre">keep-all-routes</span></code>撤销；正常已接受路由的查询和转发不依赖此开关。</p>
+</section>
+<section id="id3">
+<span id="地址族与空邻居表"></span><h2>地址族与空邻居表<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>未指定地址族的 display bgp peer 只显示IPv4 unicast邻居，不会因同时启用VPNv4、VPNv6或EVPN而改变查询范围。IPv6邻居使用display bgp ipv6 peer；VPN-instance内的单播邻居使用display bgp vpnv4/vpnv6 vpn-instance对应名称 peer。</p>
+<p>display bgp vpnv4 all peer和vpnv6形式汇总各VPN实例的单播邻居，排除public-net邻居。现有BGP进程中没有启用这些邻居时，显示Total number of peers:0，不能据此推断BGP进程未运行。全局MP-BGP的VPN路由用display bgp vpnv4 all routing-table或vpnv6形式核对。</p>
+<p>IPv6邻居摘要同时覆盖普通IPv6单播和6PE的IPv6 labeled-unicast；6PE使用IPv4传输地址，也应出现在display bgp ipv6 peer中。同一BGP会话只计一次，接收前缀数汇总该IPv6地址族范围的通告。IPv4 unicast、VPN及EVPN的计数不混入这条摘要。</p>
+</section>
+<section id="bgp">
+<span id="重启-bgp-服务"></span><h2>重启 BGP 服务<a class="headerlink" href="#bgp" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">service</span> <span class="pre">bgp</span></code> 重启 BGP 服务并重新应用已提交的配置，包含普通单播、VPN 和 EVPN 地址族。它不删除配置，也不代替 <code class="docutils literal notranslate"><span class="pre">save</span></code>；重启期间会话、路由通告和相关业务可能短暂中断，应安排维护窗口。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reset service bgp
+Y
+display bgp peer
+display bgp evpn all routing-table
+display ip routing-table vpn-instance BLUE
+display ipv6 routing-table vpn-instance BLUE
+display health
+</pre></div>
+</div>
+<p>根据实际启用的地址族增加对应查询。IPv4 邻居摘要不能证明 IPv6、VPN 或 EVPN 的路由已恢复；还应使用租户源地址检查双向业务。例如：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping -vpn-instance BLUE -a 198.18.196.3 -c 2 198.18.196.1
+ping ipv6 vpn-instance BLUE -a 2001:db8:196::3 -c 2 2001:db8:196::1
+</pre></div>
+</div>
+<p>实际重启验证中，两个邻居恢复 Established，租户 IPv4/IPv6 各恢复一条 BGP 路由，两族业务探测分别成功。EVPN 的原有普通和带 VLAN 标记客户流量也恢复。若命令报告重放或回读失败，应保留报错并查看活动告警，不能仅因进程已经启动便认定恢复完成；其他协议或隧道告警也应分别处理。</p>
+<p>EVPN 常用查询：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp evpn all routing-table
+display bgp evpn all routing-table mac-route
+display bgp evpn all routing-table inclusive-route
+display vxlan tunnel
+display vxlan tunnel 26
+display vxlan statistics source 198.19.23.3 peer 198.19.80.1 vni 50081
+</pre></div>
+</div>
+<p>MAC 路由用于核对客户或网关 MAC/IP，Inclusive 路由用于核对远端 VTEP 的 BUM 成员。隧道编号为运行时编号，应先查询清单再选择；统计按实际 VTEP、VNI 选择，不能把某一成员有数据外推为所有租户都正常。</p>
+</section>
+<section id="orf">
+<span id="邻居-orf-能力"></span><h2>邻居 ORF 能力<a class="headerlink" href="#orf" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp peer 198.19.80.2 orf ip-prefix
+display bgp ipv6 peer 2001:db8:80::2 orf ip-prefix
+</pre></div>
+</div>
+<p>查询按地址族显示邻居已观测到的前缀 ORF 发送、接收能力和收到的过滤条目数；not negotiated 表示该方向未协商 ORF，0 表示当前收到的条目数为零。这些结果不表示普通入站或出站路由策略失效，路由策略与 ORF 是不同机制。当前 CLI 不提供 ORF 能力配置入口，不应通过该查询推断已启用 ORF。</p>
+<p>检查普通路由策略效果时，仍使用 accepted-routes、advertised-routes 和在满足保留条件后的 received-routes，并核对实际业务。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../families/" class="btn btn-neutral float-left" title="地址族与聚合" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../isis/" class="btn btn-neutral float-right" title="IS-IS" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

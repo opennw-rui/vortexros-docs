@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OSPF &mdash; VortexROS 文档 v0.30-dev 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ospf/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="进程与接口" href="activation/" />
+    <link rel="prev" title="属性与继续节点" href="../route-policy/attributes/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../routing-preference/">路由优先级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix-lists/">前缀列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../route-policy/">路由策略</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">OSPF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="activation/">进程与接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="areas/">Stub、NSSA 与汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="redistribution/">路由引入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="queries/">邻居、LSDB 与路由</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reset/">重启 OSPF 进程</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ospfv3/">OSPFv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bgp/">BGP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isis/">IS-IS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rip/">RIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ripng/">RIPng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bfd/">BFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vrrp/">VRRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing-query/">路由查询</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../05-dynamic-routing/">路由协议</a></li>
+      <li class="breadcrumb-item active">OSPF</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ospf">
+<h1>OSPF<a class="headerlink" href="#ospf" title="链接到此标题。"></a></h1>
+<p>OSPF 在同一路由域内建立 IPv4 链路状态邻接并交换前缀。创建进程不代表所有接口自动参与；选择 network 或接口激活方式，区域、网络类型、认证和计时等条件兼容后才建立邻居。</p>
+<p>OSPFv3 用于 IPv6，见独立<a class="reference internal" href="../ospfv3/"><span class="std std-doc">OSPFv3</span></a>章节。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="activation/">进程与接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="activation/#network">区域 network 激活</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation/#id2">接口激活</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation/#id3">进程参数与实际结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation/#id4">接口定时器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation/#id5">接口属性与静默</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation/#bfd-ospf">BFD 与 OSPF</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="areas/">Stub、NSSA 与汇总</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="areas/#id1">区域归属与双栈汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="redistribution/">路由引入</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="redistribution/#id2">默认路由</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="queries/">邻居、LSDB 与路由</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="queries/#id1">报文计数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries/#e2">E2 外部路由的摘要与明细</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries/#id2">按接口查看邻居</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries/#id3">辅助查询与范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries/#id4">进程重置与服务重启</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries/#router-id">自动 Router ID 的显示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries/#opaque-lsa-te">Opaque LSA 和 TE 状态</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reset/">重启 OSPF 进程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reset/#router-id">Router ID 修改与自动选择</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a class="reference internal" href="../../examples/ospf/"><span class="std std-doc">完整双端案例与实际 E2 查询</span></a> · <a class="reference internal" href="../reference/ospf/"><span class="std std-doc">命令参数</span></a></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../route-policy/attributes/" class="btn btn-neutral float-left" title="属性与继续节点" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="activation/" class="btn btn-neutral float-right" title="进程与接口" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
