@@ -64,10 +64,12 @@ display system-software verbose
 需要在设备 CLI 操作时，将系统 tar 放到软件目录，使用单目标包命令。此入口与 `.run` 共用通用安装器。
 
 ~~~text
-check system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
-simulate system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
-upgrade system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
+check system-software package vortexros-system_VERSION_amd64.tar
+simulate system-software package vortexros-system_VERSION_amd64.tar
+upgrade system-software package vortexros-system_VERSION_amd64.tar
 ~~~
+
+裸包名从 `/VortexROS/install` 读取，与当前工作目录无关；完整路径也可使用，但 CLI 系统包必须直接位于该目录。`check`、`simulate`、`upgrade` 和 `rollback` 使用同一规则。
 
 主动回退用 `rollback system-software package TARGET.tar`，旧版 `.run` 也可作为更新目标。目标必须能读取当前启动 CFG，并具备当前已安装版本的精确回退材料。本手册从0.29-dev开始维护，不提供此前试验版本的配置迁移保证；操作时保留独立救援入口。
 

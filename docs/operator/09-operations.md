@@ -10,5 +10,6 @@ operations/display
 operations/configuration
 operations/dataplane
 operations/routing
+operations/logs
 operations/troubleshooting
 ~~~

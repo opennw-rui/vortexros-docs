@@ -7,16 +7,33 @@
 | 命令 | 实际状态和用途 |
 |---|---|
 | `display dataplane` | 活动后端和 PCI 接管阶段 |
-| `display dataplane interfaces` | 期望/活动模式、PCI 驱动、VPP 当前和最大 RX 队列 |
+| `display dataplane interfaces` | PCI 所属 NUMA 节点、期望/活动模式、PCI 驱动、当前和最大 RX 队列 |
 | `display dataplane cpu` | Linux 隔离 CPU、VPP 线程及 CPU |
 | `display dataplane cpu topological` | 全部 CPU 的 NUMA、Socket、物理核心对应关系和在线状态 |
 | `display dataplane memory` | 各 NUMA 节点内存、大页配置与实际页数，以及整机保留量 |
-| `display dataplane iommu` | IOMMU 组和受管设备所属组 |
+| `display dataplane iommu` | IOMMU 组、受管设备所属组及 NUMA 节点 |
 | `display dataplane tables` | 期望容量、VPP 实际容量、Linux 邻居 GC 阈值 |
 | `display dataplane verbose` | 汇总上述运行信息 |
 
 L2FIB 为空时不能凭空读出实时容量，查询单独标记显式 MAC 启动值。大页总量是单页大小乘页数，例如 2M ×1024 为2GiB，不能用进程 VSZ 替代。
 
+
+## 网卡所属 NUMA
+
+`display dataplane interfaces` 的 NUMA 列表示 PCI 网卡实际关联的节点，`display dataplane` 和 `display dataplane verbose` 中的接口表也包含该列。它不是按接口编号推算，也不随 CPU 配置改变；DPDK 接管后仍按 PCI 设备身份查询。
+
+节点为 0、1 等整数时，可与 `display dataplane cpu topological` 和 `display dataplane memory` 的节点号对照。`unknown` 表示固件或系统未提供设备的 NUMA 归属，`unavailable` 表示当前无法读取，例如设备已移除。二者都不能当作节点 0。
+
+以下是系统没有报告 PCI 节点关联时的实际查询节选；实际设备有明确关联时，该列显示对应的数字：
+
+~~~text
+<VortexROS> display dataplane interfaces
+Dataplane interfaces
+  PCI            Interface       NUMA     Desired    Active       Driver       RX queues
+  0000:00:02.0   Ethernet0       unknown  dpdk       DPDK         vfio-pci     1/1
+~~~
+
+配置中的资源参数按 CPU、内存和其他全局设置在前，设备子段在后显示。`#` 只作分隔，不是需要手工执行的命令；保存后的配置可按相同层次加载。选择设备子视图时，`display this` 只显示该设备，不重复全局资源。
 
 ## 按拓扑选择 CPU
 

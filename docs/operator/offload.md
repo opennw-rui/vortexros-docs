@@ -40,3 +40,10 @@ display interface hardware offload Ethernet 1
 修改后检查Active列；需要重新初始化驱动的项目应按提示重建数据面。操作步骤见[数据面激活与恢复](dataplane/recovery.md)。
 
 [数据面设备](dataplane/devices.md) · [完整参数](reference/interfaces.md)
+## 工作原理与能力判读
+
+硬件卸载由网卡承担部分校验、分段或标签处理，减少 CPU 工作。Supported 表示驱动报告的能力，Active 表示当前状态，Control 表示能在线修改还是需要重新启动数据面；三者应分开看。
+
+接收校验卸载帮助识别报文校验结果；发送校验卸载让网卡补齐校验和。TSO 面向 TCP 分段，软件 GSO 可按协议在软件中完成分段，两者并非同一个开关。VLAN strip/insert 则改变标签在网卡与数据面之间的呈现，不能仅凭抓包是否看见标签判断链路上实际是否带标签。
+
+接口在线配置与 dataplane 设备启动配置有不同生效时机，按子页所列能力选择入口。修改后检查 Active 状态、收发错误及业务；网卡支持某项功能并不意味着驱动允许运行中切换。

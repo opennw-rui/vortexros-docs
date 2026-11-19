@@ -53,23 +53,40 @@ Vlanif 需要所属 VLAN 至少有一个有效成员端口 Up，且接口没有 
 
 ## 切换端口类型
 
-先撤销原类型的非默认 VLAN 和 PVID 配置，再执行新的 `port link-type`。清空允许列表与恢复默认列表不同：Trunk 默认允许 VLAN 1，Hybrid 默认将 VLAN 1 作为 untagged 成员；空列表不会自动恢复这些默认项。
+Access、Trunk、Hybrid 之间转换前，须先恢复旧模式的默认 VLAN 状态，
+并撤销该端口的灵活 QinQ 规则。系统不会为了切换模式而擅自清空业务 VLAN。
+重复输入相同的显式 `port link-type` 不改变已配置的 VLAN。
+
+| 当前模式 | 可以切换时的 VLAN 状态 | 常用清理命令 |
+|---|---|---|
+| Access | 默认 VLAN 1 | `undo port default vlan` |
+| Trunk | PVID 1，允许集合仅 VLAN 1 | 撤销其他允许项、恢复 VLAN 1、`undo port trunk pvid vlan` |
+| Hybrid | PVID 1，仅 VLAN 1 为 untagged，无 tagged 业务及 QinQ 规则 | 撤销业务成员和规则、恢复 untagged VLAN 1、`undo port hybrid pvid vlan` |
+
+清空列表不等于恢复默认。特别是 `undo port trunk allow-pass vlan all`
+会将 VLAN 1 也撤销，此时仍不能切换模式。应显式重新允许 VLAN 1。
+Hybrid 撤销 untagged VLAN 1 后，同样要先恢复它。
 
 例如，将只允许 VLAN 100、PVID 为 100 的 Trunk 改为 Access：
 
-```text
+~~~text
 system-view
-interface Ethernet 0
+interface Ethernet0
  undo port trunk pvid vlan
  port trunk allow-pass vlan 1
  undo port trunk allow-pass vlan 100
  port link-type access
  port default vlan 100
 #
-commit
-```
+~~~
 
-应根据当前允许列表撤销其他业务 VLAN。Access 恢复默认 VLAN 使用 `undo port default vlan`；Hybrid 应撤销原 tagged/untagged 业务成员、恢复 untagged VLAN 1 并撤销自定义 PVID 后再切换。切换会重新建立对应的二层业务，期间可能短暂中断。
+再执行 `commit`。若允许列表中还有其他非默认 VLAN，也须先撤销。
+Hybrid 若将 VLAN 1 配成 tagged，应先撤销该 tagged 成员，再恢复 untagged VLAN 1。
+接口描述等与链路模式无关的配置无需删除。
+
+灵活 QinQ 的规则也属于模式相关业务配置，切换前先按
+[灵活 QinQ](../qinq-flexible.md)撤销。切换并提交后会重新配置相应的二层接入，
+业务可能短暂中断；应在变更后检查成员、实际流量，再保存。
 
 ## 与其他功能组合
 

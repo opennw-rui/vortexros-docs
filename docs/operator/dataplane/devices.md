@@ -3,14 +3,15 @@
 
 ```text
 dataplane
+ cpu main-core 2
+ cpu worker-cores 3-5
+#
  device 0000:03:00.0 name Ethernet 0
   mode dpdk
   queues rx 2 tx 2
   descriptors rx 1024 tx 1024
   undo hardware offload tso
  #
- cpu main-core 2
- cpu worker-cores 3-5
 #
 interface user-defined Ethernet0
  ip address 192.0.2.10 255.255.255.0
@@ -30,7 +31,7 @@ PCI 地址用于定位硬件，`name Ethernet 0` 将接口命名为 `Ethernet0`�
 `kernel`。`undo mode` 恢复 Linux 驱动。按 `interface user-defined` 预配置的接口
 以普通 `interface Ethernet0` 视图保存，地址和静态路由在设备就绪后下发。
 
-CPU 编号从 0 开始，`cpu main-core 0` 是有效的显式配置，会保留到保存文件和 daemon 通信中。指定 `cpu worker-cores` 时必须同时指定主核；先撤销 worker，再撤销主核。`undo queues`、`undo descriptors` 和 `undo cpu worker-cores` 清除显式设置，实际线程与硬件参数在保存并执行 `reset dataplane` 后更新。配置查询显示已提交值，不能替代运行状态查询。
+CPU 编号从 0 开始，`cpu main-core 0` 是有效的显式配置，会保留在已提交配置和保存文件中。指定 `cpu worker-cores` 时必须同时指定主核；先撤销 worker，再撤销主核。`undo queues`、`undo descriptors` 和 `undo cpu worker-cores` 清除显式设置，实际线程与硬件参数在保存并执行 `reset dataplane` 后更新。配置查询显示已提交值，不能替代运行状态查询。
 
 队列和描述符是交给驱动的启动请求，实际能力由网卡和驱动决定。使用 `display dataplane interfaces` 查看当前/最大 RX 队列；例如 `1/1` 表示当前 1 队列、最多 1 队列，不代表已启用多队列。配置文件中的请求值不能代替实际值，规划 worker 时应以运行查询为准。
 
