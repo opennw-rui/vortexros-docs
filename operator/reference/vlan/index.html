@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VLAN &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>VLAN &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/vlan/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -120,9 +120,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -987,6 +987,34 @@
 <li><p>CLI 帮助：configure Hybrid VLAN membership and egress tag mode</p></li>
 <li><p>合法语法：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo port hybrid untagged vlan VLAN-LIST
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="port-vlan-stacking-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">port</span> <span class="pre">vlan-stacking</span> <span class="pre">vlan</span></code><a class="headerlink" href="#port-vlan-stacking-vlan" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：map customer VLANs to a QinQ service VLAN</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>port vlan-stacking vlan VLAN-ID [to VLAN-ID] ... stack-vlan VLAN-ID
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="undo-port-vlan-stacking-vlan">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">port</span> <span class="pre">vlan-stacking</span> <span class="pre">vlan</span></code><a class="headerlink" href="#undo-port-vlan-stacking-vlan" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：map customer VLANs to a QinQ service VLAN</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo port vlan-stacking vlan VLAN-ID [to VLAN-ID] ... stack-vlan VLAN-ID
 </pre></div>
 </div>
 </li>

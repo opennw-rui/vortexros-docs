@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IP-in-IP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>IP-in-IP &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ip-in-ip/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -82,9 +82,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -117,7 +117,13 @@
 <p>用手工点到点 IP 隧道跨接两个三层网络。</p>
 <p><a class="reference internal" href="../reference/tunnels/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/ip-in-ip/"><span class="std std-doc">配置案例</span></a></p>
 <section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<span id="工作原理与适用场景"></span><h2>工作原理与适用场景<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>IP-in-IP 将内层 IP 报文放入另一个 IP 头，适合跨越不能直接承载内层地址族或业务前缀的三层网络。IPv4 封装可参照 RFC 2003，IPv6 隧道机制可参照 RFC 2473。</p>
+<p>该隧道不加密、不自动发现远端，也不替代内外层路由。外层地址族决定底层的可达性要求，内层地址族决定 Tunnel 上的地址和业务路由；四种组合应按表格选择。</p>
+<p>封装增加开销。变更前核对底层 MTU、ICMP 路径 MTU 反馈以及较大业务报文，不能只测小包 ping。完整激活条件和协议切换影响见后文。</p>
+</section>
+<section id="id2">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>手工IP隧道使用点到点三层接口，支持四种内层与外层地址族组合：</p>
 <table class="docutils align-default">
 <thead>
@@ -184,8 +190,8 @@ ping ipv6 2001:db8:10::2
 </div>
 <p>当未显式配置MTU时，系统根据外层IP头自动使用1476字节（GRE over IPv4）、1456字节（GRE over IPv6）、1480字节（IP-in-IP over IPv4）或1460字节（IP-in-IP over IPv6）的有效三层MTU；显式<code class="docutils literal notranslate"><span class="pre">mtu</span></code>始终优先。修改 <code class="docutils literal notranslate"><span class="pre">tunnel-protocol</span></code> 会清除旧协议的源、目的、底层 VPN 和协议专用参数。切换时需重新填写新协议的两端地址，移除不符合新内层地址族的 Tunnel 地址，然后一起提交；提交会重建隧道并短暂中断业务。</p>
 </section>
-<section id="id2">
-<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>四种 IP-in-IP 均要求接口未 shutdown、封装类型和两端地址完整，外层地址族与所选协议一致。本机须在指定底层 VPN 拥有源地址，该 VPN 须有覆盖远端地址的有效路由。Tunnel 配置相应内层 IP 地址后，才能显示三层 Protocol Up。</p>
 <p>接口 Up 不检测远端隧道是否存在，也不保证 ARP/ND、路径过滤或 MTU 已满足。先检查底层路由，再检查两端协议和内层地址，最后测试业务；底层源地址或路由恢复后会自动重新激活。</p>
 </section>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VXLAN &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>VXLAN &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vxlan/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -82,9 +82,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -117,7 +117,13 @@
 <p>使用静态 VTEP 列表在三层网络上延伸二层桥域。</p>
 <p><a class="reference internal" href="../reference/vxlan/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/vxlan/"><span class="std std-doc">配置案例</span></a></p>
 <section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<span id="工作原理与业务标识"></span><h2>工作原理与业务标识<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>VXLAN（RFC 7348）用 UDP 在三层底层网络上封装以太网帧，24 位 VNI 区分二层业务。VTEP 地址属于底层路由域，客户 MAC/IP 属于覆盖业务；两套地址的可达性分别规划。</p>
+<p>静态部署手工指定远端 VTEP，EVPN 部署通过 BGP 交换 MAC、IP 和业务成员信息。建立隧道不等于完成客户 MAC 学习，也不等于业务网关可用。VNI、桥域、客户接入口和可用远端成员须对应一致。</p>
+<p>底层 MTU 需容纳外层以太网、IP、UDP、VXLAN 及可能保留的客户 VLAN 标签。VNI 不自动提供加密或跨业务访问控制。增加远端、改变 VNI 或标签重写可能改变洪泛和学习范围，应同时检查单播、ARP/ND 和业务隔离。</p>
+</section>
+<section id="id2">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>NVE用于集中保存VXLAN源地址和远端VTEP信息，不承载普通三层转发。因此NVE可以进入配置视图、display和undo，但不会出现在路由、BFD、VRRP或ACL等需要真实转发接口的命令补全中。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Nve 1
  source 192.0.2.1
@@ -193,8 +199,8 @@ interface Ethernet 1.17 mode l2
 <p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bridge-domain</span> <span class="pre">310</span></code> 和 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vxlan</span> <span class="pre">statistics</span> <span class="pre">source</span> <span class="pre">198.18.250.1</span> <span class="pre">peer</span> <span class="pre">198.18.250.2</span> <span class="pre">vni</span> <span class="pre">5310</span></code> 检查成员和收发。实测内层 VID 13 的接入帧带 200/13 两层标签，VNI 5310 线上载荷和对端接入口均只带内层 13，回程恢复 200/13。改用 <code class="docutils literal notranslate"><span class="pre">encapsulation</span> <span class="pre">dot1ad</span> <span class="pre">vid</span> <span class="pre">200</span> <span class="pre">ce-vid</span> <span class="pre">10</span> <span class="pre">12</span> <span class="pre">to</span> <span class="pre">13</span></code> 后，实测出口恢复 0x88a8 外层，内层 12 和 13 均通过。处在范围空洞的内层 11 不进入该隧道。</p>
 <p>撤销接入时在系统视图执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">Ethernet</span> <span class="pre">1.17</span></code>，提交后用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bridge-domain</span> <span class="pre">310</span></code> 复查剩余成员。若同时撤销 VXLAN 业务，再移除对应远端和 VNI。</p>
 </section>
-<section id="id2">
-<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>NVE 必须未 shutdown，本机须在所选底层 VPN 拥有 VTEP 源地址。VNI 须绑定业务桥域，并存在远端 VTEP 和到该地址的有效底层路由。至少一个 peer 满足这些条件时，NVE 可显示 Up；这不表示其余 peer 或所有 VNI 均可用。</p>
 <p>静态 VXLAN 的远端来自手工 peer-list；EVPN 的远端和业务路由由 BGP 交换，还需邻居、VNI、RD/RT 和导入规则正确。逐个查询 display vxlan tunnel、桥域成员和 MAC 表，再验证业务。源地址或底层路由失效后，受影响的隧道会停用，条件恢复后自动重建。</p>
 </section>

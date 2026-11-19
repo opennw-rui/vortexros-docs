@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MPLS 与 LDP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>MPLS 与 LDP &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ldp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -83,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -117,6 +117,11 @@
 <span id="mpls-与-ldp"></span><h1>MPLS 与 LDP<a class="headerlink" href="#mpls-ldp" title="链接到此标题。"></a></h1>
 <p>使用 LDP 在 IPv4 核心网分发 MPLS 传输标签。</p>
 <p><a class="reference internal" href="../reference/mpls/"><span class="std std-doc">命令参考</span></a></p>
+<section id="id1">
+<span id="标签分发与转发前提"></span><h2>标签分发与转发前提<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>LDP（RFC 5036）为已知前缀分发标签，常配合 IGP 建立 MPLS 承载。IGP 负责下一跳可达性，LDP 提供相应标签绑定；LDP 邻居存在不代表所有目标前缀都有可用 LSP。</p>
+<p>适合 MPLS 核心网的标签传输。接口 MPLS、LDP 激活、传输地址及底层路由要一致规划。检查邻居、绑定、LSP 和实际 MPLS 转发表，再验证上层 VPN 或 IPv6 业务。</p>
+<p>标签 TTL、倒数第二跳弹出和显式空标签影响实际报文形态，详见 TTL 页面。删除前确认依赖该 LSP 的 L3VPN、6PE 等业务已迁移或允许中断。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="activation/">全局与接口</a><ul>
@@ -137,6 +142,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 

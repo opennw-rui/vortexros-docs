@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>数据面 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>数据面 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dataplane/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -96,9 +96,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -130,6 +130,11 @@
 <span id="数据面"></span><h1>数据面<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <p>首次安装默认使用 Linux 数据面。按 PCI 设备选择 DPDK，其他接口继续归 Linux；没有全局 kernel/vpp 模式切换命令。</p>
 <p>配置页说明期望值，查询页说明实际值；二者必须分开比较。驱动、队列和启动参数按提示保存、重置后生效；在线 offload 按接口能力表处理。</p>
+<section id="id2">
+<span id="资源与业务的关系"></span><h2>资源与业务的关系<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>CPU、NUMA 内存、网卡驱动和队列决定转发资源如何使用，接口 IP、VLAN、路由及策略决定业务如何转发。两类配置分开组织：数据面视图规划资源，接口及协议视图规划业务。</p>
+<p>NUMA 节点表示处理器、内存和 PCI 设备的局部关系。优先让转发线程、网卡及大页位于适合的节点，可以减少跨节点访问；CPU 编号相邻不代表属于同一物理核心或节点，先查询实际拓扑。没有统一适合所有硬件的核心数或队列数。</p>
+<p>资源配置显示已提交的目标值，运行查询显示实际状态。保存不等于当前线程或驱动已经切换，需要重置或主机重启的项目按提示操作，并预留业务中断窗口。缺省表容量是上限配置，不是满表吞吐保证。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="devices/">设备与接管</a><ul>
@@ -139,10 +144,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="resources/">资源与运行查询</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="resources/#id2">查询实际状态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/#numa">网卡所属 NUMA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="resources/#cpu">按拓扑选择 CPU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resources/#numa">NUMA与内存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/#id3">NUMA与内存</a></li>
 <li class="toctree-l2"><a class="reference internal" href="resources/#cpu-iommu">CPU、大页与 IOMMU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resources/#id3">撤销</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/#id4">撤销</a></li>
 <li class="toctree-l2"><a class="reference internal" href="resources/#dma">DMA 地址模式</a></li>
 </ul>
 </li>
@@ -162,6 +168,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../offload/"><span class="std std-doc">硬件卸载</span></a> · <a class="reference internal" href="../flow-steering/"><span class="std std-doc">流量分发</span></a> · <a class="reference internal" href="../reference/dataplane/"><span class="std std-doc">命令参数</span></a></p>
+</section>
 </section>
 
 

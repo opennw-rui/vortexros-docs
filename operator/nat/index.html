@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NAT &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>NAT &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/nat/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -86,9 +86,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -151,6 +151,11 @@
 </table>
 <p>接口地址作为 SNAT 来源时，只能绑定 <strong>outbound</strong>；地址池 SNAT 的方向按业务路径选择。带端口转换的 DNAT 使用直接的目的端口匹配，不能以 port-set 替代。</p>
 <p>配置改变主要影响新流；已有状态会话继续使用已建立的映射。验证新规则时使用新的连接，不将旧会话仍存在误判为下发失败。</p>
+<section id="id1">
+<span id="工作原理与使用影响"></span><h2>工作原理与使用影响<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>NAT 按映射转换报文的地址，PAT 还转换端口，以区分共享公网地址的连接。RFC 3022 描述传统 NAT；应用是否能穿越 NAT 还取决于应用协议、连接方向和映射生命周期，不能仅按地址已改写判断应用正常。</p>
+<p>有状态转换要求同一连接的回程经过保存其映射的设备。路径不对称、提前丢弃或会话过期都可能使回程无法还原。路由与邻居提供基础可达性，ACL 决定是否放行，NAT 不自动代替它们。静态、动态、回流和明确不转换的规则应按实际业务优先关系组织，具体匹配及绑定限制见各子页。</p>
+<p>容量上限与活动会话数分别查询。提高容量不等于内存或吞吐无限增长；大量新连接、长超时和多个协议共享地址池时，应按设备资源规划。撤销规则后先用新连接验证，再按需要处理旧会话，避免把旧映射继续存在误认为新配置无效。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="objects/">对象与规则</a><ul>
@@ -220,6 +225,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../reference/nat/"><span class="std std-doc">逐条命令参考</span></a> · <a class="reference internal" href="../../examples/nat/"><span class="std std-doc">NAT 案例目录</span></a></p>
+</section>
 </section>
 
 

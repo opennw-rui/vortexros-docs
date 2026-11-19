@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tunnel 接口 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>Tunnel 接口 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/tunnel-settings/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -87,9 +87,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -121,6 +121,11 @@
 <span id="tunnel-接口"></span><h1>Tunnel 接口<a class="headerlink" href="#tunnel" title="链接到此标题。"></a></h1>
 <p>配置源地址、目的地址和封装前，先确认两端 underlay 可达。</p>
 <p><a class="reference internal" href="../reference/tunnels/"><span class="std std-doc">命令参考</span></a></p>
+<section id="id1">
+<span id="内层底层与激活条件"></span><h2>内层、底层与激活条件<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>Tunnel 接口代表封装后的业务链路，内层地址和业务路由决定哪些报文进入隧道；底层源、目的、VPN 和路由决定封装报文能否离开设备。接口激活检查是本地可用条件，不保证远端解封装或应用正常。</p>
+<p>不同协议的封装开销、密钥/Key 语义及邻居验证能力不同，不能用相同的 Up 状态解释 GRE、IP-in-IP、WireGuard 和 VXLAN。改变协议或关键参数可能重建隧道并瞬时中断业务，具体条件见各协议页。</p>
+<p>规划顺序为底层可达性、两端协议参数、MTU、内层地址与路由，最后检查实际双向业务。对同一接口同时应用 ACL、NAT、MQC 或 MSS 时，按内层/外层位置和<a class="reference internal" href="../interface-processing/"><span class="std std-doc">处理顺序</span></a>区分作用范围。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="endpoints/">封装与端点</a><ul>
@@ -143,6 +148,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 

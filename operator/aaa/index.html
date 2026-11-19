@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>本地账号与 SSH &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>本地账号与 SSH &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/aaa/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -83,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -136,6 +136,11 @@
 </tbody>
 </table>
 <p>默认不内置受管用户或密码。受管 SSH 与独立 Linux 救援入口分开；账号修改先提交，保存后才进入启动 CFG。</p>
+<section id="id1">
+<span id="账号认证与授权"></span><h2>账号、认证与授权<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>本地账号配置决定谁可进入受管 CLI，以及进入后能执行哪些操作。密码和公钥用于身份认证，角色用于授权；拥有有效 Linux 认证信息不等于已完成受管账号的权限更新。</p>
+<p>按最小实际职责选择角色，首次改密、账号启停和 Bash 权限分别配置。首次改密只保存该账号所需的凭据变化，不替用户保存其他尚未保存的网络配置。账号投影尚未完成时的登录限制和自动恢复见密码页面。</p>
+<p>宿主 OpenSSH 的 AllowUsers 等既有策略由系统管理员维护，不由 VortexROS 擅自放宽。账号存在、密码正确而 SSH 被宿主拒绝时，应检查对应策略；保留独立 Linux 救援入口，避免只依赖即将修改的受管账号。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="accounts/">创建与管理</a></li>
@@ -152,6 +157,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../reference/aaa/"><span class="std std-doc">命令参数</span></a></p>
+</section>
 </section>
 
 

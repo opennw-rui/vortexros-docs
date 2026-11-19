@@ -5,11 +5,32 @@
 告警显示严重度、功能模块、错误码、受影响对象、首次/最近发生时间、累计次数以及当前是否已恢复。相同故障会合并计数，避免重复信息淹没有效日志。
 
 ```text
+display health
+display service verbose
 display alarm active
 display alarm history last 100
-journalctl -u vortexrosd -u vortexros-vpp -u vortexros-frr -u vortexros-route-zapi
 ```
 
+`display service verbose` 提供服务状态和最近错误，告警提供受影响对象及累计次数；
+它们不包含完整运行日志。需要关联多个服务的故障过程时，使用同一时间范围查看日志。
+
+### 统一查看受管服务日志
+
+直接在 CLI 查询本次启动最近15分钟的受管服务日志：
+
+```text
+display logbuffer since 15 last 200
+display logbuffer service frr since 15 last 50
+```
+
+记录按时间合并，并保留来源和时间。参数、服务列表和输出示例见[服务日志](logs.md)。
+查询不会修改日志保存策略，也不需要进入 Bash。
+
+检查网卡、驱动、IOMMU或内核错误时，有 Bash 权限的账号可执行 `run bash`，另查内核日志：
+
+```bash
+sudo journalctl -k -b --since '-15 minutes' -o short-precise --no-pager
+```
 
 ## 故障处理顺序
 

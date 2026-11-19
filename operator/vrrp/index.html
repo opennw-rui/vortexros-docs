@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VRRP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>VRRP &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vrrp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -92,9 +92,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -126,6 +126,11 @@
 <h1>VRRP<a class="headerlink" href="#vrrp" title="链接到此标题。"></a></h1>
 <p>在多台设备之间提供冗余的 IPv4 或 IPv6 网关。</p>
 <p><a class="reference internal" href="../reference/vrrp/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/vrrp/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="工作原理与适用场景"></span><h2>工作原理与适用场景<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>VRRP（IPv4/IPv6 可参照 RFC 5798）让同一二层网络上的多台路由器共享一个虚拟网关地址，依靠通告和优先级选出 Master。终端使用虚拟地址作为网关，设备切换时不要求终端修改默认路由。</p>
+<p>VRID、地址族和虚拟地址要一致，各设备仍需各自的真实接口地址。VRRP 只解决网关冗余，不自动同步 NAT 会话、应用状态或远端路由。接口 Up 也不代表上游可达，需要按实际需求使用本产品支持的跟踪选项。</p>
+<p>验证先检查角色，再从终端访问网关外业务；关闭 Master 的有效业务路径后检查 Backup 接管，恢复后按抢占设置观察角色。不要让两台设备长期都处于 Master，再用偶然可通的 ping 代替正确选举。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ipv4/">IPv4 网关</a><ul>
@@ -146,6 +151,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 

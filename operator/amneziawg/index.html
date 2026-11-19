@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AmneziaWG &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>AmneziaWG &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/amneziawg/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -87,9 +87,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -121,6 +121,11 @@
 <h1>AmneziaWG<a class="headerlink" href="#amneziawg" title="链接到此标题。"></a></h1>
 <p>配置独立的 AmneziaWG 隧道及两端的协议参数。</p>
 <p><a class="reference internal" href="../reference/amneziawg/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/amneziawg/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="工作原理与版本选择"></span><h2>工作原理与版本选择<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>AmneziaWG 在 WireGuard 式密钥隧道之外加入版本相关的报文外观及填充参数。两端必须选用本产品支持的相同协议版本，并按该版本配置一致参数；不能把不同版本示例中的字段任意拼接。</p>
+<p>它适合需要对应协议互通的加密三层连接，不是只要接口 Up 就完成了对端认证。密钥、端点、允许前缀与业务路由仍需正确配置。额外填充会增加报文开销，MTU 和带宽规划应预留空间。</p>
+<p>支持版本、字段关系与完整配置分别见下列页面。修改协议参数后检查实际握手和双向业务，使用对端普通 WireGuard 能连通的结果不能替代 AmneziaWG 的版本互通验证。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="versions/">版本与兼容</a><ul>
@@ -147,8 +152,9 @@
 </li>
 </ul>
 </div>
-<section id="id1">
-<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+</section>
+<section id="id2">
+<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>接口须未 shutdown，配置相应 tunnel-protocol，绑定含有效私钥的完整 profile，并已成功创建 Tunnel。显式 source 必须是对应底层 VPN 中的本机地址；自动 source 按每个 peer 的底层出口选择。Tunnel 上有有效 IP 地址后才能显示三层 Protocol Up。</p>
 <p>接口状态与 peer 握手分别判断：未配置 peer、尚未握手或某个 peer 失联，不会直接使共享 Tunnel 整体 Down。实际通信还要求对端公钥、预共享密钥（如使用）、两端混淆参数、端点、允许前缀及业务路由正确，底层 UDP 能双向通过。先发起业务，再检查握手时间、peer 收发计数及双向探测。</p>
 <p>协议参数与客户端兼容范围见<a class="reference internal" href="versions/"><span class="std std-doc">版本与参数</span></a>。</p>

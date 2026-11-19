@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OSPF &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>OSPF &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ospf/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -94,9 +94,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -128,6 +128,35 @@
 <h1>OSPF<a class="headerlink" href="#ospf" title="链接到此标题。"></a></h1>
 <p>OSPF 在同一路由域内建立 IPv4 链路状态邻接并交换前缀。创建进程不代表所有接口自动参与；选择 network 或接口激活方式，区域、网络类型、认证和计时等条件兼容后才建立邻居。</p>
 <p>OSPFv3 用于 IPv6，见独立<a class="reference internal" href="../ospfv3/"><span class="std std-doc">OSPFv3</span></a>章节。</p>
+<section id="id1">
+<span id="工作原理与组网选择"></span><h2>工作原理与组网选择<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>OSPFv2 按 RFC 2328 交换链路状态信息，各设备在区域内维护一致的链路状态数据库，再计算到目标网络的最短路径。适合一个管理域内的 IPv4 路由；不同自治系统之间的策略互联通常使用 BGP。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>设计项</p></th>
+<th class="head"><p>配置时需要明确</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Router ID</p></td>
+<td><p>在路由域内唯一且稳定，不能以邻居地址代替</p></td>
+</tr>
+<tr class="row-odd"><td><p>Area</p></td>
+<td><p>相连链路两端必须属于同一区域；跨区域设计围绕骨干区域 0</p></td>
+</tr>
+<tr class="row-even"><td><p>网络类型</p></td>
+<td><p>影响邻居发现及 DR/BDR 选举，两端需兼容</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cost</p></td>
+<td><p>影响本协议路径计算，不是系统 Preference</p></td>
+</tr>
+<tr class="row-even"><td><p>外部路由</p></td>
+<td><p>由重分发产生，E1 与 E2 的度量比较不同</p></td>
+</tr>
+</tbody>
+</table>
+<p>普通广播网络中，非 DR/BDR 之间停在 2-Way 可能是正常状态；不能只以所有邻居都 Full 判断组网。先查邻居，再查 LSDB 中的类型、通告者、长度和度量，最后查系统路由及业务。默认内部优先级 10、外部优先级 150，详见<a class="reference internal" href="../routing-preference/"><span class="std std-doc">路由优先级</span></a>。</p>
+<p>修改区域、网络类型或认证可能使邻接重新建立；重分发扩大的是路由发布范围，宜配合路由策略限制。撤销前检查是否还有其他可用路径。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="activation/">进程与接口</a><ul>
@@ -164,6 +193,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../../examples/ospf/"><span class="std std-doc">完整双端案例与实际 E2 查询</span></a> · <a class="reference internal" href="../reference/ospf/"><span class="std std-doc">命令参数</span></a></p>
+</section>
 </section>
 
 

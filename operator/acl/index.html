@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ACL &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>ACL &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/acl/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -79,9 +79,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -111,6 +111,31 @@
   <section id="acl">
 <h1>ACL<a class="headerlink" href="#acl" title="链接到此标题。"></a></h1>
 <p>ACL 只做无状态过滤，动作只有 permit 和 deny，不建立连接表，也不根据正向放行自动放行反向报文。TCP established 是标志位匹配，不是会话状态。</p>
+<section id="id1">
+<span id="工作原理与适用场景"></span><h2>工作原理与适用场景<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>ACL 逐条比较报文的地址、协议、端口和所配置的其他条件，以规则顺序决定放行或丢弃。它适合限制管理访问、隔离网段以及只允许特定应用通过；需要按用户连接分配地址时，应配置 NAT，而不是依赖 ACL。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>需要区分的内容</p></th>
+<th class="head"><p>使用含义</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IPv4 / IPv6</p></td>
+<td><p>分别配置和绑定，IPv4 规则不能过滤 IPv6</p></td>
+</tr>
+<tr class="row-odd"><td><p>inbound / outbound</p></td>
+<td><p>相对于绑定接口；不是相对于业务服务器</p></td>
+</tr>
+<tr class="row-even"><td><p>TCP established</p></td>
+<td><p>匹配 TCP 标志位，不证明三次握手已完成</p></td>
+</tr>
+<tr class="row-odd"><td><p>permit</p></td>
+<td><p>允许继续处理；后续策略、路由或接口仍可能丢弃</p></td>
+</tr>
+</tbody>
+</table>
+<p>桥接端口上的二层绑定和 Vlanif 上的三层绑定覆盖不同流量。访问设备自身的报文、经过设备路由的报文、同一 VLAN 内桥接的报文，应按实际路径选择绑定位置。涉及 DHCP、ARP/ND 或路由协议时，先保留其必要流量，再收紧业务规则。未命中的处理以对应地址族和绑定方式的说明为准，不套用其他设备的缺省动作。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ipv4/">IPv4 ACL</a></li>
@@ -123,6 +148,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../../examples/acl/"><span class="std std-doc">完整双端案例</span></a> · <a class="reference internal" href="../reference/acl/"><span class="std std-doc">逐条参数</span></a></p>
+</section>
 </section>
 
 

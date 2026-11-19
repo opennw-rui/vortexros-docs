@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SNMP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>SNMP &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/snmp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -83,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -117,6 +117,11 @@
 <h1>SNMP<a class="headerlink" href="#snmp" title="链接到此标题。"></a></h1>
 <p>通过 SNMP 查询设备状态和接口计数。</p>
 <p><a class="reference internal" href="../reference/snmp/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/snmp/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="工作原理与访问范围"></span><h2>工作原理与访问范围<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>SNMP 允许外部管理系统读取设备对象及接口计数。管理端发起查询，设备按版本、凭据、权限和监听范围应答；SNMP 服务不等于设备已经配置了外部监控平台。</p>
+<p>使用 community 的版本依靠相应字符串控制访问；需要认证和隐私保护时优先按 SNMPv3 页面配置，并区分认证与加密算法。应只允许可信管理网络访问，不能把外部平台无法查询都归因于设备计数故障。</p>
+<p>接口索引属于查询对象身份，业务接口名称及流量方向仍按设备显示解释。验证凭据和来源限制、代表对象、计数增长及撤销后的访问结果；不要在公开配置或工单中暴露有效凭据。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="configuration/">SNMP 配置</a><ul>
@@ -135,6 +140,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 

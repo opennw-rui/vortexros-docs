@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IPv6 与 RA &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>IPv6 与 RA &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ipv6-autoconfig/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -88,9 +88,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -121,6 +121,37 @@
   <section id="ipv6-ra">
 <span id="ipv6-与-ra"></span><h1>IPv6 与 RA<a class="headerlink" href="#ipv6-ra" title="链接到此标题。"></a></h1>
 <p>全局 IPv6 能力始终可用，没有全局关闭命令。每个三层接口默认关闭 IPv6；先配置 <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">enable</span></code>，再配置地址、RA、DHCPv6 或 IPv6 路由协议。默认不发送 RA、不接受 RA 自动地址或默认路由、不生成临时隐私地址。</p>
+<section id="id1">
+<span id="地址获取与路由获取"></span><h2>地址获取与路由获取<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>IPv6 接口可能同时具有链路本地、手工全局、SLAAC 和 DHCPv6 地址。地址数量取决于配置和收到的前缀，不应仅以“不是一个地址”认定异常。链路本地地址用于同链路控制通信，全局地址用于相应业务范围。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>机制</p></th>
+<th class="head"><p>取得的内容</p></th>
+<th class="head"><p>需要的对端</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SLAAC（RFC 4862）</p></td>
+<td><p>根据 RA 前缀生成地址</p></td>
+<td><p>发布有效自主前缀的路由器</p></td>
+</tr>
+<tr class="row-odd"><td><p>RA（RFC 4861）</p></td>
+<td><p>前缀、路由器及相关链路信息</p></td>
+<td><p>IPv6 路由器</p></td>
+</tr>
+<tr class="row-even"><td><p>DHCPv6 IA_NA / IA_TA</p></td>
+<td><p>地址租约</p></td>
+<td><p>DHCPv6 服务器或中继</p></td>
+</tr>
+<tr class="row-odd"><td><p>DHCPv6 IA_PD</p></td>
+<td><p>授权给下游使用的前缀</p></td>
+<td><p>支持前缀委派的服务器</p></td>
+</tr>
+</tbody>
+</table>
+<p>本产品全局 IPv6 能力常开，接口缺省不启用；按页内命令显式启用接口。DHCPv6 不提供默认网关，默认路由应按 RA 或静态/动态路由方式取得。隐私临时地址、稳定地址和租约地址也不是相同概念，详见地址选择页面。</p>
+<p>验证时检查地址来源、前缀长度、有效期、默认路由和实际双向通信。停止接收 RA 与停止通告 RA 是两种方向不同的操作；撤销时还要核对原来学习的地址和路由的生命周期。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="interface/">接口启用</a><ul>
@@ -177,6 +208,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../../examples/ipv6-ra/"><span class="std std-doc">双端配置案例</span></a> · <a class="reference internal" href="../../examples/dhcpv6/"><span class="std std-doc">DHCPv6 与前缀委派</span></a> · <a class="reference internal" href="../reference/ipv6-autoconfig/"><span class="std std-doc">命令参考</span></a></p>
+</section>
 </section>
 
 

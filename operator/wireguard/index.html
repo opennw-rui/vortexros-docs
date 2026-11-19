@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WireGuard &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>WireGuard &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/wireguard/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -87,9 +87,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -121,6 +121,11 @@
 <h1>WireGuard<a class="headerlink" href="#wireguard" title="链接到此标题。"></a></h1>
 <p>用密钥认证的三层隧道互连站点。</p>
 <p><a class="reference internal" href="../reference/wireguard/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/wireguard/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="工作原理与组网规划"></span><h2>工作原理与组网规划<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>WireGuard 使用公钥认证对端，并以加密的 UDP 隧道承载三层报文。Peer 的 Allowed IPs 同时参与允许地址范围与对端选择；对端公钥、端点、允许前缀和路由必须相互配套。</p>
+<p>适合站点互联或需要三层加密的点到点业务。它不是二层桥接，也不自动发布动态路由。相同目的前缀由哪个 Peer 承载应明确规划，避免把互相重叠的业务范围交给错误对端。</p>
+<p>接口 Up 不证明已经握手或远端可达。核对最近握手、Peer 收发、业务路由和双向探测。改密钥或替换 Peer 会影响相应会话；MTU 还要扣除外层 IP、UDP 和加密开销。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="profile/">Profile 与 Peer</a><ul>
@@ -139,8 +144,9 @@
 </li>
 </ul>
 </div>
-<section id="id1">
-<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+</section>
+<section id="id2">
+<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>接口须未 shutdown，配置相应 tunnel-protocol，绑定含有效私钥的完整 profile，并已成功创建 Tunnel。显式 source 必须是对应底层 VPN 中的本机地址；自动 source 按每个 peer 的底层出口选择。Tunnel 上有有效 IP 地址后才能显示三层 Protocol Up。</p>
 <p>接口状态与 peer 握手分别判断：未配置 peer、尚未握手或某个 peer 失联，不会直接使共享 Tunnel 整体 Down。实际通信还要求对端公钥、预共享密钥（如使用）、端点、允许前缀及业务路由正确，底层 UDP 能双向通过。先发起业务，再检查握手时间、peer 收发计数及双向探测。</p>
 </section>

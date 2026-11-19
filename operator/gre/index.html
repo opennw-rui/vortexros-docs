@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GRE &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>GRE &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/gre/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -82,9 +82,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -117,7 +117,13 @@
 <p>使用 GRE 在 IP 网络上建立三层点到点隧道。</p>
 <p><a class="reference internal" href="../reference/gre/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/gre/"><span class="std std-doc">配置案例</span></a></p>
 <section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<span id="工作原理与使用边界"></span><h2>工作原理与使用边界<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>GRE（RFC 2784，Key 扩展见 RFC 2890）在外层 IP 网络上传递内层报文。Key 用于区分业务，不提供加密或身份认证；需要保密时应选择具备加密能力的隧道。</p>
+<p>适合底层三层可达、需要固定两端封装的互联。内层业务路由决定流量是否进入 Tunnel，底层路由决定外层报文如何到达远端。两者要避免相互递归，例如把通往远端隧道端点的唯一路由指回隧道自身。</p>
+<p>底层可达与接口 Up 不代表远端参数一致。检查内外层源、目的、VPN、Key 和 MTU，再检查隧道业务。变更引发的短暂重建中断及默认 MTU 见下列说明。</p>
+</section>
+<section id="id2">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Tunnel 1
  description P1-P2-GRE
  tunnel-protocol gre
@@ -141,8 +147,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id2">
-<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>GRE 接口未 shutdown，已配置 tunnel-protocol gre、source 和 destination，且本机在所选底层 VPN 拥有 source 地址、该 VPN 有到 destination 的有效路由后，隧道才能激活。三层 Protocol Up 还需 Tunnel 上有有效 IP 地址。</p>
 <p>远端未启动 GRE 或 key 不匹配，不一定使本机接口 Down；Up 不代表端到端业务已通。请结合底层可达性、两端参数、隧道地址探测和业务路由检查。源地址或底层路由失效时，接口会 Down，条件恢复后自动激活。状态标记见<a class="reference internal" href="../tunnel-settings/lifecycle/"><span class="std std-doc">隧道状态</span></a>。</p>
 </section>

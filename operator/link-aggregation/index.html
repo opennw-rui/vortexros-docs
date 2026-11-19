@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>链路聚合 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>链路聚合 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/link-aggregation/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -88,9 +88,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -123,7 +123,13 @@
 <p>使用 Eth-Trunk 把多个物理接口组成一个逻辑接口。</p>
 <p><a class="reference internal" href="../reference/link-aggregation/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/lacp/"><span class="std std-doc">配置案例</span></a></p>
 <section id="id2">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<span id="工作原理与链路规划"></span><h2>工作原理与链路规划<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>链路聚合把多个物理成员组成一个逻辑 Eth-Trunk。LACP 按 IEEE 802.1AX 协商成员，业务通常按流散列选择成员，因此单条流不保证获得所有成员带宽之和。</p>
+<p>两端应采用兼容的聚合模式、成员速率和业务 VLAN 配置。上层 IP、VLAN 或策略应按聚合接口的配置约束使用，不把成员端口当作完全独立的业务接口。增加成员也不意味着旧流量会均匀重分配。</p>
+<p>适合链路冗余和多流负载分担。验证成员选中状态、聚合接口状态、多条业务流及单成员故障恢复；仅聚合接口 Up 不能证明所有成员都在转发。</p>
+</section>
+<section id="id3">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>聚合接口默认L3，支持手工聚合（manual）和静态 LACP（lacp-static）；成员必须是物理接口并满足兼容属性。加入后，成员不再允许独立配置L2/L3参数，聚合无关的ACL/QoS绑定按能力保留。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Eth-Trunk 10
  mode lacp-static
@@ -151,8 +157,8 @@ undo interface Eth-Trunk 10
 </div>
 <p>成员口退出聚合后，才可重新配置其独立的二层/三层属性。</p>
 </section>
-<section id="id3">
-<span id="切换模式"></span><h2>切换模式<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<section id="id4">
+<span id="切换模式"></span><h2>切换模式<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>在同一 Candidate 中先移出成员，再改模式并重新加入，最后统一提交。例如将两个成员的聚合改为手工模式：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Eth-Trunk 10
  undo trunkport Ethernet 1 to Ethernet 2

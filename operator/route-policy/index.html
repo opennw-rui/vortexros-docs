@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>路由策略 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>路由策略 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/route-policy/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -91,9 +91,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -124,6 +124,11 @@
   <section id="id1">
 <span id="路由策略"></span><h1>路由策略<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <p>前缀列表负责匹配，route-policy 节点允许、拒绝或修改路由。定义不等于启用，只有在协议消费者挂载后才生效。</p>
+<section id="id2">
+<span id="工作原理与生效位置"></span><h2>工作原理与生效位置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>路由策略在路由导入、导出或协议选择时匹配并处理路由，操作对象是路由及属性，不是逐包业务流。节点顺序、permit/deny、匹配条件与执行动作共同决定结果。</p>
+<p>前缀列表匹配目标前缀和长度，AS 路径、团体等条件匹配对应 BGP 属性。策略必须挂到本手册列出的协议入口才生效；名字相同不表示已被所有协议自动引用。ACL 的报文过滤与路由策略的前缀过滤不能互换。</p>
+<p>适合控制重分发范围、对外发布集合和 BGP 属性。先列出应允许及应拒绝的代表路由，再变更；修改已引用策略会影响现有路由，删除前先撤销引用，核对路由发布和业务变化。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="matching/">节点与前缀匹配</a><ul>
@@ -134,6 +139,7 @@
 <li class="toctree-l1"><a class="reference internal" href="attributes/">属性与继续节点</a></li>
 </ul>
 </div>
+</section>
 </section>
 
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>系统 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>系统 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/system/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -120,9 +120,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -807,6 +807,25 @@
 <li><p>数据来源：Candidate（本会话待提交配置）。</p></li>
 </ul>
 <p>此形式没有额外参数。</p>
+</section>
+<section id="display-logbuffer">
+<h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">logbuffer</span></code><a class="headerlink" href="#display-logbuffer" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：只读显示命令</p></li>
+<li><p>执行效果：显示设备配置或运行状态，不修改配置。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
+<li><p>CLI 帮助：display managed service journal entries</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display logbuffer [service SERVICE] [last N] [since MINUTES]
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>参数与使用</strong></p>
+<p>默认查看本次启动的最近100条受管服务日志。<code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">N</span></code> 范围1–1000，
+<code class="docutils literal notranslate"><span class="pre">since</span> <span class="pre">MINUTES</span></code> 范围1–1440。<code class="docutils literal notranslate"><span class="pre">service</span></code> 可选 control、vpp、frr、route-zapi、
+switchd、dhcp、snmp、aaa。筛选项顺序可交换，不可重复。</p>
+<p>完整参数、权限、输出示例和限制见<a class="reference internal" href="../../operations/logs/"><span class="std std-doc">服务日志</span></a>。</p>
 </section>
 </section>
 

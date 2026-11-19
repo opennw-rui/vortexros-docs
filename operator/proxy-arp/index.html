@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>代理 ARP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>代理 ARP &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/proxy-arp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -88,9 +88,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -122,11 +122,17 @@
 <span id="代理-arp"></span><h1>代理 ARP<a class="headerlink" href="#arp" title="链接到此标题。"></a></h1>
 <p>代理 ARP 在指定三层接口上，为配置范围内的 IPv4 地址回答 ARP，适用于客户认为目标直连、目标实际位于路由网络另一端的情况。它不执行 NAT，也不代替路由。</p>
 <section id="id1">
-<span id="使用条件"></span><h2>使用条件<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
-<p>入口应是具有 MAC 的三层接口，如物理口、聚合口、Vlanif 或 Vbdif；二层成员口、LoopBack 和 NVE 不能作为代理入口。接口所属 VPN 决定路由域。设备必须有到目标的路由，目标必须有回程。</p>
+<span id="工作原理与适用场景"></span><h2>工作原理与适用场景<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>Proxy ARP 允许设备代另一个可路由目标回应 ARP，使发送端把报文交给设备继续三层转发。它不把两个网段自动变成同一个广播域，也不替代目标路由和回程路由。</p>
+<p>适合地址规划或接入方式确实需要代理解析的 IPv4 网络。启用范围应受接口和路由条件约束；无意扩大代理范围可能让终端把原应直接通信的业务交给网关，并掩盖掩码配置错误。</p>
+<p>验证应分别核对终端收到的 ARP 回答、设备所选路由与双向业务。撤销后，终端可能仍保留旧 ARP 缓存，应在确认缓存更新后判断新行为。</p>
 </section>
 <section id="id2">
-<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<span id="使用条件"></span><h2>使用条件<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>入口应是具有 MAC 的三层接口，如物理口、聚合口、Vlanif 或 Vbdif；二层成员口、LoopBack 和 NVE 不能作为代理入口。接口所属 VPN 决定路由域。设备必须有到目标的路由，目标必须有回程。</p>
+</section>
+<section id="id3">
+<span id="拓扑"></span><h2>拓扑<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>CE1、P1、P2、CE2 均运行 VortexROS：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE1 Ethernet0 ── Ethernet1 P1 Ethernet0 ── Ethernet0 P2 Ethernet1 ── Ethernet0 CE2
 198.18.11.100/24  198.18.11.1/24
@@ -216,8 +222,8 @@ ip route-static 198.18.11.0 255.255.255.0 198.19.23.2
 </pre></div>
 </div>
 </section>
-<section id="id3">
-<span id="验证"></span><h2>验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<section id="id4">
+<span id="验证"></span><h2>验证<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>P1 执行 display arp proxy；示例输出：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Start Address    End Address      Interface            State
 198.18.11.150    198.18.11.150    Ethernet1            active
@@ -227,8 +233,8 @@ Total items displayed = 1
 <p>CE1 执行 ping -a 198.18.11.100 -c 3 198.18.11.150，应收到回复。用 display arp 查看目标邻居，其 MAC 应为 P1 接入口的 MAC。P1/P2 用 display ip routing-table 检查目标与回程。</p>
 <p>范围外的地址不会自动获得代理应答。若持续不通，应分别检查代理入口、目标主机路由及回程，而不是只检查配置是否存在。</p>
 </section>
-<section id="id4">
-<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<section id="id5">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
 <p>P1 执行：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 undo arp proxy 198.18.11.150 198.18.11.150 interface Ethernet1

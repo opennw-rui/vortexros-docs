@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EVPN &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>EVPN &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/11-vxlan-evpn/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -89,9 +89,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -124,8 +124,7 @@
 <p>本章说明如何使用 BGP EVPN 建立 VXLAN 覆盖网络。当前支持单归属和 All-Active
 多归属 L2VNI，以及 L3VNI：BGP 发布和接收 EVPN Type-1 Ethernet A-D、Type-2
 MAC/IP、Type-3 Inclusive Multicast、Type-4 Ethernet Segment 与 Type-5 IP Prefix
-路由；LCP 把标准 Linux FDB、邻居和 VRF 路由转换为 VPP VXLAN、L2 FIB、ARP/ND
-终结表、租户 FIB 和多归属转发状态，VPP 完成业务报文转发。</p>
+路由，用于发现业务成员、学习远端 MAC/IP、传递租户前缀及协调多归属转发。</p>
 <p><a class="reference internal" href="../reference/evpn/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/evpn/"><span class="std std-doc">案例目录</span></a></p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -195,18 +194,43 @@ Type-4/Type-5、IPv4/IPv6 MAC/IP 和租户前缀、ARP/ND 抑制、共享 SVD �
 <p>当前 FRR 版本只实现 All-Active EVPN 多归属，因此不提供 Single-Active。按本项目范围，
 不实现 PIM、underlay multicast 和 EVPN selective multicast；BUM 使用 ingress
 replication。未列出的 EVPN 扩展不能由近似命令静默下发。</p>
-<p>实现语义对照：</p>
-<ul class="simple">
-<li><p>VRP VXLAN EVPN 配置模型：<code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code>、<code class="docutils literal notranslate"><span class="pre">Nve</span></code>、<code class="docutils literal notranslate"><span class="pre">l2vpn-family</span> <span class="pre">evpn</span></code>；</p></li>
-<li><p>FRR BGP EVPN：<code class="docutils literal notranslate"><span class="pre">advertise-all-vni</span></code>、per-VNI/L3VNI RD/RT、Type-1 至 Type-5、
-All-Active ES 与 DF 选举；</p></li>
-<li><p>VPP：原生 VXLAN、bridge-domain、L2 FIB、租户 IP FIB，以及 LCP 传入的多归属
-转发状态。</p></li>
-</ul>
 </section>
 <section id="id3">
-<span id="业务激活条件"></span><h2>业务激活条件<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
-<p>先满足<a class="reference internal" href="../vxlan/#id2"><span class="std std-ref">VXLAN 的激活条件</span></a>，再检查 BGP EVPN 邻居、VNI 对应的 RD/RT 及远端路由导入。二层业务还需接入口及 MAC 可达；三层业务需租户 VPN、L3VNI、相应 Type-5 路由和回程路径。NVE Up 或 BGP Established 均不能单独证明所有租户业务可用。Vbdif 网关的状态还取决于其<a class="reference internal" href="../bridge-domains/#vbdif"><span class="std std-ref">桥域成员</span></a>。</p>
+<span id="工作原理与业务选择"></span><h2>工作原理与业务选择<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>EVPN 的基本机制见 RFC 7432，VXLAN 承载扩展见 RFC 8365。BGP 负责分发可达性，VXLAN 负责客户报文封装，两者的运行状态分别检查。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>对象或路由</p></th>
+<th class="head"><p>业务用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>L2VNI / 桥域</p></td>
+<td><p>延伸客户二层网络及 MAC 学习范围</p></td>
+</tr>
+<tr class="row-odd"><td><p>L3VNI / VPN</p></td>
+<td><p>承载租户三层互联</p></td>
+</tr>
+<tr class="row-even"><td><p>Type-2</p></td>
+<td><p>MAC/IP 可达性</p></td>
+</tr>
+<tr class="row-odd"><td><p>Type-3</p></td>
+<td><p>广播、未知单播和组播的业务成员发现</p></td>
+</tr>
+<tr class="row-even"><td><p>Type-1 / Type-4</p></td>
+<td><p>多归属接入及 Ethernet Segment 信息</p></td>
+</tr>
+<tr class="row-odd"><td><p>Type-5</p></td>
+<td><p>租户 IP 前缀</p></td>
+</tr>
+</tbody>
+</table>
+<p>RD 区分路由身份，RT 集合决定导入导出，VNI 标识数据面业务。相同 L3VNI 的 IPv4、IPv6 EVPN 共用一套 RD 及导入/导出 RT 集合，RT 可配置多个；普通 MPLS VPN 的两族配置不因此合并。</p>
+<p>多归属还需一致的 ESI、客户侧聚合和 DF 选举条件。看到两条 Type-4 或两个下一跳只证明相关控制信息存在，仍须核对客户 MAC、单播与 BUM 流量、链路故障后的转发和恢复。具体双端配置及撤销见独立案例。</p>
+</section>
+<section id="id4">
+<span id="业务激活条件"></span><h2>业务激活条件<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>先满足<a class="reference internal" href="../vxlan/#id3"><span class="std std-ref">VXLAN 的激活条件</span></a>，再检查 BGP EVPN 邻居、VNI 对应的 RD/RT 及远端路由导入。二层业务还需接入口及 MAC 可达；三层业务需租户 VPN、L3VNI、相应 Type-5 路由和回程路径。NVE Up 或 BGP Established 均不能单独证明所有租户业务可用。Vbdif 网关的状态还取决于其<a class="reference internal" href="../bridge-domains/#vbdif"><span class="std std-ref">桥域成员</span></a>。</p>
 </section>
 </section>
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BFD &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>BFD &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bfd/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -91,9 +91,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -125,6 +125,11 @@
 <h1>BFD<a class="headerlink" href="#bfd" title="链接到此标题。"></a></h1>
 <p>用独立会话或协议绑定检测路径故障。</p>
 <p>BFD可建立独立会话，也可由OSPF、IS-IS、RIP和BGP邻居调用。静态和协议会话均默认发送间隔 1000 ms、接收间隔 1000 ms、检测次数 3。默认参数省略于保存配置。BGP 邻居覆盖对等体组的参数时，配置仍会显示有实际影响的覆盖项。</p>
+<section id="id1">
+<span id="工作原理与检测时间"></span><h2>工作原理与检测时间<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>BFD（RFC 5880）使用独立控制报文检测转发路径的双向可达性。它适合让静态路由或动态协议较快获知故障，不负责交换业务路由，也不保证业务应用健康。</p>
+<p>缺省发送/接收间隔均为 1000 ms、检测倍数为 3。实际检测时间由协商后的间隔与对端倍数决定，不能简单把本端配置值当作端到端收敛时间。过短间隔增加调度和报文负担，繁忙时也可能导致误判。</p>
+<p>独立会话和协议触发会话分别配置。协议绑定后检查实际 Peer、VPN、会话状态与协商参数，再模拟路径故障检查路由撤销和恢复；只看到会话 Up 不代表该协议已引用它。参数修改应与对端协调。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="static/">独立会话</a><ul>
@@ -141,8 +146,9 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../../examples/bfd/"><span class="std std-doc">完整双端案例</span></a> · <a class="reference internal" href="../reference/bfd/"><span class="std std-doc">命令参数</span></a></p>
-<section id="id1">
-<span id="默认计时器核对"></span><h2>默认计时器核对<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+</section>
+<section id="id2">
+<span id="默认计时器核对"></span><h2>默认计时器核对<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>协议动态会话与未覆盖计时器的静态会话默认接收、发送间隔均为1000ms，检测倍数3。一次OSPF联动验证的实际显示为：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bfd statistics
 Peer             State       Detect(ms)  Rx(ms)  Tx(ms)  Multiplier

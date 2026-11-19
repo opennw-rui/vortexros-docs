@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>静态路由组 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>静态路由组 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/route-groups/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -86,9 +86,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -120,6 +120,11 @@
 <span id="静态路由组"></span><h1>静态路由组<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <p>为大量前缀共用下一跳与路由属性。</p>
 <p><a class="reference internal" href="../reference/route-groups/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/route-group/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id2">
+<span id="工作原理与规模规划"></span><h2>工作原理与规模规划<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>路由组把一批目标前缀与一套共同下一跳、VPN 和路由属性关联。适合批量静态网络、地址清单或多个前缀共用同一出口；不是 BGP 的路由聚合，也不会把多个目标网络变成一个更短前缀。</p>
+<p>前缀集合更新影响组内路由，下一跳或属性更新可能影响整个组。维护外部清单时应检查下载状态、解析结果和最终路由数量；下载成功不等于所有前缀已安装。与普通静态路由重叠时，还要比较具体前缀和优先级。</p>
+<p>验证至少选取新增、保留和撤销的代表前缀，分别检查系统路由、FIB 和业务。撤销数据源或组时检查原来发布的路由已移除；不能只看组配置消失。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="local/">本地路由组</a><ul>
@@ -137,6 +142,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 

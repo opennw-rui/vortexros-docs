@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>性能参考 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>性能参考 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/performance/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -68,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../">发布记录</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../debug2/">Debug 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vortexros/">VortexROS 0.30-dev</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vpp/">配套 VPP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../frr/">配套 FRR</a></li>
@@ -80,9 +81,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -411,6 +412,70 @@
 <p>MQC 的另一组对照每种条件运行 2 次、每次 3 秒，全部检查实际零丢包。单 worker 首项命中由 248.0 降至 231.5 packet-clocks/packet（−6.65%），末项命中由 249.0 降至 231.0（−7.23%）；3 workers、64 个键由 294.7 降至 273.7（−7.13%）。实际速率分别约 3.991、3.991 和 5.997 Mpps。packet-clocks 表示节点处理成本，不能换算为整机 CPU 占用下降比例。</p>
 <p>单接收队列、3 workers 的多功能组合存在明确边界：1.9 Mpps 单流两次均零丢包，2.0 Mpps 单流已有少量丢包；32 条流在 2.85 Mpps 两次均零丢包，3.0 Mpps 新旧实现均未稳定零丢包。因此不将 3.0 Mpps 宣称为无损容量，也不把个别高压样本解释成普遍收益。</p>
 <p>本版没有采用未证明稳定整链路收益的三个功能入口候选优化。上述专项结果及保留范围可查阅<a class="reference external" href="https://github.com/opennw-rui/VortexROS-VPP/blob/53915414622dfbc20aff09364101a9416cd6f050/docs/experiments/20261117-nat-mqc/REPORT.md">配套优化记录</a>。实际容量仍应按自身帧长、流数、worker、队列、加密及策略组合验收。</p>
+</section>
+<section id="qinq">
+<span id="父接口灵活-qinq"></span><h2>父接口灵活 QinQ<a class="headerlink" href="#qinq" title="链接到此标题。"></a></h2>
+<p>2026-11-19，按相同报文和准入条件比较原生固定客户 VLAN 子接口与灵活 QinQ。
+两者都保留 MAC 学习、接口统计和原生出口准入。固定 0.5 Mpps，
+每种条件三次交错，单 worker 与双 worker 分开测量；单位为处理节点加权
+packet-clocks/packet，未计空轮询成本。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>workers</p></th>
+<th class="head"><p>方向</p></th>
+<th class="head text-right"><p>原生固定CVID均值</p></th>
+<th class="head text-right"><p>32CVID集合均值</p></th>
+<th class="head text-right"><p>变化</p></th>
+<th class="head"><p>原生三次</p></th>
+<th class="head"><p>集合三次</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>C-to-SC</p></td>
+<td class="text-right"><p>699.27</p></td>
+<td class="text-right"><p>670.77</p></td>
+<td class="text-right"><p>-4.08%</p></td>
+<td><p>677.2 / 676.9 / 743.7</p></td>
+<td><p>684.3 / 702.1 / 625.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>SC-to-C</p></td>
+<td class="text-right"><p>727.97</p></td>
+<td class="text-right"><p>770.63</p></td>
+<td class="text-right"><p>+5.86%</p></td>
+<td><p>766.0 / 646.1 / 771.8</p></td>
+<td><p>820.4 / 679.1 / 812.4</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>C-to-SC</p></td>
+<td class="text-right"><p>545.13</p></td>
+<td class="text-right"><p>531.80</p></td>
+<td class="text-right"><p>-2.45%</p></td>
+<td><p>519.4 / 568.1 / 547.9</p></td>
+<td><p>521.1 / 539.2 / 535.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>SC-to-C</p></td>
+<td class="text-right"><p>634.47</p></td>
+<td class="text-right"><p>628.27</p></td>
+<td class="text-right"><p>-0.98%</p></td>
+<td><p>626.2 / 638.9 / 638.3</p></td>
+<td><p>643.3 / 627.9 / 613.6</p></td>
+</tr>
+</tbody>
+</table>
+<p>24个有效样本累计 60,063,497 包，沿途发生、发送、接收计数一致，零丢包。
+实际发送速率为 499454.3–499811.9 pps。
+客户方向帧长128字节，服务方向132字节，同方向两种方案长度一致。</p>
+<p>灵活 QinQ 预置32个CVID，流量实际命中C10；原生对照为固定C10。
+这说明该负载下集合接入与原生接入的成本接近，不能外推为32个VID混合负载、
+最大规模或物理端口线速结论。单worker回程均值额外5.86%，原始样本有波动，
+其他方向差值也跨过零；逐节点结果未形成可稳定归因的新热点，因此未据此追加优化。</p>
+<p>测试使用相同VPP运行库、三节点memif和双接收队列；数据worker固定到独立逻辑CPU，
+测试期间未与其他虚拟机使用的CPU范围重叠。宿主物理核心是否独占不可确认，
+因此不将这些差值解释为确定的硬件加速。相同服务VLAN中的客户集合出口过滤持续开启，
+没有通过取消准入或统计换取结果。功能与限制见<a class="reference internal" href="../../operator/qinq-flexible/"><span class="std std-doc">灵活QinQ</span></a>。</p>
 </section>
 </section>
 

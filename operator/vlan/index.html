@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VLAN &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>VLAN &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vlan/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -94,9 +94,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -128,6 +128,33 @@
 <h1>VLAN<a class="headerlink" href="#vlan" title="链接到此标题。"></a></h1>
 <p>使用 VLAN 划分二层广播域，需要三层网关时创建 Vlanif。</p>
 <p><a class="reference internal" href="../reference/vlan/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/vlan-gateway/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="工作原理与端口选择"></span><h2>工作原理与端口选择<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>VLAN 按 IEEE 802.1Q 将同一交换网络划分为独立广播域。标签中的 VID 标识业务 VLAN；PVID 用于端口对无标签流量的归属判定，不代表自动允许所有带标签报文。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>端口模式</p></th>
+<th class="head"><p>典型用途</p></th>
+<th class="head"><p>需要规划</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Access</p></td>
+<td><p>对接单一业务终端</p></td>
+<td><p>默认 VLAN 与标签准入</p></td>
+</tr>
+<tr class="row-odd"><td><p>Trunk</p></td>
+<td><p>交换设备间携带多个 VLAN</p></td>
+<td><p>允许列表与 PVID</p></td>
+</tr>
+<tr class="row-even"><td><p>Hybrid</p></td>
+<td><p>同端口混合带标签/去标签业务</p></td>
+<td><p>各 VLAN 的出口标签方式</p></td>
+</tr>
+</tbody>
+</table>
+<p>通信两端应使用一致的 VLAN 归属和出口标签方式。PVID 与允许 VLAN 列表分开维护；清空允许列表不会自动改变 PVID。跨 VLAN 通信需要三层路由，通常使用相应 Vlanif 网关。</p>
+<p>变更可能改变广播域、MAC 学习和网关可达性。先核对端口成员和标签准入，再检查 MAC、网关及终端业务。不要因一个无标签 ping 可通，就认定其他带标签 VLAN 也符合隔离要求。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ports/">交换端口</a><ul>
@@ -158,8 +185,9 @@
 </li>
 </ul>
 </div>
-<section id="id1">
-<span id="网关激活"></span><h2>网关激活<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+</section>
+<section id="id2">
+<span id="网关激活"></span><h2>网关激活<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>Vlanif 未 shutdown、所属 VLAN 至少有一个实际成员端口处于管理 Up 且链路 Up 时，PHY 才能 Up；还需有效网关 IP 地址，三层 Protocol 才能 Up。全部成员不可用时自动 Down，恢复后自动 Up。详见<a class="reference internal" href="gateway/"><span class="std std-doc">Vlanif 网关</span></a>。</p>
 </section>
 </section>

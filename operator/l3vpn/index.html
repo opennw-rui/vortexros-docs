@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MPLS L3VPN &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>MPLS L3VPN &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/l3vpn/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -78,9 +78,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -113,7 +113,13 @@
 <p>通过 BGP VPN 地址族在 MPLS 核心上传输客户路由。需要先建立 <a class="reference internal" href="../ldp/"><span class="std std-doc">MPLS 与 LDP</span></a> 的底层标签路径。</p>
 <p><a class="reference internal" href="../../examples/mpls-l3vpn/"><span class="std std-doc">配置案例</span></a></p>
 <section id="id1">
-<span id="配置"></span><h2>配置<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<span id="工作原理与标识规划"></span><h2>工作原理与标识规划<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>MPLS L3VPN（RFC 4364）通过 PE 上的独立 VPN 路由表隔离客户网络，再用 MP-BGP 交换带标签的 VPN 路由。P 核心提供标签承载，不需要保存全部客户路由。</p>
+<p>RD 区分可能重叠的 VPN 前缀；RT 控制路由导入导出，不能用 RD 相同代替正确的 RT 策略。一项业务可配置多个导入/导出 RT，但应检查是否意外连通原本隔离的租户。</p>
+<p>配置顺序围绕底层 IGP/标签承载、PE 间 BGP VPN 地址族、VPN 实例及客户接口展开。先检查标签和 VPN 路由，再从 CE 到 CE 验证双向业务。撤销一端时，远端旧路由及标签也应按协议收敛移除。</p>
+</section>
+<section id="id2">
+<span id="配置"></span><h2>配置<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>PE 上的 VPN-instance 需要 RD 和导入/导出 VPN-Target，BGP VPN 地址族需要与远端
 PE 或 RR 建立 MP-BGP 会话。进入 VPN-instance 地址族时，VortexROS 按产品缺省
 语义自动向 FRR 下发 <code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">vpn</span> <span class="pre">export</span> <span class="pre">auto</span></code>，无需也不允许用户重复配置该后端命令：</p>
@@ -153,14 +159,14 @@ Inter-AS Option B 场景需要保留全部 VPN 路由时可关闭过滤：</p>
 <p>同一 IPv4 MP-BGP 会话承载 VPNv6 时，指定的 connect-interface 也应启用 IPv6 并配置可用的 IPv6 地址。例如，给两端 LoopBack0 分别配置全局 IPv6 /128，再在 ipv6-family vpnv6 下启用已有 IPv4 邻居。接口 IPv6 默认关闭，不能只配置 VPNv6 邻居而忽略源接口。</p>
 <p>优先使用经 IGP 发布并已获得 LDP 标签路径的 LoopBack /32 建立 MP-BGP。仅有到物理直连接口的 IP 路由，不等于具备可导入 VPN 路由的标签路径。</p>
 </section>
-<section id="id2">
-<span id="实际验证结果"></span><h2>实际验证结果<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="实际验证结果"></span><h2>实际验证结果<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>IPv4 与 IPv6 VPN 表均获得对端 RD65000:292、RT65000:290 的前缀；相应 VRF 路由有效并指向 public-net 的传输下一跳。实际 IPv4、IPv6探测均为3/3；核心侧分别捕获到携带标签145和144的请求。</p>
 <p>删除对应地址族的导入 VPN-Target 后，两条业务前缀均从 VRF 路由表消失，IPv4探测不再成功。撤销临时 MP-BGP 传输邻居及RD/RT后，VPNv4/VPNv6表恢复为空。标签由设备分配，示例数字不是固定配置。</p>
 <p>该结果确认了带标签的请求方向和业务连通性；未单独强制本例回复方向也使用标签。部署验收应同时核对两个方向的客户路由和核心路径，避免把直接回程误认为双向 MPLS 验证。</p>
 </section>
-<section id="id3">
-<span id="排障"></span><h2>排障<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<section id="id4">
+<span id="排障"></span><h2>排障<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mpls</span> <span class="pre">ldp</span> <span class="pre">peer</span></code> 无邻居：核对接口 LDP、链路地址、IGP 和 transport
 address 可达性。</p></li>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MQC &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>MQC &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/mqc/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -83,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -116,6 +116,32 @@
   <section id="mqc">
 <h1>MQC<a class="headerlink" href="#mqc" title="链接到此标题。"></a></h1>
 <p>classifier 分类、behavior 动作和 policy 绑定组成一条处理链，未绑定的对象不处理流量。</p>
+<section id="id1">
+<span id="分类行为和绑定"></span><h2>分类、行为和绑定<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>MQC 将“匹配哪些报文”“对匹配报文做什么”“在哪个接口方向使用”分为 classifier、behavior 和 policy。三个对象组成一条完整配置链；只创建 classifier 不会对业务生效。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>对象</p></th>
+<th class="head"><p>作用</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Classifier</p></td>
+<td><p>按支持的地址、协议、标记等条件识别流量</p></td>
+</tr>
+<tr class="row-odd"><td><p>Behavior</p></td>
+<td><p>执行限速、重标记、重定向等已配置动作</p></td>
+</tr>
+<tr class="row-even"><td><p>Policy</p></td>
+<td><p>将分类与行为关联</p></td>
+</tr>
+<tr class="row-odd"><td><p>接口绑定</p></td>
+<td><p>选择处理位置及 inbound / outbound 方向</p></td>
+</tr>
+</tbody>
+</table>
+<p>适合按业务分类管理带宽或改变服务标记。DSCP 是 IP 头中的服务类别标记（RFC 2474），修改标记本身不保证后续网络给予优先服务。重定向会改变选路，应先检查目标下一跳与回程。</p>
+<p>多项策略叠加时按<a class="reference internal" href="../interface-processing/"><span class="std std-doc">接口处理顺序</span></a>核对匹配时的地址、端口及标记。变更后检查命中、实际收发与对照流量；撤销先解除接口引用，再删除策略及共享对象。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="classification/">分类器</a><ul>
@@ -139,6 +165,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../../examples/mqc/"><span class="std std-doc">完整案例与示例输出</span></a> · <a class="reference internal" href="../reference/mqc/"><span class="std std-doc">全部命令参数</span></a></p>
+</section>
 </section>
 
 

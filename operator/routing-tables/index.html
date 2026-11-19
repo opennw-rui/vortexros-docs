@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>路由表与 FIB &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>路由表与 FIB &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/routing-tables/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -85,9 +85,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -119,6 +119,11 @@
 <span id="路由表与-fib"></span><h1>路由表与 FIB<a class="headerlink" href="#fib" title="链接到此标题。"></a></h1>
 <p>RIB 用于核对控制面选路；FIB 用于核对数据面实际转发。</p>
 <p><a class="reference internal" href="../reference/ip-routing/"><span class="std std-doc">命令参考</span></a></p>
+<section id="ribfib">
+<span id="ribfib-与查询用途"></span><h2>RIB、FIB 与查询用途<a class="headerlink" href="#ribfib" title="链接到此标题。"></a></h2>
+<p>RIB 保存路由来源和选路结果，FIB 保存实际转发路径。动态协议自己的路由数据库又是另一层：某个前缀在协议中存在，仍可能因其他协议更优、下一跳不可达或下发未完成而未进入 FIB。</p>
+<p>查询时先确定地址族和 VPN，再检查目的前缀、协议、Preference、下一跳、出口及状态。普通下一跳路径的 Lookup-Table 显示 <code class="docutils literal notranslate"><span class="pre">-</span></code>；只有显式查另一张表的路径才显示实际表号。表号不是出口接口编号，也不是路由优先级。</p>
+<p>出现控制面有路由而业务不通时，继续核对 FIB、邻居和回程；FIB 条目存在也不能替代实际流量验证。大表建议按 VPN、协议和前缀过滤，而不是反复显示整表。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ipv4/">IPv4 查询与过滤</a><ul>
@@ -132,6 +137,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 

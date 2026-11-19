@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6PE &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>6PE &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/6pe/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -78,9 +78,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -112,7 +112,13 @@
 <span id="6pe"></span><h1>6PE<a class="headerlink" href="#pe" title="链接到此标题。"></a></h1>
 <p>通过 IPv4 LDP 核心承载全局 IPv6 路由。</p>
 <section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<span id="工作原理与适用边界"></span><h2>工作原理与适用边界<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>6PE 按 RFC 4798 在 IPv4 MPLS 核心上承载全局 IPv6 可达性。PE 通过 IPv4 邻居交换带标签 IPv6 路由，核心沿标签转发，不要求所有 P 设备参与客户 IPv6 路由。</p>
+<p>6PE 面向全局 IPv6 互联，与采用独立 VPN 实例的 IPv6 VPN 不同。IPv4 底层、LDP 标签路径、BGP 标签路由能力和 IPv6 业务路由均需成立，不能把普通 IPv6 unicast 邻居启用等同于已启用 6PE。</p>
+<p>验证包括标签路由、实际 MPLS 转发表和双向 IPv6 流量。改变标签能力会影响相关路由发布和转发方式，修改两端时预留收敛窗口。</p>
+</section>
+<section id="id2">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>6PE 使用 IPv4 LDP 核心承载全局 IPv6 路由。邻居仍使用 IPv4 LoopBack 建立会话，
 在 IPv6 unicast 地址族中启用邻居及标签路由能力：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
@@ -124,12 +130,11 @@
   network 2001:db8:101::1 128
 </pre></div>
 </div>
-<p>后端使用 FRR 原生 <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">labeled-unicast</span></code> 地址族。Zebra 将 6PE 路由写入 Linux
-netlink，LCP 再同步到 VPP；VortexROS 不直接向 VPP 或内核下发 6PE 路由。</p>
+<p>标签能力用于交换 IPv6 带标签路由。两端都应启用相应能力，并确保 IPv4 标签路径可用；普通 IPv6 路由的可达性不能代替标签转发检查。</p>
 <p>在对端检查 IPv6 BGP 路由、VPP MPLS 转发表和 IPv6 业务连通性。</p>
 </section>
-<section id="id2">
-<span id="完整双端案例"></span><h2>完整双端案例<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="完整双端案例"></span><h2>完整双端案例<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p><a class="reference internal" href="../../examples/mpls/6pe/"><span class="std std-doc">6PE 案例</span></a>提供双端 IPv4 承载、LDP、BGP labeled-unicast、标签查询、双向业务和撤销步骤。配置 6PE 邻居后，所需 IPv6 显式空标签处理由设备自动完成，无需额外配置。</p>
 </section>
 <section id="ipv6">

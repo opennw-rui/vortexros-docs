@@ -607,3 +607,28 @@
   ```text
   undo port hybrid untagged vlan VLAN-LIST
   ```
+
+## `port vlan-stacking vlan`
+
+- 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
+- 视图：`接口视图`
+- CLI 帮助：map customer VLANs to a QinQ service VLAN
+- 合法语法：
+
+  ```text
+  port vlan-stacking vlan VLAN-ID [to VLAN-ID] ... stack-vlan VLAN-ID
+  ```
+
+
+## `undo port vlan-stacking vlan`
+
+- 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
+- 视图：`接口视图`
+- CLI 帮助：map customer VLANs to a QinQ service VLAN
+- 合法语法：
+
+  ```text
+  undo port vlan-stacking vlan VLAN-ID [to VLAN-ID] ... stack-vlan VLAN-ID
+  ```

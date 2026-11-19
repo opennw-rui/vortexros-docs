@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>子接口 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>子接口 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/subinterfaces/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -92,9 +92,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -154,6 +154,11 @@
 </div>
 <p><a class="reference internal" href="../reference/interfaces/"><span class="std std-doc">接口命令参考</span></a> · <a class="reference internal" href="../bridge-domains/"><span class="std std-doc">桥域</span></a> · <a class="reference internal" href="../qinq/"><span class="std std-doc">QinQ</span></a></p>
 <p>父端口必须存在。子接口编号用于接口身份，VLAN ID 用于报文分类，两者不要求相同。已有子接口不能通过重复进入时改写 <code class="docutils literal notranslate"><span class="pre">mode</span></code> 来切换二层/三层角色；先撤销引用并删除，再按目标模式创建。创建后必须补齐封装，未完成的对象会在提交校验时被拒绝。</p>
+<section id="id2">
+<span id="工作原理与标签身份"></span><h2>工作原理与标签身份<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>VLAN 标签参与报文分类，子接口后缀用于命名对象，桥域编号用于二层业务归属。这三者不能仅凭数字相同就认定等价。L2 接入负责桥接和标签重写，L3 接入负责在相应标签链路上路由。</p>
+<p>规划时先列出父端口上所有匹配条件，避免重叠；再明确每个方向需要保留、移除或恢复哪些标签。修改封装可能重建接口并短暂中断业务，动态邻居和 MAC 也可能重新学习。固定单/双标签、多内层集合以及全局 VLAN 冲突规则分别见下列页面。</p>
+</section>
 </section>
 
 

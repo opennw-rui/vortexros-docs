@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flow Steering &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>Flow Steering &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/flow-steering/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -88,9 +88,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -123,7 +123,13 @@
 <p>将物理入口的流分配给 VPP 转发线程。</p>
 <p><a class="reference internal" href="../reference/interfaces/"><span class="std std-doc">命令参考</span></a></p>
 <section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<span id="工作原理与适用场景"></span><h2>工作原理与适用场景<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>网卡 RSS 通常按可识别的报文头将流分配到接收队列，封装较深时可能只看到相同外层地址。Flow Steering 在入口识别支持的内层会话，把不同流分配给转发 worker，适合外层集中、内层业务较多的隧道流量。</p>
+<p>该功能不增加链路带宽，不替代路由 ECMP，也不保证单条流跨多个核心提速。选择 worker、接收队列及 CPU 时还应考虑 NUMA 和物理核心关系；两个逻辑 CPU 可能共享同一物理核心。</p>
+<p>只在多 worker 的实际场景评估分布与总 CPU 开销。单 worker 不能用来观察多核分流收益，吞吐也会受到报文大小、封装、网卡及流量组成影响。</p>
+</section>
+<section id="id2">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>当网卡无法按 PPPoE、MPLS、L2TP、GRE、VXLAN 或 IP-in-IP 的内层流进行硬件 RSS 时，可以在物理入口启用 flow steering，将不同业务流分配给工作线程。此功能按接口配置，无需创建 profile：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 </pre></div>
@@ -148,8 +154,8 @@ display flow-steering interface Ethernet 1
 </pre></div>
 </div>
 </section>
-<section id="id2">
-<span id="查看运行状态"></span><h2>查看运行状态<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="查看运行状态"></span><h2>查看运行状态<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>用 display flow-steering interface Ethernet1 检查实际状态。active/inner-flow 表示内层流分配已激活；inactive/single-worker 表示配置保留，但当前只有一个 worker。需要至少两个 worker 才能观察跨线程分配。</p>
 <p>启用前后用相同业务检查往返和丢弃计数；计数还可能包含后台协议报文，不能直接当成测试报文数。撤销后确认该接口不再启用此功能。功能只改变线程分配，不提供固定吞吐或无损保证。</p>
 </section>

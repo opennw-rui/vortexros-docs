@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IS-IS &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>IS-IS &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/isis/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -93,9 +93,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -126,6 +126,31 @@
   <section id="is-is">
 <h1>IS-IS<a class="headerlink" href="#is-is" title="链接到此标题。"></a></h1>
 <p>IPv4/IPv6 共用同一个 IS-IS 进程；Level-1、Level-2 缺省路由优先级均为15。Level与Preference是不同概念，切换Level后需检查各级邻接、LSDB和实际路由。</p>
+<section id="id1">
+<span id="工作原理与层次规划"></span><h2>工作原理与层次规划<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>IS-IS 依据 ISO/IEC 10589 建立链路状态邻接，并通过 IP 路由扩展承载 IPv4、IPv6 前缀。NET 包含区域和系统标识；系统标识必须唯一。Level-1 面向区域内，Level-2 连接区域间路由，L1/L2 设备连接两种层次。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>项目</p></th>
+<th class="head"><p>对运行的影响</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NET / Area</p></td>
+<td><p>决定系统身份及 L1 邻接的区域条件</p></td>
+</tr>
+<tr class="row-odd"><td><p>Level</p></td>
+<td><p>决定建立哪类邻接、在哪个层次发布和学习路由</p></td>
+</tr>
+<tr class="row-even"><td><p>IPv4 / IPv6</p></td>
+<td><p>地址族启用与接口地址分别检查</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cost / SPF</p></td>
+<td><p>决定协议内部路径；不等于路由优先级</p></td>
+</tr>
+</tbody>
+</table>
+<p>VortexROS 的 L1、L2 缺省优先级均为 15。在线变更 Level 会改变可参与的邻接和路由范围，应安排收敛窗口，核对撤销的前缀也已从系统路由表消失。适合需要分层的内部网络，不是跨自治系统的策略协议。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="activation/">进程、Level 与接口</a><ul>
@@ -154,6 +179,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 

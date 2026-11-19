@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LLDP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>LLDP &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/lldp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -79,9 +79,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -114,7 +114,13 @@
 <p>发现直连二层邻居及其端口信息。</p>
 <p><a class="reference internal" href="../reference/lldp/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/lldp/"><span class="std std-doc">配置案例</span></a></p>
 <section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<span id="工作原理与使用边界"></span><h2>工作原理与使用边界<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>LLDP（IEEE 802.1AB）在相邻链路上发布设备、端口和能力等信息，用于接线核对与拓扑发现。它不建立路由，也不转发到远端跨越多跳发现网络。</p>
+<p>按全局和接口配置选择发布范围。对不可信接入链路公开设备标识可能泄露网络信息，应只在需要发现的端口启用。对端不支持、没有发送或报文被链路策略过滤时，本端没有邻居记录不一定表示物理链路断开。</p>
+<p>修改后核对本端发送接口和对端接收记录；邻居信息按通告 TTL 老化，关闭后不必立即从对端表中消失。详细字段和操作见下列页面。</p>
+</section>
+<section id="id2">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable lldp
 commit
 display lldp neighbor brief
@@ -131,8 +137,8 @@ commit
 Chassis ID 使用各物理接口的 MAC，按对端 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">lldp</span> <span class="pre">neighbor</span> <span class="pre">interface</span></code>
 及实际 LLDP 报文逐口核对。设备系统 MAC 与这些接口 MAC 可以不同。</p>
 </section>
-<section id="id2">
-<span id="单端口控制与邻居老化"></span><h2>单端口控制与邻居老化<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="单端口控制与邻居老化"></span><h2>单端口控制与邻居老化<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>开启全局 LLDP 后，物理接口默认发送并接收通告。只需关闭某个端口时，不要关闭全局开关：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 </pre></div>

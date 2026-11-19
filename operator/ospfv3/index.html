@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OSPFv3 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>OSPFv3 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ospfv3/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -91,9 +91,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -125,6 +125,11 @@
 <h1>OSPFv3<a class="headerlink" href="#ospfv3" title="链接到此标题。"></a></h1>
 <p>在 IPv6 路由域内建立链路状态邻接并交换前缀。</p>
 <p><a class="reference internal" href="../reference/ospfv3/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/ospfv3/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="工作原理与前提"></span><h2>工作原理与前提<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>OSPFv3 按 RFC 5340 为 IPv6 计算链路状态路由。Router ID 仍是 32 位标识，不是接口的 IPv6 地址；邻居通信通常使用链路本地地址。因此接口必须启用 IPv6，并具有可用的链路本地通信条件。</p>
+<p>区域和网络类型决定邻接及 LSDB 的范围，接口 Cost 影响 SPF，系统 Preference 决定与其他协议的同前缀竞争。缺省内部/外部优先级分别为 10/150。IPv4 的 OSPF 进程与 OSPFv3 分开配置，不能因为 IPv4 邻居正常就认定 IPv6 路径正常。</p>
+<p>适合内部 IPv6 路由。变更后依次核对接口、邻居、IPv6 LSDB、路由及双向 IPv6 业务；只看到 Full 不能证明重分发或业务路由已安装。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="configuration/">接口、区域与发布</a><ul>
@@ -142,6 +147,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 

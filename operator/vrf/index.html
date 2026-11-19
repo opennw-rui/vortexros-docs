@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VPN 实例 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>VPN 实例 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vrf/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -85,9 +85,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -118,6 +118,11 @@
   <section id="vpn">
 <span id="vpn-实例"></span><h1>VPN 实例<a class="headerlink" href="#vpn" title="链接到此标题。"></a></h1>
 <p>VPN-instance 缺省可用，不需要全局 enable 开关。默认实例对应 Linux main254、VPP表0；新表从1024找空闲号，可超过2048，跳过已占用表。</p>
+<section id="id1">
+<span id="工作原理与业务隔离"></span><h2>工作原理与业务隔离<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>VPN 实例为接口和路由提供独立的三层查找域，可用于不同租户复用地址以及隔离业务出口。它本身不是加密 VPN，也不自动允许不同实例之间互通。</p>
+<p>接口绑定决定其地址和直连路由属于哪张表；普通路由在本实例解析，跨实例路由必须明确配置。设备显示名称与系统内部表号用途不同：默认实例使用 Linux main 254、VPP 表 0，不需要把它们改成相同数字。</p>
+<p>变更已有接口的 VPN 归属会影响地址、邻居、协议及路由，应检查依赖和双向业务。RD/RT 用于 MPLS VPN 或 EVPN 的控制面标识和导入导出，不是普通本地 VRF 隔离所必需的开关。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="families/">创建与地址族</a><ul>
@@ -136,6 +141,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../../examples/mpls-l3vpn/"><span class="std std-doc">完整案例与示例输出</span></a> · <a class="reference internal" href="../reference/vrf/"><span class="std std-doc">全部命令参数</span></a></p>
+</section>
 </section>
 
 

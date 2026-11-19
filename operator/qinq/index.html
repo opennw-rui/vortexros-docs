@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QinQ &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>QinQ &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/qinq/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -23,7 +23,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
-    <link rel="next" title="桥域" href="../bridge-domains/" />
+    <link rel="next" title="灵活 QinQ" href="../qinq-flexible/" />
     <link rel="prev" title="VLAN 与业务桥域" href="../vlan/service-bd/" /> 
 </head>
 
@@ -64,7 +64,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">QinQ</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">QinQ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../qinq-flexible/">灵活 QinQ</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mac-table/">MAC 地址表</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
@@ -88,9 +91,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -122,8 +125,57 @@
 <h1>QinQ<a class="headerlink" href="#qinq" title="链接到此标题。"></a></h1>
 <p>在客户标签外加一层服务标签，隔离不同客户的二层业务。</p>
 <p><a class="reference internal" href="../reference/vlan/"><span class="std std-doc">命令参考</span></a></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../qinq-flexible/">灵活 QinQ</a></li>
+</ul>
+</div>
 <section id="id1">
-<span id="配置与影响"></span><h2>配置与影响<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<span id="工作原理与组网选择"></span><h2>工作原理与组网选择<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>QinQ 通过外层服务标签携带客户 VLAN。客户侧 C-VID 与服务侧 S-VID 分开规划，服务网络可以在不改变客户 VLAN 含义的情况下区分接入业务。IEEE 802.1ad 常用外层 TPID 0x88a8，双 0x8100 标签形式与其匹配条件不同。</p>
+<p>父端口的简单 QinQ 用于整个客户口映射，灵活 QinQ 按客户 VLAN 集合选择服务；显式 L2 子接口用于匹配核心侧的单/双标签集合。这是两种入口，不应把一段子接口配置当作完整的父端口灵活 QinQ 功能。多个内层业务共用一个桥域还意味着共享该二层学习范围，不能仅靠不同内层标签假定已经隔离。</p>
+<p>额外标签占用链路 MTU。规划两端的匹配、入方向移除和出方向恢复方式；多内层业务不可在去掉所有标签后期待出口自动猜回原 C-VID。相关限制和完整双端步骤见下列说明与案例。</p>
+</section>
+<section id="id2">
+<span id="支持范围"></span><h2>支持范围<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>父接口的基本 QinQ 与子接口的多内层匹配不是同一个功能。按接入方式选择：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>接入方式</p></th>
+<th class="head"><p>当前能力</p></th>
+<th class="head"><p>限制</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>父接口 <code class="docutils literal notranslate"><span class="pre">dot1q-tunnel</span></code></p></td>
+<td><p>整个客户口归属一个服务 VLAN，客户标签透传并在核心侧增加服务标签</p></td>
+<td><p>不按客户 VLAN 选择服务；不能同时创建 VLAN 子接口</p></td>
+</tr>
+<tr class="row-odd"><td><p>父接口灵活 QinQ</p></td>
+<td><p>Hybrid 客户口按单个/列表/范围 C-VLAN 映射 S-VLAN</p></td>
+<td><p>仅匹配单标签客户报文；同口分类不可冲突，详见独立页面</p></td>
+</tr>
+<tr class="row-even"><td><p>L2 子接口</p></td>
+<td><p>固定外层 VID，内层可为单值、列表、范围或 <code class="docutils literal notranslate"><span class="pre">any</span></code>，并可配置标签重写</p></td>
+<td><p>多内层和 <code class="docutils literal notranslate"><span class="pre">any</span></code> 必须选择 <code class="docutils literal notranslate"><span class="pre">rewrite</span> <span class="pre">pop</span> <span class="pre">single</span></code> 或 <code class="docutils literal notranslate"><span class="pre">rewrite</span> <span class="pre">pop</span> <span class="pre">none</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>L3 子接口</p></td>
+<td><p>固定外层 VID，可再指定一个固定内层 VID</p></td>
+<td><p>不支持内层列表、范围或 <code class="docutils literal notranslate"><span class="pre">any</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>L2 子接口的 <code class="docutils literal notranslate"><span class="pre">ce-vid</span> <span class="pre">10</span> <span class="pre">12</span> <span class="pre">to</span> <span class="pre">15</span></code> 表示匹配内层 VLAN 10、12、13、14、15；
+<code class="docutils literal notranslate"><span class="pre">ce-vid</span> <span class="pre">any</span></code> 表示任意内层 VLAN。一个业务子接口承载其匹配集合，不需要用户逐个建立子接口。
+这类匹配仍使用固定外层标签，不提供父接口上的任意 VLAN 映射规则。</p>
+<p>多内层业务移除全部标签后，无法在出口还原原来的不同客户标签，因此不允许使用
+<code class="docutils literal notranslate"><span class="pre">rewrite</span> <span class="pre">pop</span> <span class="pre">double</span></code>。需要保留内层标签时选择 <code class="docutils literal notranslate"><span class="pre">single</span></code>，需要保留完整标签时选择
+<code class="docutils literal notranslate"><span class="pre">none</span></code>。多个客户 VLAN 加入同一桥域后共享二层学习范围，并不自动成为相互隔离的业务。</p>
+<p>完整配置、实际查询和网关限制见<a class="reference internal" href="../subinterfaces-l2/#qinq"><span class="std std-ref">L2 子接口</span></a>；
+固定双标签的三层终结见<a class="reference internal" href="../subinterfaces-l3/"><span class="std std-doc">L3 子接口</span></a>。</p>
+</section>
+<section id="id3">
+<span id="配置与影响"></span><h2>配置与影响<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>简单QinQ端口使用VRP风格的<code class="docutils literal notranslate"><span class="pre">dot1q-tunnel</span></code>。<code class="docutils literal notranslate"><span class="pre">port</span> <span class="pre">default</span> <span class="pre">vlan</span></code>把整个父接口作为唯一客户侧成员加入对应bridge-domain；不创建隐藏子接口，也不在父接口执行标签改写。对端trunk按外层服务VLAN分类并对称移除/恢复S-Tag，因此客户侧未打标签报文转为单层S-Tag，已有C-Tag的报文转为S-Tag+C-Tag。配置示例：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vlan batch 200
 interface Ethernet 2
@@ -145,7 +197,7 @@ interface Ethernet 2
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../vlan/service-bd/" class="btn btn-neutral float-left" title="VLAN 与业务桥域" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../bridge-domains/" class="btn btn-neutral float-right" title="桥域" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../qinq-flexible/" class="btn btn-neutral float-right" title="灵活 QinQ" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>服务日志 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/operations/logs/" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=81cd8b8d"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex/" />
+    <link rel="search" title="搜索" href="../../../search/" />
+    <link rel="next" title="故障定位" href="../troubleshooting/" />
+    <link rel="prev" title="路由服务恢复" href="../routing/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08-network-services/">网络服务</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../09-operations/">诊断与恢复</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../probes/">Ping、tracert 与 mtr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../display/">状态与版本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/">运行配置重置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing/">路由服务恢复</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">服务日志</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/">故障定位</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
+  <div class="manual-version-menu">
+    <a href="../../../">当前手册（v0.30-dev-debug2）</a>
+    <a href="../../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../09-operations/">诊断与恢复</a></li>
+      <li class="breadcrumb-item active">服务日志</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="服务日志"></span><h1>服务日志<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<section id="id2">
+<span id="用途与范围"></span><h2>用途与范围<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">logbuffer</span></code> 将 VortexROS 受管服务的日志按时间合并显示，用于关联配置提交、协议建邻、路由同步和服务恢复过程。记录包含时间、服务或进程标识及消息正文。</p>
+<p>日志来自系统 journal；此命令不建立第二份日志库，也不改变服务日志级别或保存期限。
+查询不会修改配置、重启服务或清除记录。三种本地 AAA 角色均可查询，<code class="docutils literal notranslate"><span class="pre">network-operator</span></code> 保持只读，无需进入 Bash 或使用 sudo。</p>
+</section>
+<section id="id3">
+<span id="命令与默认值"></span><h2>命令与默认值<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display logbuffer [service SERVICE] [last N] [since MINUTES]
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>作用</p></th>
+<th class="head"><p>范围与默认值</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>不带参数</p></td>
+<td><p>合并查询所有 VortexROS 受管服务</p></td>
+<td><p>本次系统启动，最近100条</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">SERVICE</span></code></p></td>
+<td><p>仅查询指定服务或服务组</p></td>
+<td><p>省略时查询全部受管服务</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">N</span></code></p></td>
+<td><p>最多返回最近N条匹配日志，按时间先后显示</p></td>
+<td><p>1–1000；默认100</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">since</span> <span class="pre">MINUTES</span></code></p></td>
+<td><p>只查询最近若干分钟，仍限于本次启动</p></td>
+<td><p>1–1440；省略时不追加时间限制</p></td>
+</tr>
+</tbody>
+</table>
+<p>三个筛选参数可以交换顺序，同一参数只能出现一次。可在用户视图、系统视图及其他允许 display 的视图执行；缩写必须唯一。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>SERVICE</p></th>
+<th class="head"><p>日志范围</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">control</span></code></p></td>
+<td><p>配置与状态恢复</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vpp</span></code></p></td>
+<td><p>VPP 数据面</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">frr</span></code></p></td>
+<td><p>FRR 路由协议；多个协议共享服务日志</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">route-zapi</span></code></p></td>
+<td><p>路由同步</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">switchd</span></code></p></td>
+<td><p>二层状态同步</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dhcp</span></code></p></td>
+<td><p>DHCPv4/DHCPv6 服务端、客户端和中继</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">snmp</span></code></p></td>
+<td><p>SNMP 代理与监听服务</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aaa</span></code></p></td>
+<td><p>本地账号应用</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<span id="查询与定位"></span><h2>查询与定位<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>先查看故障时间附近的受管服务日志，再缩小到具体服务：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display logbuffer since 15 last 200
+display logbuffer service frr since 15 last 50
+display logbuffer service control last 20
+display logbuffer service dhcp last 50
+</pre></div>
+</div>
+<p>FRR 查询的实际显示示例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;VortexROS&gt; display logbuffer service frr last 2
+Thu 2026-11-19 00:57:59 UTC vortexros-frr.service[18004]:  * Started watchfrr
+Thu 2026-11-19 00:58:00 UTC init.scope[1]: Started vortexros-frr.service - VortexROS routing protocol pathspace.
+</pre></div>
+</div>
+<p>其中 <code class="docutils literal notranslate"><span class="pre">init.scope[1]</span></code> 是系统服务管理器产生的启动或停止记录；消息正文指出关联服务。时间与时区随设备的系统设置显示。</p>
+<p>沿用<a class="reference internal" href="../../cli/help/"><span class="std std-doc">输出修饰符</span></a>筛选正文。例如：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display logbuffer service control since 15 last 200 | include ALARM
+display logbuffer service frr last 100 | exclude Started
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">last</span></code> 和 <code class="docutils literal notranslate"><span class="pre">since</span></code> 先限定日志查询范围，<code class="docutils literal notranslate"><span class="pre">include</span></code>、<code class="docutils literal notranslate"><span class="pre">exclude</span></code> 再处理返回的文本。
+因此，“最近100条中未匹配”不等于更早日志中没有该事件。需要时扩大条数或时间范围。</p>
+</section>
+<section id="id5">
+<span id="结果判断与限制"></span><h2>结果判断与限制<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>没有匹配记录时显示：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-- No entries --
+</pre></div>
+</div>
+<p>这表示查询成功且当前范围为空，不表示服务从未运行。非法条数或时间参数会报错；journal 无法读取时报告查询失败，不将其显示为“没有日志”。</p>
+<p>本命令只显示已经送入 journal 的受管服务记录。服务单独写入文件的日志、其他软件的日志以及内核日志不自动包含；服务自身日志级别也会影响可见内容。系统重启前的记录和实时持续跟踪不在本命令的查询范围内。</p>
+<p>日志可能包含地址、账号名和业务标识，导出给他人前应检查内容。日志查询没有保存、撤销步骤；按<a class="reference internal" href="../troubleshooting/"><span class="std std-doc">故障定位</span></a>结合服务状态和告警判断原因，不要仅凭一条历史日志判定当前仍有故障。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../routing/" class="btn btn-neutral float-left" title="路由服务恢复" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../troubleshooting/" class="btn btn-neutral float-right" title="故障定位" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

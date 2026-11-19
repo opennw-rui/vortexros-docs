@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>设备与接管 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>设备与接管 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dataplane/devices/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -96,9 +96,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -130,14 +130,15 @@
   <section id="id1">
 <span id="设备与接管"></span><h1>设备与接管<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
+ cpu main-core 2
+ cpu worker-cores 3-5
+#
  device 0000:03:00.0 name Ethernet 0
   mode dpdk
   queues rx 2 tx 2
   descriptors rx 1024 tx 1024
   undo hardware offload tso
  #
- cpu main-core 2
- cpu worker-cores 3-5
 #
 interface user-defined Ethernet0
  ip address 192.0.2.10 255.255.255.0
@@ -154,7 +155,7 @@ reset dataplane
 <p>PCI 地址用于定位硬件，<code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">Ethernet</span> <span class="pre">0</span></code> 将接口命名为 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code>。物理口默认为
 <code class="docutils literal notranslate"><span class="pre">kernel</span></code>。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mode</span></code> 恢复 Linux 驱动。按 <code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">user-defined</span></code> 预配置的接口
 以普通 <code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">Ethernet0</span></code> 视图保存，地址和静态路由在设备就绪后下发。</p>
-<p>CPU 编号从 0 开始，<code class="docutils literal notranslate"><span class="pre">cpu</span> <span class="pre">main-core</span> <span class="pre">0</span></code> 是有效的显式配置，会保留到保存文件和 daemon 通信中。指定 <code class="docutils literal notranslate"><span class="pre">cpu</span> <span class="pre">worker-cores</span></code> 时必须同时指定主核；先撤销 worker，再撤销主核。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">queues</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">descriptors</span></code> 和 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">cpu</span> <span class="pre">worker-cores</span></code> 清除显式设置，实际线程与硬件参数在保存并执行 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code> 后更新。配置查询显示已提交值，不能替代运行状态查询。</p>
+<p>CPU 编号从 0 开始，<code class="docutils literal notranslate"><span class="pre">cpu</span> <span class="pre">main-core</span> <span class="pre">0</span></code> 是有效的显式配置，会保留在已提交配置和保存文件中。指定 <code class="docutils literal notranslate"><span class="pre">cpu</span> <span class="pre">worker-cores</span></code> 时必须同时指定主核；先撤销 worker，再撤销主核。<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">queues</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">descriptors</span></code> 和 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">cpu</span> <span class="pre">worker-cores</span></code> 清除显式设置，实际线程与硬件参数在保存并执行 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">dataplane</span></code> 后更新。配置查询显示已提交值，不能替代运行状态查询。</p>
 <p>队列和描述符是交给驱动的启动请求，实际能力由网卡和驱动决定。使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">interfaces</span></code> 查看当前/最大 RX 队列；例如 <code class="docutils literal notranslate"><span class="pre">1/1</span></code> 表示当前 1 队列、最多 1 队列，不代表已启用多队列。配置文件中的请求值不能代替实际值，规划 worker 时应以运行查询为准。</p>
 <p>未加入 <code class="docutils literal notranslate"><span class="pre">device</span></code> 清单的物理接口继续由 Linux 管理。启用一个 DPDK 设备不会要求其他 Linux 物理口也出现在 VPP 中；混合部署下，接口详情、描述、统计和简表同时显示两类接口，分别读取对应后端。</p>
 <p>CPU 隔离、大页和 IOMMU 的引导参数由数据面激活流程生成到受管 GRUB 片段。安装包包含提供 <code class="docutils literal notranslate"><span class="pre">update-grub</span></code> 的必要依赖。需要重启主机的参数会给出提示；配置和片段已经生成不代表当前内核已使用这些参数。使用自定义引导方式时，应确认该方式实际加载了所需内核参数。</p>

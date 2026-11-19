@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>升级与回退 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>升级与回退 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/07-upgrade-uninstall/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -83,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -187,11 +187,12 @@ display system-software verbose
 <section id="cli">
 <span id="cli-系统包入口"></span><h2>CLI 系统包入口<a class="headerlink" href="#cli" title="链接到此标题。"></a></h2>
 <p>需要在设备 CLI 操作时，将系统 tar 放到软件目录，使用单目标包命令。此入口与 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 共用通用安装器。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>check system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
-simulate system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
-upgrade system-software package /VortexROS/install/vortexros-system_VERSION_amd64.tar
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>check system-software package vortexros-system_VERSION_amd64.tar
+simulate system-software package vortexros-system_VERSION_amd64.tar
+upgrade system-software package vortexros-system_VERSION_amd64.tar
 </pre></div>
 </div>
+<p>裸包名从 <code class="docutils literal notranslate"><span class="pre">/VortexROS/install</span></code> 读取，与当前工作目录无关；完整路径也可使用，但 CLI 系统包必须直接位于该目录。<code class="docutils literal notranslate"><span class="pre">check</span></code>、<code class="docutils literal notranslate"><span class="pre">simulate</span></code>、<code class="docutils literal notranslate"><span class="pre">upgrade</span></code> 和 <code class="docutils literal notranslate"><span class="pre">rollback</span></code> 使用同一规则。</p>
 <p>主动回退用 <code class="docutils literal notranslate"><span class="pre">rollback</span> <span class="pre">system-software</span> <span class="pre">package</span> <span class="pre">TARGET.tar</span></code>，旧版 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 也可作为更新目标。目标必须能读取当前启动 CFG，并具备当前已安装版本的精确回退材料。本手册从0.29-dev开始维护，不提供此前试验版本的配置迁移保证；操作时保留独立救援入口。</p>
 <p>首次安装恢复材料可用时，且尚未执行数据面重置，可按安装器说明执行 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">vortexros-safe-upgrade</span> <span class="pre">--restore-install</span></code> 恢复首次安装前状态。</p>
 <p><a class="reference internal" href="../../operator/reference/system/"><span class="std std-doc">系统命令参考</span></a> · <a class="reference internal" href="../../release/vortexros/"><span class="std std-doc">最终包验证</span></a></p>

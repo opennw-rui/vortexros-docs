@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>静态路由 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>静态路由 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/static-routing/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -85,9 +85,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -118,6 +118,11 @@
   <section id="id1">
 <span id="静态路由"></span><h1>静态路由<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
 <p>固定下一跳、黑洞和跨表查询具有不同的数据面含义；按业务选择，不通过近似写法静默改变路由所有权。</p>
+<section id="id2">
+<span id="工作原理与路径选择"></span><h2>工作原理与路径选择<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>静态路由把目标前缀交给指定下一跳、接口或显式查表动作。最长前缀匹配决定命中哪条路由，同一前缀的候选再按优先级等条件选择。默认 Preference 为 60；配置固定下一跳不等于下一跳一定可解析。</p>
+<p>普通递归路由依赖到下一跳的可用路由；显式查表路由把查找交给另一张表，两者的语义不同。黑洞路由用于有意丢弃指定前缀，不能用来证明远端可达。多条等价路径需要分别核对每个出口及下一跳。</p>
+<p>适合固定出口、默认路由或少量明确业务前缀。变更可能立即切换业务出口，删除前应确认替代路径和回程。验证同时查看配置、选中路由、FIB 与双向业务；没有进入 FIB 时先查下一跳依赖。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="paths/">静态路径与查表</a><ul>
@@ -131,6 +136,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../../examples/static-route/"><span class="std std-doc">完整双端案例</span></a> · <a class="reference internal" href="../routing-tables/"><span class="std std-doc">RIB/FIB查询</span></a></p>
+</section>
 </section>
 
 

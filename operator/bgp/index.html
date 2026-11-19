@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BGP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>BGP &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/bgp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -96,9 +96,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -130,6 +130,32 @@
 <h1>BGP<a class="headerlink" href="#bgp" title="链接到此标题。"></a></h1>
 <p>BGP 以邻居交换路由，各地址族控制发布和接收的前缀。全系统一个主 BGP AS；重复输入同一 AS 进入已有视图，不同 AS 被拒绝，65535 不可用。</p>
 <p>按会话、组继承、路由属性或地址族进入子页。先验证会话建立，再确认路由选择及业务，不以配置存在代替路由生效。</p>
+<section id="id1">
+<span id="工作原理与适用场景"></span><h2>工作原理与适用场景<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>BGP-4（RFC 4271）在自治系统之间或同一 AS 内交换可达性和路径属性。会话 Established 只说明邻居通信成立；是否收发、优选及安装某条路由，还取决于地址族、发布条件、策略和下一跳可达性。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>场景</p></th>
+<th class="head"><p>规划要点</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>eBGP 外部互联</p></td>
+<td><p>两端 AS、邻居地址、底层路由和出入策略</p></td>
+</tr>
+<tr class="row-odd"><td><p>iBGP 内部传播</p></td>
+<td><p>全互联或路由反射，以及下一跳解析</p></td>
+</tr>
+<tr class="row-even"><td><p>IPv4 / IPv6</p></td>
+<td><p>分别启用对应地址族与邻居</p></td>
+</tr>
+<tr class="row-odd"><td><p>MPLS VPN / EVPN</p></td>
+<td><p>除会话外还要规划 RD、RT、标签或 VNI</p></td>
+</tr>
+</tbody>
+</table>
+<p>前缀存在于 network 配置中不等于已发布，需满足相应路由存在条件。路由策略允许的范围应显式规划，尤其避免把内部或默认路由意外传向外部。BGP 缺省系统优先级为 254；Local Preference、MED、AS_PATH 等属于 BGP 自身的选路属性。</p>
+<p>修改认证、AS、传输源或重置会话可能中断所有相关地址族；只调整策略时，优先使用本手册所述的相应刷新方式。通过邻居计数、具体前缀明细和实际业务共同确认。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="peers/">邻居与会话</a><ul>
@@ -168,6 +194,7 @@
 </ul>
 </div>
 <p><a class="reference internal" href="../../examples/bgp/"><span class="std std-doc">完整双端案例</span></a> · <a class="reference internal" href="../../examples/bgp-policy/"><span class="std std-doc">路由策略案例</span></a> · <a class="reference internal" href="../reference/bgp/"><span class="std std-doc">命令参数</span></a> · <a class="reference internal" href="../11-vxlan-evpn/"><span class="std std-doc">EVPN</span></a></p>
+</section>
 </section>
 
 

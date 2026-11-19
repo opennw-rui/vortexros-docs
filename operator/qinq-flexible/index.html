@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>灵活 QinQ &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/qinq-flexible/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="桥域" href="../bridge-domains/" />
+    <link rel="prev" title="QinQ" href="../qinq/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02-system-services/">系统管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../03-interfaces-l2/">接口</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ethernet/">Ethernet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interface-processing/">接口处理顺序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offload/">硬件卸载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../flow-steering/">Flow Steering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link-aggregation/">链路聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../subinterfaces/">子接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vlan/">VLAN</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../qinq/">QinQ</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">灵活 QinQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../bridge-domains/">桥域</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mac-table/">MAC 地址表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/">ARP 与 ND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../proxy-arp/">代理 ARP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../03-interfaces-l2/">接口</a></li>
+          <li class="breadcrumb-item"><a href="../qinq/">QinQ</a></li>
+      <li class="breadcrumb-item active">灵活 QinQ</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qinq">
+<span id="灵活-qinq"></span><h1>灵活 QinQ<a class="headerlink" href="#qinq" title="链接到此标题。"></a></h1>
+<section id="id1">
+<span id="用途与原理"></span><h2>用途与原理<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>父接口灵活 QinQ 按客户 VLAN（C-VLAN）选择服务 VLAN（S-VLAN）。
+同一客户端口可以把不同 C-VLAN 集合送入不同服务，而不必为每个客户 VLAN 配置一个子接口。</p>
+<p>线路上的封装变化为：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>客户侧：C10 ── 接入设备 ── 网络侧：S100 + C10
+客户侧：C20 ── 接入设备 ── 网络侧：S200 + C20
+</pre></div>
+</div>
+<p>回程移除对应 S 标签，保留原 C 标签。它适用于多业务接入、客户 VLAN 透传及服务 VLAN 汇聚。
+与整个客户端口共用一个 S-VLAN 的简单 QinQ 不同，本功能只对规则中匹配的单标签客户报文进行业务映射。</p>
+</section>
+<section id="id2">
+<span id="使用前提和默认行为"></span><h2>使用前提和默认行为<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<ul class="simple">
+<li><p>已激活 VPP 数据面，并启用交换功能。</p></li>
+<li><p>客户侧接口使用 <code class="docutils literal notranslate"><span class="pre">port</span> <span class="pre">link-type</span> <span class="pre">hybrid</span></code>；服务 VLAN 必须先在全局创建。</p></li>
+<li><p>默认没有灵活 QinQ 规则。客户 C-VLAN 只是匹配值，不要求逐个创建全局 VLAN。</p></li>
+<li><p>同一端口的一个 C-VLAN 只能映射到一个 S-VLAN；相同映射重复配置不会产生重复项。</p></li>
+<li><p>多条规则映射到同一 S-VLAN 时，当前配置会合并显示其客户 VLAN 集合。</p></li>
+<li><p>未匹配 QinQ 规则的报文按原有端口 VLAN 配置处理；没有其他合法成员关系时丢弃。
+Hybrid 默认仍有 VLAN 1。若只允许已配置的客户业务，应显式撤销默认 VLAN 1 成员关系。</p></li>
+<li><p>规则不修改端口 PVID，也不为无标签报文自动补入客户 VLAN。</p></li>
+<li><p>客户接口和网络接口必须有实际链路，且业务 VLAN/桥域处于可转发状态。
+只配置规则不会替代链路、VLAN 和对端封装条件。</p></li>
+</ul>
+</section>
+<section id="id3">
+<span id="命令与参数"></span><h2>命令与参数<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>在客户接口视图执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>port vlan-stacking vlan VLAN-ID [to VLAN-ID] ... stack-vlan VLAN-ID
+undo port vlan-stacking vlan VLAN-ID [to VLAN-ID] ... stack-vlan VLAN-ID
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>含义</p></th>
+<th class="head"><p>范围</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vlan</span></code> 后的 VLAN-ID</p></td>
+<td><p>客户 VLAN，可为单值、多个值或连续范围</p></td>
+<td><p>1–4094</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">to</span></code></p></td>
+<td><p>包含起止值的连续范围</p></td>
+<td><p>结束值大于起始值</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stack-vlan</span></code></p></td>
+<td><p>网络侧增加的服务 VLAN</p></td>
+<td><p>1–4094，须已创建</p></td>
+</tr>
+</tbody>
+</table>
+<p>例如 <code class="docutils literal notranslate"><span class="pre">vlan</span> <span class="pre">10</span> <span class="pre">to</span> <span class="pre">12</span> <span class="pre">30</span> <span class="pre">stack-vlan</span> <span class="pre">100</span></code> 匹配 C10、C11、C12 和 C30。
+不支持 <code class="docutils literal notranslate"><span class="pre">all</span></code>、客户 VID 0 或 4095。该命令没有额外的 enable 开关；提交规则后生效。</p>
+<p>撤销可以只删除集合中的部分客户 VLAN。需要改变某个 C-VLAN 的服务归属时，
+先撤销旧映射，再加入新映射，可以在同一次提交中完成。</p>
+</section>
+<section id="id4">
+<span id="完整配置示例"></span><h2>完整配置示例<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<section id="id5">
+<span id="拓扑"></span><h3>拓扑<a class="headerlink" href="#id5" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CE-A Ethernet0 ── Ethernet70 PE Ethernet72 ── Ethernet0 CE-C
+CE-B Ethernet0 ── Ethernet71 PE
+
+CE-A：C10 -&gt; S100，C20 -&gt; S200
+CE-B：C12 -&gt; S100
+CE-C：终结 S100+C10、S100+C12 和 S200+C20
+</pre></div>
+</div>
+<p>所有地址均为示例地址。三个业务分别使用不同的 IPv4 子网；S100 的两个客户集合分别限定在对应客户端口。</p>
+</section>
+<section id="pe">
+<span id="接入设备-pe"></span><h3>接入设备 PE<a class="headerlink" href="#pe" title="链接到此标题。"></a></h3>
+<p>进入系统视图后配置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>enable switch
+vlan batch 100 200
+#
+interface Ethernet70
+ portswitch
+ port link-type hybrid
+ port vlan-stacking vlan 10 to 11 stack-vlan 100
+ port vlan-stacking vlan 20 stack-vlan 200
+#
+interface Ethernet71
+ portswitch
+ port link-type hybrid
+ port vlan-stacking vlan 12 to 13 stack-vlan 100
+#
+interface Ethernet72
+ portswitch
+ port link-type trunk
+ port trunk allow-pass vlan 100 200
+#
+</pre></div>
+</div>
+<p>执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>commit
+save
+</pre></div>
+</div>
+<p>网络侧 Trunk 按 S-VLAN 承载业务，不需要把 C10、C12 或 C20 加入它的普通允许列表。
+客户口的 S-VLAN 归属由 stacking 规则建立，不要再将同一个 S-VLAN 配置为该客户口的普通 tagged/untagged 成员。</p>
+<p>若客户侧不需要默认 VLAN 1，在配置相应 stacking 规则前执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo port hybrid untagged vlan 1
+</pre></div>
+</div>
+</section>
+<section id="ce-ace-b">
+<span id="客户端-ce-ace-b"></span><h3>客户端 CE-A、CE-B<a class="headerlink" href="#ce-ace-b" title="链接到此标题。"></a></h3>
+<p>CE-A：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.10
+ vlan-type dot1q 10
+ ip address 198.18.100.1 255.255.255.0
+#
+interface Ethernet0.20
+ vlan-type dot1q 20
+ ip address 198.18.200.1 255.255.255.0
+#
+</pre></div>
+</div>
+<p>CE-B：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.12
+ vlan-type dot1q 12
+ ip address 198.18.101.1 255.255.255.0
+#
+</pre></div>
+</div>
+<p>两台设备分别执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 和 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
+</section>
+<section id="ce-c">
+<span id="双标签终结端-ce-c"></span><h3>双标签终结端 CE-C<a class="headerlink" href="#ce-c" title="链接到此标题。"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.1010
+ vlan-type dot1q 100 inner 10
+ ip address 198.18.100.2 255.255.255.0
+#
+interface Ethernet0.1012
+ vlan-type dot1q 100 inner 12
+ ip address 198.18.101.2 255.255.255.0
+#
+interface Ethernet0.2020
+ vlan-type dot1q 200 inner 20
+ ip address 198.18.200.2 255.255.255.0
+#
+</pre></div>
+</div>
+<p>执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 和 <code class="docutils literal notranslate"><span class="pre">save</span></code>。实例后缀 1010、1012、2020 用于区分接口，
+实际封装由 <code class="docutils literal notranslate"><span class="pre">vlan-type</span></code> 指定；不要把实例编号误当成 S-VLAN。</p>
+</section>
+</section>
+<section id="id6">
+<span id="查看配置与实际效果"></span><h2>查看配置与实际效果<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
+<p>在 PE 查询：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display current-configuration interface Ethernet70
+display interface Ethernet70
+display vlan 100
+display mac-address vlan 100
+display health
+</pre></div>
+</div>
+<p>接口查询的实际显示节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Ethernet70 current state : UP
+Line protocol current state : UP
+Switch Port, Link-type : hybrid(configured),
+QinQ stacking : C-VLAN 10 to 11 -&gt; S-VLAN 100 (configured)
+QinQ stacking : C-VLAN 20 -&gt; S-VLAN 200 (configured)
+</pre></div>
+</div>
+<p>MAC 查询示例节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MAC Address       VLAN/VSI/BD                    Learned-From        Type
+3ebb-948f-b027    100/-/-                        Ethernet72          dynamic
+6243-3dcd-1ccf    100/-/-                        Ethernet70          dynamic
+7ac5-1239-71d2    100/-/-                        Ethernet71          dynamic
+</pre></div>
+</div>
+<p>MAC 地址随实际接口而变化。配置映射显示不等于流量已生效，还要检查两端连通性及不应放行的对照流量。</p>
+<p>在 CE-A、CE-C 互相探测对应业务地址，并对 CE-B 的 C12 和 CE-A 的 C20 做同样检查。
+上述三组封装的双向探测均取得每方向 3 发、3 收、0% 丢包的结果。
+例如 CE-A 执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ping -c 3 -a 198.18.100.1 198.18.100.2
+</pre></div>
+</div>
+<p>实际输出节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PING 198.18.100.2 (198.18.100.2) from 198.18.100.1 : 56(84) bytes of data.
+3 packets transmitted, 3 received, 0% packet loss
+</pre></div>
+</div>
+<p>广播和未知单播检查结果：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>输入报文</p></th>
+<th class="head text-right"><p>Ethernet70 发送</p></th>
+<th class="head text-right"><p>Ethernet71 发送</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>网络侧 S100+C10 广播，发送3个</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>网络侧 S100+C12 广播，发送3个</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>网络侧 S100+C10 未知单播，发送3个</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>网络侧 S100+C99，发送3个</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>网络侧 S200+C10，发送3个</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<p>客户侧 C10 广播也已确认只送往对应网络侧业务；不匹配的 C99 不会获得该服务的转发权限。</p>
+</section>
+<section id="id7">
+<span id="修改撤销与模式切换"></span><h2>修改、撤销与模式切换<a class="headerlink" href="#id7" title="链接到此标题。"></a></h2>
+<p>只撤销 C11，保留同端口的 C10 和其他 S-VLAN 业务：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet70
+ undo port vlan-stacking vlan 11 stack-vlan 100
+#
+</pre></div>
+</div>
+<p>执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code>，再次确认 C11 不再通过，而保留业务继续可达。
+彻底删除本例的灵活 QinQ 映射：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet70
+ undo port vlan-stacking vlan 10 to 11 stack-vlan 100
+ undo port vlan-stacking vlan 20 stack-vlan 200
+#
+interface Ethernet71
+ undo port vlan-stacking vlan 12 to 13 stack-vlan 100
+#
+</pre></div>
+</div>
+<p>再执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 和 <code class="docutils literal notranslate"><span class="pre">save</span></code>。删除规则不自动删除全局服务 VLAN，也不会替用户删除网络口的其他业务。</p>
+<p>Access、Trunk、Hybrid 切换前，须先清理旧模式的非默认 VLAN/PVID 配置和 QinQ 规则。
+撤销 VLAN 1 成员关系也属于非默认配置，不能靠 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">...</span> <span class="pre">vlan</span> <span class="pre">all</span></code> 把列表清空后直接切换。
+恢复当前模式默认 VLAN 1，再切换。完整步骤见<a class="reference internal" href="../vlan/ports/"><span class="std std-doc">端口模式</span></a>。</p>
+</section>
+<section id="id8">
+<span id="策略限速与服务桥域"></span><h2>策略、限速与服务桥域<a class="headerlink" href="#id8" title="链接到此标题。"></a></h2>
+<p>接口 MQC 继续应用于该口承载的 QinQ 服务；已绑定策略后新增加的服务也继承该策略。
+例如，下列配置阻断 Ethernet70 收到的指定 IPv4 源网段：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>traffic classifier CUSTOMER operator or
+ if-match source-ip 198.18.0.0/16
+#
+traffic behavior BLOCK
+ deny
+#
+traffic policy CUSTOMER-IN
+ classifier CUSTOMER behavior BLOCK precedence 10
+#
+interface Ethernet70
+ traffic-policy CUSTOMER-IN inbound
+#
+</pre></div>
+</div>
+<p>执行 commit 后，Ethernet70 的 C10 探测为 0/3，Ethernet71 的 C12 对照仍为 3/3。
+在 Ethernet70 新增 C30→S300 后，同一策略也阻断新业务。
+撤销接口绑定后，新业务恢复 3/3：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet70
+ undo traffic-policy inbound
+#
+</pre></div>
+</div>
+<p>需要完全删除示例策略时，在撤销绑定后依次执行
+<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">traffic</span> <span class="pre">policy</span> <span class="pre">CUSTOMER-IN</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">traffic</span> <span class="pre">behavior</span> <span class="pre">BLOCK</span></code>、
+<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">traffic</span> <span class="pre">classifier</span> <span class="pre">CUSTOMER</span></code>，再 commit。</p>
+<p>服务 VLAN 也可以沿用 VLAN 视图下的限速。例如：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vlan 100
+ qos lr outbound cir 64 cbs 4096
+#
+</pre></div>
+</div>
+<p>该示例的 CIR 为 64 kbit/s。提交后，以 1000 个客户 C10 广播帧作为突发输入，
+Ethernet70 实际收到 108 个，限速器产生丢弃计数；结果取决于突发大小、桶状态和报文长度，
+不能将该单次比例视为固定丢弃率。撤销方式为 VLAN 100 下
+<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">qos</span> <span class="pre">lr</span> <span class="pre">outbound</span></code>，再 commit。其他服务 VLAN 不因这条配置改变限速。</p>
+<p>需要接入服务桥域时，将 S-VLAN 绑定到桥域，无需逐个绑定客户 C-VLAN：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 500
+ l2 binding vlan 100
+#
+</pre></div>
+</div>
+<p>提交后，本例 S100 的两个客户口及网络口共同进入该服务桥域，双向探测各 3/3。
+不要在同一服务桥域同时配置与 VLAN 绑定冲突的显式子接口成员。
+服务桥域默认未知单播洪泛策略与普通 VLAN 可能不同；通过
+<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bridge-domain</span> <span class="pre">500</span></code> 检查，保留正常 ARP/MAC 学习条件。</p>
+<p>撤销绑定并恢复普通 VLAN 业务：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 500
+ undo l2 binding vlan
+#
+</pre></div>
+</div>
+<p>执行 commit；不再使用桥域时再执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">bridge-domain</span> <span class="pre">500</span></code>。
+绑定和解绑均保留客户 VLAN 出口准入。</p>
+</section>
+<section id="id9">
+<span id="注意事项与限制"></span><h2>注意事项与限制<a class="headerlink" href="#id9" title="链接到此标题。"></a></h2>
+<ul class="simple">
+<li><p>当前父口灵活 QinQ 匹配单层 0x8100 客户标签，配合当前 Trunk 的 0x8100 服务标签。
+不提供基于 MAC、IP 或 PCP 的选择规则，也不改写客户 VID。</p></li>
+<li><p>同父口已有的普通 VLAN 分类和显式子接口不能与规则占用的分类冲突；冲突在提交前被拒绝。
+不同标签深度及不同匹配范围的合法子接口仍可按现有约束共存。</p></li>
+<li><p>同一 S-VLAN 共享二层 MAC 学习范围。保留 C 标签和出口准入不等于建立独立的客户 MAC 表；
+需要独立学习域或允许重复 MAC 的业务，应分配不同服务 VLAN。</p></li>
+<li><p>多个客户 VLAN 保留在服务中时，普通 Vlanif/Vbdif 网关不能为本机生成的裸 IP 报文自动选择 C 标签。
+需要三层终结时使用规划好的固定双标签 L3 子接口。</p></li>
+<li><p>网络侧需容纳新增的服务标签开销。不要仅凭小包 Ping 成功认定最大报文长度已满足要求。</p></li>
+<li><p>客户标签的 PCP/DEI 可保留；带 PCP/DEI 的有效 C10 报文已取得 3/3，非匹配客户口为 0/3。</p></li>
+<li><p>规则增删可能影响对应业务的连通性和学习状态；变更前保留配置，提交后验证实际流量，再保存。</p></li>
+<li><p>本功能沿用接口统计与既有策略处理。性能对比是指定报文、速率和线程布局下的观测，
+不构成所有硬件及业务组合的线速保证。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../qinq/" class="btn btn-neutral float-left" title="QinQ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../bridge-domains/" class="btn btn-neutral float-right" title="桥域" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>故障定位 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>故障定位 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/operations/troubleshooting/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -24,7 +24,7 @@
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
     <link rel="next" title="常见故障" href="../../../troubleshooting/" />
-    <link rel="prev" title="路由服务恢复" href="../routing/" /> 
+    <link rel="prev" title="服务日志" href="../logs/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -70,6 +70,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../configuration/">运行配置重置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dataplane/">数据面恢复</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../routing/">路由服务恢复</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logs/">服务日志</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">故障定位</a></li>
 </ul>
 </li>
@@ -81,9 +82,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -116,14 +117,31 @@
 <section id="id2">
 <span id="告警与日志"></span><h2>告警与日志<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>告警显示严重度、功能模块、错误码、受影响对象、首次/最近发生时间、累计次数以及当前是否已恢复。相同故障会合并计数，避免重复信息淹没有效日志。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display alarm active
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display health
+display service verbose
+display alarm active
 display alarm history last 100
-journalctl -u vortexrosd -u vortexros-vpp -u vortexros-frr -u vortexros-route-zapi
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">service</span> <span class="pre">verbose</span></code> 提供服务状态和最近错误，告警提供受影响对象及累计次数；
+它们不包含完整运行日志。需要关联多个服务的故障过程时，使用同一时间范围查看日志。</p>
+<section id="id3">
+<span id="统一查看受管服务日志"></span><h3>统一查看受管服务日志<a class="headerlink" href="#id3" title="链接到此标题。"></a></h3>
+<p>直接在 CLI 查询本次启动最近15分钟的受管服务日志：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display logbuffer since 15 last 200
+display logbuffer service frr since 15 last 50
+</pre></div>
+</div>
+<p>记录按时间合并，并保留来源和时间。参数、服务列表和输出示例见<a class="reference internal" href="../logs/"><span class="std std-doc">服务日志</span></a>。
+查询不会修改日志保存策略，也不需要进入 Bash。</p>
+<p>检查网卡、驱动、IOMMU或内核错误时，有 Bash 权限的账号可执行 <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">bash</span></code>，另查内核日志：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--since<span class="w"> </span><span class="s1">'-15 minutes'</span><span class="w"> </span>-o<span class="w"> </span>short-precise<span class="w"> </span>--no-pager
 </pre></div>
 </div>
 </section>
-<section id="id3">
-<span id="故障处理顺序"></span><h2>故障处理顺序<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+</section>
+<section id="id4">
+<span id="故障处理顺序"></span><h2>故障处理顺序<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <ol class="arabic simple">
 <li><p>保住管理连接和当前会话；</p></li>
 <li><p>记录 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health/service/alarm</span></code>；</p></li>
@@ -136,8 +154,8 @@ journalctl -u vortexrosd -u vortexros-vpp -u vortexros-frr -u vortexros-route-za
 <p>不要直接删除 <code class="docutils literal notranslate"><span class="pre">/var/lib/vortexros</span></code>、<code class="docutils literal notranslate"><span class="pre">/run/vortexros</span></code> 或服务运行目录来“清错”，否则可能破坏自动恢复所需的信息。无法恢复时先保存display和日志信息，再按安装手册中的恢复流程处理。</p>
 <p><a class="reference internal" href="../../09-operations/"><span class="std std-doc">目录</span></a></p>
 </section>
-<section id="id4">
-<span id="服务状态与健康"></span><h2>服务状态与健康<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<section id="id5">
+<span id="服务状态与健康"></span><h2>服务状态与健康<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
 <p>服务显示区分 Running、Ready 和 Converged。进程运行不等于控制连接就绪，已提交配置代号相同也不等于所有依赖服务可用。一次路由服务停止时，display health 为 not-ready，health check 返回失败；服务恢复后重新为 ready，配置代号保持不变。</p>
 <p>进程与版本信息按服务监视周期更新；控制连接的就绪状态更新更频繁。因此短暂故障中 Running/PID 与 Ready 的更新时间可能不同，应以严格健康结果及实际业务综合判断。</p>
 <p>历史告警的实际示例：</p>
@@ -153,7 +171,7 @@ major     reconcile  RECONCILE_FAILED  running   4
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../routing/" class="btn btn-neutral float-left" title="路由服务恢复" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../logs/" class="btn btn-neutral float-left" title="服务日志" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="../../../troubleshooting/" class="btn btn-neutral float-right" title="常见故障" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

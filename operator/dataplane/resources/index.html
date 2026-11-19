@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>资源与运行查询 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>资源与运行查询 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/dataplane/resources/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -96,9 +96,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -143,7 +143,7 @@
 <td><p>活动后端和 PCI 接管阶段</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">interfaces</span></code></p></td>
-<td><p>期望/活动模式、PCI 驱动、VPP 当前和最大 RX 队列</p></td>
+<td><p>PCI 所属 NUMA 节点、期望/活动模式、PCI 驱动、当前和最大 RX 队列</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">cpu</span></code></p></td>
 <td><p>Linux 隔离 CPU、VPP 线程及 CPU</p></td>
@@ -155,7 +155,7 @@
 <td><p>各 NUMA 节点内存、大页配置与实际页数，以及整机保留量</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">iommu</span></code></p></td>
-<td><p>IOMMU 组和受管设备所属组</p></td>
+<td><p>IOMMU 组、受管设备所属组及 NUMA 节点</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">tables</span></code></p></td>
 <td><p>期望容量、VPP 实际容量、Linux 邻居 GC 阈值</p></td>
@@ -166,6 +166,19 @@
 </tbody>
 </table>
 <p>L2FIB 为空时不能凭空读出实时容量，查询单独标记显式 MAC 启动值。大页总量是单页大小乘页数，例如 2M ×1024 为2GiB，不能用进程 VSZ 替代。</p>
+</section>
+<section id="numa">
+<span id="网卡所属-numa"></span><h2>网卡所属 NUMA<a class="headerlink" href="#numa" title="链接到此标题。"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">interfaces</span></code> 的 NUMA 列表示 PCI 网卡实际关联的节点，<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span></code> 和 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">verbose</span></code> 中的接口表也包含该列。它不是按接口编号推算，也不随 CPU 配置改变；DPDK 接管后仍按 PCI 设备身份查询。</p>
+<p>节点为 0、1 等整数时，可与 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">cpu</span> <span class="pre">topological</span></code> 和 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">dataplane</span> <span class="pre">memory</span></code> 的节点号对照。<code class="docutils literal notranslate"><span class="pre">unknown</span></code> 表示固件或系统未提供设备的 NUMA 归属，<code class="docutils literal notranslate"><span class="pre">unavailable</span></code> 表示当前无法读取，例如设备已移除。二者都不能当作节点 0。</p>
+<p>以下是系统没有报告 PCI 节点关联时的实际查询节选；实际设备有明确关联时，该列显示对应的数字：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;VortexROS&gt; display dataplane interfaces
+Dataplane interfaces
+  PCI            Interface       NUMA     Desired    Active       Driver       RX queues
+  0000:00:02.0   Ethernet0       unknown  dpdk       DPDK         vfio-pci     1/1
+</pre></div>
+</div>
+<p>配置中的资源参数按 CPU、内存和其他全局设置在前，设备子段在后显示。<code class="docutils literal notranslate"><span class="pre">#</span></code> 只作分隔，不是需要手工执行的命令；保存后的配置可按相同层次加载。选择设备子视图时，<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">this</span></code> 只显示该设备，不重复全局资源。</p>
 </section>
 <section id="cpu">
 <span id="按拓扑选择-cpu"></span><h2>按拓扑选择 CPU<a class="headerlink" href="#cpu" title="链接到此标题。"></a></h2>
@@ -193,8 +206,8 @@
 <p>优先让同一业务的主线程、worker和网卡位于合适的同一NUMA节点。上面拓扑中的CPU4和6属于同一节点的不同物理核。现有隔离配置只针对指定的逻辑CPU，不会自动选择核心、离线SMT或隔离未指定的同胞线程；不同Core只能避免VPP线程彼此共享物理核，不代表系统任务不会使用同胞线程。</p>
 <p>该查询在Linux数据面或VPP停止时也可使用。只读取信息，不改变CPU配置。</p>
 </section>
-<section id="numa">
-<span id="numa与内存"></span><h2>NUMA与内存<a class="headerlink" href="#numa" title="链接到此标题。"></a></h2>
+<section id="id3">
+<span id="numa与内存"></span><h2>NUMA与内存<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>内存和大页也有NUMA归属。CPU可以访问其他节点的内存，但会发生跨节点访问；应结合CPU和网卡所在节点安排数据面资源。</p>
 <p>大页按 NUMA 节点预留，命令末尾使用 <code class="docutils literal notranslate"><span class="pre">numa</span> <span class="pre">NODE</span></code> 指定节点。省略时只为节点 0 预留，不会平均分配到其他节点。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataplane
@@ -260,8 +273,8 @@ reset dataplane
 <p>CPU4/6对应上面的拓扑示例，其他设备必须按本机查询结果选择；CPU/NUMA/PCI 条件按本机调整，不能覆盖唯一管理路径。主核和 worker 不重叠，CPU 编号从0开始。配置 worker 时必须同时指定主核。引导参数需要主机重启时会提示；只生成 GRUB 片段不代表当前内核已生效。</p>
 <p>激活后核对线程、队列和描述符的运行值。撤销显式设置后采用设备或驱动默认值；默认值并非所有网卡相同。</p>
 </section>
-<section id="id3">
-<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<section id="id4">
+<span id="撤销"></span><h2>撤销<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>先按<a class="reference internal" href="../devices/"><span class="std std-doc">设备接管</span></a>确认是否需保留 DPDK。单独撤销 worker 时：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
 </pre></div>

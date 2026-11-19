@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>uRPF &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>uRPF &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/urpf/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -81,9 +81,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -116,7 +116,13 @@
 <p>在入口检查报文源地址是否有可用回程路由。</p>
 <p><a class="reference internal" href="../reference/urpf/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/urpf/"><span class="std std-doc">配置案例</span></a></p>
 <section id="id1">
-<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<span id="工作原理与路由依赖"></span><h2>工作原理与路由依赖<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>uRPF 对进入接口的报文源地址查反向路由，以识别不符合路由拓扑的源。严格模式要求返回路径与入接口匹配，宽松模式只要求源在路由中可达；可参照 RFC 3704 理解其适用场景。</p>
+<p>严格模式适合回程明确的单出口接入，非对称路由、多出口或策略转发环境应先评估，否则正常业务也可能被丢弃。宽松模式不能阻止所有可路由的伪造源。默认路由是否参与匹配按本产品的命令说明核对，不套用其他 NOS 的行为。</p>
+<p>验证必须同时准备合法源、应拒绝源及回程路由对照。变更路由本身也可能改变检查结果；撤销时只撤销目标地址族，不应误改另一地址族。</p>
+</section>
+<section id="id2">
+<span id="配置与验证"></span><h2>配置与验证<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>接口可以启用严格或宽松的反向路径检查：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Vlanif 100
  ipv6 enable

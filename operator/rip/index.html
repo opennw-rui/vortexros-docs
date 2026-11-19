@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RIP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
+  <title>RIP &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/rip/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
+      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -93,9 +93,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug1）</summary>
+  <summary>版本：最新（v0.30-dev-debug2）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug1）</a>
+    <a href="../../">当前手册（v0.30-dev-debug2）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -127,6 +127,11 @@
 <h1>RIP<a class="headerlink" href="#rip" title="链接到此标题。"></a></h1>
 <p>支持 RIPv1 和 RIPv2 的 IPv4 路由交换。当前配套FRR 缺省优先级为 100，可在进程视图用 <code class="docutils literal notranslate"><span class="pre">preference</span> <span class="pre">&lt;值&gt;</span></code> 调整。默认 100 不显示在配置中；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">preference</span></code> 恢复默认。修改优先级后，已有路由在后续 RIP 更新时重新选路，应以实际路由表为准。</p>
 <p><a class="reference internal" href="../reference/rip/"><span class="std std-doc">命令参考</span></a> · <a class="reference internal" href="../../examples/rip/"><span class="std std-doc">配置案例</span></a></p>
+<section id="id1">
+<span id="工作原理与使用边界"></span><h2>工作原理与使用边界<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>RIP 是距离矢量协议。RIPv2（RFC 2453）以跳数作为度量，16 表示不可达，最多 15 个有效跳；周期更新和超时机制使故障检测与恢复通常慢于链路状态协议。适合较小或兼容性优先的 IPv4 网络。</p>
+<p>RIPv1 不携带子网掩码；需要无类前缀时选用 RIPv2，并让两端版本、接口启用范围和认证一致。路由优先级默认 100 与跳数是不同字段。使用 BFD 可缩短故障发现，但不会替代正确的 RIP 路由发布与撤销。</p>
+<p>配置后分别核对接口是否参加协议、收到的路由、系统选路和实际出口。关闭接口或撤销 network 后，路由应随协议收敛撤销；保留静态或其他协议的同前缀路由时，需要检查来源，不能只按目的地址判断。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="configuration/">进程与发布</a><ul>
@@ -151,6 +156,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 
