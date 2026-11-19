@@ -1,6 +1,6 @@
 # VortexROS 公开文档
 
-当前产品手册对应 VortexROS v0.30-dev-debug3；安装包与详细变更见对应 Release。正文使用 Markdown，Sphinx 和 Read the Docs 主题生成静态站点。新版本发布后，更新当前基线以及版本页，并从对应版本的 CLI Registry 生成命令参考。
+当前产品手册对应 VortexROS v0.30-dev-debug4；安装包与详细变更见对应 Release。正文使用 Markdown，Sphinx 和 Read the Docs 主题生成静态站点。新版本发布后，更新当前基线以及版本页，并从对应版本的 CLI Registry 生成命令参考。
 
 ## 预览和构建
 
