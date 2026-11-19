@@ -8,10 +8,10 @@
 CE1 Ethernet0 ── Ethernet0 PE1 Ethernet1.962 ── Ethernet0.963 CE2
 198.19.197.2/24             Vbdif962                    Vbdif963
 2001:db8:197::2/64          .1 / ::1                    .3 / ::3
-      无标签                         802.1ad VLAN 962
+      无标签                         802.1ad VLAN 964
 ~~~
 
-设备上的 VLAN、桥域和子接口编号相互独立。本例 VLAN 与 PE1 桥域恰好同号，CE2 的子接口编号及桥域则使用 963；线上标签仍由封装命令指定为 962。以下端口均为本例专用，不能覆盖正在使用的地址或 VLAN。
+设备上的 VLAN、桥域和子接口编号相互独立。本例 VLAN 与 PE1 桥域恰好同号，CE2 的子接口编号及桥域则使用 963；线上标签由封装命令指定为 964，不能复用本设备已存在的全局 VLAN 962。以下端口均为本例专用，不能覆盖正在使用的地址或 VLAN。
 
 ## CE1
 
@@ -42,7 +42,7 @@ interface Ethernet0
  port default vlan 962
 #
 interface Ethernet1.962 mode l2
- encapsulation dot1ad vid 962
+ encapsulation dot1ad vid 964
  bridge-domain 962
 #
 interface Vbdif962
@@ -61,7 +61,7 @@ enable switch
 bridge-domain 963
 #
 interface Ethernet0.963 mode l2
- encapsulation dot1ad vid 962
+ encapsulation dot1ad vid 964
  bridge-domain 963
 #
 interface Vbdif963
@@ -96,7 +96,7 @@ bridge-domain 962
     Ethernet1.962   shg 0
 ~~~
 
-接口显示 Encapsulation is dot1ad, VLAN 962，PHY 和 Protocol 均为 Up。链路报文的标签类型为 0x88a8、VLAN 962，双向 ARP、IPv4 和 IPv6 报文均可观察到。
+接口显示 Encapsulation is dot1ad, VLAN 964，PHY 和 Protocol 均为 Up。链路报文的标签类型为 0x88a8、VLAN 964。此组合已验证全局 VLAN 962 与显式外层 VID 964 可同时提交；Vbdif962 到对端 Vbdif963 的 IPv4、IPv6 探测均为 3 发 3 收。桥域编号、子接口后缀和线上标签不能混为同一资源。
 
 CE1：
 
@@ -118,15 +118,15 @@ ping ipv6 -c 3 2001:db8:197::3
 两端分别在已有二层子接口视图中，将封装改为：
 
 ~~~text
-encapsulation qinq vid 962 ce-vid 963
+encapsulation qinq vid 964 ce-vid 963
 ~~~
 
-提交会重新建立该子接口的封装，业务可能短暂中断。两端必须同时匹配外标签 962、内标签 963。该命令的外、内标签均为 0x8100；不要与上述单层 0x88a8 封装混用。
+提交会重新建立该子接口的封装，业务可能短暂中断。两端必须同时匹配外标签 964、内标签 963。该命令的外、内标签均为 0x8100；不要与上述单层 0x88a8 封装混用。
 
 实测接口显示：
 
 ~~~text
-Encapsulation is QinQ, Outer VLAN 962, Inner VLAN 963
+Encapsulation is QinQ, Outer VLAN 964, Inner VLAN 963
 ~~~
 
 报文中存在两层 0x8100 标签；完成邻居解析后，IPv4 探测为 3 发 3 收，IPv6 为 2 发 2 收。封装变更后的首次探测也记录过地址解析期间的丢包，不能把接口 Up 单独视为流量恢复证明。
