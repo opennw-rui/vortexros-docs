@@ -18,6 +18,8 @@ display ip interface brief
 display ip routing-table protocol direct
 ~~~
 
-先撤销协议、策略等引用，再删除子接口。真实删除结果、保存回放和对照业务见案例；父口可能还承载其他子接口，不应为删除单一业务而删除父口。
+在系统视图执行 `undo interface Ethernet0.700` 删除该子接口。绑定在该接口上的 NAT、Proxy ARP 和 DHCP 配置随接口删除，共享 NAT 策略和其他接口的绑定保留。其他独立对象对该接口的引用仍须先解除。提交前可用 `display configuration candidate merge` 检查待删除内容；提交后用 `display current-configuration interface` 和 `display interface` 检查结果，再保存配置。
+
+父口可能承载其他子接口，不应为删除单一业务而删除父口。
 
 [L2 子接口](subinterfaces-l2.md) · [接口参数](reference/interfaces.md)

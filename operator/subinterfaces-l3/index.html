@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>L3 子接口 &mdash; VortexROS 文档 v0.30-dev-debug3 文档</title>
+  <title>L3 子接口 &mdash; VortexROS 文档 v0.30-dev-debug4 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/subinterfaces-l3/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=9188b343"></script>
+      <script src="../../_static/documentation_options.js?v=e0531929"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -92,9 +92,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug3）</summary>
+  <summary>版本：最新（v0.30-dev-debug4）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug3）</a>
+    <a href="../../">当前手册（v0.30-dev-debug4）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -139,7 +139,8 @@ display ip interface brief
 display ip routing-table protocol direct
 </pre></div>
 </div>
-<p>先撤销协议、策略等引用，再删除子接口。真实删除结果、保存回放和对照业务见案例；父口可能还承载其他子接口，不应为删除单一业务而删除父口。</p>
+<p>在系统视图执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">Ethernet0.700</span></code> 删除该子接口。绑定在该接口上的 NAT、Proxy ARP 和 DHCP 配置随接口删除，共享 NAT 策略和其他接口的绑定保留。其他独立对象对该接口的引用仍须先解除。提交前可用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">configuration</span> <span class="pre">candidate</span> <span class="pre">merge</span></code> 检查待删除内容；提交后用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">current-configuration</span> <span class="pre">interface</span></code> 和 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span></code> 检查结果，再保存配置。</p>
+<p>父口可能承载其他子接口，不应为删除单一业务而删除父口。</p>
 <p><a class="reference internal" href="../subinterfaces-l2/"><span class="std std-doc">L2 子接口</span></a> · <a class="reference internal" href="../reference/interfaces/"><span class="std std-doc">接口参数</span></a></p>
 </section>
 </section>
