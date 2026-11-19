@@ -2,6 +2,14 @@
 
 通过 IPv4 LDP 核心承载全局 IPv6 路由。
 
+## 工作原理与适用边界
+
+6PE 按 RFC 4798 在 IPv4 MPLS 核心上承载全局 IPv6 可达性。PE 通过 IPv4 邻居交换带标签 IPv6 路由，核心沿标签转发，不要求所有 P 设备参与客户 IPv6 路由。
+
+6PE 面向全局 IPv6 互联，与采用独立 VPN 实例的 IPv6 VPN 不同。IPv4 底层、LDP 标签路径、BGP 标签路由能力和 IPv6 业务路由均需成立，不能把普通 IPv6 unicast 邻居启用等同于已启用 6PE。
+
+验证包括标签路由、实际 MPLS 转发表和双向 IPv6 流量。改变标签能力会影响相关路由发布和转发方式，修改两端时预留收敛窗口。
+
 ## 配置与验证
 
 6PE 使用 IPv4 LDP 核心承载全局 IPv6 路由。邻居仍使用 IPv4 LoopBack 建立会话，
@@ -17,8 +25,7 @@ bgp 65000
   network 2001:db8:101::1 128
 ```
 
-后端使用 FRR 原生 `ipv6 labeled-unicast` 地址族。Zebra 将 6PE 路由写入 Linux
-netlink，LCP 再同步到 VPP；VortexROS 不直接向 VPP 或内核下发 6PE 路由。
+标签能力用于交换 IPv6 带标签路由。两端都应启用相应能力，并确保 IPv4 标签路径可用；普通 IPv6 路由的可达性不能代替标签转发检查。
 
 
 在对端检查 IPv6 BGP 路由、VPP MPLS 转发表和 IPv6 业务连通性。

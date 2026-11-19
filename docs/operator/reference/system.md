@@ -347,3 +347,24 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 此形式没有额外参数。
+
+## `display logbuffer`
+
+- 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
+- 视图：`任意允许视图`
+- CLI 帮助：display managed service journal entries
+- 合法语法：
+
+  ```text
+  display logbuffer [service SERVICE] [last N] [since MINUTES]
+  ```
+
+
+**参数与使用**
+
+默认查看本次启动的最近100条受管服务日志。`last N` 范围1–1000，
+`since MINUTES` 范围1–1440。`service` 可选 control、vpp、frr、route-zapi、
+switchd、dhcp、snmp、aaa。筛选项顺序可交换，不可重复。
+
+完整参数、权限、输出示例和限制见[服务日志](../operations/logs.md)。
