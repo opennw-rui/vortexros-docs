@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>配套 FRR &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
+  <title>配套 FRR &mdash; VortexROS 文档 v0.30-dev-debug3 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/frr/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
+      <script src="../../_static/documentation_options.js?v=9188b343"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -70,6 +70,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../">发布记录</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../debug2/">Debug 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debug3/">Debug 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vortexros/">VortexROS 0.30-dev</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vpp/">配套 VPP</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">配套 FRR</a></li>
@@ -82,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug2）</summary>
+  <summary>版本：最新（v0.30-dev-debug3）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug2）</a>
+    <a href="../../">当前手册（v0.30-dev-debug3）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -115,7 +116,7 @@
   <section id="frr">
 <span id="配套-frr"></span><h1>配套 FRR<a class="headerlink" href="#frr" title="链接到此标题。"></a></h1>
 <p>FRR负责动态路由协议和路由选择。请通过VortexROS CLI配置协议，不要直接修改FRR配置文件；否则后续提交或重启可能覆盖这些修改。</p>
-<p>当前版本为10.7.1-vortexros-1.9-dev。安装器会核对配套版本，普通配置无需单独安装或操作FRR。</p>
+<p>当前版本为10.7.1-vortexros-1.10-dev。安装器会核对配套版本，普通配置无需单独安装或操作FRR。</p>
 <section id="id1">
 <span id="对用户可见的行为"></span><h2>对用户可见的行为<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <ul class="simple">
@@ -142,7 +143,12 @@
 </ul>
 </section>
 <section id="id3">
-<span id="19-dev-的主要变化"></span><h2>1.9-dev 的主要变化<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<span id="110-dev-的主要变化"></span><h2>1.10-dev 的主要变化<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>撤销不可用的ECMP成员后，路由详情不再保留已删除的下一跳。恢复解析路由不会重新加入已经撤销的成员；保留配置的成员则可随解析恢复重新参与转发。</p>
+<p>本版配合控制层修复解析从可用变为空时的路径更新。升级使用<a class="reference internal" href="../debug3/"><span class="std std-doc">Debug 3统一包</span></a>，不需要新增配置命令。完整操作和实际验证见<a class="reference internal" href="../../operator/static-routing/lifecycle/"><span class="std std-doc">静态路由收敛</span></a>。</p>
+</section>
+<section id="id4">
+<span id="19-dev-的主要变化"></span><h2>1.9-dev 的主要变化<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>撤销 RIPng 接口的协议使能后，删除经该接口学习的路由，并更新系统路由和 FIB；其他仍启用接口的路由保留。再次启用后按正常协议通告重新学习。此版本继续包含 1.8-dev 的修复。</p>
 </section>
 </section>

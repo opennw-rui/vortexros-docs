@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>升级与回退 &mdash; VortexROS 文档 v0.30-dev-debug2 文档</title>
+  <title>升级与回退 &mdash; VortexROS 文档 v0.30-dev-debug3 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/07-upgrade-uninstall/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=81cd8b8d"></script>
+      <script src="../../_static/documentation_options.js?v=9188b343"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -83,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug2）</summary>
+  <summary>版本：最新（v0.30-dev-debug3）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug2）</a>
+    <a href="../../">当前手册（v0.30-dev-debug3）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -128,7 +128,7 @@ sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.30-dev-amd64
 sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.30-dev-amd64.run<span class="w"> </span>--simulate
 </pre></div>
 </div>
-<p>检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。后端版本相同则保留对应包和进程；后端版本变化时安装器重启受影响的服务，需预留相应的业务中断窗口。</p>
+<p>检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。安装器只安装版本发生变化的包；软件包不变不等于服务一定不重启。仅控制层更新执行控制层恢复计划；涉及后端包变更时，系统包事务会按既有流程重启产品服务栈，未换版的VPP等服务也可能重启。请根据模拟输出的执行计划预留业务中断窗口。</p>
 <p>已安装的 Linux-only 设备可以更新，VPP 服务保持停止；VPP 模式继续检查进程及适用的运行版本。安装器要求升级和回退前后的数据面归属一致。</p>
 </section>
 <section id="id3">
