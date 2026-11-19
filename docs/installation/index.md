@@ -6,7 +6,7 @@
 
 ## 下载并运行
 
-从[0.30-dev Release](https://github.com/opennw-rui/VortexROS/releases/tag/v0.30-dev)下载单文件安装包及校验文件，在Ubuntu终端执行：
+从[0.30-dev Debug 1 Release](https://github.com/opennw-rui/VortexROS/releases/tag/v0.30-dev-debug1)下载单文件安装包及校验文件，在Ubuntu终端执行：
 
 ~~~bash
 sudo sh ./vortexros-0.30-dev-amd64.run
