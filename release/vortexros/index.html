@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VortexROS 0.30-dev &mdash; VortexROS 文档 v0.30-dev 文档</title>
+  <title>VortexROS 0.30-dev &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/vortexros/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -81,9 +81,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev）</summary>
+  <summary>版本：最新（v0.30-dev-debug1）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../">当前手册（v0.30-dev-debug1）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -113,7 +113,7 @@
              
   <section id="vortexros-0-30-dev">
 <span id="vortexros-030-dev"></span><h1>VortexROS 0.30-dev<a class="headerlink" href="#vortexros-0-30-dev" title="链接到此标题。"></a></h1>
-<p>0.30-dev 汇集上一版之后的接口、路由、隧道、网络服务和查询修复。统一安装包包含配套 VPP 26.10.8、FRR 1.8-dev 和 Kea；首次安装仍使用 Linux 数据面，DPDK 设备继续通过 CLI 配置。</p>
+<p>0.30-dev 汇集上一版之后的接口、路由、隧道、网络服务和查询修复。统一安装包包含配套 VPP 26.10.9、FRR 1.9-dev 和 Kea；首次安装仍使用 Linux 数据面，DPDK 设备继续通过 CLI 配置。</p>
 <section id="id1">
 <span id="数据面与接口"></span><h2>数据面与接口<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <ul class="simple">
@@ -161,6 +161,16 @@
 <span id="服务恢复边界"></span><h2>服务恢复边界<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
 <p>接口、路由和业务沿现有依赖顺序恢复。DHCP 等业务故障不再反向阻止接口恢复；正常实例通过实际状态和期望配置核对后保留，不因另一个实例故障被一并重启。一个实例失败会继续处理其他独立实例，并汇总具体错误。</p>
 <p>安装器分别观察基础、路由和业务状态。关键基础无法恢复时自动回退；仅后续服务未恢复时明确报告业务未恢复，保留正常的数据面。数据面是否正确恢复以当前版本、API、配置投影与实际业务结果判断，旧 PID 不作为必须恢复的条件。正常升级仍不主动重启未变化的后端。</p>
+</section>
+<section id="id6">
+<span id="补充修复"></span><h2>补充修复<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
+<ul class="simple">
+<li><p>递归 ECMP 的路由显示不再将已经失效的解析路径计入有效下一跳。</p></li>
+<li><p>EVPN All-Active 在数据面重建后恢复远端 MAC 下一跳组；一端撤销 ESI 后使用剩余成员继续转发。部署前需满足 <a class="reference internal" href="../../operator/evpn/multihoming/"><span class="std std-doc">多归属内核要求</span></a>。</p></li>
+<li><p>IPv6 自动链路本地地址撤销后不因后续接口同步重新残留。</p></li>
+<li><p>RIPng 撤销接口的协议使能后，同步撤销经该接口学习的路由。</p></li>
+<li><p>升级识别准确旧包时，允许保留软件包声明可修改的配置文件，包括自定义大页参数；仍核对程序、库和安装脚本。</p></li>
+</ul>
 </section>
 </section>
 

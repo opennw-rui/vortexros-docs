@@ -116,9 +116,10 @@ interface Ethernet0
 #
 commit
 display traffic classifier user-defined ACCESS110
-display traffic policy applied-record
+display current-configuration interface Ethernet0
 ~~~
 
+接口配置显示绑定意图，执行结果需结合目标与对照报文核对。
 示例实际结果为 DSCP46 出口收到0/3，DSCP0收到3/3。
 修改端口 PVID 会同时更新策略的业务 VLAN 上下文；条件仍需与新的承载 VLAN 一致。
 将 VLAN 条件策略绑定到未承载该 VLAN 的接口时，编辑被拒绝，不会等提交后才停止业务。

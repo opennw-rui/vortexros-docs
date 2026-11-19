@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VLAN 与业务桥域 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+  <title>VLAN 与业务桥域 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vlan/service-bd/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/documentation_options.js?v=b102c2df"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -94,9 +94,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev）</summary>
+  <summary>版本：最新（v0.30-dev-debug1）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug1）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -160,7 +160,12 @@ display bridge-domain 666
 </pre></div>
 </div>
 <p>撤销绑定不会自动删除桥域。仍有Vbdif、VNI或其他引用时，应先按业务依赖解除；不再使用后再删除桥域和VLAN。</p>
+<section id="bd">
+<span id="在同一个-bd-混合接入"></span><h2>在同一个 BD 混合接入<a class="headerlink" href="#bd" title="链接到此标题。"></a></h2>
+<p>全局 VLAN 使用 <code class="docutils literal notranslate"><span class="pre">l2</span> <span class="pre">binding</span> <span class="pre">vlan</span></code> 接入 BD，显式二层子接口在接口视图使用 <code class="docutils literal notranslate"><span class="pre">bridge-domain</span></code> 接入。一个 VLAN 和一个 L2 子接口各只能接入一个 BD。两种成员可以共用同一个 BD，并共享广播、洪泛和 MAC 学习范围。需要隔离客户流量时，为各业务分配独立的 BD 和 VNI。</p>
+<p>全局 VLAN 与任意显式子接口的外层封装 VID 互斥。子接口实例编号、QinQ 内层 VID 和 BD 编号可以使用相同的数字。<a class="reference internal" href="../../subinterfaces-l2/"><span class="std std-doc">二层子接口的配置规则</span></a></p>
 <p><a class="reference internal" href="../../bridge-domains/"><span class="std std-doc">桥域配置</span></a> · <a class="reference internal" href="../../../examples/subinterfaces/l2/"><span class="std std-doc">二层子接口案例</span></a></p>
+</section>
 </section>
 
 

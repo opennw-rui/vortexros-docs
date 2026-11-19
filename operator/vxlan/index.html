@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VXLAN &mdash; VortexROS 文档 v0.30-dev 文档</title>
+  <title>VXLAN &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/vxlan/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -82,9 +82,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev）</summary>
+  <summary>版本：最新（v0.30-dev-debug1）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../">当前手册（v0.30-dev-debug1）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -175,6 +175,23 @@ Inbound              4                            340
 Outbound             2                            212
 </pre></div>
 </div>
+</section>
+<section id="qinq-vxlan">
+<span id="qinq-业务的-vxlan-载荷"></span><h2>QinQ 业务的 VXLAN 载荷<a class="headerlink" href="#qinq-vxlan" title="链接到此标题。"></a></h2>
+<p>显式 QinQ 子接口采用 <code class="docutils literal notranslate"><span class="pre">rewrite</span> <span class="pre">pop</span> <span class="pre">single</span></code> 时，入方向移除固定外层标签，VXLAN 载荷保留内层客户标签。回程经过该子接口时恢复固定外层标签。采用 <code class="docutils literal notranslate"><span class="pre">rewrite</span> <span class="pre">pop</span> <span class="pre">none</span></code> 时保留原有标签。<a class="reference internal" href="../subinterfaces-l2/#id2"><span class="std std-ref">二层子接口标签处理</span></a></p>
+<p>例如在本端设置外层 200、内层 10 或 12–13，并接入使用 VNI 5310 的 BD 310。对端将同一 VNI 接入其 BD 310，由客户接入口转发。以下为本端业务接入配置，底层链路与 NVE 使用前面的配置方式。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bridge-domain 310 uu-flood
+ vxlan vni 5310
+#
+interface Ethernet 1.17 mode l2
+ encapsulation qinq vid 200 ce-vid 10 12 to 13
+ rewrite pop single
+ bridge-domain 310
+#
+</pre></div>
+</div>
+<p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bridge-domain</span> <span class="pre">310</span></code> 和 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vxlan</span> <span class="pre">statistics</span> <span class="pre">source</span> <span class="pre">198.18.250.1</span> <span class="pre">peer</span> <span class="pre">198.18.250.2</span> <span class="pre">vni</span> <span class="pre">5310</span></code> 检查成员和收发。实测内层 VID 13 的接入帧带 200/13 两层标签，VNI 5310 线上载荷和对端接入口均只带内层 13，回程恢复 200/13。改用 <code class="docutils literal notranslate"><span class="pre">encapsulation</span> <span class="pre">dot1ad</span> <span class="pre">vid</span> <span class="pre">200</span> <span class="pre">ce-vid</span> <span class="pre">10</span> <span class="pre">12</span> <span class="pre">to</span> <span class="pre">13</span></code> 后，实测出口恢复 0x88a8 外层，内层 12 和 13 均通过。处在范围空洞的内层 11 不进入该隧道。</p>
+<p>撤销接入时在系统视图执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">interface</span> <span class="pre">Ethernet</span> <span class="pre">1.17</span></code>，提交后用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bridge-domain</span> <span class="pre">310</span></code> 复查剩余成员。若同时撤销 VXLAN 业务，再移除对应远端和 VNI。</p>
 </section>
 <section id="id2">
 <span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>

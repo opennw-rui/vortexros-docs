@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LLDP &mdash; VortexROS 文档 v0.30-dev 文档</title>
+  <title>LLDP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/lldp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -79,9 +79,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev）</summary>
+  <summary>版本：最新（v0.30-dev-debug1）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../">当前手册（v0.30-dev-debug1）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -127,6 +127,9 @@ commit
 </pre></div>
 </div>
 <p>LLDP未收敛或后端不可用时会在<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">health</span></code>和告警中显示，但不会触发VPP物理接口所有权回滚。</p>
+<p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">lldp</span> <span class="pre">local</span></code> 的 <code class="docutils literal notranslate"><span class="pre">Device</span> <span class="pre">system</span> <span class="pre">MAC</span></code> 是设备系统 MAC。线上通告的
+Chassis ID 使用各物理接口的 MAC，按对端 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">lldp</span> <span class="pre">neighbor</span> <span class="pre">interface</span></code>
+及实际 LLDP 报文逐口核对。设备系统 MAC 与这些接口 MAC 可以不同。</p>
 </section>
 <section id="id2">
 <span id="单端口控制与邻居老化"></span><h2>单端口控制与邻居老化<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>升级与回退 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+  <title>升级与回退 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/07-upgrade-uninstall/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -83,9 +83,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev）</summary>
+  <summary>版本：最新（v0.30-dev-debug1）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../">当前手册（v0.30-dev-debug1）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -134,6 +134,7 @@ sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.30-dev-amd64
 <section id="id3">
 <span id="回退材料与健康观察"></span><h2>回退材料与健康观察<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <p>安装器从上次保留的系统包、本地软件包目录或 APT 缓存取得待更新组件的精确旧版本包。统一 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 入口不要求预先创建 <code class="docutils literal notranslate"><span class="pre">/VortexROS/install</span></code>。缺少回退材料时，预检会报告实际缺少的包名和版本。</p>
+<p>VPP 软件包声明允许修改的配置文件会按配置文件处理；例如调整大页预留后，不需要先恢复发行版默认值才能升级。程序、共享库、插件和安装脚本仍须与已安装的软件包一致。若曾手工替换这些文件，预检可能报告回退材料不匹配，应核对软件来源和具体不一致项。</p>
 <p>恢复按实际依赖推进，每个阶段完成下发与回读后再继续：</p>
 <table class="docutils align-default">
 <thead>

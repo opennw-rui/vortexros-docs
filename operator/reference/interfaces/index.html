@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ethernet 与接口 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+  <title>Ethernet 与接口 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/interfaces/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/documentation_options.js?v=b102c2df"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -120,9 +120,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev）</summary>
+  <summary>版本：最新（v0.30-dev-debug1）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug1）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -571,7 +571,7 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
 <li><p>CLI 帮助：configure sub-interface encapsulation</p></li>
 <li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>encapsulation { dot1q | dot1ad } vid VLAN-ID | encapsulation qinq vid PE-VID ce-vid CE-VID
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>encapsulation { dot1q | dot1ad } vid VLAN-ID [ce-vid { VID [to VID] ... | any }] | encapsulation qinq vid PE-VID ce-vid { VID [to VID] ... | any }
 </pre></div>
 </div>
 </li>
@@ -1639,6 +1639,36 @@ commit
 <p>不能向多个接口批量配置同一个本机 IP 地址：命令会因地址冲突拒绝整个地址编辑，不会只为第一个接口写入。此前已暂存的其他编辑继续保留。用 display configuration candidate 检查待提交配置；display this 显示该范围已经提交的配置。</p>
 <p>显式 lcp host 配置撤销后，物理接口以及 LoopBack、Vlanif、Vbdif 等由功能管理的逻辑接口恢复自动同名控制端点，原接口地址和 VPN 绑定保留。显式参数与默认相同时，撤销不会重建端点；需要替换端点时可能短暂丢包。提交完成后检查 display lcp、接口地址及连通性。display current-configuration configuration lcp 只列显式声明，不把自动端点显示为额外配置。</p>
 <p>VPP数据面中，同一VPN内不同三层接口的IPv4子网不能相互覆盖，LoopBack的/32也受此限制。例如，Ethernet0配置198.19.196.2/24后，不能在同VPN的LoopBack上配置198.19.196.33/32。不同VPN相互独立；同一接口上相同掩码的不同主、从地址仍可使用。选择LoopBack地址时，应使用独立主机前缀，避免落入其他接口已配置的子网。</p>
+</section>
+<section id="rewrite-pop">
+<h2><code class="docutils literal notranslate"><span class="pre">rewrite</span> <span class="pre">pop</span></code><a class="headerlink" href="#rewrite-pop" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：select symmetric VLAN tag removal</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rewrite pop { single | double | none }
+</pre></div>
+</div>
+</li>
+</ul>
+<p>配置对称标签处理。<code class="docutils literal notranslate"><span class="pre">single</span></code> 移除、恢复外层标签；<code class="docutils literal notranslate"><span class="pre">double</span></code> 移除、恢复固定双层标签；VortexROS 扩展 <code class="docutils literal notranslate"><span class="pre">none</span></code> 保留标签。多内层集合或 <code class="docutils literal notranslate"><span class="pre">any</span></code> 只能选择 <code class="docutils literal notranslate"><span class="pre">single</span></code> 或 <code class="docutils literal notranslate"><span class="pre">none</span></code>，不能用 <code class="docutils literal notranslate"><span class="pre">double</span></code>。详见 <a class="reference internal" href="../../subinterfaces-l2/"><span class="std std-doc">L2 子接口</span></a>。</p>
+</section>
+<section id="undo-rewrite-pop">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">rewrite</span> <span class="pre">pop</span></code><a class="headerlink" href="#undo-rewrite-pop" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">接口视图</span></code></p></li>
+<li><p>CLI 帮助：restore the legacy default VLAN rewrite</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo rewrite pop
+</pre></div>
+</div>
+</li>
+</ul>
+<p>恢复原有默认：单标签 pop1、固定双标签 pop2。多内层或 <code class="docutils literal notranslate"><span class="pre">any</span></code> 撤销后不可直接提交，需显式补齐支持的动作。</p>
 </section>
 </section>
 

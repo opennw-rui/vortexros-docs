@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>多归属 &mdash; VortexROS 文档 v0.30-dev 文档</title>
+  <title>多归属 &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/evpn/multihoming/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../../_static/documentation_options.js?v=b102c2df"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -93,9 +93,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev）</summary>
+  <summary>版本：最新（v0.30-dev-debug1）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug1）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -135,7 +135,13 @@
 </ul>
 </div>
 <section id="id2">
-<span id="已验证的组合与限制"></span><h2>已验证的组合与限制<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<span id="运行环境要求"></span><h2>运行环境要求<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>All-Active 需要 Linux 正确接受引用下一跳组的远端 MAC 表项。部分内核包含提交 <code class="docutils literal notranslate"><span class="pre">98fc57d16744</span></code>，但尚未包含后续修复 <code class="docutils literal notranslate"><span class="pre">7308ef8b4a67</span></code>，会拒绝 FRR 的合法下发，报告 <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">nexthop</span> <span class="pre">fdb</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">dynamic</span></code>。此时 EVPN 路由和下一跳组可能正常，远端客户 MAC 却无法进入转发表，业务不能据邻居 Established 判定为正常。</p>
+<p>部署前应使用未引入该回归、或已包含该修复的发行版内核。该问题不通过调整 VLAN、RT 或开启未知单播洪泛解决，也不应手工添加永久 MAC 作为长期配置。内核更新与重启按操作系统的维护流程执行。</p>
+<p>参考：<a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7308ef8b4a6779a39f68d053c19b53a5c584a663">Linux 上游修复</a>。</p>
+</section>
+<section id="id3">
+<span id="已验证的组合与限制"></span><h2>已验证的组合与限制<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>组合</p></th>
@@ -143,25 +149,28 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>双接入单播</p></td>
+<tr class="row-even"><td><p>ESI 配置与撤销</p></td>
+<td><p>两端使用同一 ESI 时，远端 Type-4 路由和下一跳组均有两个成员；一端执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">esi</span></code> 后均缩为一个，IPv4、IPv6 各 3 发 3 收；恢复 ESI 后重建两成员</p></td>
+</tr>
+<tr class="row-odd"><td><p>双接入单播</p></td>
 <td><p>远端 MAC 指向包含两台接入 PE 的 ES 下一跳组；单链路关闭后使用另一台 PE，链路恢复后重新可用</p></td>
 </tr>
-<tr class="row-odd"><td><p>广播、组播</p></td>
+<tr class="row-even"><td><p>广播、组播</p></td>
 <td><p>远端各发送5帧，DF侧各收到5帧，非DF侧为0；未观察到重复交付</p></td>
 </tr>
-<tr class="row-even"><td><p>接入故障后的广播</p></td>
+<tr class="row-odd"><td><p>接入故障后的广播</p></td>
 <td><p>关闭原DF接入口后，另一侧成为DF，5帧广播全部交付</p></td>
 </tr>
-<tr class="row-odd"><td><p>分割水平</p></td>
+<tr class="row-even"><td><p>分割水平</p></td>
 <td><p>CE发送5帧广播，远端收到5帧，未收到回到原CE段的反射副本</p></td>
 </tr>
-<tr class="row-even"><td><p>同一ESI、两个VNI</p></td>
+<tr class="row-odd"><td><p>同一ESI、两个VNI</p></td>
 <td><p>两个业务分别可达，撤销一个VNI后该业务不通，另一个仍可达</p></td>
 </tr>
-<tr class="row-odd"><td><p>未知单播</p></td>
+<tr class="row-even"><td><p>未知单播</p></td>
 <td><p>EVPN业务桥域配置为UU-Flood drop，未学习目的MAC时不泛洪；先通过正常源MAC学习或控制面通告建立目的项</p></td>
 </tr>
-<tr class="row-even"><td><p>Single-Active、EVPN RR</p></td>
+<tr class="row-odd"><td><p>Single-Active、EVPN RR</p></td>
 <td><p>当前公开CLI未提供，不支持</p></td>
 </tr>
 </tbody>

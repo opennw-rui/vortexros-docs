@@ -11,10 +11,19 @@ All-Active 使用相同 ESI 将 CE 双接入两台 PE。远端 PE 根据 EVPN Ty
 ../../examples/evpn/all-active-multiple-vni
 ~~~
 
+## 运行环境要求
+
+All-Active 需要 Linux 正确接受引用下一跳组的远端 MAC 表项。部分内核包含提交 `98fc57d16744`，但尚未包含后续修复 `7308ef8b4a67`，会拒绝 FRR 的合法下发，报告 `A nexthop fdb cannot be dynamic`。此时 EVPN 路由和下一跳组可能正常，远端客户 MAC 却无法进入转发表，业务不能据邻居 Established 判定为正常。
+
+部署前应使用未引入该回归、或已包含该修复的发行版内核。该问题不通过调整 VLAN、RT 或开启未知单播洪泛解决，也不应手工添加永久 MAC 作为长期配置。内核更新与重启按操作系统的维护流程执行。
+
+参考：[Linux 上游修复](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7308ef8b4a6779a39f68d053c19b53a5c584a663)。
+
 ## 已验证的组合与限制
 
 |组合|实际验证|
 |---|---|
+|ESI 配置与撤销|两端使用同一 ESI 时，远端 Type-4 路由和下一跳组均有两个成员；一端执行 `undo esi` 后均缩为一个，IPv4、IPv6 各 3 发 3 收；恢复 ESI 后重建两成员|
 |双接入单播|远端 MAC 指向包含两台接入 PE 的 ES 下一跳组；单链路关闭后使用另一台 PE，链路恢复后重新可用|
 |广播、组播|远端各发送5帧，DF侧各收到5帧，非DF侧为0；未观察到重复交付|
 |接入故障后的广播|关闭原DF接入口后，另一侧成为DF，5帧广播全部交付|

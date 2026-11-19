@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QinQ &mdash; VortexROS 文档 v0.30-dev 文档</title>
+  <title>QinQ &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/qinq/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -88,9 +88,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev）</summary>
+  <summary>版本：最新（v0.30-dev-debug1）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../">当前手册（v0.30-dev-debug1）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -132,7 +132,9 @@ interface Ethernet 2
  port default vlan 200
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">dot1q-tunnel</span></code>父接口接管该端口的完整客户侧分类空间，包括未打标签和所有客户VLAN标签，因此不能同时在该父接口上创建 L2 或 L3 VLAN 子接口。Access、Trunk 和 Hybrid 不允许显式子接口复用其已承载的外层业务 VLAN ID，即使子接口编号不同也会拒绝该配置。其他 VLAN 的显式二层、三层子接口可以共存。同一报文只能由一个接口分类，重复匹配的配置会被拒绝。</p>
+<p><code class="docutils literal notranslate"><span class="pre">dot1q-tunnel</span></code>父接口接管该端口的完整客户侧分类空间，包括未打标签和所有客户VLAN标签，因此不能同时在该父接口上创建 L2 或 L3 VLAN 子接口。</p>
+<p>显式子接口使用的实际外层 VID 与全局 VLAN 对象互斥，适用于所有父接口和 dot1q/dot1ad/QinQ，配置顺序不影响结果。子接口实例后缀、bridge-domain编号及内层客户VID独立，不占用全局VLAN编号。不同父接口可复用没有全局VLAN对象的同一外层VID；同一父接口的匹配集合不能重叠。系统为交换端口派生的内部对象不按显式子接口处理。</p>
+<p>显式 L2 子接口还支持固定外层、多个内层 VID 或任意内层的<a class="reference internal" href="../subinterfaces-l2/#qinq"><span class="std std-ref">显式 L2 子接口</span></a>。它复用同一套原生子接口分类，不是新的父端口规则引擎，也不改变上述简单 QinQ 端口语义。多内层的对称标签恢复有限制，提交前必须明确选择保留标签或只移除外层，不能直接沿用固定双标签的 pop2 默认值。</p>
 <p>查看 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">vlan</span></code> 核对服务 VLAN 和客户侧成员。</p>
 <p><a class="reference internal" href="../../examples/qinq/"><span class="std std-doc">完整双端案例</span></a>记录未打标签与客户VLAN10的真实流量、核心双标签报文、CLI成员和撤销结果。</p>
 </section>

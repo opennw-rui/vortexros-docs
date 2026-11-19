@@ -240,7 +240,7 @@
 - 合法语法：
 
   ```text
-  encapsulation { dot1q | dot1ad } vid VLAN-ID | encapsulation qinq vid PE-VID ce-vid CE-VID
+  encapsulation { dot1q | dot1ad } vid VLAN-ID [ce-vid { VID [to VID] ... | any }] | encapsulation qinq vid PE-VID ce-vid { VID [to VID] ... | any }
   ```
 
 <!-- registry-parameters -->
@@ -948,3 +948,33 @@ commit
 
 
 VPP数据面中，同一VPN内不同三层接口的IPv4子网不能相互覆盖，LoopBack的/32也受此限制。例如，Ethernet0配置198.19.196.2/24后，不能在同VPN的LoopBack上配置198.19.196.33/32。不同VPN相互独立；同一接口上相同掩码的不同主、从地址仍可使用。选择LoopBack地址时，应使用独立主机前缀，避免落入其他接口已配置的子网。
+
+## `rewrite pop`
+
+- 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
+- 视图：`接口视图`
+- CLI 帮助：select symmetric VLAN tag removal
+- 合法语法：
+
+  ```text
+  rewrite pop { single | double | none }
+  ```
+
+
+配置对称标签处理。`single` 移除、恢复外层标签；`double` 移除、恢复固定双层标签；VortexROS 扩展 `none` 保留标签。多内层集合或 `any` 只能选择 `single` 或 `none`，不能用 `double`。详见 [L2 子接口](../subinterfaces-l2.md)。
+
+## `undo rewrite pop`
+
+- 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
+- 视图：`接口视图`
+- CLI 帮助：restore the legacy default VLAN rewrite
+- 合法语法：
+
+  ```text
+  undo rewrite pop
+  ```
+
+
+恢复原有默认：单标签 pop1、固定双标签 pop2。多内层或 `any` 撤销后不可直接提交，需显式补齐支持的动作。

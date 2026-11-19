@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>配套 VPP &mdash; VortexROS 文档 v0.30-dev 文档</title>
+  <title>配套 VPP &mdash; VortexROS 文档 v0.30-dev-debug1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/vpp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ee0c9d27"></script>
+      <script src="../../_static/documentation_options.js?v=b102c2df"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -81,9 +81,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev）</summary>
+  <summary>版本：最新（v0.30-dev-debug1）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev）</a>
+    <a href="../../">当前手册（v0.30-dev-debug1）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -113,7 +113,7 @@
              
   <section id="vpp">
 <span id="配套-vpp"></span><h1>配套 VPP<a class="headerlink" href="#vpp" title="链接到此标题。"></a></h1>
-<p>VPP负责DPDK接口和需要VPP的数据面功能。当前配套版本为26.10.8+vortexros-vpp；五个运行包应来自同一配套版本，统一安装器会完成组件匹配。</p>
+<p>VPP负责DPDK接口和需要VPP的数据面功能。当前配套版本为26.10.9+vortexros-vpp；五个运行包应来自同一配套版本，统一安装器会完成组件匹配。</p>
 <section id="id1">
 <span id="对用户可见的行为"></span><h2>对用户可见的行为<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <ul class="simple">
@@ -142,6 +142,14 @@
 <li><p>新生成的启动文件使用明确的插件加载列表，详见 <a class="reference internal" href="../../operator/dataplane/plugins/"><span class="std std-doc">插件加载</span></a>。</p></li>
 </ul>
 <p>性能数字的条件、波动和适用范围见 <a class="reference internal" href="../performance/"><span class="std std-doc">性能参考</span></a>，不能将单个节点的收益当成整机吞吐提升。</p>
+</section>
+<section id="id4">
+<span id="26109-的主要变化"></span><h2>26.10.9 的主要变化<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<ul class="simple">
+<li><p>EVPN 已存在的远端下一跳组在数据面启动后恢复，避免 MAC 表指向空组而无法转发。此项不改变普通报文的转发节点。</p></li>
+<li><p>接口自动链路本地 IPv6 地址撤销后，不再因接口状态同步保留额外地址引用；全局 IPv6 地址不受影响。</p></li>
+<li><p>包含上述 26.10.8 的功能和优化，插件加载列表见 <a class="reference internal" href="../../operator/dataplane/plugins/"><span class="std std-doc">插件加载</span></a>。性能数据仍以各表注明的实际测试版本为准。</p></li>
+</ul>
 </section>
 </section>
 
