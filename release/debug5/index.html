@@ -1,0 +1,185 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debug 5 &mdash; VortexROS 文档 v0.30-dev-debug5 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/debug5/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f01621e7"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="VortexROS 0.30-dev" href="../vortexros/" />
+    <link rel="prev" title="Debug 4" href="../debug4/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation/hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/support/">支持矩阵</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/">安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">发布记录</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../debug2/">Debug 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debug3/">Debug 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debug4/">Debug 4</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Debug 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vortexros/">VortexROS 0.30-dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vpp/">配套 VPP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frr/">配套 FRR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli-validation/">版本能力与限制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manual-coverage/">手册适用范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/">性能参考</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev-debug5）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev-debug5）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">版本说明</a></li>
+      <li class="breadcrumb-item active">Debug 5</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="debug-5">
+<h1>Debug 5<a class="headerlink" href="#debug-5" title="链接到此标题。"></a></h1>
+<p>Debug 5 更新控制层，配套 VPP、FRR 和 Kea 版本与 Debug 4 相同。统一安装器只更新版本发生变化的组件，保留现有配置。更新前保存当前配置；操作步骤见<a class="reference internal" href="../../installation/07-upgrade-uninstall/"><span class="std std-doc">升级与回退</span></a>。</p>
+<section id="qinq">
+<span id="qinq-服务迁移"></span><h2>QinQ 服务迁移<a class="headerlink" href="#qinq" title="链接到此标题。"></a></h2>
+<p>同一父口在一次提交中迁移客户 VLAN 时，先撤销原映射，再配置目标服务，执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 后按最终配置生效。双向交换、客户集合扩缩及固定外层的多内层 QinQ 使用同一规则。同一输入标签组合仍只能匹配一个服务；这项修复不放宽重叠匹配限制。</p>
+<p>迁移会改变业务归属，可能产生短暂中断，应同时调整对端封装、地址和策略。配置、实际查询及撤销示例见<a class="reference internal" href="../../operator/qinq-flexible/"><span class="std std-doc">灵活 QinQ</span></a>。</p>
+</section>
+<section id="id1">
+<span id="链路聚合成员迁移"></span><h2>链路聚合成员迁移<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
+<p>两个 Eth-Trunk 在同一次提交中交换物理成员时，聚合接口及未变化的配置保留。查询必须显示交换后的实际成员，而不能仅凭配置存在判断成功。步骤、业务影响及验证见<a class="reference internal" href="../../operator/link-aggregation/"><span class="std std-doc">链路聚合</span></a>。</p>
+</section>
+<section id="id2">
+<span id="二层子接口生命周期"></span><h2>二层子接口生命周期<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>同一父接口下新增多个二层 QinQ 子接口时，会先完成每个子接口的二层接管，再继续创建其他子接口。修改某一子接口时，也会保留兄弟子接口各自应有的 MTU。接口归属和 MTU 以实际查询为准，配置存在并不等于提交已经完成。</p>
+<p>修改标签归属存在短暂的转发切换窗口。最终版本的一组定向连续流量中，未修改业务与迁移业务均为200发200收，数据面没有重启；这是该组条件下的观测，不是所有组网的无损保证。</p>
+</section>
+<section id="id3">
+<span id="接口模式与实际查询"></span><h2>接口模式与实际查询<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>已存在的 VPP 物理端口，包括不使用 PCI 设备声明的接口，首次切换二层模式时会在当前提交中完成接口角色同步；返回三层模式同样按当前配置生效，不需要依赖后续再次提交。</p>
+<p>ARP 查询与接口简表、接口详情使用相同的实际地址来源。读取接口所属路由表失败时返回查询错误，不再把无法确认的表号显示为 default。正常 IPv4/IPv6 的接口、邻居及 VPN 实例筛选语义保持。</p>
+<p>独立救援模式重启数据面服务失败时，CLI 保留原服务错误，不会因旧数据面仍可连接而显示重启成功。</p>
+</section>
+<section id="id4">
+<span id="验证范围"></span><h2>验证范围<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>本版以真实 CLI 验证 QinQ 迁移、正反向标签处理、保留业务、父口停启，以及 Eth-Trunk 成员交换、地址、ARP、路由和业务连通性。保存后重载配置的结果也已核对。相关缺陷另有实际 VPP 回读及失败补偿对照。仅执行本次定向验证，没有重复全量 CLI 或 CI，也不据此声明全部协议组合或转发性能已经验收。</p>
+<p>命令参考覆盖849条规范路径；路径数量只表示文档索引范围，不等于全部参数组合均已实测。</p>
+</section>
+<section id="id5">
+<span id="最终安装包"></span><h2>最终安装包<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>最终安装文件为 <code class="docutils literal notranslate"><span class="pre">vortexros_0.30-dev-debug5_amd64.run</span></code>，控制层包版本为 <code class="docutils literal notranslate"><span class="pre">0.30~dev+run42.debug5</span></code>。QEMU 与设备升级均使用同一文件完成模拟、实际安装和健康观察；配置保持不变，配套 VPP、FRR、Kea 版本保持不变，已有后端进程保留。设备安装后的 IPv4、IPv6 和现有业务探测均通过。</p>
+<p>本轮确认了精确回退包材料可用，没有再次执行最终包的实际反向回退。迁移流量验证不构成吞吐性能或所有切换时序无损的保证。历史 V030R-B01 特定路由解析形态与 O2-S-B3 性能异常没有新增触发证据，仍保留原有证据边界，没有以普通成功场景替代关闭依据。</p>
+<p>完整安装结果和已知边界见 <a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases/tag/v0.30-dev-debug5">Debug 5 发布说明</a>。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../debug4/" class="btn btn-neutral float-left" title="Debug 4" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../vortexros/" class="btn btn-neutral float-right" title="VortexROS 0.30-dev" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

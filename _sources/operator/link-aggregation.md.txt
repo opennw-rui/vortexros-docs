@@ -68,3 +68,26 @@ display eth-trunk 10
 `undo mode` 同样恢复默认手工模式。默认模式不会写入配置。两端应协调切换；一端使用 LACP、另一端使用手工模式不属于本例的可用连接。
 
 成员退出聚合后，控制层自动建立该物理接口自己的三层接管端点，保留其管理 Up/Down 状态；此后可以在同一次提交中绑定 VPN 实例并配置独立 IP。成员仍属于聚合时，不允许在它上面配置独立三层地址。
+
+## 在聚合接口间迁移成员
+
+一个物理接口只能属于一个 Eth-Trunk。两个聚合接口交换成员时，在同一 Candidate 中先移出原成员，再加入目标聚合，最后统一提交。例如原 Ethernet71 属于 Eth-Trunk50、Ethernet73 属于 Eth-Trunk51：
+
+~~~text
+interface Eth-Trunk50
+ undo trunkport Ethernet71
+#
+interface Eth-Trunk51
+ undo trunkport Ethernet73
+ trunkport Ethernet71
+#
+interface Eth-Trunk50
+ trunkport Ethernet73
+#
+commit
+display eth-trunk
+~~~
+
+提交后应看到 Eth-Trunk50 的成员为 Ethernet73，Eth-Trunk51 的成员为 Ethernet71。成员迁移会改变物理链路承载的业务，可能短暂中断；对端成员、VLAN 或三层地址也要对应调整。聚合接口本身的其他配置保留，不需要删除后重建聚合。
+
+本例交换后的真实查询显示两个聚合均 Up、各有一个 Up 成员；调整对端接线对应关系后，两个聚合业务地址的探测分别为 3 发、3 收、0% 丢包。保存后重载配置，两组探测仍各为 3/3。撤销迁移时按相反归属先移出、再加入，并重新提交。

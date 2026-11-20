@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>L2 子接口 &mdash; VortexROS 文档 v0.30-dev-debug4 文档</title>
+  <title>L2 子接口 &mdash; VortexROS 文档 v0.30-dev-debug5 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/subinterfaces-l2/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e0531929"></script>
+      <script src="../../_static/documentation_options.js?v=f01621e7"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -92,9 +92,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug4）</summary>
+  <summary>版本：最新（v0.30-dev-debug5）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug4）</a>
+    <a href="../../">当前手册（v0.30-dev-debug5）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -192,6 +192,32 @@ display bridge-domain 701
 </div>
 <p>撤销先解除依赖，再删除子接口；网关、桥域和父端口是独立对象，只删除不再共用的部分。完整撤销及实际查询结果见案例。确认后保存，不以接口配置存在替代报文分类正确。</p>
 <p><a class="reference internal" href="../subinterfaces-l3/"><span class="std std-doc">L3 子接口</span></a> · <a class="reference internal" href="../reference/interfaces/"><span class="std std-doc">接口参数</span></a></p>
+</section>
+<section id="id5">
+<span id="修改内层集合"></span><h2>修改内层集合<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<p>同一父接口的两个 QinQ 子接口可以共用外层 VID，但内层匹配集合不能重叠。例如 Ethernet0.100 原先匹配外层704、内层10和11，Ethernet0.200 匹配外层704、内层20和21；两者分别保留原有桥域和 <code class="docutils literal notranslate"><span class="pre">rewrite</span> <span class="pre">pop</span> <span class="pre">single</span></code> 配置。</p>
+<p>把内层21迁入 Ethernet0.100 时，先在当前会话中缩减源集合，再扩展目标集合，最后一次提交：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.200 mode l2
+ encapsulation qinq vid 704 ce-vid 20
+#
+interface Ethernet0.100 mode l2
+ encapsulation qinq vid 704 ce-vid 10 to 11 21
+#
+commit
+display interface Ethernet0.100
+display interface Ethernet0.200
+display health
+</pre></div>
+</div>
+<p>Ethernet0.200 的实际查询节选：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Encapsulation is QinQ, Outer VLAN 704, Inner VLAN 20, TPID 0x8100 (actual)
+VLAN tag rewrite (actual): pop single, restore outer tag on egress
+Bridge-domain: 701 (member)
+</pre></div>
+</div>
+<p>同时核对目标接口的内层集合、两组业务和健康状态。不能先在目标加入21而让源集合仍含21；该中间候选状态会因重叠而被拒绝。修改不删除其他子接口或桥域，也不要求先提交一个缺少该业务的中间配置。</p>
+<p>在外层704的客户侧与外层705/706的两个服务出口之间，已核对上述迁移的双标签报文；最终连续观测中，迁移的内层21与保留的内层11均200发200收，数据面未重启。结果只适用于该次条件，不承诺任意组网的无损切换。变更可能有短暂分类切换窗口，应与对端协调。</p>
+<p>撤销迁移时先将 Ethernet0.100 的集合恢复为 <code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">to</span> <span class="pre">11</span></code>，再将 Ethernet0.200 恢复为 <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">to</span> <span class="pre">21</span></code>，执行 <code class="docutils literal notranslate"><span class="pre">commit</span></code> 并重做查询和业务检查。需要重启保留时再执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>。</p>
 </section>
 </section>
 

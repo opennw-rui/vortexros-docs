@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>灵活 QinQ &mdash; VortexROS 文档 v0.30-dev-debug4 文档</title>
+  <title>灵活 QinQ &mdash; VortexROS 文档 v0.30-dev-debug5 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/qinq-flexible/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e0531929"></script>
+      <script src="../../_static/documentation_options.js?v=f01621e7"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -91,9 +91,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug4）</summary>
+  <summary>版本：最新（v0.30-dev-debug5）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug4）</a>
+    <a href="../../">当前手册（v0.30-dev-debug5）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -446,6 +446,23 @@ Ethernet70 实际收到 108 个，限速器产生丢弃计数；结果取决于�
 <li><p>本功能沿用接口统计与既有策略处理。性能对比是指定报文、速率和线程布局下的观测，
 不构成所有硬件及业务组合的线速保证。</p></li>
 </ul>
+</section>
+<section id="vlan">
+<span id="在一次提交中迁移客户-vlan"></span><h2>在一次提交中迁移客户 VLAN<a class="headerlink" href="#vlan" title="链接到此标题。"></a></h2>
+<p>同一客户口的一个 C-VLAN 只能归属一个 S-VLAN。需要从 S200 迁移 C21 到 S100 时，先在当前会话中撤销旧映射，再配置新映射，最后统一提交；不必分两次提交。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet70
+ undo port vlan-stacking vlan 21 stack-vlan 200
+ port vlan-stacking vlan 21 stack-vlan 100
+#
+commit
+display current-configuration interface Ethernet70
+display vlan 100
+display vlan 200
+</pre></div>
+</div>
+<p>迁移改变 C21 的二层广播域和网络侧外层标签，涉及该客户 VLAN 的流量可能短暂中断，两端业务配置应协调修改。未迁移的客户 VLAN 保持原服务归属。两组服务之间互换客户 VLAN 时，也应先在 Candidate 中撤销两个旧归属，再添加两个新归属，然后只提交一次。</p>
+<p>迁移验收记录：C21 迁往 S100 后，客户侧 3 个 C21 报文在网络侧均为 S100+C21；反向 3 个 S100+C21 报文恢复为 C21。未迁移的 C20 双向均为 3/3，网络侧仍为 S200+C20。随后将 C11 迁至 S200，双向均为 3/3；端口停启及保存后重载配置，C11 和 C21 各 3/3。上述结果验证归属和标签变化，不代表切换过程无丢包保证。</p>
+<p>显式 L2 QinQ 子接口的固定外层、多内层匹配集合也可按同样原则在一次提交中迁移。仍须满足同一父接口匹配集合不重叠、标签重写及桥域的原有约束，不能同时保留两个服务对同一输入标签组合的匹配。</p>
 </section>
 </section>
 
