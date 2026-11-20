@@ -24,7 +24,7 @@ display health verbose
 
 IF-MIB 使用设备公开的接口清单。VPP 数据面读取对应接口的实际计数；接口尚未实际创建时，不产生虚构的接口计数。Linux 数据面使用已声明且实际存在的产品接口及其内核计数，不发布未纳管的宿主接口。驱动未提供的单播/广播分类和可靠链路速率显示为不可用。
 
-物理端口、显式配置的 L2/L3 子接口及已创建的逻辑接口可以监控。自动生成的 VLAN 承载子接口、VXLAN 内部承载口、LCP TAP/TUN 和 local0 不进入 ifTable/ifXTable，也不计入 ifNumber。不能按“虚拟接口”一类全部排除，否则会丢失用户实际管理的子接口和隧道。ifAlias 对应接口 description。接口名称与身份不变时，数据面重建后监控索引保持稳定；计数重置仍需按 ifCounterDiscontinuityTime 重新建立速率基线。
+物理端口、显式配置的 L2/L3 子接口及已创建的逻辑接口可以监控。公开接口有独立 LCP 配对时，另发布一行 `lcp-<接口名>`，用于查看该接口的控制面路径。此行的计数独立于公开接口。自动生成的 VLAN 承载子接口、内部 VXLAN 和 local0 不进入接口表。不能按“虚拟接口”一类全部排除，否则会丢失用户实际管理的子接口和隧道。ifAlias 对应接口 description。接口名称与身份不变时，数据面重建后监控索引保持稳定；计数重置仍需按 ifCounterDiscontinuityTime 重新建立速率基线。
 
 流量速率使用 ifHCInOctets / ifHCOutOctets 的相邻采样差。发现计数不连续时重建基线；不要用 32 位计数计算高速接口速率。隧道统计内层流量，物理口还包含封装开销，两者不要求相等。缺少可靠来源的分类或错误计数不可用，不应解释成零。
 
@@ -58,7 +58,7 @@ IF-MIB::ifHCOutOctets.2047694891 = Counter64: 6342
 
 ## 核对接口范围
 
-先执行 `display interface brief` 查看公开接口，再从监控平台读取 ifName 和 ifNumber。两者使用相同的公开接口范围；配置尚未创建实际接口时，不要求存在计数器条目。以下为六个实际接口的查询节选：
+先执行 `display interface brief` 查看公开接口，再从监控平台读取 ifName 和 ifNumber。SNMP 还会列出公开接口对应的 LCP 诊断行；配置尚未创建实际接口时，不要求存在计数器条目。以下为六个实际接口的查询节选，未列出可能存在的 LCP 诊断行：
 
 ~~~text
 IF-MIB::ifName.430049419 = STRING: Ethernet0.3100
@@ -67,7 +67,6 @@ IF-MIB::ifName.1263342616 = STRING: Ethernet0.3101
 IF-MIB::ifName.1918639716 = STRING: Ethernet0.3202
 IF-MIB::ifName.2042167659 = STRING: Ethernet0.3201
 IF-MIB::ifName.2047694891 = STRING: Ethernet0
-IF-MIB::ifNumber.0 = INTEGER: 6
 ~~~
 
-显式 L2 子接口 Ethernet0.3100 和 Ethernet0.3101 保留在清单中。内部 VLAN、VXLAN 和控制面传输接口不会额外产生监控条目。数据面重建后，上述接口身份不变时索引保持不变。示例索引只用于说明输出，应从本机查询获得。
+显式 L2 子接口 Ethernet0.3100 和 Ethernet0.3101 保留在清单中。内部 VLAN 和 VXLAN 不会额外产生监控条目。数据面重建后，上述接口身份不变时索引保持不变。示例索引只用于说明输出，应从本机查询获得。
