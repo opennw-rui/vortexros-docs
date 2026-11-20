@@ -1,11 +1,11 @@
 # 版本说明
 
-本手册适用于 VortexROS 0.30-dev-debug5。正式用户手册从 0.29-dev 开始维护。
+本手册适用于 VortexROS 0.30-dev-debug6。正式用户手册从 0.29-dev 开始维护。
 
 | 组件 | 配套版本 |
 |---|---|
-| VortexROS | 0.30-dev-debug5，Debian 包 0.30~dev+run42.debug5 |
-| VPP | 26.10.9-debug2+vortexros-vpp，Debian 包 26.10.9+vortexros.debug2-release |
+| VortexROS | 0.30-dev-debug6，Debian 包 0.30~dev+run44.debug6 |
+| VPP | 26.10.9-debug6+vortexros-vpp，Debian 包 26.10.9+vortexros.debug6-release |
 | FRR | 10.7.1-vortexros-1.10-dev |
 | Kea | 3.0.3-1+vortexros1 |
 
@@ -20,6 +20,7 @@ debug2
 debug3
 debug4
 debug5
+debug6
 vortexros
 vpp
 frr
