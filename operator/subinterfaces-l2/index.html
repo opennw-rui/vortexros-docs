@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>L2 子接口 &mdash; VortexROS 文档 v0.30-dev-debug5 文档</title>
+  <title>L2 子接口 &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/subinterfaces-l2/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=f01621e7"></script>
+      <script src="../../_static/documentation_options.js?v=c0d968b5"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -92,9 +92,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug5）</summary>
+  <summary>版本：最新（v0.30-dev-debug6）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug5）</a>
+    <a href="../../">当前手册（v0.30-dev-debug6）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -178,6 +178,30 @@
 <p>QinQ 按前两层标签分类，不能将其作为拒绝第三层标签的严格层数过滤器。</p>
 <p>修改封装导致子接口重建时，相应动态 MAC 需要重新学习。桥域关闭未知单播洪泛后，目的 MAC 尚未学习的报文会被丢弃；需要允许学习期间的未知单播转发时，在桥域视图配置 <code class="docutils literal notranslate"><span class="pre">uu-flood</span></code>。此项会扩大未知单播的发送范围，应按业务要求选择。</p>
 </section>
+</section>
+<section id="mtu">
+<h2>MTU<a class="headerlink" href="#mtu" title="链接到此标题。"></a></h2>
+<p>在子接口视图使用 <code class="docutils literal notranslate"><span class="pre">mtu</span></code> 调整该接口的 MTU，<code class="docutils literal notranslate"><span class="pre">commit</span></code> 后生效。只修改 MTU 不需要重新配置封装或桥域，同一父端口下其他子接口的 MTU 保持不变。使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span></code> 或 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span> <span class="pre">brief</span></code> 核对实际值；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">mtu</span></code> 恢复该接口类型的默认值，不是恢复上一次手工值。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.3100 mode l2
+ mtu 1400
+#
+commit
+display interface Ethernet0.3100
+</pre></div>
+</div>
+<p>接口查询的对应行是：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Layer 2 Sub-interface, The Maximum Frame Length is 1400
+</pre></div>
+</div>
+<p>恢复默认并保存：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0.3100 mode l2
+ undo mtu
+#
+commit
+save
+</pre></div>
+</div>
+<p>两端及承载链路的有效 MTU 应匹配业务报文长度，并留足 VLAN、隧道等封装空间；修改 MTU 不会自动调整远端设备。</p>
 </section>
 <section id="id3">
 <span id="激活条件"></span><h2>激活条件<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>

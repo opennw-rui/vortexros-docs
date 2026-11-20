@@ -186,3 +186,45 @@ reset dataplane
 自动生成的 VFIO/DPDK 启动配置使用 PA 地址模式，避免虚拟地址超出设备可接受的 DMA 地址范围。这不会关闭 IOMMU，设备隔离仍由已配置的 IOMMU 提供；不需要另配 CLI 参数。修改启动配置后按数据面激活提示操作，不能仅根据大页有剩余判断 DPDK 一定能够启动。
 
 地址模式原理见 [DPDK IOVA 说明](https://www.dpdk.org/memory-in-dpdk-part-2-deep-dive-into-iova/)。
+
+
+## 数据面内存预算
+
+大页预留、主堆、统计区和报文缓冲池是不同的资源。预留 2 GiB 大页不表示某一张表可以独占 2 GiB，也不会自动扩大统计区。
+
+正常生成的数据面启动参数包括：
+
+| 资源 | 默认预算 | 作用 |
+|---|---:|---|
+| 主堆 | 1 GiB | 路由、邻接及其他控制对象的分配空间 |
+| 统计区 | 128 MiB，全进程共享 | 接口、路由等对象的统计；部分计数按 worker 分开保存 |
+| 报文缓冲池 | 每个使用的 NUMA 节点 32768 个缓冲的配置值 | 收发报文、排队和突发流量；实际数量按页面布局取整 |
+
+预算不等于当前已使用量。使用 `display memory-usage` 查看实际堆使用情况，使用 `display dataplane memory` 核对逐节点大页。更多 worker、更多路由或更多邻居会增加内存需求；默认预算不是任意表量的容量承诺。
+
+启动资源在 `reset dataplane` 时生成和应用。先 `commit`、`save`，再安排维护窗口执行重置；普通提交不会在线调整这些启动内存区域。重置会短暂中断数据面。
+
+## 以吞吐为主选择 CPU 和队列
+
+网卡、worker 和报文缓冲池尽量位于同一 NUMA 节点，避免跨节点访问。先用 `display dataplane interfaces` 与 `display dataplane cpu topological` 核对设备和核心位置，再配置 CPU；同一物理核心的两个 SMT 线程不应当作两个独立物理核心估算性能。
+
+RX 队列需要网卡及驱动实际支持。单个端口仅有一条 RX 队列时，增加 worker 不会自动把该队列并行交给多个线程处理；多流量分配还取决于 RSS。单一流量通常仍由同一队列处理。显式队列设置不会因为修改 worker 数量而被自动覆盖。队列、描述符不是越多越好，它们同时消耗缓冲和缓存资源。
+
+例如已确认端口支持两条接收队列时：
+
+~~~text
+dataplane
+ cpu main-core 2
+ cpu worker-cores 3-4
+#
+ device 0000:03:00.0 name Ethernet 0
+  mode dpdk
+  queues rx 2 tx 2
+ #
+#
+commit
+save
+reset dataplane
+~~~
+
+PCI 地址和核心编号须按本机拓扑填写。此示例说明配置方法，不代表所有设备适合相同队列数量。只增加 worker 不会使 ARP/MAC 同步等控制面操作按核心数成倍加速。

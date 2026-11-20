@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MIB 与服务检查 &mdash; VortexROS 文档 v0.30-dev-debug5 文档</title>
+  <title>MIB 与服务检查 &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/snmp/monitoring/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=f01621e7"></script>
+      <script src="../../../_static/documentation_options.js?v=c0d968b5"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -89,9 +89,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug5）</summary>
+  <summary>版本：最新（v0.30-dev-debug6）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug5）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug6）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -160,8 +160,8 @@ display health verbose
 </tr>
 </tbody>
 </table>
-<p>Linux 数据面支持物理接口的 IF-MIB 状态、描述和内核收发字节计数；VPP 数据面使用对应的数据面计数来源。Linux 驱动未提供的单播/广播分类和可靠链路速率显示为不可用。</p>
-<p>IF-MIB 以产品接口为主；lcp- 前缀的行属于控制面配对诊断接口，不应与业务接口相加。ifAlias 对应接口 description。接口名称与身份不变时，数据面重建后监控索引保持稳定。</p>
+<p>IF-MIB 使用设备公开的接口清单。VPP 数据面读取对应接口的实际计数；接口尚未实际创建时，不产生虚构的接口计数。Linux 数据面使用已声明且实际存在的产品接口及其内核计数，不发布未纳管的宿主接口。驱动未提供的单播/广播分类和可靠链路速率显示为不可用。</p>
+<p>物理端口、显式配置的 L2/L3 子接口及已创建的逻辑接口可以监控。公开接口有独立 LCP 配对时，另发布一行 <code class="docutils literal notranslate"><span class="pre">lcp-&lt;接口名&gt;</span></code>，用于查看该接口的控制面路径。此行的计数独立于公开接口。自动生成的 VLAN 承载子接口、内部 VXLAN 和 local0 不进入接口表。不能按“虚拟接口”一类全部排除，否则会丢失用户实际管理的子接口和隧道。ifAlias 对应接口 description。接口名称与身份不变时，数据面重建后监控索引保持稳定；计数重置仍需按 ifCounterDiscontinuityTime 重新建立速率基线。</p>
 <p>流量速率使用 ifHCInOctets / ifHCOutOctets 的相邻采样差。发现计数不连续时重建基线；不要用 32 位计数计算高速接口速率。隧道统计内层流量，物理口还包含封装开销，两者不要求相等。缺少可靠来源的分类或错误计数不可用，不应解释成零。</p>
 </section>
 <section id="id3">
@@ -185,6 +185,19 @@ IF-MIB::ifHCOutOctets.2047694891 = Counter64: 6342
 </pre></div>
 </div>
 <p>在该接口完成六次1000字节 ping 后，输入计数增加至29856，输出计数增加至12636；SNMPv2c和SNMPv3均可读取。关闭接口后的标准 linkDown 通知携带同一索引及管理/运行状态2；恢复接口后 linkUp 携带状态1。通知依赖监控采样周期，不承诺与配置提交同时到达。</p>
+</section>
+<section id="id6">
+<span id="核对接口范围"></span><h2>核对接口范围<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
+<p>先执行 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span> <span class="pre">brief</span></code> 查看公开接口，再从监控平台读取 ifName 和 ifNumber。SNMP 还会列出公开接口对应的 LCP 诊断行；配置尚未创建实际接口时，不要求存在计数器条目。以下为六个实际接口的查询节选，未列出可能存在的 LCP 诊断行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>IF-MIB::ifName.430049419 = STRING: Ethernet0.3100
+IF-MIB::ifName.866391688 = STRING: LoopBack221
+IF-MIB::ifName.1263342616 = STRING: Ethernet0.3101
+IF-MIB::ifName.1918639716 = STRING: Ethernet0.3202
+IF-MIB::ifName.2042167659 = STRING: Ethernet0.3201
+IF-MIB::ifName.2047694891 = STRING: Ethernet0
+</pre></div>
+</div>
+<p>显式 L2 子接口 Ethernet0.3100 和 Ethernet0.3101 保留在清单中。内部 VLAN 和 VXLAN 不会额外产生监控条目。数据面重建后，上述接口身份不变时索引保持不变。示例索引只用于说明输出，应从本机查询获得。</p>
 </section>
 </section>
 
