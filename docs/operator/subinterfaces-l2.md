@@ -46,6 +46,36 @@ QinQ 按前两层标签分类，不能将其作为拒绝第三层标签的严格
 
 修改封装导致子接口重建时，相应动态 MAC 需要重新学习。桥域关闭未知单播洪泛后，目的 MAC 尚未学习的报文会被丢弃；需要允许学习期间的未知单播转发时，在桥域视图配置 `uu-flood`。此项会扩大未知单播的发送范围，应按业务要求选择。
 
+## MTU
+
+在子接口视图使用 `mtu` 调整该接口的 MTU，`commit` 后生效。只修改 MTU 不需要重新配置封装或桥域，同一父端口下其他子接口的 MTU 保持不变。使用 `display interface` 或 `display interface brief` 核对实际值；`undo mtu` 恢复该接口类型的默认值，不是恢复上一次手工值。
+
+~~~text
+interface Ethernet0.3100 mode l2
+ mtu 1400
+#
+commit
+display interface Ethernet0.3100
+~~~
+
+接口查询的对应行是：
+
+~~~text
+Layer 2 Sub-interface, The Maximum Frame Length is 1400
+~~~
+
+恢复默认并保存：
+
+~~~text
+interface Ethernet0.3100 mode l2
+ undo mtu
+#
+commit
+save
+~~~
+
+两端及承载链路的有效 MTU 应匹配业务报文长度，并留足 VLAN、隧道等封装空间；修改 MTU 不会自动调整远端设备。
+
 ## 激活条件
 
 父接口与子接口均未 shutdown、父接口链路 Up 时，子接口才有可用链路。Protocol Up 还要求封装完整并已加入正确的桥域。L2 子接口不配置 IP，也不以 IP 地址作为 Up 条件。父链路恢复后自动恢复；显式 shutdown 的子接口需执行 undo shutdown。
