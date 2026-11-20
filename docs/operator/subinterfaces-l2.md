@@ -62,3 +62,37 @@ display bridge-domain 701
 撤销先解除依赖，再删除子接口；网关、桥域和父端口是独立对象，只删除不再共用的部分。完整撤销及实际查询结果见案例。确认后保存，不以接口配置存在替代报文分类正确。
 
 [L3 子接口](subinterfaces-l3.md) · [接口参数](reference/interfaces.md)
+
+
+## 修改内层集合
+
+同一父接口的两个 QinQ 子接口可以共用外层 VID，但内层匹配集合不能重叠。例如 Ethernet0.100 原先匹配外层704、内层10和11，Ethernet0.200 匹配外层704、内层20和21；两者分别保留原有桥域和 `rewrite pop single` 配置。
+
+把内层21迁入 Ethernet0.100 时，先在当前会话中缩减源集合，再扩展目标集合，最后一次提交：
+
+~~~text
+interface Ethernet0.200 mode l2
+ encapsulation qinq vid 704 ce-vid 20
+#
+interface Ethernet0.100 mode l2
+ encapsulation qinq vid 704 ce-vid 10 to 11 21
+#
+commit
+display interface Ethernet0.100
+display interface Ethernet0.200
+display health
+~~~
+
+Ethernet0.200 的实际查询节选：
+
+~~~text
+Encapsulation is QinQ, Outer VLAN 704, Inner VLAN 20, TPID 0x8100 (actual)
+VLAN tag rewrite (actual): pop single, restore outer tag on egress
+Bridge-domain: 701 (member)
+~~~
+
+同时核对目标接口的内层集合、两组业务和健康状态。不能先在目标加入21而让源集合仍含21；该中间候选状态会因重叠而被拒绝。修改不删除其他子接口或桥域，也不要求先提交一个缺少该业务的中间配置。
+
+在外层704的客户侧与外层705/706的两个服务出口之间，已核对上述迁移的双标签报文；最终连续观测中，迁移的内层21与保留的内层11均200发200收，数据面未重启。结果只适用于该次条件，不承诺任意组网的无损切换。变更可能有短暂分类切换窗口，应与对端协调。
+
+撤销迁移时先将 Ethernet0.100 的集合恢复为 `10 to 11`，再将 Ethernet0.200 恢复为 `20 to 21`，执行 `commit` 并重做查询和业务检查。需要重启保留时再执行 `save`。

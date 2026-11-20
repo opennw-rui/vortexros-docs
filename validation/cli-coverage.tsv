@@ -845,3 +845,6 @@ port hybrid pvid vlan	operator/reference/vlan.md	operator/vlan/hybrid.md	0	规�
 undo port hybrid pvid vlan	operator/reference/vlan.md	operator/vlan/hybrid.md	0	规范路径索引补齐；0为本轮参数/视图尚待验收，历史记录不计新增通过；见0.30-cli-index-alignment-20261118.md	154:/root/vros-cli-debug1-20261117/native-vlan/final-terminal.raw（历史）
 rewrite pop	operator/reference/interfaces.md	operator/subinterfaces-l2.md	1	QINQ16限定范围真实CLI：single/double/none及旧默认undo、Any/multi拒绝危险动作；新增路径不计原844	156:guest2301/2302:/root/cli-qinq-20261118/terminal-fullrun16.raw
 undo rewrite pop	operator/reference/interfaces.md	operator/subinterfaces-l2.md	1	QINQ16限定范围真实CLI：single/double/none及旧默认undo、Any/multi拒绝危险动作；新增路径不计原844	156:guest2301/2302:/root/cli-qinq-20261118/terminal-fullrun16.raw
+display logbuffer	operator/reference/system.md	operator/operations/logs.md	0	历史真实终端映射；Debug 5 迁移用例范围另列，不计为全参数验收	Debug 2 logbuffer/live-terminal.txt；只补历史索引，不重跑
+port vlan-stacking vlan	operator/reference/vlan.md	operator/qinq-flexible.md	0	历史真实终端映射；Debug 5 迁移用例范围另列，不计为全参数验收	Debug 2 flexible-qinq/cli-configuration.txt；Debug 5 qinq-move-after.output.json
+undo port vlan-stacking vlan	operator/reference/vlan.md	operator/qinq-flexible.md	0	历史真实终端映射；Debug 5 迁移用例范围另列，不计为全参数验收	Debug 2 flexible-qinq/whole-group-withdraw.txt；Debug 5 qinq-move-after.output.json
