@@ -1,6 +1,6 @@
 # 光模块诊断
 
-从 0.30-dev Debug 8 开始，可以查询物理以太网端口上光模块的型号和数字诊断数据。诊断用于检查链路光功率、温度及是否接近模块的告警阈值。
+从 0.30-dev Debug 9 开始，可以查询物理以太网端口上光模块的型号和数字诊断数据。诊断用于检查链路光功率、温度及是否接近模块的告警阈值。
 
 ~~~text
 display interface Ethernet0 transceiver
@@ -19,7 +19,7 @@ display interface Ethernet 0 transceiver
 | Temperature、Module temperature | 模块当前温度 |
 | High/Low Alarm、High/Low Warning | 模块提供的告警和预警上下限 |
 
-下面的示例节选展示了单通道模块的读数和告警阈值。
+下面的模拟模块输出节选展示了单通道模块的读数和告警阈值。
 
 ~~~text
 Interface: Ethernet0

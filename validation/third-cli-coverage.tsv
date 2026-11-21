@@ -1,0 +1,853 @@
+path	group	status
+abr-summary	动态路由、策略路由、BFD 与 VRRP	PASS
+acl ipv6 name	接口、二层与邻居	PASS
+acl name	接口、二层与邻居	PASS
+action dnat	ACL、QoS、MQC、MSS 与 NAT	PASS
+action no-nat	ACL、QoS、MQC、MSS 与 NAT	PASS
+action snat	ACL、QoS、MQC、MSS 与 NAT	PASS
+action static-nat	ACL、QoS、MQC、MSS 与 NAT	PASS
+action twice-nat	ACL、QoS、MQC、MSS 与 NAT	PASS
+active	系统、健康与服务	PASS
+address	ACL、QoS、MQC、MSS 与 NAT	PASS
+address prefix	DHCP、LLDP 与 SNMP	PASS
+advertise l2vpn evpn	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+aggregate	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+aggregate-address	动态路由、策略路由、BFD 与 VRRP	PASS
+allowd-ip	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+amneziawg profile	接口、二层与邻居	PASS
+amneziawg-profile	接口、二层与邻居	PASS
+apply as-path	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+apply community	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+apply config	ACL、QoS、MQC、MSS 与 NAT	PASS_SCOPE
+apply cost	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+apply ip-address next-hop	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+apply ipv6 next-hop	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+apply large-community	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+apply local-preference	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+apply origin	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+apply tag	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+area	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+arp proxy	接口、二层与邻居	PASS_SCOPE
+arp static	接口、二层与邻居	PASS_SCOPE
+arp timeout	接口、二层与邻居	PASS_SCOPE
+auto-cost reference-bandwidth	动态路由、策略路由、BFD 与 VRRP	PASS
+auto-refresh enable	IP、VPN 与静态路由	PASS_SCOPE
+auto-refresh interval	IP、VPN 与静态路由	PASS_SCOPE
+bandwidth-reference	动态路由、策略路由、BFD 与 VRRP	PASS
+bfd	接口、二层与邻居	PASS_SCOPE
+bgp	接口、二层与邻居	PASS_SCOPE
+bridge-domain	接口、二层与邻居	PASS_SCOPE
+car	ACL、QoS、MQC、MSS 与 NAT	PASS_SCOPE
+check system-software package	诊断、清理与恢复	PASS_SCOPE
+classifier	ACL、QoS、MQC、MSS 与 NAT	PASS
+clear configuration candidate	诊断、清理与恢复	PASS
+clear interface	诊断、清理与恢复	PASS_SCOPE
+clear nat-policy counters	诊断、清理与恢复	PASS
+clear nat-policy sessions	诊断、清理与恢复	PASS
+clear system-software info	诊断、清理与恢复	PASS_SCOPE
+commit	CLI、Candidate 与配置管理	PASS
+continue node	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+cost-style	动态路由、策略路由、BFD 与 VRRP	PASS
+cpu isolation enable	接口、二层与邻居	PASS_SCOPE
+cpu main-core	接口、二层与邻居	PASS_SCOPE
+cpu worker-cores	接口、二层与邻居	PASS_SCOPE
+dataplane	接口、二层与邻居	PASS
+default ipv4-unicast	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+default tcp-protected	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+default-metric	动态路由、策略路由、BFD 与 VRRP	PASS
+default-route originate	动态路由、策略路由、BFD 与 VRRP	PASS
+default-route-advertise	动态路由、策略路由、BFD 与 VRRP	PASS
+deny	ACL、QoS、MQC、MSS 与 NAT	PASS
+description	接口、二层与邻居	PASS_SCOPE
+descriptors	接口、二层与邻居	PASS_SCOPE
+destination	接口、二层与邻居	PASS_SCOPE
+destination address	ACL、QoS、MQC、MSS 与 NAT	PASS
+destination address-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+destination port	ACL、QoS、MQC、MSS 与 NAT	PASS
+destination port-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+destination vpn-instance	ACL、QoS、MQC、MSS 与 NAT	PASS
+detect-multiplier	动态路由、策略路由、BFD 与 VRRP	PASS
+device	接口、二层与邻居	PASS_SCOPE
+dhcp client classless-route enable	接口、二层与邻居	PASS
+dhcp client default-route enable	接口、二层与邻居	PASS
+dhcp client default-route preference	接口、二层与邻居	PASS
+dhcp client-relay shutdown	接口、二层与邻居	PASS
+dhcp relay server-ip	接口、二层与邻居	PASS
+dhcp select	接口、二层与邻居	PASS
+dhcp server dns-list	接口、二层与邻居	PASS
+dhcp server domain-name	接口、二层与邻居	PASS
+dhcp server excluded-ip-address	接口、二层与邻居	PASS
+dhcp server gateway-list	接口、二层与邻居	PASS
+dhcp server ip-range	接口、二层与邻居	PASS
+dhcp server lease	接口、二层与邻居	PASS
+dhcp server static-bind ip-address	接口、二层与邻居	PASS
+dhcpv6 client information-request	接口、二层与邻居	PASS
+dhcpv6 client pd	接口、二层与邻居	PASS
+dhcpv6 client renew	接口、二层与邻居	PASS
+dhcpv6 duid	接口、二层与邻居	PASS
+dhcpv6 pool	接口、二层与邻居	PASS
+dhcpv6 relay destination	接口、二层与邻居	PASS
+dhcpv6 relay interface	接口、二层与邻居	PASS
+dhcpv6 server	接口、二层与邻居	PASS
+disable-cookies enable	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+display aaa authentication	系统、健康与服务	PASS
+display aaa user	系统、健康与服务	PASS
+display aaa users	系统、健康与服务	PASS
+display acl	ACL、QoS、MQC、MSS 与 NAT	PASS
+display alarm active	系统、健康与服务	PASS
+display alarm history	系统、健康与服务	PASS
+display amneziawg	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+display arp	接口、二层与邻居	PASS_SCOPE
+display arp proxy	接口、二层与邻居	PASS_SCOPE
+display bfd	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+display bgp	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+display bgp tcp-protection	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+display bridge-domain	接口、二层与邻居	PASS
+display configuration candidate	系统、健康与服务	PASS
+display configuration storage	系统、健康与服务	PASS
+display cpu-usage	系统、健康与服务	PASS
+display current-configuration	系统、健康与服务	PASS
+display dataplane	接口、二层与邻居	PASS_SCOPE
+display dhcp client	DHCP、LLDP 与 SNMP	PASS
+display dhcp configuration	DHCP、LLDP 与 SNMP	PASS
+display dhcp relay	DHCP、LLDP 与 SNMP	PASS
+display dhcp service	DHCP、LLDP 与 SNMP	PASS
+display dhcpv6 client	DHCP、LLDP 与 SNMP	PASS
+display dhcpv6 client prefix	DHCP、LLDP 与 SNMP	PASS
+display dhcpv6 pool	DHCP、LLDP 与 SNMP	PASS
+display dhcpv6 relay	DHCP、LLDP 与 SNMP	PASS
+display eth-trunk	接口、二层与邻居	PASS_SCOPE
+display flow-steering	接口、二层与邻居	PASS
+display health	系统、健康与服务	PASS
+display history	系统、健康与服务	PASS
+display icmp interface	诊断、清理与恢复	PASS_SCOPE
+display interface	接口、二层与邻居	PASS
+display interface brief	接口、二层与邻居	PASS
+display interface description	接口、二层与邻居	PASS
+display interface hardware offload	接口、二层与邻居	PASS_SCOPE
+display interface statistics	接口、二层与邻居	PASS
+display ip fib	IP、VPN 与静态路由	PASS_SCOPE
+display ip interface brief	IP、VPN 与静态路由	PASS
+display ip ip-prefix	IP、VPN 与静态路由	PASS_SCOPE
+display ip ipv6-prefix	IP、VPN 与静态路由	PASS_SCOPE
+display ip pool	IP、VPN 与静态路由	PASS
+display ip routing-table	IP、VPN 与静态路由	PASS_SCOPE
+display ip routing-table-group	IP、VPN 与静态路由	PASS_SCOPE
+display ip vpn-instance	IP、VPN 与静态路由	PASS_SCOPE
+display ip vpn-instance interface	IP、VPN 与静态路由	PASS_SCOPE
+display ip vpn-instance verbose	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 fib	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 interface	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 interface brief	IP、VPN 与静态路由	PASS
+display ipv6 nd	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 neighbors	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 pathmtu	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 pool	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 prefix	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 route-static group	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 routing-table	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 routing-table-group	IP、VPN 与静态路由	PASS_SCOPE
+display ipv6 urpf	IP、VPN 与静态路由	PASS_SCOPE
+display isis	动态路由、策略路由、BFD 与 VRRP	PASS
+display lcp	接口、二层与邻居	PASS_SCOPE
+display license	授权（已有证据，不重跑）	PASS
+display lldp local	接口、二层与邻居	PASS
+display lldp neighbor brief	接口、二层与邻居	PASS
+display lldp neighbor interface	接口、二层与邻居	PASS
+display logbuffer	通用诊断新增	PASS
+display mac-address	接口、二层与邻居	PASS
+display memory-usage	系统、健康与服务	PASS
+display mpls forwarding-table	MPLS LDP 与 L3VPN	PASS_SCOPE
+display mpls interface	MPLS LDP 与 L3VPN	PASS_SCOPE
+display mpls ldp binding	MPLS LDP 与 L3VPN	PASS_SCOPE
+display mpls ldp interface	MPLS LDP 与 L3VPN	PASS_SCOPE
+display mpls ldp peer	MPLS LDP 与 L3VPN	PASS_SCOPE
+display mpls lsp	MPLS LDP 与 L3VPN	PASS_SCOPE
+display nat-policy	ACL、QoS、MQC、MSS 与 NAT	PASS
+display ospf	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+display ospfv3	动态路由、策略路由、BFD 与 VRRP	PASS
+display resource-mapping	诊断、清理与恢复	PASS
+display rip	动态路由、策略路由、BFD 与 VRRP	PASS
+display ripng	动态路由、策略路由、BFD 与 VRRP	PASS
+display route-policy	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+display route-static group	IP、VPN 与静态路由	PASS_SCOPE
+display saved-configuration	诊断、清理与恢复	PASS
+display service	系统、健康与服务	PASS
+display snmp-agent community	DHCP、LLDP 与 SNMP	PASS
+display snmp-agent sys-info	DHCP、LLDP 与 SNMP	PASS
+display snmp-agent target-host	DHCP、LLDP 与 SNMP	PASS
+display snmp-agent usm-user	DHCP、LLDP 与 SNMP	PASS
+display startup	诊断、清理与恢复	PASS
+display system mac-address	诊断、清理与恢复	PASS
+display system-software	诊断、清理与恢复	PASS
+display this	诊断、清理与恢复	PASS
+display traffic behavior	ACL、QoS、MQC、MSS 与 NAT	PASS
+display traffic classifier	ACL、QoS、MQC、MSS 与 NAT	PASS
+display traffic policy	ACL、QoS、MQC、MSS 与 NAT	PASS
+display urpf	诊断、清理与恢复	PASS_SCOPE
+display users	系统、健康与服务	PASS
+display version	诊断、清理与恢复	PASS
+display vlan	接口、二层与邻居	PASS
+display vlan summary	接口、二层与邻居	PASS
+display vpp api compatibility	系统、健康与服务	PASS
+display vpp interface-ownership	系统、健康与服务	PASS
+display vpp takeover transaction	系统、健康与服务	PASS
+display vrrp	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+display vrrp6	诊断、清理与恢复	PASS_SCOPE
+display vxlan statistics	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+display vxlan tunnel	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+display wireguard	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+dns-domain-name	DHCP、LLDP 与 SNMP	PASS
+dns-list	DHCP、LLDP 与 SNMP	PASS
+dns-server	DHCP、LLDP 与 SNMP	PASS
+domain-name	DHCP、LLDP 与 SNMP	PASS
+enable dhcp server	接口、二层与邻居	PASS
+enable lldp	系统、健康与服务	PASS
+enable switch	系统、健康与服务	PASS_SCOPE
+encapsulation	接口、二层与邻居	PASS_SCOPE
+end	CLI、Candidate 与配置管理	PASS
+esi	接口、二层与邻居	PARTIAL
+eth-trunk	接口、二层与邻居	PASS_SCOPE
+evpn	接口、二层与邻居	PASS_SCOPE
+evpn-overlay	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+excluded-address	DHCP、LLDP 与 SNMP	PASS_SCOPE
+excluded-ip-address	DHCP、LLDP 与 SNMP	PASS
+export configuration	CLI、Candidate 与配置管理	PASS
+flow-steering enable	接口、二层与邻居	PASS
+gateway-list	DHCP、LLDP 与 SNMP	PASS
+graceful-restart	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+graceful-restart timer restart	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+graceful-restart timer wait-for-rib	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+gre key	接口、二层与邻居	PASS_SCOPE
+group	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+hairpin enable	ACL、QoS、MQC、MSS 与 NAT	PASS
+hardware offload	接口、二层与邻居	PASS_SCOPE
+header cookie	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+header init	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+header response	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+header transport	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+header-protection	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+health check	系统、健康与服务	PASS
+hostname dynamic	动态路由、策略路由、BFD 与 VRRP	PASS
+icmp	接口、二层与邻居	PASS_SCOPE
+if-match	ACL、QoS、MQC、MSS 与 NAT	PASS
+if-match any	ACL、QoS、MQC、MSS 与 NAT	PASS
+if-match cost	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+if-match ip-prefix	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+if-match ipv6 address prefix-list	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+if-match protocol	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+if-match tag	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+import-route	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+information-refresh	DHCP、LLDP 与 SNMP	PASS
+interface	接口、二层与邻居	PASS_SCOPE
+interface range	接口、二层与邻居	PASS_SCOPE
+interface user-defined	接口、二层与邻居	PASS_SCOPE
+iommu enable	接口、二层与邻居	PASS_SCOPE
+ip address	接口、二层与邻居	PASS_SCOPE
+ip address dhcp-alloc	接口、二层与邻居	PASS
+ip binding vpn-instance	接口、二层与邻居	PASS_SCOPE
+ip ip-prefix	接口、二层与邻居	PASS_SCOPE
+ip ipv6-prefix	接口、二层与邻居	PASS_SCOPE
+ip pool	接口、二层与邻居	PASS
+ip route-static	IP、VPN 与静态路由	PASS_SCOPE
+ip route-static-group	IP、VPN 与静态路由	PASS_SCOPE
+ip urpf	接口、二层与邻居	PASS
+ip vpn-instance	接口、二层与邻居	PASS_SCOPE
+ipv4-family	IP、VPN 与静态路由	PASS_SCOPE
+ipv4-family unicast	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+ipv4-family vpn-instance	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+ipv4-family vpnv4	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+ipv6 address	接口、二层与邻居	PASS_SCOPE
+ipv6 address auto dhcp	接口、二层与邻居	PASS
+ipv6 address auto global	接口、二层与邻居	PASS_SCOPE
+ipv6 address auto global default	接口、二层与邻居	PASS_SCOPE
+ipv6 address auto link-local	接口、二层与邻居	PASS_SCOPE
+ipv6 address dhcpv6-prefix	接口、二层与邻居	PASS
+ipv6 enable	接口、二层与邻居	PASS_SCOPE
+ipv6 import-route	动态路由、策略路由、BFD 与 VRRP	PASS
+ipv6 nd autoconfig managed-address-flag	接口、二层与邻居	PASS_SCOPE
+ipv6 nd autoconfig other-flag	接口、二层与邻居	PASS_SCOPE
+ipv6 nd max-number	IP、VPN 与静态路由	PASS_SCOPE
+ipv6 nd ra default-route enable	接口、二层与邻居	PASS_SCOPE
+ipv6 nd ra halt	接口、二层与邻居	PASS_SCOPE
+ipv6 nd ra lifetime	接口、二层与邻居	PASS_SCOPE
+ipv6 nd ra prefix	接口、二层与邻居	PASS_SCOPE
+ipv6 nd recycle	IP、VPN 与静态路由	PASS_SCOPE
+ipv6 nd stale-timeout	IP、VPN 与静态路由	PASS_SCOPE
+ipv6 neighbor	IP、VPN 与静态路由	PASS_SCOPE
+ipv6 route-static	IP、VPN 与静态路由	PASS_SCOPE
+ipv6 route-static group	接口、二层与邻居	PASS_SCOPE
+ipv6 route-static-group	IP、VPN 与静态路由	PASS_SCOPE
+ipv6 urpf	接口、二层与邻居	PASS
+ipv6-family	IP、VPN 与静态路由	PASS_SCOPE
+ipv6-family unicast	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+ipv6-family vpn-instance	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+ipv6-family vpnv6	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+is-level	动态路由、策略路由、BFD 与 VRRP	PASS
+isis	接口、二层与邻居	PASS
+isis bfd	接口、二层与邻居	PASS
+isis bfd enable	接口、二层与邻居	PASS
+isis circuit-level	接口、二层与邻居	PASS
+isis circuit-type p2p	接口、二层与邻居	PASS
+isis cost	接口、二层与邻居	PASS
+isis enable	接口、二层与邻居	PASS
+isis ipv6-enable	接口、二层与邻居	PASS
+isis passive	接口、二层与邻居	PASS
+isis priority	接口、二层与邻居	PASS
+junk count	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+junk size	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+junk-packet	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+keepalive	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+l2 binding vlan	接口、二层与邻居	PASS_SCOPE
+l2vpn-family evpn	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+lcp host	接口、二层与邻居	PASS_SCOPE
+lease	DHCP、LLDP 与 SNMP	PASS
+license import	授权（已有证据，不重跑）	PASS
+license request export	授权（已有证据，不重跑）	PASS
+lldp enable	接口、二层与邻居	PASS
+load configuration	CLI、Candidate 与配置管理	PASS
+load-balancing as-path-ignore	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+log-adjacency-changes	动态路由、策略路由、BFD 与 VRRP	PASS
+log-session-changes	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+mac-address	接口、二层与邻居	PASS_SCOPE
+mac-address aging-time	接口、二层与邻居	PASS_SCOPE
+mac-address learn-limit	接口、二层与邻居	PASS_SCOPE
+mac-address static	接口、二层与邻居	PASS_SCOPE
+maximum load-balancing	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+maximum-paths	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+memory hugepages	接口、二层与邻居	PASS_SCOPE
+min-rx-interval	动态路由、策略路由、BFD 与 VRRP	PASS
+min-tx-interval	动态路由、策略路由、BFD 与 VRRP	PASS
+mode	接口、二层与邻居	PASS_SCOPE
+mpls	MPLS LDP 与 L3VPN	PASS_SCOPE
+mpls ldp	MPLS LDP 与 L3VPN	PASS_SCOPE
+mpls lsr-id	MPLS LDP 与 L3VPN	PASS_SCOPE
+mtr	诊断、清理与恢复	PASS
+mtu	接口、二层与邻居	PASS_SCOPE
+nat-policy	接口、二层与邻居	PASS
+nat-policy address-pool name	接口、二层与邻居	PASS
+nat-policy address-set name	接口、二层与邻居	PASS
+nat-policy hairpin enable	ACL、QoS、MQC、MSS 与 NAT	PASS
+nat-policy interface-pat-range	ACL、QoS、MQC、MSS 与 NAT	PASS
+nat-policy name	接口、二层与邻居	PASS
+nat-policy port-set name	接口、二层与邻居	PASS
+nat-policy sessions-per-worker	ACL、QoS、MQC、MSS 与 NAT	PASS_SCOPE
+nat-policy timeout	ACL、QoS、MQC、MSS 与 NAT	PASS_SCOPE
+nat-policy x86-tune expire-check-ms	ACL、QoS、MQC、MSS 与 NAT	PASS_SCOPE
+nat-policy x86-tune lru-refresh-ms	ACL、QoS、MQC、MSS 与 NAT	PASS_SCOPE
+neighbor ipv4 limit	接口、二层与邻居	PASS_SCOPE
+neighbor ipv6 limit	接口、二层与邻居	PASS_SCOPE
+network	DHCP、LLDP 与 SNMP	PASS
+network-entity	动态路由、策略路由、BFD 与 VRRP	PASS
+nssa	动态路由、策略路由、BFD 与 VRRP	PASS
+offset-list	动态路由、策略路由、BFD 与 VRRP	PASS
+opaque-capability enable	动态路由、策略路由、BFD 与 VRRP	PASS
+ospf	接口、二层与邻居	PASS_SCOPE
+ospf bfd	接口、二层与邻居	PASS_SCOPE
+ospf bfd enable	接口、二层与邻居	PASS_SCOPE
+ospf cost	接口、二层与邻居	PASS_SCOPE
+ospf dr-priority	接口、二层与邻居	PASS_SCOPE
+ospf enable	接口、二层与邻居	PASS
+ospf network-type	接口、二层与邻居	PASS_SCOPE
+ospf passive	接口、二层与邻居	PASS
+ospf timer dead	接口、二层与邻居	PASS_SCOPE
+ospf timer hello	接口、二层与邻居	PASS_SCOPE
+ospf timer retransmit	接口、二层与邻居	PASS_SCOPE
+ospf timer transmit-delay	接口、二层与邻居	PASS_SCOPE
+ospfv3	接口、二层与邻居	PASS
+ospfv3 bfd	接口、二层与邻居	PASS
+ospfv3 bfd enable	接口、二层与邻居	PASS
+ospfv3 cost	接口、二层与邻居	PASS
+ospfv3 dr-priority	接口、二层与邻居	PASS
+ospfv3 network-type	接口、二层与邻居	PASS
+ospfv3 timer dead	接口、二层与邻居	PASS
+ospfv3 timer hello	接口、二层与邻居	PASS
+ospfv3 timer retransmit	接口、二层与邻居	PASS
+ospfv3 timer transmit-delay	接口、二层与邻居	PASS
+padding content	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+padding cookie	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+padding init	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+padding response	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+padding transport	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+passive-interface default	动态路由、策略路由、BFD 与 VRRP	PASS
+passive-mode	动态路由、策略路由、BFD 与 VRRP	PASS
+password	系统、健康与服务	PASS
+password change-required	系统、健康与服务	PASS
+pat-port-range	ACL、QoS、MQC、MSS 与 NAT	PASS
+peer	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+permit	ACL、QoS、MQC、MSS 与 NAT	PASS
+ping	诊断、清理与恢复	PASS
+policy vpn-target	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+port	ACL、QoS、MQC、MSS 与 NAT	PASS
+port default vlan	接口、二层与邻居	PASS_SCOPE
+port hybrid pvid vlan	接口、二层与邻居	PASS_SCOPE
+port hybrid tagged vlan	接口、二层与邻居	PASS_SCOPE
+port hybrid untagged vlan	接口、二层与邻居	PASS_SCOPE
+port link-type	接口、二层与邻居	PASS_SCOPE
+port trunk allow-pass vlan	接口、二层与邻居	PASS_SCOPE
+port trunk pvid vlan	接口、二层与邻居	PASS_SCOPE
+portswitch	接口、二层与邻居	PASS_SCOPE
+preference	动态路由、策略路由、BFD 与 VRRP	PASS
+prefix-delegation	DHCP、LLDP 与 SNMP	PASS
+presharedkey	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+priority	ACL、QoS、MQC、MSS 与 NAT	PASS
+privatekey	接口、二层与邻居	PASS_SCOPE
+protocol	ACL、QoS、MQC、MSS 与 NAT	PASS
+publickey	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+qos lr	接口、二层与邻居	PASS_SCOPE
+queues	接口、二层与邻居	PASS_SCOPE
+quit	CLI、Candidate 与配置管理	PASS
+random-trailers enable	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+redirect	ACL、QoS、MQC、MSS 与 NAT	PASS
+reflect between-clients	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+reflector cluster-id	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+refresh configuration candidate	CLI、Candidate 与配置管理	PASS
+refresh nat-policy interface-pat	CLI、Candidate 与配置管理	PASS_SCOPE
+remark dscp	ACL、QoS、MQC、MSS 与 NAT	PASS
+reset aaa user	诊断、清理与恢复	PASS
+reset dataplane	诊断、清理与恢复	PASS_SCOPE
+reset ip arp	诊断、清理与恢复	PASS_SCOPE
+reset ipv6 route-static group	诊断、清理与恢复	PASS_SCOPE
+reset mac-address	诊断、清理与恢复	PASS_SCOPE
+reset ospf	诊断、清理与恢复	PASS
+reset ospfv3	诊断、清理与恢复	PASS
+reset route-static group	诊断、清理与恢复	PASS_SCOPE
+reset running-configuration	诊断、清理与恢复	PASS_SCOPE
+reset saved-configuration	诊断、清理与恢复	PASS_SCOPE
+reset service bfd	诊断、清理与恢复	PASS_SCOPE
+reset service bgp	诊断、清理与恢复	PASS_SCOPE
+reset service frr	诊断、清理与恢复	PASS_SCOPE
+reset service isis	诊断、清理与恢复	PASS
+reset service ospf	诊断、清理与恢复	PASS_SCOPE
+reset service rip	诊断、清理与恢复	PASS
+reset service vpp	诊断、清理与恢复	PASS_SCOPE
+restore factory-configuration	CLI、Candidate 与配置管理	PASS_SCOPE
+return	CLI、Candidate 与配置管理	PASS
+rewrite pop	接口、二层与邻居新增	PASS_SCOPE
+rip	接口、二层与邻居	PASS
+rip bfd	接口、二层与邻居	PASS
+rip bfd enable	接口、二层与邻居	PASS
+ripng	接口、二层与邻居	PASS
+role	系统、健康与服务	PASS
+rollback system-software package	诊断、清理与恢复	PASS_SCOPE
+route	IP、VPN 与静态路由	PASS_SCOPE
+route-distinguisher	IP、VPN 与静态路由	PASS_SCOPE
+route-policy	接口、二层与邻居	PASS_SCOPE
+route-static group	接口、二层与邻居	PASS_SCOPE
+router-id	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+rule	ACL、QoS、MQC、MSS 与 NAT	PASS
+run bash	系统、健康与服务	PASS
+save	CLI、Candidate 与配置管理	PASS
+section	DHCP、LLDP 与 SNMP	PASS
+session-limit	ACL、QoS、MQC、MSS 与 NAT	PASS
+set-overload-bit	动态路由、策略路由、BFD 与 VRRP	PASS
+shell-access enable	系统、健康与服务	PASS
+shutdown	接口、二层与邻居	PASS_SCOPE
+silent-interface	动态路由、策略路由、BFD 与 VRRP	PASS
+simulate system-software package	诊断、清理与恢复	PASS_SCOPE
+snmp-agent	DHCP、LLDP 与 SNMP	PASS
+snmp-agent community read	DHCP、LLDP 与 SNMP	PASS
+snmp-agent protocol source-interface	DHCP、LLDP 与 SNMP	PASS
+snmp-agent protocol source-status all-interface	DHCP、LLDP 与 SNMP	PASS
+snmp-agent sys-info contact	DHCP、LLDP 与 SNMP	PASS
+snmp-agent sys-info location	DHCP、LLDP 与 SNMP	PASS
+snmp-agent sys-info version v2c	DHCP、LLDP 与 SNMP	PASS
+snmp-agent sys-info version v3	DHCP、LLDP 与 SNMP	PASS
+snmp-agent target-host trap address udp-domain	DHCP、LLDP 与 SNMP	PASS
+snmp-agent trap enable standard	DHCP、LLDP 与 SNMP	PASS
+snmp-agent trap source	DHCP、LLDP 与 SNMP	PASS
+snmp-agent usm-user v3	DHCP、LLDP 与 SNMP	PASS
+source	接口、二层与邻居	PASS_SCOPE
+source address	ACL、QoS、MQC、MSS 与 NAT	PASS
+source address-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+source file	IP、VPN 与静态路由	PASS_SCOPE
+source port	ACL、QoS、MQC、MSS 与 NAT	PASS
+source port-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+source url	IP、VPN 与静态路由	PASS_SCOPE
+source vpn-instance	ACL、QoS、MQC、MSS 与 NAT	PASS
+source-port	接口、二层与邻居	PASS
+spf-delay-ietf	动态路由、策略路由、BFD 与 VRRP	PASS
+ssh-public-key	系统、健康与服务	PASS
+startup saved-configuration	CLI、Candidate 与配置管理	PASS_SCOPE
+static-bind ip-address	DHCP、LLDP 与 SNMP	PASS
+statistic enable	接口、二层与邻居	PASS_SCOPE
+stub	动态路由、策略路由、BFD 与 VRRP	PASS
+switchport	接口、二层与邻居	PASS_SCOPE
+sysname	系统、健康与服务	PASS
+system-view	CLI、Candidate 与配置管理	PASS
+tcp mss	接口、二层与邻居	PASS
+timer keepalive	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+timers rip	动态路由、策略路由、BFD 与 VRRP	PASS
+timing keepalive	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+timing max-handshakes	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+timing reject-after	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+timing rekey-after	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+timing rekey-timeout	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+traceroute	诊断、清理与恢复	PASS
+tracert	诊断、清理与恢复	PASS
+traffic behavior	接口、二层与邻居	PASS
+traffic classifier	接口、二层与邻居	PASS
+traffic policy	接口、二层与邻居	PASS
+traffic-filter	接口、二层与邻居	PASS
+traffic-policy	接口、二层与邻居	PASS
+trunkport	接口、二层与邻居	PASS_SCOPE
+ttl propagate	MPLS LDP 与 L3VPN	PASS_SCOPE
+tunnel-protocol	接口、二层与邻居	PASS_SCOPE
+undo abr-summary	动态路由、策略路由、BFD 与 VRRP	PASS
+undo acl ipv6 name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo acl name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo action	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo action snat	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo active	系统、健康与服务	PASS
+undo address	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo address prefix	DHCP、LLDP 与 SNMP	PASS
+undo advertise l2vpn evpn	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo aggregate	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo aggregate-address	动态路由、策略路由、BFD 与 VRRP	PASS
+undo allowd-ip	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo amneziawg profile	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo amneziawg-profile	接口、二层与邻居	PASS
+undo apply as-path	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo apply community	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo apply cost	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo apply ip-address next-hop	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo apply ipv6 next-hop	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo apply large-community	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo apply local-preference	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo apply origin	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo apply tag	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo arp proxy	接口、二层与邻居	PASS_SCOPE
+undo arp static	接口、二层与邻居	PASS_SCOPE
+undo arp timeout	接口、二层与邻居	PASS_SCOPE
+undo auto-cost reference-bandwidth	动态路由、策略路由、BFD 与 VRRP	PASS
+undo auto-refresh enable	IP、VPN 与静态路由	PASS_SCOPE
+undo auto-refresh interval	IP、VPN 与静态路由	PASS_SCOPE
+undo bandwidth-reference	动态路由、策略路由、BFD 与 VRRP	PASS
+undo bfd	接口、二层与邻居	PASS
+undo bgp	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo bridge-domain	接口、二层与邻居	PASS_SCOPE
+undo car	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo classifier	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo continue	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo cpu isolation enable	接口、二层与邻居	PASS_SCOPE
+undo cpu main-core	接口、二层与邻居	PASS_SCOPE
+undo cpu worker-cores	接口、二层与邻居	PASS_SCOPE
+undo default ipv4-unicast	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo default tcp-protected	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo default-metric	动态路由、策略路由、BFD 与 VRRP	PASS
+undo default-route originate	动态路由、策略路由、BFD 与 VRRP	PASS
+undo default-route-advertise	动态路由、策略路由、BFD 与 VRRP	PASS
+undo deny	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo description	接口、二层与邻居	PASS_SCOPE
+undo descriptors	接口、二层与邻居	PASS_SCOPE
+undo destination	接口、二层与邻居	PASS_SCOPE
+undo destination address	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo destination address-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo destination port	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo destination port-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo destination vpn-instance	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo detect-multiplier	动态路由、策略路由、BFD 与 VRRP	PASS
+undo device	接口、二层与邻居	PASS_SCOPE
+undo dhcp client classless-route enable	接口、二层与邻居	PASS
+undo dhcp client default-route enable	接口、二层与邻居	PASS
+undo dhcp client-relay shutdown	接口、二层与邻居	PASS
+undo dhcp relay server-ip	接口、二层与邻居	PASS
+undo dhcp select	接口、二层与邻居	PASS
+undo dhcp server dns-list	接口、二层与邻居	PASS
+undo dhcp server domain-name	接口、二层与邻居	PASS
+undo dhcp server excluded-ip-address	接口、二层与邻居	PASS
+undo dhcp server gateway-list	接口、二层与邻居	PASS
+undo dhcp server ip-range	接口、二层与邻居	PASS
+undo dhcp server lease	接口、二层与邻居	PASS
+undo dhcp server static-bind ip-address	接口、二层与邻居	PASS
+undo dhcpv6 client information-request	接口、二层与邻居	PASS
+undo dhcpv6 client pd	接口、二层与邻居	PASS
+undo dhcpv6 duid	接口、二层与邻居	PASS
+undo dhcpv6 pool	接口、二层与邻居	PASS_SCOPE
+undo dhcpv6 relay destination	接口、二层与邻居	PASS
+undo dhcpv6 relay interface	接口、二层与邻居	PASS
+undo dhcpv6 server	接口、二层与邻居	PASS
+undo disable-cookies enable	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo dns-domain-name	DHCP、LLDP 与 SNMP	PASS
+undo dns-list	DHCP、LLDP 与 SNMP	PASS
+undo dns-server	DHCP、LLDP 与 SNMP	PASS
+undo domain-name	DHCP、LLDP 与 SNMP	PASS
+undo enable dhcp server	接口、二层与邻居	PASS
+undo enable lldp	系统、健康与服务	PASS
+undo enable switch	系统、健康与服务	PASS_SCOPE
+undo encapsulation	接口、二层与邻居	PASS_SCOPE
+undo esi	接口、二层与邻居	PARTIAL
+undo eth-trunk	接口、二层与邻居	PASS_SCOPE
+undo evpn-overlay	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo excluded-address	DHCP、LLDP 与 SNMP	PASS_SCOPE
+undo excluded-ip-address	DHCP、LLDP 与 SNMP	PASS
+undo flow-steering enable	接口、二层与邻居	PASS
+undo gateway-list	DHCP、LLDP 与 SNMP	PASS
+undo graceful-restart	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo graceful-restart timer restart	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo graceful-restart timer wait-for-rib	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo gre key	接口、二层与邻居	PASS_SCOPE
+undo group	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo hairpin enable	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo hardware offload	接口、二层与邻居	PASS_SCOPE
+undo header cookie	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo header init	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo header response	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo header transport	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo header-protection	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo hostname	动态路由、策略路由、BFD 与 VRRP	PASS
+undo icmp	接口、二层与邻居	PASS_SCOPE
+undo if-match	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo if-match cost	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo if-match ip-prefix	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo if-match ipv6 address prefix-list	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo if-match protocol	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo if-match tag	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo import-route	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo information-refresh	DHCP、LLDP 与 SNMP	PASS
+undo interface	接口、二层与邻居	PASS_SCOPE
+undo iommu enable	接口、二层与邻居	PASS_SCOPE
+undo ip address	接口、二层与邻居	PARTIAL
+undo ip address dhcp-alloc	接口、二层与邻居	PASS
+undo ip binding vpn-instance	接口、二层与邻居	PASS_SCOPE
+undo ip ip-prefix	IP、VPN 与静态路由	PASS_SCOPE
+undo ip ipv6-prefix	IP、VPN 与静态路由	PASS_SCOPE
+undo ip pool	接口、二层与邻居	PASS
+undo ip route-static	IP、VPN 与静态路由	PASS_SCOPE
+undo ip route-static-group	IP、VPN 与静态路由	PASS_SCOPE
+undo ip urpf	接口、二层与邻居	PASS
+undo ip vpn-instance	IP、VPN 与静态路由	PASS_SCOPE
+undo ipv4-family	IP、VPN 与静态路由	PASS_SCOPE
+undo ipv4-family vpn-instance	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo ipv4-family vpnv4	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo ipv6 address	接口、二层与邻居	PASS_SCOPE
+undo ipv6 address auto dhcp	接口、二层与邻居	PASS
+undo ipv6 address auto global	接口、二层与邻居	PASS_SCOPE
+undo ipv6 address auto global default	接口、二层与邻居	PASS_SCOPE
+undo ipv6 address auto link-local	接口、二层与邻居	PASS_SCOPE
+undo ipv6 address dhcpv6-prefix	接口、二层与邻居	PASS
+undo ipv6 enable	接口、二层与邻居	PASS_SCOPE
+undo ipv6 import-route	动态路由、策略路由、BFD 与 VRRP	PASS
+undo ipv6 nd autoconfig managed-address-flag	接口、二层与邻居	PASS_SCOPE
+undo ipv6 nd autoconfig other-flag	接口、二层与邻居	PASS_SCOPE
+undo ipv6 nd max-number	IP、VPN 与静态路由	PASS_SCOPE
+undo ipv6 nd ra default-route enable	接口、二层与邻居	PASS_SCOPE
+undo ipv6 nd ra halt	接口、二层与邻居	PASS_SCOPE
+undo ipv6 nd ra lifetime	接口、二层与邻居	PASS_SCOPE
+undo ipv6 nd ra prefix	接口、二层与邻居	PASS_SCOPE
+undo ipv6 nd recycle	IP、VPN 与静态路由	PASS_SCOPE
+undo ipv6 nd stale-timeout	IP、VPN 与静态路由	PASS_SCOPE
+undo ipv6 neighbor	IP、VPN 与静态路由	PASS_SCOPE
+undo ipv6 route-static	IP、VPN 与静态路由	PASS_SCOPE
+undo ipv6 route-static group	接口、二层与邻居	PASS_SCOPE
+undo ipv6 route-static-group	IP、VPN 与静态路由	PASS_SCOPE
+undo ipv6 urpf	接口、二层与邻居	PASS
+undo ipv6-family	IP、VPN 与静态路由	PASS_SCOPE
+undo ipv6-family unicast	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo ipv6-family vpn-instance	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo ipv6-family vpnv6	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo is-level	动态路由、策略路由、BFD 与 VRRP	PASS
+undo isis	动态路由、策略路由、BFD 与 VRRP	PASS
+undo isis bfd	接口、二层与邻居	PASS
+undo isis bfd enable	接口、二层与邻居	PASS
+undo isis circuit-level	接口、二层与邻居	PASS
+undo isis circuit-type	接口、二层与邻居	PASS
+undo isis cost	接口、二层与邻居	PASS
+undo isis enable	接口、二层与邻居	PASS
+undo isis ipv6-enable	接口、二层与邻居	PASS
+undo isis passive	接口、二层与邻居	PASS
+undo isis priority	接口、二层与邻居	PASS
+undo junk count	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo junk size	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo junk-packet	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo keepalive	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo l2 binding vlan	接口、二层与邻居	PASS_SCOPE
+undo l2vpn-family evpn	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo lcp host	接口、二层与邻居	PASS_SCOPE
+undo lease	DHCP、LLDP 与 SNMP	PASS
+undo lldp enable	接口、二层与邻居	PASS
+undo load-balancing as-path-ignore	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo log-adjacency-changes	动态路由、策略路由、BFD 与 VRRP	PASS
+undo log-session-changes	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo mac-address	接口、二层与邻居	PASS_SCOPE
+undo mac-address aging-time	接口、二层与邻居	PASS_SCOPE
+undo mac-address learn-limit	接口、二层与邻居	PASS_SCOPE
+undo mac-address static	接口、二层与邻居	PASS_SCOPE
+undo maximum load-balancing	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo maximum-paths	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo memory hugepages	接口、二层与邻居	PASS_SCOPE
+undo min-rx-interval	动态路由、策略路由、BFD 与 VRRP	PASS
+undo min-tx-interval	动态路由、策略路由、BFD 与 VRRP	PASS
+undo mode	接口、二层与邻居	PASS_SCOPE
+undo mpls	MPLS LDP 与 L3VPN	PASS_SCOPE
+undo mpls ldp	MPLS LDP 与 L3VPN	PASS_SCOPE
+undo mpls lsr-id	MPLS LDP 与 L3VPN	PASS_SCOPE
+undo mtu	接口、二层与邻居	PASS_SCOPE
+undo nat-policy	接口、二层与邻居	PASS
+undo nat-policy address-pool name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo nat-policy address-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo nat-policy hairpin enable	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo nat-policy interface-pat-range	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo nat-policy name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo nat-policy port-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo nat-policy sessions-per-worker	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo nat-policy timeout	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo nat-policy x86-tune expire-check-ms	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo nat-policy x86-tune lru-refresh-ms	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo neighbor ipv4 limit	接口、二层与邻居	PASS_SCOPE
+undo neighbor ipv6 limit	接口、二层与邻居	PASS_SCOPE
+undo network	DHCP、LLDP 与 SNMP	PASS_SCOPE
+undo network-entity	动态路由、策略路由、BFD 与 VRRP	PASS
+undo nssa	动态路由、策略路由、BFD 与 VRRP	PASS
+undo offset-list	动态路由、策略路由、BFD 与 VRRP	PASS
+undo opaque-capability enable	动态路由、策略路由、BFD 与 VRRP	PASS
+undo ospf	动态路由、策略路由、BFD 与 VRRP	PASS
+undo ospf bfd	接口、二层与邻居	PASS
+undo ospf bfd enable	接口、二层与邻居	PASS
+undo ospf cost	接口、二层与邻居	PASS
+undo ospf dr-priority	接口、二层与邻居	PASS
+undo ospf enable	接口、二层与邻居	PASS
+undo ospf network-type	接口、二层与邻居	PASS
+undo ospf passive	接口、二层与邻居	PASS
+undo ospf timer dead	接口、二层与邻居	PASS
+undo ospf timer hello	接口、二层与邻居	PASS
+undo ospf timer retransmit	接口、二层与邻居	PASS
+undo ospf timer transmit-delay	接口、二层与邻居	PASS
+undo ospfv3	接口、二层与邻居	PASS
+undo ospfv3 bfd	接口、二层与邻居	PASS
+undo ospfv3 bfd enable	接口、二层与邻居	PASS
+undo ospfv3 cost	接口、二层与邻居	PASS
+undo ospfv3 dr-priority	接口、二层与邻居	PASS
+undo ospfv3 network-type	接口、二层与邻居	PASS
+undo ospfv3 timer dead	接口、二层与邻居	PASS
+undo ospfv3 timer hello	接口、二层与邻居	PASS
+undo ospfv3 timer retransmit	接口、二层与邻居	PASS
+undo ospfv3 timer transmit-delay	接口、二层与邻居	PASS
+undo padding content	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo padding cookie	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo padding init	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo padding response	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo padding transport	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo passive-interface default	动态路由、策略路由、BFD 与 VRRP	PASS
+undo passive-mode	动态路由、策略路由、BFD 与 VRRP	PASS
+undo password	系统、健康与服务	PASS
+undo pat-port-range	ACL、QoS、MQC、MSS 与 NAT	PASS_SCOPE
+undo peer	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo permit	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo policy vpn-target	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo port	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo port default vlan	接口、二层与邻居	PASS_SCOPE
+undo port hybrid pvid vlan	接口、二层与邻居	PASS_SCOPE
+undo port hybrid tagged vlan	接口、二层与邻居	PASS_SCOPE
+undo port hybrid untagged vlan	接口、二层与邻居	PASS_SCOPE
+undo port link-type	接口、二层与邻居	PASS_SCOPE
+undo port trunk allow-pass vlan	接口、二层与邻居	PASS_SCOPE
+undo port trunk pvid vlan	接口、二层与邻居	PASS_SCOPE
+undo portswitch	接口、二层与邻居	PASS_SCOPE
+undo precedence	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo preference	动态路由、策略路由、BFD 与 VRRP	PASS
+undo prefix-delegation	DHCP、LLDP 与 SNMP	PASS
+undo presharedkey	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo priority	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo privatekey	接口、二层与邻居	PASS_SCOPE
+undo protocol	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo publickey	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo qos lr	接口、二层与邻居	PASS
+undo queues	接口、二层与邻居	PASS_SCOPE
+undo random-trailers enable	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo redirect	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo reflect between-clients	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo reflector cluster-id	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo remark dscp	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo rip	动态路由、策略路由、BFD 与 VRRP	PASS
+undo rip bfd	接口、二层与邻居	PASS
+undo rip bfd enable	接口、二层与邻居	PASS
+undo ripng	动态路由、策略路由、BFD 与 VRRP	PASS
+undo route	IP、VPN 与静态路由	PASS_SCOPE
+undo route-distinguisher	IP、VPN 与静态路由	PASS_SCOPE
+undo route-policy	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo route-static group	接口、二层与邻居	PASS_SCOPE
+undo rewrite pop	接口、二层与邻居新增	PASS_SCOPE
+undo router-id	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo rule	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo section	DHCP、LLDP 与 SNMP	PASS
+undo session-limit	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo set-overload-bit	动态路由、策略路由、BFD 与 VRRP	PASS
+undo shell-access	系统、健康与服务	PASS
+undo shutdown	接口、二层与邻居	PASS_SCOPE
+undo silent-interface	动态路由、策略路由、BFD 与 VRRP	PASS
+undo snmp-agent	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent community read	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent protocol source-interface	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent sys-info contact	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent sys-info location	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent sys-info version v2c	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent sys-info version v3	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent target-host trap address udp-domain	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent trap enable standard	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent trap source	DHCP、LLDP 与 SNMP	PASS
+undo snmp-agent usm-user v3	DHCP、LLDP 与 SNMP	PASS
+undo source	接口、二层与邻居	PASS_SCOPE
+undo source address	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo source address-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo source file	IP、VPN 与静态路由	PASS_SCOPE
+undo source port	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo source port-set name	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo source url	IP、VPN 与静态路由	PASS_SCOPE
+undo source vpn-instance	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo source-port	接口、二层与邻居	PASS_SCOPE
+undo spf-delay-ietf	动态路由、策略路由、BFD 与 VRRP	PASS
+undo ssh-public-key	系统、健康与服务	PASS
+undo static-bind ip-address	DHCP、LLDP 与 SNMP	PASS
+undo statistic enable	接口、二层与邻居	PASS_SCOPE
+undo stub	动态路由、策略路由、BFD 与 VRRP	PASS
+undo switchport	接口、二层与邻居	PASS_SCOPE
+undo sysname	系统、健康与服务	PASS
+undo tcp mss	接口、二层与邻居	PASS
+undo timer keepalive	动态路由、策略路由、BFD 与 VRRP	PASS_SCOPE
+undo timers rip	动态路由、策略路由、BFD 与 VRRP	PASS
+undo timing keepalive	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo timing max-handshakes	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo timing reject-after	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo timing rekey-after	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo timing rekey-timeout	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS_SCOPE
+undo traffic behavior	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo traffic classifier	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo traffic policy	ACL、QoS、MQC、MSS 与 NAT	PASS
+undo traffic-filter	接口、二层与邻居	PASS
+undo traffic-policy	接口、二层与邻居	PASS
+undo trunkport	接口、二层与邻居	PASS_SCOPE
+undo ttl propagate	MPLS LDP 与 L3VPN	PASS_SCOPE
+undo tunnel-protocol	接口、二层与邻居	PASS_SCOPE
+undo user	系统、健康与服务	PASS
+undo vlan	接口、二层与邻居	PASS_SCOPE
+undo vlan batch	接口、二层与邻居	PASS_SCOPE
+undo vlan-type	接口、二层与邻居	PASS_SCOPE
+undo vni	接口、二层与邻居	PASS_SCOPE
+undo vpn-instance	DHCP、LLDP 与 SNMP	PASS_SCOPE
+undo vpn-target	IP、VPN 与静态路由	PASS_SCOPE
+undo vpp startup-config	系统、健康与服务	PASS_SCOPE
+undo vrrp vrid	接口、二层与邻居	PASS
+undo vrrp6 vrid	接口、二层与邻居	PASS
+undo vxlan anycast-gateway enable	接口、二层与邻居	PASS_SCOPE
+undo vxlan vni	接口、二层与邻居	PASS_SCOPE
+undo wireguard profile	GRE、IP-in-IP、VXLAN、WireGuard 与 AmneziaWG	PASS
+undo wireguard-profile	接口、二层与邻居	PASS
+upgrade system-software package	诊断、清理与恢复	PASS_SCOPE
+user	接口、二层与邻居	PASS
+version	动态路由、策略路由、BFD 与 VRRP	PASS
+vlan	接口、二层与邻居	PASS_SCOPE
+vlan batch	接口、二层与邻居	PASS_SCOPE
+vlan-type dot1q	接口、二层与邻居	PASS_SCOPE
+vni	接口、二层与邻居	PASS_SCOPE
+vpn-instance	DHCP、LLDP 与 SNMP	PASS_SCOPE
+vpn-target	IP、VPN 与静态路由	PASS_SCOPE
+vpp startup-config	系统、健康与服务	PASS_SCOPE
+vrrp vrid	接口、二层与邻居	PASS_SCOPE
+vrrp6 vrid	接口、二层与邻居	PASS_SCOPE
+vxlan anycast-gateway enable	接口、二层与邻居	PASS_SCOPE
+vxlan vni	接口、二层与邻居	PASS_SCOPE
+wireguard profile	接口、二层与邻居	PASS
+wireguard-profile	接口、二层与邻居	PASS
+port vlan-stacking vlan	接口、二层与邻居新增	PASS_SCOPE
+undo port vlan-stacking vlan	接口、二层与邻居新增	PASS_SCOPE

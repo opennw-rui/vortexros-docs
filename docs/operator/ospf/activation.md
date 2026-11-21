@@ -36,6 +36,18 @@ interface Vlanif 12
 [OSPF 总览](../ospf.md) · [完整案例](../../examples/ospf.md) · [命令参数](../reference/ospf.md)
 
 
+## 在两种激活方式之间切换
+
+同一 OSPF 进程需要从接口激活改为区域 `network` 时，先在原接口视图撤销对应的 `ospf enable`，再在原区域配置匹配接口地址的 `network`，一起提交。由 `network` 激活改回接口激活时，先撤销原区域的 `network`，再在接口配置 `ospf enable`。已配置的接口 cost、网络类型和计时器按原意保留。
+
+~~~text
+display ospf 1 interface
+display ospf 1 peer
+display ospf routing
+~~~
+
+实际从接口 area 切到 `network` 时，首次提交后邻居恢复为 Full，原 cost 保留。另一个保存回放用例撤销一条 `network` 后保留了接口 cost 30；冷启动后该接口的属性仍在，接口未重新加入协议，另一口的 Full 邻接恢复。
+
 ## 进程参数与实际结果
 
 ```text

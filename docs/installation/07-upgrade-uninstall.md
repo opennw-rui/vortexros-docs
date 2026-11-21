@@ -1,26 +1,30 @@
 # 升级与回退
 
-首次安装、升级、检查和模拟统一使用对应版本的单文件 `.run`。包内包含 VortexROS、配套 VPP 和 FRR；安装器比较版本，只更新变化的组件。
+首次安装、升级、检查和模拟统一使用对应版本的单文件 `.run`。包内包含 VortexROS、配套 VPP、FRR 和 Kea。安装器比较版本和包内容，只更新发生变化的组件。
 
 ## 使用单文件安装包
 
-从[项目Release](https://github.com/opennw-rui/VortexROS/releases)或已提供的0.30-dev安装包位置取得 `.run` 和 `SHA256SUMS`，核对校验值。更新前在 CLI 执行 `save`，确认当前配置和服务收敛，然后运行：
+从[项目Release](https://github.com/opennw-rui/VortexROS/releases)或交付方取得 `.run` 和 `SHA256SUMS`，核对校验值。更新前在 CLI 执行 `save`，确认当前配置和服务收敛，然后运行：
 
 ~~~bash
-sudo sh ./vortexros-0.30-dev-amd64.run
+sudo sh ./vortexros_0.30-dev-debug9_amd64.run
 ~~~
 
 安装器自动执行必要的兼容、回退材料和健康检查。需要提前核对下载或查看执行计划时，可选择以下操作：
 
 ~~~bash
 sha256sum -c SHA256SUMS
-sudo sh ./vortexros-0.30-dev-amd64.run --check-only
-sudo sh ./vortexros-0.30-dev-amd64.run --simulate
+sudo sh ./vortexros_0.30-dev-debug9_amd64.run --check-only
+sudo sh ./vortexros_0.30-dev-debug9_amd64.run --simulate
 ~~~
 
-检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。安装器只安装版本发生变化的包；软件包不变不等于服务一定不重启。仅控制层更新执行控制层恢复计划；涉及后端包变更时，系统包事务会按既有流程重启产品服务栈，未换版的VPP等服务也可能重启。请根据模拟输出的执行计划预留业务中断窗口。
+检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。重新构建的同版本包有内容差异时也会更新。涉及后端包的事务可能重启依赖服务。仅控制层更新执行控制层恢复计划；涉及后端包变更时，系统包事务会按既有流程重启产品服务栈，未换版的VPP等服务也可能重启。请根据模拟输出的执行计划预留业务中断窗口。
 
 已安装的 Linux-only 设备可以更新，VPP 服务保持停止；VPP 模式继续检查进程及适用的运行版本。安装器要求升级和回退前后的数据面归属一致。
+
+## 升降级后核对授权
+
+就地升降级会保留设备身份和已导入授权。升级前后可用 `display license` 对照 Node ID、授权类型和到期时间。试用到期时间随设备保留，兼容版本上的永久授权无需重新签发。通过[授权与试用](license.md#升级回退与换机)了解版本和设备身份的适用条件。
 
 ## 回退材料与健康观察
 
