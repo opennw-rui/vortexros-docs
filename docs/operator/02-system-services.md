@@ -1,6 +1,6 @@
 # 系统管理
 
-本地账号、SSH、角色、首次改密及失败恢复见[本地账号与 SSH](aaa.md)。Linux 救援入口继续使用 `sudo vortexros`，受管账号按已提交的 AAA 角色进入 CLI。
+本地账号、SSH、角色、首次改密及失败恢复见[本地账号与 SSH](aaa.md)。离线申请、导入和授权等级见[设备授权](../installation/license.md)。Linux 救援入口继续使用 `sudo vortexros`，受管账号按已提交的 AAA 角色进入 CLI。
 
 ## 检查服务
 

@@ -56,6 +56,48 @@ bgp 65000
 再次输入 `policy vpn-target` 恢复缺省过滤行为，恢复后的缺省项不显示。
 
 
+## 在命名 VPN 地址族通告缺省路由
+
+常见用途是由指定 PE 提供互联网、共享服务或出口路由，再把缺省路由通告给同一 VPN 的其他 PE。配置 `import-route static` 等重分发来源时，缺省路由默认不进入 BGP VPN，普通前缀继续按既有来源与路由策略处理。IPv4 的 `0.0.0.0/0` 与 IPv6 的 `::/0` 分别控制。
+
+先确认出口 PE 的 VPN 路由表已具备可用的缺省，并且该路由属于要引入的来源。下面在现有的 BGP 65000、VPN CUST-A 中允许引入两族静态缺省。已有 `import-route static route-policy` 的设备沿用原规则，仍需使策略允许相应缺省。
+
+~~~text
+system-view
+bgp 65000
+ ipv4-family vpn-instance CUST-A
+  import-route static
+  default-route imported
+  quit
+ ipv6-family vpn-instance CUST-A
+  import-route static
+  default-route imported
+  quit
+quit
+commit
+~~~
+
+去接收 PE 核对路由。预计在对应 VPN 看到 `0.0.0.0/0` 或 `::/0`，并能查到原有普通前缀。确认后再用实际流量验证出口与回程。
+
+~~~text
+display bgp vpnv4 vpn-instance CUST-A routing-table
+display bgp vpnv6 vpn-instance CUST-A routing-table
+~~~
+
+只撤销 IPv4 缺省时，在原 IPv4 VPN 地址族执行以下命令。IPv6 的缺省与两族的普通前缀继续按原配置通告。需同时撤销 IPv6 时，在 IPv6 VPN 地址族执行相同的 `undo`。
+
+~~~text
+system-view
+bgp 65000
+ ipv4-family vpn-instance CUST-A
+  undo default-route imported
+  quit
+quit
+commit
+~~~
+
+该开关只允许重分发来源中已有的缺省路由，通过它无法生成新的缺省。启用前确认 VPN 实例、地址族、路由来源和出口策略与业务设计一致。接收端未见缺省时，按上述四项逐一核对，再查 MP-BGP 会话和 VPN-Target。
+
 ## VPNv6 的源接口前提
 
 同一 IPv4 MP-BGP 会话承载 VPNv6 时，指定的 connect-interface 也应启用 IPv6 并配置可用的 IPv6 地址。例如，给两端 LoopBack0 分别配置全局 IPv6 /128，再在 ipv6-family vpnv6 下启用已有 IPv4 邻居。接口 IPv6 默认关闭，不能只配置 VPNv6 邻居而忽略源接口。

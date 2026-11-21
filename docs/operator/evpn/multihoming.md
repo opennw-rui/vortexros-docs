@@ -13,17 +13,28 @@ All-Active 使用相同 ESI 将 CE 双接入两台 PE。远端 PE 根据 EVPN Ty
 
 ## 运行环境要求
 
-All-Active 需要 Linux 正确接受引用下一跳组的远端 MAC 表项。部分内核包含提交 `98fc57d16744`，但尚未包含后续修复 `7308ef8b4a67`，会拒绝 FRR 的合法下发，报告 `A nexthop fdb cannot be dynamic`。此时 EVPN 路由和下一跳组可能正常，远端客户 MAC 却无法进入转发表，业务不能据邻居 Established 判定为正常。
+Debug 8 请使用同一整包中的 FRR 和 VPP，先以 `display version` 确认设备实际版本。有些早期组件组合可以建立 EVPN 邻居和下一跳组，但远端业务 MAC 仍可能缺失。确认业务正常需要同时检查 Type-2、下一跳和实际业务流量。
 
-部署前应使用未引入该回归、或已包含该修复的发行版内核。该问题不通过调整 VLAN、RT 或开启未知单播洪泛解决，也不应手工添加永久 MAC 作为长期配置。内核更新与重启按操作系统的维护流程执行。
+## 核对与恢复 ESI
 
-参考：[Linux 上游修复](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7308ef8b4a6779a39f68d053c19b53a5c584a663)。
+对接同一客户二层段的两个接入 PE 使用相同 ESI，并为二者配置一致的业务 VLAN 和 VNI。远端 PE 通过 ES 下一跳组抵达客户 MAC。计划维护前，先协调 CE 聚合与两端 PE，保留同段的另一条可用接入路径。
+
+在指定接入 PE 的聚合视图执行 `undo esi` 和 `commit`，核对远端只保留仍参与该 ES 的成员。恢复时，在同一接口填回原 ESI，再次提交。在接入 PE 确认客户 MAC 指向本地聚合子接口，在远端检查对应 Type-2 和多成员下一跳组。已有客户 MAC 应自动恢复通告，无需手工清除 MAC。
+
+~~~text
+display current-configuration interface Eth-Trunk11
+display eth-trunk 11
+display bgp evpn all routing-table
+display mac-address bridge-domain 460
+~~~
+
+先确认上述运行态恢复，再从 CE 侧分别发送 IPv4 与 IPv6 探测。多个 VNI 共用 ESI 时，按业务逐一核对。更新 ESI 期间业务可能重新选择链路，请按维护流程操作。完整命令见[ESI 配置变更](../../examples/evpn/esi.md)。
 
 ## 已验证的组合与限制
 
 |组合|实际验证|
 |---|---|
-|ESI 配置与撤销|两端使用同一 ESI 时，远端 Type-4 路由和下一跳组均有两个成员；一端执行 `undo esi` 后均缩为一个，IPv4、IPv6 各 3 发 3 收；恢复 ESI 后重建两成员|
+|ESI 配置与撤销|两端使用同一 ESI 时，远端 Type-4 路由和下一跳组均有两个成员；一端执行 `undo esi` 后缩为一个；恢复 ESI 后重建两成员，带 ESI 的客户 Type-2 恢复，IPv4、IPv6 各 3 发 3 收|
 |双接入单播|远端 MAC 指向包含两台接入 PE 的 ES 下一跳组；单链路关闭后使用另一台 PE，链路恢复后重新可用|
 |广播、组播|远端各发送5帧，DF侧各收到5帧，非DF侧为0；未观察到重复交付|
 |接入故障后的广播|关闭原DF接入口后，另一侧成为DF，5帧广播全部交付|

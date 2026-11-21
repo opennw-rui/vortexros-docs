@@ -7,7 +7,7 @@ display health
 display interface brief
 ~~~
 
-健康状态应为 ready。接口列表用于确认实际业务口和链路状态。配置首条路由并检查连通性的完整步骤见[从零到 Ping](../quickstart.md)。
+健康状态应为 ready。首次修改配置前先完成[设备授权](license.md)。接口列表用于确认实际业务口和链路状态。配置首条路由并检查连通性的完整步骤见[从零到 Ping](../quickstart.md)。
 
 ## 有异常时
 

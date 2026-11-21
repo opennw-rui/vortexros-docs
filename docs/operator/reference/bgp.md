@@ -755,3 +755,27 @@
 - 数据来源：Candidate（本会话待提交配置）。
 
 此形式没有额外参数。
+
+## `default-route imported`
+
+- 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
+- 视图：`BGP地址族视图`
+- CLI 帮助：allow default routes selected by import-route
+- 合法语法：
+
+  ```text
+  default-route imported
+  ```
+
+## `undo default-route imported`
+
+- 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
+- 视图：`BGP地址族视图`
+- CLI 帮助：exclude default routes from import-route
+- 合法语法：
+
+  ```text
+  undo default-route imported
+  ```

@@ -18,7 +18,7 @@
 sudo vortexros
 ~~~
 
-使用 display interface brief 确认业务口名称。初始数据面由 Linux 管理。
+首次配置前按[设备授权](installation/license.md)完成激活。使用 `display interface brief` 确认业务口名称。初始数据面由 Linux 管理。
 
 ## 配置地址与路由
 

@@ -22,9 +22,9 @@ sudo sh ./vortexros-0.30-dev-amd64.run
 sudo vortexros
 ~~~
 
-需要受管 SSH 登录时，先按[本地账号与 SSH](../operator/aaa.md)创建管理员；出厂配置没有内置账号。安装和使用手册统一在线维护，安装包不内置另一套用户手册。
+首次变更配置前先完成[设备授权](license.md)。需要受管 SSH 登录时，按[本地账号与 SSH](../operator/aaa.md)创建管理员；出厂配置没有内置账号。安装和使用手册统一在线维护，安装包不内置另一套用户手册。
 
-接下来按[从零到 Ping](../quickstart.md)配置示例口、提交并验证连通性。已有 VortexROS 的设备请使用[升级与回退](07-upgrade-uninstall.md)。
+按[从零到 Ping](../quickstart.md)配置示例口、提交并验证连通性。已有 VortexROS 的设备请使用[升级与回退](07-upgrade-uninstall.md)。
 
 ~~~{toctree}
 :maxdepth: 1
@@ -35,6 +35,7 @@ sudo vortexros
 04-system-services
 05-vpp-startup
 06-first-start
+license
 07-upgrade-uninstall
 08-hardware-acceptance
 ~~~
