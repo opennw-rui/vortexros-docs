@@ -21,6 +21,7 @@
 :maxdepth: 2
 
 ethernet/state
+ethernet/transceiver
 ethernet/settings
 ~~~
 

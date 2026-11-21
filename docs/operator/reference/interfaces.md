@@ -109,7 +109,7 @@
 - 合法语法：
 
   ```text
-  display interface [IF]
+  display interface [IF [transceiver]]
   ```
 
 <!-- registry-parameters -->
@@ -121,7 +121,9 @@
 | 参数位置 | 关键字 / 参数 | CLI 帮助含义 | 输入方式 |
 |---|---|---|---|
 | 命令后 | `IF` | interface name or TYPE | 输入值、可选 |
-| IF | `N` | interface number when TYPE and NUMBER are split | 输入值、可选 |
+| IF | `transceiver` | display optical module information and diagnostics | 可选 |
+
+`IF` 接受 `Ethernet0` 和 `Ethernet 0`。加上 `transceiver` 后查询该物理端口当前插入的光模块，见[光模块诊断](../ethernet/transceiver.md)。此形式从 0.30-dev Debug 8 开始提供。
 
 ## `display interface brief`
 
