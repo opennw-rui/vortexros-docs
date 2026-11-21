@@ -15,6 +15,8 @@ All-Active 使用相同 ESI 将 CE 双接入两台 PE。远端 PE 根据 EVPN Ty
 
 使用 Debug 9 整包中的配套 FRR 和 VPP。两台 PE 的 EVPN 邻居和下一跳组建立后，还需确认远端 MAC 已进入转发表，并用 CE 侧双栈流量验收。
 
+CE 的两条接入链路都须能接收业务单播。远端 PE 可以把同一个客户 MAC 的报文发往任一接入 PE。若 CE 使用只接收主链路报文的主备聚合，被送到备用链路的报文会丢失。使用与 All-Active 匹配的聚合方式，例如[案例中的静态 Eth-Trunk](../../examples/evpn/all-active.md#ce1)。
+
 ## ESI 维护与回读
 
 维护前协调 CE 聚合及两台接入 PE，确认同一业务 VLAN 和 VNI 并保留另一条可用链路。在一个接入 PE 的聚合视图执行 `undo esi` 并提交，远端下一跳组应保留仍参与该 ES 的成员。填回原 ESI 后再次提交。
