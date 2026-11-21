@@ -52,6 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../installation/support/">支持矩阵</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation/">安装</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation/license/">用户授权与试用</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart/">入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../01-cli/">命令行</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../02-system-services/">系统管理</a></li>
@@ -137,6 +138,7 @@
 <section id="id2">
 <span id="运行环境要求"></span><h2>运行环境要求<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <p>使用 Debug 9 整包中的配套 FRR 和 VPP。两台 PE 的 EVPN 邻居和下一跳组建立后，还需确认远端 MAC 已进入转发表，并用 CE 侧双栈流量验收。</p>
+<p>CE 的两条接入链路都须能接收业务单播。远端 PE 可以把同一个客户 MAC 的报文发往任一接入 PE。若 CE 使用只接收主链路报文的主备聚合，被送到备用链路的报文会丢失。使用与 All-Active 匹配的聚合方式，例如<a class="reference internal" href="../../../examples/evpn/all-active/#ce1"><span class="std std-ref">案例中的静态 Eth-Trunk</span></a>。</p>
 </section>
 <section id="esi">
 <span id="esi-维护与回读"></span><h2>ESI 维护与回读<a class="headerlink" href="#esi" title="链接到此标题。"></a></h2>
