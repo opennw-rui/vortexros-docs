@@ -1,0 +1,208 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>授权与试用 &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
+
+  
+    <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/license/" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=332b04af"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=540d3cec"></script>
+      <script src="../../_static/copy.js?v=c39f0863"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex/" />
+    <link rel="search" title="搜索" href="../../search/" />
+    <link rel="next" title="升级与回退" href="../07-upgrade-uninstall/" />
+    <link rel="prev" title="首次启动与验收" href="../06-first-start/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../" class="icon icon-home">
+            VortexROS 文档
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../hardware/">支持的硬件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support/">支持矩阵</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">安装</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../00-planning/">部署规划</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-management-safety/">保护远程管理连接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02-backends/">软件组成与兼容性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04-system-services/">系统服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-vpp-startup/">启用 DPDK 数据面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-first-start/">首次启动与验收</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">授权与试用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../07-upgrade-uninstall/">升级与回退</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../08-hardware-acceptance/">硬件验收</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/">入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/01-cli/">命令行</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/02-system-services/">系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/03-interfaces-l2/">接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/04-ip-routing/">IP 路由</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/05-dynamic-routing/">路由协议</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/acl/">ACL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/nat/">NAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/07-policy/">流量策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/06-tunnels/">隧道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/10-mpls-l3vpn/">MPLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/08-network-services/">网络服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/09-operations/">诊断与恢复</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting/">常见故障</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/">配置案例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operator/reference/commands/">命令参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release/">发布记录</a></li>
+</ul>
+
+        </div>
+<details class="manual-version">
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
+  <div class="manual-version-menu">
+    <a href="../../">当前手册（v0.30-dev-debug9）</a>
+    <a href="../../versions/">文档版本说明</a>
+  </div>
+</details>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">VortexROS 文档</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../">首次安装</a></li>
+      <li class="breadcrumb-item active">授权与试用</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<span id="授权与试用"></span><h1>授权与试用<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
+<p>默认安装包在设备首次启动 VortexROS 时自动开启 <strong>72 小时试用</strong>。试用期间可按账号权限配置设备。关机期间计时继续，重启和升级沿用原到期时间。</p>
+<p>在用户视图执行：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display license
+</pre></div>
+</div>
+<p>首次试用通常显示 <code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">type</span></code> 为 <code class="docutils literal notranslate"><span class="pre">trial</span></code>、<code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">ID</span></code> 为 <code class="docutils literal notranslate"><span class="pre">built-in-trial</span></code>，且 <code class="docutils literal notranslate"><span class="pre">Configuration</span> <span class="pre">access</span></code> 为 <code class="docutils literal notranslate"><span class="pre">enabled</span></code>。<code class="docutils literal notranslate"><span class="pre">Activated</span> <span class="pre">at</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Expires</span> <span class="pre">at</span></code> 使用 UTC，<code class="docutils literal notranslate"><span class="pre">Remaining</span> <span class="pre">seconds</span></code> 表示剩余秒数。</p>
+<section id="id2">
+<span id="申请和导入授权"></span><h2>申请和导入授权<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
+<p>由设备管理员在用户视图生成本机的加密申请：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>license request export router01.vreq
+</pre></div>
+</div>
+<p>相对文件名以设备上的 <code class="docutils literal notranslate"><span class="pre">/VortexROS/license/</span></code> 为基准，也可指定本机绝对路径。导出禁止覆盖同名文件。将 <code class="docutils literal notranslate"><span class="pre">router01.vreq</span></code> 交给授权提供方，注明所需授权类型。</p>
+<p>收到本机的 <code class="docutils literal notranslate"><span class="pre">router01.vlic</span></code> 后，将其放入设备的 <code class="docutils literal notranslate"><span class="pre">/VortexROS/license/</span></code>。使用独立的传输文件名，系统使用的固定文件名为 <code class="docutils literal notranslate"><span class="pre">license.vlic</span></code>。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>license import router01.vlic
+display license
+</pre></div>
+</div>
+<p>导入成功后，<code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">status</span></code> 应为 <code class="docutils literal notranslate"><span class="pre">active</span></code>，<code class="docutils literal notranslate"><span class="pre">Configuration</span> <span class="pre">access</span></code> 应为 <code class="docutils literal notranslate"><span class="pre">enabled</span></code>。永久授权的 <code class="docutils literal notranslate"><span class="pre">Expires</span> <span class="pre">at</span></code> 显示 <code class="docutils literal notranslate"><span class="pre">Never</span></code>。配置权限随授权导入即时更新，无需重启。开发授权显示为 <code class="docutils literal notranslate"><span class="pre">internal</span></code>，正式永久授权为 <code class="docutils literal notranslate"><span class="pre">permanent</span></code>。</p>
+</section>
+<section id="id3">
+<span id="升级回退与换机"></span><h2>升级回退与换机<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>授权绑定设备的 Node ID 和主机身份。同一设备保留 <code class="docutils literal notranslate"><span class="pre">/VortexROS/license/</span></code> 下的设备身份、激活状态及已安装授权，且目标版本信任同一签发公钥时，升降级无需重新申请。升级前后核对 Node ID 和授权类型，版本相关的配置与后端要求见<a class="reference internal" href="../07-upgrade-uninstall/"><span class="std std-doc">升级与回退</span></a>。</p>
+<p>更换设备、重新创建虚机或重装系统导致主机身份变化时，应在目标设备重新导出申请。备份已有授权时，保留整个授权目录及其权限。</p>
+</section>
+<section id="id4">
+<span id="到期和异常状态"></span><h2>到期和异常状态<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>状态</p></th>
+<th class="head"><p>用户操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">active</span></code></p></td>
+<td><p>试用用户按 <code class="docutils literal notranslate"><span class="pre">Expires</span> <span class="pre">at</span></code> 安排正式授权。已导入永久授权的设备显示 <code class="docutils literal notranslate"><span class="pre">Never</span></code>。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">unlicensed</span></code></p></td>
+<td><p>配置只读。导出本机申请并导入签发授权。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">expired</span></code></p></td>
+<td><p>已提交的配置与既有转发继续生效，普通配置修改受限。仍可查询、诊断、导出申请和导入授权。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clock-rollback</span></code></p></td>
+<td><p>配置只读。核对系统时间后重新检查状态。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">invalid</span></code></p></td>
+<td><p>根据 <code class="docutils literal notranslate"><span class="pre">Detail</span></code> 检查授权和设备是否匹配。如需换机，在目标设备重新申请。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">unconfigured</span></code></p></td>
+<td><p>将软件版本和授权状态交给授权提供方核对安装包。</p></td>
+</tr>
+</tbody>
+</table>
+<p>联系授权支持时可提供 <code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">status</span></code>、<code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">type</span></code>、<code class="docutils literal notranslate"><span class="pre">Node</span> <span class="pre">ID</span></code>、<code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">ID</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Detail</span></code>。命令定义见<a class="reference internal" href="../../operator/reference/system/#display-license"><span class="std std-ref">系统命令参考</span></a>。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../06-first-start/" class="btn btn-neutral float-left" title="首次启动与验收" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../07-upgrade-uninstall/" class="btn btn-neutral float-right" title="升级与回退" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 VortexROS 项目。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

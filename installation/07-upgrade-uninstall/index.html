@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>升级与回退 &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>升级与回退 &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/07-upgrade-uninstall/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -24,7 +24,7 @@
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="搜索" href="../../search/" />
     <link rel="next" title="硬件验收" href="../08-hardware-acceptance/" />
-    <link rel="prev" title="首次启动与验收" href="../06-first-start/" /> 
+    <link rel="prev" title="授权与试用" href="../license/" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,6 +57,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../04-system-services/">系统服务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../05-vpp-startup/">启用 DPDK 数据面</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../06-first-start/">首次启动与验收</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license/">授权与试用</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">升级与回退</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../08-hardware-acceptance/">硬件验收</a></li>
 </ul>
@@ -83,9 +84,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -115,24 +116,28 @@
              
   <section id="id1">
 <span id="升级与回退"></span><h1>升级与回退<a class="headerlink" href="#id1" title="链接到此标题。"></a></h1>
-<p>首次安装、升级、检查和模拟统一使用对应版本的单文件 <code class="docutils literal notranslate"><span class="pre">.run</span></code>。包内包含 VortexROS、配套 VPP 和 FRR；安装器比较版本，只更新变化的组件。</p>
+<p>首次安装、升级、检查和模拟统一使用对应版本的单文件 <code class="docutils literal notranslate"><span class="pre">.run</span></code>。包内包含 VortexROS、配套 VPP、FRR 和 Kea。安装器比较版本和包内容，只更新发生变化的组件。</p>
 <section id="id2">
 <span id="使用单文件安装包"></span><h2>使用单文件安装包<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
-<p>从<a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases">项目Release</a>或已提供的0.30-dev安装包位置取得 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SHA256SUMS</span></code>，核对校验值。更新前在 CLI 执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>，确认当前配置和服务收敛，然后运行：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.30-dev-amd64.run
+<p>从<a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases">项目Release</a>或交付方取得 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SHA256SUMS</span></code>，核对校验值。更新前在 CLI 执行 <code class="docutils literal notranslate"><span class="pre">save</span></code>，确认当前配置和服务收敛，然后运行：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.30-dev-debug9_amd64.run
 </pre></div>
 </div>
 <p>安装器自动执行必要的兼容、回退材料和健康检查。需要提前核对下载或查看执行计划时，可选择以下操作：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sha256sum<span class="w"> </span>-c<span class="w"> </span>SHA256SUMS
-sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.30-dev-amd64.run<span class="w"> </span>--check-only
-sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros-0.30-dev-amd64.run<span class="w"> </span>--simulate
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.30-dev-debug9_amd64.run<span class="w"> </span>--check-only
+sudo<span class="w"> </span>sh<span class="w"> </span>./vortexros_0.30-dev-debug9_amd64.run<span class="w"> </span>--simulate
 </pre></div>
 </div>
-<p>检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。安装器只安装版本发生变化的包；软件包不变不等于服务一定不重启。仅控制层更新执行控制层恢复计划；涉及后端包变更时，系统包事务会按既有流程重启产品服务栈，未换版的VPP等服务也可能重启。请根据模拟输出的执行计划预留业务中断窗口。</p>
+<p>检查和模拟不安装软件、不重启服务。实际执行保留用户启动 CFG。重新构建的同版本包有内容差异时也会更新。涉及后端包的事务可能重启依赖服务。仅控制层更新执行控制层恢复计划；涉及后端包变更时，系统包事务会按既有流程重启产品服务栈，未换版的VPP等服务也可能重启。请根据模拟输出的执行计划预留业务中断窗口。</p>
 <p>已安装的 Linux-only 设备可以更新，VPP 服务保持停止；VPP 模式继续检查进程及适用的运行版本。安装器要求升级和回退前后的数据面归属一致。</p>
 </section>
 <section id="id3">
-<span id="回退材料与健康观察"></span><h2>回退材料与健康观察<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<span id="升降级后核对授权"></span><h2>升降级后核对授权<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>就地升降级会保留设备身份和已导入授权。升级前后可用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">license</span></code> 对照 Node ID、授权类型和到期时间。试用到期时间随设备保留，兼容版本上的永久授权无需重新签发。通过<a class="reference internal" href="../license/#id3"><span class="std std-ref">授权与试用</span></a>了解版本和设备身份的适用条件。</p>
+</section>
+<section id="id4">
+<span id="回退材料与健康观察"></span><h2>回退材料与健康观察<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <p>安装器从上次保留的系统包、本地软件包目录或 APT 缓存取得待更新组件的精确旧版本包。统一 <code class="docutils literal notranslate"><span class="pre">.run</span></code> 入口不要求预先创建 <code class="docutils literal notranslate"><span class="pre">/VortexROS/install</span></code>。缺少回退材料时，预检会报告实际缺少的包名和版本。</p>
 <p>VPP 软件包声明允许修改的配置文件会按配置文件处理；例如调整大页预留后，不需要先恢复发行版默认值才能升级。程序、共享库、插件和安装脚本仍须与已安装的软件包一致。若曾手工替换这些文件，预检可能报告回退材料不匹配，应核对软件来源和具体不一致项。</p>
 <p>恢复按实际依赖推进，每个阶段完成下发与回读后再继续：</p>
@@ -203,7 +208,7 @@ upgrade system-software package vortexros-system_VERSION_amd64.tar
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../06-first-start/" class="btn btn-neutral float-left" title="首次启动与验收" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../license/" class="btn btn-neutral float-left" title="授权与试用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="../08-hardware-acceptance/" class="btn btn-neutral float-right" title="硬件验收" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

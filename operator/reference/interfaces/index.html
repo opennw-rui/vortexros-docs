@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ethernet 与接口 &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>Ethernet 与接口 &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/interfaces/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -120,9 +120,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -376,7 +376,7 @@
 <li><p>视图：<code class="docutils literal notranslate"><span class="pre">任意允许视图</span></code></p></li>
 <li><p>CLI 帮助：display interface information</p></li>
 <li><p>合法语法：</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface [IF]
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display interface [IF [transceiver]]
 </pre></div>
 </div>
 </li>
@@ -401,12 +401,13 @@
 <td><p>输入值、可选</p></td>
 </tr>
 <tr class="row-odd"><td><p>IF</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
-<td><p>interface number when TYPE and NUMBER are split</p></td>
-<td><p>输入值、可选</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transceiver</span></code></p></td>
+<td><p>display optical module information and diagnostics</p></td>
+<td><p>可选</p></td>
 </tr>
 </tbody>
 </table>
+<p><code class="docutils literal notranslate"><span class="pre">IF</span></code> 接受 <code class="docutils literal notranslate"><span class="pre">Ethernet0</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Ethernet</span> <span class="pre">0</span></code>。加上 <code class="docutils literal notranslate"><span class="pre">transceiver</span></code> 后查询该物理端口当前插入的光模块，见<a class="reference internal" href="../../ethernet/transceiver/"><span class="std std-doc">光模块诊断</span></a>。此形式从 0.30-dev Debug 8 开始提供。</p>
 </section>
 <section id="display-interface-brief">
 <h2><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">interface</span> <span class="pre">brief</span></code><a class="headerlink" href="#display-interface-brief" title="链接到此标题。"></a></h2>

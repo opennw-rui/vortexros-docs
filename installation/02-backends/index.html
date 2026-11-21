@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>软件组成与兼容性 &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>软件组成与兼容性 &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/installation/02-backends/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -57,6 +57,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../04-system-services/">系统服务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../05-vpp-startup/">启用 DPDK 数据面</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../06-first-start/">首次启动与验收</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license/">授权与试用</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../07-upgrade-uninstall/">升级与回退</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../08-hardware-acceptance/">硬件验收</a></li>
 </ul>
@@ -83,9 +84,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -119,21 +120,21 @@
 <thead>
 <tr class="row-odd"><th class="head"><p>组件</p></th>
 <th class="head"><p>职责</p></th>
-<th class="head"><p>Debug 6 配套包</p></th>
+<th class="head"><p>Debug 9 配套包</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>VortexROS</p></td>
 <td><p>CLI、配置提交和后端收敛</p></td>
-<td><p>0.30~dev+run44.debug6</p></td>
+<td><p>0.30~dev.debug9</p></td>
 </tr>
 <tr class="row-odd"><td><p>VortexROS-VPP</p></td>
 <td><p>DPDK、转发及LCP</p></td>
-<td><p>26.10.9+vortexros.debug6-release，五个运行包使用同一构建</p></td>
+<td><p>26.10.9+vortexros.debug8.1-release，五个运行包使用同一构建</p></td>
 </tr>
 <tr class="row-even"><td><p>FRR</p></td>
 <td><p>动态路由协议和Zebra</p></td>
-<td><p>10.7.1-vortexros-1.10-dev</p></td>
+<td><p>10.7.1-vortexros-1.11-dev</p></td>
 </tr>
 <tr class="row-odd"><td><p>Kea</p></td>
 <td><p>DHCPv4/DHCPv6服务</p></td>
@@ -141,7 +142,7 @@
 </tr>
 </tbody>
 </table>
-<p>单文件.run包含上述组件，并从Ubuntu软件源补齐必要依赖。安装器比较组件包版本，仅安装发生变化的组件。候选软件是否已公开发布，见<a class="reference internal" href="../../release/"><span class="std std-doc">发布记录</span></a>。</p>
+<p>单文件.run包含上述组件，并从Ubuntu软件源补齐必要依赖。安装器比较组件版本和包内容，只更新发生变化的组件。下载位置及当前发布组合见<a class="reference internal" href="../../release/"><span class="std std-doc">发布记录</span></a>。</p>
 <p>安装后用display version核对实际版本，用display service verbose检查服务。安装包中的版本与运行进程身份需要分别核对，不能只看文件名。</p>
 </section>
 

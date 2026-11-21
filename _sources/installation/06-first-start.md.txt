@@ -5,9 +5,12 @@
 ~~~text
 display health
 display interface brief
+display license
 ~~~
 
 健康状态应为 ready。接口列表用于确认实际业务口和链路状态。配置首条路由并检查连通性的完整步骤见[从零到 Ping](../quickstart.md)。
+
+默认安装包首次启动会开启 72 小时试用，预期 `License type` 为 `trial`、`Configuration access` 为 `enabled`。已有授权的设备显示实际授权类型。申请、导入和升级回退见[授权与试用](license.md)。
 
 ## 有异常时
 

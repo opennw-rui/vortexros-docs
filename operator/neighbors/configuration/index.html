@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>静态项与老化 &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>静态项与老化 &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/neighbors/configuration/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -92,9 +92,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -267,6 +267,27 @@ display arp dynamic
 </div>
 <p>命令需要确认，仅清除选定范围的动态 IPv4 邻居；静态配置、代理项及无需 ARP 解析的映射不属于清除对象。也可用 <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">X.X.X.X</span></code> 精确选择地址。删除会同步到数据面，随后有业务时按需重新解析，期间可能出现短暂丢包。它不会撤销接口地址或保存配置。</p>
 <p>大表清除分段完成同步，命令返回后再查询目标表项。清除期间若发生错误，已完成的删除不自动回滚；应按返回的具体错误处理，不能把报错解释为所有表项已清空。</p>
+</section>
+<section id="id4">
+<span id="撤销同网段次地址"></span><h2>撤销同网段次地址<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<p>同一三层接口可在主地址之外配置次地址。适合地址调整期间临时保留一个额外的本机地址。以下示例使用主地址 <code class="docutils literal notranslate"><span class="pre">192.0.2.1/24</span></code> 已配置、对端为 <code class="docutils literal notranslate"><span class="pre">192.0.2.2</span></code> 的 VPP 三层口。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>system-view
+interface Ethernet0
+ ip address 192.0.2.11 255.255.255.0 sub
+ commit
+ display this
+ display arp interface Ethernet0
+</pre></div>
+</div>
+<p>确认已有对端能通信后，只撤销指定次地址。精确输入地址和掩码，可保留接口上其他地址。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo ip address 192.0.2.11 255.255.255.0
+commit
+display this
+display arp interface Ethernet0
+</pre></div>
+</div>
+<p>当前缀上仍保留主地址时，连接路由和已学习的同网段动态 ARP 条目继续存在，已有目标可继续转发。若删除该前缀的最后一个地址，对应连接路由和动态邻居退出，其他前缀照常工作。维护验收可用对端业务探测及邻居查询确认，通常无需执行 <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">ip</span> <span class="pre">arp</span></code>。</p>
+<p>第三轮实际验证中，撤销后对端探测保持 3/3，抓包未观察到重新 ARP。另一个前缀的最后一个地址被撤销后，对应路由与邻居正常清除，保留前缀仍可转发。</p>
 </section>
 </section>
 

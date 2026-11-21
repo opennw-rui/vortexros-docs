@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>路由通用命令 &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>路由通用命令 &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/reference/dynamic-routing/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -120,9 +120,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -2331,6 +2331,36 @@
 </tr>
 </tbody>
 </table>
+</section>
+<section id="default-route-imported">
+<h2><code class="docutils literal notranslate"><span class="pre">default-route</span> <span class="pre">imported</span></code><a class="headerlink" href="#default-route-imported" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：修改当前会话配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code></p></li>
+<li><p>CLI 帮助：allow default routes selected by import-route</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default-route imported
+</pre></div>
+</div>
+</li>
+</ul>
+<p>允许通过 <code class="docutils literal notranslate"><span class="pre">import-route</span></code> 引入 IPv4 或 IPv6 的缺省路由。用于 BGP 对应地址族，包括命名 VPN。需先配置相应的路由引入，只有被选中的缺省路由才会发布。</p>
+</section>
+<section id="undo-default-route-imported">
+<h2><code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default-route</span> <span class="pre">imported</span></code><a class="headerlink" href="#undo-default-route-imported" title="链接到此标题。"></a></h2>
+<ul>
+<li><p>类别：配置命令</p></li>
+<li><p>执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。</p></li>
+<li><p>视图：<code class="docutils literal notranslate"><span class="pre">BGP地址族视图</span></code></p></li>
+<li><p>CLI 帮助：exclude default routes from import-route</p></li>
+<li><p>合法语法：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>undo default-route imported
+</pre></div>
+</div>
+</li>
+</ul>
+<p>停止引入本地址族的缺省路由。已引入的普通前缀仍按现有策略发布。</p>
 </section>
 </section>
 

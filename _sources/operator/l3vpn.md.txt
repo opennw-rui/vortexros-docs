@@ -56,6 +56,35 @@ bgp 65000
 再次输入 `policy vpn-target` 恢复缺省过滤行为，恢复后的缺省项不显示。
 
 
+## 通告命名 VPN 的缺省路由
+
+可以由出口 PE 把缺省路由通告给同一 VPN 的其他 PE。缺省路由默认不随 `import-route static` 引入 BGP VPN。IPv4 和 IPv6 分别配置，其他客户前缀继续按原路由策略处理。
+
+先确认出口 PE 的 VPN 路由表已有可用的缺省和回程，且引入策略允许该路由。以下为现有 BGP 65000 的 VPN CUST-A 配置片段：
+
+~~~text
+bgp 65000
+ ipv4-family vpn-instance CUST-A
+  import-route static
+  default-route imported
+ #
+ ipv6-family vpn-instance CUST-A
+  import-route static
+  default-route imported
+#
+~~~
+
+提交后，在接收 PE 查询对应地址族：
+
+~~~text
+display bgp vpnv4 vpn-instance CUST-A routing-table
+display bgp vpnv6 vpn-instance CUST-A routing-table
+~~~
+
+检查 IPv4 缺省 `0.0.0.0/0`、IPv6 缺省 `::/0` 和原客户前缀。实际双 PE 对照中，两族远端 VPN BGP 路由在开启前各 4 条、开启后各 5 条、撤销后各 4 条。各阶段两族独立业务探测均为 2/2。
+
+在目标 VPN 地址族执行 `undo default-route imported` 并提交即可停止该地址族的缺省通告，另一地址族和普通前缀保持原有行为。接收端未见缺省时，依次核对出口 PE 的 VPN 路由表、引入策略、MP-BGP 会话和导入 RT。
+
 ## VPNv6 的源接口前提
 
 同一 IPv4 MP-BGP 会话承载 VPNv6 时，指定的 connect-interface 也应启用 IPv6 并配置可用的 IPv6 地址。例如，给两端 LoopBack0 分别配置全局 IPv6 /128，再在 ipv6-family vpnv6 下启用已有 IPv4 邻居。接口 IPv6 默认关闭，不能只配置 VPNv6 邻居而忽略源接口。

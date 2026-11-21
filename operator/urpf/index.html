@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>uRPF &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>uRPF &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/urpf/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -81,9 +81,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -136,6 +136,10 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">disable</span></code>或对应的<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">urpf</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">urpf</span></code>：关闭该地址族检查。</p></li>
 </ul>
 <p>IPv4和IPv6 uRPF是两个独立配置对象，修改或撤销其中一个不会覆盖另一个。使用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">urpf</span></code> 查看全部地址族，使用<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">urpf</span></code>只查看IPv6接口模式；通过<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ip</span> <span class="pre">routing-table</span> <span class="pre">...</span> <span class="pre">verbose</span></code>或<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">ipv6</span> <span class="pre">routing-table</span> <span class="pre">...</span> <span class="pre">verbose</span></code>检查作为判断依据的路由。</p>
+</section>
+<section id="id3">
+<span id="将接口加入聚合"></span><h2>将接口加入聚合<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>接口启用了任一地址族的 uRPF 时，需要先撤销该接口上的检查再加入 Eth-Trunk。已有 IPv4、IPv6 检查分别使用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ip</span> <span class="pre">urpf</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ipv6</span> <span class="pre">urpf</span></code>，提交后用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">urpf</span></code> 核对。加入聚合后，通过 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">eth-trunk</span></code> 查看成员，再按业务验证双栈流量。第三轮验收中，启用 uRPF 的接口被正常拒绝，撤销后同一接口加入聚合并通过双栈探测。</p>
 </section>
 </section>
 

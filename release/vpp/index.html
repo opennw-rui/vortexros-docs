@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>配套 VPP &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>配套 VPP &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/release/vpp/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -74,6 +74,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../debug4/">Debug 4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../debug5/">Debug 5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../debug6/">Debug 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debug9/">0.30-dev Debug 9</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vortexros/">VortexROS 0.30-dev</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">配套 VPP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../frr/">配套 FRR</a></li>
@@ -86,9 +87,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -118,7 +119,7 @@
              
   <section id="vpp">
 <span id="配套-vpp"></span><h1>配套 VPP<a class="headerlink" href="#vpp" title="链接到此标题。"></a></h1>
-<p>VPP负责DPDK接口和需要VPP的数据面功能。当前配套版本为26.10.9-debug2+vortexros-vpp；五个运行包应来自同一配套版本，统一安装器会完成组件匹配。</p>
+<p>VPP负责DPDK接口和需要VPP的数据面功能。当前配套版本为 26.10.9 Debug 8.1；五个运行包应来自同一配套版本，统一安装器会完成组件匹配。</p>
 <section id="id1">
 <span id="对用户可见的行为"></span><h2>对用户可见的行为<a class="headerlink" href="#id1" title="链接到此标题。"></a></h2>
 <ul class="simple">
@@ -167,6 +168,10 @@
 </ul>
 <p>配置、限制和完整案例见<a class="reference internal" href="../../operator/qinq-flexible/"><span class="std std-doc">灵活QinQ</span></a>，
 性能条件和结果见<a class="reference internal" href="../performance/"><span class="std std-doc">性能参考</span></a>。</p>
+</section>
+<section id="debug-8-1">
+<span id="26109-debug-81"></span><h2>26.10.9 Debug 8.1<a class="headerlink" href="#debug-8-1" title="链接到此标题。"></a></h2>
+<p>更新 IPv6 VRRP 的冷邻居应答、EVPN 多归属的本地 MAC 恢复、撤销同网段次地址的 ARP 保留及大页预留。配套 Debian 包均为 <code class="docutils literal notranslate"><span class="pre">26.10.9+vortexros.debug8.1-release</span></code>。 <a class="reference external" href="https://github.com/opennw-rui/VortexROS-VPP/releases/tag/v26.10.9-debug8.1%2Bvortexros-vpp">VPP 配套发布</a></p>
 </section>
 </section>
 

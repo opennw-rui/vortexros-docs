@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ESI 配置变更 &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>ESI 配置变更 &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/examples/evpn/esi/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -92,9 +92,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -176,6 +176,37 @@ save
 </pre></div>
 </div>
 <p>实际恢复后，本机 Type-1/Type-4 通告重新出现，普通帧和 VLAN461 客户探测均为 1/1；健康状态 ready、无活动告警。变更方案应协调两台 PE 与 CE，并按业务 VLAN 分别验证。</p>
+</section>
+<section id="pe">
+<span id="三-pe-场景的恢复核对"></span><h2>三 PE 场景的恢复核对<a class="headerlink" href="#pe" title="链接到此标题。"></a></h2>
+<p>三个 PE 的对照结果如下。接入端维护期间保持原业务静默，恢复探测前确认邻居已收敛。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>阶段</p></th>
+<th class="head"><p>远端业务 MAC 和下一跳组</p></th>
+<th class="head"><p>业务验证</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>双接入正常</p></td>
+<td><p>业务 Type-2 带 ESI，ES 下一跳组有两成员</p></td>
+<td><p>双栈各 3/3</p></td>
+</tr>
+<tr class="row-odd"><td><p>撤销一端 ESI</p></td>
+<td><p>撤回该端通告，下一跳组保留一成员</p></td>
+<td><p>保留另一条接入路径</p></td>
+</tr>
+<tr class="row-even"><td><p>恢复 ESI</p></td>
+<td><p>两成员和带 ESI 的 Type-2 自动恢复，接入端仍指向本地聚合子接口</p></td>
+<td><p>双栈各 3/3</p></td>
+</tr>
+<tr class="row-odd"><td><p>一侧接入停启</p></td>
+<td><p>下一跳组两成员 → 一成员 → 两成员</p></td>
+<td><p>收敛后各阶段双栈各 3/3</p></td>
+</tr>
+</tbody>
+</table>
+<p>用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">bgp</span> <span class="pre">evpn</span> <span class="pre">all</span> <span class="pre">routing-table</span></code> 核对客户 Type-2，再用 <code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">mac-address</span> <span class="pre">bridge-domain</span> <span class="pre">460</span></code> 核对桥域 460 的实际出口。确认后保存配置。</p>
 </section>
 </section>
 

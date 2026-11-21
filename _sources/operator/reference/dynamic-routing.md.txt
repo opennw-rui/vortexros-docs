@@ -1236,3 +1236,31 @@
 |---|---|---|---|
 | 命令后 | `1` | RIP version 1 | 关键字 |
 | 命令后 | `2` | RIP version 2 | 关键字 |
+
+## `default-route imported`
+
+- 类别：配置命令
+- 执行效果：修改当前会话配置；执行 commit 成功后生效。
+- 视图：`BGP地址族视图`
+- CLI 帮助：allow default routes selected by import-route
+- 合法语法：
+
+  ```text
+  default-route imported
+  ```
+
+允许通过 `import-route` 引入 IPv4 或 IPv6 的缺省路由。用于 BGP 对应地址族，包括命名 VPN。需先配置相应的路由引入，只有被选中的缺省路由才会发布。
+
+## `undo default-route imported`
+
+- 类别：配置命令
+- 执行效果：在当前会话中撤销对应配置；执行 commit 成功后生效。
+- 视图：`BGP地址族视图`
+- CLI 帮助：exclude default routes from import-route
+- 合法语法：
+
+  ```text
+  undo default-route imported
+  ```
+
+停止引入本地址族的缺省路由。已引入的普通前缀仍按现有策略发布。

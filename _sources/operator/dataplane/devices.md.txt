@@ -88,3 +88,9 @@ undo interface Ethernet97
 ## 预配置接口的再次进入
 
 用 interface user-defined 声明的接口可以继续使用普通接口命令进入，例如 interface Ethernet 98 或 interface Ethernet98。接口尚未出现时，配置仍保留；问号帮助和按编号补全也包含这些已声明的接口。未声明、设备中也不存在的普通物理接口仍不能直接进入，避免误拼名称生成配置。
+
+## 待生效模式与业务状态
+
+提交把接口改为 DPDK 后，现有数据面归属保持到执行 `reset dataplane`。用 `display dataplane interfaces` 核对期望模式和实际模式，再用 `display interface Ethernet9` 核对实际业务口。变更待生效期间，仍归 Kernel 的接口继续使用原地址和转发。
+
+实测对照中，提交后期望模式为 DPDK、实际模式为 Kernel，接口的 IPv4、IPv6 探测各 2/2。未安排数据面切换时，在设备视图执行 `undo mode` 恢复默认 Kernel，提交并核对两种模式。

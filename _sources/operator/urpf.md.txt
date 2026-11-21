@@ -28,3 +28,7 @@ interface Vlanif 100
 - `disable`或对应的`undo ip urpf`、`undo ipv6 urpf`：关闭该地址族检查。
 
 IPv4和IPv6 uRPF是两个独立配置对象，修改或撤销其中一个不会覆盖另一个。使用 `display urpf` 查看全部地址族，使用`display ipv6 urpf`只查看IPv6接口模式；通过`display ip routing-table ... verbose`或`display ipv6 routing-table ... verbose`检查作为判断依据的路由。
+
+## 将接口加入聚合
+
+接口启用了任一地址族的 uRPF 时，需要先撤销该接口上的检查再加入 Eth-Trunk。已有 IPv4、IPv6 检查分别使用 `undo ip urpf`、`undo ipv6 urpf`，提交后用 `display urpf` 核对。加入聚合后，通过 `display eth-trunk` 查看成员，再按业务验证双栈流量。第三轮验收中，启用 uRPF 的接口被正常拒绝，撤销后同一接口加入聚合并通过双栈探测。

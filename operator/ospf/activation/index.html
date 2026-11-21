@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>进程与接口 &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>进程与接口 &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/ospf/activation/" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/translations.js?v=540d3cec"></script>
@@ -94,9 +94,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -157,7 +157,17 @@ interface Vlanif 12
 <p><a class="reference internal" href="../"><span class="std std-doc">OSPF 总览</span></a> · <a class="reference internal" href="../../../examples/ospf/"><span class="std std-doc">完整案例</span></a> · <a class="reference internal" href="../../reference/ospf/"><span class="std std-doc">命令参数</span></a></p>
 </section>
 <section id="id3">
-<span id="进程参数与实际结果"></span><h2>进程参数与实际结果<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<span id="在两种激活方式之间切换"></span><h2>在两种激活方式之间切换<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<p>同一 OSPF 进程需要从接口激活改为区域 <code class="docutils literal notranslate"><span class="pre">network</span></code> 时，先在原接口视图撤销对应的 <code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">enable</span></code>，再在原区域配置匹配接口地址的 <code class="docutils literal notranslate"><span class="pre">network</span></code>，一起提交。由 <code class="docutils literal notranslate"><span class="pre">network</span></code> 激活改回接口激活时，先撤销原区域的 <code class="docutils literal notranslate"><span class="pre">network</span></code>，再在接口配置 <code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">enable</span></code>。已配置的接口 cost、网络类型和计时器按原意保留。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display ospf 1 interface
+display ospf 1 peer
+display ospf routing
+</pre></div>
+</div>
+<p>实际从接口 area 切到 <code class="docutils literal notranslate"><span class="pre">network</span></code> 时，首次提交后邻居恢复为 Full，原 cost 保留。另一个保存回放用例撤销一条 <code class="docutils literal notranslate"><span class="pre">network</span></code> 后保留了接口 cost 30；冷启动后该接口的属性仍在，接口未重新加入协议，另一口的 Full 邻接恢复。</p>
+</section>
+<section id="id4">
+<span id="进程参数与实际结果"></span><h2>进程参数与实际结果<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ospf 1
  auto-cost reference-bandwidth 50000
  maximum-paths 2
@@ -184,8 +194,8 @@ commit
 </div>
 <p>撤销恢复产品所用后端的默认行为。Opaque 开关不会代替 Opaque LSA 应用配置，不能仅因当前数据库没有该类 LSA 就认定开关未生效。</p>
 </section>
-<section id="id4">
-<span id="接口定时器"></span><h2>接口定时器<a class="headerlink" href="#id4" title="链接到此标题。"></a></h2>
+<section id="id5">
+<span id="接口定时器"></span><h2>接口定时器<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
 <p>在两端相连的接口使用一致的 Hello/Dead 值。以下将 Hello/Dead 改为 2/8 秒，LSA 重传间隔改为 3 秒，传输延迟设为 2 秒：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>interface Ethernet0
  ospf timer hello 2
@@ -198,8 +208,8 @@ commit
 <p>commit 后通过 display ospf 1 interface 检查 Hello、Dead 和 Retransmit，通过 display ospf 1 peer 检查 Full 和剩余 Dead 时间。本例接口显示 Hello 2s、Dead 8s、Retransmit 3s，邻居为 Full，目标探测 2/2。transmit-delay 是通告 LSA 时计入的估计传输延迟，不是延迟普通业务报文的排队定时器。</p>
 <p>恢复时在同一接口执行四条对应的 undo ospf timer 命令并提交；默认值为 Hello 10 秒、Dead 40 秒、Retransmit 5 秒和 Transmit-delay 1 秒。两端协调修改，避免暂时不匹配使邻居中断。</p>
 </section>
-<section id="id5">
-<span id="接口属性与静默"></span><h2>接口属性与静默<a class="headerlink" href="#id5" title="链接到此标题。"></a></h2>
+<section id="id6">
+<span id="接口属性与静默"></span><h2>接口属性与静默<a class="headerlink" href="#id6" title="链接到此标题。"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">cost</span></code> 是本端接口的出方向开销。一次实际验证中，接口 Cost 从 10 改为 37，对端另一条开销为 10 的路由总开销相应从 20 变为 47；<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">cost</span></code> 后恢复为 20。显式开销不等同于接口带宽。</p>
 <p><code class="docutils literal notranslate"><span class="pre">ospf</span> <span class="pre">network-type</span></code> 支持 <code class="docutils literal notranslate"><span class="pre">broadcast</span></code>、<code class="docutils literal notranslate"><span class="pre">p2p</span></code>、<code class="docutils literal notranslate"><span class="pre">p2mp</span></code> 和 <code class="docutils literal notranslate"><span class="pre">nbma</span></code>。网络类型决定邻居发现和 DR/BDR 行为，不改变业务接口的三层地址。修改可能使邻居重新建立，应核对两端类型及 Hello/Dead 条件。实际验证分别显示 <code class="docutils literal notranslate"><span class="pre">POINTOPOINT</span></code>、<code class="docutils literal notranslate"><span class="pre">POINTOMULTIPOINT</span></code>、<code class="docutils literal notranslate"><span class="pre">BROADCAST</span></code> 和 <code class="docutils literal notranslate"><span class="pre">NBMA</span></code>；广播网络中 Priority 0 的设备为 DROther，对端为 DR。恢复类型和优先级分别使用 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">network-type</span></code>、<code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">ospf</span> <span class="pre">dr-priority</span></code>。</p>
 <p>NBMA 不等同于广播自动发现。当前接口类型配置不提供静态 OSPF 邻居命令；若网络需要两端均以纯 NBMA 静态邻居建立，应先确认支持范围，不能只设置类型就期待自动发现。本次 NBMA 验证使用仍能发起邻居发现的广播对端，邻居 Full、路由存在且目标探测成功；不能据此外推任意 NBMA 拓扑都能建立。</p>

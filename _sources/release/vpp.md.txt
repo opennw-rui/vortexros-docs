@@ -1,6 +1,6 @@
 # 配套 VPP
 
-VPP负责DPDK接口和需要VPP的数据面功能。当前配套版本为26.10.9-debug2+vortexros-vpp；五个运行包应来自同一配套版本，统一安装器会完成组件匹配。
+VPP负责DPDK接口和需要VPP的数据面功能。当前配套版本为 26.10.9 Debug 8.1；五个运行包应来自同一配套版本，统一安装器会完成组件匹配。
 
 ## 对用户可见的行为
 
@@ -47,3 +47,7 @@ VPP上游资料见[FD.io发布说明](https://raw.githubusercontent.com/FDio/vpp
 
 配置、限制和完整案例见[灵活QinQ](../operator/qinq-flexible.md)，
 性能条件和结果见[性能参考](performance.md)。
+
+## 26.10.9 Debug 8.1
+
+更新 IPv6 VRRP 的冷邻居应答、EVPN 多归属的本地 MAC 恢复、撤销同网段次地址的 ARP 保留及大页预留。配套 Debian 包均为 `26.10.9+vortexros.debug8.1-release`。 [VPP 配套发布](https://github.com/opennw-rui/VortexROS-VPP/releases/tag/v26.10.9-debug8.1%2Bvortexros-vpp)

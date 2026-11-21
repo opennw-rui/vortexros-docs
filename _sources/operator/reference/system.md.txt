@@ -368,3 +368,45 @@
 switchd、dhcp、snmp、aaa。筛选项顺序可交换，不可重复。
 
 完整参数、权限、输出示例和限制见[服务日志](../operations/logs.md)。
+
+## `display license`
+
+- 类别：只读显示命令
+- 执行效果：显示设备配置或运行状态，不修改配置。
+- 视图：`任意允许视图`
+- CLI 帮助：display local license and configuration access status
+- 合法语法：
+
+  ```text
+  display license
+  ```
+
+查看授权类型、配置权限、试用开始与到期时间。内置试用的 License ID 为 built-in-trial。
+
+## `license import`
+
+- 类别：即时运维命令
+- 执行效果：立即执行受权限控制的运维动作，不写入配置。
+- 视图：`用户视图`
+- CLI 帮助：verify and install an offline node license
+- 合法语法：
+
+  ```text
+  license import FILE
+  ```
+
+导入适用于本机的签发授权。`FILE` 使用绝对路径，或使用相对于 `/VortexROS/license/` 的文件名。
+
+## `license request export`
+
+- 类别：即时运维命令
+- 执行效果：立即执行受权限控制的运维动作，不写入配置。
+- 视图：`用户视图`
+- CLI 帮助：export an encrypted offline license request
+- 合法语法：
+
+  ```text
+  license request export FILE
+  ```
+
+导出绑定本机的加密申请。`FILE` 是新文件名，不覆盖同名文件。相对路径以 `/VortexROS/license/` 为基准。

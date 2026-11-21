@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MPLS L3VPN &mdash; VortexROS 文档 v0.30-dev-debug6 文档</title>
+  <title>MPLS L3VPN &mdash; VortexROS 文档 v0.30-dev-debug9 文档</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/manual.css?v=a6687dcc" />
@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://opennw-rui.github.io/vortexros-docs/operator/l3vpn/" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c0d968b5"></script>
+      <script src="../../_static/documentation_options.js?v=332b04af"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/translations.js?v=540d3cec"></script>
@@ -78,9 +78,9 @@
 
         </div>
 <details class="manual-version">
-  <summary>版本：最新（v0.30-dev-debug6）</summary>
+  <summary>版本：最新（v0.30-dev-debug9）</summary>
   <div class="manual-version-menu">
-    <a href="../../">当前手册（v0.30-dev-debug6）</a>
+    <a href="../../">当前手册（v0.30-dev-debug9）</a>
     <a href="../../versions/">文档版本说明</a>
   </div>
 </details>
@@ -153,6 +153,29 @@ Inter-AS Option B 场景需要保留全部 VPN 路由时可关闭过滤：</p>
 </pre></div>
 </div>
 <p>再次输入 <code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">vpn-target</span></code> 恢复缺省过滤行为，恢复后的缺省项不显示。</p>
+</section>
+<section id="vpn">
+<span id="通告命名-vpn-的缺省路由"></span><h2>通告命名 VPN 的缺省路由<a class="headerlink" href="#vpn" title="链接到此标题。"></a></h2>
+<p>可以由出口 PE 把缺省路由通告给同一 VPN 的其他 PE。缺省路由默认不随 <code class="docutils literal notranslate"><span class="pre">import-route</span> <span class="pre">static</span></code> 引入 BGP VPN。IPv4 和 IPv6 分别配置，其他客户前缀继续按原路由策略处理。</p>
+<p>先确认出口 PE 的 VPN 路由表已有可用的缺省和回程，且引入策略允许该路由。以下为现有 BGP 65000 的 VPN CUST-A 配置片段：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bgp 65000
+ ipv4-family vpn-instance CUST-A
+  import-route static
+  default-route imported
+ #
+ ipv6-family vpn-instance CUST-A
+  import-route static
+  default-route imported
+#
+</pre></div>
+</div>
+<p>提交后，在接收 PE 查询对应地址族：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>display bgp vpnv4 vpn-instance CUST-A routing-table
+display bgp vpnv6 vpn-instance CUST-A routing-table
+</pre></div>
+</div>
+<p>检查 IPv4 缺省 <code class="docutils literal notranslate"><span class="pre">0.0.0.0/0</span></code>、IPv6 缺省 <code class="docutils literal notranslate"><span class="pre">::/0</span></code> 和原客户前缀。实际双 PE 对照中，两族远端 VPN BGP 路由在开启前各 4 条、开启后各 5 条、撤销后各 4 条。各阶段两族独立业务探测均为 2/2。</p>
+<p>在目标 VPN 地址族执行 <code class="docutils literal notranslate"><span class="pre">undo</span> <span class="pre">default-route</span> <span class="pre">imported</span></code> 并提交即可停止该地址族的缺省通告，另一地址族和普通前缀保持原有行为。接收端未见缺省时，依次核对出口 PE 的 VPN 路由表、引入策略、MP-BGP 会话和导入 RT。</p>
 </section>
 <section id="vpnv6">
 <span id="vpnv6-的源接口前提"></span><h2>VPNv6 的源接口前提<a class="headerlink" href="#vpnv6" title="链接到此标题。"></a></h2>
