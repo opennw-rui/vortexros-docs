@@ -15,15 +15,22 @@
 
 ## 版本更新
 
+按发布时间从新到旧排列。较早版本和补充发布可直接查看 GitHub 发布记录。
+
 ~~~{toctree}
 :maxdepth: 1
 
 Debug 9 <debug9>
+Debug 7 <https://github.com/opennw-rui/VortexROS/releases/tag/v0.30-dev-debug7>
 Debug 6 <debug6>
+Debug 5 补充发布 <https://github.com/opennw-rui/VortexROS/releases/tag/v0.30-dev-debug5-run43>
 Debug 5 <debug5>
 Debug 4 <debug4>
 Debug 3 <debug3>
 Debug 2 <debug2>
+Debug 1 <https://github.com/opennw-rui/VortexROS/releases/tag/v0.30-dev-debug1>
+0.30-dev <https://github.com/opennw-rui/VortexROS/releases/tag/v0.30-dev>
+0.29-dev <https://github.com/opennw-rui/VortexROS/releases/tag/v0.29-dev>
 ~~~
 
 ## 组件与验证
