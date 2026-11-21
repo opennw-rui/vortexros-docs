@@ -13,15 +13,24 @@
 
 软件安装包通过[项目Release](https://github.com/opennw-rui/VortexROS/releases)或项目提供的下载位置获取；文档站与软件附件分别发布。
 
-~~~{toctree}
-:maxdepth: 2
+## 版本更新
 
-debug2
-debug3
-debug4
-debug5
-debug6
-debug9
+~~~{toctree}
+:maxdepth: 1
+
+Debug 9 <debug9>
+Debug 6 <debug6>
+Debug 5 <debug5>
+Debug 4 <debug4>
+Debug 3 <debug3>
+Debug 2 <debug2>
+~~~
+
+## 组件与验证
+
+~~~{toctree}
+:maxdepth: 1
+
 vortexros
 vpp
 frr

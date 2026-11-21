@@ -14,6 +14,7 @@ VortexROS 是运行在 Ubuntu 上的网络操作系统。通过统一 CLI 配置
 支持矩阵 <installation/support>
 安装 <installation/index>
 默认行为 <installation/defaults>
+用户授权与试用 <installation/license>
 入门 <quickstart>
 命令行 <operator/01-cli>
 系统管理 <operator/02-system-services>

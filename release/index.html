@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex/" />
     <link rel="search" title="搜索" href="../search/" />
-    <link rel="next" title="Debug 2" href="debug2/" />
+    <link rel="next" title="0.30-dev Debug 9" href="debug9/" />
     <link rel="prev" title="SNMP" href="../operator/reference/snmp/" /> 
 </head>
 
@@ -52,6 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation/support/">支持矩阵</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/">安装</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/defaults/">默认行为</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/license/">用户授权与试用</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/">入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operator/01-cli/">命令行</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operator/02-system-services/">系统管理</a></li>
@@ -69,12 +70,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../examples/">配置案例</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operator/reference/commands/">命令参考</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">发布记录</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="debug2/">Debug 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug3/">Debug 3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug4/">Debug 4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug5/">Debug 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug9/">Debug 9</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debug6/">Debug 6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug9/">0.30-dev Debug 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug5/">Debug 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug4/">Debug 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug3/">Debug 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug2/">Debug 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vortexros/">VortexROS 0.30-dev</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vpp/">配套 VPP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frr/">配套 FRR</a></li>
@@ -142,97 +143,32 @@
 </table>
 <p>使用<code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">version</span></code>核对设备实际版本。单文件安装器包括配套组件，只更新版本或包内容有差异的组件。安装步骤见<a class="reference internal" href="../installation/"><span class="std std-doc">安装</span></a>，更新和恢复见<a class="reference internal" href="../installation/07-upgrade-uninstall/"><span class="std std-doc">升级与回退</span></a>。</p>
 <p>软件安装包通过<a class="reference external" href="https://github.com/opennw-rui/VortexROS/releases">项目Release</a>或项目提供的下载位置获取；文档站与软件附件分别发布。</p>
+<section id="id2">
+<span id="版本更新"></span><h2>版本更新<a class="headerlink" href="#id2" title="链接到此标题。"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="debug2/">Debug 2</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="debug2/#id1">更新方式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug2/#qinq">灵活QinQ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug2/#id2">日志和运行状态</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug2/#id3">配置与模式切换</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug2/#mac">接口MAC保持</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug2/#id4">已知范围</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="debug3/">Debug 3</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="debug3/#ecmp">静态ECMP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug3/#id1">更新注意事项</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="debug4/">Debug 4</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="debug4/#id1">接口查询与预配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug4/#id2">配置编辑与删除</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug4/#id3">恢复与运行查询</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug4/#id4">验证范围</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="debug5/">Debug 5</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="debug5/#qinq">QinQ 服务迁移</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug5/#id1">链路聚合成员迁移</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug5/#id2">二层子接口生命周期</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug5/#id3">接口模式与实际查询</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug5/#id4">验证范围</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug5/#id5">最终安装包</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="debug9/">Debug 9</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug6/">Debug 6</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug9/">0.30-dev Debug 9</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="debug9/#id1">操作变化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug9/#cli">第三轮真实 CLI 验证</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="vortexros/">VortexROS 0.30-dev</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="vortexros/#id1">数据面与接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vortexros/#ipv6-icmp">IPv6 与 ICMP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vortexros/#id2">路由与网络服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vortexros/#id3">配置与运维</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vortexros/#id4">启动与接口恢复</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vortexros/#id5">服务恢复边界</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vortexros/#id6">补充修复</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="vpp/">配套 VPP</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="vpp/#id1">对用户可见的行为</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vpp/#id2">变更和恢复</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vpp/#id3">26.10.8 的主要变化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vpp/#id4">26.10.9 的主要变化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vpp/#debug-2">26.10.9 Debug 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vpp/#debug-8-1">26.10.9 Debug 8.1</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="frr/">配套 FRR</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="frr/#id1">对用户可见的行为</a></li>
-<li class="toctree-l2"><a class="reference internal" href="frr/#id2">服务检查</a></li>
-<li class="toctree-l2"><a class="reference internal" href="frr/#dev">1.8-dev 的主要变化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="frr/#id3">1.10-dev 的主要变化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="frr/#id4">1.9-dev 的主要变化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="frr/#id5">1.11-dev 的主要变化</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cli-validation/">版本能力与限制</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cli-validation/#id2">网络功能</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli-validation/#id3">显示与检查</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli-validation/#id4">变更和恢复</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli-validation/#id5">容量与性能</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="manual-coverage/">手册适用范围</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="manual-coverage/#id2">按任务查阅</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manual-coverage/#id3">示例约定</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manual-coverage/#id4">配置生命周期</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="performance/">性能参考</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="performance/#vlan">VLAN 交换</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance/#pvid">单接口收包路径的 PVID 开销</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance/#memif">memif 整链路固定速率对照</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance/#vlanqinq">VLAN转换、混合流量与QinQ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance/#dev">0.30-dev 配套插件</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance/#qinq">父接口灵活 QinQ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance/#arp-mac">ARP 与 MAC 容量</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="debug5/">Debug 5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug4/">Debug 4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug3/">Debug 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug2/">Debug 2</a></li>
 </ul>
 </div>
+</section>
+<section id="id3">
+<span id="组件与验证"></span><h2>组件与验证<a class="headerlink" href="#id3" title="链接到此标题。"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vortexros/">VortexROS 0.30-dev</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vpp/">配套 VPP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frr/">配套 FRR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli-validation/">版本能力与限制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual-coverage/">手册适用范围</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance/">性能参考</a></li>
+</ul>
+</div>
+</section>
 </section>
 
 
@@ -240,7 +176,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../operator/reference/snmp/" class="btn btn-neutral float-left" title="SNMP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="debug2/" class="btn btn-neutral float-right" title="Debug 2" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="debug9/" class="btn btn-neutral float-right" title="0.30-dev Debug 9" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

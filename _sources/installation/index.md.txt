@@ -38,7 +38,6 @@ sudo vortexros
 04-system-services
 05-vpp-startup
 06-first-start
-license
 07-upgrade-uninstall
 08-hardware-acceptance
 ~~~
